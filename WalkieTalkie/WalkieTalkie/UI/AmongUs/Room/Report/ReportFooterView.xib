@@ -129,7 +129,7 @@
                 </label>
             </subviews>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
-            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+            <color key="backgroundColor" red="0.070588235294117646" green="0.070588235294117646" blue="0.070588235294117646" alpha="1" colorSpace="deviceRGB"/>
             <constraints>
                 <constraint firstItem="DPa-fO-NOL" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="0VT-3f-9en"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="VPM-T6-iNt" secondAttribute="trailing" constant="20" id="0kJ-hX-i6R"/>

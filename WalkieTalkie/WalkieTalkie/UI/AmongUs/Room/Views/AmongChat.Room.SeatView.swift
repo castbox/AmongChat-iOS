@@ -241,7 +241,7 @@ extension AmongChat.Room {
             
             var items: [AmongSheetController.ItemType] = [.userInfo, .profile]
 
-            if itemStyle == .normal, viewModel.isSuperAdmin {
+            if itemStyle == .normal, Settings.isSuperAdmin {
                 //有信息
                 if let muteInfo = muteInfo {
                     if muteInfo.isMute {

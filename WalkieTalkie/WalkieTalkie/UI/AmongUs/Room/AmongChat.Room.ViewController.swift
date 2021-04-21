@@ -260,7 +260,7 @@ extension AmongChat.Room.ViewController {
         bottomBar = AmongRoomBottomBar()
         bottomBar.isMicOn = true
         bottomBar.update(room)
-        bottomBar.isHidden = viewModel.isAdmin
+        bottomBar.isHidden = viewModel.isSilentUser
         
         nickNameInputView = AmongInputNickNameView()
         nickNameInputView.alpha = 0

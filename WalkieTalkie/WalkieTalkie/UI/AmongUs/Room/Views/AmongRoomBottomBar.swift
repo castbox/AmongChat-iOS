@@ -58,10 +58,18 @@ class AmongRoomBottomBar: XibLoadableView {
     
     var muteInfo: Entity.UserMuteInfo? {
         didSet {
-            guard let info = muteInfo, info.isMute, isMicOn else {
+            guard let info = muteInfo else {
                 return
             }
-            switchMicState()
+            if info.isMute {
+                if isMicOn {
+                    switchMicState()
+                }
+            } else {
+                if !isMicOn {
+                    switchMicState()
+                }
+            }
         }
     }
     private let bag = DisposeBag()

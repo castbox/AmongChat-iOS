@@ -100,6 +100,8 @@ extension AmongChat.GroupRoom {
             broadcasterReplay = BehaviorRelay(value: groupInfo.group.broadcaster.toRoomUser(with: -1))
             super.init(room: groupInfo.group, source: source)
             startScheduleEvent()
+            startShowShareTimerIfNeed()
+            update(groupInfo.group)
             //update profile
             Settings.shared.updateProfile()
         }

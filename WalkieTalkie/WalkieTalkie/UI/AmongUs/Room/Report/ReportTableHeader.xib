@@ -34,7 +34,7 @@
                 </label>
             </subviews>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
-            <color key="backgroundColor" red="0.070588235294117646" green="0.070588235294117646" blue="0.070588235294117646" alpha="1" colorSpace="calibratedRGB"/>
+            <color key="backgroundColor" red="0.070588238537311554" green="0.070588238537311554" blue="0.070588238537311554" alpha="1" colorSpace="deviceRGB"/>
             <constraints>
                 <constraint firstItem="efd-hC-CMK" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="16" id="Lyr-GU-h15"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="efd-hC-CMK" secondAttribute="bottom" constant="8.5" id="SrA-M3-nEL"/>

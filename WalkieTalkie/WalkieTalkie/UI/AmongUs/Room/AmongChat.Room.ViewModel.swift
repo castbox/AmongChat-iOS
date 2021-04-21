@@ -56,9 +56,11 @@ extension AmongChat.Room {
             if roomInfo.room.loginUserIsAdmin {
                 Logger.Action.log(.admin_imp, categoryValue: roomInfo.room.topicId)
             }
-//            roomInfoReplay = BehaviorRelay(value: roomInfo)
             muteInfoReplay = BehaviorRelay(value: roomInfo.muteInfo ?? Entity.UserMuteInfo.empty())
             super.init(room: roomInfo.room, source: source)
+            self.isSilentUser = roomInfo.isSilentValue
+            startShowShareTimerIfNeed()
+            update(roomInfo.room)
         }
         
         func requestLeaveChannel() -> Single<Bool> {
@@ -104,6 +106,27 @@ extension AmongChat.Room {
         }
         
         //MARK: -- Override
+        override func addJoinMessage() {
+            guard !isSilentUser else {
+                return
+            }
+            super.addJoinMessage()
+        }
+        
+        override func startShowShareTimerIfNeed() {
+            guard !isSilentUser else {
+                return
+            }
+            super.startShowShareTimerIfNeed()
+        }
+        
+        override func delayToShowShareViewIfNeed() {
+            guard !isSilentUser else {
+                return
+            }
+            super.delayToShowShareViewIfNeed()
+        }
+        
         override func onReceiveChatRoom(crMessage: ChatRoomMessage) {
             
             if let message = crMessage as? ChatRoom.MuteMicMessage,

@@ -49,17 +49,13 @@ extension AmongChat {
         let source: ParentPageSource?
         //麦位声音动画
         let soundAnimationIndex = BehaviorRelay<Int?>(value: nil)
-        
-        var isSuperAdmin: Bool = true
-        
-        var isAdmin: Bool = true
-        
-        var isSilentUser: Bool {
+  
+        var isSilentUser: Bool = false {
             didSet {
                 bottomBarHideReplay.accept(isSilentUser)
             }
         }
-        
+
         //hide if user is admin
         let bottomBarHideReplay = BehaviorRelay<Bool>(value: false)
         
@@ -187,16 +183,11 @@ extension AmongChat {
             roomReplay = BehaviorRelay(value: room)
             blockedUsers = Defaults[\.blockedUsersV2Key]
             
-            isAdmin = Settings.isMonitor
-            isSuperAdmin = Settings.isSuperAdmin
-            isSilentUser = Settings.isSilentUser
-            bottomBarHideReplay.accept(isSilentUser)
-            
             setObservableSubject()
             addSystemMessage()
             enteredTimestamp = Date().timeIntervalSince1970
-            startShowShareTimerIfNeed()
-            update(room)
+//            startShowShareTimerIfNeed()
+//            update(room)
 //            if room.loginUserSeatNo == 0 {
 //                cdPrint("****\n\n----------------------------\n Error：room 信息未包含自己 \(room)")
 //            }
@@ -304,8 +295,7 @@ extension AmongChat {
         }
         
         func addJoinMessage() {
-            guard !isSuperAdmin,
-                  let user = Settings.shared.amongChatUserProfile.value?.toRoomUser(with: roomDetail.loginUserSeatNo + 1) else {
+            guard let user = Settings.shared.amongChatUserProfile.value?.toRoomUser(with: roomDetail.loginUserSeatNo + 1) else {
                 return
             }
             let joinRoomMsg = ChatRoom.JoinRoomMessage(user: user, msgType: .joinRoom)
@@ -648,7 +638,7 @@ extension AmongChat {
 private extension AmongChat.BaseRoomViewModel {
     
     func shouldRefreshRoom(uid: UInt, isOnline: Bool) -> Bool {
-        guard !isAdmin else {
+        guard !isSilentUser else {
             return false
         }
         let userList = roomDetail.userList
@@ -704,28 +694,7 @@ extension AmongChat.BaseRoomViewModel: ChatRoomDelegate {
     }
     
     func onJoinChannelTimeout(channelId: String?) {
-        //        self.hudRemoval?()
-        //        self.hudRemoval = nil
-        //
-        //        view.raft.autoShow(.text(R.string.localizable.amongChatRoomTipTimeout()))
-        //
-        //        Observable.just(())
-        //            .observeOn(MainScheduler.asyncInstance)
-        //            .filter { [weak self] _  -> Bool in
-        //                guard let `self` = self else { return false }
-        //                return self.mManager.state != .connected
-        //            }
-        //            .do(onNext: { [weak self] _ in
-        //                self?.leaveChannel()
-        //            })
-        //            .delay(.fromSeconds(0.6), scheduler: MainScheduler.asyncInstance)
-        //            .filter { [weak self] _  -> Bool in
-        //                guard let `self` = self else { return false }
-        //                return self.mManager.state != .connected
-        //            }
-        //            .subscribe(onNext: { _ in
-        //            })
-        //            .disposed(by: bag)
+
     }
     
     func onConnectionChangedTo(state: ConnectState, reason: RtcConnectionChangedReason) {
