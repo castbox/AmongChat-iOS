@@ -338,7 +338,6 @@
 "among.chat.room.freefire.name.prefix" = "Apodo: %1$@";
 "among.chat.room.mobile.legends.name" = "Nombre/ID de MLBB";
 "among.chat.room.mobile.legends.name.prefix" = "Nombre/ID: %1$@";
-"among.chat.room.minecraft.name" = "Establecer Etiqueta de Jugador de Minecraft";
 "among.chat.room.minecraft.name.prefix" = "Etiqueta de Jugador: %1$@";
 "among.chat.room.pubg.name.id" = "Nombre/ID del jugador de PUBG";
 "among.chat.room.pubg.name.id.prefix" = "Nombre/ID: %1$@";
@@ -444,7 +443,7 @@
 "among.chat.group.applied" = "Aplicado";
 "among.chat.group.admin" = "Administración";
 "among.chat.group.members" = "Miembros";
-"among.chat.group.add.members" = "Añadir Miembros";
+"among.chat.group.add.members" = "Añadir miembros";
 "among.chat.group.leave.group" = "Salir del grupo";
 "among.chat.group.info.expand" = "…Más";
 "among.chat.group.joined" = "Unido";
@@ -463,4 +462,7 @@
 "group.room.audience.droped.tips" = "Oh no, te echaron del escenario.";
 "group.apply.reject.tips" = "Lo sentimos, su solicitud fue rechazada.";
 
-"group.welcome.message" = "Welcome to %@ group. Any pornography or other inappropriate content is strictly prohibited. Groups are monitored 24/7 and users found with such content may be banned.";
+"group.welcome.message" = "Bienvenido al grupo %@. Cualquier pornografía u otro contenido inapropiado está estrictamente prohibido. Los grupos se controlan las 24/7 y los usuarios que se encuentran con dicho contenido pueden ser baneados.";
+
+//1.17.1
+"among.chat.room.minecraft.name" = "Etiqueta de Jugador de Minecraft";

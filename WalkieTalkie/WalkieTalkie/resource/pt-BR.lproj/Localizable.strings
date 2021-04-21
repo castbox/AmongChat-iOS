@@ -338,7 +338,6 @@
 "among.chat.room.freefire.name.prefix" = "Apelido: %1$@";
 "among.chat.room.mobile.legends.name" = "Nome/ID da MLBB";
 "among.chat.room.mobile.legends.name.prefix" = "Nome/ID: %1$@";
-"among.chat.room.minecraft.name" = "Definir Tag de Jogador Minecraft";
 "among.chat.room.minecraft.name.prefix" = "Tag de Jogador: %1$@";
 "among.chat.room.pubg.name.id" = "Nome/ID do jogador PUBG";
 "among.chat.room.pubg.name.id.prefix" = "Nome/ID: %1$@";
@@ -463,4 +462,7 @@
 "group.room.audience.droped.tips" = "Oh não, você foi expulso do palco.";
 "group.apply.reject.tips" = "Desculpe, sua inscrição foi rejeitada.";
 
-"group.welcome.message" = "Welcome to %@ group. Any pornography or other inappropriate content is strictly prohibited. Groups are monitored 24/7 and users found with such content may be banned.";
+"group.welcome.message" = "Bem-vindo ao grupo %@. Qualquer pornografia ou outro conteúdo impróprio é estritamente proibido. Os grupos são monitorados 24/7 e os usuários encontrados com esse tipo de conteúdo podem ser banidos.";
+
+//1.17.1
+"among.chat.room.minecraft.name" = "Tag de Jogador Minecraft";
