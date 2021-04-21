@@ -338,7 +338,6 @@
 "among.chat.room.freefire.name.prefix" = "닉네임: %1$@";
 "among.chat.room.mobile.legends.name" = "MLBB 이름/ID";
 "among.chat.room.mobile.legends.name.prefix" = "이름/ID: %1$@";
-"among.chat.room.minecraft.name" = "Minecraft 게이머 태그 설정";
 "among.chat.room.minecraft.name.prefix" = "게이머 태그: %1$@";
 "among.chat.room.pubg.name.id" = "PUBG 플레이어 이름/ID";
 "among.chat.room.pubg.name.id.prefix" = "이름/ID: %1$@";
@@ -463,4 +462,7 @@
 "group.room.audience.droped.tips" = "아뇨, 무대에서 쫓겨났습니다.";
 "group.apply.reject.tips" = "죄송합니다. 신청이 거부되었습니다.";
 
-"group.welcome.message" = "Welcome to %@ group. Any pornography or other inappropriate content is strictly prohibited. Groups are monitored 24/7 and users found with such content may be banned.";
+"group.welcome.message" = "%@ 그룹에 오신 것을 환영합니다. 포르노 또는 기타 부적절한 콘텐츠는 엄격히 금지됩니다. 그룹은 24/7 모니터링되며 이러한 콘텐츠가있는 사용자는 차단 될 수 있습니다.";
+
+//1.17.1
+"among.chat.room.minecraft.name" = "Minecraft 게이머 태그";
