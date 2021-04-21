@@ -76,7 +76,6 @@ extension Report {
         //        /// 个人举报信息内容
         private var userReportReason: [Entity.Report.Reason] = []
         
-        var selectedIndex: Int = -1
         let type: ReportType
         private let uid: String
         private let roomId: String

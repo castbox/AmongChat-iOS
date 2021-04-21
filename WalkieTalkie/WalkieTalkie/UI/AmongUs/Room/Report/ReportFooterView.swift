@@ -11,6 +11,10 @@ import RxSwift
 import RxCocoa
 
 class ReportFooterView: XibLoadableView {
+//    enum Action {
+//        case updateNotes(String)
+//        case updateImage([UIImage])
+//    }
 
     @IBOutlet weak var textView: UITextView!
     @IBOutlet weak var collectionView: UICollectionView!
@@ -23,19 +27,28 @@ class ReportFooterView: XibLoadableView {
     @IBOutlet weak var uploadTitleLabel: UILabel!
     @IBOutlet weak var uploadSubtitleLabel: UILabel!
     @IBOutlet weak var countLabel: UILabel!
+    @IBOutlet weak var imageCountLabel: UILabel!
     
-    var images: [Report.ImageItem] = []
+    var selectedIndex: Int = -1 {
+        didSet {
+            updateReportButtonState()
+        }
+    }
+    
+    var images: [Report.ImageItem] = [] {
+        didSet {
+            let count = images.filter { $0.image != nil }.count
+            imageCountLabel.text = "\(count)/3"
+            updateReportButtonState()
+        }
+    }
     
     var selectImageHandler: () -> Void = { }
-    var reportHandler: (String, [UIImage]) -> Void = { _, _ in }
+    var reportHandler: ((Int, String, [UIImage]) -> Void)?
     
     private let placeholderItem = Report.ImageItem(image: nil)
     private let maxInputLength = Int(280)
     private let bag = DisposeBag()
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -44,6 +57,14 @@ class ReportFooterView: XibLoadableView {
         
         images.append(placeholderItem)
         textView.textContainerInset = UIEdgeInsets(top: 16, left: 12, bottom: 39, right: 12)
+        
+//        reportButton.layer.cornerRadius = 24
+        reportButton.clipsToBounds = true
+        reportButton.setTitleColor(.black, for: .normal)
+        reportButton.setTitleColor("#757575".color(), for: .disabled)
+        reportButton.setBackgroundImage("#FFF000".color().image, for: .normal)
+        reportButton.setBackgroundImage("#2B2B2B".color().image, for: .disabled)
+
                 
 //        if Theme.currentMode == .dark {
 //            backgroundColor = UIColor.theme(.backgroundWhite)
@@ -64,7 +85,7 @@ class ReportFooterView: XibLoadableView {
 //                .disposed(by: bag)
 //
 //            textView.backgroundColor = UIColor.theme(.backgroundLightGray)
-//            collectionView.backgroundColor = .clear
+            collectionView.backgroundColor = .clear
 //
 //            if App.group == .viviChat {
 //                setReportNewStyle()
@@ -74,6 +95,11 @@ class ReportFooterView: XibLoadableView {
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func updateReportButtonState() {
+        let validImageCount = images.filter { $0.image != nil }.count
+        reportButton.isEnabled = selectedIndex >= 0 && validImageCount > 0 && textView.text.isValid
     }
     
     func append(image: UIImage?) {
@@ -89,7 +115,7 @@ class ReportFooterView: XibLoadableView {
     }
     
     @IBAction func repotAction(_ sender: Any) {
-        self.reportHandler(textView.text, images.compactMap { $0.image })
+        self.reportHandler?(selectedIndex, textView.text, images.compactMap { $0.image })
     }
     
     func setReportNewStyle() {
@@ -105,8 +131,8 @@ class ReportFooterView: XibLoadableView {
 extension ReportFooterView: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
         placeholderLabel.isHidden = !textView.text.isEmpty
-//        countLabel.text =
         countLabel.text = "\(textView.text.count ?? 0)/\(self.maxInputLength)"
+        updateReportButtonState()
     }
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {

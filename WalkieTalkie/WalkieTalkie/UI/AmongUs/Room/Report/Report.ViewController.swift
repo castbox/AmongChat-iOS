@@ -94,7 +94,7 @@ extension Report.ViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: ReportCell.className) as! ReportCell
-        cell.set(dataSource.safe(indexPath.row), isSelected: viewModel.selectedIndex == indexPath.row)
+        cell.set(dataSource.safe(indexPath.row), isSelected: footerView.selectedIndex == indexPath.row)
         return cell
     }
 }
@@ -102,7 +102,7 @@ extension Report.ViewController: UITableViewDataSource {
 extension Report.ViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        viewModel.selectedIndex = indexPath.row
+        footerView.selectedIndex = indexPath.row
         tableView.reloadData()
     }
 }
@@ -172,8 +172,8 @@ extension Report.ViewController: UIImagePickerControllerDelegate, UINavigationCo
 }
 
 extension Report.ViewController {
-    func report(with note: String, images: [UIImage]) {
-        guard let reason = dataSource.safe(viewModel.selectedIndex) else {
+    func report(with index: Int, note: String, images: [UIImage]) {
+        guard let reason = dataSource.safe(index) else {
 //            Toast.showToast(alertType: .warnning, message: R.string.localizable.reportSelectReasonToast())
             return
         }
@@ -211,8 +211,8 @@ extension Report.ViewController {
             self?.chooseImage()
         }
         
-        footerView.reportHandler = { [weak self] text, images in
-            self?.report(with: text, images: images)
+        footerView.reportHandler = { [weak self] index, text, images in
+            self?.report(with: index, note: text, images: images)
         }
     }
     
