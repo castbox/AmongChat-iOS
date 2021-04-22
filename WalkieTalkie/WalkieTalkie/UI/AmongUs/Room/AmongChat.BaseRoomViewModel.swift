@@ -138,7 +138,7 @@ extension AmongChat {
         }
         
         var showRecommendUser: Bool {
-            (stayDuration / 60) > 6
+            !isSilentUser && (stayDuration / 60) > 6
         }
         
         let isMuteMicObservable = BehaviorRelay<Bool>(value: false)
@@ -319,10 +319,6 @@ extension AmongChat {
                   let user = roomDetail.userList.first(where: { $0.uid == Settings.loginUserId }) else {
                 return
             }
-            //检查是否 Im 被 mute
-//            guard <#condition#> else {
-//                <#statements#>
-//            }
             let textMessage = ChatRoom.TextMessage(content: message, user: user, msgType: .text)
             imViewModel.sendText(message: textMessage) { [weak self] in
                 Logger.Action.log(.group_send_message_success, categoryValue: self?.roomDetail.topicId)
