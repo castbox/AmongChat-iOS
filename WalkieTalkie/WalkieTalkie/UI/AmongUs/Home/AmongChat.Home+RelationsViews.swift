@@ -705,9 +705,9 @@ extension AmongChat.Home {
         
         private let bag = DisposeBag()
         
-        class var size: CGSize {
-            let h = (Frame.Screen.width - edgeInset.left - edgeInset.right) * 155 / 335 + edgeInset.top + edgeInset.bottom
-            return CGSize(width: Frame.Screen.width, height: h)
+        class func size(width: CGFloat) -> CGSize {
+            let h = ceil((width - edgeInset.left - edgeInset.right) * 155 / 335 + edgeInset.top + edgeInset.bottom)
+            return CGSize(width: width, height: h)
         }
         
         private lazy var bg: UIImageView = {
