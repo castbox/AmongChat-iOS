@@ -3504,7 +3504,7 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatCommonError = Rswift.StringResource(key: "among.chat.common.error", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
-      /// en translation: Sorry, you can't re-enter the room now.
+      /// en translation: Sorry, you can't re-enter the channel now.
       /// 
       /// Locales: en
       static let enterKickedRoomTips = Rswift.StringResource(key: "enter.kicked.room.tips", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
@@ -6227,7 +6227,7 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("among.chat.common.error", bundle: R.hostingBundle, comment: "")
       }
       
-      /// en translation: Sorry, you can't re-enter the room now.
+      /// en translation: Sorry, you can't re-enter the channel now.
       /// 
       /// Locales: en
       static func enterKickedRoomTips(_: Void = ()) -> String {
