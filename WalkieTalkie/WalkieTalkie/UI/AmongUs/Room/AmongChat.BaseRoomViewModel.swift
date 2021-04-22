@@ -172,7 +172,7 @@ extension AmongChat {
 //        }
         
         deinit {
-            debugPrint("[DEINIT-\(NSStringFromClass(type(of: self)))]")
+            debugPrint("[DEINIT-AmongChat-BaseRoomViewModel]")
         }
         
         init(room: RoomDetailable, source: ParentPageSource?) {

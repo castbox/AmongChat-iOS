@@ -120,10 +120,7 @@ extension AmongChat.Room {
             return AmongChat.Room.SeatView(room: room, viewModel: viewModel)
         }()
         
-        private lazy var messageView: MessageListView = {
-            let tb = MessageListView()
-            return tb
-        }()
+        private lazy var messageView = MessageListView(with: viewModel)
                 
         private lazy var adContainer: UIView = {
             let v = UIView()
@@ -276,13 +273,13 @@ extension AmongChat.Room.ViewController {
                          bottomBar, nickNameInputView, inputNotesView, topEntranceView)
         
         topBar.snp.makeConstraints { maker in
-            maker.left.right.equalToSuperview()
+            maker.leading.trailing.equalToSuperview()
             maker.top.equalTo(topLayoutGuide.snp.bottom)
             maker.height.equalTo(60)
         }
         
         configView.snp.makeConstraints { maker in
-            maker.left.right.equalToSuperview()
+            maker.leading.trailing.equalToSuperview()
             maker.top.equalTo(topBar.snp.bottom)
             maker.height.equalTo(125)
         }
@@ -293,7 +290,7 @@ extension AmongChat.Room.ViewController {
 
         let seatViewTopEdge = Frame.Height.deviceDiagonalIsMinThan4_7 ? 0 : 40
         seatView.snp.makeConstraints { (maker) in
-            maker.left.right.equalToSuperview()
+            maker.leading.trailing.equalToSuperview()
             maker.top.equalTo(configView.snp.bottom).offset(seatViewTopEdge)
             maker.height.equalTo(251)
         }
@@ -301,30 +298,34 @@ extension AmongChat.Room.ViewController {
         let messageViewTopEdge = Frame.Height.deviceDiagonalIsMinThan4_7 ? 0 : 17
         messageView.snp.makeConstraints { (maker) in
             maker.top.equalTo(seatView.snp.bottom).offset(messageViewTopEdge)
-            maker.bottom.equalTo(bottomBar.snp.top).offset(-10)
-            maker.left.right.equalToSuperview()
+            if viewModel.isSilentUser {
+                maker.bottom.equalToSuperview()
+            } else {
+                maker.bottom.equalTo(bottomBar.snp.top).offset(-10)
+            }
+            maker.leading.trailing.equalToSuperview()
         }
         
         messageInputContainerView.snp.makeConstraints { (maker) in
-            maker.left.top.right.equalToSuperview()
+            maker.leading.trailing.top.equalToSuperview()
             maker.bottom.equalToSuperview()
         }
         
         amongInputCodeView.snp.makeConstraints { (maker) in
-            maker.left.top.right.bottom.equalToSuperview()
+            maker.leading.top.trailing.bottom.equalToSuperview()
         }
         
         nickNameInputView.snp.makeConstraints { (maker) in
-            maker.left.top.right.bottom.equalToSuperview()
+            maker.leading.top.trailing.bottom.equalToSuperview()
         }
         
         inputNotesView.snp.makeConstraints { (maker) in
-            maker.left.top.right.bottom.equalToSuperview()
+            maker.leading.top.trailing.bottom.equalToSuperview()
         }
         
         bottomBar.snp.makeConstraints { maker in
             maker.bottom.equalTo(Frame.Height.isXStyle ? -Frame.Height.safeAeraTopHeight : -20)
-            maker.left.right.equalToSuperview()
+            maker.leading.trailing.equalToSuperview()
             maker.height.equalTo(42)
         }
         
@@ -405,7 +406,7 @@ extension AmongChat.Room.ViewController {
             .bind(to: seatView.rx.soundAnimation)
             .disposed(by: bag)
 
-        messageView.bind(dataSource: viewModel)
+//        messageView.bind(dataSource: viewModel)
         
         viewModel.endRoomHandler = { [weak self] action in
             guard let `self` = self else { return }

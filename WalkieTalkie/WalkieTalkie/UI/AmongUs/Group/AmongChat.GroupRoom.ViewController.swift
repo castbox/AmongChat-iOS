@@ -120,7 +120,7 @@ extension AmongChat.GroupRoom {
             return AmongChat.Room.SeatView(room: room, itemStyle: .group, viewModel: viewModel)
         }()
         
-        private lazy var messageView = AmongChat.Room.MessageListView()
+        private lazy var messageView = AmongChat.Room.MessageListView(with: viewModel)
                 
         private lazy var adContainer: UIView = {
             let v = UIView()
@@ -349,7 +349,7 @@ extension AmongChat.GroupRoom.ViewController {
             .bind(to: seatView.rx.soundAnimation)
             .disposed(by: bag)
 
-        messageView.bind(dataSource: viewModel)
+//        messageView.bind(dataSource: viewModel)
         
         viewModel.endRoomHandler = { [weak self] action in
             guard let `self` = self else { return }
