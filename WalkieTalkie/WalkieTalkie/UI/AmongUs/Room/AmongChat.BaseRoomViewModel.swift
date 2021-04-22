@@ -155,22 +155,6 @@ extension AmongChat {
             get { isMuteMicObservable.value }
         }
         
-//        static func make(_ room: Entity.Room, _ source: ParentPageSource?) -> ViewModel {
-//            guard let shared = self.shared,
-//                  shared.room.roomId == room.roomId else {
-//                let manager = ViewModel(room: room, source: source)
-//                //退出之前房间
-//                //                self.shared?.quitRoom()
-//                //设置新房间
-//                self.shared = manager
-//                return manager
-//            }
-//            //            shared.createType = .restore
-//            //            shared.stateType = .default
-//            return shared
-//
-//        }
-        
         deinit {
             debugPrint("[DEINIT-AmongChat-BaseRoomViewModel]")
         }

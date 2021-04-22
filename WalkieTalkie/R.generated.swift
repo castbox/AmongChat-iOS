@@ -2150,7 +2150,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
     
-    /// This `R.string.localizable` struct is generated, and contains static references to 426 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 427 localization keys.
     struct localizable {
       /// en translation:  Congratulations!
       /// 
@@ -3048,6 +3048,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let settingsRestoreFailBody = Rswift.StringResource(key: "settings.restore.fail.body", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Nobody's online yet, please try again later.
+      /// 
+      /// Locales: en
+      static let adminCannotMatchedRoomTips = Rswift.StringResource(key: "admin.cannot.matched.room.tips", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: North America
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -5423,6 +5427,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func settingsRestoreFailBody(_: Void = ()) -> String {
         return NSLocalizedString("settings.restore.fail.body", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Nobody's online yet, please try again later.
+      /// 
+      /// Locales: en
+      static func adminCannotMatchedRoomTips(_: Void = ()) -> String {
+        return NSLocalizedString("admin.cannot.matched.room.tips", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: North America

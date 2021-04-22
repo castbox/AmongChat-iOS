@@ -217,8 +217,8 @@ extension AmongChat.Home {
             userView.bind(viewModel: viewModel, onAvatarTap: onAvatarTap)
             
             if let state = viewModel.roomState {
-                joinBtn.isHidden = !(state == .public)
-                lockedIcon.isHidden = !(state == .private)
+                joinBtn.isHidden = state == .private && !Settings.isSilentUser
+                lockedIcon.isHidden = !joinBtn.isHidden
             } else {
                 joinBtn.isHidden = true
                 lockedIcon.isHidden = true

@@ -79,6 +79,8 @@ extension MsgError.CodeType {
             return R.string.localizable.forceUpgradeTip()
         case .roomUserKicked:
             return R.string.localizable.enterKickedRoomTips()
+        case .cannotFindMatchRoom:
+            return R.string.localizable.adminCannotMatchedRoomTips()
         default:
             return nil
         }

@@ -492,14 +492,7 @@ extension AmongChat.Room.ViewController {
         viewModel.shareEventHandler = { [weak self] in
             self?.onShareBtn()
         }
-        
-        viewModel.muteInfoReplay
-            .observeOn(MainScheduler.asyncInstance)
-            .subscribe(onNext: { [weak self] muteInfo in
-                self?.bottomBar.muteInfo = muteInfo
-            })
-            .disposed(by: bag)
-        
+                
         configView.updateEditTypeHandler = { [weak self] editType in
             self?.editType = editType
         }
@@ -627,8 +620,20 @@ extension AmongChat.Room.ViewController {
             self?.showContainerLoading?(false)
             if error != nil {
                 self?.requestLeaveRoom()
+            } else {
+                self?.startObserveMuteInfo()
             }
+            //start
         }
+    }
+    
+    func startObserveMuteInfo() {
+        viewModel.muteInfoReplay
+            .observeOn(MainScheduler.asyncInstance)
+            .subscribe(onNext: { [weak self] muteInfo in
+                self?.bottomBar.muteInfo = muteInfo
+            })
+            .disposed(by: bag)
     }
     
     func nextRoom() {
