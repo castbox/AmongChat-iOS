@@ -97,8 +97,10 @@ extension AmongChat.CreateRoom {
             v.addSubviews(views: privateStateLabel, privateStateSwitch, cardButton, confirmButton)
             
             var hInset: CGFloat = 20
+            var confirmButtonBottom: CGFloat = 46
             adaptToIPad {
                 hInset = 40
+                confirmButtonBottom = 32
             }
             
             privateStateLabel.snp.makeConstraints { (maker) in
@@ -120,7 +122,7 @@ extension AmongChat.CreateRoom {
                 maker.leading.trailing.equalToSuperview().inset(hInset)
                 maker.height.equalTo(48)
                 maker.top.equalTo(62)
-                maker.bottom.equalTo(-46)
+                maker.bottom.equalTo(-confirmButtonBottom)
             }
             
             return v
@@ -391,8 +393,7 @@ extension AmongChat.CreateRoom.ViewController {
         }
         
         bottomBar.snp.makeConstraints { (maker) in
-            maker.left.right.equalToSuperview()
-            maker.bottom.equalTo(bottomLayoutGuide.snp.top)
+            maker.leading.trailing.bottom.equalToSuperview()
         }
         
         bottomrBarShadowIV.snp.makeConstraints { (maker) in
