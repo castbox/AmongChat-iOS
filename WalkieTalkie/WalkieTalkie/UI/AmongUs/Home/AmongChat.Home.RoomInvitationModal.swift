@@ -109,9 +109,15 @@ extension AmongChat.Home {
             
             view.backgroundColor = UIColor.black.alpha(0.5)
             
+            var hInset: CGFloat = 28
+            
+            adaptToIPad {
+                hInset = 190
+            }
+            
             view.addSubview(container)
             container.snp.makeConstraints { (maker) in
-                maker.left.right.equalToSuperview().inset(28)
+                maker.left.right.equalToSuperview().inset(hInset)
                 maker.centerY.equalToSuperview()
             }
             
