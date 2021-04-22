@@ -255,9 +255,9 @@ extension AmongChat.Room {
                         items.append(.adminMuteIm)
                     }
                 } else {
-                    items.append(contentsOf: [.adminMuteIm, .adminMuteMic, .adminKick])
+                    items.append(contentsOf: [.adminMuteIm, .adminMuteMic])
                 }
-                items.append(.cancel)
+                items.append(contentsOf: [.adminKick, .cancel])
             }
             else {
                 //普通用户
