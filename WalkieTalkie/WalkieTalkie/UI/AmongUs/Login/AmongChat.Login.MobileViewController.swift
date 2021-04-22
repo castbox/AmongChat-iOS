@@ -476,6 +476,9 @@ extension AmongChat.Login.MobileViewController {
                     Logger.Action.log(.signin_result, category: .facebook, self?.loggerSource, 1)
                 }
             }, onError: { [weak self] (error) in
+                if let msgError = error as? MsgError {
+                    
+                }
                 self?.onLoginResult(nil, error)
                 Logger.Action.log(.signin_result_fail, category: .facebook, error.msgOfError)
             })
@@ -515,6 +518,10 @@ extension AmongChat.Login.MobileViewController {
                nsError.code == AmongChat.Login.cancelErrorCode {
                 Logger.Action.log(.login_result, category: .fail, "cancel")
             } else {
+                if let msgError = error as? MsgError, let uri = msgError.uri {
+                    Routes.handle(uri)
+                    return
+                }
                 Logger.Action.log(.login_result, category: .fail, error.localizedDescription)
             }
             view.raft.autoShow(.text(error.localizedDescription), userInteractionEnabled: false)

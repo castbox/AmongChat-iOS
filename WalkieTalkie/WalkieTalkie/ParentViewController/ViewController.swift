@@ -217,6 +217,14 @@ class ViewController: UIViewController, ScreenLifeLogable, JoinRoomable {
             .first { $0 is NoDataView }?
             .removeFromSuperview()
     }
+    
+    func showReportSheet() {
+        let vc = Social.ReportViewController()
+        vc.showModal(in: self)
+        vc.selectedReason = {[weak self] (reason) in
+            self?.view.raft.autoShow(.text(R.string.localizable.reportSuccess()))
+        }
+    }
 }
 
 extension ViewController {
@@ -246,13 +254,7 @@ extension ViewController {
 }
 
 extension ViewController {
-    func showReportSheet() {
-        let vc = Social.ReportViewController()
-        vc.showModal(in: self)
-        vc.selectedReason = {[weak self] (reason) in
-            self?.view.raft.autoShow(.text(R.string.localizable.reportSuccess()))
-        }
-    }
+    
 }
 
 class ActivityViewCustomActivity: UIActivity {

@@ -23,10 +23,10 @@ class ReportImageCell: UICollectionViewCell {
     func set(_ item: Report.ImageItem?) {
         if let image = item?.image {
             iconView.image = image
-            iconView.contentMode = .scaleAspectFill
+            iconView.contentMode = .scaleAspectFit
             deleteButton.isHidden = false
         } else {
-            iconView.image = R.image.ac_icon_seat_add()
+            iconView.image = R.image.iconReportImageAdd()
             iconView.contentMode = .center
             deleteButton.isHidden = true
         }

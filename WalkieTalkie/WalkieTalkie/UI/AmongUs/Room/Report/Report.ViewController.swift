@@ -10,6 +10,7 @@ import UIKit
 import SnapKit
 import RxSwift
 import AVFoundation
+import IQKeyboardManagerSwift
 
 // MARK: - vc
 extension Report {
@@ -70,6 +71,16 @@ extension Report {
             super.init(nibName: nil, bundle: nil)
         }
         
+        override func viewDidAppear(_ animated: Bool) {
+            super.viewDidAppear(animated)
+            IQKeyboardManager.shared.enable = true
+        }
+        
+        override func viewDidDisappear(_ animated: Bool) {
+            super.viewDidDisappear(animated)
+            IQKeyboardManager.shared.enable = false
+        }
+        
         required init?(coder aDecoder: NSCoder) {
             fatalError("init(coder:) has not been implemented")
         }
@@ -82,7 +93,13 @@ extension Report {
             
             configureSubview()
             bindSubviewEvent()
+            IQKeyboardManager.shared.shouldResignOnTouchOutside = true
         }
+        
+//        override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+//            super.touchesBegan(touches, with: event)
+//            view.endEditing(true)
+//        }
     }
 }
 
@@ -225,7 +242,7 @@ extension Report.ViewController {
             maker.height.equalTo(49)
         }
         
-        footerView = ReportFooterView(frame: CGRect(x: 0, y: 0, width: Frame.Screen.width, height: 455))
+        footerView = ReportFooterView(frame: CGRect(x: 0, y: 0, width: Frame.Screen.width, height: 364 + ReportFooterView.collectionItemWidth))
 //        footerView.append(image: image)
         
         tableView.tableHeaderView = ReportTableHeader(frame: CGRect(x: 0, y: 0, width: Frame.Screen.width, height: 56))

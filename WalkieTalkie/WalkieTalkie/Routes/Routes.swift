@@ -57,7 +57,7 @@ final class Routes {
     }
     
     @discardableResult
-    static func handle(_ uri: String?)->Bool {
+    static func handle(_ uri: String?) -> Bool {
         guard var str = uri else { return false }
         if str.hasPrefix("http") == false {
             if !str.hasPrefix("/") {

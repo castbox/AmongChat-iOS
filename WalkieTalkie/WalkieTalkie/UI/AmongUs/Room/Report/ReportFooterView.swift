@@ -29,6 +29,8 @@ class ReportFooterView: XibLoadableView {
     @IBOutlet weak var countLabel: UILabel!
     @IBOutlet weak var imageCountLabel: UILabel!
     
+    @IBOutlet weak var collectionViewHeightConstraint: NSLayoutConstraint!
+    
     var selectedIndex: Int = -1 {
         didSet {
             updateReportButtonState()
@@ -49,6 +51,7 @@ class ReportFooterView: XibLoadableView {
     private let placeholderItem = Report.ImageItem(image: nil)
     private let maxInputLength = Int(280)
     private let bag = DisposeBag()
+    static let collectionItemWidth = ((Frame.Screen.width - 20 * 2 - 16 * 2) / 3).ceil
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -57,14 +60,17 @@ class ReportFooterView: XibLoadableView {
         
         images.append(placeholderItem)
         textView.textContainerInset = UIEdgeInsets(top: 16, left: 12, bottom: 39, right: 12)
+        textView.contentInset = UIEdgeInsets(top: 16, left: 0, bottom: 39, right: 0)
+        textView.layoutManager.allowsNonContiguousLayout = false
         
 //        reportButton.layer.cornerRadius = 24
         reportButton.clipsToBounds = true
         reportButton.setTitleColor(.black, for: .normal)
         reportButton.setTitleColor("#757575".color(), for: .disabled)
         reportButton.setBackgroundImage("#FFF000".color().image, for: .normal)
-        reportButton.setBackgroundImage("#2B2B2B".color().image, for: .disabled)
+        reportButton.setBackgroundImage("#303030".color().image, for: .disabled)
 
+        collectionViewHeightConstraint.constant = Self.collectionItemWidth
                 
 //        if Theme.currentMode == .dark {
 //            backgroundColor = UIColor.theme(.backgroundWhite)
@@ -143,6 +149,15 @@ extension ReportFooterView: UITextViewDelegate {
         let substringToReplace = textFieldText[rangeOfTextToReplace]
         let count = textFieldText.count - substringToReplace.count + text.count
         return count <= maxInputLength
+    }
+}
+
+extension ReportFooterView: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        return CGSize(width: 20, height: Self.collectionItemWidth)
+    }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: Self.collectionItemWidth, height: Self.collectionItemWidth)
     }
 }
 
