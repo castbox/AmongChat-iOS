@@ -178,6 +178,12 @@ extension Social.AddStatsViewController {
             maker.height.equalTo(49)
         }
         
+        var hEdgePadding: CGFloat = 0
+        
+        adaptToIPad {
+            hEdgePadding = 20
+        }
+        
         backBtn.snp.makeConstraints { (maker) in
             maker.leading.equalToSuperview().offset(20)
             maker.centerY.equalTo(navLayoutGuide)
@@ -188,7 +194,7 @@ extension Social.AddStatsViewController {
         }
         
         layoutScrollView.snp.makeConstraints { (maker) in
-            maker.leading.trailing.equalToSuperview()
+            maker.leading.trailing.equalToSuperview().inset(hEdgePadding)
             maker.bottom.equalTo(bottomLayoutGuide.snp.top)
             maker.top.equalTo(navLayoutGuide.snp.bottom)
         }
@@ -203,13 +209,13 @@ extension Social.AddStatsViewController {
         
         uploadView.snp.makeConstraints { (maker) in
             maker.leading.trailing.equalToSuperview()
-            maker.width.equalTo(view)
+            maker.width.equalTo(view).inset(hEdgePadding)
             maker.top.equalTo(26)
         }
         
         exampleView.snp.makeConstraints { (maker) in
             maker.leading.trailing.equalToSuperview()
-            maker.width.equalTo(view)
+            maker.width.equalTo(view).inset(hEdgePadding)
             maker.top.equalTo(uploadView.snp.bottom).offset(44)
             maker.bottom.equalToSuperview().offset(-134)
         }
