@@ -56,7 +56,7 @@ struct Frame {
             let diagonal = Device.current.diagonal
             var realDiagonal: Double {
                 guard !(Device.allPads.contains(Device.current) || Device.allSimulatorPads.contains(Device.current)) else {
-                    return 4.0
+                    return Device.current.diagonal
                 }
                 guard Device.current.isZoomed ?? false else {
                     return diagonal
@@ -107,4 +107,7 @@ struct Frame {
         static let message: CGFloat = 12
     }
     
+    static var isPad: Bool {
+        Device.allPads.contains(Device.current) || Device.allSimulatorPads.contains(Device.current)
+    }
 }

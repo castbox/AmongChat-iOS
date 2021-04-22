@@ -51,7 +51,7 @@ class ReportFooterView: XibLoadableView {
     private let placeholderItem = Report.ImageItem(image: nil)
     private let maxInputLength = Int(280)
     private let bag = DisposeBag()
-    static let collectionItemWidth = ((Frame.Screen.width - 20 * 2 - 16 * 2) / 3).ceil
+    static let collectionItemWidth: CGFloat = Frame.isPad ? 180 : ((Frame.Screen.width - 20 * 2 - 16 * 2) / 3).ceil
     
     override init(frame: CGRect) {
         super.init(frame: frame)

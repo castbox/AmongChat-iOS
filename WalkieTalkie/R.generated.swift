@@ -1650,7 +1650,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.nib` struct is generated, and contains static references to 30 nibs.
+  /// This `R.nib` struct is generated, and contains static references to 31 nibs.
   struct nib {
     /// Nib `AmongChatRoomConfigView`.
     static let amongChatRoomConfigView = _R.nib._AmongChatRoomConfigView()
@@ -1658,6 +1658,8 @@ struct R: Rswift.Validatable {
     static let amongChatRoomTopBar = _R.nib._AmongChatRoomTopBar()
     /// Nib `AmongGroupHostView`.
     static let amongGroupHostView = _R.nib._AmongGroupHostView()
+    /// Nib `AmongGroupJoinRequestCellIPad`.
+    static let amongGroupJoinRequestCellIPad = _R.nib._AmongGroupJoinRequestCellIPad()
     /// Nib `AmongGroupJoinRequestCell`.
     static let amongGroupJoinRequestCell = _R.nib._AmongGroupJoinRequestCell()
     /// Nib `AmongGroupTopView`.
@@ -1735,6 +1737,12 @@ struct R: Rswift.Validatable {
     @available(*, deprecated, message: "Use UINib(resource: R.nib.amongGroupJoinRequestCell) instead")
     static func amongGroupJoinRequestCell(_: Void = ()) -> UIKit.UINib {
       return UIKit.UINib(resource: R.nib.amongGroupJoinRequestCell)
+    }
+    
+    /// `UINib(name: "AmongGroupJoinRequestCellIPad", in: bundle)`
+    @available(*, deprecated, message: "Use UINib(resource: R.nib.amongGroupJoinRequestCellIPad) instead")
+    static func amongGroupJoinRequestCellIPad(_: Void = ()) -> UIKit.UINib {
+      return UIKit.UINib(resource: R.nib.amongGroupJoinRequestCellIPad)
     }
     
     /// `UINib(name: "AmongGroupTopView", in: bundle)`
@@ -1907,6 +1915,10 @@ struct R: Rswift.Validatable {
     
     static func amongGroupJoinRequestCell(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> AmongGroupJoinRequestCell? {
       return R.nib.amongGroupJoinRequestCell.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? AmongGroupJoinRequestCell
+    }
+    
+    static func amongGroupJoinRequestCellIPad(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> AmongGroupJoinRequestCellIPad? {
+      return R.nib.amongGroupJoinRequestCellIPad.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? AmongGroupJoinRequestCellIPad
     }
     
     static func amongGroupTopView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
@@ -6932,6 +6944,17 @@ struct _R: Rswift.Validatable {
       
       func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> AmongGroupJoinRequestCell? {
         return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? AmongGroupJoinRequestCell
+      }
+      
+      fileprivate init() {}
+    }
+    
+    struct _AmongGroupJoinRequestCellIPad: Rswift.NibResourceType {
+      let bundle = R.hostingBundle
+      let name = "AmongGroupJoinRequestCellIPad"
+      
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> AmongGroupJoinRequestCellIPad? {
+        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? AmongGroupJoinRequestCellIPad
       }
       
       fileprivate init() {}

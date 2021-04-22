@@ -17,9 +17,10 @@ extension FansGroup {
         private(set) lazy var tableView: UITableView = {
             let tb = UITableView(frame: .zero, style: .plain)
             tb.register(nibWithCellClass: AmongGroupJoinRequestCell.self)
+            tb.register(nibWithCellClass: AmongGroupJoinRequestCellIPad.self)
             tb.dataSource = self
             tb.delegate = self
-            tb.rowHeight = 124
+            tb.rowHeight = Frame.isPad ? 76 : 124
             tb.separatorStyle = .none
             tb.backgroundColor = .clear
             if #available(iOS 11.0, *) {
@@ -77,23 +78,45 @@ extension FansGroup.GroupJoinRequestListViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withClass: AmongGroupJoinRequestCell.self)
-        cell.backgroundColor = .clear
-        cell.contentView.backgroundColor = .clear
-        if let user = usersRelay.value.safe(indexPath.row) {
-            cell.profile = user
-            cell.actionHandler = { [weak self] action in
-                switch action {
-                case .accept:
-                    self?.handleJoinRequest(for: user.uid, accept: true)
-                case .reject:
-                    self?.handleJoinRequest(for: user.uid, accept: false)
-                case .ignore:
-                    ()
+        if Frame.isPad {
+            let cell = tableView.dequeueReusableCell(withClass: AmongGroupJoinRequestCellIPad.self)
+            cell.backgroundColor = .clear
+            cell.contentView.backgroundColor = .clear
+            if let user = usersRelay.value.safe(indexPath.row) {
+                cell.profile = user
+                cell.actionHandler = { [weak self] action in
+                    switch action {
+                    case .accept:
+                        self?.handleJoinRequest(for: user.uid, accept: true)
+                    case .reject:
+                        self?.handleJoinRequest(for: user.uid, accept: false)
+                    case .ignore:
+                        ()
+                    }
                 }
             }
+            return cell
+
+        } else {
+            let cell = tableView.dequeueReusableCell(withClass: AmongGroupJoinRequestCell.self)
+            cell.backgroundColor = .clear
+            cell.contentView.backgroundColor = .clear
+            if let user = usersRelay.value.safe(indexPath.row) {
+                cell.profile = user
+                cell.actionHandler = { [weak self] action in
+                    switch action {
+                    case .accept:
+                        self?.handleJoinRequest(for: user.uid, accept: true)
+                    case .reject:
+                        self?.handleJoinRequest(for: user.uid, accept: false)
+                    case .ignore:
+                        ()
+                    }
+                }
+            }
+            return cell
+
         }
-        return cell
     }
     
 }

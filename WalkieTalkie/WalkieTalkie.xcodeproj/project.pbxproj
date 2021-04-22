@@ -201,6 +201,8 @@
 		FE68488C244BDD0400F87AF9 /* UserProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE68488B244BDD0300F87AF9 /* UserProperty.swift */; };
 		FE6AF8582457E03500FD474A /* RxKeyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6AF8572457E03500FD474A /* RxKeyboard.swift */; };
 		FE6AF85A2457E26C00FD474A /* UIViewFrameExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6AF8592457E26C00FD474A /* UIViewFrameExtension.swift */; };
+		FE6BEAE32631B17700568B9B /* AmongGroupJoinRequestCellIPad.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6BEAE12631B17700568B9B /* AmongGroupJoinRequestCellIPad.swift */; };
+		FE6BEAE42631B17700568B9B /* AmongGroupJoinRequestCellIPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE6BEAE22631B17700568B9B /* AmongGroupJoinRequestCellIPad.xib */; };
 		FE72186F2456D696005274CA /* MJMaterialSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE72186E2456D696005274CA /* MJMaterialSwitch.swift */; };
 		FE7218712456D900005274CA /* FireMessaging.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE7218702456D8FF005274CA /* FireMessaging.swift */; };
 		FE7218752456DA36005274CA /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE7218742456DA36005274CA /* Extension.swift */; };
@@ -622,6 +624,8 @@
 		FE68488B244BDD0300F87AF9 /* UserProperty.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProperty.swift; sourceTree = "<group>"; };
 		FE6AF8572457E03500FD474A /* RxKeyboard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RxKeyboard.swift; sourceTree = "<group>"; };
 		FE6AF8592457E26C00FD474A /* UIViewFrameExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewFrameExtension.swift; sourceTree = "<group>"; };
+		FE6BEAE12631B17700568B9B /* AmongGroupJoinRequestCellIPad.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongGroupJoinRequestCellIPad.swift; sourceTree = "<group>"; };
+		FE6BEAE22631B17700568B9B /* AmongGroupJoinRequestCellIPad.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AmongGroupJoinRequestCellIPad.xib; sourceTree = "<group>"; };
 		FE72186E2456D696005274CA /* MJMaterialSwitch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MJMaterialSwitch.swift; sourceTree = "<group>"; };
 		FE7218702456D8FF005274CA /* FireMessaging.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FireMessaging.swift; sourceTree = "<group>"; };
 		FE7218742456DA36005274CA /* Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
@@ -1526,6 +1530,8 @@
 				FE80677C261C90C900207992 /* AmongGroupRoomTipsView.swift */,
 				FE169E2326134A1500AD7866 /* AmongGroupHostView.swift */,
 				FE169E2726134A2000AD7866 /* AmongGroupHostView.xib */,
+				FE6BEAE12631B17700568B9B /* AmongGroupJoinRequestCellIPad.swift */,
+				FE6BEAE22631B17700568B9B /* AmongGroupJoinRequestCellIPad.xib */,
 				FE169E31261351C400AD7866 /* AmongGroupJoinRequestCell.swift */,
 				FE169E2C2613516500AD7866 /* AmongGroupJoinRequestCell.xib */,
 				FE078C882615B64B004C38C5 /* AmongChat.GroupRoom.MembersController.swift */,
@@ -1704,6 +1710,7 @@
 				FE7CEB58258A029F0067952C /* AmongChatRoomConfigView.xib in Resources */,
 				FE7CE9CF2589BEC70067952C /* AmongChatRoomTopBar.xib in Resources */,
 				FE79F388258CDE6B00E9BC6C /* AmongSheetController.xib in Resources */,
+				FE6BEAE42631B17700568B9B /* AmongGroupJoinRequestCellIPad.xib in Resources */,
 				FE79F38E258CDFA500E9BC6C /* AmongSheetUserCell.xib in Resources */,
 				FEBE521E262D2DF500E49EC4 /* ReportTableHeader.xib in Resources */,
 				FE9EF52C258B23BC008C0BAD /* AmongRoomToolView.xib in Resources */,
@@ -2063,6 +2070,7 @@
 				BDE20C67258DE4B800245CBA /* AmongChat.Home.LoadErrorView.swift in Sources */,
 				FECBD85125E3D456000A3DB5 /* ZegoRtcManager.swift in Sources */,
 				FE68488C244BDD0400F87AF9 /* UserProperty.swift in Sources */,
+				FE6BEAE32631B17700568B9B /* AmongGroupJoinRequestCellIPad.swift in Sources */,
 				FED7B601244EC9FB00D94F97 /* LoggerPath.swift in Sources */,
 				FE79F387258CDE6B00E9BC6C /* AmongSheetController.swift in Sources */,
 				26259B5D260A1A6400636E50 /* Social.AddStatsViewController.swift in Sources */,

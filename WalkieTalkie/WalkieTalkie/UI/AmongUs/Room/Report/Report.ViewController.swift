@@ -94,6 +94,8 @@ extension Report {
             configureSubview()
             bindSubviewEvent()
             IQKeyboardManager.shared.shouldResignOnTouchOutside = true
+            IQKeyboardManager.shared.enableAutoToolbar = false
+            
         }
         
 //        override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

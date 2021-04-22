@@ -32,6 +32,7 @@ class AmongGroupHostView: XibLoadableView {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var gameNameButton: UIButton!
     @IBOutlet weak var indexLabel: UILabel!
+    @IBOutlet weak var avatarWidthConstraint: NSLayoutConstraint!
     
     private lazy var disableMicView: UIImageView = {
         let iv = UIImageView()
@@ -391,7 +392,9 @@ class AmongGroupHostView: XibLoadableView {
             maker.width.height.equalTo(hostAvatarView)
         }
         
+        hostAvatarView.cornerRadius = (Frame.isPad ? 60 : 38) / 2
         gameNameButton.titleLabel?.lineBreakMode = .byTruncatingTail
+        avatarWidthConstraint.constant = Frame.isPad ? 60 : 38
     }
     
     private func updateGameNameTitle() {

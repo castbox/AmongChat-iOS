@@ -56,6 +56,7 @@ extension AmongChat.GroupRoom {
             tb.dataSource = self
             tb.delegate = self
             tb.register(nibWithCellClass: AmongGroupJoinRequestCell.self)
+            tb.register(nibWithCellClass: AmongGroupJoinRequestCellIPad.self)
             //            tb.register(cellWithClass: MembersCell.self)
             tb.separatorStyle = .none
             tb.backgroundColor = .clear
@@ -141,28 +142,49 @@ extension AmongChat.GroupRoom.SeatRequestListController: UITableViewDataSource, 
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withClass: AmongGroupJoinRequestCell.self)
-        if let user = userList.safe(indexPath.row) {
-            cell.style = .applyOnSeat
-            cell.bind(user.user, showFollowsCount: true)
-            cell.actionHandler = { [weak self] action in
-                switch action {
-                case .accept:
-                    Logger.Action.log(.group_raise_hands_accept, categoryValue: self?.group.topicId)
-                    self?.actionHandler?(user, .accept)
-                case .reject:
-                    Logger.Action.log(.group_raise_hands_reject, categoryValue: self?.group.topicId)
-                    self?.actionHandler?(user, .reject)
-                case .ignore:
-                    ()
+        if Frame.isPad {
+            let cell = tableView.dequeueReusableCell(withClass: AmongGroupJoinRequestCellIPad.self)
+            if let user = userList.safe(indexPath.row) {
+                cell.style = .applyOnSeat
+                cell.bind(user.user, showFollowsCount: true)
+                cell.actionHandler = { [weak self] action in
+                    switch action {
+                    case .accept:
+                        Logger.Action.log(.group_raise_hands_accept, categoryValue: self?.group.topicId)
+                        self?.actionHandler?(user, .accept)
+                    case .reject:
+                        Logger.Action.log(.group_raise_hands_reject, categoryValue: self?.group.topicId)
+                        self?.actionHandler?(user, .reject)
+                    case .ignore:
+                        ()
+                    }
                 }
             }
+            return cell
+        } else {
+            let cell = tableView.dequeueReusableCell(withClass: AmongGroupJoinRequestCell.self)
+            if let user = userList.safe(indexPath.row) {
+                cell.style = .applyOnSeat
+                cell.bind(user.user, showFollowsCount: true)
+                cell.actionHandler = { [weak self] action in
+                    switch action {
+                    case .accept:
+                        Logger.Action.log(.group_raise_hands_accept, categoryValue: self?.group.topicId)
+                        self?.actionHandler?(user, .accept)
+                    case .reject:
+                        Logger.Action.log(.group_raise_hands_reject, categoryValue: self?.group.topicId)
+                        self?.actionHandler?(user, .reject)
+                    case .ignore:
+                        ()
+                    }
+                }
+            }
+            return cell
         }
-        return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 124
+        return Frame.isPad ? 76 : 124
     }
 }
 
