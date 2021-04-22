@@ -41,31 +41,6 @@ extension Social {
             return s
         }()
         
-        private lazy var doneButton: UIButton = {
-            let btn = UIButton(type: .custom)
-            btn.layer.cornerRadius = 24
-            btn.rx.isEnable
-                .subscribe(onNext: { [weak btn] (_) in
-                    
-                    guard let `btn` = btn else { return }
-                    
-                    if btn.isEnabled {
-                        btn.backgroundColor = UIColor(hexString: "#FFF000")
-                    } else {
-                        btn.backgroundColor = UIColor(hexString: "#2B2B2B")
-                    }
-                })
-                .disposed(by: bag)
-            
-            btn.setTitle(R.string.localizable.profileDone(), for: .normal)
-            btn.setTitleColor(.black, for: .normal)
-            btn.setTitleColor(UIColor(hex6: 0x757575), for: .disabled)
-            btn.titleLabel?.font = R.font.nunitoExtraBold(size: 20)
-            btn.addTarget(self, action: #selector(onDoneBtn), for: .primaryActionTriggered)
-            btn.isEnabled = false
-            return btn
-        }()
-        
         private lazy var uploadView: StatsView = {
             let s = StatsView(.add)
             s.titleLabel.text = R.string.localizable.amongChatAddStatsUploadScreenshot()
@@ -93,21 +68,17 @@ extension Social {
             return s
         }()
         
-        private lazy var bottomGradientView: GradientView = {
-            let v = Social.ChooseGame.bottomGradientView()
-            v.addSubviews(views: doneButton)
-            doneButton.snp.makeConstraints { (maker) in
-                maker.centerX.equalToSuperview()
-                maker.bottom.equalTo(-33)
-                maker.height.equalTo(48)
-                maker.leading.equalTo(20)
-            }
+        private lazy var bottomGradientView: FansGroup.Views.BottomGradientButton = {
+            let v = FansGroup.Views.BottomGradientButton()
+            v.button.setTitle(R.string.localizable.profileDone(), for: .normal)
+            v.button.isEnabled = false
+            v.button.addTarget(self, action: #selector(onDoneBtn), for: .primaryActionTriggered)
             return v
         }()
         
         private var screenshot: UIImage? = nil {
             didSet {
-                doneButton.isEnabled = (screenshot != nil)
+                bottomGradientView.button.isEnabled = (screenshot != nil)
             }
         }
         
@@ -195,14 +166,12 @@ extension Social.AddStatsViewController {
         
         layoutScrollView.snp.makeConstraints { (maker) in
             maker.leading.trailing.equalToSuperview().inset(hEdgePadding)
-            maker.bottom.equalTo(bottomLayoutGuide.snp.top)
+            maker.bottom.equalToSuperview()
             maker.top.equalTo(navLayoutGuide.snp.bottom)
         }
         
         bottomGradientView.snp.makeConstraints { (maker) in
-            maker.leading.trailing.equalToSuperview()
-            maker.bottom.equalTo(bottomLayoutGuide.snp.top)
-            maker.height.equalTo(134)
+            maker.leading.trailing.bottom.equalToSuperview()
         }
         
         layoutScrollView.addSubviews(views: uploadView, exampleView)

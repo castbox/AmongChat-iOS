@@ -45,14 +45,10 @@ extension FansGroup {
             return v
         }()
         
-        private lazy var doneButton: UIButton = {
-            let btn = UIButton(type: .custom)
-            btn.layer.cornerRadius = 24
-            btn.setTitle(R.string.localizable.profileDone(), for: .normal)
-            btn.setTitleColor(.black, for: .normal)
-            btn.titleLabel?.font = R.font.nunitoExtraBold(size: 20)
-            btn.backgroundColor = UIColor(hexString: "#FFF000")
-            btn.rx.controlEvent(.primaryActionTriggered)
+        private lazy var bottomGradientView: FansGroup.Views.BottomGradientButton = {
+            let v = FansGroup.Views.BottomGradientButton()
+            v.button.setTitle(R.string.localizable.profileDone(), for: .normal)
+            v.button.rx.controlEvent(.primaryActionTriggered)
                 .subscribe(onNext: { [weak self] (_) in
                     if let done = self?.doneHandler {
                         done()
@@ -62,18 +58,6 @@ extension FansGroup {
                     Logger.Action.log(.group_add_members_clk, categoryValue: self?.groupEntity.topicId, "done")
                 })
                 .disposed(by: bag)
-            return btn
-        }()
-        
-        private lazy var bottomGradientView: GradientView = {
-            let v = Social.ChooseGame.bottomGradientView()
-            v.addSubviews(views: doneButton)
-            doneButton.snp.makeConstraints { (maker) in
-                maker.centerX.equalToSuperview()
-                maker.bottom.equalTo(-33)
-                maker.height.equalTo(48)
-                maker.leading.equalTo(20)
-            }
             return v
         }()
         
@@ -147,15 +131,12 @@ extension FansGroup.AddMemberController {
         }
         
         tableView.snp.makeConstraints { (maker) in
-            maker.leading.trailing.equalToSuperview()
+            maker.leading.trailing.bottom.equalToSuperview()
             maker.top.equalTo(shareView.snp.bottom).offset(10)
-            maker.bottom.equalTo(bottomLayoutGuide.snp.top)
         }
         
         bottomGradientView.snp.makeConstraints { (maker) in
-            maker.leading.trailing.equalToSuperview()
-            maker.bottom.equalTo(bottomLayoutGuide.snp.top)
-            maker.height.equalTo(134)
+            maker.leading.trailing.bottom.equalToSuperview()
         }
         
         tableView.pullToLoadMore { [weak self] in

@@ -868,7 +868,6 @@ extension AmongChat.GroupRoom.ViewController {
         applyButton.snp.makeConstraints { maker in
             maker.leading.trailing.equalToSuperview()
             maker.bottom.equalToSuperview()
-            maker.height.equalTo(100 + Frame.Height.safeAeraBottomHeight)
         }
 
     }

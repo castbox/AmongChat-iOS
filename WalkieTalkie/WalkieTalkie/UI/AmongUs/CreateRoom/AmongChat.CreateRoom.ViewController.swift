@@ -120,6 +120,7 @@ extension AmongChat.CreateRoom {
                 maker.leading.trailing.equalToSuperview().inset(hInset)
                 maker.height.equalTo(48)
                 maker.top.equalTo(62)
+                maker.bottom.equalTo(-46)
             }
             
             return v
@@ -392,7 +393,6 @@ extension AmongChat.CreateRoom.ViewController {
         bottomBar.snp.makeConstraints { (maker) in
             maker.left.right.equalToSuperview()
             maker.bottom.equalTo(bottomLayoutGuide.snp.top)
-            maker.height.equalTo(143)
         }
         
         bottomrBarShadowIV.snp.makeConstraints { (maker) in

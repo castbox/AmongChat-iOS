@@ -110,32 +110,16 @@ extension FansGroup {
             return s
         }()
         
-        private lazy var gotoCreateButton: UIButton = {
-            let btn = UIButton(type: .custom)
-            btn.layer.cornerRadius = 24
-            btn.setTitle(R.string.localizable.amongChatCreateNewGroup(), for: .normal)
-            btn.setTitleColor(.black, for: .normal)
-            btn.backgroundColor = UIColor(hexString: "#FFF000")
-            btn.titleLabel?.font = R.font.nunitoExtraBold(size: 20)
-            btn.rx.controlEvent(.primaryActionTriggered)
+        private lazy var bottomGradientView: FansGroup.Views.BottomGradientButton = {
+            let v = FansGroup.Views.BottomGradientButton()
+            v.button.setTitle(R.string.localizable.amongChatCreateNewGroup(), for: .normal)
+            v.button.rx.controlEvent(.primaryActionTriggered)
                 .subscribe(onNext: { [weak self] (_) in
                     let vc = FansGroup.CreateGroupViewController()
                     self?.navigationController?.pushViewController(vc)
                     Logger.Action.log(.group_list_clk, categoryValue: "create")
                 })
                 .disposed(by: bag)
-            return btn
-        }()
-        
-        private lazy var bottomGradientView: GradientView = {
-            let v = Social.ChooseGame.bottomGradientView()
-            v.addSubviews(views: gotoCreateButton)
-            gotoCreateButton.snp.makeConstraints { (maker) in
-                maker.centerX.equalToSuperview()
-                maker.bottom.equalTo(-33)
-                maker.height.equalTo(48)
-                maker.leading.equalTo(20)
-            }
             return v
         }()
         
@@ -193,16 +177,14 @@ extension FansGroup.GroupsViewController {
             
             scrollLayoutGuide.snp.makeConstraints { (maker) in
                 maker.top.equalTo(getVerifiedView.snp.bottom)
-                maker.leading.trailing.equalToSuperview()
-                maker.bottom.equalTo(bottomLayoutGuide.snp.top)
+                maker.leading.trailing.bottom.equalToSuperview()
             }
             bottomGradientView.isHidden = true
         } else {
             bottomGradientView.isHidden = false
             scrollLayoutGuide.snp.makeConstraints { (maker) in
                 maker.top.equalTo(segmentedButton.snp.bottom)
-                maker.leading.trailing.equalToSuperview()
-                maker.bottom.equalTo(bottomLayoutGuide.snp.top)
+                maker.leading.trailing.bottom.equalToSuperview()
             }
         }
         
@@ -222,9 +204,7 @@ extension FansGroup.GroupsViewController {
         
         myGroupList.view.addSubview(bottomGradientView)
         bottomGradientView.snp.makeConstraints { (maker) in
-            maker.leading.trailing.equalToSuperview()
-            maker.bottom.equalTo(bottomLayoutGuide.snp.top)
-            maker.height.equalTo(134)
+            maker.leading.trailing.bottom.equalToSuperview()
         }
                 
         let allGroupList = FansGroup.GroupListViewController(source: .allGroups)

@@ -68,32 +68,15 @@ extension FansGroup {
             }
         }
         
-        private lazy var applyButton: UIButton = {
-            let btn = UIButton(type: .custom)
-            btn.layer.cornerRadius = 24
-            btn.setTitle(R.string.localizable.amongChatGroupApplyToJoin(), for: .normal)
-            btn.setTitleColor(.black, for: .normal)
-            btn.titleLabel?.font = R.font.nunitoExtraBold(size: 20)
-            btn.backgroundColor = UIColor(hexString: "#FFF000")
-            btn.rx.controlEvent(.primaryActionTriggered)
+        private lazy var bottomGradientView: FansGroup.Views.BottomGradientButton = {
+            let v = FansGroup.Views.BottomGradientButton()
+            v.button.setTitle(R.string.localizable.amongChatGroupApplyToJoin(), for: .normal)
+            v.button.rx.controlEvent(.primaryActionTriggered)
                 .subscribe(onNext: { [weak self] (_) in
                     Logger.Action.log(.group_info_clk, categoryValue:  self?.groupInfoViewModel?.groupInfo.group.topicId, "apply")
                     self?.apply()
                 })
                 .disposed(by: bag)
-
-            return btn
-        }()
-        
-        private lazy var bottomGradientView: GradientView = {
-            let v = Social.ChooseGame.bottomGradientView()
-            v.addSubviews(views: applyButton)
-            applyButton.snp.makeConstraints { (maker) in
-                maker.centerX.equalToSuperview()
-                maker.bottom.equalTo(-33)
-                maker.height.equalTo(48)
-                maker.leading.equalTo(20)
-            }
             v.isHidden = true
             return v
         }()
@@ -141,9 +124,7 @@ extension FansGroup.GroupInfoViewController {
         }
         
         bottomGradientView.snp.makeConstraints { (maker) in
-            maker.leading.trailing.equalToSuperview()
-            maker.bottom.equalTo(bottomLayoutGuide.snp.top)
-            maker.height.equalTo(134)
+            maker.leading.trailing.bottom.equalToSuperview()
         }
         
     }
@@ -262,12 +243,7 @@ extension FansGroup.GroupInfoViewController {
         addChild(listVC)
         view.addSubview(listVC.view)
         listVC.view.snp.makeConstraints { (maker) in
-            if bottomGradientView.isHidden {
-                maker.edges.equalToSuperview()
-            } else {
-                maker.leading.top.trailing.equalToSuperview()
-                maker.bottom.equalTo(bottomLayoutGuide.snp.top)
-            }
+            maker.edges.equalToSuperview()
         }
         view.sendSubviewToBack(listVC.view)
         listVC.didMove(toParent: self)

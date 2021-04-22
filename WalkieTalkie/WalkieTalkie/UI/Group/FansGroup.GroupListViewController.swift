@@ -127,7 +127,8 @@ extension FansGroup.GroupListViewController {
         switch source {
         case .myGroups, .allGroups:
             groupListView.snp.makeConstraints { (maker) in
-                maker.edges.equalToSuperview()
+                maker.top.leading.trailing.equalToSuperview()
+                maker.bottom.equalTo(bottomLayoutGuide.snp.top)
             }
             
         case .createdGroups, .joinedGroups:
@@ -140,7 +141,8 @@ extension FansGroup.GroupListViewController {
             }
             
             groupListView.snp.makeConstraints { (maker) in
-                maker.leading.bottom.trailing.equalToSuperview()
+                maker.leading.trailing.equalToSuperview()
+                maker.bottom.equalTo(bottomLayoutGuide.snp.top)
                 maker.top.equalTo(navView.snp.bottom)
             }
         }

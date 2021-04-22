@@ -64,30 +64,18 @@ extension Social {
             return height + 140
         }
         
-        private lazy var followButton: UIButton = {
-            let btn = UIButton()
-            btn.backgroundColor = UIColor(hex6: 0xFFF000)
-            btn.titleLabel?.font = R.font.nunitoExtraBold(size: 20)
-            btn.layer.cornerRadius = 24
-            btn.setTitleColor(.black, for: .normal)
-            btn.setTitle(R.string.localizable.channelUserListFollow(), for: .normal)
-            btn.rx.tap
+        private lazy var followButton: UIButton = bottomGradientView.button
+        
+        private lazy var bottomGradientView: FansGroup.Views.BottomGradientButton = {
+            let v = FansGroup.Views.BottomGradientButton()
+            v.button.setTitle(R.string.localizable.channelUserListFollow(), for: .normal)
+            v.button.rx.tap
                 .subscribe(onNext: { [weak self]() in
                     self?.headerView.headerHandle?(.follow)
                 }).disposed(by: bag)
-            btn.isHidden = true
-            return btn
-        }()
-        
-        private lazy var bottomGradientView: GradientView = {
-            let v = Social.ChooseGame.bottomGradientView()
-            v.addSubviews(views: followButton)
-            followButton.snp.makeConstraints { (maker) in
-                maker.centerX.equalToSuperview()
-                maker.bottom.equalTo(-33)
-                maker.height.equalTo(48)
-                maker.leading.equalTo(20)
-            }
+            v.button.isHidden = true
+            v.button.setBackgroundImage(nil, for: .normal)
+            v.button.setBackgroundImage(nil, for: .disabled)
             v.isHidden = true
             return v
         }()
@@ -223,14 +211,11 @@ private extension Social.ProfileViewController {
         view.addSubviews(views: table, bottomGradientView)
         
         bottomGradientView.snp.makeConstraints { (maker) in
-            maker.leading.trailing.equalToSuperview()
-            maker.bottom.equalTo(bottomLayoutGuide.snp.top)
-            maker.height.equalTo(134)
+            maker.leading.trailing.bottom.equalToSuperview()
         }
         
         table.snp.makeConstraints { (maker) in
-            maker.leading.trailing.top.equalToSuperview()
-            maker.bottom.equalTo(bottomLayoutGuide.snp.top)
+            maker.edges.equalToSuperview()
         }
         
         Settings.shared.loginResult.replay()
