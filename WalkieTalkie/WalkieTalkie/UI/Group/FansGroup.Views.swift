@@ -756,6 +756,15 @@ extension FansGroup.Views {
                 maker.height.equalTo(48)
                 maker.leading.equalTo(20)
             }
+            adaptToIPad {
+                button.snp.remakeConstraints { (maker) in
+                    maker.centerX.equalToSuperview()
+                    maker.top.equalTo(40)
+                    maker.bottom.equalTo(-32)
+                    maker.height.equalTo(48)
+                    maker.leading.equalTo(40)
+                }
+            }
             return v
         }()
         
