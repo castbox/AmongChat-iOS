@@ -484,6 +484,7 @@
 "admin.unmute.im.tips" = "Unbanned successfully";
 "admin.kick.tips" = "Kicked successfully";
 "message.disable.tips" = "You have been muted because of a violation of Community Guidelines.";
+"enter.kicked.room.tips" = "Sorry, you can't re-enter the room now.";
 
 "alert.admin.mute.im" = "Ban live chat";
 "alert.admin.mute.mic" = "Mute for everyone";

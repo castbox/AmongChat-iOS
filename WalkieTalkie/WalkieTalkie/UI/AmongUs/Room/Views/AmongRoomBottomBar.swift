@@ -206,6 +206,7 @@ private extension AmongRoomBottomBar {
         preferences.drawing.foregroundColor = .black
         preferences.drawing.backgroundColor = .white
         preferences.drawing.arrowPosition = .top
+        preferences.positioning.bubbleInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 20)
         
         let tipView = EasyTipView(text: attrString,
                               preferences: preferences,

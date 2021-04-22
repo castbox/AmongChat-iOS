@@ -216,7 +216,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 203 images.
+  /// This `R.image` struct is generated, and contains static references to 204 images.
   struct image {
     /// Image `ac_add_stats_add`.
     static let ac_add_stats_add = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_add_stats_add")
@@ -538,6 +538,8 @@ struct R: Rswift.Validatable {
     static let iconMutedTips = Rswift.ImageResource(bundle: R.hostingBundle, name: "iconMutedTips")
     /// Image `iconReportDelete`.
     static let iconReportDelete = Rswift.ImageResource(bundle: R.hostingBundle, name: "iconReportDelete")
+    /// Image `iconReportImageAdd`.
+    static let iconReportImageAdd = Rswift.ImageResource(bundle: R.hostingBundle, name: "iconReportImageAdd")
     /// Image `iconReportNormal`.
     static let iconReportNormal = Rswift.ImageResource(bundle: R.hostingBundle, name: "iconReportNormal")
     /// Image `iconReportSelected`.
@@ -1430,6 +1432,11 @@ struct R: Rswift.Validatable {
       return UIKit.UIImage(resource: R.image.iconReportDelete, compatibleWith: traitCollection)
     }
     
+    /// `UIImage(named: "iconReportImageAdd", bundle: ..., traitCollection: ...)`
+    static func iconReportImageAdd(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.iconReportImageAdd, compatibleWith: traitCollection)
+    }
+    
     /// `UIImage(named: "iconReportNormal", bundle: ..., traitCollection: ...)`
     static func iconReportNormal(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.iconReportNormal, compatibleWith: traitCollection)
@@ -2143,7 +2150,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
     
-    /// This `R.string.localizable` struct is generated, and contains static references to 425 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 426 localization keys.
     struct localizable {
       /// en translation:  Congratulations!
       /// 
@@ -3493,6 +3500,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatCommonError = Rswift.StringResource(key: "among.chat.common.error", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Sorry, you can't re-enter the room now.
+      /// 
+      /// Locales: en
+      static let enterKickedRoomTips = Rswift.StringResource(key: "enter.kicked.room.tips", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Sorry, your application was rejected.
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -6203,6 +6214,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func amongChatCommonError(_: Void = ()) -> String {
         return NSLocalizedString("among.chat.common.error", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Sorry, you can't re-enter the room now.
+      /// 
+      /// Locales: en
+      static func enterKickedRoomTips(_: Void = ()) -> String {
+        return NSLocalizedString("enter.kicked.room.tips", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Sorry, your application was rejected.

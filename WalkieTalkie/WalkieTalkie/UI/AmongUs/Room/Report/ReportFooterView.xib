@@ -19,6 +19,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ReportFooterView" customModule="WalkieTalkie" customModuleProvider="target">
             <connections>
                 <outlet property="collectionView" destination="9cQ-wC-E22" id="2kD-WZ-J7B"/>
+                <outlet property="collectionViewHeightConstraint" destination="ppK-Mg-p9k" id="Qfk-82-uZK"/>
                 <outlet property="commentLabel" destination="LP1-Wc-t5X" id="812-oI-lVa"/>
                 <outlet property="countLabel" destination="3Xl-sU-IGS" id="kvc-G7-r3v"/>
                 <outlet property="imageCountLabel" destination="Lof-oa-Lxp" id="m1n-y4-79X"/>
@@ -35,7 +36,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Comments" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LP1-Wc-t5X">
-                    <rect key="frame" x="16" y="22" width="81" height="22"/>
+                    <rect key="frame" x="20" y="26" width="81" height="22"/>
                     <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito" pointSize="16"/>
                     <color key="textColor" red="0.53725490196078429" green="0.53725490196078429" blue="0.53725490196078429" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
@@ -44,8 +45,8 @@
                     </userDefinedRuntimeAttributes>
                 </label>
                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="VPM-T6-iNt">
-                    <rect key="frame" x="20" y="60" width="374" height="124"/>
-                    <color key="backgroundColor" red="0.12549019607843137" green="0.12549019607843137" blue="0.12549019607843137" alpha="1" colorSpace="calibratedRGB"/>
+                    <rect key="frame" x="20" y="64" width="374" height="124"/>
+                    <color key="backgroundColor" red="0.12549019607843137" green="0.12549019607843137" blue="0.12549019607843137" alpha="1" colorSpace="deviceRGB"/>
                     <color key="tintColor" red="0.20392156862745098" green="0.55294117647058827" blue="1" alpha="1" colorSpace="deviceRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="124" id="gWO-QT-YHM"/>
@@ -63,7 +64,7 @@
                     </connections>
                 </textView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Upload screenshot" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DPa-fO-NOL">
-                    <rect key="frame" x="16" y="206" width="142" height="22"/>
+                    <rect key="frame" x="16" y="224" width="142" height="22"/>
                     <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito" pointSize="16"/>
                     <color key="textColor" red="0.53725490196078429" green="0.53725490196078429" blue="0.53725490196078429" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
@@ -72,13 +73,13 @@
                     </userDefinedRuntimeAttributes>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0/280" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Xl-sU-IGS">
-                    <rect key="frame" x="36" y="152.5" width="38" height="19.5"/>
+                    <rect key="frame" x="36" y="156.5" width="38" height="19.5"/>
                     <fontDescription key="fontDescription" name="Nunito-Bold" family="Nunito" pointSize="14"/>
                     <color key="textColor" red="0.27450980392156865" green="0.27450980392156865" blue="0.27450980392156865" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="9cQ-wC-E22">
-                    <rect key="frame" x="0.0" y="244" width="414" height="101"/>
+                    <rect key="frame" x="0.0" y="262" width="414" height="101"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="101" id="ppK-Mg-p9k"/>
                     </constraints>
@@ -94,7 +95,7 @@
                     </connections>
                 </collectionView>
                 <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Yj-v1-MQg">
-                    <rect key="frame" x="20" y="378" width="374" height="48"/>
+                    <rect key="frame" x="20" y="396" width="374" height="48"/>
                     <color key="backgroundColor" red="1" green="0.94117647058823528" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="48" id="aSa-fz-rKx"/>
@@ -114,7 +115,7 @@
                     </connections>
                 </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please describe the report" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Un8-8M-jC1">
-                    <rect key="frame" x="36" y="72" width="225.5" height="25"/>
+                    <rect key="frame" x="36" y="76" width="225.5" height="25"/>
                     <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito" pointSize="18"/>
                     <color key="textColor" red="0.27450980392156865" green="0.27450980392156865" blue="0.27450980392156865" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
@@ -123,7 +124,7 @@
                     </userDefinedRuntimeAttributes>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0/3" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lof-oa-Lxp">
-                    <rect key="frame" x="369" y="206" width="25" height="22"/>
+                    <rect key="frame" x="369" y="224" width="25" height="22"/>
                     <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito" pointSize="16"/>
                     <color key="textColor" red="0.53725490200000003" green="0.53725490200000003" blue="0.53725490200000003" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
@@ -135,20 +136,20 @@
                 <constraint firstItem="DPa-fO-NOL" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="0VT-3f-9en"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="VPM-T6-iNt" secondAttribute="trailing" constant="20" id="0kJ-hX-i6R"/>
                 <constraint firstItem="3Xl-sU-IGS" firstAttribute="bottom" secondItem="VPM-T6-iNt" secondAttribute="bottom" constant="-12" id="474-rL-E95"/>
-                <constraint firstItem="LP1-Wc-t5X" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="22" id="6qA-Pw-OqC"/>
+                <constraint firstItem="LP1-Wc-t5X" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="26" id="6qA-Pw-OqC"/>
                 <constraint firstItem="Un8-8M-jC1" firstAttribute="top" secondItem="LP1-Wc-t5X" secondAttribute="bottom" constant="28" id="9PU-wx-h5l"/>
                 <constraint firstItem="3Xl-sU-IGS" firstAttribute="leading" secondItem="VPM-T6-iNt" secondAttribute="leading" constant="16" id="EP4-Pr-TPp"/>
                 <constraint firstItem="0Yj-v1-MQg" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="20" id="IJM-Hv-68x"/>
                 <constraint firstItem="Lof-oa-Lxp" firstAttribute="centerY" secondItem="DPa-fO-NOL" secondAttribute="centerY" id="JU7-zy-tKS"/>
                 <constraint firstItem="Un8-8M-jC1" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="36" id="OOv-FL-wdl"/>
-                <constraint firstItem="DPa-fO-NOL" firstAttribute="top" secondItem="VPM-T6-iNt" secondAttribute="bottom" constant="22" id="QYQ-wB-9PP"/>
+                <constraint firstItem="DPa-fO-NOL" firstAttribute="top" secondItem="VPM-T6-iNt" secondAttribute="bottom" constant="36" id="QYQ-wB-9PP"/>
                 <constraint firstItem="VPM-T6-iNt" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="20" id="cdL-sU-AY4"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="9cQ-wC-E22" secondAttribute="trailing" id="fc2-Uk-ykW"/>
                 <constraint firstItem="VPM-T6-iNt" firstAttribute="top" secondItem="LP1-Wc-t5X" secondAttribute="bottom" constant="16" id="hiG-jC-Yn2"/>
                 <constraint firstItem="9cQ-wC-E22" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="iKh-FW-soB"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="Lof-oa-Lxp" secondAttribute="trailing" constant="20" id="kzx-RY-dgN"/>
                 <constraint firstItem="9cQ-wC-E22" firstAttribute="top" secondItem="DPa-fO-NOL" secondAttribute="bottom" constant="16" id="lyL-Lt-nga"/>
-                <constraint firstItem="LP1-Wc-t5X" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="nJX-It-3gM"/>
+                <constraint firstItem="LP1-Wc-t5X" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="20" id="nJX-It-3gM"/>
                 <constraint firstItem="0Yj-v1-MQg" firstAttribute="top" secondItem="9cQ-wC-E22" secondAttribute="bottom" constant="33" id="qG7-Tv-Ghl"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="0Yj-v1-MQg" secondAttribute="trailing" constant="20" id="wRf-pJ-yaJ"/>
             </constraints>

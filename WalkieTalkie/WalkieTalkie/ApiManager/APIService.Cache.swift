@@ -39,7 +39,7 @@ final class ResponseInterceptPlugin: PluginType {
         
         let code = success.statusCode
         
-        guard code == 401 else {
+        guard code == 401, target.path != APIService.AmongChatBackend.login([:]).path else {
             return
         }
         

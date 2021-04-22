@@ -473,8 +473,16 @@ class Settings {
     }
     
     func clearAll() {
-        loginResult.value = nil
-        amongChatUserProfile.value = nil
+        if loginResult.value != nil {
+            loginResult.value = nil
+        }
+        if amongChatUserProfile.value != nil {
+            amongChatUserProfile.value = nil            
+        }
+        
+        if profilePage.value != nil {
+            profilePage.value = nil
+        }
         Defaults[\.amongChatReleationSuggestedContacts] = []
     }
 }
