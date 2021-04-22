@@ -25,11 +25,12 @@ extension AmongChat.Home {
         private lazy var topicCollectionView: UICollectionView = {
             let layout = UICollectionViewFlowLayout()
             layout.scrollDirection = .vertical
-            let hInset: CGFloat = 20
+            var hInset: CGFloat = 20
             let interitemSpacing: CGFloat = 20
             let hwRatio: CGFloat = 156.0 / 335.0
             var columns: Int = 1
             adaptToIPad {
+                hInset = 40
                 columns = 2
             }
             let cellWidth = ((UIScreen.main.bounds.width - hInset * 2 - interitemSpacing * CGFloat(columns - 1)) / CGFloat(columns)).rounded(.towardZero)
