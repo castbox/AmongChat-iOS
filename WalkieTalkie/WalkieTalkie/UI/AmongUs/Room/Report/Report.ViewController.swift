@@ -74,6 +74,7 @@ extension Report {
         override func viewDidAppear(_ animated: Bool) {
             super.viewDidAppear(animated)
             IQKeyboardManager.shared.enable = true
+            IQKeyboardManager.shared.enableAutoToolbar = false
         }
         
         override func viewDidDisappear(_ animated: Bool) {
