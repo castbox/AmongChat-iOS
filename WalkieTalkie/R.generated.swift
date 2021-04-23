@@ -2150,7 +2150,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
     
-    /// This `R.string.localizable` struct is generated, and contains static references to 427 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 430 localization keys.
     struct localizable {
       /// en translation:  Congratulations!
       /// 
@@ -2204,6 +2204,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let groupRoomAccept = Rswift.StringResource(key: "group.room.accept", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Account suspended
+      /// 
+      /// Locales: en
+      static let userLoginBannedTip = Rswift.StringResource(key: "user.login.banned.tip", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Add
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3500,6 +3504,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let profileBirthdaySkip = Rswift.StringResource(key: "profile.birthday.skip", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Something went wrong, please try again later
+      /// 
+      /// Locales: en
+      static let userLoginCommonTip = Rswift.StringResource(key: "user.login.common.tip", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Something went wrong, please try again.
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3772,6 +3780,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let errorNoFollowing = Rswift.StringResource(key: "error.no.following", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Your account has been logged in on another device
+      /// 
+      /// Locales: en
+      static let userLoginKickedTip = Rswift.StringResource(key: "user.login.kicked.tip", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Your avatar can be different
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3950,6 +3962,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func groupRoomAccept(_: Void = ()) -> String {
         return NSLocalizedString("group.room.accept", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Account suspended
+      /// 
+      /// Locales: en
+      static func userLoginBannedTip(_: Void = ()) -> String {
+        return NSLocalizedString("user.login.banned.tip", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Add
@@ -6220,6 +6239,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("profile.birthday.skip", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Something went wrong, please try again later
+      /// 
+      /// Locales: en
+      static func userLoginCommonTip(_: Void = ()) -> String {
+        return NSLocalizedString("user.login.common.tip", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Something went wrong, please try again.
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -6694,6 +6720,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func errorNoFollowing(_: Void = ()) -> String {
         return NSLocalizedString("error.no.following", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Your account has been logged in on another device
+      /// 
+      /// Locales: en
+      static func userLoginKickedTip(_: Void = ()) -> String {
+        return NSLocalizedString("user.login.kicked.tip", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Your avatar can be different

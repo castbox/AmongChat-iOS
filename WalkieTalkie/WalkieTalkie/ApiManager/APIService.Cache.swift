@@ -47,6 +47,33 @@ final class ResponseInterceptPlugin: PluginType {
         
         Settings.shared.clearAll()
         (UIApplication.shared.delegate as! AppDelegate).setupInitialView()
+        
+        let messageFromResponse: ((Response) -> String?) = { response in
+            
+            guard let json = try? response.mapJSON() as? [String : AnyObject],
+                  let code = json["code"] as? Int else {
+                return nil
+            }
+            
+            let message: String?
+            
+            switch code {
+            case 3, 4: //account suspended, device suspened
+                message = R.string.localizable.userLoginBannedTip()
+            case 6: //logged in another device
+                message = R.string.localizable.userLoginKickedTip()
+            default:
+                message = nil
+            }
+            
+            return message
+            
+        }
+        
+        if let msg = messageFromResponse(success) {
+            UIApplication.topViewController()?.view.raft.autoShow(.text(msg), interval: 3, userInteractionEnabled: false)
+        }
+        
     }
     
 }
