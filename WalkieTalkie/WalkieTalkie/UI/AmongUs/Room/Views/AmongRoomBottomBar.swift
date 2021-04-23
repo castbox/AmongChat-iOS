@@ -64,6 +64,7 @@ class AmongRoomBottomBar: XibLoadableView {
             if info.isMute {
                 if isMicOn {
                     switchMicState()
+                    showMicDisabledTips()
                 }
             } else {
                 if !isMicOn {
