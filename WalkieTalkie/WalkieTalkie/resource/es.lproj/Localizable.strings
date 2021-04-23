@@ -466,3 +466,31 @@
 
 //1.17.1
 "among.chat.room.minecraft.name" = "Etiqueta de Jugador de Minecraft";
+
+//1.18
+"report.user" = "Reportar usuario";
+"report.success" = "Has informado con éxito \na esta persona";
+"report.failed" = "Informe fallido. Inténtalo de nuevo";
+"report.comments" = "Comentarios";
+"report.comments.placeholder" = "Describe el informe";
+"report.upload.screenshots" = "Subir capturas de pantalla";
+"report.select.reason.title" = "Seleccione el motivo del informe";
+"report.confirm" = "Confirmar informe";
+"mic.muted.tips" = "Se te ha silenciado debido a una infracción de los Lineamientos de la comunidad.";
+
+"admin.mute.mic.tips" = "Silenciado con éxito";
+"admin.mute.im.tips" = "Prohibió al usuario de chatear en vivo";
+"admin.unmute.mic.tips" = "Activar sonido con éxito";
+"admin.unmute.im.tips" = "Desbanned con éxito";
+"admin.kick.tips" = "Pateado con éxito";
+"message.disable.tips" = "Se te ha silenciado debido a una infracción de los Lineamientos de la comunidad.";
+"enter.kicked.room.tips" = "Lo siento, no puedes volver a ingresar al canal ahora.";
+"admin.cannot.matched.room.tips" = "Nadie está en línea todavía. Vuelve a intentarlo más tarde.";
+
+"alert.admin.mute.im" = "Prohibir el chat en vivo";
+"alert.admin.mute.mic" = "Silencio para todos";
+"alert.admin.unmute.im" = "Anular la prohibición del chat en vivo";
+"alert.admin.unmute.mic" = "Activar sonido para todos";
+"user.login.banned.tip" = "Account suspended";
+"user.login.kicked.tip" = "Your account has been logged in on another device";
+"user.login.common.tip" = "Something went wrong, please try again later";

@@ -466,3 +466,31 @@
 
 //1.17.1
 "among.chat.room.minecraft.name" = "علامة اللاعب Minecraft";
+
+//1.18
+"report.user" = "أبلغ عن مستخدم";
+"report.success" = "لقد أبلغت عن هذا \nالشخص بنجاح";
+"report.failed" = "فشل التقرير. حاول مرة اخرى";
+"report.comments" = "تعليقات";
+"report.comments.placeholder" = "يرجى وصف التقرير";
+"report.upload.screenshots" = "تحميل لقطات";
+"report.select.reason.title" = "الرجاء تحديد سبب التقرير";
+"report.confirm" = "تأكيد التقرير";
+"mic.muted.tips" = "تم كتم صوتك بسبب انتهاك إرشادات المنتدى.";
+
+"admin.mute.mic.tips" = "كتم الصوت بنجاح";
+"admin.mute.im.tips" = "منع المستخدم من الدردشة الحية";
+"admin.unmute.mic.tips" = "تمت إعادة الصوت بنجاح";
+"admin.unmute.im.tips" = "تم إلغاء الحظر بنجاح";
+"admin.kick.tips" = "ركل بنجاح";
+"message.disable.tips" = "تم كتم صوتك بسبب انتهاك إرشادات المنتدى.";
+"enter.kicked.room.tips" = "عذرًا ، لا يمكنك إعادة الدخول إلى القناة الآن.";
+"admin.cannot.matched.room.tips" = "لا أحد متصل بالإنترنت حتى الآن ، يرجى المحاولة مرة أخرى لاحقًا.";
+
+"alert.admin.mute.im" = "حظر الدردشة الحية";
+"alert.admin.mute.mic" = "كتم الصوت للجميع";
+"alert.admin.unmute.im" = "إلغاء حظر الدردشة المباشرة";
+"alert.admin.unmute.mic" = "إعادة الصوت للجميع";
+"user.login.banned.tip" = "Account suspended";
+"user.login.kicked.tip" = "Your account has been logged in on another device";
+"user.login.common.tip" = "Something went wrong, please try again later";

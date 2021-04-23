@@ -466,3 +466,31 @@
 
 //1.17.1
 "among.chat.room.minecraft.name" = "Balise de Joueur Minecraft";
+
+//1.18
+"report.user" = "Dénoncer un utilisateur";
+"report.success" = "Vous avez signalé \ncette personne avec succès";
+"report.failed" = "Le rapport a échoué. Veuillez réessayer";
+"report.comments" = "commentaires";
+"report.comments.placeholder" = "Veuillez décrire le rapport";
+"report.upload.screenshots" = "Télécharger des captures d'écran";
+"report.select.reason.title" = "Veuillez sélectionner la raison du rapport";
+"report.confirm" = "Confirmer le rapport";
+"mic.muted.tips" = "Vous avez été mis en sourdine en raison d'une violation du règlement de la communauté.";
+
+"admin.mute.mic.tips" = "Muet avec succès";
+"admin.mute.im.tips" = "Interdit à l'utilisateur de chatter en direct";
+"admin.unmute.mic.tips" = "Réactiver le son avec succès";
+"admin.unmute.im.tips" = "Non banni avec succès";
+"admin.kick.tips" = "Coup de pied avec succès";
+"message.disable.tips" = "Vous avez été mis en sourdine en raison d'une violation du règlement de la communauté.";
+"enter.kicked.room.tips" = "Désolé, vous ne pouvez pas accéder à nouveau à la chaîne pour le moment.";
+"admin.cannot.matched.room.tips" = "Personne n'est encore en ligne, veuillez réessayer plus tard.";
+
+"alert.admin.mute.im" = "Interdire le chat en direct";
+"alert.admin.mute.mic" = "Muet pour tout le monde";
+"alert.admin.unmute.im" = "Non banni du chat en direct";
+"alert.admin.unmute.mic" = "Activer le son pour tout le monde";
+"user.login.banned.tip" = "Account suspended";
+"user.login.kicked.tip" = "Your account has been logged in on another device";
+"user.login.common.tip" = "Something went wrong, please try again later";
