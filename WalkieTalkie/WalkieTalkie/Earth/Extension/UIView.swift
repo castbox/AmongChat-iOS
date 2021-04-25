@@ -64,8 +64,6 @@ extension UIScrollView {
     func neverAdjustContentInset() {
         if #available(iOS 11.0, *) {
             self.contentInsetAdjustmentBehavior = .never
-        } else {
-            viewController()?.automaticallyAdjustsScrollViewInsets = false
         }
     }
 }
