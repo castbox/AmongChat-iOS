@@ -232,7 +232,7 @@ extension AmongChat.Home {
         
         private var joinBtnDisposable: Disposable? = nil
         
-        private var room: RoomInfoable? = nil
+        private var room: RoomDetailable? = nil
         
         override func viewDidLoad() {
             super.viewDidLoad()
@@ -292,7 +292,7 @@ extension AmongChat.Home {
         }
         
         
-        func updateContent(user: Entity.UserProfile, room: RoomInfoable) {
+        func updateContent(user: Entity.UserProfile, room: RoomDetailable) {
             self.room = room
             avatarIV.setImage(with: URL(string: user.pictureUrl))
             //            nameLabel.text =

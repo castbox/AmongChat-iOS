@@ -291,9 +291,9 @@ extension ChatRoomManager {
                 self.requestHeartBeating()
             })
         
-        _ = Settings.shared.loginResult.replay()
+        _ = Settings.shared.profilePage.replay()
             .subscribe(onNext: { [weak self] result in
-                guard let result = result, result.uid > 0 else {
+                guard let result = result?.profile, result.uid > 0, result.roleType == .some(.none) else {
                     self?.heartBeatingRequestDispose?.dispose()
                     return
                 }
@@ -302,7 +302,10 @@ extension ChatRoomManager {
     }
     
     func requestHeartBeating() {
-        guard let uid = Settings.loginUserId, uid > 0 else {
+        guard let profile = Settings.shared.profilePage.value?.profile,
+              profile.uid > 0,
+              profile.roleType == .some(.none) else {
+            heartBeatingRequestDispose?.dispose()
             return
         }
         var params: [String: Any] = [:]

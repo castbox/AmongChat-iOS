@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ReportImageCell" id="gTV-IL-0wX" customClass="ReportImageCell" customModule="WalkieTalkie" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="96" height="96"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="96" height="96"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="cF8-Hq-aaa">
+                        <rect key="frame" x="0.0" y="0.0" width="96" height="96"/>
+                        <color key="backgroundColor" red="0.12549019607843137" green="0.12549019607843137" blue="0.12549019607843137" alpha="1" colorSpace="deviceRGB"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                <real key="value" value="12"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </imageView>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aBn-y4-GL0">
+                        <rect key="frame" x="60" y="-6" width="42" height="42"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="42" id="Xe2-6i-Wsw"/>
+                            <constraint firstAttribute="width" constant="42" id="gYy-kM-Mtc"/>
+                        </constraints>
+                        <state key="normal" image="iconReportDelete"/>
+                        <connections>
+                            <action selector="deleteAction:" destination="gTV-IL-0wX" eventType="touchUpInside" id="ksq-xY-6My"/>
+                        </connections>
+                    </button>
+                </subviews>
+            </view>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <constraints>
+                <constraint firstItem="aBn-y4-GL0" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="-6" id="B44-6B-jY7"/>
+                <constraint firstAttribute="trailing" secondItem="aBn-y4-GL0" secondAttribute="trailing" constant="-6" id="Qn9-KD-feM"/>
+                <constraint firstItem="cF8-Hq-aaa" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="Si1-bq-Ii2"/>
+                <constraint firstAttribute="bottom" secondItem="cF8-Hq-aaa" secondAttribute="bottom" id="YRi-eQ-nBO"/>
+                <constraint firstItem="cF8-Hq-aaa" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="okA-5k-8vu"/>
+                <constraint firstAttribute="trailing" secondItem="cF8-Hq-aaa" secondAttribute="trailing" id="tKf-Sz-TSL"/>
+            </constraints>
+            <connections>
+                <outlet property="deleteButton" destination="aBn-y4-GL0" id="uem-Xc-KAo"/>
+                <outlet property="iconView" destination="cF8-Hq-aaa" id="Rip-0W-EQa"/>
+            </connections>
+            <point key="canvasLocation" x="135" y="154"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="iconReportDelete" width="24" height="24"/>
+    </resources>
+</document>

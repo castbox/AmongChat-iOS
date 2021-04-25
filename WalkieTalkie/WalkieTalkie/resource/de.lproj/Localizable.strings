@@ -466,3 +466,31 @@
 
 //1.17.1
 "among.chat.room.minecraft.name" = "Minecraft Spielername";
+
+//1.18
+"report.user" = "Benutzer melden";
+"report.success" = "Sie haben diese Person\nerfolgreich gemeldet";
+"report.failed" = "Bericht fehlgeschlagen. Bitte versuche es erneut";
+"report.comments" = "Bemerkungen";
+"report.comments.placeholder" = "Bitte beschreiben Sie den Bericht";
+"report.upload.screenshots" = "Screenshots hochladen";
+"report.select.reason.title" = "Bitte wählen Sie den Grund für den Bericht";
+"report.confirm" = "Bericht bestätigen";
+"mic.muted.tips" = "Sie wurden aufgrund eines Verstoßes gegen die Community-Richtlinien stummgeschaltet.";
+
+"admin.mute.mic.tips" = "Erfolgreich stummgeschaltet";
+"admin.mute.im.tips" = "Der Benutzer darf nicht live chatten";
+"admin.unmute.mic.tips" = "Die Stummschaltung erfolgreich aufheben";
+"admin.unmute.im.tips" = "Das Verbot erfolgreich aufheben";
+"admin.kick.tips" = "Erfolgreich getreten";
+"message.disable.tips" = "Sie wurden aufgrund eines Verstoßes gegen die Community-Richtlinien stummgeschaltet.";
+"enter.kicked.room.tips" = "Entschuldigung, Sie können den Kanal jetzt nicht erneut betreten.";
+"admin.cannot.matched.room.tips" = "Noch ist niemand online, bitte versuchen Sie es später noch einmal.";
+
+"alert.admin.mute.im" = "Live-Chat verbieten";
+"alert.admin.mute.mic" = "Stumm für alle";
+"alert.admin.unmute.im" = "Unban Live-Chat";
+"alert.admin.unmute.mic" = "Aufheben der Stummschaltung für alle";
+"user.login.banned.tip" = "Account suspended";
+"user.login.kicked.tip" = "Your account has been logged in on another device";
+"user.login.common.tip" = "Something went wrong, please try again later";

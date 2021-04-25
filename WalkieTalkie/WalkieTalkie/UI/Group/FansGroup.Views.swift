@@ -363,7 +363,7 @@ extension FansGroup.Views {
             return f
         }()
         
-        private lazy var placeholderLabel: UILabel = {
+        private(set) lazy var placeholderLabel: UILabel = {
             let l = UILabel()
             l.numberOfLines = 0
             l.font = R.font.nunitoExtraBold(size: 18)

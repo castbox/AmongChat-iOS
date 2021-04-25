@@ -35,6 +35,8 @@ extension ChatRoom {
         case kickoutRoom = "AC:Chatroom:Kick"
         case system = "AC:Chatroom:SystemText"
         case emoji = "AC:Chatroom:Emoji"
+        case muteMic = "AC:Chatroom:Mute"
+        case muteIm = "AC:Chatroom:MuteIm"//  （文字）
         
         //group
         case groupJoinRoom = "AC:Chatroom:GroupLiveJoin"
@@ -48,13 +50,27 @@ extension ChatRoom {
         let content: String
         let user: Entity.RoomUser
         let msgType: MessageType
+        let contentColor: String?
         
         var isGroupRoomHostMsg: Bool = false
         
         private enum CodingKeys: String, CodingKey {
             case content
             case user
+            case contentColor = "content_color"
             case msgType = "message_type"
+        }
+        
+        init(content: String,
+             user: Entity.RoomUser,
+             msgType: MessageType,
+             contentColor: String? = nil,
+             isGroupRoomHostMsg: Bool = false) {
+            self.content = content
+            self.user = user
+            self.msgType = msgType
+            self.contentColor = contentColor
+            self.isGroupRoomHostMsg = isGroupRoomHostMsg
         }
     }
 
@@ -97,6 +113,7 @@ extension ChatRoom {
         enum Role: String, Codable {
             case host
             case system //系统踢人
+            case admin
         }
         
         let roomId: String
@@ -158,6 +175,35 @@ extension ChatRoom {
             case hideDelaySec = "hide_delay_sec"
             case msgType = "message_type"
             case emojiType = "emoji_type"
+            case user
+        }
+    }
+    
+    struct MuteMicMessage: ChatRoomMessage {
+        
+        let roomId: String
+        let mute: Bool
+        let msgType: MessageType
+        let user: Entity.RoomUser
+        
+        private enum CodingKeys: String, CodingKey {
+            case roomId = "room_id"
+            case msgType = "message_type"
+            case mute
+            case user
+        }
+    }
+    
+    struct MuteImMessage: ChatRoomMessage {
+        let roomId: String
+        let mute: Bool
+        let msgType: MessageType
+        let user: Entity.RoomUser
+        
+        private enum CodingKeys: String, CodingKey {
+            case roomId = "room_id"
+            case msgType = "message_type"
+            case mute
             case user
         }
     }
@@ -295,7 +341,7 @@ extension ChatRoom.TextMessage {
         ]
         
         let contentAttr: [NSAttributedString.Key: Any] = [
-            .foregroundColor: UIColor.white,
+            .foregroundColor: contentColor?.color() ?? UIColor.white,
             .font: R.font.nunitoSemiBold(size: 12) ?? Font.caption1.value,
             .paragraphStyle: pargraph
 //            .kern: 0.5
@@ -403,6 +449,8 @@ extension ChatRoom.KickOutMessage.Role {
             return R.string.localizable.amongChatRoomKickout()
         case .system:
             return R.string.localizable.amongChatRoomKickoutSystem()
+        case .admin:
+            return R.string.localizable.amongChatRoomKickout()
         }
     }
 }

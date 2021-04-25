@@ -100,6 +100,8 @@ extension AmongChat.GroupRoom {
             broadcasterReplay = BehaviorRelay(value: groupInfo.group.broadcaster.toRoomUser(with: -1))
             super.init(room: groupInfo.group, source: source)
             startScheduleEvent()
+            startShowShareTimerIfNeed()
+            update(groupInfo.group)
             //update profile
             Settings.shared.updateProfile()
         }
@@ -156,7 +158,7 @@ extension AmongChat.GroupRoom {
             addUIMessage(message: textMessage)
         }
         
-        override func update(_ room: RoomInfoable) {
+        override func update(_ room: RoomDetailable) {
             super.update(room)
             //同步
             let user = updateSeatUserStatus(broadcaster)

@@ -63,7 +63,7 @@ class AmongInputNotesView: XibLoadableView {
         textView.textContainerInset = UIEdgeInsets(top: 20, left: 15, bottom: 20, right: 20)
     }
     
-    func show(with room: RoomInfoable) {
+    func show(with room: RoomDetailable) {
         if let group = room as? Entity.Group, group.topicType == .roblox {
             hostNotesPlaceholderLabel.text = R.string.localizable.groupRoomSetUpLink()
             hostNotesPlaceholderLabel.isHidden = group.robloxLink.isValid
@@ -76,6 +76,7 @@ class AmongInputNotesView: XibLoadableView {
         _ = becomeFirstResponder()
     }
     
+    @discardableResult
     override func becomeFirstResponder() -> Bool {
         return textView.becomeFirstResponder()
     }

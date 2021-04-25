@@ -19,33 +19,71 @@ extension Request {
     ])
 }
 
-struct MsgError: Error, Codable {
+struct MsgError: Error {
     //通用错误码
     enum CodeType: Int {
+        case retriveFailed = 1 //1校验失败，2没有cms权限，
+        case accountBanned = 3 //3封禁，
+        case deviceBanned = 4 //设备封禁，5伪造Header信息，6有新设备登录 (>1的都强制登出)
+        
         case notRoomHost = 3000 //'Only the room host can operate'
         case roomSeatsFull = 3001 //'The room is full'
-        case roomUserKick = 3002 //'You are kicked off, can not enter this room'
+        case roomUserKicked = 3002 //'You are kicked off, can not enter this room'
         case notEnoughRoomCard = 3004 // no free room card for create
         case needUpgrade = 3005 //need upgrade app
+        case cannotFindMatchRoom = 3007 //No channel match your language and age.
         case roomNotFound = 202 //'can not find this room'
     }
     
-    static let `default` = MsgError(code: 202, msg: "Please try again.")
+    static let `default` = MsgError(code: 202, msg: "Please try again.", data: nil)
     
     let code: Int
     let msg: String?
+    let data: [String: Any]?
     
+    //帐号被封时会有此字段
+    var uri: String? {
+        // code 401
+        if let data = data,
+           let uri = data["uri"] as? String {
+            return uri
+        }
+        return nil
+    }
+    
+    init(code: Int,
+         msg: String?,
+         data: [String: Any]? = nil) {
+        self.code = code
+        self.msg = msg
+        self.data = data
+    }
     //
     var codeType: CodeType? {
         return CodeType(rawValue: code)
     }
     
     static func from(dic: [String: Any]) -> MsgError {
-        var item: MsgError?
-        decoderCatcher {
-            item = try JSONDecoder().decodeAnyData(MsgError.self, from: dic)
+        guard let code = dic["code"] as? Int else {
+            return .default
         }
-        return item ?? .default
+        return MsgError(code: code, msg: dic["msg"] as? String, data: dic["data"] as? [String: Any])
+    }
+}
+
+extension MsgError.CodeType {
+    
+    var tips: String? {
+        switch self {
+        case .needUpgrade:
+            return R.string.localizable.forceUpgradeTip()
+        case .roomUserKicked:
+            return R.string.localizable.enterKickedRoomTips()
+        case .cannotFindMatchRoom:
+            return R.string.localizable.adminCannotMatchedRoomTips()
+        default:
+            return nil
+        }
     }
 }
 
@@ -85,7 +123,15 @@ extension Request {
         
         return amongchatProvider.rx.request(.login(paras))
             .mapJSON()
-            .mapToDataKeyJsonValue()
+            .map { item -> [String : AnyObject] in
+                guard let json = item as? [String: AnyObject],  let code = json["code"] as? Int else {
+                    throw MsgError.default
+                }
+                guard code == 0, let data = json["data"] as? [String: AnyObject] else {
+                    throw MsgError.from(dic: json)
+                }
+                return data
+            }
             .mapTo(Entity.LoginResult.self)
             .observeOn(MainScheduler.asyncInstance)
             .do(onSuccess: { (result) in
@@ -151,7 +197,7 @@ extension Request {
             .observeOn(MainScheduler.asyncInstance)
     }
     
-    static func enterRoom(roomId: String? = nil, topicId: String?, source: String? = nil) -> Single<Entity.Room?> {
+    static func enterRoom(roomId: String? = nil, topicId: String?, source: String? = nil) -> Single<Entity.RoomInfo?> {
         
         var paras = [String : Any]()
         if let rid = roomId { paras["room_id"] = rid }
@@ -160,22 +206,27 @@ extension Request {
         paras["rtc_support"] = "agora,zego"
         return amongchatProvider.rx.request(.enteryRoom(paras))
             .mapJSON()
+//            .mapToDataKeyJsonValue()
             .map { item -> [String : AnyObject] in
                 guard let json = item as? [String: AnyObject] else {
                     throw MsgError.default
                 }
                 if let data = json["data"] as? [String: AnyObject],
-                   let roomData = data["room"] as? [String : AnyObject] {
-                    return roomData
+                   let _ = data["room"] as? [String : AnyObject] {
+                    return data
                 } else {
                     throw MsgError.from(dic: json)
                 }
             }
-            .mapTo(Entity.Room.self)
+            .mapTo(Entity.RoomInfo.self)
             .observeOn(MainScheduler.asyncInstance)
+            .do { info in
+                guard let info = info, info.isSilentValue, !Settings.isSilentUser else { return }
+                Settings.shared.updateProfile()
+            }
     }
     
-    static func createRoom(_ room: Entity.RoomProto) -> Single<Entity.Room?> {
+    static func createRoom(_ room: Entity.RoomProto) -> Single<Entity.RoomInfo?> {
         
         guard var params = room.dictionary else {
             return Observable.just(nil).asSingle()
@@ -184,19 +235,24 @@ extension Request {
 
         return amongchatProvider.rx.request(.createRoom(params))
             .mapJSON()
+//            .mapToDataKeyJsonValue()
             .map { item -> [String : AnyObject] in
                 guard let json = item as? [String: AnyObject] else {
                     throw MsgError.default
                 }
                 if let data = json["data"] as? [String: AnyObject],
-                   let roomData = data["room"] as? [String : AnyObject] {
-                    return roomData
+                   let _ = data["room"] as? [String : AnyObject] {
+                    return data
                 } else {
                     throw MsgError.from(dic: json)
                 }
             }
-            .mapTo(Entity.Room.self)
+            .mapTo(Entity.RoomInfo.self)
             .observeOn(MainScheduler.asyncInstance)
+            .do { info in
+                guard let info = info, info.isSilentValue, !Settings.isSilentUser else { return }
+                Settings.shared.updateProfile()
+            }
     }
     
     static func updateRoomInfo(room: Entity.Room?) -> Single<Entity.Room?> {
@@ -705,7 +761,11 @@ extension Request {
             return Single.error(MsgError.default)
         }
         
-        return amongchatProvider.rx.request(.uploadFile(data: data, ext: "png", mimeType: "image/png", type: .image))
+        return uploadData(data, ext: "png", mimeType: "image/png", type: .image)
+    }
+    
+    static func uploadData(_ data: Data, ext: String, mimeType: String, type: APIService.AmongChatBackend.FileType) -> Single<String> {
+        return amongchatProvider.rx.request(.uploadFile(data: data, ext: ext, mimeType: mimeType, type: type))
             .mapJSON()
             .map { item -> String in
                 guard let json = item as? [String: AnyObject],
@@ -721,6 +781,15 @@ extension Request {
                 
                 return url
             }
+    }
+    
+    static func uploadAsJpg(image: UIImage, compressing: CGFloat = 0.4) -> Single<String> {
+        
+        guard let data = image.jpegData(compressionQuality: compressing) else {
+            return Single.error(MsgError.default)
+        }
+        
+        return uploadData(data, ext: "jpeg", mimeType: "image/jpg", type: .image)
     }
 
     static func rtcToken(_ joinable: RTCJoinable) -> Single<String?> {
@@ -1344,4 +1413,81 @@ extension Request {
             .observeOn(MainScheduler.asyncInstance)
     }
 
+    static func reportReasons() -> Single<Entity.Report?> {
+        return amongchatProvider.rx.request(.reportReasons)
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .mapTo(Entity.Report.self)
+            .observeOn(MainScheduler.asyncInstance)
+    }
+    
+    /// 举报用户或直播间
+    static func reportContent(type: Report.ReportType, targetID: String, reasonID: Int, note: String? = nil, pics: [String] = [], roomId: String = "", operate: Report.ReportOperate?) -> Single<Bool> {
+        
+        var paras: [String: Any] = ["report_type": type.rawValue, "target_id": targetID, "reason_id": reasonID, "note": note ?? "", "operate": operate?.rawValue ?? ""]
+        // 额外证据
+        paras["extra"] = [
+            "pics": pics,
+            "room_id": roomId
+        ]
+        return amongchatProvider.rx.request(.report(paras))
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .mapToProcessedValue()
+            .observeOn(MainScheduler.asyncInstance)
+    }
+    
+    static func adminKick(user uid: String, roomId: String) -> Single<Bool> {
+        let paras: [String: Any] = ["target_uid": uid, "room_id": roomId]
+        return amongchatProvider.rx.request(.adminKickUser(paras))
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .mapToProcessedValue()
+            .observeOn(MainScheduler.asyncInstance)
+    }
+    
+    static func adminMuteMic(user uid: String, roomId: String) -> Single<Bool> {
+        let paras: [String: Any] = ["target_uid": uid, "room_id": roomId]
+        return amongchatProvider.rx.request(.adminMuteMic(paras))
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .mapToProcessedValue()
+            .observeOn(MainScheduler.asyncInstance)
+    }
+    
+    static func adminUnmuteMic(user uid: String, roomId: String) -> Single<Bool> {
+        let paras: [String: Any] = ["target_uid": uid, "room_id": roomId]
+        return amongchatProvider.rx.request(.adminUnmuteMic(paras))
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .mapToProcessedValue()
+            .observeOn(MainScheduler.asyncInstance)
+    }
+
+    static func adminMuteIm(user uid: String, roomId: String) -> Single<Bool> {
+        let paras: [String: Any] = ["target_uid": uid, "room_id": roomId]
+        return amongchatProvider.rx.request(.adminMuteIm(paras))
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .mapToProcessedValue()
+            .observeOn(MainScheduler.asyncInstance)
+    }
+    
+    static func adminUnmuteIm(user uid: String, roomId: String) -> Single<Bool> {
+        let paras: [String: Any] = ["target_uid": uid, "room_id": roomId]
+        return amongchatProvider.rx.request(.adminUnmuteIm(paras))
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .mapToProcessedValue()
+            .observeOn(MainScheduler.asyncInstance)
+    }
+    
+    static func roomMuteInfo(user uid: String, roomId: String) -> Single<Entity.UserMuteInfo?> {
+        let paras: [String: Any] = ["target_uid": uid, "room_id": roomId]
+        return amongchatProvider.rx.request(.roomMuteInfo(paras))
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .mapTo(Entity.UserMuteInfo.self)
+            .observeOn(MainScheduler.asyncInstance)
+    }
 }

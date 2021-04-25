@@ -163,7 +163,9 @@ extension Routes {
             if !FireLink.handle(dynamicLink: url, completion: { (url) in
                 Routes.handle(url)
             }) {
-                guard !url.absoluteString.contains("among.chat") else { return }
+                guard url.absoluteString.contains("among.chat") else {
+                    return
+                }
                 cdPrint("open url on webpage: \(url.absoluteString)")
                 showWebViewController(urlString: url.absoluteString)
             }

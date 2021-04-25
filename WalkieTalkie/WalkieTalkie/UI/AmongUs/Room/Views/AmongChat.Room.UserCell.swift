@@ -324,11 +324,11 @@ extension AmongChat.Room {
             Observable<Int>
                 .interval(.seconds(5), scheduler: MainScheduler.instance)
                 .single()
-                .subscribe(onNext: { [weak welf = self] _ in
-                    guard let `self` = welf else { return }
+                .subscribe(onNext: { [weak self] _ in
+                    guard let `self` = self else { return }
                     self.dismissTipsView()
                 })
-                .disposed(by: self.bag)
+                .disposed(by: bag)
         }
         
         func dismissTipsView() {

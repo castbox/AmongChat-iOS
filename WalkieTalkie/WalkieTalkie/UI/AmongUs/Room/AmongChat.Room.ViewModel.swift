@@ -35,15 +35,32 @@ extension AmongChat.Room {
             roomReplay.value as! Entity.Room
         }
         
+//        let roomInfoReplay: BehaviorRelay<Entity.RoomInfo>
+//
+//        private var roomInfo: Entity.RoomInfo {
+//            roomInfoReplay.value
+//        }
+        
+        let muteInfoReplay: BehaviorRelay<Entity.UserMuteInfo>
+        
+        var muteInfo: Entity.UserMuteInfo {
+            set { muteInfoReplay.accept(newValue) }
+            get { muteInfoReplay.value }
+        }
+        
         deinit {
             debugPrint("[DEINIT-\(NSStringFromClass(type(of: self)))]")
         }
         
-        override init(room: RoomInfoable, source: ParentPageSource?) {
-            if room.loginUserIsAdmin {
-                Logger.Action.log(.admin_imp, categoryValue: room.topicId)
+        init(roomInfo: Entity.RoomInfo, source: ParentPageSource?) {
+            if roomInfo.room.loginUserIsAdmin {
+                Logger.Action.log(.admin_imp, categoryValue: roomInfo.room.topicId)
             }
-            super.init(room: room, source: source)
+            muteInfoReplay = BehaviorRelay(value: roomInfo.muteInfo ?? Entity.UserMuteInfo.empty())
+            super.init(room: roomInfo.room, source: source)
+            self.isSilentUser = roomInfo.isSilentValue
+            startShowShareTimerIfNeed()
+            update(roomInfo.room)
         }
         
         func requestLeaveChannel() -> Single<Bool> {
@@ -88,7 +105,60 @@ extension AmongChat.Room {
             updateRoomInfo(room)
         }
         
-        //MARK: -- Request
+        //MARK: -- Override
+        override func addJoinMessage() {
+            guard !isSilentUser else {
+                return
+            }
+            super.addJoinMessage()
+        }
+        
+        override func startShowShareTimerIfNeed() {
+            guard !isSilentUser else {
+                return
+            }
+            super.startShowShareTimerIfNeed()
+        }
+        
+        override func delayToShowShareViewIfNeed() {
+            guard !isSilentUser else {
+                return
+            }
+            super.delayToShowShareViewIfNeed()
+        }
+        
+        override func onReceiveChatRoom(crMessage: ChatRoomMessage) {
+            
+            if let message = crMessage as? ChatRoom.MuteMicMessage,
+               message.user.uid == Settings.loginUserId {
+                var muteInfo = self.muteInfo
+                muteInfo.isMute = message.mute
+                self.muteInfo = muteInfo
+            } else if let message = crMessage as? ChatRoom.MuteImMessage,
+                      message.user.uid == Settings.loginUserId {
+                var muteInfo = self.muteInfo
+                muteInfo.isMuteIm = message.mute
+                self.muteInfo = muteInfo
+            } else {
+                super.onReceiveChatRoom(crMessage: crMessage)
+            }
+        }
+        
+        override func sendText(message: String?) {
+            guard
+                let message = message?.trimmed,
+                !message.isEmpty,
+                let user = room.userList.first(where: { $0.uid == Settings.loginUserId }) else {
+                return
+            }
+            //检查是否 Im 被 mute
+            guard !muteInfo.isMuteIm else {
+                addImMutedMessage(user: user)
+                return
+            }
+            super.sendText(message: message)
+        }
+        
         override func requestRoomInfo() {
             let roomId = room.roomId
             Request.roomInfo(with: roomId)
@@ -123,7 +193,7 @@ extension AmongChat.Room {
         }
         
         //快速切换房间
-        func nextRoom(completionHandler: ((_ room: Entity.Room?, _ errorMessage: String?) -> Void)?) {
+        func nextRoom(completionHandler: ((_ room: Entity.RoomInfo?, _ errorMessage: String?) -> Void)?) {
             //clear status
             let topicId = room.topicId
             requestLeaveChannel()
@@ -134,7 +204,7 @@ extension AmongChat.Room {
 //                    self?.messages = []
 //                    self?.triggerMessageListReload()
 //                })
-                .flatMap { result -> Single<Entity.Room?> in
+                .flatMap { result -> Single<Entity.RoomInfo?> in
                     return Request.enterRoom(topicId: topicId, source: ParentPageSource(.room).key)
                 }
                 .subscribe(onSuccess: { [weak self] (room) in
@@ -161,6 +231,14 @@ extension AmongChat.Room {
                 })
                 .disposed(by: bag)
 
+        }
+        
+        func adminUnmuteMic(user uid: String) -> Single<Bool> {
+            return Request.adminUnmuteMic(user: uid, roomId: room.roomId)
+        }
+        
+        func adminUnmuteIm(user uid: String) -> Single<Bool> {
+            return Request.adminUnmuteIm(user: uid, roomId: room.roomId)
         }
     }
     

@@ -184,6 +184,12 @@ extension Social {
             super.viewWillAppear(animated)
             fetchRealation()
         }
+        
+        override func showReportSheet() {
+            Report.ViewController.showReport(on: self, uid: uid.string, type: .user, roomId: "", operate: nil) { [weak self] in
+                self?.view.raft.autoShow(.text(R.string.localizable.reportSuccess()))
+            }
+        }
     }
 }
 

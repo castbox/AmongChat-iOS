@@ -145,10 +145,7 @@ extension JoinRoomable where Self: ViewController {
                 cdPrint("error: \(error.localizedDescription)")
                 var msg: String {
                     if let error = error as? MsgError {
-                        if let codeType = error.codeType, codeType == .needUpgrade {
-                            return R.string.localizable.forceUpgradeTip()
-                        }
-                        return error.localizedDescription
+                        return error.codeType?.tips ?? error.localizedDescription
                     } else {
                         return R.string.localizable.amongChatHomeEnterRoomFailed()
                     }

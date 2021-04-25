@@ -12,7 +12,7 @@ extension AmongChat.Room {
     class MessageListView: UIView {
         
         var messageEventHandler: () -> Void = { }
-        weak var dataSource: MessageDataSource?
+        var dataSource: MessageDataSource
         
         private lazy var messageBackgroundLayer = CAGradientLayer()
         private lazy var messageBackgroundView: UIView = {
@@ -34,9 +34,17 @@ extension AmongChat.Room {
             return tb
         }()
         
+        private var isSilentUser: Bool {
+            guard let viewModel = dataSource as? AmongChat.BaseRoomViewModel else {
+                return false
+            }
+            return viewModel.isSilentUser
+        }
+
         
-        override init(frame: CGRect) {
-            super.init(frame: frame)
+        init(with dataSource: MessageDataSource) {
+            self.dataSource = dataSource
+            super.init(frame: .zero)
             configureSubview()
             bindSubviewEvent()
         }
@@ -50,7 +58,11 @@ extension AmongChat.Room {
             messageBackgroundLayer.frame = messageBackgroundView.bounds
         }
         
-        func bind(dataSource: MessageDataSource) {
+//        func bind(dataSource: MessageDataSource) {
+//            self.dataSource = dataSource
+//        }
+        
+        private func bindSubviewEvent() {
             dataSource.messageListUpdateEventHandler = { [weak self] in
                 guard let `self` = self else { return }
                 let contentHeight = self.messageView.contentSize.height
@@ -64,7 +76,7 @@ extension AmongChat.Room {
                 } else {// 超过一屏
                     if floor(bottomOffset) - floor(height) < 40 {// 已经在底部
                         let rows = self.messageView.numberOfRows(inSection: 0)
-                        let newRow = self.dataSource?.messages.count ?? 0
+                        let newRow = self.dataSource.messages.count
                         guard newRow > rows else { return }
                         let indexPaths = Array(rows..<newRow).map({ IndexPath(row: $0, section: 0) })
                         self.messageView.beginUpdates()
@@ -83,11 +95,6 @@ extension AmongChat.Room {
                     }
                 }
             }
-            self.dataSource = dataSource
-        }
-        
-        private func bindSubviewEvent() {
-            
         }
         
         private func configureSubview() {
@@ -99,16 +106,28 @@ extension AmongChat.Room {
             //            let messageViewTopEdge = Frame.Height.deviceDiagonalIsMinThan4_7 ? 0 : 17
             messageView.snp.makeConstraints { (maker) in
                 maker.edges.equalToSuperview()
-                //                maker.top.equalTo(seatView.snp.bottom).offset(messageViewTopEdge)
-                //                maker.bottom.equalTo(bottomBar.snp.top).offset(-10)
-                //                maker.left.right.equalToSuperview()
             }
             
-            messageBackgroundView.snp.makeConstraints { (maker) in
-                maker.leading.top.trailing.equalToSuperview()
-                maker.bottom.equalToSuperview().offset(10 + 42 + (Frame.Height.isXStyle ? Frame.Height.safeAeraTopHeight : 20) + 5)
+            if isSilentUser {
+                messageView.snp.makeConstraints { (maker) in
+                    maker.leading.top.trailing.equalToSuperview()
+                    maker.bottom.equalToSuperview().offset(-(10 + Frame.Height.safeAeraTopHeight))
+                }
+                messageBackgroundView.snp.makeConstraints { (maker) in
+                    maker.edges.equalToSuperview()
+//                    maker.leading.top.trailing.equalToSuperview()
+//                    maker.bottom.equalToSuperview().offset(10 + 42 + (Frame.Height.isXStyle ? Frame.Height.safeAeraTopHeight : 20) + 5)
+                }
+            } else {
+                messageView.snp.makeConstraints { (maker) in
+                    maker.edges.equalToSuperview()
+                }
+                
+                messageBackgroundView.snp.makeConstraints { (maker) in
+                    maker.leading.top.trailing.equalToSuperview()
+                    maker.bottom.equalToSuperview().offset(10 + 42 + (Frame.Height.isXStyle ? Frame.Height.safeAeraTopHeight : 20) + 5)
+                }
             }
-            
         }
         
         func messageListScrollToBottom() {
@@ -127,14 +146,14 @@ extension AmongChat.Room.MessageListView: UITableViewDataSource, UITableViewDele
     // MARK: - UITableViewDataSource
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return dataSource?.messages.count ?? 0
+        return dataSource.messages.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: NSStringFromClass(AmongChat.Room.MessageTextCell.self), for: indexPath)
         
         if let cell = cell as? AmongChat.Room.MessageTextCell,
-           let model = dataSource?.messages.safe(indexPath.row) {
+           let model = dataSource.messages.safe(indexPath.row) {
             cell.configCell(with: model)
         }
         
@@ -146,7 +165,7 @@ extension AmongChat.Room.MessageListView: UITableViewDataSource, UITableViewDele
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
         
-        if let message = dataSource?.messages.safe(indexPath.row) as? MessageListable {
+        if let message = dataSource.messages.safe(indexPath.row) as? MessageListable {
             message.rawContent?.copyToPasteboardWithHaptic()
         }
         

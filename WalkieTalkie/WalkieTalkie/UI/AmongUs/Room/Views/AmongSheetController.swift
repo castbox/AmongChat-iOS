@@ -22,6 +22,11 @@ class AmongSheetController: ViewController {
         case kick
         case cancel
         case drop
+        case adminMuteIm
+        case adminUnmuteIm
+        case adminMuteMic
+        case adminUnmuteMic
+        case adminKick
     }
     
     enum UIStyleType {
@@ -166,7 +171,7 @@ extension AmongSheetController.ItemType {
         switch self {
         case .profile, .follow, .drop:
             return .white
-        case .block, .unblock, .mute, .unmute, .report, .kick:
+        case .block, .unblock, .mute, .unmute, .report, .kick, .adminKick, .adminMuteIm, .adminMuteMic, .adminUnmuteMic, .adminUnmuteIm:
             return "FB5858".color()
         case .cancel:
             return "898989".color()
@@ -200,12 +205,20 @@ extension AmongSheetController.ItemType {
             return R.string.localizable.channelUserListUnmute()
         case .report:
             return R.string.localizable.reportTitle()
-        case .kick:
+        case .kick, .adminKick:
             return R.string.localizable.amongChatRoomKick()
         case .cancel:
             return R.string.localizable.toastCancel()
         case .drop:
             return R.string.localizable.alertDrop()
+        case .adminMuteIm:
+            return R.string.localizable.alertAdminMuteIm()
+        case .adminMuteMic:
+            return R.string.localizable.alertAdminMuteMic()
+        case .adminUnmuteMic:
+            return R.string.localizable.alertAdminUnmuteMic()
+        case .adminUnmuteIm:
+            return R.string.localizable.alertAdminUnmuteIm()
         default:
             return ""
         }

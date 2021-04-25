@@ -282,7 +282,7 @@ extension Entity {
 //        var msgType: Peer.MessageType
 //        private var group: Entity.Group?
 //        
-////        var room: RoomInfoable? {
+////        var room: RoomDetailable? {
 ////            return _room ?? _group
 ////        }
 //        

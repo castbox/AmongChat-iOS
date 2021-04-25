@@ -204,7 +204,7 @@ extension AmongChat.Home.RelationsViewController: UICollectionViewDataSource {
                 cell.bind(viewModel: playing, onJoin: { [weak self] in
                     
                     guard let roomState = playing.roomState,
-                          roomState == .public else {
+                          (roomState == .public || Settings.isSilentUser) else {
                         self?.view.raft.autoShow(.text(R.string.localizable.amongChatHomeFirendsPrivateChannelTip()))
                         return
                     }

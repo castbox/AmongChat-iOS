@@ -473,8 +473,16 @@ class Settings {
     }
     
     func clearAll() {
-        loginResult.value = nil
-        amongChatUserProfile.value = nil
+        if loginResult.value != nil {
+            loginResult.value = nil
+        }
+        if amongChatUserProfile.value != nil {
+            amongChatUserProfile.value = nil            
+        }
+        
+        if profilePage.value != nil {
+            profilePage.value = nil
+        }
         Defaults[\.amongChatReleationSuggestedContacts] = []
     }
 }
@@ -495,6 +503,20 @@ extension Settings {
     
     static var profileFollowData: Entity.RelationData? {
         return shared.profilePage.value?.followData
+    }
+    
+    //巡警
+    static var isMonitor: Bool {
+        shared.profilePage.value?.profile?.isMonitor ?? false
+    }
+    
+    //超管
+    static var isSuperAdmin: Bool {
+        shared.profilePage.value?.profile?.isSuperAdmin ?? false
+    }
+    
+    static var isSilentUser: Bool {
+        isMonitor || isSuperAdmin
     }
     
     func fetchGlobalConfig() {

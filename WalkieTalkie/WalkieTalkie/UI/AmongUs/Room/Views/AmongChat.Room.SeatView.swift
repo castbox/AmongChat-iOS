@@ -102,7 +102,7 @@ extension AmongChat.Room {
         
         let viewModel: AmongChat.BaseRoomViewModel
                 
-        var room: RoomInfoable! {
+        var room: RoomDetailable! {
             didSet {
 //                dataSource = room.userListMap
             }
@@ -139,7 +139,7 @@ extension AmongChat.Room {
         
         var actionHandler: ((Action) -> Void)?
         
-        init(room: RoomInfoable, itemStyle: ItemStyle = .normal, viewModel: AmongChat.BaseRoomViewModel) {
+        init(room: RoomDetailable, itemStyle: ItemStyle = .normal, viewModel: AmongChat.BaseRoomViewModel) {
             self.room = room
             self.viewModel = viewModel
             self.itemStyle = itemStyle
@@ -206,13 +206,22 @@ extension AmongChat.Room {
                 return
             }
             let removeBlock = parentViewController?.view.raft.show(.loading)
-            Request.relationData(uid: user.uid).asObservable()
+            //
+            
+           let relationObservable = Request.relationData(uid: user.uid).asObservable()
+            var muteInfoObservable: Observable<Entity.UserMuteInfo?> {
+                guard Settings.isSuperAdmin else {
+                    return .just(nil)
+                }
+                return Request.roomMuteInfo(user: user.uid.string, roomId: room.roomId).asObservable()
+            }
+            Observable.zip(relationObservable, muteInfoObservable)
                 .observeOn(MainScheduler.asyncInstance)
-                .subscribe(onNext: { [weak self] relation in
+                .subscribe(onNext: { [weak self] relation, info in
                     removeBlock?()
                     guard let `self` = self,
                           let data = relation else { return }
-                    self.showAvatarSheet(with: user, relation: data)
+                    self.showAvatarSheet(with: user, muteInfo: info, relation: data)
                 }, onError: { error in
                     removeBlock?()
                     cdPrint("relationData error :\(error.localizedDescription)")
@@ -220,7 +229,7 @@ extension AmongChat.Room {
                 .disposed(by: bag)
         }
         
-        func showAvatarSheet(with user: Entity.RoomUser, relation: Entity.RelationData) {
+        func showAvatarSheet(with user: Entity.RoomUser, muteInfo: Entity.UserMuteInfo?, relation: Entity.RelationData) {
             guard let viewController = containingController else {
                 return
             }
@@ -232,29 +241,43 @@ extension AmongChat.Room {
             
             var items: [AmongSheetController.ItemType] = [.userInfo, .profile]
 
-            let isFollowed = relation.isFollowed ?? false
-            if !isFollowed {
-                items.append(.follow)
+            if itemStyle == .normal, Settings.isSuperAdmin {
+                //有信息
+                if let muteInfo = muteInfo {
+                    if muteInfo.isMute {
+                        items.append(.adminUnmuteMic)
+                    } else {
+                        items.append(.adminMuteMic)
+                    }
+                    if muteInfo.isMuteIm {
+                        items.append(.adminUnmuteIm)
+                    } else {
+                        items.append(.adminMuteIm)
+                    }
+                } else {
+                    items.append(contentsOf: [.adminMuteIm, .adminMuteMic])
+                }
+                items.append(contentsOf: [.adminKick, .cancel])
             }
-            //
-            if group?.loginUserIsAdmin == true {
-                items.append(.drop)
-            }
-            let isBlocked = relation.isBlocked ?? false
-            let blockItem: AmongSheetController.ItemType = isBlocked ? .unblock : .block
-            
-            let muteItem: AmongSheetController.ItemType = viewModel.mutedUser.contains(user.uid.uInt) ? .unmute : .mute
-            if itemStyle == .group {
-//                if group?.loginUserIsAdmin == true {
-//                    items.append(.kick)
-//                }
-            } else {
-                if viewModel.roomReplay.value.userList.first?.uid == Settings.loginUserId {
+            else {
+                //普通用户
+                let isFollowed = relation.isFollowed ?? false
+                if !isFollowed {
+                    items.append(.follow)
+                }
+                //
+                if group?.loginUserIsAdmin == true {
+                    items.append(.drop)
+                }
+                let isBlocked = relation.isBlocked ?? false
+                let blockItem: AmongSheetController.ItemType = isBlocked ? .unblock : .block
+                
+                let muteItem: AmongSheetController.ItemType = viewModel.mutedUser.contains(user.uid.uInt) ? .unmute : .mute
+                if itemStyle == .normal, room.loginUserIsAdmin {
                     items.append(.kick)
                 }
+                items.append(contentsOf: [blockItem, muteItem, .report, .cancel])
             }
-            
-            items.append(contentsOf: [blockItem, muteItem, .report, .cancel])
 
             AmongSheetController.show(with: user, items: items, in: viewController) { [weak self] item in
                 if self?.itemStyle == .group {

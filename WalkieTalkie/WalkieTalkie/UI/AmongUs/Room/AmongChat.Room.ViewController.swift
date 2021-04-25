@@ -51,7 +51,7 @@ extension AmongChat.Room {
         private var isKeyboardVisible = false
         private var keyboardHiddenBlock: CallBack?
         
-        var switchLiveRoomHandler: ((Entity.Room) -> Void)?
+        var switchLiveRoomHandler: ((Entity.RoomInfo) -> Void)?
         //显示父视图 loading
         var showContainerLoading: ((Bool) -> Void)?
         var showInnerJoinLoading: Bool = false
@@ -120,10 +120,7 @@ extension AmongChat.Room {
             return AmongChat.Room.SeatView(room: room, viewModel: viewModel)
         }()
         
-        private lazy var messageView: MessageListView = {
-            let tb = MessageListView()
-            return tb
-        }()
+        private lazy var messageView = MessageListView(with: viewModel)
                 
         private lazy var adContainer: UIView = {
             let v = UIView()
@@ -174,12 +171,12 @@ extension AmongChat.Room.ViewController {
     
     @objc
     private func onCloseBtn() {
-        showAmongAlert(title: R.string.localizable.amongChatLeaveRoomTipTitle(), message: nil, cancelTitle: R.string.localizable.toastCancel()) { [weak self] in
+        showAmongAlert(title: R.string.localizable.amongChatLeaveRoomTipTitle(), message: nil, cancelTitle: R.string.localizable.toastCancel(), confirmAction:  { [weak self] in
             guard let `self` = self else { return }
             self.requestLeaveRoom { [weak self] in
                 self?.showRecommendUser()
             }
-        }
+        })
     }
     
     @objc
@@ -260,6 +257,8 @@ extension AmongChat.Room.ViewController {
         bottomBar = AmongRoomBottomBar()
         bottomBar.isMicOn = true
         bottomBar.update(room)
+        bottomBar.isHidden = viewModel.isSilentUser
+        configView.isUserInteractionEnabled = !viewModel.isSilentUser
         
         nickNameInputView = AmongInputNickNameView()
         nickNameInputView.alpha = 0
@@ -275,13 +274,13 @@ extension AmongChat.Room.ViewController {
                          bottomBar, nickNameInputView, inputNotesView, topEntranceView)
         
         topBar.snp.makeConstraints { maker in
-            maker.left.right.equalToSuperview()
+            maker.leading.trailing.equalToSuperview()
             maker.top.equalTo(topLayoutGuide.snp.bottom)
             maker.height.equalTo(60)
         }
         
         configView.snp.makeConstraints { maker in
-            maker.left.right.equalToSuperview()
+            maker.leading.trailing.equalToSuperview()
             maker.top.equalTo(topBar.snp.bottom)
             maker.height.equalTo(125)
         }
@@ -292,7 +291,7 @@ extension AmongChat.Room.ViewController {
 
         let seatViewTopEdge = Frame.Height.deviceDiagonalIsMinThan4_7 ? 0 : 40
         seatView.snp.makeConstraints { (maker) in
-            maker.left.right.equalToSuperview()
+            maker.leading.trailing.equalToSuperview()
             maker.top.equalTo(configView.snp.bottom).offset(seatViewTopEdge)
             maker.height.equalTo(251)
         }
@@ -300,30 +299,34 @@ extension AmongChat.Room.ViewController {
         let messageViewTopEdge = Frame.Height.deviceDiagonalIsMinThan4_7 ? 0 : 17
         messageView.snp.makeConstraints { (maker) in
             maker.top.equalTo(seatView.snp.bottom).offset(messageViewTopEdge)
-            maker.bottom.equalTo(bottomBar.snp.top).offset(-10)
-            maker.left.right.equalToSuperview()
+            if viewModel.isSilentUser {
+                maker.bottom.equalToSuperview()
+            } else {
+                maker.bottom.equalTo(bottomBar.snp.top).offset(-10)
+            }
+            maker.leading.trailing.equalToSuperview()
         }
         
         messageInputContainerView.snp.makeConstraints { (maker) in
-            maker.left.top.right.equalToSuperview()
+            maker.leading.trailing.top.equalToSuperview()
             maker.bottom.equalToSuperview()
         }
         
         amongInputCodeView.snp.makeConstraints { (maker) in
-            maker.left.top.right.bottom.equalToSuperview()
+            maker.leading.top.trailing.bottom.equalToSuperview()
         }
         
         nickNameInputView.snp.makeConstraints { (maker) in
-            maker.left.top.right.bottom.equalToSuperview()
+            maker.leading.top.trailing.bottom.equalToSuperview()
         }
         
         inputNotesView.snp.makeConstraints { (maker) in
-            maker.left.top.right.bottom.equalToSuperview()
+            maker.leading.top.trailing.bottom.equalToSuperview()
         }
         
         bottomBar.snp.makeConstraints { maker in
             maker.bottom.equalTo(Frame.Height.isXStyle ? -Frame.Height.safeAeraTopHeight : -20)
-            maker.left.right.equalToSuperview()
+            maker.leading.trailing.equalToSuperview()
             maker.height.equalTo(42)
         }
         
@@ -404,7 +407,7 @@ extension AmongChat.Room.ViewController {
             .bind(to: seatView.rx.soundAnimation)
             .disposed(by: bag)
 
-        messageView.bind(dataSource: viewModel)
+//        messageView.bind(dataSource: viewModel)
         
         viewModel.endRoomHandler = { [weak self] action in
             guard let `self` = self else { return }
@@ -480,13 +483,17 @@ extension AmongChat.Room.ViewController {
                 ()
             }
         }
+        
+        viewModel.bottomBarHideReplay
+            .bind(to: bottomBar.rx.isHidden)
+            .disposed(by: bag)
         //
         viewModel.addJoinMessage()
         
         viewModel.shareEventHandler = { [weak self] in
             self?.onShareBtn()
         }
-        
+                
         configView.updateEditTypeHandler = { [weak self] editType in
             self?.editType = editType
         }
@@ -614,8 +621,20 @@ extension AmongChat.Room.ViewController {
             self?.showContainerLoading?(false)
             if error != nil {
                 self?.requestLeaveRoom()
+            } else {
+                self?.startObserveMuteInfo()
             }
+            //start
         }
+    }
+    
+    func startObserveMuteInfo() {
+        viewModel.muteInfoReplay
+            .observeOn(MainScheduler.asyncInstance)
+            .subscribe(onNext: { [weak self] muteInfo in
+                self?.bottomBar.muteInfo = muteInfo
+            })
+            .disposed(by: bag)
     }
     
     func nextRoom() {
@@ -624,7 +643,7 @@ extension AmongChat.Room.ViewController {
         showContainerLoading?(true)
         viewModel.nextRoom { [weak self] room, errorMsg in
             if let room = room {
-                Logger.Action.log(.room_next_room_success, categoryValue: room.topicName)
+                Logger.Action.log(.room_next_room_success, categoryValue: room.room.topicName)
                 self?.switchLiveRoomHandler?(room)
             } else {
                 self?.showContainerLoading?(false)
@@ -649,11 +668,43 @@ extension AmongChat.Room.ViewController {
         case .unmute:
             viewModel.unmuteUser(user)
         case .report:
-            self.showReportSheet()
+            showReport(for: user, operate: nil)
         case .kick:
             requestKick([user.uid])
+        case .adminKick:
+            showReport(for: user, operate: .kick)
+        case .adminMuteIm:
+            showReport(for: user, operate: .muteIm)
+        case .adminUnmuteIm:
+            let removeBlock = self.view.raft.show(.loading, userInteractionEnabled: false)
+            viewModel.adminUnmuteIm(user: user.uid.string)
+                .subscribe { [weak self] result in
+                    removeBlock()
+                    self?.view.raft.autoShow(.text(Report.ReportOperate.unmuteIm.title))
+                } onError: { error in
+                    removeBlock()
+                }
+                .disposed(by: bag)
+        case .adminMuteMic:
+            showReport(for: user, operate: .mute)
+        case .adminUnmuteMic:
+            let removeBlock = self.view.raft.show(.loading, userInteractionEnabled: false)
+            viewModel.adminUnmuteMic(user: user.uid.string)
+                .subscribe { [weak self] result in
+                    removeBlock()
+                    self?.view.raft.autoShow(.text(Report.ReportOperate.unmute.title))
+                } onError: { error in
+                    removeBlock()
+                }
+                .disposed(by: bag)
         default:
             ()
+        }
+    }
+    
+    func showReport(for user: Entity.RoomUser, operate: Report.ReportOperate?) {
+        Report.ViewController.showReport(on: self, uid: user.uid.string, type: .user, roomId: room.roomId, operate: operate) { [weak self] in
+            self?.view.raft.autoShow(.text(operate?.title ?? R.string.localizable.reportSuccess()))
         }
     }
     

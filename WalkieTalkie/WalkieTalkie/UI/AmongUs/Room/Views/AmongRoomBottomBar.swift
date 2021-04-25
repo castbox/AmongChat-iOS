@@ -7,6 +7,9 @@
 //
 
 import UIKit
+import EasyTipView
+import RxSwift
+import RxCocoa
 
 class AmongRoomBottomBar: XibLoadableView {
     
@@ -19,6 +22,8 @@ class AmongRoomBottomBar: XibLoadableView {
     @IBOutlet weak var kickButton: UIButton!
     @IBOutlet weak var calcelKickButton: UIButton!
     @IBOutlet weak var kickToolContainer: UIView!
+    private weak var tipBgView: UIView?
+    private weak var tipView: EasyTipView?
     
     var style: AmongChat.Room.Style = .normal {
         didSet {
@@ -49,7 +54,26 @@ class AmongRoomBottomBar: XibLoadableView {
     
     var cancelKickHandler: CallBack?
     var kickSelectedHandler: (([Int]) -> Void)?
-    var room: RoomInfoable?
+    var room: RoomDetailable?
+    
+    var muteInfo: Entity.UserMuteInfo? {
+        didSet {
+            guard let info = muteInfo else {
+                return
+            }
+            if info.isMute {
+                if isMicOn {
+                    switchMicState()
+                    showMicDisabledTips()
+                }
+            } else {
+                if !isMicOn {
+                    switchMicState()
+                }
+            }
+        }
+    }
+    private let bag = DisposeBag()
     
     var isMicOn: Bool = true {
         didSet {
@@ -98,7 +122,7 @@ class AmongRoomBottomBar: XibLoadableView {
         }
     }
     
-    func update(_ room: RoomInfoable) {
+    func update(_ room: RoomDetailable) {
         self.room = room
         if room.isGroup {
             emojiButton.isHidden = true
@@ -133,8 +157,97 @@ class AmongRoomBottomBar: XibLoadableView {
     }
     
     @IBAction func changeMicStateAction(_ sender: UIButton) {
+        //检查是否为被管理员 mute
+        if let info = muteInfo, info.isMute {
+            showMicDisabledTips()
+            return
+        }
+        switchMicState()
+    }
+    
+    func switchMicState() {
         self.isMicOn = !isMicOn
         changeMicStateHandler?(isMicOn)
     }
     
+}
+
+private extension AmongRoomBottomBar {
+    
+    func showMicDisabledTips() {
+        
+        //
+        var attrString: NSAttributedString {
+//            let pargraph = NSMutableParagraphStyle()
+//            pargraph.lineBreakMode = .byTruncatingTail
+//            pargraph.lineHeightMultiple = 0
+                        
+            let mutableNormalString = NSMutableAttributedString()
+            
+            let font = R.font.nunitoExtraBold(size: 16)!
+            let image = R.image.iconMutedTips()!
+            let imageAttachment = NSTextAttachment()
+            imageAttachment.image = image
+            imageAttachment.bounds = CGRect(x: 0, y: (font.capHeight - image.size.height)/2, width: image.size.width, height: image.size.height)
+            let imageString = NSAttributedString(attachment: imageAttachment)
+            mutableNormalString.append(imageString)
+//            mutableNormalString.yy_appendString(" ")
+
+            let contentAttr: [NSAttributedString.Key: Any] = [
+                .foregroundColor: UIColor.black,
+                .font: font,
+//                .paragraphStyle: pargraph
+            ]
+            mutableNormalString.append(NSAttributedString(string: R.string.localizable.micMutedTips(), attributes: contentAttr))
+            return mutableNormalString
+        }
+        
+        var preferences = EasyTipView.Preferences()
+        preferences.drawing.font = R.font.nunitoExtraBold(size: 16) ?? UIFont.boldSystemFont(ofSize: 16)
+        preferences.drawing.foregroundColor = .black
+        preferences.drawing.backgroundColor = .white
+        preferences.drawing.arrowPosition = .top
+        preferences.positioning.bubbleInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 20)
+        
+        let tipView = EasyTipView(text: attrString,
+                              preferences: preferences,
+                              delegate: self)
+        
+        let bgView = UIView(frame: Frame.Screen.bounds)
+        bgView.rx.tapGesture()
+            .subscribe(onNext: { [weak self] gesture in
+                self?.dismissTipView()
+            })
+            .disposed(by: bag)
+        self.tipBgView = bgView
+        containingController?.view.addSubview(bgView)
+        
+        self.tipView = tipView
+        tipView.tag = 0
+        tipView.show(animated: true, forView: micButton, withinSuperview: containingController?.view)
+        Observable<Int>
+            .interval(.seconds(5), scheduler: MainScheduler.instance)
+            .single()
+            .subscribe(onNext: { [weak self] _ in
+                guard let `self` = self else { return }
+                self.dismissTipView()
+            })
+            .disposed(by: bag)
+    }
+    
+    @objc func dismissTipView() {
+        tipBgView?.removeFromSuperview()
+        tipView?.dismiss()
+        tipView = nil
+    }
+}
+
+extension AmongRoomBottomBar: EasyTipViewDelegate {
+    func easyTipViewDidTap(_ tipView: EasyTipView) {
+        dismissTipView()
+    }
+    
+    func easyTipViewDidDismiss(_ tipView : EasyTipView) {
+        
+    }
 }
