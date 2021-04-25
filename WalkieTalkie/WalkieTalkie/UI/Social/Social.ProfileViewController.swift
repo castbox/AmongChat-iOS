@@ -146,7 +146,11 @@ extension Social {
             v.delegate = self
             v.backgroundColor = .clear
             v.alwaysBounceVertical = true
-            v.neverAdjustContentInset()
+            if #available(iOS 11.0, *) {
+                v.contentInsetAdjustmentBehavior = .never
+            } else {
+                automaticallyAdjustsScrollViewInsets = false
+            }
             return v
         }()
         
