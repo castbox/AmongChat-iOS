@@ -1,4 +1,5 @@
 AmongChat sesli sohbet uygulamasına hoş geldiniz!
-Tüm doğrulanmış kullanıcılar için, şimdi kendi AmongChat Grubunuzu oluşturabilirsiniz!
-Doğrulanmaya gelin ve Grubunuz için özel bir kanal oluşturun.
+Bu versiyonda, raporlama işlevini daha da optimize ediyor ve iyileştiriyoruz.
+Süper Yöneticiler ve İzleyiciler, topluluk üzerinde daha sıkı denetim uygulamaya daha yetkilidir.
+Tüm kullanıcılar için sağlıklı ve güvenli bir topluluk sağlamak için sürekli olarak çok çalışıyoruz.
 Arkadaşlarınızı bulun ve Sesli Sohbet edin, birlikte oynayın ve keyfini çıkarın!

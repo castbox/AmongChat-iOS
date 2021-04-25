@@ -1,4 +1,5 @@
 Bem-vindo ao aplicativo de bate-papo por voz AmongChat!
-Para todos os usuários verificados, você pode criar seu próprio Grupo AmongChat agora!
-Venha se verificar e criar um canal exclusivo para o seu Grupo.
+Nesta versão, otimizamos e aprimoramos ainda mais a função de relatório.
+Superadministradores e monitores estão mais autorizados a exercer supervisão mais rigorosa sobre a comunidade.
+Estamos continuamente trabalhando duro para fornecer uma comunidade saudável e segura para todos os usuários.
 Encontre e converse por voz com seus amigos, joguem juntos e divirta-se!
