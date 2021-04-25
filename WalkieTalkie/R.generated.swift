@@ -2136,7 +2136,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
     
-    /// This `R.string.localizable` struct is generated, and contains static references to 427 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 430 localization keys.
     struct localizable {
       /// en translation:  Congratulations!
       /// 
@@ -2190,6 +2190,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let groupRoomAccept = Rswift.StringResource(key: "group.room.accept", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Account suspended
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let userLoginBannedTip = Rswift.StringResource(key: "user.login.banned.tip", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Add
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2300,12 +2304,12 @@ struct R: Rswift.Validatable {
       static let roomBrawlIdPlaceholder = Rswift.StringResource(key: "room.brawl.id.placeholder", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Ban live chat
       /// 
-      /// Locales: en
-      static let alertAdminMuteIm = Rswift.StringResource(key: "alert.admin.mute.im", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let alertAdminMuteIm = Rswift.StringResource(key: "alert.admin.mute.im", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Banned the user from live chatting
       /// 
-      /// Locales: en
-      static let adminMuteImTips = Rswift.StringResource(key: "admin.mute.im.tips", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let adminMuteImTips = Rswift.StringResource(key: "admin.mute.im.tips", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Become verified and create new group
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2452,16 +2456,16 @@ struct R: Rswift.Validatable {
       static let amongChatCustomAvatarClose = Rswift.StringResource(key: "among.chat.custom.avatar.close", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Comments
       /// 
-      /// Locales: en
-      static let reportComments = Rswift.StringResource(key: "report.comments", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let reportComments = Rswift.StringResource(key: "report.comments", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Community guidelines
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let profileCommunity = Rswift.StringResource(key: "profile.community", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Confirm report
       /// 
-      /// Locales: en
-      static let reportConfirm = Rswift.StringResource(key: "report.confirm", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let reportConfirm = Rswift.StringResource(key: "report.confirm", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Contacts
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2884,8 +2888,8 @@ struct R: Rswift.Validatable {
       static let amongChatRoomKickSelected = Rswift.StringResource(key: "among.chat.room.kick.selected", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Kicked successfully
       /// 
-      /// Locales: en
-      static let adminKickTips = Rswift.StringResource(key: "admin.kick.tips", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let adminKickTips = Rswift.StringResource(key: "admin.kick.tips", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Later
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2960,16 +2964,16 @@ struct R: Rswift.Validatable {
       static let channelUserListMute = Rswift.StringResource(key: "channel.user.list.mute", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Mute for everyone
       /// 
-      /// Locales: en
-      static let alertAdminMuteMic = Rswift.StringResource(key: "alert.admin.mute.mic", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let alertAdminMuteMic = Rswift.StringResource(key: "alert.admin.mute.mic", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Muted
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let roomUserListMuted = Rswift.StringResource(key: "room.user.list.muted", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Muted successfully
       /// 
-      /// Locales: en
-      static let adminMuteMicTips = Rswift.StringResource(key: "admin.mute.mic.tips", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let adminMuteMicTips = Rswift.StringResource(key: "admin.mute.mic.tips", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: My Gaming Stats
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3036,8 +3040,8 @@ struct R: Rswift.Validatable {
       static let settingsRestoreFailBody = Rswift.StringResource(key: "settings.restore.fail.body", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Nobody's online yet, please try again later.
       /// 
-      /// Locales: en
-      static let adminCannotMatchedRoomTips = Rswift.StringResource(key: "admin.cannot.matched.room.tips", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let adminCannotMatchedRoomTips = Rswift.StringResource(key: "admin.cannot.matched.room.tips", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: North America
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3196,8 +3200,8 @@ struct R: Rswift.Validatable {
       static let amongChatHomeLoadErrorMsg = Rswift.StringResource(key: "among.chat.home.load.error.msg", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Please describe the report
       /// 
-      /// Locales: en
-      static let reportCommentsPlaceholder = Rswift.StringResource(key: "report.comments.placeholder", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let reportCommentsPlaceholder = Rswift.StringResource(key: "report.comments.placeholder", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Please give us your consent on
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3208,8 +3212,8 @@ struct R: Rswift.Validatable {
       static let socialContactDeniedTitle = Rswift.StringResource(key: "social.contact.denied.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Please select the reason for the report
       /// 
-      /// Locales: en
-      static let reportSelectReasonTitle = Rswift.StringResource(key: "report.select.reason.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let reportSelectReasonTitle = Rswift.StringResource(key: "report.select.reason.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Please sign in first to apply
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3296,12 +3300,12 @@ struct R: Rswift.Validatable {
       static let reportTitle = Rswift.StringResource(key: "report.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Report failed. Please try again
       /// 
-      /// Locales: en
-      static let reportFailed = Rswift.StringResource(key: "report.failed", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let reportFailed = Rswift.StringResource(key: "report.failed", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Report user
       /// 
-      /// Locales: en
-      static let reportUser = Rswift.StringResource(key: "report.user", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let reportUser = Rswift.StringResource(key: "report.user", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Reported successfully
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3486,14 +3490,18 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let profileBirthdaySkip = Rswift.StringResource(key: "profile.birthday.skip", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Something went wrong, please try again later
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let userLoginCommonTip = Rswift.StringResource(key: "user.login.common.tip", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Something went wrong, please try again.
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatCommonError = Rswift.StringResource(key: "among.chat.common.error", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Sorry, you can't re-enter the channel now.
       /// 
-      /// Locales: en
-      static let enterKickedRoomTips = Rswift.StringResource(key: "enter.kicked.room.tips", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let enterKickedRoomTips = Rswift.StringResource(key: "enter.kicked.room.tips", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Sorry, your application was rejected.
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3596,12 +3604,12 @@ struct R: Rswift.Validatable {
       static let premiumTryTitle = Rswift.StringResource(key: "premium.try.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Unban live chat
       /// 
-      /// Locales: en
-      static let alertAdminUnmuteIm = Rswift.StringResource(key: "alert.admin.unmute.im", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let alertAdminUnmuteIm = Rswift.StringResource(key: "alert.admin.unmute.im", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Unbanned successfully
       /// 
-      /// Locales: en
-      static let adminUnmuteImTips = Rswift.StringResource(key: "admin.unmute.im.tips", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let adminUnmuteImTips = Rswift.StringResource(key: "admin.unmute.im.tips", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Unblock
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3632,12 +3640,12 @@ struct R: Rswift.Validatable {
       static let channelUserListUnmute = Rswift.StringResource(key: "channel.user.list.unmute", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Unmute for everyone
       /// 
-      /// Locales: en
-      static let alertAdminUnmuteMic = Rswift.StringResource(key: "alert.admin.unmute.mic", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let alertAdminUnmuteMic = Rswift.StringResource(key: "alert.admin.unmute.mic", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Unmuted successfully
       /// 
-      /// Locales: en
-      static let adminUnmuteMicTips = Rswift.StringResource(key: "admin.unmute.mic.tips", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let adminUnmuteMicTips = Rswift.StringResource(key: "admin.unmute.mic.tips", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Unreasonable demands
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3648,8 +3656,8 @@ struct R: Rswift.Validatable {
       static let amongChatAddStatsUploadScreenshot = Rswift.StringResource(key: "among.chat.add.stats.upload.screenshot", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Upload screenshots
       /// 
-      /// Locales: en
-      static let reportUploadScreenshots = Rswift.StringResource(key: "report.upload.screenshots", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let reportUploadScreenshots = Rswift.StringResource(key: "report.upload.screenshots", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Upload your own avatar
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3736,12 +3744,12 @@ struct R: Rswift.Validatable {
       static let groupRoomAnoymonusUserApplySeatTips = Rswift.StringResource(key: "group.room.anoymonus.user.apply.seat.tips", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: You have been muted because of a violation of Community Guidelines.
       /// 
-      /// Locales: en
-      static let messageDisableTips = Rswift.StringResource(key: "message.disable.tips", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let messageDisableTips = Rswift.StringResource(key: "message.disable.tips", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: You have been muted because of a violation of Community Guidelines.
       /// 
-      /// Locales: en
-      static let micMutedTips = Rswift.StringResource(key: "mic.muted.tips", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let micMutedTips = Rswift.StringResource(key: "mic.muted.tips", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: You have successfully  blocked this person
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3758,6 +3766,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let errorNoFollowing = Rswift.StringResource(key: "error.no.following", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Your account has been logged in on another device
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let userLoginKickedTip = Rswift.StringResource(key: "user.login.kicked.tip", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Your avatar can be different
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3936,6 +3948,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func groupRoomAccept(_: Void = ()) -> String {
         return NSLocalizedString("group.room.accept", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Account suspended
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func userLoginBannedTip(_: Void = ()) -> String {
+        return NSLocalizedString("user.login.banned.tip", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Add
@@ -4129,14 +4148,14 @@ struct R: Rswift.Validatable {
       
       /// en translation: Ban live chat
       /// 
-      /// Locales: en
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func alertAdminMuteIm(_: Void = ()) -> String {
         return NSLocalizedString("alert.admin.mute.im", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Banned the user from live chatting
       /// 
-      /// Locales: en
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func adminMuteImTips(_: Void = ()) -> String {
         return NSLocalizedString("admin.mute.im.tips", bundle: R.hostingBundle, comment: "")
       }
@@ -4395,7 +4414,7 @@ struct R: Rswift.Validatable {
       
       /// en translation: Comments
       /// 
-      /// Locales: en
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func reportComments(_: Void = ()) -> String {
         return NSLocalizedString("report.comments", bundle: R.hostingBundle, comment: "")
       }
@@ -4409,7 +4428,7 @@ struct R: Rswift.Validatable {
       
       /// en translation: Confirm report
       /// 
-      /// Locales: en
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func reportConfirm(_: Void = ()) -> String {
         return NSLocalizedString("report.confirm", bundle: R.hostingBundle, comment: "")
       }
@@ -5151,7 +5170,7 @@ struct R: Rswift.Validatable {
       
       /// en translation: Kicked successfully
       /// 
-      /// Locales: en
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func adminKickTips(_: Void = ()) -> String {
         return NSLocalizedString("admin.kick.tips", bundle: R.hostingBundle, comment: "")
       }
@@ -5284,7 +5303,7 @@ struct R: Rswift.Validatable {
       
       /// en translation: Mute for everyone
       /// 
-      /// Locales: en
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func alertAdminMuteMic(_: Void = ()) -> String {
         return NSLocalizedString("alert.admin.mute.mic", bundle: R.hostingBundle, comment: "")
       }
@@ -5298,7 +5317,7 @@ struct R: Rswift.Validatable {
       
       /// en translation: Muted successfully
       /// 
-      /// Locales: en
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func adminMuteMicTips(_: Void = ()) -> String {
         return NSLocalizedString("admin.mute.mic.tips", bundle: R.hostingBundle, comment: "")
       }
@@ -5417,7 +5436,7 @@ struct R: Rswift.Validatable {
       
       /// en translation: Nobody's online yet, please try again later.
       /// 
-      /// Locales: en
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func adminCannotMatchedRoomTips(_: Void = ()) -> String {
         return NSLocalizedString("admin.cannot.matched.room.tips", bundle: R.hostingBundle, comment: "")
       }
@@ -5697,7 +5716,7 @@ struct R: Rswift.Validatable {
       
       /// en translation: Please describe the report
       /// 
-      /// Locales: en
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func reportCommentsPlaceholder(_: Void = ()) -> String {
         return NSLocalizedString("report.comments.placeholder", bundle: R.hostingBundle, comment: "")
       }
@@ -5718,7 +5737,7 @@ struct R: Rswift.Validatable {
       
       /// en translation: Please select the reason for the report
       /// 
-      /// Locales: en
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func reportSelectReasonTitle(_: Void = ()) -> String {
         return NSLocalizedString("report.select.reason.title", bundle: R.hostingBundle, comment: "")
       }
@@ -5872,14 +5891,14 @@ struct R: Rswift.Validatable {
       
       /// en translation: Report failed. Please try again
       /// 
-      /// Locales: en
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func reportFailed(_: Void = ()) -> String {
         return NSLocalizedString("report.failed", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Report user
       /// 
-      /// Locales: en
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func reportUser(_: Void = ()) -> String {
         return NSLocalizedString("report.user", bundle: R.hostingBundle, comment: "")
       }
@@ -6206,6 +6225,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("profile.birthday.skip", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Something went wrong, please try again later
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func userLoginCommonTip(_: Void = ()) -> String {
+        return NSLocalizedString("user.login.common.tip", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Something went wrong, please try again.
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -6215,7 +6241,7 @@ struct R: Rswift.Validatable {
       
       /// en translation: Sorry, you can't re-enter the channel now.
       /// 
-      /// Locales: en
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func enterKickedRoomTips(_: Void = ()) -> String {
         return NSLocalizedString("enter.kicked.room.tips", bundle: R.hostingBundle, comment: "")
       }
@@ -6397,14 +6423,14 @@ struct R: Rswift.Validatable {
       
       /// en translation: Unban live chat
       /// 
-      /// Locales: en
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func alertAdminUnmuteIm(_: Void = ()) -> String {
         return NSLocalizedString("alert.admin.unmute.im", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Unbanned successfully
       /// 
-      /// Locales: en
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func adminUnmuteImTips(_: Void = ()) -> String {
         return NSLocalizedString("admin.unmute.im.tips", bundle: R.hostingBundle, comment: "")
       }
@@ -6460,14 +6486,14 @@ struct R: Rswift.Validatable {
       
       /// en translation: Unmute for everyone
       /// 
-      /// Locales: en
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func alertAdminUnmuteMic(_: Void = ()) -> String {
         return NSLocalizedString("alert.admin.unmute.mic", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Unmuted successfully
       /// 
-      /// Locales: en
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func adminUnmuteMicTips(_: Void = ()) -> String {
         return NSLocalizedString("admin.unmute.mic.tips", bundle: R.hostingBundle, comment: "")
       }
@@ -6488,7 +6514,7 @@ struct R: Rswift.Validatable {
       
       /// en translation: Upload screenshots
       /// 
-      /// Locales: en
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func reportUploadScreenshots(_: Void = ()) -> String {
         return NSLocalizedString("report.upload.screenshots", bundle: R.hostingBundle, comment: "")
       }
@@ -6642,14 +6668,14 @@ struct R: Rswift.Validatable {
       
       /// en translation: You have been muted because of a violation of Community Guidelines.
       /// 
-      /// Locales: en
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func messageDisableTips(_: Void = ()) -> String {
         return NSLocalizedString("message.disable.tips", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: You have been muted because of a violation of Community Guidelines.
       /// 
-      /// Locales: en
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func micMutedTips(_: Void = ()) -> String {
         return NSLocalizedString("mic.muted.tips", bundle: R.hostingBundle, comment: "")
       }
@@ -6680,6 +6706,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func errorNoFollowing(_: Void = ()) -> String {
         return NSLocalizedString("error.no.following", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Your account has been logged in on another device
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func userLoginKickedTip(_: Void = ()) -> String {
+        return NSLocalizedString("user.login.kicked.tip", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Your avatar can be different

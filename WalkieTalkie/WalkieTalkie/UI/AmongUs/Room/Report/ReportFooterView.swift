@@ -16,9 +16,8 @@ class ReportFooterView: XibLoadableView {
 //        case updateImage([UIImage])
 //    }
 
-    @IBOutlet weak var textView: UITextView!
+    private var textView: UITextView!
     @IBOutlet weak var collectionView: UICollectionView!
-    @IBOutlet weak var placeholderLabel: UILabel!
     
     @IBOutlet weak var commentLabel: UILabel!
     @IBOutlet weak var reportButton: UIButton!
@@ -26,11 +25,18 @@ class ReportFooterView: XibLoadableView {
     
     @IBOutlet weak var uploadTitleLabel: UILabel!
     @IBOutlet weak var uploadSubtitleLabel: UILabel!
-    @IBOutlet weak var countLabel: UILabel!
     @IBOutlet weak var imageCountLabel: UILabel!
     
     @IBOutlet weak var collectionViewHeightConstraint: NSLayoutConstraint!
     
+    private lazy var commentInputView: FansGroup.Views.GroupDescriptionView = {
+        let d = FansGroup.Views.GroupDescriptionView()
+        d.placeholderLabel.text = R.string.localizable.reportCommentsPlaceholder()
+        textView = d.inputTextView
+        textView.keyboardDistanceFromTextField = 39
+        return d
+    }()
+        
     var selectedIndex: Int = -1 {
         didSet {
             updateReportButtonState()
@@ -59,9 +65,6 @@ class ReportFooterView: XibLoadableView {
         collectionView.register(nibWithCellClass: ReportImageCell.self)
         
         images.append(placeholderItem)
-        textView.textContainerInset = UIEdgeInsets(top: 16, left: 12, bottom: 39, right: 12)
-        textView.contentInset = UIEdgeInsets(top: 16, left: 0, bottom: 39, right: 0)
-        textView.layoutManager.allowsNonContiguousLayout = false
         
 //        reportButton.layer.cornerRadius = 24
         reportButton.clipsToBounds = true
@@ -71,7 +74,19 @@ class ReportFooterView: XibLoadableView {
         reportButton.setBackgroundImage("#303030".color().image, for: .disabled)
 
         collectionViewHeightConstraint.constant = Self.collectionItemWidth
-                
+        
+        addSubview(commentInputView)
+        commentInputView.snp.makeConstraints { (maker) in
+            maker.leading.trailing.equalToSuperview().inset(20)
+            maker.top.equalTo(commentLabel.snp.bottom).offset(16)
+        }
+        
+        commentInputView.inputTextView.rx.text
+            .subscribe(onNext: { [weak self] (_) in
+                self?.updateReportButtonState()
+            })
+            .disposed(by: bag)
+
 //        if Theme.currentMode == .dark {
 //            backgroundColor = UIColor.theme(.backgroundWhite)
 //
@@ -133,23 +148,6 @@ class ReportFooterView: XibLoadableView {
 //        reportButton.setTitle("Report", for: .normal)
     }
     
-}
-extension ReportFooterView: UITextViewDelegate {
-    func textViewDidChange(_ textView: UITextView) {
-        placeholderLabel.isHidden = !textView.text.isEmpty
-        countLabel.text = "\(textView.text.count ?? 0)/\(self.maxInputLength)"
-        updateReportButtonState()
-    }
-    
-    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        guard let textFieldText = textView.text,
-              let rangeOfTextToReplace = Range(range, in: textFieldText) else {
-            return false
-        }
-        let substringToReplace = textFieldText[rangeOfTextToReplace]
-        let count = textFieldText.count - substringToReplace.count + text.count
-        return count <= maxInputLength
-    }
 }
 
 extension ReportFooterView: UICollectionViewDelegateFlowLayout {

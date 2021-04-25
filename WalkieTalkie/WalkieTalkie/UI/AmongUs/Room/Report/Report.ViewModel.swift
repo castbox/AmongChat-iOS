@@ -123,7 +123,7 @@ extension Report {
                 guard !images.isEmpty else {
                     return [Observable.just(nil)]
                 }
-                return images.map { Request.uploadPng(image: $0).asObservable().map { Optional($0) } }
+                return images.map { Request.uploadAsJpg(image: $0).asObservable().map { Optional($0) } }
             }
             let uid = self.uid
             let type = self.type

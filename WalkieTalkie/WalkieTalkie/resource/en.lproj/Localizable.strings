@@ -491,3 +491,6 @@
 "alert.admin.mute.mic" = "Mute for everyone";
 "alert.admin.unmute.im" = "Unban live chat";
 "alert.admin.unmute.mic" = "Unmute for everyone";
+"user.login.banned.tip" = "Account suspended";
+"user.login.kicked.tip" = "Your account has been logged in on another device";
+"user.login.common.tip" = "Something went wrong, please try again later";

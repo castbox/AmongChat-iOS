@@ -8,9 +8,6 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
-        <array key="Nunito-Bold.ttf">
-            <string>Nunito-Bold</string>
-        </array>
         <array key="Nunito-ExtraBold.ttf">
             <string>Nunito-ExtraBold</string>
         </array>
@@ -21,12 +18,9 @@
                 <outlet property="collectionView" destination="9cQ-wC-E22" id="2kD-WZ-J7B"/>
                 <outlet property="collectionViewHeightConstraint" destination="ppK-Mg-p9k" id="Qfk-82-uZK"/>
                 <outlet property="commentLabel" destination="LP1-Wc-t5X" id="812-oI-lVa"/>
-                <outlet property="countLabel" destination="3Xl-sU-IGS" id="kvc-G7-r3v"/>
                 <outlet property="imageCountLabel" destination="Lof-oa-Lxp" id="m1n-y4-79X"/>
-                <outlet property="placeholderLabel" destination="Un8-8M-jC1" id="8cE-fK-Udc"/>
                 <outlet property="reportButton" destination="0Yj-v1-MQg" id="zbW-kq-kLh"/>
                 <outlet property="reportHeight" destination="aSa-fz-rKx" id="EGz-fC-g2s"/>
-                <outlet property="textView" destination="VPM-T6-iNt" id="PjI-sr-csf"/>
                 <outlet property="uploadTitleLabel" destination="DPa-fO-NOL" id="ecW-rd-KfN"/>
             </connections>
         </placeholder>
@@ -44,25 +38,6 @@
                         <userDefinedRuntimeAttribute type="string" keyPath="xibLocKey" value="report.comments"/>
                     </userDefinedRuntimeAttributes>
                 </label>
-                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="VPM-T6-iNt">
-                    <rect key="frame" x="20" y="64" width="374" height="124"/>
-                    <color key="backgroundColor" red="0.12549019607843137" green="0.12549019607843137" blue="0.12549019607843137" alpha="1" colorSpace="deviceRGB"/>
-                    <color key="tintColor" red="0.20392156862745098" green="0.55294117647058827" blue="1" alpha="1" colorSpace="deviceRGB"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="124" id="gWO-QT-YHM"/>
-                    </constraints>
-                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito" pointSize="18"/>
-                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                            <real key="value" value="12"/>
-                        </userDefinedRuntimeAttribute>
-                    </userDefinedRuntimeAttributes>
-                    <connections>
-                        <outlet property="delegate" destination="-1" id="WMS-fv-Eky"/>
-                    </connections>
-                </textView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Upload screenshot" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DPa-fO-NOL">
                     <rect key="frame" x="16" y="224" width="142" height="22"/>
                     <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito" pointSize="16"/>
@@ -71,12 +46,6 @@
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="string" keyPath="xibLocKey" value="report.upload.screenshots"/>
                     </userDefinedRuntimeAttributes>
-                </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0/280" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Xl-sU-IGS">
-                    <rect key="frame" x="36" y="156.5" width="38" height="19.5"/>
-                    <fontDescription key="fontDescription" name="Nunito-Bold" family="Nunito" pointSize="14"/>
-                    <color key="textColor" red="0.27450980392156865" green="0.27450980392156865" blue="0.27450980392156865" alpha="1" colorSpace="calibratedRGB"/>
-                    <nil key="highlightedColor"/>
                 </label>
                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="9cQ-wC-E22">
                     <rect key="frame" x="0.0" y="262" width="414" height="101"/>
@@ -114,15 +83,6 @@
                         <action selector="repotAction:" destination="-1" eventType="touchUpInside" id="0i5-io-z0B"/>
                     </connections>
                 </button>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please describe the report" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Un8-8M-jC1">
-                    <rect key="frame" x="36" y="76" width="225.5" height="25"/>
-                    <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito" pointSize="18"/>
-                    <color key="textColor" red="0.27450980392156865" green="0.27450980392156865" blue="0.27450980392156865" alpha="1" colorSpace="calibratedRGB"/>
-                    <nil key="highlightedColor"/>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="string" keyPath="xibLocKey" value="report.comments.placeholder"/>
-                    </userDefinedRuntimeAttributes>
-                </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0/3" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lof-oa-Lxp">
                     <rect key="frame" x="369" y="224" width="25" height="22"/>
                     <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito" pointSize="16"/>
@@ -134,18 +94,11 @@
             <color key="backgroundColor" red="0.070588235294117646" green="0.070588235294117646" blue="0.070588235294117646" alpha="1" colorSpace="deviceRGB"/>
             <constraints>
                 <constraint firstItem="DPa-fO-NOL" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="0VT-3f-9en"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="VPM-T6-iNt" secondAttribute="trailing" constant="20" id="0kJ-hX-i6R"/>
-                <constraint firstItem="3Xl-sU-IGS" firstAttribute="bottom" secondItem="VPM-T6-iNt" secondAttribute="bottom" constant="-12" id="474-rL-E95"/>
                 <constraint firstItem="LP1-Wc-t5X" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="26" id="6qA-Pw-OqC"/>
-                <constraint firstItem="Un8-8M-jC1" firstAttribute="top" secondItem="LP1-Wc-t5X" secondAttribute="bottom" constant="28" id="9PU-wx-h5l"/>
-                <constraint firstItem="3Xl-sU-IGS" firstAttribute="leading" secondItem="VPM-T6-iNt" secondAttribute="leading" constant="16" id="EP4-Pr-TPp"/>
+                <constraint firstItem="DPa-fO-NOL" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="224" id="BJX-jw-hgS"/>
                 <constraint firstItem="0Yj-v1-MQg" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="20" id="IJM-Hv-68x"/>
                 <constraint firstItem="Lof-oa-Lxp" firstAttribute="centerY" secondItem="DPa-fO-NOL" secondAttribute="centerY" id="JU7-zy-tKS"/>
-                <constraint firstItem="Un8-8M-jC1" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="36" id="OOv-FL-wdl"/>
-                <constraint firstItem="DPa-fO-NOL" firstAttribute="top" secondItem="VPM-T6-iNt" secondAttribute="bottom" constant="36" id="QYQ-wB-9PP"/>
-                <constraint firstItem="VPM-T6-iNt" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="20" id="cdL-sU-AY4"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="9cQ-wC-E22" secondAttribute="trailing" id="fc2-Uk-ykW"/>
-                <constraint firstItem="VPM-T6-iNt" firstAttribute="top" secondItem="LP1-Wc-t5X" secondAttribute="bottom" constant="16" id="hiG-jC-Yn2"/>
                 <constraint firstItem="9cQ-wC-E22" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="iKh-FW-soB"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="Lof-oa-Lxp" secondAttribute="trailing" constant="20" id="kzx-RY-dgN"/>
                 <constraint firstItem="9cQ-wC-E22" firstAttribute="top" secondItem="DPa-fO-NOL" secondAttribute="bottom" constant="16" id="lyL-Lt-nga"/>

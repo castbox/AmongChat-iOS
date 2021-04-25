@@ -466,3 +466,31 @@
 
 //1.17.1
 "among.chat.room.minecraft.name" = "Тег игрока Minecraft ";
+
+//1.18
+"report.user" = "Пожаловаться на пользователя";
+"report.success" = "Вы успешно заявили об \nэтом человеке";
+"report.failed" = "Отчет не удалось. Пожалуйста, попробуйте еще раз";
+"report.comments" = "Комментарии";
+"report.comments.placeholder" = "Опишите отчет";
+"report.upload.screenshots" = "Загрузить скриншоты";
+"report.select.reason.title" = "Пожалуйста, выберите причину сообщения";
+"report.confirm" = "Подтвердить отчет";
+"mic.muted.tips" = "Вам отключили звук из-за нарушения принципов сообщества.";
+
+"admin.mute.mic.tips" = "Без звука успешно";
+"admin.mute.im.tips" = "Забанили пользователя от живого чата";
+"admin.unmute.mic.tips" = "Включено успешно";
+"admin.unmute.im.tips" = "Успешно разблокирован";
+"admin.kick.tips" = "Удар успешно";
+"message.disable.tips" = "Вам отключили звук из-за нарушения принципов сообщества.";
+"enter.kicked.room.tips" = "Извините, вы не можете повторно войти на канал сейчас.";
+"admin.cannot.matched.room.tips" = "Еще никого нет в сети, повторите попытку позже.";
+
+"alert.admin.mute.im" = "Запретить чат";
+"alert.admin.mute.mic" = "Без звука для всех";
+"alert.admin.unmute.im" = "Разбанить чат";
+"alert.admin.unmute.mic" = "Включить звук для всех";
+"user.login.banned.tip" = "Account suspended";
+"user.login.kicked.tip" = "Your account has been logged in on another device";
+"user.login.common.tip" = "Something went wrong, please try again later";

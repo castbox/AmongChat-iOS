@@ -761,7 +761,11 @@ extension Request {
             return Single.error(MsgError.default)
         }
         
-        return amongchatProvider.rx.request(.uploadFile(data: data, ext: "png", mimeType: "image/png", type: .image))
+        return uploadData(data, ext: "png", mimeType: "image/png", type: .image)
+    }
+    
+    static func uploadData(_ data: Data, ext: String, mimeType: String, type: APIService.AmongChatBackend.FileType) -> Single<String> {
+        return amongchatProvider.rx.request(.uploadFile(data: data, ext: ext, mimeType: mimeType, type: type))
             .mapJSON()
             .map { item -> String in
                 guard let json = item as? [String: AnyObject],
@@ -777,6 +781,15 @@ extension Request {
                 
                 return url
             }
+    }
+    
+    static func uploadAsJpg(image: UIImage, compressing: CGFloat = 0.4) -> Single<String> {
+        
+        guard let data = image.jpegData(compressionQuality: compressing) else {
+            return Single.error(MsgError.default)
+        }
+        
+        return uploadData(data, ext: "jpeg", mimeType: "image/jpg", type: .image)
     }
 
     static func rtcToken(_ joinable: RTCJoinable) -> Single<String?> {

@@ -258,6 +258,7 @@ extension AmongChat.Room.ViewController {
         bottomBar.isMicOn = true
         bottomBar.update(room)
         bottomBar.isHidden = viewModel.isSilentUser
+        configView.isUserInteractionEnabled = !viewModel.isSilentUser
         
         nickNameInputView = AmongInputNickNameView()
         nickNameInputView.alpha = 0

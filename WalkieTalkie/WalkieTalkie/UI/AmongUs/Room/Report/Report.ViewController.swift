@@ -74,6 +74,7 @@ extension Report {
         override func viewDidAppear(_ animated: Bool) {
             super.viewDidAppear(animated)
             IQKeyboardManager.shared.enable = true
+            IQKeyboardManager.shared.enableAutoToolbar = false
         }
         
         override func viewDidDisappear(_ animated: Bool) {
@@ -176,7 +177,7 @@ extension Report.ViewController: UIImagePickerControllerDelegate, UINavigationCo
         
         defer { picker.dismiss(animated: true, completion: nil) }
         guard let image = info[.originalImage] as? UIImage,
-            let imgPng = image.scale(to: CGSize(width: 400, height: 400)) else {
+            let imgPng = image.scaled(toWidth: 400) else {
                 return
         }
         footerView.append(image: imgPng)

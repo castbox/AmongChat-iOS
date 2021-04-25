@@ -113,6 +113,7 @@ extension ChatRoom {
         enum Role: String, Codable {
             case host
             case system //系统踢人
+            case admin
         }
         
         let roomId: String
@@ -448,6 +449,8 @@ extension ChatRoom.KickOutMessage.Role {
             return R.string.localizable.amongChatRoomKickout()
         case .system:
             return R.string.localizable.amongChatRoomKickoutSystem()
+        case .admin:
+            return R.string.localizable.amongChatRoomKickout()
         }
     }
 }
