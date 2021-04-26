@@ -145,7 +145,7 @@ extension Social.ProfileLookViewController {
             let s = UIScrollView()
             s.showsVerticalScrollIndicator = false
             s.showsHorizontalScrollIndicator = false
-            s.isPagingEnabled = true
+            s.bounces = false
             return s
         }()
         
@@ -180,7 +180,7 @@ extension Social.ProfileLookViewController {
         required init?(coder: NSCoder) {
             fatalError("init(coder:) has not been implemented")
         }
-                
+        
         private func setupLayout() {
             indicatorContainer.addSubview(selectedIndicator)
             
@@ -228,7 +228,7 @@ extension Social.ProfileLookViewController {
                     if idx == 0 {
                         maker.leading.equalToSuperview().inset(20)
                     } else if idx == buttons.count - 1 {
-                        maker.trailing.greaterThanOrEqualToSuperview().inset(20)
+                        maker.trailing.equalToSuperview().inset(30)
                     }
                     
                     if idx > 0,
@@ -268,6 +268,7 @@ extension Social.ProfileLookViewController {
                 self?.selectedBtn = button
 
                 self?.indicatorContainer.layoutIfNeeded()
+                self?.scrollView.scrollRectToVisible(button.frame, animated: true)
             }
             
             selectedIndexrRelay.accept(index)

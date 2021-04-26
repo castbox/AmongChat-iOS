@@ -56,6 +56,8 @@ extension Routes {
                         self.handleInviteUser(uid: user.uid)
                     case let group as URI.FansGroup:
                         self.handleFansGroup(group.groupId)
+                    case _ as URI.AllNews:
+                        self.handleAllNews()
                     default:
                         cdAssertFailure("should never enter here")
                     }
@@ -164,6 +166,11 @@ extension Routes {
                 } onError: { _ in
                     loadingHandler?()
                 }
+        }
+        
+        func handleAllNews() {
+            let vc = AppNews.AllNewsViewController()
+            UIApplication.topViewController()?.navigationController?.pushViewController(vc)
         }
         
         func showWebViewController(urlString: String) {

@@ -112,8 +112,8 @@ extension AmongChat.Home.TopicsViewController {
         view.addSubviews(views: navigationView, topicCollectionView)
         
         navigationView.snp.makeConstraints { (maker) in
-            maker.top.left.right.equalToSuperview()
-            maker.height.equalTo(49 + Frame.Height.safeAeraTopHeight)
+            maker.leading.trailing.equalToSuperview()
+            maker.top.equalTo(topLayoutGuide.snp.bottom)
         }
         
         topicCollectionView.snp.makeConstraints { (maker) in

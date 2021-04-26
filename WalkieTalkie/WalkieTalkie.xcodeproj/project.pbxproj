@@ -41,6 +41,11 @@
 		269A6E08261EFDFC00A07C7D /* FansGroup.Views.GroupInfoSetUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 269A6E07261EFDFC00A07C7D /* FansGroup.Views.GroupInfoSetUpView.swift */; };
 		269A6E0E26203E3300A07C7D /* FansGroup.GroupJoinRequestListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 269A6E0D26203E3300A07C7D /* FansGroup.GroupJoinRequestListViewController.swift */; };
 		269A6E122620459700A07C7D /* FansGroup.SelectGroupMemberViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 269A6E112620459700A07C7D /* FansGroup.SelectGroupMemberViewController.swift */; };
+		26A3D2B026366D4300DD4F53 /* AppNews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26A3D2AF26366D4300DD4F53 /* AppNews.swift */; };
+		26A3D2B626366D8500DD4F53 /* AppNews.AllNewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26A3D2B526366D8500DD4F53 /* AppNews.AllNewsViewController.swift */; };
+		26A3D2BA26366DDB00DD4F53 /* AppNews.GroupRequestsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26A3D2B926366DDB00DD4F53 /* AppNews.GroupRequestsListViewController.swift */; };
+		26A3D2C22636B1BA00DD4F53 /* AppNews.SocialNewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26A3D2C12636B1BA00DD4F53 /* AppNews.SocialNewsViewController.swift */; };
+		26A3D2C82636B1D000DD4F53 /* AppNews.SystemNewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26A3D2C72636B1D000DD4F53 /* AppNews.SystemNewsViewController.swift */; };
 		26AFD8B125C9742800B652E8 /* Social.ProfileLookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26AFD8B025C9742800B652E8 /* Social.ProfileLookViewController.swift */; };
 		26AFD8B525C976D900B652E8 /* Social.ProfileLookViewController+Widgets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26AFD8B425C976D900B652E8 /* Social.ProfileLookViewController+Widgets.swift */; };
 		26AFD8B925CA7E6600B652E8 /* Social.ProfileLookViewController+ViewModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26AFD8B825CA7E6500B652E8 /* Social.ProfileLookViewController+ViewModels.swift */; };
@@ -438,6 +443,11 @@
 		269A6E07261EFDFC00A07C7D /* FansGroup.Views.GroupInfoSetUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FansGroup.Views.GroupInfoSetUpView.swift; sourceTree = "<group>"; };
 		269A6E0D26203E3300A07C7D /* FansGroup.GroupJoinRequestListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FansGroup.GroupJoinRequestListViewController.swift; sourceTree = "<group>"; };
 		269A6E112620459700A07C7D /* FansGroup.SelectGroupMemberViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FansGroup.SelectGroupMemberViewController.swift; sourceTree = "<group>"; };
+		26A3D2AF26366D4300DD4F53 /* AppNews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppNews.swift; sourceTree = "<group>"; };
+		26A3D2B526366D8500DD4F53 /* AppNews.AllNewsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppNews.AllNewsViewController.swift; sourceTree = "<group>"; };
+		26A3D2B926366DDB00DD4F53 /* AppNews.GroupRequestsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppNews.GroupRequestsListViewController.swift; sourceTree = "<group>"; };
+		26A3D2C12636B1BA00DD4F53 /* AppNews.SocialNewsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppNews.SocialNewsViewController.swift; sourceTree = "<group>"; };
+		26A3D2C72636B1D000DD4F53 /* AppNews.SystemNewsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppNews.SystemNewsViewController.swift; sourceTree = "<group>"; };
 		26AFD8B025C9742800B652E8 /* Social.ProfileLookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Social.ProfileLookViewController.swift; sourceTree = "<group>"; };
 		26AFD8B425C976D900B652E8 /* Social.ProfileLookViewController+Widgets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Social.ProfileLookViewController+Widgets.swift"; sourceTree = "<group>"; };
 		26AFD8B825CA7E6500B652E8 /* Social.ProfileLookViewController+ViewModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Social.ProfileLookViewController+ViewModels.swift"; sourceTree = "<group>"; };
@@ -826,6 +836,18 @@
 				71A6690FF0550B1005BB7022 /* Pods-WalkieTalkie.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		26A3D0E126366AFD00DD4F53 /* News */ = {
+			isa = PBXGroup;
+			children = (
+				26A3D2AF26366D4300DD4F53 /* AppNews.swift */,
+				26A3D2B526366D8500DD4F53 /* AppNews.AllNewsViewController.swift */,
+				26A3D2C72636B1D000DD4F53 /* AppNews.SystemNewsViewController.swift */,
+				26A3D2C12636B1BA00DD4F53 /* AppNews.SocialNewsViewController.swift */,
+				26A3D2B926366DDB00DD4F53 /* AppNews.GroupRequestsListViewController.swift */,
+			);
+			path = News;
 			sourceTree = "<group>";
 		};
 		26DC825A2609C59B000A9111 /* GameSkill */ = {
@@ -1433,6 +1455,7 @@
 		FECA43B42459A8360075D139 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				26A3D0E126366AFD00DD4F53 /* News */,
 				26F414952611BB56003ED5BE /* Group */,
 				BD6C36EA256E516900D1E708 /* AmongUs */,
 				BDB8F58524F7D5A0000027F8 /* Social */,
@@ -1868,6 +1891,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				26A3D2C82636B1D000DD4F53 /* AppNews.SystemNewsViewController.swift in Sources */,
 				FE8DEA65243DB09A0059C252 /* ApiManager.Plugin.swift in Sources */,
 				FEBE5221262D2DF500E49EC4 /* ReportImageCell.swift in Sources */,
 				2BAB4EF72595C6F200A1C8DC /* Social.LeaveGameViewController.swift in Sources */,
@@ -2097,6 +2121,7 @@
 				FE2AF9F9244DCC0400763747 /* Routes.swift in Sources */,
 				FEA79E63249B52EF0067C1C1 /* ShareManager.swift in Sources */,
 				BDC9D4AE258A2AB400412BDC /* AdjustAnalytics.swift in Sources */,
+				26A3D2B026366D4300DD4F53 /* AppNews.swift in Sources */,
 				BD9F26D125A6EBCC00FA3616 /* ChatLanguageHelper.swift in Sources */,
 				FE860D4B2446D1D700087B73 /* UITableView+Theme.swift in Sources */,
 				FE9F69DC25CD337000C0F118 /* AppTrackingGuideView.swift in Sources */,
@@ -2157,6 +2182,7 @@
 				FE79F379258C76A800E9BC6C /* AmongChat.Room.SeatView.swift in Sources */,
 				FE401E46244DA3B60081F793 /* UIWindow+Controller.swift in Sources */,
 				FE730E4D24ADCB0100680062 /* PhotoManager.swift in Sources */,
+				26A3D2C22636B1BA00DD4F53 /* AppNews.SocialNewsViewController.swift in Sources */,
 				FE7CEB56258A029F0067952C /* AmongRoomInfoSetupView.swift in Sources */,
 				FECA43AC24597B570075D139 /* Automator.swift in Sources */,
 				FE860D4A2446D1D700087B73 /* Size.swift in Sources */,
@@ -2172,8 +2198,10 @@
 				FE126D51243481FF00BEDD60 /* Message.swift in Sources */,
 				FEC2A94925CAB637001B9556 /* StringSizeExtension.swift in Sources */,
 				FE2AF9E6244DB0F500763747 /* WebViewController.swift in Sources */,
+				26A3D2BA26366DDB00DD4F53 /* AppNews.GroupRequestsListViewController.swift in Sources */,
 				FEAD54DD2449C74F006454F6 /* Modal.Container.swift in Sources */,
 				26259B6B260B3E7400636E50 /* Social.ChooseGame.ViewModel.swift in Sources */,
+				26A3D2B626366D8500DD4F53 /* AppNews.AllNewsViewController.swift in Sources */,
 				FE126D5C2434922E00BEDD60 /* ObservableOptionalExtension.swift in Sources */,
 				269A6DE0261D589700A07C7D /* FansGroup.GroupInfoViewController.swift in Sources */,
 				BD6739BD2595EEAD00B3305B /* AmongChat.Home+RelationViewModels.swift in Sources */,

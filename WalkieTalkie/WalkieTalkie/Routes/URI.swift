@@ -201,6 +201,17 @@ extension URI {
         
     }
     
+    struct AllNews: URIRepresentable {
+        static func patterns() -> [String] {
+            return [
+                "/allNews",
+            ]
+        }
+        
+        init?(_ paras: [String : Any]) {
+        }
+    }
+    
     struct Undefined: URIRepresentable {
         
         static func patterns() -> [String] {
