@@ -108,6 +108,7 @@ extension APIService {
         case noticeCheck([String : Any])
         case peerMessage([String : Any])
         case globalMessage([String : Any])
+        case myGroupApplyStat
     }
 }
 
@@ -309,6 +310,8 @@ extension APIService.AmongChatBackend: TargetType {
             return "/api/v1/peer/message/list"
         case .globalMessage:
             return "/api/v1/global/message/list"
+        case .myGroupApplyStat:
+            return "/api/v1/my/group/apply/stat"
         }
     }
     
@@ -401,6 +404,7 @@ extension APIService.AmongChatBackend: TargetType {
              .noticeCheck,
              .peerMessage,
              .globalMessage,
+             .myGroupApplyStat,
              .shareUserSign:
             return .get
         case .follow:
@@ -438,6 +442,7 @@ extension APIService.AmongChatBackend: TargetType {
              .globalSetting,
              .gameSkills,
              .reportReasons,
+             .myGroupApplyStat,
              .shareUserSign:
             return .requestParameters(parameters: [:], encoding: URLEncoding.default)
             

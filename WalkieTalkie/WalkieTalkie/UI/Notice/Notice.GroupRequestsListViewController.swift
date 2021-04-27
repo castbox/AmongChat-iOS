@@ -42,14 +42,17 @@ extension Notice {
             return v
         }()
         
-        private var hasMoreData = true
-        private var isLoading = false
+        private lazy var dataSource: [Entity.GroupApplyStat] = [] {
+            didSet {
+                requestListView.reloadData()
+            }
+        }
         
         override func viewDidLoad() {
             super.viewDidLoad()
             setUpLayout()
             setUpEvents()
-            loadData(initialLoad: true)
+            loadData()
         }
         
         
@@ -72,47 +75,41 @@ extension Notice.GroupRequestsListViewController {
             maker.edges.equalToSuperview()
         }
         
-        requestListView.pullToRefresh { [weak self] in
-            self?.loadData(refresh: true)
-        }
-        
-        requestListView.pullToLoadMore { [weak self] in
-            self?.loadData()
-        }
     }
     
     private func setUpEvents() {
         
     }
     
-    private func loadData(initialLoad: Bool = false, refresh: Bool = false) {
-        
-        guard hasMoreData || refresh,
-              !isLoading else {
-            return
-        }
-        
-        isLoading = true
-        
-        
-        
+    private func loadData() {
+        Request.myGroupApplyStat()
+            .subscribe(onSuccess: { [weak self] (groups) in
+                self?.dataSource = groups
+            }, onError: { (error) in
+                
+            })
+            .disposed(by: bag)
     }
     
-    private func gotoRequestsOfGroup(_ groupInfo: Entity.GroupInfo) {
-        let vc = FansGroup.GroupJoinRequestListViewController(with: groupInfo)
+    private func gotoRequestsOfGroup(_ groupId: String) {
+        let vc = FansGroup.GroupJoinRequestListViewController(with: groupId, hasNavigationBar: true)
         navigationController?.pushViewController(vc)
     }
-
+    
 }
 
 extension Notice.GroupRequestsListViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 2
+        return dataSource.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NSStringFromClass(GroupRequestCell.self), for: indexPath)
+        if let cell = cell as? GroupRequestCell,
+           let group = dataSource.safe(indexPath.item) {
+            cell.bindData(group)
+        }
         return cell
     }
 }
@@ -120,6 +117,11 @@ extension Notice.GroupRequestsListViewController: UICollectionViewDataSource {
 extension Notice.GroupRequestsListViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let group = dataSource.safe(indexPath.item) else {
+            return
+        }
+        
+        gotoRequestsOfGroup(group.gid)
     }
     
 }
@@ -128,6 +130,16 @@ extension Notice.GroupRequestsListViewController: UICollectionViewDelegate {
 extension Notice.GroupRequestsListViewController {
     
     class GroupRequestCell: UICollectionViewCell {
+        
+        private lazy var groupIconContainer: UIView = {
+            let v = UIView()
+            v.backgroundColor = .clear
+            v.addSubview(groupIconView)
+            groupIconView.snp.makeConstraints { (maker) in
+                maker.edges.equalToSuperview()
+            }
+            return v
+        }()
         
         private lazy var groupIconView: UIImageView = {
             let i = UIImageView()
@@ -164,9 +176,9 @@ extension Notice.GroupRequestsListViewController {
             backgroundColor = .clear
             contentView.backgroundColor = .clear
             
-            contentView.addSubviews(views: groupIconView, groupNameLabel, accessoryIconView)
+            contentView.addSubviews(views: groupIconContainer, groupNameLabel, accessoryIconView)
             
-            groupIconView.snp.makeConstraints { (maker) in
+            groupIconContainer.snp.makeConstraints { (maker) in
                 maker.leading.top.bottom.equalToSuperview()
                 maker.width.equalTo(groupIconView.snp.height)
             }
@@ -180,6 +192,18 @@ extension Notice.GroupRequestsListViewController {
             accessoryIconView.snp.makeConstraints { (maker) in
                 maker.centerY.equalToSuperview()
                 maker.trailing.equalToSuperview()
+            }
+        }
+        
+        func bindData(_ group: Entity.GroupApplyStat) {
+            
+            groupIconView.setImage(with: group.cover)
+            groupNameLabel.text = group.name
+            if let count = group.applyCount,
+               count > 0 {
+                groupIconContainer.redDotOn(string: "\(count)", rightInset: -8, topInset: -8, diameter: 22, borderWidth: 2.5, borderColor: UIColor(hex6: 0x121212))
+            } else {
+                groupIconContainer.redDotOff()
             }
         }
         

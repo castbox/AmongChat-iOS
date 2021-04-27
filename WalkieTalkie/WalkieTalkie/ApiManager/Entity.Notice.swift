@@ -50,3 +50,34 @@ extension Entity {
     }
     
 }
+
+extension Entity {
+    
+    struct GroupApplyStat: Codable {
+        
+        var uid: Int?
+        var gid: String
+        var topicId: String?
+        var cover: String?
+        var name: String?
+        var description: String?
+        var status: Int?
+        var createTime: Double?
+        var rtcType: String?
+        var applyCount: Int?
+        
+        private enum CodingKeys: String, CodingKey {
+            case uid
+            case gid
+            case topicId
+            case cover
+            case name
+            case description
+            case status
+            case createTime
+            case rtcType
+            case applyCount = "apply_count"
+        }
+        
+    }
+}

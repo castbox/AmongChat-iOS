@@ -1549,4 +1549,19 @@ extension Request {
             .observeOn(MainScheduler.asyncInstance)
         
     }
+    
+    static func myGroupApplyStat() -> Single<[Entity.GroupApplyStat]> {
+        return amongchatProvider.rx.request(.myGroupApplyStat)
+            .mapJSON()
+            .mapToDataKeyListKeyValue()
+            .mapTo([Entity.GroupApplyStat].self)
+            .map {
+                guard let r = $0 else {
+                    throw MsgError.default
+                }
+                
+                return r
+            }
+            .observeOn(MainScheduler.asyncInstance)
+    }
 }
