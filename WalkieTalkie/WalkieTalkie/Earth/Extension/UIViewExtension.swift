@@ -132,8 +132,13 @@ extension UIView {
         static var key = "redDotImageView"
     }
     
+    enum RedDotHorizontalAlignment {
+        case tailByTail(CGFloat)
+        case headToTail(CGFloat)
+    }
+    
     func redDotOn(string: String? = nil,
-                  rightInset: CGFloat = 0,
+                  hAlignment: RedDotHorizontalAlignment = .tailByTail(0),
                   topInset: CGFloat = 0,
                   diameter: CGFloat = 12,
                   borderWidth: CGFloat = 0,
@@ -151,7 +156,12 @@ extension UIView {
         iv.snp.makeConstraints { (maker) in
             maker.width.height.equalTo(diameter)
             maker.top.equalToSuperview().inset(topInset)
-            maker.trailing.equalToSuperview().inset(rightInset)
+            switch hAlignment {
+            case .tailByTail(let inset):
+            maker.trailing.equalToSuperview().inset(inset)
+            case .headToTail(let inset):
+            maker.leading.equalTo(snp.trailing).inset(inset)
+            }
         }
         
         if let string = string {
@@ -172,7 +182,12 @@ extension UIView {
                 maker.width.greaterThanOrEqualTo(diameter)
                 maker.width.lessThanOrEqualTo(snp.width).multipliedBy(0.7)
                 maker.top.equalToSuperview().inset(topInset)
-                maker.trailing.equalToSuperview().inset(rightInset)
+                switch hAlignment {
+                case .tailByTail(let inset):
+                maker.trailing.equalToSuperview().inset(inset)
+                case .headToTail(let inset):
+                maker.leading.equalTo(snp.trailing).inset(inset)
+                }
             }
             
         }

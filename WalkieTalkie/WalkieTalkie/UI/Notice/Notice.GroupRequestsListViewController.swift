@@ -201,7 +201,7 @@ extension Notice.GroupRequestsListViewController {
             groupNameLabel.text = group.name
             if let count = group.applyCount,
                count > 0 {
-                groupIconContainer.redDotOn(string: "\(count)", rightInset: -8, topInset: -8, diameter: 22, borderWidth: 2.5, borderColor: UIColor(hex6: 0x121212))
+                groupIconContainer.redDotOn(string: "\(count)", hAlignment: .tailByTail(-8), topInset: -8, diameter: 22, borderWidth: 2.5, borderColor: UIColor(hex6: 0x121212))
             } else {
                 groupIconContainer.redDotOff()
             }

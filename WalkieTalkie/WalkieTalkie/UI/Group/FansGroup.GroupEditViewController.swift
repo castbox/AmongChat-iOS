@@ -418,7 +418,7 @@ extension FansGroup.GroupEditViewController {
                     return
                 }
                 
-                requestsTitleLabel?.redDotOn(string: count.string, rightInset: 0, topInset: 0, diameter: 16)
+                requestsTitleLabel?.redDotOn(string: count.string, hAlignment: .headToTail(-0.5), topInset: 0, diameter: 16)
                 
             })
             .disposed(by: bag)
