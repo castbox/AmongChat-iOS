@@ -93,6 +93,7 @@ extension APIService {
         case deleteGroup([String : Any])
         case handleGroupApply([String: Any])
         case kickMemberFromGroup([String : Any])
+        case groupStatus([String : Any])
         
         //report
         case reportReasons
@@ -275,6 +276,8 @@ extension APIService.AmongChatBackend: TargetType {
             return "/api/v1/group/leave"
         case .applyToJoinGroup:
             return "/api/v1/group/apply"
+        case .groupStatus:
+            return "/api/v1/group"
         case .deleteGroup:
             return "/api/v1/group"
         case .handleGroupApply:
@@ -382,6 +385,7 @@ extension APIService.AmongChatBackend: TargetType {
              .groupAppliedUserList,
              .groupMemberList,
              .groupInfo,
+             .groupStatus,
              .leaveGroup,
              .reportReasons,
              .roomMuteInfo,
@@ -493,6 +497,7 @@ extension APIService.AmongChatBackend: TargetType {
              .groupRoomInviteUser(let params),
              .groupInfo(let params),
              .groupRoomInviteFriends(let params),
+             .groupStatus(let params),
              .leaveGroup(let params),
              .applyToJoinGroup(let params),
              .handleGroupApply(let params),

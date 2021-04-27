@@ -246,11 +246,11 @@
         
         let _ = Request.pushEvent(.DeviceReceive, notiUserInfo: notification.request.content.userInfo).subscribe(onSuccess: { (_) in })
         
-        if nilableMessage?.pushSourceType == "invite_join_room" {
-            completionHandler([])
-        } else {
+        if nilableMessage?.canShowWhenActive == true {
             addPushLogger(.impression, msg: nilableMessage)
             completionHandler([.alert, .badge, .sound])
+        } else {
+            completionHandler([])
         }
     }
     
@@ -300,6 +300,10 @@
             let queries: [String : Any] = uri.url?.queryParameters ?? [:]
             let sourceType = queries["push_source_type"] as? String ?? ""
             return sourceType
+        }
+        
+        var canShowWhenActive: Bool {
+            !["invite_join_room", "invite_join_group"].contains(pushSourceType)
         }
     }
  }

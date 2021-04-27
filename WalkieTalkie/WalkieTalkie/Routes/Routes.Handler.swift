@@ -29,10 +29,10 @@ extension Routes {
             //
             Routes.shared.uriValue()
                 .observeOn(MainScheduler.asyncInstance)
-//                .flatMap { item -> Observable<URIRepresentable> in
-//                    return Observable.just(item)
-//                        .delay(.fromSeconds(0.5), scheduler: MainScheduler.asyncInstance)
-//                }
+                //                .flatMap { item -> Observable<URIRepresentable> in
+                //                    return Observable.just(item)
+                //                        .delay(.fromSeconds(0.5), scheduler: MainScheduler.asyncInstance)
+                //                }
                 .subscribe(onNext: { (uri) in
                     guard let `self` = welf else { return }
                     switch uri {
@@ -64,18 +64,18 @@ extension Routes {
         }
         
         func handleHomepage(_ channelName: String?) {
-//            guard let name = channelName,
-//                let roomVc = UIApplication.navigationController?.viewControllers.first as? RoomViewController else {
-//                return
-//            }
+            //            guard let name = channelName,
+            //                let roomVc = UIApplication.navigationController?.viewControllers.first as? RoomViewController else {
+            //                return
+            //            }
             UIApplication.navigationController?.popToRootViewController(animated: true)
-//            roomVc.joinRoom(name)
-//            Logger.Channel.log(.deeplink, name, value: name.channelType.rawValue)
+            //            roomVc.joinRoom(name)
+            //            Logger.Channel.log(.deeplink, name, value: name.channelType.rawValue)
         }
-    
+        
         
         func handleRoom(_ channel: URI.Channel) {
-                        
+            
             //如果当前有在直播间内，退出后再加入
             if let roomViewController = UIApplication.navigationController?.viewControllers.first(where: { $0 is AmongChat.Room.ContainerController }) as? AmongChat.Room.ContainerController {
                 roomViewController.requestLeaveRoom()
@@ -117,7 +117,7 @@ extension Routes {
                 UIApplication.tabBarController?.present(navigationVc, animated: true, completion: nil)
             } else {
                 UIApplication.topViewController()?.navigationController?.pushViewController(vc)
-
+                
             }
         }
         
@@ -149,13 +149,26 @@ extension Routes {
         }
         
         func handleFansGroup(_ groupId: String) {
-            let vc = FansGroup.GroupInfoViewController(groupId: groupId)
-            UIApplication.topViewController()?.navigationController?.pushViewController(vc)
+            //检查是否开播
+            let loadingHandler = UIApplication.topViewController()?.view.raft.show(.loading)
+            _ = Request.groupStatus(groupId)
+                .subscribe { group in
+                    loadingHandler?()
+                    guard let group = group, let vc = UIApplication.topViewController() as? WalkieTalkie.ViewController else { return }
+                    if group.isLiving {
+                        vc.enter(group: group)
+                    } else {
+                        let vc = FansGroup.GroupInfoViewController(groupId: groupId)
+                        UIApplication.topViewController()?.navigationController?.pushViewController(vc)
+                    }
+                } onError: { _ in
+                    loadingHandler?()
+                }
         }
         
         func showWebViewController(urlString: String) {
             guard let url = URL(string: urlString),
-            let controller = UIApplication.navigationController?.topViewController else { return }
+                  let controller = UIApplication.navigationController?.topViewController else { return }
             controller.open(url: url)
         }
         
@@ -170,7 +183,7 @@ extension Routes {
                 showWebViewController(urlString: url.absoluteString)
             }
         }
-
+        
     }
 }
 

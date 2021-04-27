@@ -132,7 +132,7 @@ extension Social {
             layout.sectionInset = UIEdgeInsets(top: 16, left: 0, bottom: 44, right: 0)
             layout.minimumLineSpacing = 20
             let v = UICollectionView(frame: .zero, collectionViewLayout: layout)
-            v.contentInset = UIEdgeInsets(top: 0, left: hInset, bottom: 0, right: hInset)
+            v.contentInset = UIEdgeInsets(top: 0, left: hInset, bottom: isSelfProfile.value ? 0 : 48, right: hInset)
             v.register(FansGroupItemCell.self, forCellWithReuseIdentifier: NSStringFromClass(FansGroupItemCell.self))
             v.register(FansGroupSelfItemCell.self, forCellWithReuseIdentifier: NSStringFromClass(FansGroupSelfItemCell.self))
             v.register(cellWithClass: ProfileTableCell.self)

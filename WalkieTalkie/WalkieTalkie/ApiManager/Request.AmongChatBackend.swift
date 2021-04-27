@@ -1399,6 +1399,23 @@ extension Request {
             .observeOn(MainScheduler.asyncInstance)
     }
     
+    static func groupStatus(_ groupId: String) -> Single<Entity.Group?> {
+        
+        let params: [String : Any] = ["gid" : groupId]
+        
+        return amongchatProvider.rx.request(.groupStatus(params))
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .map({ data -> [String : AnyObject] in
+                guard let group = data["group"] as? [String : AnyObject] else {
+                    return [:]
+                }
+                return group
+            })
+            .mapTo(Entity.Group.self)
+            .observeOn(MainScheduler.asyncInstance)
+    }
+    
     static func kickMemberFromGroup(_ groupId: String, uids: [Int]) -> Single<Bool> {
         
         let params: [String : Any] = [
