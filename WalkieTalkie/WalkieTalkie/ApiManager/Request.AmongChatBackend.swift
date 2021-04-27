@@ -1103,13 +1103,7 @@ extension Request {
         
         return amongchatProvider.rx.request(.groupList(params))
             .mapJSON()
-            .mapToDataKeyJsonValue()
-            .map({ data -> [[String : AnyObject]] in
-                guard let list = data["list"] as? [[String : AnyObject]] else {
-                    return []
-                }
-                return list
-            })
+            .mapToDataKeyListKeyValue()
             .mapTo([Entity.Group].self)
             .map {
                 guard let r = $0 else {
@@ -1130,13 +1124,7 @@ extension Request {
         
         return amongchatProvider.rx.request(.myGroupList(params))
             .mapJSON()
-            .mapToDataKeyJsonValue()
-            .map({ data -> [[String : AnyObject]] in
-                guard let list = data["list"] as? [[String : AnyObject]] else {
-                    return []
-                }
-                return list
-            })
+            .mapToDataKeyListKeyValue()
             .mapTo([Entity.Group].self)
             .map {
                 guard let r = $0 else {
@@ -1158,13 +1146,7 @@ extension Request {
         
         return amongchatProvider.rx.request(.groupListOfHost(params))
             .mapJSON()
-            .mapToDataKeyJsonValue()
-            .map({ data -> [[String : AnyObject]] in
-                guard let list = data["list"] as? [[String : AnyObject]] else {
-                    return []
-                }
-                return list
-            })
+            .mapToDataKeyListKeyValue()
             .mapTo([Entity.Group].self)
             .map {
                 guard let r = $0 else {
@@ -1186,13 +1168,7 @@ extension Request {
         
         return amongchatProvider.rx.request(.groupListOfJoined(params))
             .mapJSON()
-            .mapToDataKeyJsonValue()
-            .map({ data -> [[String : AnyObject]] in
-                guard let list = data["list"] as? [[String : AnyObject]] else {
-                    return []
-                }
-                return list
-            })
+            .mapToDataKeyListKeyValue()
             .mapTo([Entity.Group].self)
             .map {
                 guard let r = $0 else {
