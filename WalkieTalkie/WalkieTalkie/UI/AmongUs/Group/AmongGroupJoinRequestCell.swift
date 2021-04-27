@@ -42,7 +42,7 @@ class AmongGroupJoinRequestCell: UITableViewCell {
     
     var actionHandler: ((Action) -> Void)?
     
-    var profile: Entity.UserProfile? 
+    private var profile: Entity.UserProfile?
     
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {

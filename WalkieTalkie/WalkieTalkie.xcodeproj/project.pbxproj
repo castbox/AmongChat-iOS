@@ -2394,7 +2394,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.18.0;
+				MARKETING_VERSION = 1.18.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.talkie.walkie.chat.among;
 				PRODUCT_MODULE_NAME = WalkieTalkie;
 				PRODUCT_NAME = AmongChat;
@@ -2422,7 +2422,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.18.0;
+				MARKETING_VERSION = 1.18.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.talkie.walkie.chat.among;
 				PRODUCT_MODULE_NAME = WalkieTalkie;
 				PRODUCT_NAME = AmongChat;
