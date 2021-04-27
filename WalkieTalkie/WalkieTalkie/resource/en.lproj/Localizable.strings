@@ -494,3 +494,6 @@
 "user.login.banned.tip" = "Account suspended";
 "user.login.kicked.tip" = "Your account has been logged in on another device";
 "user.login.common.tip" = "Something went wrong, please try again later";
+
+//4.25
+"among.chat.group.admin.invitation.msg" = "just started a new session for the %@ group";
