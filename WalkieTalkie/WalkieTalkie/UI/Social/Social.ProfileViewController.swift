@@ -720,6 +720,7 @@ extension Social.ProfileViewController: UICollectionViewDataSource, UICollection
             if let game = gameSkills.safe(indexPath.row) {
                 let cell = collectionView.dequeueReusableCell(withClass: GameCell.self, for: indexPath)
                 cell.bind(game)
+                cell.deleteButton.isHidden = !isSelfProfile.value
                 cell.deleteHandler = { [weak self] in
                     self?.toRemoveGameSkill(game, completionHandler: {
                         self?.loadGameSkills()

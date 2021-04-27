@@ -630,7 +630,7 @@ extension Social.ProfileViewController {
             return lb
         }()
         
-        private lazy var deleteButton: SmallSizeButton = {
+        private(set) lazy var deleteButton: SmallSizeButton = {
             let btn = SmallSizeButton(type: .custom)
             btn.setImage(R.image.ac_profile_delete_game_stats(), for: .normal)
             btn.rx.controlEvent(.primaryActionTriggered)
