@@ -25,7 +25,7 @@ extension Notice {
             layout.minimumLineSpacing = 52
             layout.sectionInset = UIEdgeInsets(top: 12, left: hInset, bottom: 0, right: hInset)
             let v = UICollectionView(frame: .zero, collectionViewLayout: layout)
-            v.register(cellWithClass: GroupRequestCell.self)
+            v.register(GroupRequestCell.self, forCellWithReuseIdentifier: NSStringFromClass(GroupRequestCell.self))
             v.showsVerticalScrollIndicator = false
             v.showsHorizontalScrollIndicator = false
             v.dataSource = self
@@ -112,7 +112,7 @@ extension Notice.GroupRequestsListViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withClass: GroupRequestCell.self, for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NSStringFromClass(GroupRequestCell.self), for: indexPath)
         return cell
     }
 }
