@@ -424,12 +424,18 @@ extension AmongChat.GroupRoom.ViewController {
             }
             switch message.msgType {
             case .emoji:
-                guard let message = message as? ChatRoom.EmojiMessage,
-                      let seat = self.room.userList.first(where: { $0.uid == message.user.uid }) else {
+                guard let message = message as? ChatRoom.EmojiMessage else {
                     return
                 }
-                self.seatView.play(message) { [weak self] in
-                    
+                //host
+                if message.user.uid == self.room.uid {
+                    self.hostView.play(message) { _ in
+                        
+                    }
+                } else if self.room.userList.contains(where: { $0.uid == message.user.uid }) {
+                    self.seatView.play(message) { [weak self] in
+                        
+                    }
                 }
             default:
                 ()
@@ -568,20 +574,20 @@ extension AmongChat.GroupRoom.ViewController {
             self?.editType = .message
         }
         
-//        bottomBar.emojiHandler = { [weak self] in
-//            guard let `self` = self else {
-//                return
-//            }
-//            Logger.Action.log(.group_emoji_clk, categoryValue: self.room.topicId)
-//            let vc = AmongChat.Room.EmojiPickerController(self.emojiPickerViewModel)
-//            vc.didSelectItemHandler = { [weak self] emoji in
-//                //
-//                Logger.Action.log(.group_emoji_selected, categoryValue: self?.room.topicId, emoji.id.string)
-//                self?.viewModel.sendEmoji(emoji)
-//            }
-//            vc.showModal(in: self)
-//
-//        }
+        bottomBar.emojiHandler = { [weak self] in
+            guard let `self` = self else {
+                return
+            }
+            Logger.Action.log(.group_emoji_clk, categoryValue: self.room.topicId)
+            let vc = AmongChat.Room.EmojiPickerController(self.emojiPickerViewModel)
+            vc.didSelectItemHandler = { [weak self] emoji in
+                //
+                Logger.Action.log(.group_emoji_selected, categoryValue: self?.room.topicId, emoji.id.string)
+                self?.viewModel.sendEmoji(emoji)
+            }
+            vc.showModal(in: self)
+
+        }
         
         bottomBar.shareHandler = { [weak self] in
 //            self?.editType = .message

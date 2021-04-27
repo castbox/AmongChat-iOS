@@ -138,6 +138,10 @@ extension AmongChat.GroupRoom {
             onUserJoinedHandler?(joinRoomMsg.user)
         }
 
+        override func sendEmoji(_ emoji: Entity.EmojiItem) {
+//            let user = roomDetail.userList.first(where: { $0.uid == Settings.loginUserId })
+            super.sendEmoji(emoji)
+        }
         
         override func sendText(message: String?) {
             guard

@@ -319,7 +319,7 @@ extension AmongChat {
         //send emoji message
         func sendEmoji(_ emoji: Entity.EmojiItem) {
             guard let resource = emoji.resource.randomElement(),
-                  let user = roomDetail.userList.first(where: { $0.uid == Settings.loginUserId }) else {
+                  let user = Settings.loginUserProfile?.toRoomUser(with: -1) else {
                 return
             }
             let emojiMessage = ChatRoom.EmojiMessage(

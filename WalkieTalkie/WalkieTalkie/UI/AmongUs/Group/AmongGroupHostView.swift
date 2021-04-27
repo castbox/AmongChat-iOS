@@ -75,7 +75,10 @@ class AmongGroupHostView: XibLoadableView {
     private weak var tipBgView: UIView?
 //    private let bag = DisposeBag()
 //    private var isShowTips: Bool
-    
+    //
+    private var emojiContent: ChatRoom.EmojiMessage?
+    private var emojiPlayEndHandler: (ChatRoom.EmojiMessage?) -> Void = { _ in }
+
     var actionHandler: ((Action) -> Void)?
     
     var group: Entity.Group {
@@ -150,6 +153,33 @@ class AmongGroupHostView: XibLoadableView {
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func play(_ emoji: ChatRoom.EmojiMessage, completionHandler: @escaping (ChatRoom.EmojiMessage?) -> Void) {
+        if !emoji.resource.isEmpty,
+            emoji.resource.hasSuffix("svga"),
+            let resource = URL(string: emoji.resource) {
+            emojiContent = emoji
+            
+            emojiPlayEndHandler = completionHandler
+            svagPlayerStatus = .playingEmojiGame
+            
+            let parser = SVGAGlobalParser.defaut
+            parser.parse(with: resource,
+                         completionBlock: { [weak self] (item) in
+                            self?.svgaView.clearsAfterStop = false
+                            self?.svgaView.videoItem = item
+                            self?.svgaView.startAnimation()
+                        },
+                         failureBlock: { [weak self] error in
+                            debugPrint("error: \(error?.localizedDescription ?? "")")
+                            self?.svagPlayerStatus = .free
+                            completionHandler(emoji)
+                        })
+        } else {
+            completionHandler(emoji)
+            svgaView.clear()
+        }
     }
     
     func fetchRealation(with user: Entity.RoomUser) {
@@ -424,25 +454,25 @@ extension AmongGroupHostView: EasyTipViewDelegate {
 extension AmongGroupHostView: SVGAPlayerDelegate {
     func svgaPlayerDidFinishedAnimation(_ player: SVGAPlayer!) {
 //        isPlaySvgaEmoji = false
-//        switch svagPlayerStatus {
-//        case .playingEmojiGame:
-////            svagPlayerStatus = .playingEmojiGame
-//            if let emoji = emojiContent, let hideDelaySec = emoji.hideDelaySec, hideDelaySec > 0 {
-//                mainQueueDispatchAsync(after: Double(hideDelaySec)) { [weak self] in
-//                    player.clear()
-//                    player.videoItem = nil
-//                    self?.emojiPlayEndHandler(self?.emojiContent)
-//                    self?.svagPlayerStatus = .free
-//                }
-//            } else {
-//                player.clear()
-//                player.videoItem = nil
-//                emojiPlayEndHandler(emojiContent)
-//                svagPlayerStatus = .free
-//            }
-//            emojiContent = nil
-//        default:
+        switch svagPlayerStatus {
+        case .playingEmojiGame:
+//            svagPlayerStatus = .playingEmojiGame
+            if let emoji = emojiContent, let hideDelaySec = emoji.hideDelaySec, hideDelaySec > 0 {
+                mainQueueDispatchAsync(after: Double(hideDelaySec)) { [weak self] in
+                    player.clear()
+                    player.videoItem = nil
+                    self?.emojiPlayEndHandler(self?.emojiContent)
+                    self?.svagPlayerStatus = .free
+                }
+            } else {
+                player.clear()
+                player.videoItem = nil
+                emojiPlayEndHandler(emojiContent)
+                svagPlayerStatus = .free
+            }
+            emojiContent = nil
+        default:
             svagPlayerStatus = .free
-//        }
+        }
     }
 }

@@ -265,6 +265,8 @@ extension Logger {
             case group_cover_clk
             case group_audience_drop_confirm
             case group_info_clk
+            case group_emoji_clk
+            case group_emoji_selected
         }
         
         enum Category: String {
