@@ -1489,4 +1489,64 @@ extension Request {
             .mapTo(Entity.UserMuteInfo.self)
             .observeOn(MainScheduler.asyncInstance)
     }
+    
+    static func noticeCheck(lastCheckMs: Int64) -> Single<Bool> {
+        
+        let params: [String : Any] = [
+            "read_ms" : lastCheckMs
+        ]
+        
+        return amongchatProvider.rx.request(.noticeCheck(params))
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .map { (data) in
+                let unread_g = data["unread_g"] as? Bool ?? false
+                let unread_p = data["unread_p"] as? Bool ?? false
+                
+                return unread_g || unread_p
+            }
+            .observeOn(MainScheduler.asyncInstance)
+        
+    }
+    
+    static func peerMessge(skipMs: Int64) -> Single<[Entity.Notice]> {
+        
+        let params: [String : Any] = [
+            "skip_ms" : skipMs
+        ]
+        
+        return amongchatProvider.rx.request(.peerMessage(params))
+            .mapJSON()
+            .mapToDataKeyListKeyValue()
+            .mapTo([Entity.Notice].self)
+            .map {
+                guard let r = $0 else {
+                    throw MsgError.default
+                }
+                
+                return r
+            }
+            .observeOn(MainScheduler.asyncInstance)
+    }
+    
+    static func globalMessage(skipMs: Int64) -> Single<[Entity.Notice]> {
+        
+        let params: [String : Any] = [
+            "skip_ms" : skipMs
+        ]
+        
+        return amongchatProvider.rx.request(.globalMessage(params))
+            .mapJSON()
+            .mapToDataKeyListKeyValue()
+            .mapTo([Entity.Notice].self)
+            .map {
+                guard let r = $0 else {
+                    throw MsgError.default
+                }
+                
+                return r
+            }
+            .observeOn(MainScheduler.asyncInstance)
+        
+    }
 }
