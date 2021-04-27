@@ -132,13 +132,21 @@ extension UIView {
         static var key = "redDotImageView"
     }
     
-    func redDotOn(string: String? = nil, rightInset: CGFloat = 0, topInset: CGFloat = 0, diameter: CGFloat = 12) {
+    func redDotOn(string: String? = nil,
+                  rightInset: CGFloat = 0,
+                  topInset: CGFloat = 0,
+                  diameter: CGFloat = 12,
+                  borderWidth: CGFloat = 0,
+                  borderColor: UIColor? = nil) {
+        
         guard redDotIV == nil else {
             return
         }
         let iv = UIImageView()
         iv.backgroundColor = "FA4E4E".color()
         iv.cornerRadius = diameter / 2
+        iv.layer.borderWidth = borderWidth
+        iv.layer.borderColor = borderColor?.cgColor
         addSubview(iv)
         iv.snp.makeConstraints { (maker) in
             maker.width.height.equalTo(diameter)
@@ -152,19 +160,19 @@ extension UIView {
             l.font = R.font.nunitoExtraBold(size: 12)
             l.text = string
             l.textColor = .white
+            l.textAlignment = .center
+            l.lineBreakMode = .byTruncatingMiddle
             iv.addSubview(l)
             l.snp.makeConstraints { (maker) in
                 maker.edges.equalToSuperview().inset(UIEdgeInsets(top: 0, left: 4.5, bottom: 0, right: 4))
             }
             
-            let textWidth = l.sizeThatFits(CGSize(width: .greatestFiniteMagnitude, height: diameter)).width.ceil
-            let viewWidth = max(textWidth + 4 + 4, diameter)
-            
             iv.snp.remakeConstraints { (maker) in
                 maker.height.equalTo(diameter)
-                maker.width.equalTo(viewWidth)
+                maker.width.greaterThanOrEqualTo(diameter)
+                maker.width.lessThanOrEqualTo(snp.width).multipliedBy(0.7)
                 maker.top.equalToSuperview().inset(topInset)
-                maker.trailing.equalToSuperview().inset(-viewWidth + rightInset)
+                maker.trailing.equalToSuperview().inset(rightInset)
             }
             
         }
