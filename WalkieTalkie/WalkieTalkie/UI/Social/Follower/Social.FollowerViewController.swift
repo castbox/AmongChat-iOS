@@ -279,10 +279,10 @@ extension Social {
         
         let bag = DisposeBag()
         
-        private lazy var avatarIV: UIImageView = {
-            let iv = UIImageView()
-            iv.layer.cornerRadius = 20
-            iv.layer.masksToBounds = true
+        private lazy var avatarIV: AvatarImageView = {
+            let iv = AvatarImageView(.black)
+//            iv.layer.cornerRadius = 20
+//            iv.layer.masksToBounds = true
             return iv
         }()
         
@@ -388,7 +388,8 @@ extension Social {
             }
             
             avatarIV.setAvatarImage(with: model.pictureUrl)
-            usernameLabel.attributedText = model.nameWithVerified()
+            usernameLabel.attributedText = model.nameWithVerified(isShowVerify: false)
+            avatarIV.isVerify = model.isVerified
             let isfollow = model.isFollowed ?? false
             setFollow(isfollow)
         }
@@ -410,7 +411,8 @@ extension Social {
             
             setUIForShare()
             avatarIV.setAvatarImage(with: model.pictureUrl)
-            usernameLabel.attributedText = model.nameWithVerified()
+            usernameLabel.attributedText = model.nameWithVerified(isShowVerify: false)
+            avatarIV.isVerify = model.isVerified
             
             if userInfo.inGroup ?? false {
                 grayInGroupStyle()

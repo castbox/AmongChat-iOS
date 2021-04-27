@@ -21,10 +21,8 @@ extension Social.BlockedUserList.Widgets {
         
         let bag = DisposeBag()
         
-        private lazy var avatarIV: UIImageView = {
-            let iv = UIImageView()
-            iv.layer.cornerRadius = 20
-            iv.layer.masksToBounds = true
+        private lazy var avatarIV: AvatarImageView = {
+            let iv = AvatarImageView()
             return iv
         }()
         
@@ -94,7 +92,8 @@ extension Social.BlockedUserList.Widgets {
         }
         
         func configView(with model: Entity.UserProfile) {
-            usernameLabel.attributedText = model.nameWithVerified()
+            usernameLabel.attributedText = model.nameWithVerified(isShowVerify: false)
+            avatarIV.isVerify = model.isVerified
             usernameLabel.appendKern()
             avatarIV.setAvatarImage(with: model.pictureUrl)
         }

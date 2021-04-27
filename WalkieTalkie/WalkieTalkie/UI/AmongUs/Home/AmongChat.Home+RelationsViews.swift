@@ -18,9 +18,9 @@ extension AmongChat.Home {
         private let bag = DisposeBag()
         
         private lazy var avatarIV: AvatarImageView = {
-            let iv = AvatarImageView()
-            iv.layer.cornerRadius = 20
-            iv.layer.masksToBounds = true
+            let iv = AvatarImageView(verifyIconStyle)
+//            iv.layer.cornerRadius = 20
+//            iv.layer.masksToBounds = true
             iv.isUserInteractionEnabled = true
             iv.addGestureRecognizer(avatarTap)
             return iv
@@ -62,9 +62,12 @@ extension AmongChat.Home {
             return lb
         }()
         
+        private let verifyIconStyle: AvatarImageView.VerifyIconStyle
+        
         private var uid: Int? = nil
         
-        override init(frame: CGRect) {
+        init(_ verifyIconStyle: AvatarImageView.VerifyIconStyle = .gray) {
+            self.verifyIconStyle = verifyIconStyle
             super.init(frame: .zero)
             setupLayout()
         }
@@ -107,8 +110,8 @@ extension AmongChat.Home {
         func bind(viewModel: PlayingViewModel, onAvatarTap: @escaping () -> Void) {
             uid = viewModel.uid
             avatarIV.updateAvatar(with: viewModel.playingModel.user)
-            
             nameLabel.attributedText = viewModel.userName
+            avatarIV.isVerify = viewModel.isVerified
             
             statusLabel.text = viewModel.playingStatus
             avatarTapHandler = onAvatarTap
@@ -130,7 +133,8 @@ extension AmongChat.Home {
         func bind(viewModel: Entity.UserProfile, showFollowersCount: Bool = false, onAvatarTap: @escaping () -> Void) {
             uid = viewModel.uid
             avatarIV.updateAvatar(with: viewModel)
-            nameLabel.attributedText = viewModel.nameWithVerified()
+            nameLabel.attributedText = viewModel.nameWithVerified(isShowVerify: false)
+            avatarIV.isVerify = viewModel.isVerified == true
             if showFollowersCount {
                 statusLabel.text = "\(viewModel.followersCount ?? 0) \(R.string.localizable.profileFollower())"
             } 
@@ -139,7 +143,8 @@ extension AmongChat.Home {
         func bind(profile: Entity.UserProfile, onAvatarTap: (() -> Void)? = nil) {
             uid = profile.uid
             avatarIV.updateAvatar(with: profile)
-            nameLabel.attributedText = profile.nameWithVerified()
+            nameLabel.attributedText = profile.nameWithVerified(isShowVerify: false)
+            avatarIV.isVerify = profile.isVerified == true
             avatarTapHandler = onAvatarTap
         }
     }
@@ -147,7 +152,7 @@ extension AmongChat.Home {
     class FriendCell: UICollectionViewCell {
         
         private lazy var userView: UserView = {
-            let v = UserView()
+            let v = UserView(.black)
             return v
         }()
         
@@ -242,7 +247,7 @@ extension AmongChat.Home {
     class SuggestionCell: UICollectionViewCell {
         
         private lazy var userView: UserView = {
-            let v = UserView()
+            let v = UserView(.black)
             return v
         }()
         
@@ -313,7 +318,7 @@ extension AmongChat.Home {
     
     class SuggestedContactView: UIView {
         private lazy var userView: UserView = {
-            let v = UserView()
+            let v = UserView(.black)
             return v
         }()
         

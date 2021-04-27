@@ -230,7 +230,7 @@ extension AmongChat.GroupRoom.MembersController {
         let bag = DisposeBag()
         
         private lazy var userView: AmongChat.Home.UserView = {
-            let v = AmongChat.Home.UserView()
+            let v = AmongChat.Home.UserView(.gray)
             return v
         }()
 
@@ -325,8 +325,6 @@ extension AmongChat.GroupRoom.MembersController {
             userView.bind(viewModel: model) {
                 
             }
-//            avatarIV.setAvatarImage(with: model.pictureUrl)
-//            usernameLabel.attributedText = model.nameWithVerified()
             let isfollow = model.isFollowed ?? false
             setFollow(isfollow)
             followBtn.isHidden = model.uid == Settings.loginUserId

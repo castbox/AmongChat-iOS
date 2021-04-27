@@ -341,10 +341,10 @@ extension Search {
         
         let bag = DisposeBag()
         
-        private lazy var avatarIV: UIImageView = {
-            let iv = UIImageView()
-            iv.layer.cornerRadius = 20
-            iv.layer.masksToBounds = true
+        private lazy var avatarIV: AvatarImageView = {
+            let iv = AvatarImageView()
+//            iv.layer.cornerRadius = 20
+//            iv.layer.masksToBounds = true
             return iv
         }()
         
@@ -456,7 +456,8 @@ extension Search {
             }
             
             avatarIV.setAvatarImage(with: model.pictureUrl)
-            usernameLabel.attributedText = model.nameWithVerified()
+            avatarIV.isVerify = model.isVerified
+            usernameLabel.attributedText = model.nameWithVerified(isShowVerify: false)
             uidLabel.text = "ID: \(model.uid)"
             let isfollow = model.isFollowed ?? false
             setFollow(isfollow)

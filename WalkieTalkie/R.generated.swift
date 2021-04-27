@@ -216,7 +216,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 204 images.
+  /// This `R.image` struct is generated, and contains static references to 206 images.
   struct image {
     /// Image `ac_add_stats_add`.
     static let ac_add_stats_add = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_add_stats_add")
@@ -546,6 +546,10 @@ struct R: Rswift.Validatable {
     static let iconReportSelected = Rswift.ImageResource(bundle: R.hostingBundle, name: "iconReportSelected")
     /// Image `iconReport`.
     static let iconReport = Rswift.ImageResource(bundle: R.hostingBundle, name: "iconReport")
+    /// Image `iconVerifyBlackBorder`.
+    static let iconVerifyBlackBorder = Rswift.ImageResource(bundle: R.hostingBundle, name: "iconVerifyBlackBorder")
+    /// Image `iconVerifyGrayBorder`.
+    static let iconVerifyGrayBorder = Rswift.ImageResource(bundle: R.hostingBundle, name: "iconVerifyGrayBorder")
     /// Image `icon_close_gray`.
     static let icon_close_gray = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_close_gray")
     /// Image `icon_close`.
@@ -1445,6 +1449,16 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "iconReportSelected", bundle: ..., traitCollection: ...)`
     static func iconReportSelected(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.iconReportSelected, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "iconVerifyBlackBorder", bundle: ..., traitCollection: ...)`
+    static func iconVerifyBlackBorder(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.iconVerifyBlackBorder, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "iconVerifyGrayBorder", bundle: ..., traitCollection: ...)`
+    static func iconVerifyGrayBorder(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.iconVerifyGrayBorder, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "icon_close", bundle: ..., traitCollection: ...)`
@@ -7025,7 +7039,6 @@ struct _R: Rswift.Validatable {
       
       static func validate() throws {
         if UIKit.UIImage(named: "ac_group_room_copy", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ac_group_room_copy' is used in nib 'AmongGroupTopicConfigView', but couldn't be loaded.") }
-        if UIKit.UIImage(named: "ac_group_room_note", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ac_group_room_note' is used in nib 'AmongGroupTopicConfigView', but couldn't be loaded.") }
         if #available(iOS 11.0, *) {
         }
       }
