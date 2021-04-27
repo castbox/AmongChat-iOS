@@ -216,7 +216,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 208 images.
+  /// This `R.image` struct is generated, and contains static references to 209 images.
   struct image {
     /// Image `ac_add_stats_add`.
     static let ac_add_stats_add = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_add_stats_add")
@@ -396,6 +396,8 @@ struct R: Rswift.Validatable {
     static let ac_login_wrong_code_bubble = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_login_wrong_code_bubble")
     /// Image `ac_login_wrong_emoji`.
     static let ac_login_wrong_emoji = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_login_wrong_emoji")
+    /// Image `ac_notice_next`.
+    static let ac_notice_next = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_notice_next")
     /// Image `ac_notice`.
     static let ac_notice = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_notice")
     /// Image `ac_premium_bg`.
@@ -1083,6 +1085,11 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "ac_notice", bundle: ..., traitCollection: ...)`
     static func ac_notice(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ac_notice, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_notice_next", bundle: ..., traitCollection: ...)`
+    static func ac_notice_next(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_notice_next, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "ac_premium_bg", bundle: ..., traitCollection: ...)`
@@ -2152,7 +2159,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
     
-    /// This `R.string.localizable` struct is generated, and contains static references to 440 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 441 localization keys.
     struct localizable {
       /// en translation:  Congratulations!
       /// 
@@ -2402,6 +2409,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatCreateRoomCardClaim = Rswift.StringResource(key: "among.chat.create.room.card.claim", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Click to Go
+      /// 
+      /// Locales: en
+      static let amongChatNoticeClickToGo = Rswift.StringResource(key: "among.chat.notice.click.to.go", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Click to copy others' COD Username/UID to play together
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -4347,6 +4358,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func amongChatCreateRoomCardClaim(_: Void = ()) -> String {
         return NSLocalizedString("among.chat.create.room.card.claim", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Click to Go
+      /// 
+      /// Locales: en
+      static func amongChatNoticeClickToGo(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.notice.click.to.go", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Click to copy others' COD Username/UID to play together
