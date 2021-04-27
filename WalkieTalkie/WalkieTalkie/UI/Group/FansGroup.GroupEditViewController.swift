@@ -376,7 +376,7 @@ extension FansGroup.GroupEditViewController {
         }
         memberListVC.didMove(toParent: self)
         
-        let requestListVC = FansGroup.GroupJoinRequestListViewController(with: groupInfo)
+        let requestListVC = FansGroup.GroupJoinRequestListViewController(with: groupInfo.group.gid)
         addChild(requestListVC)
         listScrollView.addSubview(requestListVC.view)
         requestListVC.view.snp.makeConstraints { (maker) in
