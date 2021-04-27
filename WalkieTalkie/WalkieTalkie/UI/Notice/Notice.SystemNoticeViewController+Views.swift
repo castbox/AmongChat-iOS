@@ -12,6 +12,22 @@ extension Notice.SystemNoticeViewController {
     
     class MessageCell: UICollectionViewCell {
         
+        private lazy var timeLabel: UILabel = {
+            let l = UILabel()
+            l.font = R.font.nunitoBold(size: 14)
+            l.textAlignment = .center
+            l.textColor = UIColor(hex6: 0x595959)
+            return l
+        }()
+        
+        private lazy var container: UIView = {
+            let v = UIView()
+            v.backgroundColor = UIColor(hex6: 0x202020)
+            v.layer.cornerRadius = 12
+            v.clipsToBounds = true
+            return v
+        }()
+        
         private lazy var aboveTextImageView: UIImageView = {
             let i = UIImageView()
             i.clipsToBounds = true
@@ -97,11 +113,8 @@ extension Notice.SystemNoticeViewController {
         
         private func setUpLayout() {
             backgroundColor = .clear
-            contentView.backgroundColor = UIColor(hex6: 0x202020)
-            contentView.layer.cornerRadius = 12
-            contentView.clipsToBounds = true
             
-            contentView.addSubviews(views: aboveTextImageView, messageTitleLabel, messageTextLabel, belowTextImageView, actionView)
+            container.addSubviews(views: aboveTextImageView, messageTitleLabel, messageTextLabel, belowTextImageView, actionView)
             
             aboveTextImageView.snp.makeConstraints { (maker) in
                 maker.leading.top.trailing.equalToSuperview()
@@ -127,6 +140,18 @@ extension Notice.SystemNoticeViewController {
             actionView.snp.makeConstraints { (maker) in
                 maker.leading.bottom.trailing.equalToSuperview()
                 maker.top.equalTo(belowTextImageView.snp.bottom).offset(24)
+            }
+            
+            contentView.addSubviews(views: timeLabel, container)
+            
+            timeLabel.snp.makeConstraints { (maker) in
+                maker.leading.top.trailing.equalToSuperview()
+                maker.height.equalTo(19)
+            }
+
+            container.snp.makeConstraints { (maker) in
+                maker.top.equalTo(timeLabel.snp.bottom).offset(8)
+                maker.leading.trailing.bottom.equalToSuperview()
             }
             
         }

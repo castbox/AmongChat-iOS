@@ -12,9 +12,17 @@ extension Notice.SocialNoticeViewController {
     
     class GroupMessageCell: UICollectionViewCell {
         
+        private lazy var timeLabel: UILabel = {
+            let l = UILabel()
+            l.font = R.font.nunitoBold(size: 14)
+            l.textAlignment = .center
+            l.textColor = UIColor(hex6: 0x595959)
+            return l
+        }()
+        
         private lazy var messageImageView: UIImageView = {
             let i = UIImageView()
-            i.layer.cornerRadius = 12
+            i.layer.cornerRadius = 8
             i.clipsToBounds = true
             i.contentMode = .scaleAspectFill
             return i
@@ -35,7 +43,7 @@ extension Notice.SocialNoticeViewController {
             l.adjustsFontSizeToFitWidth = true
             return l
         }()
-                
+        
         override init(frame: CGRect) {
             super.init(frame: frame)
             setUpLayout()
@@ -49,15 +57,15 @@ extension Notice.SocialNoticeViewController {
             backgroundColor = .clear
             contentView.backgroundColor = .clear
             
-            contentView.addSubviews(views: messageImageView, messageTitleLabel, messageTextLabel)
+            contentView.addSubviews(views: messageImageView, messageTitleLabel, messageTextLabel, timeLabel)
             
             messageImageView.snp.makeConstraints { (maker) in
-                maker.leading.top.bottom.equalToSuperview()
-                maker.width.equalTo(messageImageView.snp.height)
+                maker.top.leading.equalToSuperview()
+                maker.width.height.equalTo(48)
             }
             
             messageTitleLabel.snp.makeConstraints { (maker) in
-                maker.top.equalToSuperview()
+                maker.top.equalTo(messageImageView)
                 maker.leading.equalTo(messageImageView.snp.trailing).offset(12)
                 maker.trailing.equalToSuperview()
                 maker.height.equalTo(27)
@@ -66,17 +74,31 @@ extension Notice.SocialNoticeViewController {
             messageTextLabel.snp.makeConstraints { (maker) in
                 maker.leading.trailing.equalTo(messageTitleLabel)
                 maker.top.equalTo(messageTitleLabel.snp.bottom).offset(3)
+            }
+            
+            timeLabel.snp.makeConstraints { (maker) in
+                maker.leading.trailing.equalTo(messageTitleLabel)
+                maker.height.equalTo(19)
+                maker.top.equalTo(messageTextLabel.snp.bottom).offset(4)
                 maker.bottom.equalToSuperview()
             }
         }
         
     }
-
+    
 }
 
 extension Notice.SocialNoticeViewController {
     
     class UserMessageCell: UICollectionViewCell {
+        
+        private lazy var timeLabel: UILabel = {
+            let l = UILabel()
+            l.font = R.font.nunitoBold(size: 14)
+            l.textAlignment = .center
+            l.textColor = UIColor(hex6: 0x595959)
+            return l
+        }()
         
         private lazy var messageImageView: UIImageView = {
             let i = UIImageView()
@@ -99,7 +121,7 @@ extension Notice.SocialNoticeViewController {
             l.numberOfLines = 0
             return l
         }()
-                
+        
         override init(frame: CGRect) {
             super.init(frame: frame)
             setUpLayout()
@@ -113,15 +135,15 @@ extension Notice.SocialNoticeViewController {
             backgroundColor = .clear
             contentView.backgroundColor = .clear
             
-            contentView.addSubviews(views: messageImageView, messageTitleLabel, messageTextLabel)
+            contentView.addSubviews(views: messageImageView, messageTitleLabel, messageTextLabel, timeLabel)
             
             messageImageView.snp.makeConstraints { (maker) in
-                maker.leading.top.bottom.equalToSuperview()
+                maker.top.leading.equalToSuperview()
                 maker.width.height.equalTo(64)
             }
             
             messageTitleLabel.snp.makeConstraints { (maker) in
-                maker.top.equalToSuperview()
+                maker.top.equalTo(messageImageView)
                 maker.leading.equalTo(messageImageView.snp.trailing).offset(12)
                 maker.trailing.equalToSuperview()
                 maker.height.equalTo(27)
@@ -130,10 +152,17 @@ extension Notice.SocialNoticeViewController {
             messageTextLabel.snp.makeConstraints { (maker) in
                 maker.leading.trailing.equalTo(messageTitleLabel)
                 maker.top.equalTo(messageTitleLabel.snp.bottom).offset(3)
+            }
+            
+            timeLabel.snp.makeConstraints { (maker) in
+                maker.leading.trailing.equalTo(messageTitleLabel)
+                maker.height.equalTo(19)
+                maker.top.equalTo(messageTextLabel.snp.bottom).offset(4)
                 maker.bottom.equalToSuperview()
             }
+            
         }
         
     }
-
+    
 }
