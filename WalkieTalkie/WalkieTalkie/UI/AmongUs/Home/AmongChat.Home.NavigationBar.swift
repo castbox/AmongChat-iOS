@@ -39,10 +39,10 @@ extension AmongChat.Home {
         
         private lazy var newsBtn: UIButton = {
             let btn = UIButton(type: .custom)
-            btn.setImage(R.image.ac_news(), for: .normal)
+            btn.setImage(R.image.ac_notice(), for: .normal)
             btn.rx.controlEvent(.primaryActionTriggered)
                 .subscribe(onNext: { () in
-                    Routes.handle("/allNews")
+                    Routes.handle("/allNotice")
                     Logger.Action.log(.home_search_clk)
                 })
                 .disposed(by: bag)

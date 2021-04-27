@@ -201,10 +201,10 @@ extension URI {
         
     }
     
-    struct AllNews: URIRepresentable {
+    struct AllNotice: URIRepresentable {
         static func patterns() -> [String] {
             return [
-                "/allNews",
+                "/allNotice",
             ]
         }
         

@@ -1,5 +1,5 @@
 //
-//  AppNews.GroupRequestsListViewController.swift
+//  Notice.GroupRequestsListViewController.swift
 //  WalkieTalkie
 //
 //  Created by mayue on 2021/4/26.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-extension AppNews {
+extension Notice {
     
     class GroupRequestsListViewController: WalkieTalkie.ViewController {
         
@@ -57,7 +57,7 @@ extension AppNews {
     
 }
 
-extension AppNews.GroupRequestsListViewController {
+extension Notice.GroupRequestsListViewController {
     
     private func setUpLayout() {
         view.addSubviews(views: emptyView, requestListView)
@@ -105,7 +105,7 @@ extension AppNews.GroupRequestsListViewController {
 
 }
 
-extension AppNews.GroupRequestsListViewController: UICollectionViewDataSource {
+extension Notice.GroupRequestsListViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 2
@@ -117,7 +117,7 @@ extension AppNews.GroupRequestsListViewController: UICollectionViewDataSource {
     }
 }
 
-extension AppNews.GroupRequestsListViewController: UICollectionViewDelegate {
+extension Notice.GroupRequestsListViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
     }
@@ -125,7 +125,7 @@ extension AppNews.GroupRequestsListViewController: UICollectionViewDelegate {
 }
 
 
-extension AppNews.GroupRequestsListViewController {
+extension Notice.GroupRequestsListViewController {
     
     class GroupRequestCell: UICollectionViewCell {
         

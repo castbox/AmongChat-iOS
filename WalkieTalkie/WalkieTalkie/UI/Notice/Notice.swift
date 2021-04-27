@@ -1,5 +1,5 @@
 //
-//  AppNews.swift
+//  Notice.swift
 //  WalkieTalkie
 //
 //  Created by mayue on 2021/4/26.
@@ -8,6 +8,6 @@
 
 import Foundation
 
-struct AppNews {
+struct Notice {
     
 }

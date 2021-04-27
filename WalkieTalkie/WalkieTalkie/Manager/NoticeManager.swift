@@ -1,5 +1,5 @@
 //
-//  NewsManager.swift
+//  NoticeManager.swift
 //  WalkieTalkie
 //
 //  Created by mayue on 2021/4/26.
@@ -8,16 +8,16 @@
 
 import Foundation
 
-class NewsManager {
+class NoticeManager {
     
-    static let shared = NewsManager()
+    static let shared = NoticeManager()
     
-    private let dbIOQueue = DispatchQueue.init(label: "among.chat.news.db.io", qos: .userInitiated)
+    private let dbIOQueue = DispatchQueue.init(label: "among.chat.notice.db.io", qos: .userInitiated)
     
     private let dbPath: URL = {
         let dbPath = NSSearchPathForDirectoriesInDomains(.documentDirectory,
                                                          .userDomainMask,
-                                                         true).last! + "/LocalData/News.db"
+                                                         true).last! + "/Notice/Notice.db"
         return URL(fileURLWithPath: dbPath)
     }()
 

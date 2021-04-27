@@ -1,5 +1,5 @@
 //
-//  AppNews.SocialNewsViewController.swift
+//  Notice.SocialNoticeViewController.swift
 //  WalkieTalkie
 //
 //  Created by mayue on 2021/4/26.
@@ -8,9 +8,9 @@
 
 import UIKit
 
-extension AppNews {
+extension Notice {
     
-    class SocialNewsViewController: WalkieTalkie.ViewController {
+    class SocialNoticeViewController: WalkieTalkie.ViewController {
         
     }
     

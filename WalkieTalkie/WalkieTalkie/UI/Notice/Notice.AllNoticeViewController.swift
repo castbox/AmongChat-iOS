@@ -1,5 +1,5 @@
 //
-//  AppNews.AllNewsViewController.swift
+//  Notice.AllNoticeViewController.swift
 //  WalkieTalkie
 //
 //  Created by mayue on 2021/4/26.
@@ -10,11 +10,11 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-extension AppNews {
+extension Notice {
     
-    class AllNewsViewController: WalkieTalkie.ViewController {
+    class AllNoticeViewController: WalkieTalkie.ViewController {
         
-        enum NewsType {
+        enum NoticeType {
             case system
             case social
             case groupRequest
@@ -22,11 +22,11 @@ extension AppNews {
             var title: String {
                 switch self {
                 case .system:
-                    return R.string.localizable.amongChatNewsSystem()
+                    return R.string.localizable.amongChatNoticeSystem()
                 case .social:
-                    return R.string.localizable.amongChatNewsSocial()
+                    return R.string.localizable.amongChatNoticeSocial()
                 case .groupRequest:
-                    return R.string.localizable.amongChatNewsGroupRequests()
+                    return R.string.localizable.amongChatNoticeGroupRequests()
                 }
             }
             
@@ -34,9 +34,9 @@ extension AppNews {
                 
                 switch self {
                 case .system:
-                    return SystemNewsViewController()
+                    return SystemNoticeViewController()
                 case .social:
-                    return SocialNewsViewController()
+                    return SocialNoticeViewController()
                 case .groupRequest:
                     return GroupRequestsListViewController()
                 }
@@ -61,7 +61,7 @@ extension AppNews {
             lb.font = R.font.nunitoExtraBold(size: 24)
             lb.textColor = .white
             lb.textAlignment = .center
-            lb.text = R.string.localizable.amongChatNewsAllNewsTitle()
+            lb.text = R.string.localizable.amongChatNoticeAllNoticeTitle()
             return lb
         }()
         
@@ -93,7 +93,7 @@ extension AppNews {
             }
         }
         
-        private let dataSet: [NewsType] = {
+        private let dataSet: [NoticeType] = {
             if let p = Settings.shared.amongChatUserProfile.value,
                !(p.isVerified ?? false) {
                 return [.system, .social]
@@ -112,7 +112,7 @@ extension AppNews {
     
 }
 
-extension AppNews.AllNewsViewController {
+extension Notice.AllNoticeViewController {
     
     func setupLayout() {
         
@@ -183,7 +183,7 @@ extension AppNews.AllNewsViewController {
     
 }
 
-extension AppNews.AllNewsViewController: UIScrollViewDelegate {
+extension Notice.AllNoticeViewController: UIScrollViewDelegate {
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         guard scrollView == self.scrollView else { return }

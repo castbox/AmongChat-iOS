@@ -33,7 +33,7 @@ final class Routes {
             URI.Avatars.self,
             URI.InviteUser.self,
             URI.FansGroup.self,
-            URI.AllNews.self,
+            URI.AllNotice.self,
             ]
         
         types.forEach { (type) in

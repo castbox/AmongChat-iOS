@@ -56,8 +56,8 @@ extension Routes {
                         self.handleInviteUser(uid: user.uid)
                     case let group as URI.FansGroup:
                         self.handleFansGroup(group.groupId)
-                    case _ as URI.AllNews:
-                        self.handleAllNews()
+                    case _ as URI.AllNotice:
+                        self.handleAllNotice()
                     default:
                         cdAssertFailure("should never enter here")
                     }
@@ -168,8 +168,8 @@ extension Routes {
                 }
         }
         
-        func handleAllNews() {
-            let vc = AppNews.AllNewsViewController()
+        func handleAllNotice() {
+            let vc = Notice.AllNoticeViewController()
             UIApplication.topViewController()?.navigationController?.pushViewController(vc)
         }
         

@@ -502,3 +502,7 @@
 "among.chat.news.system" = "System";
 "among.chat.news.social" = "Social";
 "among.chat.news.group.requests" = "Group Requests";
+"among.chat.notice.all.notice.title" = "Notice";
+"among.chat.notice.system" = "System";
+"among.chat.notice.social" = "Social";
+"among.chat.notice.group.requests" = "Group Requests";
