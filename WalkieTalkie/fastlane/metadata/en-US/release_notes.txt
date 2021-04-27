@@ -1,4 +1,5 @@
 Welcome to AmongChat voice chat app!
-For all verified users, you can create your own AmongChat Group now!
-Come to get verified and create an exclusive channel for your Group.
+In this version, we further optimize and improve the reporting function.
+Super Admins and Monitors are more authorized to exercise stricter supervision over the community.
+We are continuously working hard to provide a healthy and safe community for all users.
 Find and Voice Chat with your friends, play together, and enjoy!

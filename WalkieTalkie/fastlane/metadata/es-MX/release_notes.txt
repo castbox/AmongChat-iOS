@@ -1,4 +1,5 @@
 ¡Bienvenido a la aplicación de chat de voz AmongChat!
-¡Para todos los usuarios verificados, puede crear su propio Grupo AmongChat ahora!
-Ven a verificarte y crear un canal exclusivo para tu Grupo.
+En esta versión, optimizamos y mejoramos aún más la función de informes.
+Los superadministradores y monitores están más autorizados para ejercer una supervisión más estricta sobre la comunidad.
+Trabajamos duro continuamente para proporcionar una comunidad sana y segura para todos los usuarios.
 Busque y chatee por voz con sus amigos, jueguen juntos y disfruten.
