@@ -24,9 +24,10 @@
 		263F8ADF26156D7F00282F8F /* Entity.Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 263F8ADE26156D7F00282F8F /* Entity.Group.swift */; };
 		263FC49726218B9A00EC0588 /* FansGroup.Views.ShareBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 263FC49626218B9A00EC0588 /* FansGroup.Views.ShareBar.swift */; };
 		26430FCB2637F19B0096177B /* Entity.Notice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26430FCA2637F19B0096177B /* Entity.Notice.swift */; };
-		26430FD9263803E40096177B /* Notice.SocialNoticeViewController+Views.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26430FD8263803E40096177B /* Notice.SocialNoticeViewController+Views.swift */; };
-		26430FDD2638082E0096177B /* Notice.SystemNoticeViewController+Views.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26430FDC2638082E0096177B /* Notice.SystemNoticeViewController+Views.swift */; };
+		26430FD9263803E40096177B /* Notice.Views.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26430FD8263803E40096177B /* Notice.Views.swift */; };
 		264A076325B6FE67001F998E /* AmongChat.Login.SmsCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 264A076225B6FE67001F998E /* AmongChat.Login.SmsCodeViewController.swift */; };
+		264CCE51263861E200D5410C /* Notice.AllNoticeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 264CCE50263861E200D5410C /* Notice.AllNoticeViewModel.swift */; };
+		264CCE5F2639307600D5410C /* Notice.NoticeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 264CCE5E2639307600D5410C /* Notice.NoticeViewModel.swift */; };
 		265E53E9262DBC70003500D0 /* FansGroup.Views.GroupCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = 265E53E8262DBC70003500D0 /* FansGroup.Views.GroupCells.swift */; };
 		265FB7C725B690A7004987AB /* mobileRegions.json in Resources */ = {isa = PBXBuildFile; fileRef = 265FB7C625B690A7004987AB /* mobileRegions.json */; };
 		265FB7CB25B69C3A004987AB /* AmongChat.Login.MobileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 265FB7CA25B69C3A004987AB /* AmongChat.Login.MobileViewController.swift */; };
@@ -47,8 +48,7 @@
 		26A3D2B026366D4300DD4F53 /* Notice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26A3D2AF26366D4300DD4F53 /* Notice.swift */; };
 		26A3D2B626366D8500DD4F53 /* Notice.AllNoticeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26A3D2B526366D8500DD4F53 /* Notice.AllNoticeViewController.swift */; };
 		26A3D2BA26366DDB00DD4F53 /* Notice.GroupRequestsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26A3D2B926366DDB00DD4F53 /* Notice.GroupRequestsListViewController.swift */; };
-		26A3D2C22636B1BA00DD4F53 /* Notice.SocialNoticeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26A3D2C12636B1BA00DD4F53 /* Notice.SocialNoticeViewController.swift */; };
-		26A3D2C82636B1D000DD4F53 /* Notice.SystemNoticeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26A3D2C72636B1D000DD4F53 /* Notice.SystemNoticeViewController.swift */; };
+		26A3D2C22636B1BA00DD4F53 /* Notice.NoticeListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26A3D2C12636B1BA00DD4F53 /* Notice.NoticeListViewController.swift */; };
 		26A3D4AA2636BFEE00DD4F53 /* DB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26A3D4A92636BFEE00DD4F53 /* DB.swift */; };
 		26A3D4B02636C57200DD4F53 /* NoticeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26A3D4AF2636C57200DD4F53 /* NoticeManager.swift */; };
 		26AFD8B125C9742800B652E8 /* Social.ProfileLookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26AFD8B025C9742800B652E8 /* Social.ProfileLookViewController.swift */; };
@@ -429,9 +429,10 @@
 		263F8ADE26156D7F00282F8F /* Entity.Group.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entity.Group.swift; sourceTree = "<group>"; };
 		263FC49626218B9A00EC0588 /* FansGroup.Views.ShareBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FansGroup.Views.ShareBar.swift; sourceTree = "<group>"; };
 		26430FCA2637F19B0096177B /* Entity.Notice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entity.Notice.swift; sourceTree = "<group>"; };
-		26430FD8263803E40096177B /* Notice.SocialNoticeViewController+Views.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notice.SocialNoticeViewController+Views.swift"; sourceTree = "<group>"; };
-		26430FDC2638082E0096177B /* Notice.SystemNoticeViewController+Views.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notice.SystemNoticeViewController+Views.swift"; sourceTree = "<group>"; };
+		26430FD8263803E40096177B /* Notice.Views.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notice.Views.swift; sourceTree = "<group>"; };
 		264A076225B6FE67001F998E /* AmongChat.Login.SmsCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChat.Login.SmsCodeViewController.swift; sourceTree = "<group>"; };
+		264CCE50263861E200D5410C /* Notice.AllNoticeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notice.AllNoticeViewModel.swift; sourceTree = "<group>"; };
+		264CCE5E2639307600D5410C /* Notice.NoticeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notice.NoticeViewModel.swift; sourceTree = "<group>"; };
 		265E53E8262DBC70003500D0 /* FansGroup.Views.GroupCells.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FansGroup.Views.GroupCells.swift; sourceTree = "<group>"; };
 		265FB7C625B690A7004987AB /* mobileRegions.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = mobileRegions.json; sourceTree = "<group>"; };
 		265FB7CA25B69C3A004987AB /* AmongChat.Login.MobileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChat.Login.MobileViewController.swift; sourceTree = "<group>"; };
@@ -454,8 +455,7 @@
 		26A3D2AF26366D4300DD4F53 /* Notice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notice.swift; sourceTree = "<group>"; };
 		26A3D2B526366D8500DD4F53 /* Notice.AllNoticeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notice.AllNoticeViewController.swift; sourceTree = "<group>"; };
 		26A3D2B926366DDB00DD4F53 /* Notice.GroupRequestsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notice.GroupRequestsListViewController.swift; sourceTree = "<group>"; };
-		26A3D2C12636B1BA00DD4F53 /* Notice.SocialNoticeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notice.SocialNoticeViewController.swift; sourceTree = "<group>"; };
-		26A3D2C72636B1D000DD4F53 /* Notice.SystemNoticeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notice.SystemNoticeViewController.swift; sourceTree = "<group>"; };
+		26A3D2C12636B1BA00DD4F53 /* Notice.NoticeListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notice.NoticeListViewController.swift; sourceTree = "<group>"; };
 		26A3D4A92636BFEE00DD4F53 /* DB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DB.swift; sourceTree = "<group>"; };
 		26A3D4AF2636C57200DD4F53 /* NoticeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeManager.swift; sourceTree = "<group>"; };
 		26AFD8B025C9742800B652E8 /* Social.ProfileLookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Social.ProfileLookViewController.swift; sourceTree = "<group>"; };
@@ -853,10 +853,10 @@
 			children = (
 				26A3D2AF26366D4300DD4F53 /* Notice.swift */,
 				26A3D2B526366D8500DD4F53 /* Notice.AllNoticeViewController.swift */,
-				26A3D2C72636B1D000DD4F53 /* Notice.SystemNoticeViewController.swift */,
-				26430FDC2638082E0096177B /* Notice.SystemNoticeViewController+Views.swift */,
-				26A3D2C12636B1BA00DD4F53 /* Notice.SocialNoticeViewController.swift */,
-				26430FD8263803E40096177B /* Notice.SocialNoticeViewController+Views.swift */,
+				264CCE50263861E200D5410C /* Notice.AllNoticeViewModel.swift */,
+				26A3D2C12636B1BA00DD4F53 /* Notice.NoticeListViewController.swift */,
+				264CCE5E2639307600D5410C /* Notice.NoticeViewModel.swift */,
+				26430FD8263803E40096177B /* Notice.Views.swift */,
 				26A3D2B926366DDB00DD4F53 /* Notice.GroupRequestsListViewController.swift */,
 			);
 			path = Notice;
@@ -1914,7 +1914,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				26A3D2C82636B1D000DD4F53 /* Notice.SystemNoticeViewController.swift in Sources */,
 				FE8DEA65243DB09A0059C252 /* ApiManager.Plugin.swift in Sources */,
 				FEBE5221262D2DF500E49EC4 /* ReportImageCell.swift in Sources */,
 				2BAB4EF72595C6F200A1C8DC /* Social.LeaveGameViewController.swift in Sources */,
@@ -1952,6 +1951,7 @@
 				265FB7CB25B69C3A004987AB /* AmongChat.Login.MobileViewController.swift in Sources */,
 				FE2AF9F4244DCC0400763747 /* URI.Parse.swift in Sources */,
 				FEAD54D52449B6A0006454F6 /* ViewController.swift in Sources */,
+				264CCE5F2639307600D5410C /* Notice.NoticeViewModel.swift in Sources */,
 				BD95F2DC2591C73B003BE2FE /* Social.SelectAvatarViewController.swift in Sources */,
 				FE8DEA6B243DB09A0059C252 /* Json.swift in Sources */,
 				FEC2A93725CA5117001B9556 /* AmongChat.Room.QueueManager.swift in Sources */,
@@ -2022,7 +2022,7 @@
 				FE8067A8261ED69C00207992 /* AmongChat.GroupRoom.BroadcasterViewModel.swift in Sources */,
 				26AFD90725CAB81300B652E8 /* IAP.ConsumableProduct.swift in Sources */,
 				FE078C892615B64B004C38C5 /* AmongChat.GroupRoom.MembersController.swift in Sources */,
-				26430FD9263803E40096177B /* Notice.SocialNoticeViewController+Views.swift in Sources */,
+				26430FD9263803E40096177B /* Notice.Views.swift in Sources */,
 				FE684879244BD45F00F87AF9 /* DateUtil.swift in Sources */,
 				26DC82792609C8F1000A9111 /* Social.ChooseGame+Views.swift in Sources */,
 				FE7CE9D32589C1BE0067952C /* AmongRoomInfoView.swift in Sources */,
@@ -2077,7 +2077,6 @@
 				FE126D3F243481BD00BEDD60 /* RtmManager.swift in Sources */,
 				FECA43B2245987CA0075D139 /* PushSettingController.swift in Sources */,
 				FEA2E93325C139E4007485A8 /* AvatarGuideViewController.swift in Sources */,
-				26430FDD2638082E0096177B /* Notice.SystemNoticeViewController+Views.swift in Sources */,
 				FEBE522E262D345B00E49EC4 /* UIImageExtension.swift in Sources */,
 				FE125F6325B841F900609D81 /* Social.InviteFirendsViewModel.swift in Sources */,
 				FE8089CE2449EE65006A1644 /* SettingViewController.swift in Sources */,
@@ -2188,6 +2187,7 @@
 				26057F8925C1712900718D3E /* AvatarImageView.swift in Sources */,
 				BDD692772536DE2900260F1F /* Ad.InterstitialManager.swift in Sources */,
 				FE730E4F24ADCC4C00680062 /* TikTokShareView.swift in Sources */,
+				264CCE51263861E200D5410C /* Notice.AllNoticeViewModel.swift in Sources */,
 				FE6738B22611F5270044C0D2 /* AmongChat.Room.MessageListView.swift in Sources */,
 				FE126D3E243481BD00BEDD60 /* AgoraRtcManager.swift in Sources */,
 				269A6E122620459700A07C7D /* FansGroup.SelectGroupMemberViewController.swift in Sources */,
@@ -2210,7 +2210,7 @@
 				FE79F379258C76A800E9BC6C /* AmongChat.Room.SeatView.swift in Sources */,
 				FE401E46244DA3B60081F793 /* UIWindow+Controller.swift in Sources */,
 				FE730E4D24ADCB0100680062 /* PhotoManager.swift in Sources */,
-				26A3D2C22636B1BA00DD4F53 /* Notice.SocialNoticeViewController.swift in Sources */,
+				26A3D2C22636B1BA00DD4F53 /* Notice.NoticeListViewController.swift in Sources */,
 				FE7CEB56258A029F0067952C /* AmongRoomInfoSetupView.swift in Sources */,
 				FECA43AC24597B570075D139 /* Automator.swift in Sources */,
 				FE860D4A2446D1D700087B73 /* Size.swift in Sources */,

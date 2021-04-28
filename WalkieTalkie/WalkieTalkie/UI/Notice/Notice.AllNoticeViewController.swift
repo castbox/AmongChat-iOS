@@ -30,19 +30,6 @@ extension Notice {
                 }
             }
             
-            var vC: UIViewController {
-                
-                switch self {
-                case .system:
-                    return SystemNoticeViewController()
-                case .social:
-                    return SocialNoticeViewController()
-                case .groupRequest:
-                    return GroupRequestsListViewController()
-                }
-                
-            }
-            
         }
         
         private lazy var backBtn: UIButton = {
@@ -102,10 +89,14 @@ extension Notice {
             }
         }()
         
+        private lazy var systemNoticeVc = NoticeListViewController()
+        private lazy var socialNoticeVc = NoticeListViewController()
+        private lazy var groupRequestsListVc = GroupRequestsListViewController()
+        
         override func viewDidLoad() {
             super.viewDidLoad()
             setupLayout()
-            setupEvents()
+            loadData(initialLoad: true)
         }
         
     }
@@ -114,7 +105,7 @@ extension Notice {
 
 extension Notice.AllNoticeViewController {
     
-    func setupLayout() {
+    private func setupLayout() {
         
         view.addSubviews(views: backBtn, titleLabel, segmentedButton, scrollView)
         
@@ -148,39 +139,93 @@ extension Notice.AllNoticeViewController {
         
         segmentedButton.setTitles(titles: dataSet.map({ $0.title }))
         
-        let vCs = dataSet.map { $0.vC }
+        addChild(systemNoticeVc)
+        scrollView.addSubview(systemNoticeVc.view)
+        systemNoticeVc.view.snp.makeConstraints { (maker) in
+            maker.top.bottom.equalToSuperview()
+            maker.width.equalTo(view)
+            maker.height.equalToSuperview()
+            maker.leading.equalToSuperview()
+        }
+        systemNoticeVc.didMove(toParent: self)
+        systemNoticeVc.refreshHandler = { [weak self] in
+            self?.loadData()
+        }
+
+        addChild(socialNoticeVc)
+        scrollView.addSubview(socialNoticeVc.view)
+        socialNoticeVc.view.snp.makeConstraints { (maker) in
+            maker.top.bottom.equalToSuperview()
+            maker.width.equalTo(view)
+            maker.height.equalToSuperview()
+            maker.leading.equalTo(systemNoticeVc.view.snp.trailing)
+        }
+        socialNoticeVc.didMove(toParent: self)
+        socialNoticeVc.refreshHandler = { [weak self] in
+            self?.loadData()
+        }
         
-        for (idx, vC) in vCs.enumerated() {
-                        
-            addChild(vC)
-            scrollView.addSubview(vC.view)
-            vC.view.snp.makeConstraints { (maker) in
+        if let p = Settings.shared.amongChatUserProfile.value,
+           (p.isVerified ?? false) {
+            
+            addChild(groupRequestsListVc)
+            scrollView.addSubview(groupRequestsListVc.view)
+            groupRequestsListVc.view.snp.makeConstraints { (maker) in
                 maker.top.bottom.equalToSuperview()
                 maker.width.equalTo(view)
                 maker.height.equalToSuperview()
-                if idx == 0 {
-                    maker.leading.equalToSuperview()
-                } else if idx == dataSet.count - 1 {
-                    maker.trailing.equalToSuperview()
-                }
-                
-                if idx > 0,
-                   let preView = vCs.safe(idx - 1)?.view {
-                    maker.leading.equalTo(preView.snp.trailing)
-                }
+                maker.leading.equalTo(socialNoticeVc.view.snp.trailing)
+                maker.trailing.equalToSuperview()
             }
-            vC.didMove(toParent: self)
-            
+            socialNoticeVc.didMove(toParent: self)
+           
         }
         
         scrollView.layoutIfNeeded()
         
     }
     
-    func setupEvents() {
+    private func loadData(initialLoad: Bool = false) {
         
+        var hudRemoval: (() -> Void)? = nil
+        if initialLoad {
+            hudRemoval = self.view.raft.show(.loading, userInteractionEnabled: true)
+        }
+        
+        NoticeManager.shared.latestNotice()
+            .flatMap { (n) in
+                Observable.zip(Request.peerNoticeMessge(skipMs: n?.ms ?? 0).asObservable(),
+                               Request.globalNoticeMessage(skipMs: n?.ms ?? 0).asObservable())
+                    .asSingle()
+            }
+            .map({ (peerlist, globalList) -> [Entity.Notice] in
+                var list = peerlist
+                list.append(contentsOf: globalList)
+                return list
+            })
+            .flatMap { (list) -> Single<Void> in
+                guard list.count > 0 else {
+                    return Single.just(())
+                }
+                return NoticeManager.shared.addNoticeList(list)
+            }
+            .flatMap({ () in
+                NoticeManager.shared.noticeList()
+            })
+            .do(onDispose: {
+                hudRemoval?()
+            })
+            .subscribe(onSuccess: { [weak self] (list) in
+                
+                self?.systemNoticeVc.dataSource = list.filter({ $0.fromUid == 1001 })
+                self?.socialNoticeVc.dataSource = list.filter({ $0.fromUid == 1002 })
+                
+            }, onError: { (error) in
+                
+            })
+            .disposed(by: bag)
     }
-    
+
 }
 
 extension Notice.AllNoticeViewController: UIScrollViewDelegate {

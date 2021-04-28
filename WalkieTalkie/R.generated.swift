@@ -2159,7 +2159,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
     
-    /// This `R.string.localizable` struct is generated, and contains static references to 441 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 442 localization keys.
     struct localizable {
       /// en translation:  Congratulations!
       /// 
@@ -3185,6 +3185,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let errorNoTeammates = Rswift.StringResource(key: "error.no.teammates", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Oops, nothing here yet.
+      /// 
+      /// Locales: en
+      static let amongChatNoticeEmptyTip = Rswift.StringResource(key: "among.chat.notice.empty.tip", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Oops, server connection was lost, please try again later.
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -5716,6 +5720,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func errorNoTeammates(_: Void = ()) -> String {
         return NSLocalizedString("error.no.teammates", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Oops, nothing here yet.
+      /// 
+      /// Locales: en
+      static func amongChatNoticeEmptyTip(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.notice.empty.tip", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Oops, server connection was lost, please try again later.

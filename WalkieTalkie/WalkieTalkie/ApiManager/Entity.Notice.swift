@@ -7,18 +7,32 @@
 //
 
 import Foundation
+import WCDBSwift
 
 extension Entity {
     
-    struct Notice: Codable {
+    struct Notice: TableCodable {
+        
+        var identifier: Int?
         
         var fromUid: Int
-        var uid: Int
-        var ms: Date
+        var uid: Int?
+        var ms: Int64
         
-        var message: String
+        var message: NoticeMessage
         
-        private enum CodingKeys: String, CodingKey {
+        enum CodingKeys: String, CodingTableKey {
+            typealias Root = Notice
+            static let objectRelationalMapping = TableBinding(CodingKeys.self)
+            
+            static var columnConstraintBindings: [CodingKeys: ColumnConstraintBinding]? {
+                return [
+                    identifier: ColumnConstraintBinding(isPrimary: true, isAutoIncrement: true),
+                ]
+            }
+            
+            case identifier = "id"
+            
             case fromUid = "from_uid"
             case uid
             case ms
@@ -27,7 +41,29 @@ extension Entity {
         
     }
     
-    struct Message: Codable {
+    struct NoticeMessage: TableCodable, ColumnCodable {
+        
+        init?(with value: FundamentalValue) {
+            guard let json = value.stringValue.jsonObject(),
+                  let message = try? JSONDecoder().decodeAnyData(NoticeMessage.self, from: json) else { return nil }
+            
+            type = message.type
+            title = message.title
+            text = message.text
+            img = message.img
+            link = message.link
+            objType = message.objType
+            objId = message.objId
+        }
+        
+        func archivedValue() -> FundamentalValue {
+            return .init(asString ?? "")
+        }
+        
+        static var columnType: ColumnType {
+            return .text
+        }
+        
         
         var type: String
         var title: String
@@ -37,7 +73,10 @@ extension Entity {
         var objType: String?
         var objId: String?
         
-        private enum CodingKeys: String, CodingKey {
+        enum CodingKeys: String, CodingTableKey {
+            typealias Root = NoticeMessage
+            static let objectRelationalMapping = TableBinding(CodingKeys.self)
+                        
             case type
             case title
             case text
@@ -45,6 +84,39 @@ extension Entity {
             case link
             case objType = "obj_type"
             case objId = "obj_id"
+        }
+        
+        enum MessageType: String {
+            case TxtMsg
+            case ImgMsg
+            case ImgTxtMsg
+            case TxtImgMsg
+            case SocialMsg            
+        }
+        
+        var messageType: MessageType {
+            
+            guard let t = MessageType(rawValue: type) else {
+                return .TxtMsg
+            }
+            
+            return t
+        }
+        
+        enum MessageObjType: String {
+            case group
+            case user
+            case room
+            case unknown
+        }
+        
+        var messageObjType: MessageObjType {
+            
+            guard let t = MessageObjType(rawValue: objType ?? "") else {
+                return .unknown
+            }
+            
+            return t
         }
         
     }

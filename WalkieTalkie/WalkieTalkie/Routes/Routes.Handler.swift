@@ -144,6 +144,8 @@ extension Routes {
                     })
                 
             }
+            UIApplication.appDelegate?.followInvitedUserhandler?()
+            UIApplication.appDelegate?.followInvitedUserhandler = nil
         }
         
         func handleFollowers() {

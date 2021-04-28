@@ -1502,14 +1502,14 @@ extension Request {
             .map { (data) in
                 let unread_g = data["unread_g"] as? Bool ?? false
                 let unread_p = data["unread_p"] as? Bool ?? false
-                
-                return unread_g || unread_p
+                let unread_ga = data["unread_ga"] as? Bool ?? false
+                return unread_g || unread_p || unread_ga
             }
             .observeOn(MainScheduler.asyncInstance)
         
     }
     
-    static func peerMessge(skipMs: Int64) -> Single<[Entity.Notice]> {
+    static func peerNoticeMessge(skipMs: Int64) -> Single<[Entity.Notice]> {
         
         let params: [String : Any] = [
             "skip_ms" : skipMs
@@ -1529,7 +1529,7 @@ extension Request {
             .observeOn(MainScheduler.asyncInstance)
     }
     
-    static func globalMessage(skipMs: Int64) -> Single<[Entity.Notice]> {
+    static func globalNoticeMessage(skipMs: Int64) -> Single<[Entity.Notice]> {
         
         let params: [String : Any] = [
             "skip_ms" : skipMs
