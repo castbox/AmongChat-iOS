@@ -48,7 +48,12 @@ extension Notice {
         
         var dataSource: [Entity.Notice] = [] {
             didSet {
-                noticeVMList = dataSource.map({ NoticeViewModel(with: $0) })
+                noticeVMList = dataSource.enumerated().map({ [weak self] (idx, notice) in
+                    NoticeViewModel(with: notice) {
+                        self?.noticeListView.reloadItems(at: [IndexPath(item: idx, section: 0)])
+                    }
+                    
+                })
             }
         }
         

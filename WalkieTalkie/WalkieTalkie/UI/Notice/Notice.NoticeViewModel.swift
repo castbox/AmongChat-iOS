@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 extension Notice {
     
@@ -15,8 +17,11 @@ extension Notice {
         private(set) var notice: Entity.Notice
         private(set) var itemsSize: CGSize
         private(set) var timeString: String
+        private let bag = DisposeBag()
         
-        init(with notice: Entity.Notice) {
+        private let updateCellHandler: (() -> Void)
+        
+        init(with notice: Entity.Notice, updateCell: @escaping (() -> Void)) {
             self.notice = notice
             
             switch notice.message.messageType {
@@ -31,6 +36,8 @@ extension Notice {
             dateFormatter.locale = Locale.current
             let date = Date(timeIntervalSince1970: Double(notice.ms) / 1000.0)
             timeString = dateFormatter.string(from: date)
+            updateCellHandler = updateCell
+            setUpEvents()
         }
         
         func action() {
@@ -41,6 +48,25 @@ extension Notice {
             
             Routes.handle(link)
 
+        }
+        
+        private func setUpEvents() {
+            
+            if let objType = notice.message.objType, let objId = notice.message.objId {
+                NoticeManager.shared.messageBodyObservable(objType: objType, objId: objId)
+                    .subscribe(onNext: { [weak self] (messageBody) in
+                        
+                        guard let message = messageBody else {
+                            return
+                        }
+                        
+                        self?.notice.message = message
+                        self?.updateCellHandler()
+                    })
+                    .disposed(by: bag)
+            }
+            
+            
         }
         
     }

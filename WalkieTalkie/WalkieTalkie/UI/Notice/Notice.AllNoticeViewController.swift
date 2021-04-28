@@ -204,9 +204,6 @@ extension Notice.AllNoticeViewController {
                 return list
             })
             .flatMap { (list) -> Single<Void> in
-                guard list.count > 0 else {
-                    return Single.just(())
-                }
                 return NoticeManager.shared.addNoticeList(list)
             }
             .flatMap({ () in
