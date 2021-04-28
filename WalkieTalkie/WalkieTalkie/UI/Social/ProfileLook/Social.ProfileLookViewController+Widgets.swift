@@ -274,6 +274,9 @@ extension Social.ProfileLookViewController {
             selectedIndexrRelay.accept(index)
         }
         
+        func buttonOf(_ index: Int) -> UIView? {
+            return buttons.safe(index)
+        }
     }
     
 }

@@ -107,5 +107,18 @@ class Automator {
                 IAP.refreshConsumableProducts(iapProductIds)
             })
             .disposed(by: bag)
+        
+        Settings.shared.loginResult.replay()
+            .filterNil()
+            .flatMap { _ in
+                NoticeManager.shared.latestNotice()
+            }
+            .flatMap {
+                Request.noticeCheck(lastCheckMs: $0?.ms ?? 0)
+            }
+            .catchErrorJustReturn(false)
+            .bind(to: Settings.shared.hasUnreadNoticeRelay)
+            .disposed(by: bag)
+
     }
 }

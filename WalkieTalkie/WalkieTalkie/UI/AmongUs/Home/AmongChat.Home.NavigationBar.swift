@@ -37,7 +37,7 @@ extension AmongChat.Home {
             return btn
         }()
         
-        private lazy var newsBtn: UIButton = {
+        private lazy var noticeBtn: UIButton = {
             let btn = UIButton(type: .custom)
             btn.setImage(R.image.ac_notice(), for: .normal)
             btn.rx.controlEvent(.primaryActionTriggered)
@@ -79,14 +79,26 @@ extension AmongChat.Home {
                     if let _ = ts {
                         self?.profileBtn.redDotOff()
                     } else {
-                        self?.profileBtn.redDotOn(hAlignment: .tailByTail(-2))
+                        self?.profileBtn.redDotOn(hAlignment: .tailByTail(-2), topInset: -1, diameter: 13)
                     }
+                })
+                .disposed(by: bag)
+            
+            Settings.shared.hasUnreadNoticeRelay
+                .subscribe(onNext: { [weak self] (hasUnread) in
+                    
+                    if hasUnread {
+                        self?.noticeBtn.redDotOn(hAlignment: .tailByTail(-5), topInset: -1, diameter: 13)
+                    } else {
+                        self?.redDotOff()
+                    }
+                    
                 })
                 .disposed(by: bag)
         }
         
         private func configureSubview() {
-            addSubviews(views: profileBtn, searchBtn, newsBtn, createRoomBtn)
+            addSubviews(views: profileBtn, searchBtn, noticeBtn, createRoomBtn)
             
             profileBtn.snp.makeConstraints { (maker) in
                 maker.top.bottom.equalToSuperview().inset(8.5)
@@ -99,13 +111,13 @@ extension AmongChat.Home {
                 maker.centerY.equalToSuperview()
             }
             
-            newsBtn.snp.makeConstraints { (maker) in
+            noticeBtn.snp.makeConstraints { (maker) in
                 maker.trailing.equalTo(createRoomBtn.snp.leading).offset(-24)
                 maker.centerY.equalToSuperview()
             }
             
             searchBtn.snp.makeConstraints { (maker) in
-                maker.trailing.equalTo(newsBtn.snp.leading).offset(-24)
+                maker.trailing.equalTo(noticeBtn.snp.leading).offset(-24)
                 maker.centerY.equalToSuperview()
             }
         }

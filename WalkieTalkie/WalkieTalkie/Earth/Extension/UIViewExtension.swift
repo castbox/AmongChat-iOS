@@ -141,17 +141,18 @@ extension UIView {
                   hAlignment: RedDotHorizontalAlignment = .tailByTail(0),
                   topInset: CGFloat = 0,
                   diameter: CGFloat = 12,
-                  borderWidth: CGFloat = 0,
-                  borderColor: UIColor? = nil) {
+                  borderWidth: CGFloat = 2.5,
+                  borderColor: UIColor? = UIColor(hex6: 0x121212)) {
         
         guard redDotIV == nil else {
             return
         }
         let iv = UIImageView()
         iv.backgroundColor = "FA4E4E".color()
-        iv.cornerRadius = diameter / 2
+        iv.layer.cornerRadius = diameter / 2
         iv.layer.borderWidth = borderWidth
         iv.layer.borderColor = borderColor?.cgColor
+        iv.clipsToBounds = true
         addSubview(iv)
         iv.snp.makeConstraints { (maker) in
             maker.width.height.equalTo(diameter)

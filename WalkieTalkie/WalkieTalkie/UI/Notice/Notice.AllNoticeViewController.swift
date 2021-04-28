@@ -91,12 +91,15 @@ extension Notice {
         
         private lazy var systemNoticeVc = NoticeListViewController()
         private lazy var socialNoticeVc = NoticeListViewController()
-        private lazy var groupRequestsListVc = GroupRequestsListViewController()
+        private var groupRequestsListVc: GroupRequestsListViewController!
+        
+        private var hasUnreadSocial = BehaviorRelay(value: false)
         
         override func viewDidLoad() {
             super.viewDidLoad()
             setupLayout()
             loadData(initialLoad: true)
+            setUpEvents()
         }
         
     }
@@ -168,6 +171,8 @@ extension Notice.AllNoticeViewController {
         if let p = Settings.shared.amongChatUserProfile.value,
            (p.isVerified ?? false) {
             
+            let groupRequestsListVc = Notice.GroupRequestsListViewController()
+            
             addChild(groupRequestsListVc)
             scrollView.addSubview(groupRequestsListVc.view)
             groupRequestsListVc.view.snp.makeConstraints { (maker) in
@@ -179,6 +184,7 @@ extension Notice.AllNoticeViewController {
             }
             socialNoticeVc.didMove(toParent: self)
            
+            self.groupRequestsListVc = groupRequestsListVc
         }
         
         scrollView.layoutIfNeeded()
@@ -198,7 +204,11 @@ extension Notice.AllNoticeViewController {
                                Request.globalNoticeMessage(skipMs: n?.ms ?? 0).asObservable())
                     .asSingle()
             }
-            .map({ (peerlist, globalList) -> [Entity.Notice] in
+            .map({ [weak self] (peerlist, globalList) -> [Entity.Notice] in
+                
+                self?.socialNoticeVc.hasUnreadNotice.accept(peerlist.count > 0)
+                self?.systemNoticeVc.hasUnreadNotice.accept(peerlist.count > 0)
+                
                 var list = peerlist
                 list.append(contentsOf: globalList)
                 return list
@@ -220,6 +230,42 @@ extension Notice.AllNoticeViewController {
             }, onError: { (error) in
                 
             })
+            .disposed(by: bag)
+    }
+    
+    private func setUpEvents() {
+        
+        Observable.combineLatest(systemNoticeVc.hasUnreadNotice,
+                                 socialNoticeVc.hasUnreadNotice,
+                                 groupRequestsListVc?.hasUnhandledApplyObservable ?? Observable.just(false))
+            .map({ [weak self] (unreadSystem, unreadSocial, unhandledGroupApply) -> [(Bool, UIView?)] in
+                
+                let systemTitleLabel = (self?.segmentedButton.buttonOf(0) as? UIButton)?.titleLabel
+                let socialTitleLabel = (self?.segmentedButton.buttonOf(1) as? UIButton)?.titleLabel
+                let requestsTitleLabel = (self?.segmentedButton.buttonOf(2) as? UIButton)?.titleLabel
+                
+                return [(unreadSystem, systemTitleLabel),
+                        (unreadSocial, socialTitleLabel),
+                        (unhandledGroupApply, requestsTitleLabel)]
+            })
+            .do(onNext: { (a) in
+                
+                for t in a {
+                    
+                    if t.0 {
+                        t.1?.redDotOn(hAlignment: .headToTail(-2), diameter: 13)
+                    } else {
+                        t.1?.redDotOff()
+                    }
+                    
+                }
+                
+            })
+            .map({ $0.reduce(false, { result, element in
+                                result || element.0 })
+            })
+            .catchErrorJustReturn(false)
+            .bind(to: Settings.shared.hasUnreadNoticeRelay)
             .disposed(by: bag)
     }
 

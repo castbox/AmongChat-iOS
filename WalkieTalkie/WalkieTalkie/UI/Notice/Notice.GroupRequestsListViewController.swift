@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 extension Notice {
     
@@ -42,9 +44,16 @@ extension Notice {
             return v
         }()
         
+        private let hasUnhandledApply = BehaviorRelay(value: false)
+        
+        var hasUnhandledApplyObservable: Observable<Bool> {
+            return hasUnhandledApply.asObservable()
+        }
+        
         private lazy var dataSource: [Entity.GroupApplyStat] = [] {
             didSet {
                 requestListView.reloadData()
+                hasUnhandledApply.accept(dataSource.count > 0)
             }
         }
         
@@ -94,6 +103,21 @@ extension Notice.GroupRequestsListViewController {
     private func gotoRequestsOfGroup(_ groupId: String) {
         let vc = FansGroup.GroupJoinRequestListViewController(with: groupId, hasNavigationBar: true)
         navigationController?.pushViewController(vc)
+        vc.requestsCountObservable
+            .subscribe(onNext: { [weak self] (count) in
+                
+                guard let idx = self?.dataSource.firstIndex(where: { $0.gid == groupId }) else { return }
+                
+                guard count > 0 else {
+                    self?.dataSource.remove(at: idx)
+                    return
+                }
+                
+                self?.dataSource[idx].applyCount = count
+                self?.requestListView.reloadItems(at: [IndexPath(item: idx, section: 0)])
+                
+            })
+            .disposed(by: bag)
     }
     
 }

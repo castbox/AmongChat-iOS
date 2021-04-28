@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 extension Notice {
     
@@ -46,6 +48,8 @@ extension Notice {
             return v
         }()
         
+        let hasUnreadNotice = BehaviorRelay(value: false)
+                
         var dataSource: [Entity.Notice] = [] {
             didSet {
                 noticeVMList = dataSource.enumerated().map({ [weak self] (idx, notice) in
@@ -70,6 +74,7 @@ extension Notice {
         override func viewDidLoad() {
             super.viewDidLoad()
             setUpLayout()
+            setUpEvents()
         }
         
     }
@@ -94,6 +99,14 @@ extension Notice.NoticeListViewController {
         noticeListView.pullToRefresh { [weak self] in
             self?.refreshHandler?()
         }
+    }
+    
+    private func setUpEvents() {
+        rx.viewDidAppear
+            .subscribe(onNext: { [weak self] (_) in
+                self?.hasUnreadNotice.accept(false)
+            })
+            .disposed(by: bag)
     }
     
 }

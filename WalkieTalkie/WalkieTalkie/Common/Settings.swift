@@ -8,6 +8,7 @@
 
 import Foundation
 import RxSwift
+import RxCocoa
 import SwiftyUserDefaults
 import CoreLocation
 import SwiftHash
@@ -433,6 +434,8 @@ class Settings {
         }
         return Defaults[\.showQuickChangeRoomButton] ?? false
     }
+    
+    let hasUnreadNoticeRelay = BehaviorRelay<Bool>(value: false)
     
     //设置默认值
     func updateDefaultConfig() {

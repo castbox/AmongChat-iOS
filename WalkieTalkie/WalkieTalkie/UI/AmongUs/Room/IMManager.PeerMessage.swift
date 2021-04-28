@@ -30,6 +30,8 @@ extension Peer {
         case friendsInfo = "AC:PEER:FriendsInfo"
         case roomInvitation = "AC:PEER:Invite"
         case roomInvitationInviteStranger = "AC:PEER:InviteStranger"
+        case unreadNotice = "AC:PEER:UnreadNotice"
+        case unreadGroupApply = "AC:PEER:UnreadGroupApply"
     }
     
     struct TextMessage: PeerMessage {
