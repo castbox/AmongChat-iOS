@@ -147,6 +147,29 @@ extension Request {
             .mapToDataKeyJsonValue()
             .mapTo(Entity.UserProfile.self)
             .observeOn(MainScheduler.asyncInstance)
+            .do(onSuccess: { (p) in
+                
+                guard let profile = p else { return }
+                
+                let _ = NoticeManager.shared.queryMessageBody(objType: Entity.NoticeMessage.MessageObjType.user.rawValue, objId: profile.uid.string)
+                    .flatMap { (m) -> Single<Void> in
+                        guard var messageBody = m else {
+                            return Single.just(())
+                        }
+                        
+                        messageBody.img = profile.pictureUrl
+                        if let name = profile.name {
+                            messageBody.title = name
+                        }
+                        
+                        return NoticeManager.shared.updateMessageBody(messageBody)
+                    }
+                    .subscribe { (_) in
+                        
+                    } onError: { (_) in
+                        
+                    }
+            })
     }
     
     @available(*, deprecated, message: "use the one parameter type is Entity.ProfileProto instead")
@@ -1249,6 +1272,25 @@ extension Request {
                 return r
             })
             .observeOn(MainScheduler.asyncInstance)
+            .do(onSuccess: { (info) in
+                
+                let _ = NoticeManager.shared.queryMessageBody(objType: Entity.NoticeMessage.MessageObjType.group.rawValue, objId: info.group.gid)
+                    .flatMap { (m) -> Single<Void> in
+                        guard var messageBody = m else {
+                            return Single.just(())
+                        }
+                        
+                        messageBody.img = info.group.coverURL
+                        messageBody.title = info.group.name
+                        
+                        return NoticeManager.shared.updateMessageBody(messageBody)
+                    }
+                    .subscribe { (_) in
+                        
+                    } onError: { (_) in
+                        
+                    }
+            })
     }
     
     static func leaveGroup(_ groupId: String) -> Single<Bool> {
