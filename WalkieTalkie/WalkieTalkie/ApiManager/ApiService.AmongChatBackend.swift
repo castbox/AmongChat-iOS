@@ -105,6 +105,10 @@ extension APIService {
         case adminUnmuteIm([String: Any])
         case roomMuteInfo([String: Any])
         
+        case noticeCheck([String : Any])
+        case peerMessage([String : Any])
+        case globalMessage([String : Any])
+        case myGroupApplyStat
     }
 }
 
@@ -300,6 +304,14 @@ extension APIService.AmongChatBackend: TargetType {
             return "/api/v1/rooms/im/unmute"
         case .roomMuteInfo:
             return "/api/v1/rooms/mute/info"
+        case .noticeCheck:
+            return "/api/v1/notice/check"
+        case .peerMessage:
+            return "/api/v1/peer/message/list"
+        case .globalMessage:
+            return "/api/v1/global/message/list"
+        case .myGroupApplyStat:
+            return "/api/v1/my/group/apply/stat"
         }
     }
     
@@ -389,6 +401,10 @@ extension APIService.AmongChatBackend: TargetType {
              .leaveGroup,
              .reportReasons,
              .roomMuteInfo,
+             .noticeCheck,
+             .peerMessage,
+             .globalMessage,
+             .myGroupApplyStat,
              .shareUserSign:
             return .get
         case .follow:
@@ -426,6 +442,7 @@ extension APIService.AmongChatBackend: TargetType {
              .globalSetting,
              .gameSkills,
              .reportReasons,
+             .myGroupApplyStat,
              .shareUserSign:
             return .requestParameters(parameters: [:], encoding: URLEncoding.default)
             
@@ -503,6 +520,9 @@ extension APIService.AmongChatBackend: TargetType {
              .handleGroupApply(let params),
              .deleteGroup(let params),
              .roomMuteInfo(let params),
+             .noticeCheck(let params),
+             .peerMessage(let params),
+             .globalMessage(let params),
              .unFollow(let params):
             return .requestParameters(parameters: params, encoding: URLEncoding.queryString)
             

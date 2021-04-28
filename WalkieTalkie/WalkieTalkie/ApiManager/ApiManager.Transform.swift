@@ -109,6 +109,16 @@ extension ObservableType where Element == Any {
             }
     }
     
+    func mapToDataKeyListKeyValue() -> Observable<[[String : AnyObject]]> {
+        return mapToDataKeyJsonValue()
+            .map({ data -> [[String : AnyObject]] in
+                guard let list = data["list"] as? [[String : AnyObject]] else {
+                    return []
+                }
+                return list
+            })
+    }
+    
     func mapToListJson() -> Observable<[[String: AnyObject]]> {
         return observeOn(SerialDispatchQueueScheduler(qos: .default))
             .map { item in
@@ -154,6 +164,16 @@ extension PrimitiveSequence where Trait == SingleTrait, Element == Any {
                 }
                 return data
             }
+    }
+    
+    func mapToDataKeyListKeyValue() -> Single<[[String : AnyObject]]> {
+        return mapToDataKeyJsonValue()
+            .map({ data -> [[String : AnyObject]] in
+                guard let list = data["list"] as? [[String : AnyObject]] else {
+                    return []
+                }
+                return list
+            })
     }
     
     func mapToListJson() -> Single<[[String: AnyObject]]> {

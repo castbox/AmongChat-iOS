@@ -129,21 +129,40 @@ extension UIView {
 extension UIView {
     
     private struct AssociateKey {
-        static var key = "redDotImageView"
+        static var key = "badgeView"
     }
     
-    func redDotOn(string: String? = nil, rightInset: CGFloat = 0, topInset: CGFloat = 0, diameter: CGFloat = 12) {
-        guard redDotIV == nil else {
+    enum BadgeHorizontalAlignment {
+        case tailByTail(CGFloat)
+        case headToTail(CGFloat)
+    }
+    
+    func badgeOn(string: String? = nil,
+                  hAlignment: BadgeHorizontalAlignment = .tailByTail(0),
+                  topInset: CGFloat = 0,
+                  diameter: CGFloat = 12,
+                  borderWidth: CGFloat = 2.5,
+                  borderColor: UIColor? = UIColor(hex6: 0x121212)) {
+        
+        guard badge == nil else {
             return
         }
-        let iv = UIImageView()
-        iv.backgroundColor = "FA4E4E".color()
-        iv.cornerRadius = diameter / 2
-        addSubview(iv)
-        iv.snp.makeConstraints { (maker) in
+        let b = UIView()
+        b.backgroundColor = "FA4E4E".color()
+        b.layer.cornerRadius = diameter / 2
+        b.layer.borderWidth = borderWidth
+        b.layer.borderColor = borderColor?.cgColor
+        b.clipsToBounds = true
+        addSubview(b)
+        b.snp.makeConstraints { (maker) in
             maker.width.height.equalTo(diameter)
             maker.top.equalToSuperview().inset(topInset)
-            maker.trailing.equalToSuperview().inset(rightInset)
+            switch hAlignment {
+            case .tailByTail(let inset):
+            maker.trailing.equalToSuperview().inset(inset)
+            case .headToTail(let inset):
+            maker.leading.equalTo(snp.trailing).inset(inset)
+            }
         }
         
         if let string = string {
@@ -152,38 +171,43 @@ extension UIView {
             l.font = R.font.nunitoExtraBold(size: 12)
             l.text = string
             l.textColor = .white
-            iv.addSubview(l)
+            l.textAlignment = .center
+            l.lineBreakMode = .byTruncatingMiddle
+            b.addSubview(l)
             l.snp.makeConstraints { (maker) in
                 maker.edges.equalToSuperview().inset(UIEdgeInsets(top: 0, left: 4.5, bottom: 0, right: 4))
             }
             
-            let textWidth = l.sizeThatFits(CGSize(width: .greatestFiniteMagnitude, height: diameter)).width.ceil
-            let viewWidth = max(textWidth + 4 + 4, diameter)
-            
-            iv.snp.remakeConstraints { (maker) in
+            b.snp.remakeConstraints { (maker) in
                 maker.height.equalTo(diameter)
-                maker.width.equalTo(viewWidth)
+                maker.width.greaterThanOrEqualTo(diameter)
+                maker.width.lessThanOrEqualTo(snp.width).multipliedBy(0.7)
                 maker.top.equalToSuperview().inset(topInset)
-                maker.trailing.equalToSuperview().inset(-viewWidth + rightInset)
+                switch hAlignment {
+                case .tailByTail(let inset):
+                maker.trailing.equalToSuperview().inset(inset)
+                case .headToTail(let inset):
+                maker.leading.equalTo(snp.trailing).inset(inset)
+                }
             }
             
         }
         
-        redDotIV = iv
+        badge = b
     }
     
-    func redDotOff() {
-        guard let iv = redDotIV else {
+    func badgeOff() {
+        guard let b = badge else {
             return
         }
         
-        iv.removeFromSuperview()
-        redDotIV = nil
+        b.removeFromSuperview()
+        badge = nil
     }
     
-    private weak var redDotIV: UIImageView? {
+    private weak var badge: UIView? {
         get {
-            return objc_getAssociatedObject(self, &AssociateKey.key) as? UIImageView
+            return objc_getAssociatedObject(self, &AssociateKey.key) as? UIView
         }
         set {
             objc_setAssociatedObject(self, &AssociateKey.key, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)

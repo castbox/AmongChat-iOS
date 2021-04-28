@@ -56,6 +56,8 @@ extension Routes {
                         self.handleInviteUser(uid: user.uid)
                     case let group as URI.FansGroup:
                         self.handleFansGroup(group.groupId)
+                    case _ as URI.AllNotice:
+                        self.handleAllNotice()
                     default:
                         cdAssertFailure("should never enter here")
                     }
@@ -142,6 +144,8 @@ extension Routes {
                     })
                 
             }
+            UIApplication.appDelegate?.followInvitedUserhandler?()
+            UIApplication.appDelegate?.followInvitedUserhandler = nil
         }
         
         func handleFollowers() {
@@ -164,6 +168,11 @@ extension Routes {
                 } onError: { _ in
                     loadingHandler?()
                 }
+        }
+        
+        func handleAllNotice() {
+            let vc = Notice.AllNoticeViewController()
+            UIApplication.topViewController()?.navigationController?.pushViewController(vc)
         }
         
         func showWebViewController(urlString: String) {

@@ -53,16 +53,28 @@ extension AmongChat.Home.MainTabController {
 
         private func handleIMMessage(message: PeerMessage) {
             
-            guard let invitationMsg = message as? Peer.FriendUpdatingInfo,
-                  let room = invitationMsg.room else {
-                return
+            
+            switch message.msgType {
+            case .roomInvitation, .roomInvitationInviteStranger:
+
+                guard let invitationMsg = message as? Peer.FriendUpdatingInfo,
+                      let room = invitationMsg.room else {
+                    return
+                }
+
+                if invitationMsg.msgType == .roomInvitation {
+                    invitationSubject.onNext((invitationMsg.user, room))
+                } else if invitationMsg.msgType == .roomInvitationInviteStranger {
+                    invitationRecommendSubject.onNext((invitationMsg.user, room))
+                }
+                
+            case .unreadNotice, .unreadGroupApply:
+                Settings.shared.hasUnreadNoticeRelay.accept(true)
+            
+            default:
+                ()
             }
             
-            if invitationMsg.msgType == .roomInvitation {
-                invitationSubject.onNext((invitationMsg.user, room))
-            } else if invitationMsg.msgType == .roomInvitationInviteStranger {
-                invitationRecommendSubject.onNext((invitationMsg.user, room))
-            }
         }
     }
     

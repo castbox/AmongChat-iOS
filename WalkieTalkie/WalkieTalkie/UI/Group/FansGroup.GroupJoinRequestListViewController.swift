@@ -14,6 +14,18 @@ extension FansGroup {
     
     class GroupJoinRequestListViewController: WalkieTalkie.ViewController {
         
+        private lazy var navView: FansGroup.Views.NavigationBar = {
+            let n = FansGroup.Views.NavigationBar()
+            n.leftBtn.setImage(R.image.ac_back(), for: .normal)
+            n.leftBtn.rx.controlEvent(.primaryActionTriggered)
+                .subscribe(onNext: { [weak self] (_) in
+                    self?.navigationController?.popViewController()
+                })
+                .disposed(by: bag)
+            n.titleLabel.text = R.string.localizable.groupRoomJoinRequest()
+            return n
+        }()
+        
         private(set) lazy var tableView: UITableView = {
             let tb = UITableView(frame: .zero, style: .plain)
             tb.register(nibWithCellClass: AmongGroupJoinRequestCell.self)
@@ -42,14 +54,16 @@ extension FansGroup {
         private var hasMoreData = true
         private var isLoading = false
         
-        private let groupInfo: Entity.GroupInfo
+        private let groupId: String
+        private let hasNavigationBar: Bool
         
         var requestsCountObservable: Observable<Int> {
             return usersRelay.map { $0.count }.asObservable()
         }
         
-        init(with groupInfo: Entity.GroupInfo) {
-            self.groupInfo = groupInfo
+        init(with groupId: String, hasNavigationBar: Bool = false) {
+            self.groupId = groupId
+            self.hasNavigationBar = hasNavigationBar
             super.init(nibName: nil, bundle: nil)
         }
         
@@ -126,8 +140,24 @@ extension FansGroup.GroupJoinRequestListViewController {
             maker.top.equalTo(100)
         }
         
-        tableView.snp.makeConstraints { (maker) in
-            maker.edges.equalToSuperview()
+        if hasNavigationBar {
+            
+            view.addSubview(navView)
+            navView.snp.makeConstraints { (maker) in
+                maker.leading.trailing.equalToSuperview()
+                maker.top.equalTo(topLayoutGuide.snp.bottom)
+                maker.height.equalTo(49)
+            }
+            
+            tableView.snp.makeConstraints { (maker) in
+                maker.top.equalTo(navView.snp.bottom)
+                maker.leading.trailing.bottom.equalToSuperview()
+            }
+            
+        } else {
+            tableView.snp.makeConstraints { (maker) in
+                maker.edges.equalToSuperview()
+            }
         }
         
         tableView.pullToLoadMore { [weak self] in
@@ -153,7 +183,7 @@ extension FansGroup.GroupJoinRequestListViewController {
         
         isLoading = true
         
-        Request.appliedUsersOfGroup(groupInfo.group.gid,
+        Request.appliedUsersOfGroup(groupId,
                                     skipMs: usersRelay.value.last?.opTime ?? 0)
             .do(onDispose: { [weak self] () in
                 self?.isLoading = false
@@ -175,7 +205,7 @@ extension FansGroup.GroupJoinRequestListViewController {
     
     private func handleJoinRequest(for uid: Int, accept: Bool) {
         let removeBlock = view.raft.show(.loading)
-        Request.handleGroupApply(of: uid, groupId: groupInfo.group.gid, accept: accept)
+        Request.handleGroupApply(of: uid, groupId: groupId, accept: accept)
             .do(onDispose: { () in
                 removeBlock()
             })
