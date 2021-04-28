@@ -77,6 +77,14 @@ extension Entity {
             typealias Root = NoticeMessage
             static let objectRelationalMapping = TableBinding(CodingKeys.self)
                         
+            static var tableConstraintBindings: [TableConstraintBinding.Name: TableConstraintBinding]? {
+                let multiPrimaryBinding =
+                    MultiPrimaryBinding(indexesBy: objType.asIndex(orderBy: .descending), objId)
+                return [
+                    "MultiPrimaryConstraint": multiPrimaryBinding,
+                ]
+            }
+            
             case type
             case title
             case text
