@@ -384,7 +384,7 @@ private extension Social.ProfileViewController {
                     if let _ = ts {
                         self?.headerView.changeIcon.badgeOff()
                     } else {
-                        self?.headerView.changeIcon.badgeOn(hAlignment: .tailByTail(-2), diameter: 8)
+                        self?.headerView.changeIcon.badgeOn(hAlignment: .tailByTail(-2), diameter: 8, borderWidth: 0, borderColor: nil)
                     }
                 })
                 .disposed(by: bag)

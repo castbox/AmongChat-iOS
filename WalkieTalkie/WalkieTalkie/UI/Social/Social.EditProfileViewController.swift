@@ -178,7 +178,7 @@ private extension Social.EditProfileViewController {
                 if let _ = ts {
                     self?.randomIconIV.badgeOff()
                 } else {
-                    self?.randomIconIV.badgeOn(hAlignment: .tailByTail(-2), diameter: 8)
+                    self?.randomIconIV.badgeOn(hAlignment: .tailByTail(-2), diameter: 8, borderWidth: 0, borderColor: nil)
                 }
             })
             .disposed(by: bag)

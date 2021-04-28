@@ -211,7 +211,7 @@ extension Social.CustomAvatarViewController {
                 if let _ = ts {
                     self?.useAvatarButton.titleLabel?.badgeOff()
                 } else {
-                    self?.useAvatarButton.titleLabel?.badgeOn(hAlignment: .tailByTail(-8), topInset: 2.5, diameter: 8)
+                    self?.useAvatarButton.titleLabel?.badgeOn(hAlignment: .tailByTail(-8), topInset: 2.5, diameter: 8, borderWidth: 0, borderColor: nil)
                 }
             })
             .disposed(by: bag)
