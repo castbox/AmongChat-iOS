@@ -207,7 +207,7 @@ extension Notice.AllNoticeViewController {
             .map({ [weak self] (peerlist, globalList) -> [Entity.Notice] in
                 
                 self?.socialNoticeVc.hasUnreadNotice.accept(peerlist.count > 0)
-                self?.systemNoticeVc.hasUnreadNotice.accept(peerlist.count > 0)
+                self?.systemNoticeVc.hasUnreadNotice.accept(globalList.count > 0)
                 
                 var list = peerlist
                 list.append(contentsOf: globalList)

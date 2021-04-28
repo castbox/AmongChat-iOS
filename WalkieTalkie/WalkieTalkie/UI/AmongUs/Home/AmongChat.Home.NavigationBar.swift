@@ -90,7 +90,7 @@ extension AmongChat.Home {
                     if hasUnread {
                         self?.noticeBtn.badgeOn(hAlignment: .tailByTail(-5), topInset: -1, diameter: 13)
                     } else {
-                        self?.redDotOff()
+                        self?.noticeBtn.badgeOff()
                     }
                     
                 })
