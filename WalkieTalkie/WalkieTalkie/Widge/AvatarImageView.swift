@@ -36,11 +36,11 @@ class AvatarImageView: UIView {
         }
     }
     
-//    var verifyIconStyle: VerifyIconStyle {
-//        didSet {
-//            verifyIconStyle == .gray ? R.image.iconVerifyGrayBorder() : R.image.iconVerifyBlackBorder()
-//        }
-//    }
+    var verifyIconStyle: VerifyIconStyle = .gray {
+        didSet {
+            verifyIV.image = verifyIconStyle == .gray ? R.image.iconVerifyGrayBorder() : R.image.iconVerifyBlackBorder()
+        }
+    }
     
     static var placeholder: UIImage?
     
@@ -58,10 +58,10 @@ class AvatarImageView: UIView {
             maker.edges.equalToSuperview()
         }
         
-//        verifyIconStyle = verifyStyle
-        verifyIV.image = verifyStyle == .gray ? R.image.iconVerifyGrayBorder() : R.image.iconVerifyBlackBorder()
+        verifyIconStyle = verifyStyle
+//        verifyIV.image = verifyStyle == .gray ? R.image.iconVerifyGrayBorder() : R.image.iconVerifyBlackBorder()
         verifyIV.snp.makeConstraints { maker in
-            maker.top.equalTo(-1)
+            maker.top.equalTo(-2)
             maker.trailing.equalTo(7.5)
         }
     }

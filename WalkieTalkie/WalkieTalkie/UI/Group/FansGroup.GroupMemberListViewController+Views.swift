@@ -16,7 +16,7 @@ extension FansGroup.GroupMemberListViewController {
         
         private typealias UserView = AmongChat.Home.UserView
         private lazy var userView: UserView = {
-            let v = UserView(.gray)
+            let v = UserView(.black)
             return v
         }()
         

@@ -10,6 +10,7 @@ import UIKit
 import EasyTipView
 import RxSwift
 import RxCocoa
+import MarqueeLabel
 
 class AmongGroupTopicConfigView: XibLoadableView {
     
@@ -27,27 +28,24 @@ class AmongGroupTopicConfigView: XibLoadableView {
     @IBOutlet weak var actionIcon: UIImageView!
     //justchatting 房间如果设置了 notes, 听众会有此按钮
     @IBOutlet weak var notesView: UIView!
+    
     @IBOutlet weak var robloxContainer: UIView!
     @IBOutlet weak var robloxLinkButton: UIButton!
     @IBOutlet weak var robloxLinkEditButton: UIButton!
     
-    private lazy var marqueueLabel: AmongChat.MarqueueLabel = {
-        let label = AmongChat.MarqueueLabel()
-        label.textFont = R.font.nunitoExtraBold(size: 14)!
+    private lazy var marqueueLabel: MarqueeLabel = {
+        let label = MarqueeLabel()
+        label.font = R.font.nunitoExtraBold(size: 14)!
         label.textColor = .white
         label.backgroundColor = .clear
-//        label.layer.cornerRadius = 8
-//        label.layer.borderWidth = 2
-//        label.layer.borderColor = UIColor.white.alpha(0.12).cgColor
-//        label.clipsToBounds = true
-//        label.isHidden = true
+        label.type = .continuous
+        label.fadeLength = 20
         return label
     }()
     
     private weak var tipView: EasyTipView?
     private weak var tipBgView: UIView?
     private let bag = DisposeBag()
-    private lazy var marqueueLabelMaskLayer = CAGradientLayer()
     private var scheduleDispose: Disposable?
     
     var actionHandler: ((Action) -> Void)?
@@ -137,10 +135,10 @@ class AmongGroupTopicConfigView: XibLoadableView {
             
             if !notesView.isHidden {
 //                marqueueLabel.showFirstText()
-                marqueueLabel.fadeWidth = 50
-                marqueueLabel.run()
+//                marqueueLabel.fa = 50
+//                marqueueLabel.run
             } else {
-                marqueueLabel.stop()
+//                marqueueLabel.stop()
             }
         }
     }
@@ -150,9 +148,9 @@ class AmongGroupTopicConfigView: XibLoadableView {
             guard let wrappedNotes = newValue, wrappedNotes != notes else {
                 return
             }
-            marqueueLabel.textList = [wrappedNotes]
+            marqueueLabel.text = wrappedNotes
         }
-        get { marqueueLabel.textList.first }
+        get { marqueueLabel.text }
     }
     
     override init(frame: CGRect) {
@@ -181,23 +179,6 @@ class AmongGroupTopicConfigView: XibLoadableView {
             make.top.bottom.centerX.equalToSuperview()
             make.left.equalTo(8)
         }
-        marqueueLabelMaskLayer.startPoint = CGPoint(x: 0, y: 1)
-        marqueueLabelMaskLayer.endPoint = CGPoint(x: 1, y: 1)
-        marqueueLabelMaskLayer.locations = [0, 0.1, 0.9, 1]
-        marqueueLabelMaskLayer.colors = [UIColor.red.withAlphaComponent(0.0).cgColor,
-                                UIColor.red.cgColor,
-                                UIColor.red.cgColor,
-                                UIColor.red.withAlphaComponent(0.0).cgColor]
-//        marqueueLabelMaskLayer.locations = [0, 0.5, 1]
-        
-        //设置tableView父容器tableViewCotainer的遮罩
-        marqueueLabel.layer.mask = marqueueLabelMaskLayer
-//        marqueueLabel.layer.addSublayer(marqueueLabelMaskLayer)
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        marqueueLabelMaskLayer.frame = marqueueLabel.bounds
     }
     
     func dismissTipsView() {

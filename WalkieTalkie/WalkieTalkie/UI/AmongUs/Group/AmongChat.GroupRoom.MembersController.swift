@@ -307,21 +307,6 @@ extension AmongChat.GroupRoom.MembersController {
         func configView(with model: Entity.UserProfile, isFollowing: Bool, isSelf: Bool) {
             self.isStranger = false
             self.userInfo = model
-//            if isSelf {
-//                if isFollowing {
-//                    followBtn.isHidden = true
-//                } else {
-//                    followBtn.isHidden = false
-//                }
-//            } else {
-//                followBtn.isHidden = false
-//                if !isFollowing {
-//                    let selfUid = Settings.shared.amongChatUserProfile.value?.uid ?? 0
-//                    if selfUid == model.uid {
-//                        followBtn.isHidden = true
-//                    }
-//                }
-//            }
             userView.bind(viewModel: model) {
                 
             }

@@ -21,7 +21,7 @@ class AmongGroupRoomTipsView: UIView {
     
     private lazy var introLabel: UILabel = {
         let lb = UILabel(frame: CGRect(x: 10, y: 34, width: bounds.width, height: 22))
-        lb.font = R.font.nunitoExtraBold(size: 12)
+        lb.font = R.font.nunitoExtraBold(size: 14)
         lb.textColor = "#666666".color()
         lb.numberOfLines = 0
         return lb
@@ -62,7 +62,7 @@ class AmongGroupRoomTipsView: UIView {
         editButton.isHidden = group.loginUserIsAdmin == false
         //size
         let maxWidth: CGFloat = 252.scalValue.int.cgFloat
-        let size = introString.boundingRect(with: CGSize(width: maxWidth - 11 * 2, height: 400), font: R.font.nunitoExtraBold(size: 12)!)
+        let size = introString.boundingRect(with: CGSize(width: maxWidth - 11 * 2, height: 400), font: R.font.nunitoExtraBold(size: 14)!)
         introLabel.size = CGSize(width: size.width, height: size.height)
         let viewSize = CGSize(width: maxWidth, height: size.height + 34 + 16)
         titleLabel.width = viewSize.width - 100
