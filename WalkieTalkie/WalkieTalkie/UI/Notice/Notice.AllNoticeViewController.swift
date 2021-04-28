@@ -253,9 +253,9 @@ extension Notice.AllNoticeViewController {
                 for t in a {
                     
                     if t.0 {
-                        t.1?.redDotOn(hAlignment: .headToTail(-2), diameter: 13)
+                        t.1?.badgeOn(hAlignment: .headToTail(-2), diameter: 13)
                     } else {
-                        t.1?.redDotOff()
+                        t.1?.badgeOff()
                     }
                     
                 }

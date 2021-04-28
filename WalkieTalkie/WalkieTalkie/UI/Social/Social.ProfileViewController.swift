@@ -382,9 +382,9 @@ private extension Social.ProfileViewController {
             Settings.shared.amongChatAvatarListShown.replay()
                 .subscribe(onNext: { [weak self] (ts) in
                     if let _ = ts {
-                        self?.headerView.changeIcon.redDotOff()
+                        self?.headerView.changeIcon.badgeOff()
                     } else {
-                        self?.headerView.changeIcon.redDotOn(hAlignment: .tailByTail(-2), diameter: 8)
+                        self?.headerView.changeIcon.badgeOn(hAlignment: .tailByTail(-2), diameter: 8)
                     }
                 })
                 .disposed(by: bag)

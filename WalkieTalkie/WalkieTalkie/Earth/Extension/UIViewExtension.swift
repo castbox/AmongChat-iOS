@@ -129,32 +129,32 @@ extension UIView {
 extension UIView {
     
     private struct AssociateKey {
-        static var key = "redDotImageView"
+        static var key = "badgeView"
     }
     
-    enum RedDotHorizontalAlignment {
+    enum BadgeHorizontalAlignment {
         case tailByTail(CGFloat)
         case headToTail(CGFloat)
     }
     
-    func redDotOn(string: String? = nil,
-                  hAlignment: RedDotHorizontalAlignment = .tailByTail(0),
+    func badgeOn(string: String? = nil,
+                  hAlignment: BadgeHorizontalAlignment = .tailByTail(0),
                   topInset: CGFloat = 0,
                   diameter: CGFloat = 12,
                   borderWidth: CGFloat = 2.5,
                   borderColor: UIColor? = UIColor(hex6: 0x121212)) {
         
-        guard redDotIV == nil else {
+        guard badge == nil else {
             return
         }
-        let iv = UIImageView()
-        iv.backgroundColor = "FA4E4E".color()
-        iv.layer.cornerRadius = diameter / 2
-        iv.layer.borderWidth = borderWidth
-        iv.layer.borderColor = borderColor?.cgColor
-        iv.clipsToBounds = true
-        addSubview(iv)
-        iv.snp.makeConstraints { (maker) in
+        let b = UIView()
+        b.backgroundColor = "FA4E4E".color()
+        b.layer.cornerRadius = diameter / 2
+        b.layer.borderWidth = borderWidth
+        b.layer.borderColor = borderColor?.cgColor
+        b.clipsToBounds = true
+        addSubview(b)
+        b.snp.makeConstraints { (maker) in
             maker.width.height.equalTo(diameter)
             maker.top.equalToSuperview().inset(topInset)
             switch hAlignment {
@@ -173,12 +173,12 @@ extension UIView {
             l.textColor = .white
             l.textAlignment = .center
             l.lineBreakMode = .byTruncatingMiddle
-            iv.addSubview(l)
+            b.addSubview(l)
             l.snp.makeConstraints { (maker) in
                 maker.edges.equalToSuperview().inset(UIEdgeInsets(top: 0, left: 4.5, bottom: 0, right: 4))
             }
             
-            iv.snp.remakeConstraints { (maker) in
+            b.snp.remakeConstraints { (maker) in
                 maker.height.equalTo(diameter)
                 maker.width.greaterThanOrEqualTo(diameter)
                 maker.width.lessThanOrEqualTo(snp.width).multipliedBy(0.7)
@@ -193,21 +193,21 @@ extension UIView {
             
         }
         
-        redDotIV = iv
+        badge = b
     }
     
-    func redDotOff() {
-        guard let iv = redDotIV else {
+    func badgeOff() {
+        guard let b = badge else {
             return
         }
         
-        iv.removeFromSuperview()
-        redDotIV = nil
+        b.removeFromSuperview()
+        badge = nil
     }
     
-    private weak var redDotIV: UIImageView? {
+    private weak var badge: UIView? {
         get {
-            return objc_getAssociatedObject(self, &AssociateKey.key) as? UIImageView
+            return objc_getAssociatedObject(self, &AssociateKey.key) as? UIView
         }
         set {
             objc_setAssociatedObject(self, &AssociateKey.key, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)

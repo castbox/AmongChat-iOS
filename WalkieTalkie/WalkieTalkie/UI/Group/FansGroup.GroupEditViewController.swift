@@ -414,11 +414,11 @@ extension FansGroup.GroupEditViewController {
                 let requestsTitleLabel = (self?.segmentedButton.buttonOf(1) as? UIButton)?.titleLabel
                 
                 guard count > 0 else {
-                    requestsTitleLabel?.redDotOff()
+                    requestsTitleLabel?.badgeOff()
                     return
                 }
                 
-                requestsTitleLabel?.redDotOn(string: count.string, hAlignment: .headToTail(-0.5), topInset: 0, diameter: 16)
+                requestsTitleLabel?.badgeOn(string: count.string, hAlignment: .headToTail(-0.5), topInset: 0, diameter: 16)
                 
             })
             .disposed(by: bag)
