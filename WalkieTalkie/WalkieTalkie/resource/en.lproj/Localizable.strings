@@ -497,3 +497,4 @@
 
 //4.25
 "among.chat.group.admin.invitation.msg" = "just started a new session for the %@ group";
+"enter.closed.group.room.tips" = "Group session has ended, please check back later.";

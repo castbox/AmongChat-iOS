@@ -984,17 +984,23 @@ extension Request {
         ]
         return amongchatProvider.rx.request(.enterGroupChannel(params))
             .mapJSON()
-            .mapToDataKeyJsonValue()
-//            .map { item -> [String : AnyObject] in
-//                guard let json = item as? [String: AnyObject] else {
-//                    throw MsgError.default
-//                }
-//                if let data = json["data"] as? [String: AnyObject] {
-//                    return data
-//                } else {
-//                    throw MsgError.from(dic: json)
-//                }
-//            }
+//            .mapToDataKeyJsonValue()
+            .map { item -> [String : AnyObject] in
+                guard let json = item as? [String: AnyObject] else {
+                    throw MsgError.default
+                }
+                if let data = json["data"] as? [String: AnyObject],
+                   let processed = data["processed"] as? Bool {
+                    if processed {
+                        return data
+                    } else {
+                        //未开播
+                        throw MsgError(code: 202, msg: R.string.localizable.enterClosedGroupRoomTips(), data: nil)
+                    }
+                } else {
+                    throw MsgError.from(dic: json)
+                }
+            }
             .mapTo(Entity.GroupInfo.self)
             .observeOn(MainScheduler.asyncInstance)
     }

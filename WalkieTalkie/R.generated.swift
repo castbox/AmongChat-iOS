@@ -2138,7 +2138,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
     
-    /// This `R.string.localizable` struct is generated, and contains static references to 431 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 432 localization keys.
     struct localizable {
       /// en translation:  Congratulations!
       /// 
@@ -2748,6 +2748,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatGroupTopic = Rswift.StringResource(key: "among.chat.group.topic", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Group session has ended, please check back later.
+      /// 
+      /// Locales: en
+      static let enterClosedGroupRoomTips = Rswift.StringResource(key: "enter.closed.group.room.tips", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Group session just ended
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -4927,6 +4931,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func amongChatGroupTopic(_: Void = ()) -> String {
         return NSLocalizedString("among.chat.group.topic", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Group session has ended, please check back later.
+      /// 
+      /// Locales: en
+      static func enterClosedGroupRoomTips(_: Void = ()) -> String {
+        return NSLocalizedString("enter.closed.group.room.tips", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Group session just ended
