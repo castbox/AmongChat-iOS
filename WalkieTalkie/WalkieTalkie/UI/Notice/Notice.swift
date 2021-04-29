@@ -7,7 +7,13 @@
 //
 
 import Foundation
+import RxSwift
+import RxCocoa
 
 struct Notice {
     
+}
+
+protocol UnhandledNoticeStatusObservableProtocal: UIViewController {
+    var hasUnhandledNotice: BehaviorRelay<Bool> { get }
 }

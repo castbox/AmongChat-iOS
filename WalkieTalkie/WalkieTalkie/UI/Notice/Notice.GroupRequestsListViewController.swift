@@ -12,7 +12,11 @@ import RxCocoa
 
 extension Notice {
     
-    class GroupRequestsListViewController: WalkieTalkie.ViewController {
+    class GroupRequestsListViewController: WalkieTalkie.ViewController, UnhandledNoticeStatusObservableProtocal {
+        
+        var hasUnhandledNotice: BehaviorRelay<Bool> {
+            return hasUnhandledApply
+        }
         
         private lazy var requestListView: UICollectionView = {
             let layout = UICollectionViewFlowLayout()
@@ -46,14 +50,11 @@ extension Notice {
         
         private let hasUnhandledApply = BehaviorRelay(value: false)
         
-        var hasUnhandledApplyObservable: Observable<Bool> {
-            return hasUnhandledApply.asObservable()
-        }
-        
         private lazy var dataSource: [Entity.GroupApplyStat] = [] {
             didSet {
                 requestListView.reloadData()
                 hasUnhandledApply.accept(dataSource.count > 0)
+                emptyView.isHidden = dataSource.count > 0
             }
         }
         
@@ -104,6 +105,7 @@ extension Notice.GroupRequestsListViewController {
         let vc = FansGroup.GroupJoinRequestListViewController(with: groupId, hasNavigationBar: true)
         navigationController?.pushViewController(vc)
         vc.requestsCountObservable
+            .skip(1)
             .subscribe(onNext: { [weak self] (count) in
                 
                 guard let idx = self?.dataSource.firstIndex(where: { $0.gid == groupId }) else { return }

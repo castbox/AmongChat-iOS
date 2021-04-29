@@ -147,29 +147,6 @@ extension Request {
             .mapToDataKeyJsonValue()
             .mapTo(Entity.UserProfile.self)
             .observeOn(MainScheduler.asyncInstance)
-            .do(onSuccess: { (p) in
-                
-                guard let profile = p else { return }
-                
-                let _ = NoticeManager.shared.queryMessageBody(objType: Entity.NoticeMessage.MessageObjType.user.rawValue, objId: profile.uid.string)
-                    .flatMap { (m) -> Single<Void> in
-                        guard var messageBody = m else {
-                            return Single.just(())
-                        }
-                        
-                        messageBody.img = profile.pictureUrl
-                        if let name = profile.name {
-                            messageBody.title = name
-                        }
-                        
-                        return NoticeManager.shared.updateMessageBody(messageBody)
-                    }
-                    .subscribe { (_) in
-                        
-                    } onError: { (_) in
-                        
-                    }
-            })
     }
     
     @available(*, deprecated, message: "use the one parameter type is Entity.ProfileProto instead")
@@ -419,6 +396,30 @@ extension Request {
             .mapToDataKeyJsonValue()
             .mapTo(Entity.ProfilePage.self)
             .observeOn(MainScheduler.asyncInstance)
+            .do(onSuccess: { (page) in
+                
+                guard let profile = page?.profile else { return }
+                
+                let _ = NoticeManager.shared.queryMessageBody(objType: Entity.NoticeMessage.MessageObjType.user.rawValue, objId: profile.uid.string)
+                    .flatMap { (m) -> Single<Void> in
+                        guard var messageBody = m else {
+                            return Single.just(())
+                        }
+                        
+                        messageBody.img = profile.pictureUrl
+                        if let name = profile.name {
+                            messageBody.title = name
+                        }
+                        
+                        return NoticeManager.shared.updateMessageBody(messageBody)
+                    }
+                    .subscribe { (_) in
+                        
+                    } onError: { (_) in
+                        
+                    }
+            })
+
     }
     
     /// type: follow / block
@@ -1280,7 +1281,7 @@ extension Request {
                             return Single.just(())
                         }
                         
-                        messageBody.img = info.group.coverURL
+                        messageBody.img = info.group.cover
                         messageBody.title = info.group.name
                         
                         return NoticeManager.shared.updateMessageBody(messageBody)

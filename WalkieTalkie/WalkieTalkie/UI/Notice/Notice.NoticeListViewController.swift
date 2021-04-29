@@ -12,7 +12,11 @@ import RxCocoa
 
 extension Notice {
     
-    class NoticeListViewController: WalkieTalkie.ViewController {
+    class NoticeListViewController: WalkieTalkie.ViewController, UnhandledNoticeStatusObservableProtocal {
+        
+        var hasUnhandledNotice: BehaviorRelay<Bool> {
+            return hasUnreadNotice
+        }
         
         private typealias SocialMessageCell = Notice.Views.SocialMessageCell
         private typealias SystemMessageCell = Notice.Views.SystemMessageCell
@@ -48,7 +52,7 @@ extension Notice {
             return v
         }()
         
-        let hasUnreadNotice = BehaviorRelay(value: false)
+        private let hasUnreadNotice = BehaviorRelay(value: false)
                 
         var dataSource: [Entity.Notice] = [] {
             didSet {
@@ -74,7 +78,6 @@ extension Notice {
         override func viewDidLoad() {
             super.viewDidLoad()
             setUpLayout()
-            setUpEvents()
         }
         
     }
@@ -99,14 +102,6 @@ extension Notice.NoticeListViewController {
         noticeListView.pullToRefresh { [weak self] in
             self?.refreshHandler?()
         }
-    }
-    
-    private func setUpEvents() {
-        rx.viewDidAppear
-            .subscribe(onNext: { [weak self] (_) in
-                self?.hasUnreadNotice.accept(false)
-            })
-            .disposed(by: bag)
     }
     
 }

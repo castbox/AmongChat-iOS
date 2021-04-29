@@ -14,24 +14,6 @@ extension Notice {
     
     class AllNoticeViewController: WalkieTalkie.ViewController {
         
-        enum NoticeType {
-            case system
-            case social
-            case groupRequest
-            
-            var title: String {
-                switch self {
-                case .system:
-                    return R.string.localizable.amongChatNoticeSystem()
-                case .social:
-                    return R.string.localizable.amongChatNoticeSocial()
-                case .groupRequest:
-                    return R.string.localizable.amongChatNoticeGroupRequests()
-                }
-            }
-            
-        }
-        
         private lazy var backBtn: UIButton = {
             let btn = UIButton(type: .custom)
             btn.setImage(R.image.ac_profile_back(), for: .normal)
@@ -74,24 +56,39 @@ extension Notice {
             return s
         }()
         
-        private var pageIndex: Int = 0 {
-            didSet {
-                segmentedButton.updateSelectedIndex(pageIndex)
-            }
-        }
+        private let pageIndex = BehaviorRelay(value: 0)
         
-        private let dataSet: [NoticeType] = {
-            if let p = Settings.shared.amongChatUserProfile.value,
-               !(p.isVerified ?? false) {
-                return [.system, .social]
-            } else {
-                return [.system, .social, .groupRequest]
+        private lazy var tabDataSoure: [(String, UnhandledNoticeStatusObservableProtocal)] = {
+            
+            var dataSource: [(String, UnhandledNoticeStatusObservableProtocal)] = [
+                (R.string.localizable.amongChatNoticeSystem(), systemNoticeVc),
+                (R.string.localizable.amongChatNoticeSocial(), socialNoticeVc)
+            ]
+            
+            if Settings.shared.amongChatUserProfile.value?.isVerified ?? false {
+                dataSource.append((R.string.localizable.amongChatNoticeGroupRequests(), groupRequestsListVc))
             }
+            
+            return dataSource
         }()
         
-        private lazy var systemNoticeVc = NoticeListViewController()
-        private lazy var socialNoticeVc = NoticeListViewController()
-        private var groupRequestsListVc: GroupRequestsListViewController!
+        private lazy var systemNoticeVc: NoticeListViewController = {
+            let vc = NoticeListViewController()
+            vc.refreshHandler = { [weak self] in
+                self?.loadData()
+            }
+            return vc
+        }()
+        
+        private lazy var socialNoticeVc: NoticeListViewController = {
+            let vc = NoticeListViewController()
+            vc.refreshHandler = { [weak self] in
+                self?.loadData()
+            }
+            return vc
+        }()
+        
+        private lazy var groupRequestsListVc = GroupRequestsListViewController()
         
         private var hasUnreadSocial = BehaviorRelay(value: false)
         
@@ -140,51 +137,32 @@ extension Notice.AllNoticeViewController {
             maker.leading.trailing.bottom.equalToSuperview()
         }
         
-        segmentedButton.setTitles(titles: dataSet.map({ $0.title }))
+        segmentedButton.setTitles(titles: tabDataSoure.map({ $0.0 }))
         
-        addChild(systemNoticeVc)
-        scrollView.addSubview(systemNoticeVc.view)
-        systemNoticeVc.view.snp.makeConstraints { (maker) in
-            maker.top.bottom.equalToSuperview()
-            maker.width.equalTo(view)
-            maker.height.equalToSuperview()
-            maker.leading.equalToSuperview()
-        }
-        systemNoticeVc.didMove(toParent: self)
-        systemNoticeVc.refreshHandler = { [weak self] in
-            self?.loadData()
-        }
-
-        addChild(socialNoticeVc)
-        scrollView.addSubview(socialNoticeVc.view)
-        socialNoticeVc.view.snp.makeConstraints { (maker) in
-            maker.top.bottom.equalToSuperview()
-            maker.width.equalTo(view)
-            maker.height.equalToSuperview()
-            maker.leading.equalTo(systemNoticeVc.view.snp.trailing)
-        }
-        socialNoticeVc.didMove(toParent: self)
-        socialNoticeVc.refreshHandler = { [weak self] in
-            self?.loadData()
-        }
-        
-        if let p = Settings.shared.amongChatUserProfile.value,
-           (p.isVerified ?? false) {
+        for (idx, tuple) in tabDataSoure.enumerated() {
             
-            let groupRequestsListVc = Notice.GroupRequestsListViewController()
+            let vc = tuple.1
             
-            addChild(groupRequestsListVc)
-            scrollView.addSubview(groupRequestsListVc.view)
-            groupRequestsListVc.view.snp.makeConstraints { (maker) in
+            addChild(vc)
+            scrollView.addSubview(vc.view)
+            vc.view.snp.makeConstraints { (maker) in
                 maker.top.bottom.equalToSuperview()
                 maker.width.equalTo(view)
                 maker.height.equalToSuperview()
-                maker.leading.equalTo(socialNoticeVc.view.snp.trailing)
-                maker.trailing.equalToSuperview()
+                if idx == 0 {
+                    maker.leading.equalToSuperview()
+                } else if idx == tabDataSoure.count - 1 {
+                    maker.trailing.equalToSuperview()
+                }
+                
+                if idx > 0,
+                   let pre = tabDataSoure.safe(idx - 1)?.1 {
+                    maker.leading.equalTo(pre.view.snp.trailing)
+                }
+                
             }
-            socialNoticeVc.didMove(toParent: self)
-           
-            self.groupRequestsListVc = groupRequestsListVc
+            vc.didMove(toParent: self)
+            
         }
         
         scrollView.layoutIfNeeded()
@@ -206,8 +184,7 @@ extension Notice.AllNoticeViewController {
             }
             .map({ [weak self] (peerlist, globalList) -> [Entity.Notice] in
                 
-                self?.socialNoticeVc.hasUnreadNotice.accept(peerlist.count > 0)
-                self?.systemNoticeVc.hasUnreadNotice.accept(globalList.count > 0)
+                self?.socialNoticeVc.hasUnhandledNotice.accept(peerlist.count > 0)
                 
                 var list = peerlist
                 list.append(contentsOf: globalList)
@@ -235,47 +212,57 @@ extension Notice.AllNoticeViewController {
     
     private func setUpEvents() {
         
-        Observable.combineLatest(systemNoticeVc.hasUnreadNotice,
-                                 socialNoticeVc.hasUnreadNotice,
-                                 groupRequestsListVc?.hasUnhandledApplyObservable ?? Observable.just(false))
-            .map({ [weak self] (unreadSystem, unreadSocial, unhandledGroupApply) -> [(Bool, UIView?)] in
+        pageIndex.subscribe(onNext: { [weak self] (idx) in
+            self?.segmentedButton.updateSelectedIndex(idx)
+        })
+        .disposed(by: bag)
+        
+        Observable.combineLatest(
+            tabDataSoure.map {
+                $0.1.hasUnhandledNotice
+            }
+        )
+        .map {
+            $0.enumerated().map { [weak self] idx, hasUnhandledNotice in
+                (hasUnhandledNotice, self?.segmentedButton.buttonOf(idx))
+            }
+        }
+        .do(onNext: { (a) in
+            
+            for t in a {
                 
-                let systemTitleLabel = (self?.segmentedButton.buttonOf(0) as? UIButton)?.titleLabel
-                let socialTitleLabel = (self?.segmentedButton.buttonOf(1) as? UIButton)?.titleLabel
-                let requestsTitleLabel = (self?.segmentedButton.buttonOf(2) as? UIButton)?.titleLabel
-                
-                return [(unreadSystem, systemTitleLabel),
-                        (unreadSocial, socialTitleLabel),
-                        (unhandledGroupApply, requestsTitleLabel)]
-            })
-            .do(onNext: { (a) in
-                
-                for t in a {
-                    
-                    if t.0 {
-                        t.1?.badgeOn(hAlignment: .headToTail(-2), diameter: 13)
-                    } else {
-                        t.1?.badgeOff()
-                    }
-                    
+                if t.0 {
+                    t.1?.badgeOn(hAlignment: .headToTail(-2), diameter: 13)
+                } else {
+                    t.1?.badgeOff()
                 }
                 
+            }
+            
+        })
+        .map({ $0.reduce(false, { result, element in
+                            result || element.0 })
+        })
+        .catchErrorJustReturn(false)
+        .bind(to: Settings.shared.hasUnreadNoticeRelay)
+        .disposed(by: bag)
+        
+        Observable.merge(pageIndex.asObservable(), segmentedButton.selectedIndexObservable)
+            .subscribe(onNext: { [weak self] (page) in
+                guard page == 1 else { return }
+                self?.socialNoticeVc.hasUnhandledNotice.accept(false)
             })
-            .map({ $0.reduce(false, { result, element in
-                                result || element.0 })
-            })
-            .catchErrorJustReturn(false)
-            .bind(to: Settings.shared.hasUnreadNoticeRelay)
             .disposed(by: bag)
-    }
 
+    }
+    
 }
 
 extension Notice.AllNoticeViewController: UIScrollViewDelegate {
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         guard scrollView == self.scrollView else { return }
-        pageIndex = Int(scrollView.contentOffset.x / scrollView.frame.size.width)
+        pageIndex.accept(Int(scrollView.contentOffset.x / scrollView.frame.size.width))
     }
     
 }
