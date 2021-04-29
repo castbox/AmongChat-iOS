@@ -90,7 +90,9 @@ class NoticeManager {
         }
         
         return mapTransactionToSingle { (db) in
-            try db.insertOrReplace(objects: messages, intoTable: messageBodyTableName)
+            try db.insertOrReplace(objects: messages,
+                                   on: [Entity.NoticeMessage.Properties.img, Entity.NoticeMessage.Properties.title],
+                                   intoTable: messageBodyTableName)
         }
     }
     
@@ -108,7 +110,10 @@ class NoticeManager {
                 return
             }
             let ex = Entity.NoticeMessage.Properties.objType == objType && Entity.NoticeMessage.Properties.objId == objId
-            try db.update(table: messageBodyTableName, on: Entity.NoticeMessage.Properties.all, with: message, where: ex)
+            try db.update(table: messageBodyTableName,
+                          on: [Entity.NoticeMessage.Properties.img, Entity.NoticeMessage.Properties.title],
+                          with: message,
+                          where: ex)
         }
         .do(onSuccess: { [weak self] (_) in
             guard let `self` = self,

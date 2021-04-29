@@ -60,7 +60,8 @@ extension Notice {
                             return
                         }
                         
-                        self?.notice.message = message
+                        self?.notice.message.img = message.img
+                        self?.notice.message.title = message.title
                         self?.updateCellHandler()
                     })
                     .disposed(by: bag)
