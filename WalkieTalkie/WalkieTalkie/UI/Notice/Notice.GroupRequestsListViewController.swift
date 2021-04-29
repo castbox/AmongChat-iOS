@@ -28,7 +28,7 @@ extension Notice {
             let cellHeight: CGFloat = 64
             layout.itemSize = CGSize(width: cellWidth, height: cellHeight)
             layout.minimumInteritemSpacing = interitemSpacing
-            layout.minimumLineSpacing = 52
+            layout.minimumLineSpacing = 36
             layout.sectionInset = UIEdgeInsets(top: 12, left: hInset, bottom: 0, right: hInset)
             let v = UICollectionView(frame: .zero, collectionViewLayout: layout)
             v.register(GroupRequestCell.self, forCellWithReuseIdentifier: NSStringFromClass(GroupRequestCell.self))
