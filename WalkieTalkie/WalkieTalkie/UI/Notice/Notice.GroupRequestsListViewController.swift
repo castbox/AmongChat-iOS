@@ -63,6 +63,7 @@ extension Notice {
             setUpLayout()
             setUpEvents()
             loadData()
+            Logger.Action.log(.group_join_request_imp)
         }
         
         

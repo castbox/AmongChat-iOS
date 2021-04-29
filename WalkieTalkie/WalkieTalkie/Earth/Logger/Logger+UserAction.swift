@@ -267,6 +267,12 @@ extension Logger {
             case group_info_clk
             case group_emoji_clk
             case group_emoji_selected
+            
+            case home_notice_clk
+            case notice_tab_system_clk
+            case notice_tab_social_clk
+            case notice_tab_group_request_clk
+            case group_join_request_imp
         }
         
         enum Category: String {

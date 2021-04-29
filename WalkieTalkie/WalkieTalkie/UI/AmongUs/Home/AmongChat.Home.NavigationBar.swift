@@ -43,7 +43,7 @@ extension AmongChat.Home {
             btn.rx.controlEvent(.primaryActionTriggered)
                 .subscribe(onNext: { () in
                     Routes.handle("/allNotice")
-                    Logger.Action.log(.home_search_clk)
+                    Logger.Action.log(.home_notice_clk)
                 })
                 .disposed(by: bag)
             return btn
