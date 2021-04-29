@@ -54,6 +54,7 @@ extension Notice {
             didSet {
                 requestListView.reloadData()
                 hasUnhandledApply.accept(dataSource.count > 0)
+                emptyView.isHidden = dataSource.count > 0
             }
         }
         
@@ -104,6 +105,7 @@ extension Notice.GroupRequestsListViewController {
         let vc = FansGroup.GroupJoinRequestListViewController(with: groupId, hasNavigationBar: true)
         navigationController?.pushViewController(vc)
         vc.requestsCountObservable
+            .skip(1)
             .subscribe(onNext: { [weak self] (count) in
                 
                 guard let idx = self?.dataSource.firstIndex(where: { $0.gid == groupId }) else { return }
