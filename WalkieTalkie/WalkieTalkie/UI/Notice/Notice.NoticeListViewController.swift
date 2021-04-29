@@ -31,7 +31,7 @@ extension Notice {
             let cellHeight: CGFloat = 64
             layout.itemSize = CGSize(width: cellWidth, height: cellHeight)
             layout.minimumInteritemSpacing = interitemSpacing
-            layout.minimumLineSpacing = 52
+            layout.minimumLineSpacing = 36
             layout.sectionInset = UIEdgeInsets(top: 12, left: hInset, bottom: 0, right: hInset)
             let v = UICollectionView(frame: .zero, collectionViewLayout: layout)
             v.register(SocialMessageCell.self, forCellWithReuseIdentifier: NSStringFromClass(SocialMessageCell.self))
@@ -47,7 +47,7 @@ extension Notice {
         
         private lazy var emptyView: FansGroup.Views.EmptyDataView = {
             let v = FansGroup.Views.EmptyDataView()
-            v.titleLabel.text = R.string.localizable.groupRoomApplyGroupListEmpty()
+            v.titleLabel.text = R.string.localizable.amongChatNoticeEmptyTip()
             v.isHidden = true
             return v
         }()

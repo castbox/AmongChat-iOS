@@ -77,7 +77,7 @@ extension Notice.Views {
         private lazy var messageTextLabel: UILabel = {
             let l = UILabel()
             l.font = R.font.nunitoBold(size: 14)
-            l.textColor = UIColor(hex6: 0x898989)
+            l.textColor = UIColor(hex6: 0xFFFFFF)
             l.numberOfLines = 0
             l.lineBreakMode = .byWordWrapping
             return l
@@ -155,7 +155,7 @@ extension Notice.Views {
         private static let titleTopPadding: CGFloat = 16
         private static let titleFont = R.font.nunitoExtraBold(size: 20) ?? UIFont.systemFont(ofSize: 20, weight: .heavy)
         private static let messageTopPadding: CGFloat = 8
-        private static let textFont = R.font.nunitoBold(size: 14) ?? UIFont.systemFont(ofSize: 14, weight: .bold)
+        private static let textFont = R.font.nunitoBold(size: 16) ?? UIFont.systemFont(ofSize: 16, weight: .bold)
         private static let belowTextImageSize = CGSize(width: 80, height: 80)
         private static let belowTextImageTopPadding: CGFloat = 12
         private static let messageBodyBottomPadding: CGFloat = 24
@@ -243,7 +243,7 @@ extension Notice.Views {
         private lazy var messageTextLabel: UILabel = {
             let l = UILabel()
             l.font = Self.textFont
-            l.textColor = UIColor(hex6: 0x898989)
+            l.textColor = UIColor(hex6: 0xFFFFFF)
             l.numberOfLines = 0
             l.lineBreakMode = .byWordWrapping
             return l
