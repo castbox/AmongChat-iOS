@@ -273,10 +273,14 @@ class AmongGroupHostView: XibLoadableView {
             onSeatBadge = BadgeHub(view: raiseButton) // Initially count set to 0
             onSeatBadge?.setCircleColor(UIColor(hex: 0xFB5858), label: .white)
             onSeatBadge?.scaleCircleSize(by: 0.4)
-            onSeatBadge?.setCircleAtFrame(CGRect(x: raiseButton.bounds.width-1, y: -8, width: 16, height: 16))
-            onSeatBadge?.setCountLabel(R.font.nunitoExtraBold(size: 12))
         }
         onSeatBadge?.setCount(count)
+        //size
+        //size
+        let size = count.string.boundingRect(with: CGSize(width: 200, height: 16), font: R.font.nunitoExtraBold(size: 12)!)
+        //minisize
+        onSeatBadge?.setCircleAtFrame(CGRect(x: raiseButton.bounds.width-1, y: -8, width: max(size.width + 8, 16), height: max(size.height, 16)))
+        onSeatBadge?.setCountLabel(R.font.nunitoExtraBold(size: 12))
     }
     
     func updateApplyGroupBadge(with count: Int) {
@@ -284,10 +288,11 @@ class AmongGroupHostView: XibLoadableView {
             applyGroupBadge = BadgeHub(view: applyGroupButton) // Initially count set to 0
             applyGroupBadge?.setCircleColor(UIColor(hex: 0xFB5858), label: .white)
             applyGroupBadge?.scaleCircleSize(by: 0.4)
-            applyGroupBadge?.setCircleAtFrame(CGRect(x: applyGroupButton.bounds.width - 1, y: -8, width: 16, height: 16))
-            applyGroupBadge?.setCountLabel(R.font.nunitoExtraBold(size: 12))
         }
         applyGroupBadge?.setCount(count)
+        let size = count.string.boundingRect(with: CGSize(width: 200, height: 16), font: R.font.nunitoExtraBold(size: 12)!)
+        applyGroupBadge?.setCircleAtFrame(CGRect(x: raiseButton.bounds.width-1, y: -8, width: max(size.width + 8, 16), height: max(size.height, 16)))
+        applyGroupBadge?.setCountLabel(R.font.nunitoExtraBold(size: 12))
     }
     
     func startSoundAnimation() {

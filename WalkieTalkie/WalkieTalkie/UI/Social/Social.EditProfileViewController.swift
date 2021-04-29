@@ -28,9 +28,9 @@ extension Social {
             tapGR.addTarget(self, action: #selector(onAvatarTapped))
             iv.isUserInteractionEnabled = true
             iv.addGestureRecognizer(tapGR)
-            if Config.environment == .debug {
-                iv.backgroundColor = UIColor(hex6: 0x0EC099, alpha: 1.0)
-            }
+//            if Config.environment == .debug {
+//                iv.backgroundColor = UIColor(hex6: 0x0EC099, alpha: 1.0)
+//            }
             return iv
         }()
         
