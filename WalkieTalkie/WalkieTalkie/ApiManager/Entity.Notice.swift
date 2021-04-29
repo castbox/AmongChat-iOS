@@ -80,8 +80,11 @@ extension Entity {
             static var tableConstraintBindings: [TableConstraintBinding.Name: TableConstraintBinding]? {
                 let multiPrimaryBinding =
                     MultiPrimaryBinding(indexesBy: objType.asIndex(orderBy: .descending), objId)
+                let multiUniqueBinding =
+                    MultiUniqueBinding(indexesBy: objType.asIndex(orderBy: .descending), objId.asIndex(orderBy: .ascending))
                 return [
                     "MultiPrimaryConstraint": multiPrimaryBinding,
+                    "MultiUniqueConstraint": multiUniqueBinding,
                 ]
             }
             

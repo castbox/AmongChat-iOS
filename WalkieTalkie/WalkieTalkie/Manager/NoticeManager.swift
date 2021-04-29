@@ -104,7 +104,11 @@ class NoticeManager {
     
     func updateMessageBody(_ message: Entity.NoticeMessage) -> Single<Void> {
         return mapTransactionToSingle { (db) in
-            try db.update(table: messageBodyTableName, on: Entity.NoticeMessage.Properties.all, with: message)
+            guard let objId = message.objId, let objType = message.objType else {
+                return
+            }
+            let ex = Entity.NoticeMessage.Properties.objType == objType && Entity.NoticeMessage.Properties.objId == objId
+            try db.update(table: messageBodyTableName, on: Entity.NoticeMessage.Properties.all, with: message, where: ex)
         }
         .do(onSuccess: { [weak self] (_) in
             guard let `self` = self,
@@ -123,6 +127,7 @@ class NoticeManager {
     func messageBodyObservable(objType: String, objId: String) -> Observable<Entity.NoticeMessage?> {
         
         return NotificationCenter.default.rx.notification(messageBodyUpdateNotification(objType: objType, objId: objId))
+            .startWith(Notification(name: messageBodyUpdateNotification(objType: objType, objId: objId)))
             .flatMap({ [weak self] (_) -> Observable<Entity.NoticeMessage?> in
                 guard let `self` = self else {
                     return Observable.just(nil)
