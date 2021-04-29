@@ -77,7 +77,7 @@ extension Notice.Views {
         private lazy var messageTextLabel: UILabel = {
             let l = UILabel()
             l.font = R.font.nunitoBold(size: 14)
-            l.textColor = UIColor(hex6: 0x898989)
+            l.textColor = UIColor(hex6: 0xFFFFFF)
             l.numberOfLines = 0
             l.lineBreakMode = .byWordWrapping
             return l
