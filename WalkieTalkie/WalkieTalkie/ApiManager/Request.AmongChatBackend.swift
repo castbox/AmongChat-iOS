@@ -1281,7 +1281,7 @@ extension Request {
                             return Single.just(())
                         }
                         
-                        messageBody.img = info.group.coverURL
+                        messageBody.img = info.group.cover
                         messageBody.title = info.group.name
                         
                         return NoticeManager.shared.updateMessageBody(messageBody)
