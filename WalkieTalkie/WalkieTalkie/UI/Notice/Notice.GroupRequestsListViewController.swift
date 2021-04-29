@@ -219,6 +219,12 @@ extension Notice.GroupRequestsListViewController {
                 maker.centerY.equalToSuperview()
                 maker.trailing.equalToSuperview()
             }
+            
+            accessoryIconView.setContentHuggingPriority(UILayoutPriority(UILayoutPriority.defaultHigh.rawValue + 1), for: .horizontal)
+            accessoryIconView.setContentCompressionResistancePriority(UILayoutPriority(UILayoutPriority.defaultHigh.rawValue + 1), for: .horizontal)
+            groupNameLabel.setContentHuggingPriority(UILayoutPriority(UILayoutPriority.defaultLow.rawValue - 1), for: .horizontal)
+            groupNameLabel.setContentCompressionResistancePriority(UILayoutPriority(UILayoutPriority.defaultLow.rawValue - 1), for: .horizontal)
+            
         }
         
         func bindData(_ group: Entity.GroupApplyStat) {

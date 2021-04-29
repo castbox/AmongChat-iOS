@@ -40,16 +40,16 @@ extension Notice.Views {
         private static let titleHeight:CGFloat = 27
         private static let textLeading: CGFloat = 12
         private static let messageTopPadding: CGFloat = 1
-        private static let textFont = R.font.nunitoBold(size: 14)
+        private static let textFont = R.font.nunitoBold(size: 14) ?? UIFont.systemFont(ofSize: 14, weight: .bold)
         private static let imageViewSize = CGSize(width: 48, height: 48)
         private static let timeLableTopPadding: CGFloat = 4
         private static let timeLableHeight: CGFloat = 19
         
         static func cellSize(for notice: Entity.Notice) -> CGSize {
                         
-            let txtHeight = notice.message.text.height(forConstrainedWidth: cellWidth - imageViewSize.width - textLeading, font: Self.textFont!)
+            let txtHeight = notice.message.text.height(forConstrainedWidth: cellWidth - imageViewSize.width - textLeading, font: Self.textFont)
             
-            let height = ceil(titleHeight + messageTopPadding + txtHeight + timeLableHeight)
+            let height = ceil(titleHeight + messageTopPadding + txtHeight + timeLableTopPadding + timeLableHeight)
             return CGSize(width: cellWidth, height: height)
         }
         
@@ -79,6 +79,7 @@ extension Notice.Views {
             l.font = R.font.nunitoBold(size: 14)
             l.textColor = UIColor(hex6: 0x898989)
             l.numberOfLines = 0
+            l.lineBreakMode = .byWordWrapping
             return l
         }()
         
@@ -152,9 +153,9 @@ extension Notice.Views {
         private static let aboveTextImageHeight: CGFloat = 170
         private static let textHPadding: CGFloat = 16
         private static let titleTopPadding: CGFloat = 16
-        private static let titleFont = R.font.nunitoExtraBold(size: 20)
+        private static let titleFont = R.font.nunitoExtraBold(size: 20) ?? UIFont.systemFont(ofSize: 20, weight: .heavy)
         private static let messageTopPadding: CGFloat = 8
-        private static let textFont = R.font.nunitoBold(size: 14)
+        private static let textFont = R.font.nunitoBold(size: 14) ?? UIFont.systemFont(ofSize: 14, weight: .bold)
         private static let belowTextImageSize = CGSize(width: 80, height: 80)
         private static let belowTextImageTopPadding: CGFloat = 12
         private static let messageBodyBottomPadding: CGFloat = 24
@@ -165,8 +166,8 @@ extension Notice.Views {
             
             var containerHeight: CGFloat = 0
             
-            let titleHeight = notice.message.title.height(forConstrainedWidth: cellWidth - textHPadding * 2, font: Self.titleFont!)
-            let txtHeight = notice.message.text.height(forConstrainedWidth: cellWidth - textHPadding * 2, font: Self.textFont!)
+            let titleHeight = notice.message.title.height(forConstrainedWidth: cellWidth - textHPadding * 2, font: Self.titleFont)
+            let txtHeight = notice.message.text.height(forConstrainedWidth: cellWidth - textHPadding * 2, font: Self.textFont)
             containerHeight = titleTopPadding + titleHeight + messageTopPadding + txtHeight + messageBodyBottomPadding
             
             switch notice.message.messageType {
@@ -235,6 +236,7 @@ extension Notice.Views {
             l.font = Self.titleFont
             l.textColor = UIColor(hex6: 0xFFFFFF)
             l.numberOfLines = 0
+            l.lineBreakMode = .byWordWrapping
             return l
         }()
         
@@ -243,6 +245,7 @@ extension Notice.Views {
             l.font = Self.textFont
             l.textColor = UIColor(hex6: 0x898989)
             l.numberOfLines = 0
+            l.lineBreakMode = .byWordWrapping
             return l
         }()
         
