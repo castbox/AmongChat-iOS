@@ -167,6 +167,7 @@ extension FansGroup.GroupJoinRequestListViewController {
     
     private func setUpEvents() {
         usersRelay
+            .skip(1)
             .subscribe(onNext: { [weak self] (requests) in
                 self?.emptyView.isHidden = requests.count > 0
                 self?.tableView.isHidden = !(requests.count > 0)
