@@ -56,11 +56,7 @@ extension Notice {
             return s
         }()
         
-        private var pageIndex: Int = 0 {
-            didSet {
-                segmentedButton.updateSelectedIndex(pageIndex)
-            }
-        }
+        private let pageIndex = BehaviorRelay(value: 0)
         
         private lazy var tabDataSoure: [(String, UnhandledNoticeStatusObservableProtocal)] = {
             
@@ -216,6 +212,11 @@ extension Notice.AllNoticeViewController {
     
     private func setUpEvents() {
         
+        pageIndex.subscribe(onNext: { [weak self] (idx) in
+            self?.segmentedButton.updateSelectedIndex(idx)
+        })
+        .disposed(by: bag)
+        
         Observable.combineLatest(
             tabDataSoure.map {
                 $0.1.hasUnhandledNotice
@@ -245,6 +246,14 @@ extension Notice.AllNoticeViewController {
         .catchErrorJustReturn(false)
         .bind(to: Settings.shared.hasUnreadNoticeRelay)
         .disposed(by: bag)
+        
+        Observable.merge(pageIndex.asObservable(), segmentedButton.selectedIndexObservable)
+            .subscribe(onNext: { [weak self] (page) in
+                guard page == 1 else { return }
+                self?.socialNoticeVc.hasUnhandledNotice.accept(false)
+            })
+            .disposed(by: bag)
+
     }
     
 }
@@ -253,7 +262,7 @@ extension Notice.AllNoticeViewController: UIScrollViewDelegate {
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         guard scrollView == self.scrollView else { return }
-        pageIndex = Int(scrollView.contentOffset.x / scrollView.frame.size.width)
+        pageIndex.accept(Int(scrollView.contentOffset.x / scrollView.frame.size.width))
     }
     
 }

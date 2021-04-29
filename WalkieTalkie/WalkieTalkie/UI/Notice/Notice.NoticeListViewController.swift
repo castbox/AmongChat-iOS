@@ -78,7 +78,6 @@ extension Notice {
         override func viewDidLoad() {
             super.viewDidLoad()
             setUpLayout()
-            setUpEvents()
         }
         
     }
@@ -103,14 +102,6 @@ extension Notice.NoticeListViewController {
         noticeListView.pullToRefresh { [weak self] in
             self?.refreshHandler?()
         }
-    }
-    
-    private func setUpEvents() {
-        rx.viewDidAppear
-            .subscribe(onNext: { [weak self] (_) in
-                self?.hasUnreadNotice.accept(false)
-            })
-            .disposed(by: bag)
     }
     
 }
