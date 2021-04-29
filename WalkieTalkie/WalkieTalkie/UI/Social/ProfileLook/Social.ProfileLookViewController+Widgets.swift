@@ -277,15 +277,24 @@ extension Social.ProfileLookViewController {
                 button.transform = CGAffineTransform(scaleX: enlargeFractor, y: enlargeFractor)
                 if button == self.buttons.last {
                     button.snp.updateConstraints { (maker) in
-                        maker.trailing.equalToSuperview().inset(20 + ceil((enlargeFractor - 1) * button.frame.width))
+                        maker.trailing.equalToSuperview().inset(20 + ceil((enlargeFractor - 1) * button.frame.width) / 2)
+                    }
+                } else if button == self.buttons.first {
+                    button.snp.updateConstraints { (maker) in
+                        maker.leading.equalToSuperview().inset(20 + ceil((enlargeFractor - 1) * button.frame.width) / 2)
                     }
                 }
+                
                 button.titleLabel?.font = R.font.nunitoExtraBold(size: 20)
                 self.selectedBtn?.isSelected = false
                 self.selectedBtn?.transform = .identity
                 if self.selectedBtn == self.buttons.last {
                     self.selectedBtn?.snp.updateConstraints { (maker) in
                         maker.trailing.equalToSuperview().inset(20)
+                    }
+                } else if self.selectedBtn == self.buttons.first {
+                    self.selectedBtn?.snp.updateConstraints { (maker) in
+                        maker.leading.equalToSuperview().inset(20)
                     }
                 }
 
