@@ -491,6 +491,16 @@
 "alert.admin.mute.mic" = "Stumm für alle";
 "alert.admin.unmute.im" = "Unban Live-Chat";
 "alert.admin.unmute.mic" = "Aufheben der Stummschaltung für alle";
-"user.login.banned.tip" = "Account suspended";
-"user.login.kicked.tip" = "Your account has been logged in on another device";
-"user.login.common.tip" = "Something went wrong, please try again later";
+"user.login.banned.tip" = "Konto gesperrt";
+"user.login.kicked.tip" = "Ihr Konto wurde auf einem anderen Gerät angemeldet";
+"user.login.common.tip" = "Es ist ein Fehler aufgetreten. Bitte versuchen Sie es später erneut";
+
+//1.19
+"among.chat.group.admin.invitation.msg" = "Ich habe gerade eine neue Sitzung für die Gruppe %@ gestartet";
+"enter.closed.group.room.tips" = "Die Gruppensitzung ist beendet. Bitte versuchen Sie es später erneut.";
+"among.chat.notice.all.notice.title" = "Beachten";
+"among.chat.notice.system" = "System";
+"among.chat.notice.social" = "Sozial";
+"among.chat.notice.group.requests" = "Gruppenanfragen";
+"among.chat.notice.click.to.go" = "Klicken Sie, um zu gehen";
+"among.chat.notice.empty.tip" = "Ups, noch nichts hier.";
