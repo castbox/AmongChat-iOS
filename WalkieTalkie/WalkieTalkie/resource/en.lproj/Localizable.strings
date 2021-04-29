@@ -498,10 +498,6 @@
 //1.19
 "among.chat.group.admin.invitation.msg" = "just started a new session for the %@ group";
 "enter.closed.group.room.tips" = "Group session has ended, please check back later.";
-"among.chat.news.all.news.title" = "Notice";
-"among.chat.news.system" = "System";
-"among.chat.news.social" = "Social";
-"among.chat.news.group.requests" = "Group Requests";
 "among.chat.notice.all.notice.title" = "Notice";
 "among.chat.notice.system" = "System";
 "among.chat.notice.social" = "Social";
