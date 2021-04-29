@@ -47,7 +47,7 @@ extension Notice {
         
         private lazy var emptyView: FansGroup.Views.EmptyDataView = {
             let v = FansGroup.Views.EmptyDataView()
-            v.titleLabel.text = R.string.localizable.groupRoomApplyGroupListEmpty()
+            v.titleLabel.text = R.string.localizable.amongChatNoticeEmptyTip()
             v.isHidden = true
             return v
         }()
