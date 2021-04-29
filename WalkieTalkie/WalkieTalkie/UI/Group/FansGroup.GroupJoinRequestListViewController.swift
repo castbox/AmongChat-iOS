@@ -101,9 +101,9 @@ extension FansGroup.GroupJoinRequestListViewController: UITableViewDataSource {
                 case .accept:
                     self?.handleJoinRequest(for: user.uid, accept: true)
                 case .reject:
-                    self?.handleJoinRequest(for: user.uid, accept: false)
-                case .ignore:
                     ()
+                case .ignore:
+                    self?.handleJoinRequest(for: user.uid, accept: false)
                 }
             }
         }
