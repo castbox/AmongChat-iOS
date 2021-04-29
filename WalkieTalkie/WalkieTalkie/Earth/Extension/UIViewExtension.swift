@@ -127,7 +127,6 @@ extension UIView {
 //}
 
 extension UIView {
-    
     private struct AssociateKey {
         static var key = "badgeView"
     }
@@ -147,11 +146,11 @@ extension UIView {
         guard badge == nil else {
             return
         }
-        let b = UIView()
-        b.backgroundColor = "FA4E4E".color()
-        b.layer.cornerRadius = diameter / 2
-        b.layer.borderWidth = borderWidth
-        b.layer.borderColor = borderColor?.cgColor
+        let b = InnerBorderdView()
+        b.innerBackgroundColor = "FA4E4E".color()
+        b.viewCornerRadius = diameter / 2
+        b.innerBorderWidth = borderWidth
+        b.innerBorderColor = borderColor
         b.clipsToBounds = true
         addSubview(b)
         b.snp.makeConstraints { (maker) in
@@ -205,12 +204,88 @@ extension UIView {
         badge = nil
     }
     
-    private weak var badge: UIView? {
+    private weak var badge: InnerBorderdView? {
         get {
-            return objc_getAssociatedObject(self, &AssociateKey.key) as? UIView
+            return objc_getAssociatedObject(self, &AssociateKey.key) as? InnerBorderdView
         }
         set {
             objc_setAssociatedObject(self, &AssociateKey.key, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
+}
+
+fileprivate class InnerBorderdView: UIView {
+    
+    var innerBorderWidth: CGFloat = 0 {
+        didSet {
+            border.layer.borderWidth = innerBorderWidth
+            if innerBorderWidth > 0 {
+                bgInset = min(1, innerBorderWidth)
+            } else {
+                bgInset = 0
+            }
+        }
+    }
+    
+    var innerBorderColor: UIColor? = nil {
+        didSet {
+            border.layer.borderColor = innerBorderColor?.cgColor
+        }
+    }
+    
+    var viewCornerRadius: CGFloat = 0 {
+        didSet {
+            border.layer.cornerRadius = viewCornerRadius
+            bgView.layer.cornerRadius = viewCornerRadius - bgInset
+            layer.cornerRadius = viewCornerRadius
+        }
+    }
+    
+    var innerBackgroundColor: UIColor? = .clear {
+        didSet {
+            bgView.backgroundColor = innerBackgroundColor
+        }
+    }
+    
+    private var bgInset: CGFloat = 0 {
+        didSet {
+            bgView.snp.remakeConstraints { (maker) in
+                maker.edges.equalToSuperview().inset(bgInset)
+            }
+        }
+    }
+    
+    private lazy var bgView: UIView = {
+        let v = UIView()
+        v.clipsToBounds = true
+        return v
+    }()
+    
+    private lazy var border: UIView = {
+        let v = UIView()
+        return v
+    }()
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setupLayout()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func setupLayout() {
+        backgroundColor = .clear
+        addSubviews(views: bgView, border)
+        
+        bgView.snp.makeConstraints { (maker) in
+            maker.edges.equalToSuperview().inset(bgInset)
+        }
+        
+        border.snp.makeConstraints { (maker) in
+            maker.edges.equalToSuperview()
+        }
+    }
+        
 }
