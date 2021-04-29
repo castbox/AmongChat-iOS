@@ -119,6 +119,20 @@ class Automator {
             .catchErrorJustReturn(false)
             .bind(to: Settings.shared.hasUnreadNoticeRelay)
             .disposed(by: bag)
+        
+        //
+        InstalledChecker.default.installedAppReplay
+            .filter { !$0.isEmpty }
+            .map { $0.map { $0.bundleId } }
+            .flatMap { games -> Single<Bool> in
+                return Request.updateInstalled(games)
+            }
+            .subscribe(onNext: { result in
+                cdPrint("[InstalledChecker]- update result: \(result)")
+            }, onError: { error in
+                cdPrint("[InstalledChecker]- update error: \(error)")
+            })
+            .disposed(by: bag)
 
     }
 }

@@ -109,6 +109,7 @@ extension APIService {
         case peerMessage([String : Any])
         case globalMessage([String : Any])
         case myGroupApplyStat
+        case updateInstalledGames([String: Any])
     }
 }
 
@@ -312,6 +313,8 @@ extension APIService.AmongChatBackend: TargetType {
             return "/api/v1/global/message/list"
         case .myGroupApplyStat:
             return "/api/v1/my/group/apply/stat"
+        case .updateInstalledGames:
+            return "/account/games"
         }
     }
     
@@ -346,6 +349,7 @@ extension APIService.AmongChatBackend: TargetType {
              .adminUnmuteMic,
              .adminMuteIm,
              .adminUnmuteIm,
+             .updateInstalledGames,
              .logout:
             return .post
             
@@ -460,6 +464,7 @@ extension APIService.AmongChatBackend: TargetType {
              .adminUnmuteMic(let params),
              .adminMuteIm(let params),
              .adminUnmuteIm(let params),
+             .updateInstalledGames(let params),
              .updateDevice(let params):
             return .requestParameters(parameters: params, encoding: JSONEncoding.default)
             

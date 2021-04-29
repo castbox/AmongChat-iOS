@@ -739,8 +739,8 @@ extension DefaultsKeys {
         .init("among.chat.set.age.prompt.shows.time.\(Settings.shared.amongChatUserProfile.value?.uid ?? 0)", defaultValue: nil)
     }
     
-    var testGroup: DefaultsKey<String?> {
-        .init("among.chat.test.temp.group", defaultValue: nil)
+    var updateInstalledAppTime: DefaultsKey<String?> {
+        .init("among.chat.update.ins.app.time", defaultValue: nil)
     }
     
     var showQuickChangeRoomButton: DefaultsKey<Bool?> {
@@ -750,6 +750,7 @@ extension DefaultsKeys {
     static func groupRoomCanShowGameNameTips(for topic: AmongChat.Topic) -> DefaultsKey<Bool> {
         .init("group.room.can.show.game.name.tips.\(topic.rawValue)", defaultValue: true)
     }
+    
 }
 
 //extension DefaultsAdapter {

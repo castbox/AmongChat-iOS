@@ -370,6 +370,7 @@
 		FED38C86261318D2003C3F7D /* AmongGroupTopView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FED38C85261318D2003C3F7D /* AmongGroupTopView.xib */; };
 		FED38C8A26132976003C3F7D /* AmongGroupTopicConfigView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FED38C8926132976003C3F7D /* AmongGroupTopicConfigView.swift */; };
 		FED38C8E26132984003C3F7D /* AmongGroupTopicConfigView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FED38C8D26132984003C3F7D /* AmongGroupTopicConfigView.xib */; };
+		FED568D1263AB68C0009F4FF /* InstalledChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = FED568D0263AB68C0009F4FF /* InstalledChecker.swift */; };
 		FED7B5FC244EC99300D94F97 /* ScreenLifeLogable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FED7B5FB244EC99300D94F97 /* ScreenLifeLogable.swift */; };
 		FED7B5FF244EC9E100D94F97 /* Logger+Screen.swift in Sources */ = {isa = PBXBuildFile; fileRef = FED7B5FE244EC9E100D94F97 /* Logger+Screen.swift */; };
 		FED7B601244EC9FB00D94F97 /* LoggerPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = FED7B600244EC9FB00D94F97 /* LoggerPath.swift */; };
@@ -800,6 +801,7 @@
 		FED38C85261318D2003C3F7D /* AmongGroupTopView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AmongGroupTopView.xib; sourceTree = "<group>"; };
 		FED38C8926132976003C3F7D /* AmongGroupTopicConfigView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongGroupTopicConfigView.swift; sourceTree = "<group>"; };
 		FED38C8D26132984003C3F7D /* AmongGroupTopicConfigView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AmongGroupTopicConfigView.xib; sourceTree = "<group>"; };
+		FED568D0263AB68C0009F4FF /* InstalledChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstalledChecker.swift; sourceTree = "<group>"; };
 		FED7B5FB244EC99300D94F97 /* ScreenLifeLogable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenLifeLogable.swift; sourceTree = "<group>"; };
 		FED7B5FE244EC9E100D94F97 /* Logger+Screen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Logger+Screen.swift"; sourceTree = "<group>"; };
 		FED7B600244EC9FB00D94F97 /* LoggerPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggerPath.swift; sourceTree = "<group>"; };
@@ -1217,6 +1219,7 @@
 				FE9B29F32488D250009A4969 /* ConfettiView.swift */,
 				FE87C2DD259C5ADD00799883 /* ShareManager */,
 				26A3D4AF2636C57200DD4F53 /* NoticeManager.swift */,
+				FED568D0263AB68C0009F4FF /* InstalledChecker.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -1960,6 +1963,7 @@
 				FE126D50243481FF00BEDD60 /* VoiceChanger.swift in Sources */,
 				BD680D7A2554F89D0062CEC7 /* Logger+AppOpenAd.swift in Sources */,
 				BD73B10124FE363D009D0AC7 /* Social.BlockedUserList.ViewController.swift in Sources */,
+				FED568D1263AB68C0009F4FF /* InstalledChecker.swift in Sources */,
 				263F872B26130EE500282F8F /* FansGroup.AddTopicViewController.swift in Sources */,
 				BDA05E9E250B22D50087933F /* Social.BlockedUserList.Widgets.swift in Sources */,
 				26F7023A25E670CC008F992C /* Social.CustomAvatarViewController.swift in Sources */,

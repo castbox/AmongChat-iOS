@@ -1606,4 +1606,11 @@ extension Request {
             }
             .observeOn(MainScheduler.asyncInstance)
     }
+    
+    static func updateInstalled(_ gameBundleIds: [String]) -> Single<Bool> {
+        return amongchatProvider.rx.request(.updateInstalledGames(["games": gameBundleIds.joined(separator: ",")]))
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .mapToProcessedValue()
+    }
 }

@@ -217,6 +217,8 @@ extension AmongChat.Login {
             setupLayout()
             setupAvatars()
             Logger.Action.log(.login_imp)
+            
+            InstalledChecker.default.update()
         }
         
     }

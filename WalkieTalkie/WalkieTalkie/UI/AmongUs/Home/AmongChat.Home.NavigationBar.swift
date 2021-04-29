@@ -133,7 +133,6 @@ extension AmongChat.Home {
                 return
             }
             Routes.handle("/createRoom")
-        }
-        
+        }        
     }
 }
