@@ -2411,8 +2411,8 @@ struct R: Rswift.Validatable {
       static let amongChatCreateRoomCardClaim = Rswift.StringResource(key: "among.chat.create.room.card.claim", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Click to Go
       /// 
-      /// Locales: en
-      static let amongChatNoticeClickToGo = Rswift.StringResource(key: "among.chat.notice.click.to.go", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let amongChatNoticeClickToGo = Rswift.StringResource(key: "among.chat.notice.click.to.go", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Click to copy others' COD Username/UID to play together
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2771,16 +2771,16 @@ struct R: Rswift.Validatable {
       static let amongChatGroupName = Rswift.StringResource(key: "among.chat.group.name", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Group Requests
       /// 
-      /// Locales: en
-      static let amongChatNoticeGroupRequests = Rswift.StringResource(key: "among.chat.notice.group.requests", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let amongChatNoticeGroupRequests = Rswift.StringResource(key: "among.chat.notice.group.requests", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Group Topic
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatGroupTopic = Rswift.StringResource(key: "among.chat.group.topic", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Group session has ended, please check back later.
       /// 
-      /// Locales: en
-      static let enterClosedGroupRoomTips = Rswift.StringResource(key: "enter.closed.group.room.tips", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let enterClosedGroupRoomTips = Rswift.StringResource(key: "enter.closed.group.room.tips", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Group session just ended
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3087,8 +3087,8 @@ struct R: Rswift.Validatable {
       static let premiumNotActivated = Rswift.StringResource(key: "premium.not.activated", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Notice
       /// 
-      /// Locales: en
-      static let amongChatNoticeAllNoticeTitle = Rswift.StringResource(key: "among.chat.notice.all.notice.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let amongChatNoticeAllNoticeTitle = Rswift.StringResource(key: "among.chat.notice.all.notice.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Nov
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3179,8 +3179,8 @@ struct R: Rswift.Validatable {
       static let errorNoTeammates = Rswift.StringResource(key: "error.no.teammates", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Oops, nothing here yet.
       /// 
-      /// Locales: en
-      static let amongChatNoticeEmptyTip = Rswift.StringResource(key: "among.chat.notice.empty.tip", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let amongChatNoticeEmptyTip = Rswift.StringResource(key: "among.chat.notice.empty.tip", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Oops, server connection was lost, please try again later.
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3535,8 +3535,8 @@ struct R: Rswift.Validatable {
       static let profileBirthdaySkip = Rswift.StringResource(key: "profile.birthday.skip", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Social
       /// 
-      /// Locales: en
-      static let amongChatNoticeSocial = Rswift.StringResource(key: "among.chat.notice.social", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let amongChatNoticeSocial = Rswift.StringResource(key: "among.chat.notice.social", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Something went wrong, please try again later
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3587,8 +3587,8 @@ struct R: Rswift.Validatable {
       static let socialSuggestedContacts = Rswift.StringResource(key: "social.suggested.contacts", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: System
       /// 
-      /// Locales: en
-      static let amongChatNoticeSystem = Rswift.StringResource(key: "among.chat.notice.system", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let amongChatNoticeSystem = Rswift.StringResource(key: "among.chat.notice.system", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: TRY IT FREE
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3883,8 +3883,8 @@ struct R: Rswift.Validatable {
       static let chatroomMessageUserJoined = Rswift.StringResource(key: "chatroom.message.user.joined", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: just started a new session for the %@ group
       /// 
-      /// Locales: en
-      static let amongChatGroupAdminInvitationMsg = Rswift.StringResource(key: "among.chat.group.admin.invitation.msg", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let amongChatGroupAdminInvitationMsg = Rswift.StringResource(key: "among.chat.group.admin.invitation.msg", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: lifetime
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -4350,7 +4350,7 @@ struct R: Rswift.Validatable {
       
       /// en translation: Click to Go
       /// 
-      /// Locales: en
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func amongChatNoticeClickToGo(_: Void = ()) -> String {
         return NSLocalizedString("among.chat.notice.click.to.go", bundle: R.hostingBundle, comment: "")
       }
@@ -4980,7 +4980,7 @@ struct R: Rswift.Validatable {
       
       /// en translation: Group Requests
       /// 
-      /// Locales: en
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func amongChatNoticeGroupRequests(_: Void = ()) -> String {
         return NSLocalizedString("among.chat.notice.group.requests", bundle: R.hostingBundle, comment: "")
       }
@@ -4994,7 +4994,7 @@ struct R: Rswift.Validatable {
       
       /// en translation: Group session has ended, please check back later.
       /// 
-      /// Locales: en
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func enterClosedGroupRoomTips(_: Void = ()) -> String {
         return NSLocalizedString("enter.closed.group.room.tips", bundle: R.hostingBundle, comment: "")
       }
@@ -5533,7 +5533,7 @@ struct R: Rswift.Validatable {
       
       /// en translation: Notice
       /// 
-      /// Locales: en
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func amongChatNoticeAllNoticeTitle(_: Void = ()) -> String {
         return NSLocalizedString("among.chat.notice.all.notice.title", bundle: R.hostingBundle, comment: "")
       }
@@ -5694,7 +5694,7 @@ struct R: Rswift.Validatable {
       
       /// en translation: Oops, nothing here yet.
       /// 
-      /// Locales: en
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func amongChatNoticeEmptyTip(_: Void = ()) -> String {
         return NSLocalizedString("among.chat.notice.empty.tip", bundle: R.hostingBundle, comment: "")
       }
@@ -6317,7 +6317,7 @@ struct R: Rswift.Validatable {
       
       /// en translation: Social
       /// 
-      /// Locales: en
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func amongChatNoticeSocial(_: Void = ()) -> String {
         return NSLocalizedString("among.chat.notice.social", bundle: R.hostingBundle, comment: "")
       }
@@ -6408,7 +6408,7 @@ struct R: Rswift.Validatable {
       
       /// en translation: System
       /// 
-      /// Locales: en
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func amongChatNoticeSystem(_: Void = ()) -> String {
         return NSLocalizedString("among.chat.notice.system", bundle: R.hostingBundle, comment: "")
       }
@@ -6926,7 +6926,7 @@ struct R: Rswift.Validatable {
       
       /// en translation: just started a new session for the %@ group
       /// 
-      /// Locales: en
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func amongChatGroupAdminInvitationMsg(_ value1: String) -> String {
         return String(format: NSLocalizedString("among.chat.group.admin.invitation.msg", bundle: R.hostingBundle, comment: ""), locale: R.applicationLocale, value1)
       }

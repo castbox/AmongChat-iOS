@@ -491,6 +491,16 @@
 "alert.admin.mute.mic" = "Без звука для всех";
 "alert.admin.unmute.im" = "Разбанить чат";
 "alert.admin.unmute.mic" = "Включить звук для всех";
-"user.login.banned.tip" = "Account suspended";
-"user.login.kicked.tip" = "Your account has been logged in on another device";
-"user.login.common.tip" = "Something went wrong, please try again later";
+"user.login.banned.tip" = "Аккаунт заблокирован";
+"user.login.kicked.tip" = "Ваша учетная запись была авторизована на другом устройстве";
+"user.login.common.tip" = "Что-то пошло не так. Пожалуйста, повторите попытку позже";
+
+//1.19
+"among.chat.group.admin.invitation.msg" = "только что начал новую сессию для группы %@";
+"enter.closed.group.room.tips" = "Групповая сессия закончилась, повторите попытку позже.";
+"among.chat.notice.all.notice.title" = "Уведомление";
+"among.chat.notice.system" = "Система";
+"among.chat.notice.social" = "Социальное";
+"among.chat.notice.group.requests" = "Групповые запросы";
+"among.chat.notice.click.to.go" = "Нажмите, чтобы перейти";
+"among.chat.notice.empty.tip" = "Ой, здесь пока ничего нет.";
