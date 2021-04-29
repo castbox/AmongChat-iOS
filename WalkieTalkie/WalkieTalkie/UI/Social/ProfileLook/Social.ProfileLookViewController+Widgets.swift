@@ -294,13 +294,15 @@ extension Social.ProfileLookViewController {
 
                 self.indicatorContainer.layoutIfNeeded()
                 
+            } completion: { [weak self] (_) in
+                guard let `self` = self else { return }
                 if button == self.buttons.first {
                     self.scrollView.scrollRectToVisible(CGRect(origin: .zero, size: CGSize(width: 1, height: 1)), animated: true)
                 } else if button == self.buttons.last {
                     self.scrollView.scrollRectToVisible(CGRect(origin: CGPoint(x: self.scrollView.contentSize.width - 1, y: 0), size: CGSize(width: 1, height: 1)), animated: true)
+                } else {
+                    self.scrollView.scrollRectToVisible(button.frame, animated: true)
                 }
-                
-                
             }
             
             selectedIndexrRelay.accept(index)
