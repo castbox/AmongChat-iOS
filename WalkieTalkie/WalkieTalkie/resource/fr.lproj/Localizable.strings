@@ -498,9 +498,12 @@
 //1.19
 "among.chat.group.admin.invitation.msg" = "vient de démarrer une nouvelle session pour le groupe %@";
 "enter.closed.group.room.tips" = "La session de groupe est terminée, veuillez revenir plus tard.";
-"among.chat.notice.all.notice.title" = "Remarquer";
+"among.chat.notice.all.notice.title" = "Notification";
 "among.chat.notice.system" = "Système";
 "among.chat.notice.social" = "Social";
 "among.chat.notice.group.requests" = "Demandes de groupe";
 "among.chat.notice.click.to.go" = "Cliquez pour aller";
 "among.chat.notice.empty.tip" = "Oups, rien ici pour le moment.";
+
+"group.dismissed.tips" = "Désolé, l'administrateur a rejeté le groupe.";
+

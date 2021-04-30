@@ -504,3 +504,6 @@
 "among.chat.notice.group.requests" = "طلبات المجموعة";
 "among.chat.notice.click.to.go" = "انقر للذهاب";
 "among.chat.notice.empty.tip" = "عفوًا ، لا يوجد شيء هنا حتى الآن.";
+
+"group.dismissed.tips" = "عذرا ، لقد رفض المشرف المجموعة.";
+
