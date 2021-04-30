@@ -134,7 +134,7 @@ extension Notice.Views {
             
             switch notice.message.messageObjType {
             case .group, .room, .unknown:
-                messageImageView.layer.cornerRadius = 12
+                messageImageView.layer.cornerRadius = 8
                 imagePlaceholder = nil
             case .user:
                 messageImageView.layer.cornerRadius = Self.imageViewSize.height / 2
