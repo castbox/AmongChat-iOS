@@ -50,7 +50,7 @@ extension Notice.Views {
             let txtHeight = notice.message.text?.height(forConstrainedWidth: cellWidth - imageViewSize.width - textLeading, font: Self.textFont) ?? 0
             
             let height = ceil(titleHeight + messageTopPadding + txtHeight + timeLableTopPadding + timeLableHeight)
-            return CGSize(width: cellWidth, height: min(height, imageViewSize.height))
+            return CGSize(width: cellWidth, height: max(height, imageViewSize.height))
         }
         
         private lazy var timeLabel: UILabel = {
