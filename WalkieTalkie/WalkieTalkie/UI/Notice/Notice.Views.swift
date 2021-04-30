@@ -47,10 +47,10 @@ extension Notice.Views {
         
         static func cellSize(for notice: Entity.Notice) -> CGSize {
                         
-            let txtHeight = notice.message.text.height(forConstrainedWidth: cellWidth - imageViewSize.width - textLeading, font: Self.textFont)
+            let txtHeight = notice.message.text?.height(forConstrainedWidth: cellWidth - imageViewSize.width - textLeading, font: Self.textFont) ?? 0
             
             let height = ceil(titleHeight + messageTopPadding + txtHeight + timeLableTopPadding + timeLableHeight)
-            return CGSize(width: cellWidth, height: height)
+            return CGSize(width: cellWidth, height: min(height, imageViewSize.height))
         }
         
         private lazy var timeLabel: UILabel = {
@@ -169,8 +169,8 @@ extension Notice.Views {
             
             var containerHeight: CGFloat = 0
             
-            let titleHeight = notice.message.title.height(forConstrainedWidth: cellWidth - textHPadding * 2, font: Self.titleFont)
-            let txtHeight = notice.message.text.height(forConstrainedWidth: cellWidth - textHPadding * 2, font: Self.textFont)
+            let titleHeight = notice.message.title?.height(forConstrainedWidth: cellWidth - textHPadding * 2, font: Self.titleFont) ?? 0
+            let txtHeight = notice.message.text?.height(forConstrainedWidth: cellWidth - textHPadding * 2, font: Self.textFont) ?? 0
             containerHeight = titleTopPadding + titleHeight + messageTopPadding + txtHeight + messageBodyBottomPadding
             
             switch notice.message.messageType {
