@@ -158,7 +158,10 @@ extension Routes {
             _ = Request.groupStatus(groupId)
                 .subscribe { group in
                     loadingHandler?()
-                    guard let group = group, let vc = UIApplication.topViewController() as? WalkieTalkie.ViewController else { return }
+                    guard let group = group, let vc = UIApplication.topViewController() as? WalkieTalkie.ViewController else {
+                        UIApplication.topViewController()?.view.raft.autoShow(.text(R.string.localizable.groupDismissedTips()))
+                        return
+                    }
                     if group.isLiving {
                         vc.enter(group: group)
                     } else {
