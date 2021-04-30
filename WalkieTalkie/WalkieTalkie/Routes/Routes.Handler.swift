@@ -177,18 +177,20 @@ extension Routes {
         
         func showWebViewController(urlString: String) {
             guard let url = URL(string: urlString),
-                  let controller = UIApplication.navigationController?.topViewController else { return }
-            controller.open(url: url)
+                  let controller = UIApplication.topViewController() else { return }
+            
+            if url.absoluteString.contains("among.chat") {
+                WebViewController.pushFrom(controller, url: url, contentType: .normal)
+            } else {
+                controller.open(url: url)
+            }
         }
         
         func handleUndefined(_ url: URL) {
             if !FireLink.handle(dynamicLink: url, completion: { (url) in
                 Routes.handle(url)
             }) {
-//                guard url.absoluteString.contains("among.chat") else {
-//                    return
-//                }
-                cdPrint("open url on webpage: \(url.absoluteString)")
+//                cdPrint("open url on webpage: \(url.absoluteString)")
                 showWebViewController(urlString: url.absoluteString)
             }
         }

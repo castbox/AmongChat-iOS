@@ -250,10 +250,10 @@ extension WebViewController: WKNavigationDelegate {
             if Routes.canHandle(url) {
                 decisionHandler(.cancel)
                 // 个人页面跳转 webview中跳转
-                if url.absoluteString.contains("/user") {
-//                    let suid = Int(url.absoluteString.split(separator: "/").last ?? "0")
-//                    let vc = Profile.UserViewController(suid)
-//                    self.navigationController?.pushViewController(vc, animated: true)
+                if url.absoluteString.contains("/user"),
+                   let uid = Int(url.absoluteString.split(separator: "/").last ?? "0") ?? Settings.loginUserId {
+                    let vc = Social.ProfileViewController(with: uid)
+                    self.navigationController?.pushViewController(vc, animated: true)
                     return
                 }
                 if let vc = self.presentingViewController {
