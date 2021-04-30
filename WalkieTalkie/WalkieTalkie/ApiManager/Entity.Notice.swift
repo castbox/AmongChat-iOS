@@ -66,8 +66,8 @@ extension Entity {
         
         
         var type: String
-        var title: String
-        var text: String
+        var title: String?
+        var text: String?
         var img: String?
         var link: String?
         var objType: String?

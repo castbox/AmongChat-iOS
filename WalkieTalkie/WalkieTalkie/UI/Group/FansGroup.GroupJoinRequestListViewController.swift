@@ -40,12 +40,20 @@ extension FansGroup {
                 // Fallback on earlier versions
                 automaticallyAdjustsScrollViewInsets = false
             }
+            tb.backgroundView = emptyView
             return tb
         }()
         
-        private lazy var emptyView: FansGroup.Views.EmptyDataView = {
-            let v = FansGroup.Views.EmptyDataView()
-            v.titleLabel.text = R.string.localizable.groupRoomApplyGroupListEmpty()
+        private lazy var emptyView: UIView = {
+            let v = UIView()
+            let e = FansGroup.Views.EmptyDataView()
+            e.titleLabel.text = R.string.localizable.groupRoomApplyGroupListEmpty()
+            v.addSubview(e)
+            e.snp.makeConstraints { (maker) in
+                maker.centerX.equalToSuperview()
+                maker.leading.greaterThanOrEqualToSuperview().offset(40)
+                maker.top.equalTo(100)
+            }
             v.isHidden = true
             return v
         }()
@@ -132,13 +140,7 @@ extension FansGroup.GroupJoinRequestListViewController {
     
     private func setUpLayout() {
         
-        view.addSubviews(views: emptyView, tableView)
-        
-        emptyView.snp.makeConstraints { (maker) in
-            maker.centerX.equalToSuperview()
-            maker.leading.greaterThanOrEqualToSuperview().offset(40)
-            maker.top.equalTo(100)
-        }
+        view.addSubviews(views: tableView)
         
         if hasNavigationBar {
             
@@ -170,7 +172,6 @@ extension FansGroup.GroupJoinRequestListViewController {
             .skip(1)
             .subscribe(onNext: { [weak self] (requests) in
                 self?.emptyView.isHidden = requests.count > 0
-                self?.tableView.isHidden = !(requests.count > 0)
                 self?.tableView.reloadData()
             })
             .disposed(by: bag)

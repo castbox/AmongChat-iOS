@@ -47,10 +47,10 @@ extension Notice.Views {
         
         static func cellSize(for notice: Entity.Notice) -> CGSize {
                         
-            let txtHeight = notice.message.text.height(forConstrainedWidth: cellWidth - imageViewSize.width - textLeading, font: Self.textFont)
+            let txtHeight = notice.message.text?.height(forConstrainedWidth: cellWidth - imageViewSize.width - textLeading, font: Self.textFont) ?? 0
             
             let height = ceil(titleHeight + messageTopPadding + txtHeight + timeLableTopPadding + timeLableHeight)
-            return CGSize(width: cellWidth, height: height)
+            return CGSize(width: cellWidth, height: max(height, imageViewSize.height))
         }
         
         private lazy var timeLabel: UILabel = {
@@ -134,7 +134,7 @@ extension Notice.Views {
             
             switch notice.message.messageObjType {
             case .group, .room, .unknown:
-                messageImageView.layer.cornerRadius = 12
+                messageImageView.layer.cornerRadius = 8
                 imagePlaceholder = nil
             case .user:
                 messageImageView.layer.cornerRadius = Self.imageViewSize.height / 2
@@ -169,20 +169,24 @@ extension Notice.Views {
             
             var containerHeight: CGFloat = 0
             
-            let titleHeight = notice.message.title.height(forConstrainedWidth: cellWidth - textHPadding * 2, font: Self.titleFont)
-            let txtHeight = notice.message.text.height(forConstrainedWidth: cellWidth - textHPadding * 2, font: Self.textFont)
-            containerHeight = titleTopPadding + titleHeight + messageTopPadding + txtHeight + messageBodyBottomPadding
+            let titleHeight: CGFloat = notice.message.title?.height(forConstrainedWidth: cellWidth - textHPadding * 2, font: Self.titleFont) ?? 0
+            let txtHeight: CGFloat = notice.message.text?.height(forConstrainedWidth: cellWidth - textHPadding * 2, font: Self.textFont) ?? 0
+            
+            let titleAreaHeight: CGFloat = titleHeight > 0 ? titleTopPadding + titleHeight : 0
+            let txtAreaHeight: CGFloat = txtHeight > 0 ? messageTopPadding + txtHeight + messageBodyBottomPadding : 0
+            
+            containerHeight = titleAreaHeight + txtAreaHeight
             
             switch notice.message.messageType {
             
             case .TxtMsg:
                 ()
                 
-            case .ImgTxtMsg:
+            case .ImgMsg, .ImgTxtMsg:
                 
                 containerHeight = containerHeight + aboveTextImageHeight
                 
-            case .ImgMsg, .TxtImgMsg:
+            case .TxtImgMsg:
                 
                 containerHeight = containerHeight + belowTextImageTopPadding + belowTextImageSize.height
                 
@@ -365,7 +369,7 @@ extension Notice.Views {
                     maker.height.equalTo(0)
                 }
                 
-            case .ImgTxtMsg:
+            case .ImgMsg, .ImgTxtMsg:
                 aboveTextImageView.setImage(with: notice.message.img)
                 aboveTextImageView.isHidden = false
                 belowTextImageView.image = nil
@@ -375,7 +379,7 @@ extension Notice.Views {
                     maker.height.equalTo(Self.aboveTextImageHeight)
                 }
 
-            case .ImgMsg, .TxtImgMsg:
+            case .TxtImgMsg:
                 aboveTextImageView.image = nil
                 aboveTextImageView.isHidden = true
                 belowTextImageView.setImage(with: notice.message.img)
