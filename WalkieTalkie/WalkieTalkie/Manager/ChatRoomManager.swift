@@ -160,7 +160,7 @@ class ChatRoomManager {
     func leaveChannel() {
         channelName = nil
         stateDispose?.dispose()
-        mRtcManager.leaveChannel()
+        mRtcManager?.leaveChannel()
         mChannelData.release()
         HapticFeedback.Impact.medium()
 //        block?(name)
@@ -295,6 +295,8 @@ extension ChatRoomManager {
             .subscribe(onNext: { [weak self] result in
                 guard let result = result?.profile, result.uid > 0, result.roleType == .some(.none) else {
                     self?.heartBeatingRequestDispose?.dispose()
+                    //leave channel
+                    self?.leaveChannel()
                     return
                 }
                 self?.requestHeartBeating()
