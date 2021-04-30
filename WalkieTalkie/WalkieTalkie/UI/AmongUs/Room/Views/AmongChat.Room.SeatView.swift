@@ -346,7 +346,7 @@ extension AmongChat.Room.SeatView {
             
             guard let cell = nilableCell, let item = dataSource.safe(index) else {
                 nilableCell?.bind(nil, topic: room.topicType, index: index + 1)
-                return
+                continue
             }
             // callin状态
             if item.callContent.action == .request {
