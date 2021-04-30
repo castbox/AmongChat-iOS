@@ -18,9 +18,7 @@ extension AmongChat.Home {
         private let bag = DisposeBag()
         
         private lazy var avatarIV: AvatarImageView = {
-            let iv = AvatarImageView(verifyIconStyle)
-//            iv.layer.cornerRadius = 20
-//            iv.layer.masksToBounds = true
+            let iv = AvatarImageView()
             iv.isUserInteractionEnabled = true
             iv.addGestureRecognizer(avatarTap)
             return iv
@@ -62,14 +60,12 @@ extension AmongChat.Home {
             return lb
         }()
         
-        private let verifyIconStyle: AvatarImageView.VerifyIconStyle
-        
         private var uid: Int? = nil
         
         init(_ verifyIconStyle: AvatarImageView.VerifyIconStyle = .gray) {
-            self.verifyIconStyle = verifyIconStyle
             super.init(frame: .zero)
             setupLayout()
+            avatarIV.setVerifyIcon(style: verifyIconStyle)
         }
         
         required init?(coder: NSCoder) {
