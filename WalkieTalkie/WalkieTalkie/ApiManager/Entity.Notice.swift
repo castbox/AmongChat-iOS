@@ -54,6 +54,8 @@ extension Entity {
             link = message.link
             objType = message.objType
             objId = message.objId
+            imgWidth = message.imgWidth
+            imgHeight = message.imgHeight
         }
         
         func archivedValue() -> FundamentalValue {
@@ -72,8 +74,8 @@ extension Entity {
         var link: String?
         var objType: String?
         var objId: String?
-        var imgWidth: CGFloat?
-        var imgHeight: CGFloat?
+        var imgWidth: Int64?
+        var imgHeight: Int64?
         
         enum CodingKeys: String, CodingTableKey {
             typealias Root = NoticeMessage

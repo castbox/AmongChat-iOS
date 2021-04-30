@@ -206,8 +206,8 @@ extension Notice.GroupRequestsListViewController {
             contentView.addSubviews(views: groupIconContainer, groupNameLabel, accessoryIconView)
             
             groupIconContainer.snp.makeConstraints { (maker) in
-                maker.leading.top.bottom.equalToSuperview()
-                maker.width.equalTo(groupIconView.snp.height)
+                maker.leading.centerY.equalToSuperview()
+                maker.width.height.equalTo(48)
             }
             
             groupNameLabel.snp.makeConstraints { (maker) in
