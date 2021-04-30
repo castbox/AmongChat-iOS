@@ -79,7 +79,7 @@ extension AmongChat.Home {
                     if let _ = ts {
                         self?.profileBtn.badgeOff()
                     } else {
-                        self?.profileBtn.badgeOn(hAlignment: .tailByTail(-2), topInset: -1, diameter: 13)
+                        self?.profileBtn.badgeOn(hAlignment: .tailByTail(-5), topInset: -1, diameter: 13)
                     }
                 })
                 .disposed(by: bag)
