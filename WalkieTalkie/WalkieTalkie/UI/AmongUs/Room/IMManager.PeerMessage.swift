@@ -34,6 +34,13 @@ extension Peer {
         case unreadGroupApply = "AC:PEER:UnreadGroupApply"
     }
     
+    struct UnreadNotice: PeerMessage {
+        let msgType: MessageType
+        private enum CodingKeys: String, CodingKey {
+            case msgType = "message_type"
+        }
+    }
+    
     struct TextMessage: PeerMessage {
         
         let content: String

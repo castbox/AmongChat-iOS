@@ -85,6 +85,7 @@ extension AmongChat.Home {
                 .disposed(by: bag)
             
             Settings.shared.hasUnreadNoticeRelay
+                .observeOn(MainScheduler.asyncInstance)
                 .subscribe(onNext: { [weak self] (hasUnread) in
                     
                     if hasUnread {
