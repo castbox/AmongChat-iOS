@@ -181,11 +181,8 @@ extension Notice.Views {
             case .ImgTxtMsg:
                 
                 containerHeight = containerHeight + aboveTextImageHeight
-
-            case .ImgMsg:
-                ()
                 
-            case .TxtImgMsg:
+            case .ImgMsg, .TxtImgMsg:
                 
                 containerHeight = containerHeight + belowTextImageTopPadding + belowTextImageSize.height
                 
@@ -383,12 +380,20 @@ extension Notice.Views {
                 aboveTextImageView.isHidden = true
                 belowTextImageView.setImage(with: notice.message.img)
                 belowTextImageView.isHidden = false
+                aboveTextImageView.snp.remakeConstraints { (maker) in
+                    maker.leading.top.trailing.equalToSuperview()
+                    maker.height.equalTo(0)
+                }
 
             default:
                 aboveTextImageView.image = nil
                 aboveTextImageView.isHidden = true
                 belowTextImageView.image = nil
                 belowTextImageView.isHidden = true
+                aboveTextImageView.snp.remakeConstraints { (maker) in
+                    maker.leading.top.trailing.equalToSuperview()
+                    maker.height.equalTo(0)
+                }
                 
             }
             
