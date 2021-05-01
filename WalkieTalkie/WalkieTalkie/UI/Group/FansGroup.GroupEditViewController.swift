@@ -376,7 +376,7 @@ extension FansGroup.GroupEditViewController {
         }
         memberListVC.didMove(toParent: self)
         
-        let requestListVC = FansGroup.GroupJoinRequestListViewController(with: groupInfo)
+        let requestListVC = FansGroup.GroupJoinRequestListViewController(with: groupInfo.group.gid)
         addChild(requestListVC)
         listScrollView.addSubview(requestListVC.view)
         requestListVC.view.snp.makeConstraints { (maker) in
@@ -414,11 +414,11 @@ extension FansGroup.GroupEditViewController {
                 let requestsTitleLabel = (self?.segmentedButton.buttonOf(1) as? UIButton)?.titleLabel
                 
                 guard count > 0 else {
-                    requestsTitleLabel?.redDotOff()
+                    requestsTitleLabel?.badgeOff()
                     return
                 }
                 
-                requestsTitleLabel?.redDotOn(string: count.string, rightInset: 0, topInset: 0, diameter: 16)
+                requestsTitleLabel?.badgeOn(string: count.string, hAlignment: .headToTail(-0.5), topInset: 0, diameter: 16, borderWidth: 0, borderColor: nil)
                 
             })
             .disposed(by: bag)

@@ -494,3 +494,15 @@
 "user.login.banned.tip" = "Account suspended";
 "user.login.kicked.tip" = "Your account has been logged in on another device";
 "user.login.common.tip" = "Something went wrong, please try again later";
+
+//1.19
+"among.chat.group.admin.invitation.msg" = "just started a new session for the %@ group";
+"enter.closed.group.room.tips" = "Group session has ended, please check back later.";
+"among.chat.notice.all.notice.title" = "Notice";
+"among.chat.notice.system" = "System";
+"among.chat.notice.social" = "Social";
+"among.chat.notice.group.requests" = "Group Requests";
+"among.chat.notice.click.to.go" = "Click to Go";
+"among.chat.notice.empty.tip" = "Oops, nothing here yet.";
+
+"group.dismissed.tips" = "Sorry, the admin has dismissed the group.";

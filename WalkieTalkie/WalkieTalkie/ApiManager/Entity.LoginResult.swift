@@ -214,7 +214,7 @@ extension Entity {
             var playerCount: Int
             var topicName: String
             var name: String
-            
+            var uid: Int?
             var isGroup: Bool {
                 gid != nil
             }
@@ -231,6 +231,7 @@ extension Entity {
                 let topicName = try container.decodeString(.topicName)
                 self.topicName = topicName
                 self.name = try container.decodeStringIfPresent(.name) ?? topicName
+                self.uid = try? container.decodeInt(.uid)
             }
             
             #if DEBUG

@@ -49,9 +49,7 @@ extension AmongChat.Home {
             get { Defaults[\.amongChatEnterRoomTopicHistory] }
             set { Defaults[\.amongChatEnterRoomTopicHistory] = newValue }
         }
-        
-        private lazy var previousEnterHistory = Defaults[\.amongChatEnterRoomTopicHistory]
-        
+                
         private lazy var topicsDataSource: [TopicViewModel] = [] {
             didSet {
                 topicCollectionView.reloadData()
@@ -86,20 +84,36 @@ extension AmongChat.Home.TopicsViewController {
     
     private func updateTopics(_ dataSource: [TopicViewModel]) {
         var topicList = dataSource
-        var sortedList = previousEnterHistory.map { topicId -> TopicViewModel? in
-            let item = topicList.first(where: { $0.topic.topicId == topicId })
-            topicList.removeFirst(where: { $0.topic.topicId == topicId })
-            return item
+        if enterTopicHistory.isEmpty {
+            //首次按照是否安装 & 人数 排序
+            let installedTopics = InstalledChecker.default.installedAppReplay.value
+                .compactMap { $0.topicId }
+            //按照人数排序
+            var array = topicList.filter { installedTopics.contains($0.topic.topicId) }
+                .sorted(by: { ($0.topic.playerCount ?? 0) > ($1.topic.playerCount ?? 0) })
+            //remove all
+            topicList.removeAll(array)
+            topicList.insert(contentsOf: array, at: 0)
+            array.reverse()
+            array.forEach { item in
+                updateEnterTopicHistory(with: item.topic.topicId)
+            }
+            topicsDataSource = topicList
+        } else {
+            //sorted
+            var sortedList = enterTopicHistory.map { topicId -> TopicViewModel? in
+                let item = topicList.first(where: { $0.topic.topicId == topicId })
+                topicList.removeFirst(where: { $0.topic.topicId == topicId })
+                return item
+            }
+            .compactMap { $0 }
+            sortedList.append(contentsOf: topicList)
+            topicsDataSource = sortedList
         }
-        .compactMap { $0 }
-        sortedList.append(contentsOf: topicList)
-        topicsDataSource = sortedList
     }
     
-    private func onTap(_ topic: TopicViewModel) {
-        //record
+    func updateEnterTopicHistory(with topicId: String) {
         var array = enterTopicHistory
-        let topicId = topic.topic.topicId
         array.removeAll(topicId)
         array.insert(topicId, at: 0)
         enterTopicHistory = array
@@ -112,8 +126,8 @@ extension AmongChat.Home.TopicsViewController {
         view.addSubviews(views: navigationView, topicCollectionView)
         
         navigationView.snp.makeConstraints { (maker) in
-            maker.top.left.right.equalToSuperview()
-            maker.height.equalTo(49 + Frame.Height.safeAeraTopHeight)
+            maker.leading.trailing.equalToSuperview()
+            maker.top.equalTo(topLayoutGuide.snp.bottom)
         }
         
         topicCollectionView.snp.makeConstraints { (maker) in
@@ -217,7 +231,8 @@ extension AmongChat.Home.TopicsViewController: UICollectionViewDelegate {
         if let topic = topicsDataSource.safe(indexPath.item) {
             Social.AgePromptModal.showModalIfNeeded(fromVC: UIApplication.tabBarController ?? self, topicId: topic.topic.topicId) { [weak self] in
                 self?.enterRoom(roomId: nil, topicId: topic.topic.topicId, logSource: .matchSource)
-                self?.onTap(topic)
+//                self?.onTap(topic)
+                self?.updateEnterTopicHistory(with: topic.topic.topicId)
             }
         }
     }

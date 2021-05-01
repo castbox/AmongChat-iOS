@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -21,7 +21,7 @@
                 <outlet property="actionIcon" destination="gs6-XQ-5R8" id="46S-5f-xq9"/>
                 <outlet property="amongUsContainer" destination="rxn-lv-7ck" id="JI3-i7-a8w"/>
                 <outlet property="codeLabel" destination="Llb-Ev-uJf" id="chD-hw-7JM"/>
-                <outlet property="notesButton" destination="jIy-8v-dhh" id="iff-Up-SoN"/>
+                <outlet property="notesView" destination="0c1-D1-WmA" id="RHX-Rd-fed"/>
                 <outlet property="robloxContainer" destination="14b-Uq-Mqg" id="H3e-JU-JA8"/>
                 <outlet property="robloxLinkButton" destination="ReU-bS-7Fz" id="RaP-MY-e9x"/>
                 <outlet property="robloxLinkEditButton" destination="ZRh-fx-Jod" id="EgW-SR-iWv"/>
@@ -34,16 +34,22 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="32"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jIy-8v-dhh" userLabel="notesButton">
-                    <rect key="frame" x="0.0" y="0.0" width="44" height="32"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="44" id="Hpy-B7-Uwz"/>
-                    </constraints>
-                    <state key="normal" image="ac_group_room_note"/>
-                    <connections>
-                        <action selector="notesButtonAction:" destination="-1" eventType="touchUpInside" id="1Vg-NK-MKs"/>
-                    </connections>
-                </button>
+                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0c1-D1-WmA">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="32"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="holdScrolling" value="YES"/>
+                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                            <color key="value" white="1" alpha="0.12" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                            <real key="value" value="2"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <real key="value" value="8"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZkS-bx-s7a">
                     <rect key="frame" x="0.0" y="0.0" width="414" height="32"/>
                     <fontDescription key="fontDescription" name="Nunito-Black" family="Nunito" pointSize="14"/>
@@ -165,14 +171,15 @@
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="ZkS-bx-s7a" secondAttribute="trailing" id="5Z1-0W-Gog"/>
+                <constraint firstItem="0c1-D1-WmA" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="5qf-OH-tqA"/>
                 <constraint firstItem="rxn-lv-7ck" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="DPZ-gu-ahK"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="14b-Uq-Mqg" secondAttribute="bottom" id="EZc-sv-WYZ"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="rxn-lv-7ck" secondAttribute="trailing" id="Fqe-bf-1qu"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="jIy-8v-dhh" secondAttribute="bottom" id="MdN-KC-cRy"/>
+                <constraint firstAttribute="bottom" secondItem="0c1-D1-WmA" secondAttribute="bottom" id="Jjh-AL-NNg"/>
+                <constraint firstItem="0c1-D1-WmA" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="NcX-tY-0wq"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="0c1-D1-WmA" secondAttribute="trailing" id="UqT-G3-GtJ"/>
                 <constraint firstItem="ZkS-bx-s7a" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="Vfk-No-7Ta"/>
                 <constraint firstItem="rxn-lv-7ck" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="aim-Kb-yI9"/>
-                <constraint firstItem="jIy-8v-dhh" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="bCw-8v-dia"/>
-                <constraint firstItem="jIy-8v-dhh" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="cwD-3a-C36"/>
                 <constraint firstAttribute="bottom" secondItem="rxn-lv-7ck" secondAttribute="bottom" id="dQn-Ip-94b"/>
                 <constraint firstItem="ZkS-bx-s7a" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="gyt-GM-ict"/>
                 <constraint firstItem="14b-Uq-Mqg" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="jvU-Xw-zdZ"/>
@@ -191,6 +198,5 @@
     </objects>
     <resources>
         <image name="ac_group_room_copy" width="20" height="20"/>
-        <image name="ac_group_room_note" width="24" height="24"/>
     </resources>
 </document>

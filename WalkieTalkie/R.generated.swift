@@ -216,7 +216,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 204 images.
+  /// This `R.image` struct is generated, and contains static references to 209 images.
   struct image {
     /// Image `ac_add_stats_add`.
     static let ac_add_stats_add = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_add_stats_add")
@@ -396,6 +396,10 @@ struct R: Rswift.Validatable {
     static let ac_login_wrong_code_bubble = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_login_wrong_code_bubble")
     /// Image `ac_login_wrong_emoji`.
     static let ac_login_wrong_emoji = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_login_wrong_emoji")
+    /// Image `ac_notice_next`.
+    static let ac_notice_next = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_notice_next")
+    /// Image `ac_notice`.
+    static let ac_notice = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_notice")
     /// Image `ac_premium_bg`.
     static let ac_premium_bg = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_premium_bg")
     /// Image `ac_privileges_left_line`.
@@ -486,6 +490,8 @@ struct R: Rswift.Validatable {
     static let ac_room_share_sn = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_room_share_sn")
     /// Image `ac_room_share`.
     static let ac_room_share = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_room_share")
+    /// Image `ac_search`.
+    static let ac_search = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_search")
     /// Image `ac_set_birthday_birthday`.
     static let ac_set_birthday_birthday = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_set_birthday_birthday")
     /// Image `ac_setting_check`.
@@ -546,6 +552,10 @@ struct R: Rswift.Validatable {
     static let iconReportSelected = Rswift.ImageResource(bundle: R.hostingBundle, name: "iconReportSelected")
     /// Image `iconReport`.
     static let iconReport = Rswift.ImageResource(bundle: R.hostingBundle, name: "iconReport")
+    /// Image `iconVerifyBlackBorder`.
+    static let iconVerifyBlackBorder = Rswift.ImageResource(bundle: R.hostingBundle, name: "iconVerifyBlackBorder")
+    /// Image `iconVerifyGrayBorder`.
+    static let iconVerifyGrayBorder = Rswift.ImageResource(bundle: R.hostingBundle, name: "iconVerifyGrayBorder")
     /// Image `icon_close_gray`.
     static let icon_close_gray = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_close_gray")
     /// Image `icon_close`.
@@ -1072,6 +1082,16 @@ struct R: Rswift.Validatable {
       return UIKit.UIImage(resource: R.image.ac_login_wrong_emoji, compatibleWith: traitCollection)
     }
     
+    /// `UIImage(named: "ac_notice", bundle: ..., traitCollection: ...)`
+    static func ac_notice(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_notice, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_notice_next", bundle: ..., traitCollection: ...)`
+    static func ac_notice_next(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_notice_next, compatibleWith: traitCollection)
+    }
+    
     /// `UIImage(named: "ac_premium_bg", bundle: ..., traitCollection: ...)`
     static func ac_premium_bg(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ac_premium_bg, compatibleWith: traitCollection)
@@ -1297,6 +1317,11 @@ struct R: Rswift.Validatable {
       return UIKit.UIImage(resource: R.image.ac_room_share_sn, compatibleWith: traitCollection)
     }
     
+    /// `UIImage(named: "ac_search", bundle: ..., traitCollection: ...)`
+    static func ac_search(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_search, compatibleWith: traitCollection)
+    }
+    
     /// `UIImage(named: "ac_set_birthday_birthday", bundle: ..., traitCollection: ...)`
     static func ac_set_birthday_birthday(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ac_set_birthday_birthday, compatibleWith: traitCollection)
@@ -1445,6 +1470,16 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "iconReportSelected", bundle: ..., traitCollection: ...)`
     static func iconReportSelected(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.iconReportSelected, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "iconVerifyBlackBorder", bundle: ..., traitCollection: ...)`
+    static func iconVerifyBlackBorder(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.iconVerifyBlackBorder, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "iconVerifyGrayBorder", bundle: ..., traitCollection: ...)`
+    static func iconVerifyGrayBorder(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.iconVerifyGrayBorder, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "icon_close", bundle: ..., traitCollection: ...)`
@@ -1650,7 +1685,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.nib` struct is generated, and contains static references to 32 nibs.
+  /// This `R.nib` struct is generated, and contains static references to 30 nibs.
   struct nib {
     /// Nib `AmongChatRoomConfigView`.
     static let amongChatRoomConfigView = _R.nib._AmongChatRoomConfigView()
@@ -1690,10 +1725,6 @@ struct R: Rswift.Validatable {
     static let avatarGuideViewController = _R.nib._AvatarGuideViewController()
     /// Nib `EndUserLicenseController`.
     static let endUserLicenseController = _R.nib._EndUserLicenseController()
-    /// Nib `FansGroupItemCell`.
-    static let fansGroupItemCell = _R.nib._FansGroupItemCell()
-    /// Nib `FansGroupSelfItemCell`.
-    static let fansGroupSelfItemCell = _R.nib._FansGroupSelfItemCell()
     /// Nib `InfoWithNicknameView`.
     static let infoWithNicknameView = _R.nib._InfoWithNicknameView()
     /// Nib `JustChillingInfoView`.
@@ -1829,18 +1860,6 @@ struct R: Rswift.Validatable {
     @available(*, deprecated, message: "Use UINib(resource: R.nib.endUserLicenseController) instead")
     static func endUserLicenseController(_: Void = ()) -> UIKit.UINib {
       return UIKit.UINib(resource: R.nib.endUserLicenseController)
-    }
-    
-    /// `UINib(name: "FansGroupItemCell", in: bundle)`
-    @available(*, deprecated, message: "Use UINib(resource: R.nib.fansGroupItemCell) instead")
-    static func fansGroupItemCell(_: Void = ()) -> UIKit.UINib {
-      return UIKit.UINib(resource: R.nib.fansGroupItemCell)
-    }
-    
-    /// `UINib(name: "FansGroupSelfItemCell", in: bundle)`
-    @available(*, deprecated, message: "Use UINib(resource: R.nib.fansGroupSelfItemCell) instead")
-    static func fansGroupSelfItemCell(_: Void = ()) -> UIKit.UINib {
-      return UIKit.UINib(resource: R.nib.fansGroupSelfItemCell)
     }
     
     /// `UINib(name: "InfoWithNicknameView", in: bundle)`
@@ -1985,14 +2004,6 @@ struct R: Rswift.Validatable {
       return R.nib.endUserLicenseController.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
     }
     
-    static func fansGroupItemCell(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> FansGroupItemCell? {
-      return R.nib.fansGroupItemCell.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? FansGroupItemCell
-    }
-    
-    static func fansGroupSelfItemCell(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> FansGroupSelfItemCell? {
-      return R.nib.fansGroupSelfItemCell.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? FansGroupSelfItemCell
-    }
-    
     static func infoWithNicknameView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
       return R.nib.infoWithNicknameView.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
     }
@@ -2040,14 +2051,12 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.reuseIdentifier` struct is generated, and contains static references to 5 reuse identifiers.
+  /// This `R.reuseIdentifier` struct is generated, and contains static references to 4 reuse identifiers.
   struct reuseIdentifier {
     /// Reuse identifier `AmongSheetIconItemCell`.
     static let amongSheetIconItemCell: Rswift.ReuseIdentifier<AmongSheetIconItemCell> = Rswift.ReuseIdentifier(identifier: "AmongSheetIconItemCell")
     /// Reuse identifier `AmongSheetUserCell`.
     static let amongSheetUserCell: Rswift.ReuseIdentifier<AmongSheetUserCell> = Rswift.ReuseIdentifier(identifier: "AmongSheetUserCell")
-    /// Reuse identifier `FansGroupSelfItemCell`.
-    static let fansGroupSelfItemCell: Rswift.ReuseIdentifier<FansGroupSelfItemCell> = Rswift.ReuseIdentifier(identifier: "FansGroupSelfItemCell")
     /// Reuse identifier `ReportCell`.
     static let reportCell: Rswift.ReuseIdentifier<ReportCell> = Rswift.ReuseIdentifier(identifier: "ReportCell")
     /// Reuse identifier `ReportImageCell`.
@@ -2150,7 +2159,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
     
-    /// This `R.string.localizable` struct is generated, and contains static references to 430 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 439 localization keys.
     struct localizable {
       /// en translation:  Congratulations!
       /// 
@@ -2400,6 +2409,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatCreateRoomCardClaim = Rswift.StringResource(key: "among.chat.create.room.card.claim", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Click to Go
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let amongChatNoticeClickToGo = Rswift.StringResource(key: "among.chat.notice.click.to.go", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Click to copy others' COD Username/UID to play together
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2756,10 +2769,18 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatGroupName = Rswift.StringResource(key: "among.chat.group.name", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Group Requests
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let amongChatNoticeGroupRequests = Rswift.StringResource(key: "among.chat.notice.group.requests", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Group Topic
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatGroupTopic = Rswift.StringResource(key: "among.chat.group.topic", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Group session has ended, please check back later.
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let enterClosedGroupRoomTips = Rswift.StringResource(key: "enter.closed.group.room.tips", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Group session just ended
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3064,6 +3085,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let premiumNotActivated = Rswift.StringResource(key: "premium.not.activated", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Notice
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let amongChatNoticeAllNoticeTitle = Rswift.StringResource(key: "among.chat.notice.all.notice.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Nov
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3152,6 +3177,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let errorNoTeammates = Rswift.StringResource(key: "error.no.teammates", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Oops, nothing here yet.
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let amongChatNoticeEmptyTip = Rswift.StringResource(key: "among.chat.notice.empty.tip", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Oops, server connection was lost, please try again later.
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3504,6 +3533,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let profileBirthdaySkip = Rswift.StringResource(key: "profile.birthday.skip", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Social
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let amongChatNoticeSocial = Rswift.StringResource(key: "among.chat.notice.social", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Something went wrong, please try again later
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3512,6 +3545,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatCommonError = Rswift.StringResource(key: "among.chat.common.error", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Sorry, the admin has dismissed the group.
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let groupDismissedTips = Rswift.StringResource(key: "group.dismissed.tips", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Sorry, you can't re-enter the channel now.
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3552,6 +3589,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let socialSuggestedContacts = Rswift.StringResource(key: "social.suggested.contacts", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: System
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let amongChatNoticeSystem = Rswift.StringResource(key: "among.chat.notice.system", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: TRY IT FREE
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3844,6 +3885,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let chatroomMessageUserJoined = Rswift.StringResource(key: "chatroom.message.user.joined", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: just started a new session for the %@ group
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let amongChatGroupAdminInvitationMsg = Rswift.StringResource(key: "among.chat.group.admin.invitation.msg", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: lifetime
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -4305,6 +4350,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func amongChatCreateRoomCardClaim(_: Void = ()) -> String {
         return NSLocalizedString("among.chat.create.room.card.claim", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Click to Go
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func amongChatNoticeClickToGo(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.notice.click.to.go", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Click to copy others' COD Username/UID to play together
@@ -4930,11 +4982,25 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("among.chat.group.name", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Group Requests
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func amongChatNoticeGroupRequests(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.notice.group.requests", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Group Topic
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func amongChatGroupTopic(_: Void = ()) -> String {
         return NSLocalizedString("among.chat.group.topic", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Group session has ended, please check back later.
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func enterClosedGroupRoomTips(_: Void = ()) -> String {
+        return NSLocalizedString("enter.closed.group.room.tips", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Group session just ended
@@ -5469,6 +5535,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("premium.not.activated", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Notice
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func amongChatNoticeAllNoticeTitle(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.notice.all.notice.title", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Nov
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -5621,6 +5694,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func errorNoTeammates(_: Void = ()) -> String {
         return NSLocalizedString("error.no.teammates", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Oops, nothing here yet.
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func amongChatNoticeEmptyTip(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.notice.empty.tip", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Oops, server connection was lost, please try again later.
@@ -6239,6 +6319,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("profile.birthday.skip", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Social
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func amongChatNoticeSocial(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.notice.social", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Something went wrong, please try again later
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -6251,6 +6338,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func amongChatCommonError(_: Void = ()) -> String {
         return NSLocalizedString("among.chat.common.error", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Sorry, the admin has dismissed the group.
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func groupDismissedTips(_: Void = ()) -> String {
+        return NSLocalizedString("group.dismissed.tips", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Sorry, you can't re-enter the channel now.
@@ -6321,6 +6415,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func socialSuggestedContacts(_: Void = ()) -> String {
         return NSLocalizedString("social.suggested.contacts", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: System
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func amongChatNoticeSystem(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.notice.system", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: TRY IT FREE
@@ -6834,6 +6935,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("chatroom.message.user.joined", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: just started a new session for the %@ group
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func amongChatGroupAdminInvitationMsg(_ value1: String) -> String {
+        return String(format: NSLocalizedString("among.chat.group.admin.invitation.msg", bundle: R.hostingBundle, comment: ""), locale: R.applicationLocale, value1)
+      }
+      
       /// en translation: lifetime
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -6917,7 +7025,6 @@ struct _R: Rswift.Validatable {
       try _AmongRoomBottomBar.validate()
       try _AppTrackingGuideView.validate()
       try _AvatarGuideViewController.validate()
-      try _FansGroupItemCell.validate()
       try _ReportCell.validate()
       try _ReportImageCell.validate()
       try _ShareContainerView.validate()
@@ -7041,7 +7148,6 @@ struct _R: Rswift.Validatable {
       
       static func validate() throws {
         if UIKit.UIImage(named: "ac_group_room_copy", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ac_group_room_copy' is used in nib 'AmongGroupTopicConfigView', but couldn't be loaded.") }
-        if UIKit.UIImage(named: "ac_group_room_note", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ac_group_room_note' is used in nib 'AmongGroupTopicConfigView', but couldn't be loaded.") }
         if #available(iOS 11.0, *) {
         }
       }
@@ -7218,37 +7324,6 @@ struct _R: Rswift.Validatable {
       
       func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
         return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
-      }
-      
-      fileprivate init() {}
-    }
-    
-    struct _FansGroupItemCell: Rswift.NibResourceType, Rswift.Validatable {
-      let bundle = R.hostingBundle
-      let name = "FansGroupItemCell"
-      
-      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> FansGroupItemCell? {
-        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? FansGroupItemCell
-      }
-      
-      static func validate() throws {
-        if UIKit.UIImage(named: "ac_group_room_count", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ac_group_room_count' is used in nib 'FansGroupItemCell', but couldn't be loaded.") }
-        if #available(iOS 11.0, *) {
-        }
-      }
-      
-      fileprivate init() {}
-    }
-    
-    struct _FansGroupSelfItemCell: Rswift.NibResourceType, Rswift.ReuseIdentifierType {
-      typealias ReusableType = FansGroupSelfItemCell
-      
-      let bundle = R.hostingBundle
-      let identifier = "FansGroupSelfItemCell"
-      let name = "FansGroupSelfItemCell"
-      
-      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> FansGroupSelfItemCell? {
-        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? FansGroupSelfItemCell
       }
       
       fileprivate init() {}

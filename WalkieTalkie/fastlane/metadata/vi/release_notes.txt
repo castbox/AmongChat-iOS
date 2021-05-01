@@ -1,4 +1,5 @@
 Chào mừng bạn đến với ứng dụng trò chuyện thoại AmongChat!
-Đối với tất cả những người dùng đã được xác minh, bạn có thể tạo Nhóm AmongChat của riêng mình ngay bây giờ!
-Hãy đến để được xác minh và tạo một kênh độc quyền cho Nhóm của bạn.
+Trong phiên bản này, chúng tôi tiếp tục tối ưu hóa và cải thiện chức năng báo cáo.
+Quản trị viên và Giám sát cấp cao được ủy quyền hơn để thực hiện giám sát chặt chẽ hơn đối với cộng đồng.
+Chúng tôi liên tục làm việc chăm chỉ để cung cấp một cộng đồng lành mạnh và an toàn cho tất cả người dùng.
 Tìm và Trò chuyện bằng giọng nói với bạn bè của bạn, chơi cùng nhau và tận hưởng!

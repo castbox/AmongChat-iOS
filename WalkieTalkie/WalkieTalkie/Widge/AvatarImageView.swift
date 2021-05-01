@@ -7,15 +7,60 @@
 //
 
 import UIKit
+import SnapKit
 
-class AvatarImageView: UIImageView {
+class AvatarImageView: UIView {
+    
+    enum VerifyIconStyle {
+        case gray
+        case black
+    }
+    
+    private lazy var avatarIV: UIImageView = {
+        let iv = UIImageView(image: R.image.ac_profile_avatar())
+        iv.layer.cornerRadius = 20
+        iv.layer.masksToBounds = true
+        iv.isUserInteractionEnabled = true
+        return iv
+    }()
+    
+    private lazy var verifyIV: UIImageView = {
+        let iv = UIImageView(image: R.image.iconVerifyGrayBorder())
+        iv.isHidden = true
+        return iv
+    }()
+    
+    var isVerify: Bool? {
+        didSet {
+            verifyIV.isHidden = !(isVerify ?? false)
+        }
+    }
+    
+//    var verifyIconStyle: VerifyIconStyle = .gray
     
     static var placeholder: UIImage?
     
-    init() {
+    var image: UIImage? {
+        set { avatarIV.image = newValue }
+        get { avatarIV.image }
+    }
+    
+    init(_ verifyStyle: VerifyIconStyle = .black) {
+//        self.verifyIconStyle = verifyStyle
         super.init(frame: .zero)
-        image = R.image.ac_profile_avatar()
-        clipsToBounds = true
+        backgroundColor = .clear
+        addSubviews(views: avatarIV, verifyIV)
+        avatarIV.snp.makeConstraints { maker in
+            maker.edges.equalToSuperview()
+        }
+        
+        setVerifyIcon(style: verifyStyle)
+//        verifyIconStyle = verifyStyle
+//        verifyIV.image = verifyStyle == .gray ? R.image.iconVerifyGrayBorder() : R.image.iconVerifyBlackBorder()
+        verifyIV.snp.makeConstraints { maker in
+            maker.top.equalTo(-2)
+            maker.trailing.equalTo(7.5)
+        }
     }
     
     required init?(coder: NSCoder) {
@@ -24,7 +69,7 @@ class AvatarImageView: UIImageView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        layer.cornerRadius = bounds.width / 2
+        avatarIV.cornerRadius = avatarIV.bounds.width / 2
     }
     
     func updateAvatar(with profile: Entity.UserProfile) {
@@ -37,7 +82,15 @@ class AvatarImageView: UIImageView {
             placeholder = R.image.ac_profile_avatar()
         }
         
-        setImage(with: profile.pictureUrl, placeholder: placeholder)
+        avatarIV.setImage(with: profile.pictureUrl, placeholder: placeholder)
+    }
+ 
+    func setAvatarImage(with urlString: String?) {
+        avatarIV.setImage(with: urlString, placeholder: R.image.ac_profile_avatar())
     }
     
+    func setVerifyIcon(style: VerifyIconStyle) {
+//        self.verifyIconStyle = verifyIconStyle
+        verifyIV.image = style == .gray ? R.image.iconVerifyGrayBorder() : R.image.iconVerifyBlackBorder()
+    }
 }

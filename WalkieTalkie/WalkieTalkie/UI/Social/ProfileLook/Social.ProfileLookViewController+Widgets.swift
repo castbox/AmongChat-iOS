@@ -145,8 +145,13 @@ extension Social.ProfileLookViewController {
             let s = UIScrollView()
             s.showsVerticalScrollIndicator = false
             s.showsHorizontalScrollIndicator = false
-            s.isPagingEnabled = true
+            s.bounces = false
             return s
+        }()
+        
+        private lazy var scrollContentView: UIView = {
+            let v = UIView()
+            return v
         }()
         
         private lazy var indicatorContainer: UIView = {
@@ -180,22 +185,29 @@ extension Social.ProfileLookViewController {
         required init?(coder: NSCoder) {
             fatalError("init(coder:) has not been implemented")
         }
-                
+        
         private func setupLayout() {
+            
+            addSubviews(views: scrollView)
+            scrollView.snp.makeConstraints { (maker) in
+                maker.edges.equalToSuperview()
+            }
+            
+            scrollView.addSubview(scrollContentView)
+            scrollContentView.snp.makeConstraints { (maker) in
+                maker.edges.equalToSuperview()
+                maker.height.equalTo(self)
+            }
+            
             indicatorContainer.addSubview(selectedIndicator)
             
-            scrollView.addSubview(indicatorContainer)
+            scrollContentView.addSubview(indicatorContainer)
             
             indicatorContainer.snp.makeConstraints { (maker) in
                 maker.leading.trailing.equalToSuperview()
                 maker.centerY.equalToSuperview().offset(19)
             }
-            
-            addSubviews(views: scrollView)
-            scrollView.snp.makeConstraints { (maker) in
-                maker.edges.equalToSuperview()
-                maker.height.equalToSuperview()
-            }
+
         }
         
         func setTitles(titles: [String]) {
@@ -219,7 +231,7 @@ extension Social.ProfileLookViewController {
                 return btn
             }
             
-            scrollView.addSubviews(buttons)
+            scrollContentView.addSubviews(buttons)
             
             for (idx, btn) in buttons.enumerated() {
                 
@@ -228,7 +240,7 @@ extension Social.ProfileLookViewController {
                     if idx == 0 {
                         maker.leading.equalToSuperview().inset(20)
                     } else if idx == buttons.count - 1 {
-                        maker.trailing.greaterThanOrEqualToSuperview().inset(20)
+                        maker.trailing.equalToSuperview().inset(20)
                     }
                     
                     if idx > 0,
@@ -248,6 +260,16 @@ extension Social.ProfileLookViewController {
             guard let button = buttons.safe(index) else {
                 return
             }
+            switch index {
+            case 0:
+                Logger.Action.log(.notice_tab_system_clk)
+            case 1:
+                Logger.Action.log(.notice_tab_social_clk)
+            case 2:
+                Logger.Action.log(.notice_tab_group_request_clk)
+            default:
+                ()
+            }
             
             guard selectedBtn != button else { return }
                         
@@ -259,20 +281,55 @@ extension Social.ProfileLookViewController {
             }
                         
             UIView.animate(withDuration: 0.25) { [weak self] in
+                guard let `self` = self else { return }
                 button.isSelected = true
-                button.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)
+                let enlargeFractor: CGFloat = 1.2
+                button.transform = CGAffineTransform(scaleX: enlargeFractor, y: enlargeFractor)
+                if button == self.buttons.last {
+                    button.snp.updateConstraints { (maker) in
+                        maker.trailing.equalToSuperview().inset(20 + ceil((enlargeFractor - 1) * button.frame.width) / 2)
+                    }
+                } else if button == self.buttons.first {
+                    button.snp.updateConstraints { (maker) in
+                        maker.leading.equalToSuperview().inset(20 + ceil((enlargeFractor - 1) * button.frame.width) / 2)
+                    }
+                }
+                
                 button.titleLabel?.font = R.font.nunitoExtraBold(size: 20)
-                self?.selectedBtn?.isSelected = false
-                self?.selectedBtn?.transform = .identity
-                self?.selectedBtn?.titleLabel?.font = R.font.nunitoBold(size: 20)
-                self?.selectedBtn = button
+                self.selectedBtn?.isSelected = false
+                self.selectedBtn?.transform = .identity
+                if self.selectedBtn == self.buttons.last {
+                    self.selectedBtn?.snp.updateConstraints { (maker) in
+                        maker.trailing.equalToSuperview().inset(20)
+                    }
+                } else if self.selectedBtn == self.buttons.first {
+                    self.selectedBtn?.snp.updateConstraints { (maker) in
+                        maker.leading.equalToSuperview().inset(20)
+                    }
+                }
 
-                self?.indicatorContainer.layoutIfNeeded()
+                self.selectedBtn?.titleLabel?.font = R.font.nunitoBold(size: 20)
+                self.selectedBtn = button
+
+                self.indicatorContainer.layoutIfNeeded()
+                
+            } completion: { [weak self] (_) in
+                guard let `self` = self else { return }
+                if button == self.buttons.first {
+                    self.scrollView.scrollRectToVisible(CGRect(origin: .zero, size: CGSize(width: 1, height: 1)), animated: true)
+                } else if button == self.buttons.last {
+                    self.scrollView.scrollRectToVisible(CGRect(origin: CGPoint(x: self.scrollView.contentSize.width - 1, y: 0), size: CGSize(width: 1, height: 1)), animated: true)
+                } else {
+                    self.scrollView.scrollRectToVisible(button.frame, animated: true)
+                }
             }
             
             selectedIndexrRelay.accept(index)
         }
         
+        func buttonOf(_ index: Int) -> UIView? {
+            return buttons.safe(index)
+        }
     }
     
 }

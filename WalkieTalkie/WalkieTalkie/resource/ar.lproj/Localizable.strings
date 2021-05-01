@@ -491,6 +491,19 @@
 "alert.admin.mute.mic" = "كتم الصوت للجميع";
 "alert.admin.unmute.im" = "إلغاء حظر الدردشة المباشرة";
 "alert.admin.unmute.mic" = "إعادة الصوت للجميع";
-"user.login.banned.tip" = "Account suspended";
-"user.login.kicked.tip" = "Your account has been logged in on another device";
-"user.login.common.tip" = "Something went wrong, please try again later";
+"user.login.banned.tip" = "حساب معلق";
+"user.login.kicked.tip" = "تم تسجيل الدخول إلى حسابك على جهاز آخر";
+"user.login.common.tip" = "هناك شئ خاطئ، يرجى المحاولة فى وقت لاحق";
+
+//1.19
+"among.chat.group.admin.invitation.msg" = "بدأت للتو جلسة جديدة لمجموعة %@";
+"enter.closed.group.room.tips" = "انتهت جلسة المجموعة ، يرجى التحقق مرة أخرى لاحقًا.";
+"among.chat.notice.all.notice.title" = "تنويه";
+"among.chat.notice.system" = "نظام";
+"among.chat.notice.social" = "اجتماعي";
+"among.chat.notice.group.requests" = "طلبات المجموعة";
+"among.chat.notice.click.to.go" = "انقر للذهاب";
+"among.chat.notice.empty.tip" = "عفوًا ، لا يوجد شيء هنا حتى الآن.";
+
+"group.dismissed.tips" = "عذرا ، لقد رفض المشرف المجموعة.";
+

@@ -10,6 +10,7 @@ import UIKit
 import EasyTipView
 import RxSwift
 import RxCocoa
+import MarqueeLabel
 
 class AmongGroupTopicConfigView: XibLoadableView {
     
@@ -26,10 +27,24 @@ class AmongGroupTopicConfigView: XibLoadableView {
     @IBOutlet weak var serviceLocationButton: UIButton!
     @IBOutlet weak var actionIcon: UIImageView!
     //justchatting 房间如果设置了 notes, 听众会有此按钮
-    @IBOutlet weak var notesButton: UIButton!
+    @IBOutlet weak var notesView: UIView!
+    
     @IBOutlet weak var robloxContainer: UIView!
     @IBOutlet weak var robloxLinkButton: UIButton!
     @IBOutlet weak var robloxLinkEditButton: UIButton!
+    
+    private lazy var marqueueLabel: MarqueeLabel = {
+        let label = MarqueeLabel()
+        label.font = R.font.nunitoExtraBold(size: 14)!
+        label.textColor = .white
+        label.backgroundColor = .clear
+        label.type = .continuous
+        label.fadeLength = 20
+        label.speed = .rate(24)
+        label.animationDelay = 0
+        return label
+    }()
+    
     private weak var tipView: EasyTipView?
     private weak var tipBgView: UIView?
     private let bag = DisposeBag()
@@ -60,7 +75,7 @@ class AmongGroupTopicConfigView: XibLoadableView {
                     
                     //
                     robloxContainer.isHidden = true
-                    notesButton.isHidden = true
+                    notesView.isHidden = true
                 case .roblox:
                     robloxContainer.isHidden = !group.robloxLink.isValid
                     setupButton.isHidden = group.robloxLink.isValid
@@ -72,10 +87,12 @@ class AmongGroupTopicConfigView: XibLoadableView {
                     robloxLinkEditButton.setImage(R.image.ac_group_room_rb_edit(), for: .normal)
                     
                     amongUsContainer.isHidden = true
-                    notesButton.isHidden = true
+                    notesView.isHidden = true
                 default:
+//                    marqueueLabel.textList = ["\(R.string.localizable.roomHostsNotes()) \(group.note ?? "")"]
+                    notes = "\(R.string.localizable.roomHostsNotes()) \(group.note ?? "")"
                     setupButton.isHidden = group.note.isValid
-                    notesButton.isHidden = !group.note.isValid
+                    notesView.isHidden = !group.note.isValid
                     setupButton.setTitle(R.string.localizable.groupRoomSetUpNotes(), for: .normal)
                     robloxContainer.isHidden = true
                     amongUsContainer.isHidden = true
@@ -89,7 +106,7 @@ class AmongGroupTopicConfigView: XibLoadableView {
                     amongUsContainer.isHidden = !group.amongUsCode.isValid
                     actionIcon.image = R.image.ac_room_code_copy()
                     robloxContainer.isHidden = true
-                    notesButton.isHidden = true
+                    notesView.isHidden = true
                 case .roblox:
                     robloxContainer.isHidden = !group.robloxLink.isValid
                     let paragraph = NSMutableParagraphStyle()
@@ -98,10 +115,11 @@ class AmongGroupTopicConfigView: XibLoadableView {
                     robloxLinkButton.setAttributedTitle(titleString, for: .normal)
                     robloxLinkEditButton.setImage(R.image.ac_group_room_copy(), for: .normal)
                     amongUsContainer.isHidden = true
-                    notesButton.isHidden = true
+                    notesView.isHidden = true
                 default:
                     //                    setupButton.isHidden = group.note.isValid
-                    notesButton.isHidden = !group.note.isValid
+                    notes = "\(R.string.localizable.roomHostsNotes()) \(group.note ?? "")"
+                    notesView.isHidden = !group.note.isValid
                     //                    setupButton.setTitle(R.string.localizable.groupRoomSetUpNotes(), for: .normal)
                     robloxContainer.isHidden = true
                     amongUsContainer.isHidden = true
@@ -110,14 +128,61 @@ class AmongGroupTopicConfigView: XibLoadableView {
                         haveShowNoteTips = true
                         //delay
                         mainQueueDispatchAsync(after: 0.2) { [weak self] in
-                            self?.notesButtonAction(self?.notesButton)
+                            self?.notesClickAction()
                         }
                     }
                 }
                 setupButton.isHidden = true
             }
+            
+            if !notesView.isHidden {
+//                marqueueLabel.showFirstText()
+//                marqueueLabel.fa = 50
+//                marqueueLabel.run
+            } else {
+//                marqueueLabel.stop()
+            }
         }
     }
+    
+    var notes: String? {
+        set {
+            guard let wrappedNotes = newValue, wrappedNotes != notes else {
+                return
+            }
+            marqueueLabel.text = wrappedNotes
+        }
+        get { marqueueLabel.text }
+    }
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        configureSubview()
+        bindSubviewEvent()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        configureSubview()
+        bindSubviewEvent()
+    }
+    
+    private func bindSubviewEvent() {
+        marqueueLabel.rx.tapGesture()
+            .subscribe(onNext: { [weak self] _ in
+                self?.notesClickAction()
+            })
+            .disposed(by: bag)
+    }
+    
+    private func configureSubview() {
+        notesView.addSubview(marqueueLabel)
+        marqueueLabel.snp.makeConstraints { make in
+            make.top.bottom.centerX.equalToSuperview()
+            make.left.equalTo(8)
+        }
+    }
+    
     func dismissTipsView() {
         scheduleDispose?.dispose()
         tipView?.dismiss()
@@ -146,7 +211,7 @@ class AmongGroupTopicConfigView: XibLoadableView {
         
     }
     
-    @IBAction func notesButtonAction(_ sender: Any) {
+    func notesClickAction() {
         guard let group = group, tipView == nil  else {
             dismissTipsView()
             return
@@ -157,7 +222,7 @@ class AmongGroupTopicConfigView: XibLoadableView {
         preferences.drawing.foregroundColor = .black
         preferences.drawing.backgroundColor = .white
         preferences.drawing.arrowPosition = .top
-        preferences.positioning.contentInsets = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
+        preferences.positioning.bubbleInsets = UIEdgeInsets(top: 8, left: 20, bottom: 0, right: 20)
         preferences.drawing.cornerRadius = 12
         preferences.animating.dismissDuration = 0.5
         preferences.animating.showDuration = 0.5
@@ -182,7 +247,7 @@ class AmongGroupTopicConfigView: XibLoadableView {
                               preferences: preferences,
                               delegate: self)
         tipView.tag = 0
-        tipView.show(animated: true, forView: notesButton, withinSuperview: containingController?.view)
+        tipView.show(animated: true, forView: marqueueLabel, withinSuperview: containingController?.view)
         self.tipView = tipView
         scheduleDispose = Observable<Int>
             .interval(.seconds(5), scheduler: MainScheduler.instance)

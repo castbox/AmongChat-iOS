@@ -505,7 +505,7 @@ extension Social.ProfileViewController {
         }
     }
     
-    class ProfileTableCell: UITableViewCell {
+    class ProfileTableCell: UICollectionViewCell {
         
         private lazy var leftIconIV: UIImageView = {
             let iv = UIImageView()
@@ -526,8 +526,8 @@ extension Social.ProfileViewController {
             return lb
         }()
         
-        override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-            super.init(style: style, reuseIdentifier: reuseIdentifier)
+        override init(frame: CGRect) {
+            super.init(frame: frame)
             setupLayout()
         }
         
@@ -541,9 +541,10 @@ extension Social.ProfileViewController {
         }
         
         private func setupLayout() {
-            self.backgroundColor = UIColor.theme(.backgroundBlack)
-            selectionStyle = .none
-            
+            backgroundColor = .clear
+            contentView.layer.cornerRadius = 12
+            contentView.backgroundColor = UIColor(hex6: 0x222222)
+
             contentView.addSubviews(views: leftIconIV, titleLabel, rightIconIV)
             
             leftIconIV.snp.makeConstraints { (maker) in
@@ -563,14 +564,7 @@ extension Social.ProfileViewController {
                 maker.centerY.equalToSuperview()
                 maker.trailing.equalToSuperview().inset(16)
             }
-            
-            contentView.snp.makeConstraints { (maker) in
-                maker.leading.trailing.equalToSuperview().inset(20)
-                maker.top.bottom.equalToSuperview().inset(12)
-            }
-            
-            contentView.layer.cornerRadius = 12
-            contentView.backgroundColor = UIColor(hex6: 0x222222)
+                        
         }
     }
     
@@ -624,7 +618,7 @@ extension Social.ProfileViewController {
 
 extension Social.ProfileViewController {
     
-    class GameCell: UITableViewCell {
+    class GameCell: UICollectionViewCell {
         
         private let bag = DisposeBag()
         
@@ -636,7 +630,7 @@ extension Social.ProfileViewController {
             return lb
         }()
         
-        private lazy var deleteButton: SmallSizeButton = {
+        private(set) lazy var deleteButton: SmallSizeButton = {
             let btn = SmallSizeButton(type: .custom)
             btn.setImage(R.image.ac_profile_delete_game_stats(), for: .normal)
             btn.rx.controlEvent(.primaryActionTriggered)
@@ -663,9 +657,9 @@ extension Social.ProfileViewController {
         }()
         
         var deleteHandler: (() -> Void)? = nil
-                
-        override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-            super.init(style: style, reuseIdentifier: reuseIdentifier)
+        
+        override init(frame: CGRect) {
+            super.init(frame: frame)
             setupLayout()
         }
         
@@ -675,7 +669,6 @@ extension Social.ProfileViewController {
         
         private func setupLayout() {
             backgroundColor = .clear
-            selectionStyle = .none
             
             let container = UIView()
             container.backgroundColor = .clear
@@ -683,10 +676,9 @@ extension Social.ProfileViewController {
             
             container.addSubviews(views: nameLabel, deleteButton, statsIV)
             contentView.addSubview(container)
-                        
+            
             container.snp.makeConstraints { (maker) in
-                maker.leading.trailing.equalToSuperview().inset(20)
-                maker.top.bottom.equalToSuperview().inset(12)
+                maker.edges.equalToSuperview()
             }
             
             container.layer.cornerRadius = 12
@@ -734,7 +726,7 @@ extension Social.ProfileViewController {
 
 extension Social.ProfileViewController {
     
-    class GroupAvatarView: UIView {
+    class JoinedGroupCell: UICollectionViewCell {
         
         private let bag = DisposeBag()
         
@@ -764,43 +756,11 @@ extension Social.ProfileViewController {
             return l
         }()
         
-        private lazy var onlineStatusView: UIView = {
-            let v = UIView()
-            v.backgroundColor = UIColor(hex6: 0xFFFFFF)
+        private lazy var onlineStatusView: FansGroup.Views.GroupCellTagView = {
+            let v = FansGroup.Views.GroupCellTagView(.online)
             v.layer.borderColor = UIColor(hex6: 0x121212).cgColor
-            v.layer.borderWidth = 2.5
-            v.layer.cornerRadius = 12
-            
-            let lb = UILabel()
-            lb.adjustsFontSizeToFitWidth = true
-            lb.font = R.font.nunitoExtraBold(size: 12)
-            lb.textColor = .black
-            lb.text = R.string.localizable.socialStatusOnline()
-            
-            let dot = UIView()
-            dot.backgroundColor = UIColor(hex6: 0x1FD300)
-            dot.layer.cornerRadius = 3.5
-            
-            v.addSubviews(views: dot, lb)
-            
-            dot.snp.makeConstraints { (maker) in
-                maker.centerY.equalToSuperview()
-                maker.leading.equalTo(8)
-                maker.width.height.equalTo(7)
-            }
-            
-            lb.snp.makeConstraints { (maker) in
-                maker.centerY.equalToSuperview()
-                maker.edges.equalToSuperview().inset(UIEdgeInsets(top: 4, left: 17, bottom: 4, right: 8))
-                maker.height.equalTo(16)
-            }
-            
-            v.clipsToBounds = true
-            
             return v
         }()
-        
-        var tapHandler: (() -> Void)? = nil
         
         override init(frame: CGRect) {
             super.init(frame: frame)
@@ -813,14 +773,17 @@ extension Social.ProfileViewController {
         
         override func layoutSubviews() {
             super.layoutSubviews()
-            gradientMusk.frame = bounds
+            contentView.layoutIfNeeded()
+            gradientMusk.frame = contentView.bounds
         }
         
         private func setUpLayout() {
+            backgroundColor = .clear
+            contentView.backgroundColor = .clear
+
+            contentView.addSubviews(views: coverIV, nameLabel, onlineStatusView)
             
-            addSubviews(views: coverIV, nameLabel, onlineStatusView)
-            
-            layer.insertSublayer(gradientMusk, above: coverIV.layer)
+            contentView.layer.insertSublayer(gradientMusk, above: coverIV.layer)
             
             coverIV.snp.makeConstraints { (maker) in
                 maker.edges.equalToSuperview()
@@ -837,19 +800,11 @@ extension Social.ProfileViewController {
                 maker.width.equalTo(64)
             }
             
-            let tap = UITapGestureRecognizer()
-            addGestureRecognizer(tap)
-            tap.rx.event
-                .subscribe(onNext: { [weak self] (_) in
-                    self?.tapHandler?()
-                })
-                .disposed(by: bag)
         }
         
-        func bindData(_ group: Entity.Group, tapHandler: (() -> Void)? = nil) {
+        func bindData(_ group: Entity.Group) {
             coverIV.setImage(with: group.cover.url)
             nameLabel.text = group.name
-            self.tapHandler = tapHandler
             #if DEBUG
             onlineStatusView.isHidden = false
             #else
@@ -858,18 +813,37 @@ extension Social.ProfileViewController {
         }
         
     }
+    
+}
+
+extension Social.ProfileViewController {
+    
+    class SectionHeader: UICollectionReusableView {
         
-    class JoinedGroupsCell: UITableViewCell {
+        private(set) lazy var titleLabel: UILabel = {
+            let l = UILabel()
+            l.textColor = UIColor(hexString: "#FFFFFF")
+            l.font = R.font.nunitoExtraBold(size: 20)
+            l.adjustsFontSizeToFitWidth = true
+            return l
+        }()
         
-        class var groupViewWidth: CGFloat {
-            let width = ((Frame.Screen.width - 20 * 2 - 16 * 2) / 3).rounded(.towardZero)
-            return width
-        }
+        private(set) lazy var actionButton: UIButton = {
+            let btn = UIButton(type: .custom)
+            btn.rx.controlEvent(.primaryActionTriggered)
+                .subscribe(onNext: { [weak self] (_) in
+                    self?.actionHandler?()
+                })
+                .disposed(by: bag)
+            return btn
+        }()
         
-        private var groupViews = [GroupAvatarView]()
+        private let bag = DisposeBag()
         
-        override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-            super.init(style: style, reuseIdentifier: reuseIdentifier)
+        var actionHandler: (() -> Void)? = nil
+                
+        override init(frame: CGRect) {
+            super.init(frame: .zero)
             setupLayout()
         }
         
@@ -878,41 +852,28 @@ extension Social.ProfileViewController {
         }
         
         private func setupLayout() {
-            backgroundColor = .clear
-            selectionStyle = .none
-            contentView.backgroundColor = .clear
+            addSubviews(views: titleLabel, actionButton)
+            titleLabel.snp.makeConstraints { (maker) in
+                maker.leading.centerY.equalToSuperview()
+                maker.height.equalTo(27)
+                maker.trailing.lessThanOrEqualTo(actionButton.snp.leading).offset(-20)
+            }
             
-            contentView.snp.makeConstraints { (maker) in
-                maker.top.bottom.equalToSuperview().inset(12)
-                maker.leading.trailing.equalToSuperview().inset(20)
+            actionButton.snp.makeConstraints { maker in
+                maker.centerY.trailing.equalToSuperview()
+                maker.height.equalTo(27)
             }
         }
         
-        func bind(_ groups: [Entity.Group], onGroupTapped: ((Entity.Group) -> Void)? = nil) {
-            
-            let groupAvatarViews = groups.map { (group) -> GroupAvatarView in
-                let g = GroupAvatarView()
-                g.bindData(group) {
-                    onGroupTapped?(group)
-                }
-                return g
-            }
-            
-            groupViews.forEach { (v) in
-                v.removeFromSuperview()
-            }
-            
-            groupViews = groupAvatarViews
-            
-            contentView.addSubviews(groupViews)
-            
-            for (idx, v) in groupViews.enumerated() {
-                v.snp.makeConstraints { (maker) in
-                    maker.width.height.equalTo(Self.groupViewWidth)
-                    maker.top.equalToSuperview()
-                    maker.leading.equalToSuperview().offset(idx.cgFloat * (Self.groupViewWidth + 16))
-                }
-            }
+    }
+    
+    class SectionFooter: UICollectionReusableView {
+        override init(frame: CGRect) {
+            super.init(frame: .zero)
+        }
+        
+        required init?(coder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
         }
     }
     

@@ -396,6 +396,30 @@ extension Request {
             .mapToDataKeyJsonValue()
             .mapTo(Entity.ProfilePage.self)
             .observeOn(MainScheduler.asyncInstance)
+            .do(onSuccess: { (page) in
+                
+                guard let profile = page?.profile else { return }
+                
+                let _ = NoticeManager.shared.queryMessageBody(objType: Entity.NoticeMessage.MessageObjType.user.rawValue, objId: profile.uid.string)
+                    .flatMap { (m) -> Single<Void> in
+                        guard var messageBody = m else {
+                            return Single.just(())
+                        }
+                        
+                        messageBody.img = profile.pictureUrl
+                        if let name = profile.name {
+                            messageBody.title = name
+                        }
+                        
+                        return NoticeManager.shared.updateMessageBody(messageBody)
+                    }
+                    .subscribe { (_) in
+                        
+                    } onError: { (_) in
+                        
+                    }
+            })
+
     }
     
     /// type: follow / block
@@ -984,17 +1008,23 @@ extension Request {
         ]
         return amongchatProvider.rx.request(.enterGroupChannel(params))
             .mapJSON()
-            .mapToDataKeyJsonValue()
-//            .map { item -> [String : AnyObject] in
-//                guard let json = item as? [String: AnyObject] else {
-//                    throw MsgError.default
-//                }
-//                if let data = json["data"] as? [String: AnyObject] {
-//                    return data
-//                } else {
-//                    throw MsgError.from(dic: json)
-//                }
-//            }
+//            .mapToDataKeyJsonValue()
+            .map { item -> [String : AnyObject] in
+                guard let json = item as? [String: AnyObject] else {
+                    throw MsgError.default
+                }
+                if let data = json["data"] as? [String: AnyObject],
+                   let processed = data["processed"] as? Bool {
+                    if processed {
+                        return data
+                    } else {
+                        //未开播
+                        throw MsgError(code: 202, msg: R.string.localizable.enterClosedGroupRoomTips(), data: nil)
+                    }
+                } else {
+                    throw MsgError.from(dic: json)
+                }
+            }
             .mapTo(Entity.GroupInfo.self)
             .observeOn(MainScheduler.asyncInstance)
     }
@@ -1097,13 +1127,7 @@ extension Request {
         
         return amongchatProvider.rx.request(.groupList(params))
             .mapJSON()
-            .mapToDataKeyJsonValue()
-            .map({ data -> [[String : AnyObject]] in
-                guard let list = data["list"] as? [[String : AnyObject]] else {
-                    return []
-                }
-                return list
-            })
+            .mapToDataKeyListKeyValue()
             .mapTo([Entity.Group].self)
             .map {
                 guard let r = $0 else {
@@ -1124,13 +1148,7 @@ extension Request {
         
         return amongchatProvider.rx.request(.myGroupList(params))
             .mapJSON()
-            .mapToDataKeyJsonValue()
-            .map({ data -> [[String : AnyObject]] in
-                guard let list = data["list"] as? [[String : AnyObject]] else {
-                    return []
-                }
-                return list
-            })
+            .mapToDataKeyListKeyValue()
             .mapTo([Entity.Group].self)
             .map {
                 guard let r = $0 else {
@@ -1152,13 +1170,7 @@ extension Request {
         
         return amongchatProvider.rx.request(.groupListOfHost(params))
             .mapJSON()
-            .mapToDataKeyJsonValue()
-            .map({ data -> [[String : AnyObject]] in
-                guard let list = data["list"] as? [[String : AnyObject]] else {
-                    return []
-                }
-                return list
-            })
+            .mapToDataKeyListKeyValue()
             .mapTo([Entity.Group].self)
             .map {
                 guard let r = $0 else {
@@ -1180,13 +1192,7 @@ extension Request {
         
         return amongchatProvider.rx.request(.groupListOfJoined(params))
             .mapJSON()
-            .mapToDataKeyJsonValue()
-            .map({ data -> [[String : AnyObject]] in
-                guard let list = data["list"] as? [[String : AnyObject]] else {
-                    return []
-                }
-                return list
-            })
+            .mapToDataKeyListKeyValue()
             .mapTo([Entity.Group].self)
             .map {
                 guard let r = $0 else {
@@ -1267,6 +1273,25 @@ extension Request {
                 return r
             })
             .observeOn(MainScheduler.asyncInstance)
+            .do(onSuccess: { (info) in
+                
+                let _ = NoticeManager.shared.queryMessageBody(objType: Entity.NoticeMessage.MessageObjType.group.rawValue, objId: info.group.gid)
+                    .flatMap { (m) -> Single<Void> in
+                        guard var messageBody = m else {
+                            return Single.just(())
+                        }
+                        
+                        messageBody.img = info.group.cover
+                        messageBody.title = info.group.name
+                        
+                        return NoticeManager.shared.updateMessageBody(messageBody)
+                    }
+                    .subscribe { (_) in
+                        
+                    } onError: { (_) in
+                        
+                    }
+            })
     }
     
     static func leaveGroup(_ groupId: String) -> Single<Bool> {
@@ -1399,6 +1424,23 @@ extension Request {
             .observeOn(MainScheduler.asyncInstance)
     }
     
+    static func groupStatus(_ groupId: String) -> Single<Entity.Group?> {
+        
+        let params: [String : Any] = ["gid" : groupId]
+        
+        return amongchatProvider.rx.request(.groupStatus(params))
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .map({ data -> [String : AnyObject] in
+                guard let group = data["group"] as? [String : AnyObject] else {
+                    return [:]
+                }
+                return group
+            })
+            .mapTo(Entity.Group.self)
+            .observeOn(MainScheduler.asyncInstance)
+    }
+    
     static func kickMemberFromGroup(_ groupId: String, uids: [Int]) -> Single<Bool> {
         
         let params: [String : Any] = [
@@ -1489,5 +1531,87 @@ extension Request {
             .mapToDataKeyJsonValue()
             .mapTo(Entity.UserMuteInfo.self)
             .observeOn(MainScheduler.asyncInstance)
+    }
+    
+    static func noticeCheck(lastCheckMs: Int64) -> Single<Bool> {
+        
+        let params: [String : Any] = [
+            "read_ms" : lastCheckMs
+        ]
+        
+        return amongchatProvider.rx.request(.noticeCheck(params))
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .map { (data) in
+                let unread_g = data["unread_g"] as? Bool ?? false
+                let unread_p = data["unread_p"] as? Bool ?? false
+                let unread_ga = data["unread_ga"] as? Bool ?? false
+                return unread_g || unread_p || unread_ga
+            }
+            .observeOn(MainScheduler.asyncInstance)
+        
+    }
+    
+    static func peerNoticeMessge(skipMs: Int64) -> Single<[Entity.Notice]> {
+        
+        let params: [String : Any] = [
+            "skip_ms" : skipMs
+        ]
+        
+        return amongchatProvider.rx.request(.peerMessage(params))
+            .mapJSON()
+            .mapToDataKeyListKeyValue()
+            .mapTo([Entity.Notice].self)
+            .map {
+                guard let r = $0 else {
+                    throw MsgError.default
+                }
+                
+                return r
+            }
+            .observeOn(MainScheduler.asyncInstance)
+    }
+    
+    static func globalNoticeMessage(skipMs: Int64) -> Single<[Entity.Notice]> {
+        
+        let params: [String : Any] = [
+            "skip_ms" : skipMs
+        ]
+        
+        return amongchatProvider.rx.request(.globalMessage(params))
+            .mapJSON()
+            .mapToDataKeyListKeyValue()
+            .mapTo([Entity.Notice].self)
+            .map {
+                guard let r = $0 else {
+                    throw MsgError.default
+                }
+                
+                return r
+            }
+            .observeOn(MainScheduler.asyncInstance)
+        
+    }
+    
+    static func myGroupApplyStat() -> Single<[Entity.GroupApplyStat]> {
+        return amongchatProvider.rx.request(.myGroupApplyStat)
+            .mapJSON()
+            .mapToDataKeyListKeyValue()
+            .mapTo([Entity.GroupApplyStat].self)
+            .map {
+                guard let r = $0 else {
+                    throw MsgError.default
+                }
+                
+                return r
+            }
+            .observeOn(MainScheduler.asyncInstance)
+    }
+    
+    static func updateInstalled(_ gameBundleIds: [String]) -> Single<Bool> {
+        return amongchatProvider.rx.request(.updateInstalledGames(["games": gameBundleIds.joined(separator: ",")]))
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .mapToProcessedValue()
     }
 }

@@ -23,7 +23,11 @@
 		263F8ADB2614A47D00282F8F /* FansGroup.AddMemberController+Views.swift in Sources */ = {isa = PBXBuildFile; fileRef = 263F8ADA2614A47D00282F8F /* FansGroup.AddMemberController+Views.swift */; };
 		263F8ADF26156D7F00282F8F /* Entity.Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 263F8ADE26156D7F00282F8F /* Entity.Group.swift */; };
 		263FC49726218B9A00EC0588 /* FansGroup.Views.ShareBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 263FC49626218B9A00EC0588 /* FansGroup.Views.ShareBar.swift */; };
+		26430FCB2637F19B0096177B /* Entity.Notice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26430FCA2637F19B0096177B /* Entity.Notice.swift */; };
+		26430FD9263803E40096177B /* Notice.Views.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26430FD8263803E40096177B /* Notice.Views.swift */; };
 		264A076325B6FE67001F998E /* AmongChat.Login.SmsCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 264A076225B6FE67001F998E /* AmongChat.Login.SmsCodeViewController.swift */; };
+		264CCE5F2639307600D5410C /* Notice.NoticeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 264CCE5E2639307600D5410C /* Notice.NoticeViewModel.swift */; };
+		265E53E9262DBC70003500D0 /* FansGroup.Views.GroupCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = 265E53E8262DBC70003500D0 /* FansGroup.Views.GroupCells.swift */; };
 		265FB7C725B690A7004987AB /* mobileRegions.json in Resources */ = {isa = PBXBuildFile; fileRef = 265FB7C625B690A7004987AB /* mobileRegions.json */; };
 		265FB7CB25B69C3A004987AB /* AmongChat.Login.MobileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 265FB7CA25B69C3A004987AB /* AmongChat.Login.MobileViewController.swift */; };
 		265FB7CF25B6C402004987AB /* AmongChat.Login.RegionModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 265FB7CE25B6C402004987AB /* AmongChat.Login.RegionModal.swift */; };
@@ -40,6 +44,11 @@
 		269A6E08261EFDFC00A07C7D /* FansGroup.Views.GroupInfoSetUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 269A6E07261EFDFC00A07C7D /* FansGroup.Views.GroupInfoSetUpView.swift */; };
 		269A6E0E26203E3300A07C7D /* FansGroup.GroupJoinRequestListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 269A6E0D26203E3300A07C7D /* FansGroup.GroupJoinRequestListViewController.swift */; };
 		269A6E122620459700A07C7D /* FansGroup.SelectGroupMemberViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 269A6E112620459700A07C7D /* FansGroup.SelectGroupMemberViewController.swift */; };
+		26A3D2B026366D4300DD4F53 /* Notice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26A3D2AF26366D4300DD4F53 /* Notice.swift */; };
+		26A3D2B626366D8500DD4F53 /* Notice.AllNoticeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26A3D2B526366D8500DD4F53 /* Notice.AllNoticeViewController.swift */; };
+		26A3D2BA26366DDB00DD4F53 /* Notice.GroupRequestsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26A3D2B926366DDB00DD4F53 /* Notice.GroupRequestsListViewController.swift */; };
+		26A3D2C22636B1BA00DD4F53 /* Notice.NoticeListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26A3D2C12636B1BA00DD4F53 /* Notice.NoticeListViewController.swift */; };
+		26A3D4B02636C57200DD4F53 /* NoticeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26A3D4AF2636C57200DD4F53 /* NoticeManager.swift */; };
 		26AFD8B125C9742800B652E8 /* Social.ProfileLookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26AFD8B025C9742800B652E8 /* Social.ProfileLookViewController.swift */; };
 		26AFD8B525C976D900B652E8 /* Social.ProfileLookViewController+Widgets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26AFD8B425C976D900B652E8 /* Social.ProfileLookViewController+Widgets.swift */; };
 		26AFD8B925CA7E6600B652E8 /* Social.ProfileLookViewController+ViewModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26AFD8B825CA7E6500B652E8 /* Social.ProfileLookViewController+ViewModels.swift */; };
@@ -115,8 +124,6 @@
 		FE078C892615B64B004C38C5 /* AmongChat.GroupRoom.MembersController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE078C882615B64B004C38C5 /* AmongChat.GroupRoom.MembersController.swift */; };
 		FE078C8D2615B74A004C38C5 /* AmongChat.GroupRoom.MembersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE078C8C2615B74A004C38C5 /* AmongChat.GroupRoom.MembersViewModel.swift */; };
 		FE078C912615C028004C38C5 /* AmongChat.GroupRoom.JoinRequestListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE078C902615C028004C38C5 /* AmongChat.GroupRoom.JoinRequestListController.swift */; };
-		FE078E6C2615EBFA004C38C5 /* FansGroupSelfItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE078E6A2615EBFA004C38C5 /* FansGroupSelfItemCell.swift */; };
-		FE078E6D2615EBFA004C38C5 /* FansGroupSelfItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE078E6B2615EBFA004C38C5 /* FansGroupSelfItemCell.xib */; };
 		FE0D1A2124489BB700518793 /* FrozenButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE0D1A2024489BB700518793 /* FrozenButton.swift */; };
 		FE0D1A2724489FE300518793 /* UIBezierPathExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE0D1A2624489FE300518793 /* UIBezierPathExtension.swift */; };
 		FE0D1A292448A06200518793 /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE0D1A282448A06200518793 /* UIViewExtension.swift */; };
@@ -303,6 +310,7 @@
 		FE9BC9E7258A3CDD002F82AF /* ApiService.AmongChatBackend.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE9BC9E6258A3CDD002F82AF /* ApiService.AmongChatBackend.swift */; };
 		FE9BC9EB258A3ED5002F82AF /* Request.AmongChatBackend.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE9BC9EA258A3ED5002F82AF /* Request.AmongChatBackend.swift */; };
 		FE9BCA44258A5344002F82AF /* IntExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE9BCA43258A5344002F82AF /* IntExtension.swift */; };
+		FE9BD2AB26380B3300C30012 /* MarqueueLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE9BD2AA26380B3300C30012 /* MarqueueLabel.swift */; };
 		FE9EE3F92621CA350053B020 /* AmongChat.GroupRoom.JoinRequestViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE9EE3F82621CA350053B020 /* AmongChat.GroupRoom.JoinRequestViewModel.swift */; };
 		FE9EF520258AFF88008C0BAD /* UIImageViewNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE9EF51F258AFF88008C0BAD /* UIImageViewNetwork.swift */; };
 		FE9EF524258B0C07008C0BAD /* Entity.Room.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE9EF523258B0C07008C0BAD /* Entity.Room.swift */; };
@@ -319,8 +327,6 @@
 		FEA2E93425C139E4007485A8 /* AvatarGuideViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FEA2E93225C139E4007485A8 /* AvatarGuideViewController.xib */; };
 		FEA2E93E25C166E6007485A8 /* UserTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEA2E93D25C166E6007485A8 /* UserTagView.swift */; };
 		FEA2F988249C8AF200CB1315 /* DefaultRemoteConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = FEA2F987249C8AF200CB1315 /* DefaultRemoteConfig.plist */; };
-		FEA600022615F67300255E06 /* FansGroupItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEA600002615F67300255E06 /* FansGroupItemCell.swift */; };
-		FEA600032615F67300255E06 /* FansGroupItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FEA600012615F67300255E06 /* FansGroupItemCell.xib */; };
 		FEA79E63249B52EF0067C1C1 /* ShareManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEA79E62249B52EF0067C1C1 /* ShareManager.swift */; };
 		FEAD54D52449B6A0006454F6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEAD54D22449B69F006454F6 /* ViewController.swift */; };
 		FEAD54D62449B6A0006454F6 /* GestureBackable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEAD54D32449B69F006454F6 /* GestureBackable.swift */; };
@@ -364,6 +370,7 @@
 		FED38C86261318D2003C3F7D /* AmongGroupTopView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FED38C85261318D2003C3F7D /* AmongGroupTopView.xib */; };
 		FED38C8A26132976003C3F7D /* AmongGroupTopicConfigView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FED38C8926132976003C3F7D /* AmongGroupTopicConfigView.swift */; };
 		FED38C8E26132984003C3F7D /* AmongGroupTopicConfigView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FED38C8D26132984003C3F7D /* AmongGroupTopicConfigView.xib */; };
+		FED568D1263AB68C0009F4FF /* InstalledChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = FED568D0263AB68C0009F4FF /* InstalledChecker.swift */; };
 		FED7B5FC244EC99300D94F97 /* ScreenLifeLogable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FED7B5FB244EC99300D94F97 /* ScreenLifeLogable.swift */; };
 		FED7B5FF244EC9E100D94F97 /* Logger+Screen.swift in Sources */ = {isa = PBXBuildFile; fileRef = FED7B5FE244EC9E100D94F97 /* Logger+Screen.swift */; };
 		FED7B601244EC9FB00D94F97 /* LoggerPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = FED7B600244EC9FB00D94F97 /* LoggerPath.swift */; };
@@ -420,7 +427,11 @@
 		263F8ADA2614A47D00282F8F /* FansGroup.AddMemberController+Views.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FansGroup.AddMemberController+Views.swift"; sourceTree = "<group>"; };
 		263F8ADE26156D7F00282F8F /* Entity.Group.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entity.Group.swift; sourceTree = "<group>"; };
 		263FC49626218B9A00EC0588 /* FansGroup.Views.ShareBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FansGroup.Views.ShareBar.swift; sourceTree = "<group>"; };
+		26430FCA2637F19B0096177B /* Entity.Notice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entity.Notice.swift; sourceTree = "<group>"; };
+		26430FD8263803E40096177B /* Notice.Views.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notice.Views.swift; sourceTree = "<group>"; };
 		264A076225B6FE67001F998E /* AmongChat.Login.SmsCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChat.Login.SmsCodeViewController.swift; sourceTree = "<group>"; };
+		264CCE5E2639307600D5410C /* Notice.NoticeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notice.NoticeViewModel.swift; sourceTree = "<group>"; };
+		265E53E8262DBC70003500D0 /* FansGroup.Views.GroupCells.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FansGroup.Views.GroupCells.swift; sourceTree = "<group>"; };
 		265FB7C625B690A7004987AB /* mobileRegions.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = mobileRegions.json; sourceTree = "<group>"; };
 		265FB7CA25B69C3A004987AB /* AmongChat.Login.MobileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChat.Login.MobileViewController.swift; sourceTree = "<group>"; };
 		265FB7CE25B6C402004987AB /* AmongChat.Login.RegionModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChat.Login.RegionModal.swift; sourceTree = "<group>"; };
@@ -439,6 +450,11 @@
 		269A6E07261EFDFC00A07C7D /* FansGroup.Views.GroupInfoSetUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FansGroup.Views.GroupInfoSetUpView.swift; sourceTree = "<group>"; };
 		269A6E0D26203E3300A07C7D /* FansGroup.GroupJoinRequestListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FansGroup.GroupJoinRequestListViewController.swift; sourceTree = "<group>"; };
 		269A6E112620459700A07C7D /* FansGroup.SelectGroupMemberViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FansGroup.SelectGroupMemberViewController.swift; sourceTree = "<group>"; };
+		26A3D2AF26366D4300DD4F53 /* Notice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notice.swift; sourceTree = "<group>"; };
+		26A3D2B526366D8500DD4F53 /* Notice.AllNoticeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notice.AllNoticeViewController.swift; sourceTree = "<group>"; };
+		26A3D2B926366DDB00DD4F53 /* Notice.GroupRequestsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notice.GroupRequestsListViewController.swift; sourceTree = "<group>"; };
+		26A3D2C12636B1BA00DD4F53 /* Notice.NoticeListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notice.NoticeListViewController.swift; sourceTree = "<group>"; };
+		26A3D4AF2636C57200DD4F53 /* NoticeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeManager.swift; sourceTree = "<group>"; };
 		26AFD8B025C9742800B652E8 /* Social.ProfileLookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Social.ProfileLookViewController.swift; sourceTree = "<group>"; };
 		26AFD8B425C976D900B652E8 /* Social.ProfileLookViewController+Widgets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Social.ProfileLookViewController+Widgets.swift"; sourceTree = "<group>"; };
 		26AFD8B825CA7E6500B652E8 /* Social.ProfileLookViewController+ViewModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Social.ProfileLookViewController+ViewModels.swift"; sourceTree = "<group>"; };
@@ -533,8 +549,6 @@
 		FE078C882615B64B004C38C5 /* AmongChat.GroupRoom.MembersController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChat.GroupRoom.MembersController.swift; sourceTree = "<group>"; };
 		FE078C8C2615B74A004C38C5 /* AmongChat.GroupRoom.MembersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChat.GroupRoom.MembersViewModel.swift; sourceTree = "<group>"; };
 		FE078C902615C028004C38C5 /* AmongChat.GroupRoom.JoinRequestListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChat.GroupRoom.JoinRequestListController.swift; sourceTree = "<group>"; };
-		FE078E6A2615EBFA004C38C5 /* FansGroupSelfItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FansGroupSelfItemCell.swift; sourceTree = "<group>"; };
-		FE078E6B2615EBFA004C38C5 /* FansGroupSelfItemCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FansGroupSelfItemCell.xib; sourceTree = "<group>"; };
 		FE0D1A2024489BB700518793 /* FrozenButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrozenButton.swift; sourceTree = "<group>"; };
 		FE0D1A2624489FE300518793 /* UIBezierPathExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIBezierPathExtension.swift; sourceTree = "<group>"; };
 		FE0D1A282448A06200518793 /* UIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
@@ -727,6 +741,7 @@
 		FE9BC9E6258A3CDD002F82AF /* ApiService.AmongChatBackend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiService.AmongChatBackend.swift; sourceTree = "<group>"; };
 		FE9BC9EA258A3ED5002F82AF /* Request.AmongChatBackend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Request.AmongChatBackend.swift; sourceTree = "<group>"; };
 		FE9BCA43258A5344002F82AF /* IntExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntExtension.swift; sourceTree = "<group>"; };
+		FE9BD2AA26380B3300C30012 /* MarqueueLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarqueueLabel.swift; sourceTree = "<group>"; };
 		FE9EE3F82621CA350053B020 /* AmongChat.GroupRoom.JoinRequestViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChat.GroupRoom.JoinRequestViewModel.swift; sourceTree = "<group>"; };
 		FE9EF51F258AFF88008C0BAD /* UIImageViewNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageViewNetwork.swift; sourceTree = "<group>"; };
 		FE9EF523258B0C07008C0BAD /* Entity.Room.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entity.Room.swift; sourceTree = "<group>"; };
@@ -743,8 +758,6 @@
 		FEA2E93225C139E4007485A8 /* AvatarGuideViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AvatarGuideViewController.xib; sourceTree = "<group>"; };
 		FEA2E93D25C166E6007485A8 /* UserTagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTagView.swift; sourceTree = "<group>"; };
 		FEA2F987249C8AF200CB1315 /* DefaultRemoteConfig.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = DefaultRemoteConfig.plist; sourceTree = "<group>"; };
-		FEA600002615F67300255E06 /* FansGroupItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FansGroupItemCell.swift; sourceTree = "<group>"; };
-		FEA600012615F67300255E06 /* FansGroupItemCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FansGroupItemCell.xib; sourceTree = "<group>"; };
 		FEA79E62249B52EF0067C1C1 /* ShareManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareManager.swift; sourceTree = "<group>"; };
 		FEAD54D22449B69F006454F6 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		FEAD54D32449B69F006454F6 /* GestureBackable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GestureBackable.swift; sourceTree = "<group>"; };
@@ -788,6 +801,7 @@
 		FED38C85261318D2003C3F7D /* AmongGroupTopView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AmongGroupTopView.xib; sourceTree = "<group>"; };
 		FED38C8926132976003C3F7D /* AmongGroupTopicConfigView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongGroupTopicConfigView.swift; sourceTree = "<group>"; };
 		FED38C8D26132984003C3F7D /* AmongGroupTopicConfigView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AmongGroupTopicConfigView.xib; sourceTree = "<group>"; };
+		FED568D0263AB68C0009F4FF /* InstalledChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstalledChecker.swift; sourceTree = "<group>"; };
 		FED7B5FB244EC99300D94F97 /* ScreenLifeLogable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenLifeLogable.swift; sourceTree = "<group>"; };
 		FED7B5FE244EC9E100D94F97 /* Logger+Screen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Logger+Screen.swift"; sourceTree = "<group>"; };
 		FED7B600244EC9FB00D94F97 /* LoggerPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggerPath.swift; sourceTree = "<group>"; };
@@ -832,6 +846,19 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		26A3D0E126366AFD00DD4F53 /* Notice */ = {
+			isa = PBXGroup;
+			children = (
+				26A3D2AF26366D4300DD4F53 /* Notice.swift */,
+				26A3D2B526366D8500DD4F53 /* Notice.AllNoticeViewController.swift */,
+				26A3D2C12636B1BA00DD4F53 /* Notice.NoticeListViewController.swift */,
+				264CCE5E2639307600D5410C /* Notice.NoticeViewModel.swift */,
+				26430FD8263803E40096177B /* Notice.Views.swift */,
+				26A3D2B926366DDB00DD4F53 /* Notice.GroupRequestsListViewController.swift */,
+			);
+			path = Notice;
+			sourceTree = "<group>";
+		};
 		26DC825A2609C59B000A9111 /* GameSkill */ = {
 			isa = PBXGroup;
 			children = (
@@ -858,6 +885,7 @@
 				263F8ACA2613271500282F8F /* FansGroup.TopicViewModel.swift */,
 				263F8ACE26132B3100282F8F /* FansGroup.GroupsViewController.swift */,
 				269A6DCD261C4A8C00A07C7D /* FansGroup.GroupListViewController.swift */,
+				265E53E8262DBC70003500D0 /* FansGroup.Views.GroupCells.swift */,
 				263F8AD62614A22200282F8F /* FansGroup.AddMemberControlller.swift */,
 				263F8ADA2614A47D00282F8F /* FansGroup.AddMemberController+Views.swift */,
 				269A6DDF261D589700A07C7D /* FansGroup.GroupInfoViewController.swift */,
@@ -868,10 +896,6 @@
 				269A6DF1261EA85E00A07C7D /* FansGroup.GroupEditViewController.swift */,
 				269A6E0D26203E3300A07C7D /* FansGroup.GroupJoinRequestListViewController.swift */,
 				269A6E112620459700A07C7D /* FansGroup.SelectGroupMemberViewController.swift */,
-				FE078E6A2615EBFA004C38C5 /* FansGroupSelfItemCell.swift */,
-				FE078E6B2615EBFA004C38C5 /* FansGroupSelfItemCell.xib */,
-				FEA600002615F67300255E06 /* FansGroupItemCell.swift */,
-				FEA600012615F67300255E06 /* FansGroupItemCell.xib */,
 			);
 			path = Group;
 			sourceTree = "<group>";
@@ -1194,6 +1218,8 @@
 				FE9B29F12488CD4B009A4969 /* SpeechRecognizer.swift */,
 				FE9B29F32488D250009A4969 /* ConfettiView.swift */,
 				FE87C2DD259C5ADD00799883 /* ShareManager */,
+				26A3D4AF2636C57200DD4F53 /* NoticeManager.swift */,
+				FED568D0263AB68C0009F4FF /* InstalledChecker.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -1371,6 +1397,7 @@
 				FE8DEA61243DB0990059C252 /* JSONDecoder.Extension.swift */,
 				FE8DEA60243DB0980059C252 /* KeyedDecodingContainer.Extension.swift */,
 				FEC17A4824A99BF0003719BC /* Entity.swift */,
+				26430FCA2637F19B0096177B /* Entity.Notice.swift */,
 				BDC9D2A12589DA2D00412BDC /* Entity.LoginResult.swift */,
 				263F8ADE26156D7F00282F8F /* Entity.Group.swift */,
 				2BAB4F862596031600A1C8DC /* Entity.Profile.swift */,
@@ -1440,6 +1467,7 @@
 		FECA43B42459A8360075D139 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				26A3D0E126366AFD00DD4F53 /* Notice */,
 				26F414952611BB56003ED5BE /* Group */,
 				BD6C36EA256E516900D1E708 /* AmongUs */,
 				BDB8F58524F7D5A0000027F8 /* Social */,
@@ -1542,6 +1570,7 @@
 				FE078C902615C028004C38C5 /* AmongChat.GroupRoom.JoinRequestListController.swift */,
 				FE9EE3F82621CA350053B020 /* AmongChat.GroupRoom.JoinRequestViewModel.swift */,
 				FE80678D261DB1C900207992 /* AmongChat.GroupRoom.SeatRequestListController.swift */,
+				FE9BD2AA26380B3300C30012 /* MarqueueLabel.swift */,
 			);
 			path = Group;
 			sourceTree = "<group>";
@@ -1725,7 +1754,6 @@
 				BD9F26C525A5EEBD00FA3616 /* SupportedLanguages.json in Resources */,
 				FE126D24243461EA00BEDD60 /* LaunchScreen.storyboard in Resources */,
 				FE126D21243461EA00BEDD60 /* Assets.xcassets in Resources */,
-				FEA600032615F67300255E06 /* FansGroupItemCell.xib in Resources */,
 				FE7ED90125F20292009C608A /* room-emoji-pink.svga in Resources */,
 				FE7CEB57258A029F0067952C /* AmongRoomInfoSetupView.xib in Resources */,
 				FE1A2DF5248A4BAD00F9A44D /* emojis.json in Resources */,
@@ -1762,7 +1790,6 @@
 				2604716325ADA878007D88AE /* Bungee-Regular.ttf in Resources */,
 				FE7ED90225F20292009C608A /* room-emoji-red.svga in Resources */,
 				FEBE5225262D2DF500E49EC4 /* ReportCell.xib in Resources */,
-				FE078E6D2615EBFA004C38C5 /* FansGroupSelfItemCell.xib in Resources */,
 				FE7ED8FF25F20292009C608A /* room-emoji-darkgreen.svga in Resources */,
 				265FB7C725B690A7004987AB /* mobileRegions.json in Resources */,
 				FE4FDAE02435E4C600CD5E97 /* GoogleService-Info.plist in Resources */,
@@ -1887,6 +1914,7 @@
 				BD6C370B256E7D0C00D1E708 /* AmongChat.Room.ViewController.swift in Sources */,
 				FE401E3C244D9C450081F793 /* IAP.ProductFetcher.swift in Sources */,
 				26AFD8B125C9742800B652E8 /* Social.ProfileLookViewController.swift in Sources */,
+				26430FCB2637F19B0096177B /* Entity.Notice.swift in Sources */,
 				BDC9D29E2589D69B00412BDC /* AmongChat.Login.Manager.swift in Sources */,
 				FE6738A62611BAD80044C0D2 /* AmongChat.GroupRoom.ViewController.swift in Sources */,
 				FE126D572434823B00BEDD60 /* AlertUtil.swift in Sources */,
@@ -1912,6 +1940,7 @@
 				265FB7CB25B69C3A004987AB /* AmongChat.Login.MobileViewController.swift in Sources */,
 				FE2AF9F4244DCC0400763747 /* URI.Parse.swift in Sources */,
 				FEAD54D52449B6A0006454F6 /* ViewController.swift in Sources */,
+				264CCE5F2639307600D5410C /* Notice.NoticeViewModel.swift in Sources */,
 				BD95F2DC2591C73B003BE2FE /* Social.SelectAvatarViewController.swift in Sources */,
 				FE8DEA6B243DB09A0059C252 /* Json.swift in Sources */,
 				FEC2A93725CA5117001B9556 /* AmongChat.Room.QueueManager.swift in Sources */,
@@ -1934,6 +1963,7 @@
 				FE126D50243481FF00BEDD60 /* VoiceChanger.swift in Sources */,
 				BD680D7A2554F89D0062CEC7 /* Logger+AppOpenAd.swift in Sources */,
 				BD73B10124FE363D009D0AC7 /* Social.BlockedUserList.ViewController.swift in Sources */,
+				FED568D1263AB68C0009F4FF /* InstalledChecker.swift in Sources */,
 				263F872B26130EE500282F8F /* FansGroup.AddTopicViewController.swift in Sources */,
 				BDA05E9E250B22D50087933F /* Social.BlockedUserList.Widgets.swift in Sources */,
 				26F7023A25E670CC008F992C /* Social.CustomAvatarViewController.swift in Sources */,
@@ -1944,10 +1974,10 @@
 				FE7CEB59258A029F0067952C /* AmongChatRoomConfigView.swift in Sources */,
 				FE87C2C8259C2A8300799883 /* UIColorExtension.swift in Sources */,
 				FE401E3D244D9C450081F793 /* IAP.ProductDealer.swift in Sources */,
-				FE078E6C2615EBFA004C38C5 /* FansGroupSelfItemCell.swift in Sources */,
 				FE684880244BD72A00F87AF9 /* Settings.swift in Sources */,
 				BDB8F58724F7D925000027F8 /* Social.swift in Sources */,
 				FE078C912615C028004C38C5 /* AmongChat.GroupRoom.JoinRequestListController.swift in Sources */,
+				26A3D4B02636C57200DD4F53 /* NoticeManager.swift in Sources */,
 				FE078C912615C028004C38C5 /* AmongChat.GroupRoom.JoinRequestListController.swift in Sources */,
 				FEAE256B262078D5001F10A9 /* AmongChat.GroupRoom.ViewController.Audience.swift in Sources */,
 				269A6DE8261D9DFD00A07C7D /* FansGroup.GroupInfoViewController+ViewModels.swift in Sources */,
@@ -1981,6 +2011,7 @@
 				FE8067A8261ED69C00207992 /* AmongChat.GroupRoom.BroadcasterViewModel.swift in Sources */,
 				26AFD90725CAB81300B652E8 /* IAP.ConsumableProduct.swift in Sources */,
 				FE078C892615B64B004C38C5 /* AmongChat.GroupRoom.MembersController.swift in Sources */,
+				26430FD9263803E40096177B /* Notice.Views.swift in Sources */,
 				FE684879244BD45F00F87AF9 /* DateUtil.swift in Sources */,
 				26DC82792609C8F1000A9111 /* Social.ChooseGame+Views.swift in Sources */,
 				FE7CE9D32589C1BE0067952C /* AmongRoomInfoView.swift in Sources */,
@@ -1992,8 +2023,8 @@
 				FE87C2D3259C2EC200799883 /* ShareContainerView.swift in Sources */,
 				269A6DF6261EAD9300A07C7D /* FansGroup.GroupMemberListViewController.swift in Sources */,
 				FECA43AD24597B570075D139 /* Automator.Device.swift in Sources */,
+				FE9BD2AB26380B3300C30012 /* MarqueueLabel.swift in Sources */,
 				2BAB4F872596031600A1C8DC /* Entity.Profile.swift in Sources */,
-				FEA600022615F67300255E06 /* FansGroupItemCell.swift in Sources */,
 				263F8ACF26132B3100282F8F /* FansGroup.GroupsViewController.swift in Sources */,
 				FE1A2DF3248A3BDC00F9A44D /* Data+Crypto.swift in Sources */,
 				FE684877244BD3D200F87AF9 /* AdsDebugger.swift in Sources */,
@@ -2059,6 +2090,7 @@
 				FEAE2561262045DC001F10A9 /* BadgeHub.swift in Sources */,
 				BD4DEE142507A2E5006476E0 /* Social.Widgets.AvatarView.swift in Sources */,
 				FE80678E261DB1C900207992 /* AmongChat.GroupRoom.SeatRequestListController.swift in Sources */,
+				265E53E9262DBC70003500D0 /* FansGroup.Views.GroupCells.swift in Sources */,
 				FE860D472446D1D700087B73 /* Theme.Palette.swift in Sources */,
 				FE7218712456D900005274CA /* FireMessaging.swift in Sources */,
 				FE8DEA6A243DB09A0059C252 /* ApiManager.Transform.swift in Sources */,
@@ -2105,6 +2137,7 @@
 				FE2AF9F9244DCC0400763747 /* Routes.swift in Sources */,
 				FEA79E63249B52EF0067C1C1 /* ShareManager.swift in Sources */,
 				BDC9D4AE258A2AB400412BDC /* AdjustAnalytics.swift in Sources */,
+				26A3D2B026366D4300DD4F53 /* Notice.swift in Sources */,
 				BD9F26D125A6EBCC00FA3616 /* ChatLanguageHelper.swift in Sources */,
 				FE860D4B2446D1D700087B73 /* UITableView+Theme.swift in Sources */,
 				FE9F69DC25CD337000C0F118 /* AppTrackingGuideView.swift in Sources */,
@@ -2165,6 +2198,7 @@
 				FE79F379258C76A800E9BC6C /* AmongChat.Room.SeatView.swift in Sources */,
 				FE401E46244DA3B60081F793 /* UIWindow+Controller.swift in Sources */,
 				FE730E4D24ADCB0100680062 /* PhotoManager.swift in Sources */,
+				26A3D2C22636B1BA00DD4F53 /* Notice.NoticeListViewController.swift in Sources */,
 				FE7CEB56258A029F0067952C /* AmongRoomInfoSetupView.swift in Sources */,
 				FECA43AC24597B570075D139 /* Automator.swift in Sources */,
 				FE860D4A2446D1D700087B73 /* Size.swift in Sources */,
@@ -2180,8 +2214,10 @@
 				FE126D51243481FF00BEDD60 /* Message.swift in Sources */,
 				FEC2A94925CAB637001B9556 /* StringSizeExtension.swift in Sources */,
 				FE2AF9E6244DB0F500763747 /* WebViewController.swift in Sources */,
+				26A3D2BA26366DDB00DD4F53 /* Notice.GroupRequestsListViewController.swift in Sources */,
 				FEAD54DD2449C74F006454F6 /* Modal.Container.swift in Sources */,
 				26259B6B260B3E7400636E50 /* Social.ChooseGame.ViewModel.swift in Sources */,
+				26A3D2B626366D8500DD4F53 /* Notice.AllNoticeViewController.swift in Sources */,
 				FE126D5C2434922E00BEDD60 /* ObservableOptionalExtension.swift in Sources */,
 				269A6DE0261D589700A07C7D /* FansGroup.GroupInfoViewController.swift in Sources */,
 				BD6739BD2595EEAD00B3305B /* AmongChat.Home+RelationViewModels.swift in Sources */,
@@ -2384,7 +2420,7 @@
 				CODE_SIGN_ENTITLEMENTS = WalkieTalkie/WalkieTalkie.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 69MW7VVKA9;
 				"EXCLUDED_ARCHS[sdk=iphoneos*]" = i386;
@@ -2394,7 +2430,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.18.0;
+				MARKETING_VERSION = 1.19.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.talkie.walkie.chat.among;
 				PRODUCT_MODULE_NAME = WalkieTalkie;
 				PRODUCT_NAME = AmongChat;
@@ -2413,7 +2449,7 @@
 				CODE_SIGN_ENTITLEMENTS = WalkieTalkie/WalkieTalkie.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 69MW7VVKA9;
 				"EXCLUDED_ARCHS[sdk=iphoneos*]" = i386;
 				INFOPLIST_FILE = WalkieTalkie/Info.plist;
@@ -2422,7 +2458,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.18.0;
+				MARKETING_VERSION = 1.19.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.talkie.walkie.chat.among;
 				PRODUCT_MODULE_NAME = WalkieTalkie;
 				PRODUCT_NAME = AmongChat;

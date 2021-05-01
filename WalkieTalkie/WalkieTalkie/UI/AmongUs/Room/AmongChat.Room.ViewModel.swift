@@ -106,6 +106,13 @@ extension AmongChat.Room {
         }
         
         //MARK: -- Override
+        override func sendEmoji(_ emoji: Entity.EmojiItem) {
+            guard let user = room.userList.first(where: { $0.uid == Settings.loginUserId }) else {
+                return
+            }
+            super.sendEmoji(emoji)
+        }
+        
         override func addJoinMessage() {
             guard !isSilentUser else {
                 return

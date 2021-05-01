@@ -247,9 +247,9 @@ extension Entity.UserProfile {
         return name ?? ""
     }
     
-    func nameWithVerified(fontSize: CGFloat = 16, withAge: Bool = false) -> NSAttributedString {
+    func nameWithVerified(fontSize: CGFloat = 16, withAge: Bool = false, isShowVerify: Bool = true) -> NSAttributedString {
         let nameString = withAge ? nameWithAge : (name ?? "")
-        return attribuated(with: nameString, isVerified: isVerified, isVip: isVip, fontSize: fontSize)
+        return attribuated(with: nameString, isVerified: isShowVerify ? isVerified : false, isVip: isVip, fontSize: fontSize)
     }
 }
 

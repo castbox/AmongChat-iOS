@@ -160,6 +160,7 @@ target 'WalkieTalkie' do
     pod 'ImageViewer'
     pod 'EasyTipView', '~> 2.1'
     pod 'UICollectionViewLeftAlignedLayout'
+    pod 'WCDB.swift'
 end
 
 post_install do |installer|
