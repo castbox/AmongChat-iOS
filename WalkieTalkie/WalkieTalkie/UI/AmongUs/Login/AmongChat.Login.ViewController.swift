@@ -325,11 +325,11 @@ extension AmongChat.Login.ViewController {
     
     private func finish() {
         
-        #if DEBUG
-        let newUser = true
-        #else
+//        #if DEBUG
+//        let newUser = true
+//        #else
         let newUser = Settings.shared.loginResult.value?.is_new_user ?? false
-        #endif
+//        #endif
         
         if newUser {
             let birthdayVC = Social.BirthdaySetViewController()

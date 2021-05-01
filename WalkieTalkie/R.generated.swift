@@ -3547,8 +3547,8 @@ struct R: Rswift.Validatable {
       static let amongChatCommonError = Rswift.StringResource(key: "among.chat.common.error", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Sorry, the admin has dismissed the group.
       /// 
-      /// Locales: en
-      static let groupDismissedTips = Rswift.StringResource(key: "group.dismissed.tips", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let groupDismissedTips = Rswift.StringResource(key: "group.dismissed.tips", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Sorry, you can't re-enter the channel now.
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -6342,7 +6342,7 @@ struct R: Rswift.Validatable {
       
       /// en translation: Sorry, the admin has dismissed the group.
       /// 
-      /// Locales: en
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func groupDismissedTips(_: Void = ()) -> String {
         return NSLocalizedString("group.dismissed.tips", bundle: R.hostingBundle, comment: "")
       }

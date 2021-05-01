@@ -103,6 +103,10 @@ extension AmongChat.Home {
             
         }
         
+        func setVerifyIcon(style: AvatarImageView.VerifyIconStyle) {
+            avatarIV.setVerifyIcon(style: style)
+        }
+        
         func bind(viewModel: PlayingViewModel, onAvatarTap: @escaping () -> Void) {
             uid = viewModel.uid
             avatarIV.updateAvatar(with: viewModel.playingModel.user)

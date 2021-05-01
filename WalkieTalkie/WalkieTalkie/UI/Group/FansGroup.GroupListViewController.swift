@@ -155,7 +155,7 @@ extension FansGroup.GroupListViewController {
             .skip(1)
             .subscribe(onNext: { [weak self] (groups) in
                 self?.emptyView.isHidden = groups.count > 0
-                self?.groupListView.isHidden = !(groups.count > 0)
+//                self?.groupListView.isHidden = !(groups.count > 0)
                 self?.groupListView.reloadData()
             })
             .disposed(by: bag)

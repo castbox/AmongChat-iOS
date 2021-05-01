@@ -103,7 +103,7 @@ extension FansGroup.GroupJoinRequestListViewController: UITableViewDataSource {
         cell.backgroundColor = .clear
         cell.contentView.backgroundColor = .clear
         if let user = usersRelay.value.safe(indexPath.row) {
-            cell.bind(user, showFollowsCount: true)
+            cell.bind(user, showFollowsCount: true, verifyStayle: .black)
             cell.actionHandler = { [weak self] action in
                 switch action {
                 case .accept:
