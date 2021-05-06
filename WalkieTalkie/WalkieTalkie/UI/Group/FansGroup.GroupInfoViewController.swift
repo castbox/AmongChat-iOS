@@ -179,8 +179,8 @@ extension FansGroup.GroupInfoViewController {
             .do(onDispose: {
                 hudRemoval()
             })
-            .subscribe(onSuccess: { (info) in
-                self.updateContent(info)
+            .subscribe(onSuccess: { [weak self] (info) in
+                self?.updateContent(info)
             })
             .disposed(by: bag)
     }
