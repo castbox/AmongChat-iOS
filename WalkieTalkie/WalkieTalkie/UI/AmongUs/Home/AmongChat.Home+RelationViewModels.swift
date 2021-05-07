@@ -237,7 +237,7 @@ extension AmongChat.Home {
         }
         
         var userName: NSAttributedString? {
-            return playingModel.user.nameWithVerified()
+            return playingModel.user.nameWithVerified(isShowVerify: false)
         }
         
         var userAvatarUrl: String? {
@@ -274,6 +274,10 @@ extension AmongChat.Home {
         
         var groupId: String? {
             return playingModel.room?.gid
+        }
+        
+        var isVerified: Bool {
+            playingModel.user.isVerified == true
         }
         
     }

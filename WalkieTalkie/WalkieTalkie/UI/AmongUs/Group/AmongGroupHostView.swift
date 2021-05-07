@@ -76,7 +76,10 @@ class AmongGroupHostView: XibLoadableView {
     private weak var tipBgView: UIView?
 //    private let bag = DisposeBag()
 //    private var isShowTips: Bool
-    
+    //
+    private var emojiContent: ChatRoom.EmojiMessage?
+    private var emojiPlayEndHandler: (ChatRoom.EmojiMessage?) -> Void = { _ in }
+
     var actionHandler: ((Action) -> Void)?
     
     var group: Entity.Group {
@@ -151,6 +154,33 @@ class AmongGroupHostView: XibLoadableView {
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func play(_ emoji: ChatRoom.EmojiMessage, completionHandler: @escaping (ChatRoom.EmojiMessage?) -> Void) {
+        if !emoji.resource.isEmpty,
+            emoji.resource.hasSuffix("svga"),
+            let resource = URL(string: emoji.resource) {
+            emojiContent = emoji
+            
+            emojiPlayEndHandler = completionHandler
+            svagPlayerStatus = .playingEmojiGame
+            
+            let parser = SVGAGlobalParser.defaut
+            parser.parse(with: resource,
+                         completionBlock: { [weak self] (item) in
+                            self?.svgaView.clearsAfterStop = false
+                            self?.svgaView.videoItem = item
+                            self?.svgaView.startAnimation()
+                        },
+                         failureBlock: { [weak self] error in
+                            debugPrint("error: \(error?.localizedDescription ?? "")")
+                            self?.svagPlayerStatus = .free
+                            completionHandler(emoji)
+                        })
+        } else {
+            completionHandler(emoji)
+            svgaView.clear()
+        }
     }
     
     func fetchRealation(with user: Entity.RoomUser) {
@@ -244,10 +274,14 @@ class AmongGroupHostView: XibLoadableView {
             onSeatBadge = BadgeHub(view: raiseButton) // Initially count set to 0
             onSeatBadge?.setCircleColor(UIColor(hex: 0xFB5858), label: .white)
             onSeatBadge?.scaleCircleSize(by: 0.4)
-            onSeatBadge?.setCircleAtFrame(CGRect(x: raiseButton.bounds.width-1, y: -8, width: 16, height: 16))
-            onSeatBadge?.setCountLabel(R.font.nunitoExtraBold(size: 12))
         }
         onSeatBadge?.setCount(count)
+        //size
+        //size
+        let size = count.string.boundingRect(with: CGSize(width: 200, height: 16), font: R.font.nunitoExtraBold(size: 12)!)
+        //minisize
+        onSeatBadge?.setCircleAtFrame(CGRect(x: raiseButton.bounds.width-1, y: -8, width: max(size.width + 8, 16), height: max(size.height, 16)))
+        onSeatBadge?.setCountLabel(R.font.nunitoExtraBold(size: 12))
     }
     
     func updateApplyGroupBadge(with count: Int) {
@@ -255,10 +289,11 @@ class AmongGroupHostView: XibLoadableView {
             applyGroupBadge = BadgeHub(view: applyGroupButton) // Initially count set to 0
             applyGroupBadge?.setCircleColor(UIColor(hex: 0xFB5858), label: .white)
             applyGroupBadge?.scaleCircleSize(by: 0.4)
-            applyGroupBadge?.setCircleAtFrame(CGRect(x: applyGroupButton.bounds.width - 1, y: -8, width: 16, height: 16))
-            applyGroupBadge?.setCountLabel(R.font.nunitoExtraBold(size: 12))
         }
         applyGroupBadge?.setCount(count)
+        let size = count.string.boundingRect(with: CGSize(width: 200, height: 16), font: R.font.nunitoExtraBold(size: 12)!)
+        applyGroupBadge?.setCircleAtFrame(CGRect(x: raiseButton.bounds.width-1, y: -8, width: max(size.width + 8, 16), height: max(size.height, 16)))
+        applyGroupBadge?.setCountLabel(R.font.nunitoExtraBold(size: 12))
     }
     
     func startSoundAnimation() {
@@ -427,25 +462,25 @@ extension AmongGroupHostView: EasyTipViewDelegate {
 extension AmongGroupHostView: SVGAPlayerDelegate {
     func svgaPlayerDidFinishedAnimation(_ player: SVGAPlayer!) {
 //        isPlaySvgaEmoji = false
-//        switch svagPlayerStatus {
-//        case .playingEmojiGame:
-////            svagPlayerStatus = .playingEmojiGame
-//            if let emoji = emojiContent, let hideDelaySec = emoji.hideDelaySec, hideDelaySec > 0 {
-//                mainQueueDispatchAsync(after: Double(hideDelaySec)) { [weak self] in
-//                    player.clear()
-//                    player.videoItem = nil
-//                    self?.emojiPlayEndHandler(self?.emojiContent)
-//                    self?.svagPlayerStatus = .free
-//                }
-//            } else {
-//                player.clear()
-//                player.videoItem = nil
-//                emojiPlayEndHandler(emojiContent)
-//                svagPlayerStatus = .free
-//            }
-//            emojiContent = nil
-//        default:
+        switch svagPlayerStatus {
+        case .playingEmojiGame:
+//            svagPlayerStatus = .playingEmojiGame
+            if let emoji = emojiContent, let hideDelaySec = emoji.hideDelaySec, hideDelaySec > 0 {
+                mainQueueDispatchAsync(after: Double(hideDelaySec)) { [weak self] in
+                    player.clear()
+                    player.videoItem = nil
+                    self?.emojiPlayEndHandler(self?.emojiContent)
+                    self?.svagPlayerStatus = .free
+                }
+            } else {
+                player.clear()
+                player.videoItem = nil
+                emojiPlayEndHandler(emojiContent)
+                svagPlayerStatus = .free
+            }
+            emojiContent = nil
+        default:
             svagPlayerStatus = .free
-//        }
+        }
     }
 }

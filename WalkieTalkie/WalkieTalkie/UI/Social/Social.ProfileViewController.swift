@@ -127,7 +127,7 @@ extension Social {
             layout.sectionInset = UIEdgeInsets(top: 16, left: 0, bottom: 44, right: 0)
             layout.minimumLineSpacing = 20
             let v = UICollectionView(frame: .zero, collectionViewLayout: layout)
-            v.contentInset = UIEdgeInsets(top: 0, left: hInset, bottom: 0, right: hInset)
+            v.contentInset = UIEdgeInsets(top: 0, left: hInset, bottom: isSelfProfile.value ? 0 : 48, right: hInset)
             v.register(FansGroupItemCell.self, forCellWithReuseIdentifier: NSStringFromClass(FansGroupItemCell.self))
             v.register(FansGroupSelfItemCell.self, forCellWithReuseIdentifier: NSStringFromClass(FansGroupSelfItemCell.self))
             v.register(cellWithClass: ProfileTableCell.self)
@@ -374,9 +374,9 @@ private extension Social.ProfileViewController {
             Settings.shared.amongChatAvatarListShown.replay()
                 .subscribe(onNext: { [weak self] (ts) in
                     if let _ = ts {
-                        self?.headerView.changeIcon.redDotOff()
+                        self?.headerView.changeIcon.badgeOff()
                     } else {
-                        self?.headerView.changeIcon.redDotOn(rightInset: -2, diameter: 8)
+                        self?.headerView.changeIcon.badgeOn(hAlignment: .tailByTail(-2), diameter: 8, borderWidth: 0, borderColor: nil)
                     }
                 })
                 .disposed(by: bag)

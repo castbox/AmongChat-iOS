@@ -201,6 +201,17 @@ extension URI {
         
     }
     
+    struct AllNotice: URIRepresentable {
+        static func patterns() -> [String] {
+            return [
+                "/allNotice",
+            ]
+        }
+        
+        init?(_ paras: [String : Any]) {
+        }
+    }
+    
     struct Undefined: URIRepresentable {
         
         static func patterns() -> [String] {

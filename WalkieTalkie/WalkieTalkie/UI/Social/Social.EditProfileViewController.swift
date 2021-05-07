@@ -28,9 +28,9 @@ extension Social {
             tapGR.addTarget(self, action: #selector(onAvatarTapped))
             iv.isUserInteractionEnabled = true
             iv.addGestureRecognizer(tapGR)
-            if Config.environment == .debug {
-                iv.backgroundColor = UIColor(hex6: 0x0EC099, alpha: 1.0)
-            }
+//            if Config.environment == .debug {
+//                iv.backgroundColor = UIColor(hex6: 0x0EC099, alpha: 1.0)
+//            }
             return iv
         }()
         
@@ -176,9 +176,9 @@ private extension Social.EditProfileViewController {
         Settings.shared.amongChatAvatarListShown.replay()
             .subscribe(onNext: { [weak self] (ts) in
                 if let _ = ts {
-                    self?.randomIconIV.redDotOff()
+                    self?.randomIconIV.badgeOff()
                 } else {
-                    self?.randomIconIV.redDotOn(rightInset: -2, diameter: 8)
+                    self?.randomIconIV.badgeOn(hAlignment: .tailByTail(-2), diameter: 8, borderWidth: 0, borderColor: nil)
                 }
             })
             .disposed(by: bag)

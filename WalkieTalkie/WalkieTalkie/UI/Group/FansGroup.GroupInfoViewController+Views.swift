@@ -229,7 +229,11 @@ extension FansGroup.GroupInfoViewController {
             
             guard !expanded,
                   groupInfo?.description?.count ?? 0 > descriptionLength else {
-                descriptionLabel.text = groupInfo?.description
+                descriptionLabel.attributedText = NSMutableAttributedString(string: String(groupInfo?.description ?? ""),
+                                                                            attributes: [
+                                                                                .font : descriptionLabel.font,
+                                                                                .foregroundColor: descriptionLabel.textColor
+                                                                            ])
                 return
             }
             

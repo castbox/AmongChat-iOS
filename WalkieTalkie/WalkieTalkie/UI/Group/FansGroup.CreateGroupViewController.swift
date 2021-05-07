@@ -77,9 +77,6 @@ extension FansGroup.CreateGroupViewController {
                 hudRemoval()
             })
             .subscribe(onSuccess: { [weak self] (group) in
-                #if DEBUG
-                Defaults[\.testGroup] = group.asString
-                #endif
                 FansGroup.GroupUpdateNotification.publishNotificationOf(group: group, action: .added)
                 let vc = FansGroup.AddMemberController(groupId: group.gid, group)
                 vc.isEnableScreenEdgeGesture = false

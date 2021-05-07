@@ -36,6 +36,7 @@ extension AmongChat.Home {
             setupLayout()
             setupViewControllers()
             setupEvent()
+            InstalledChecker.default.update()
         }
         
         func dismissNotificationBanner() {

@@ -161,6 +161,11 @@ extension Entity {
             loginUserIsAdmin ? .broadcaster : .audience
         }
         
+        //开播
+        var isLiving: Bool {
+            status == 1
+        }
+        
         var userList: [Entity.RoomUser] {
             get {
                 guard let l = aliasUserList else {

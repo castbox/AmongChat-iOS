@@ -1,4 +1,5 @@
 Willkommen in der Voice-Chat-App AmongChat!
-Für alle verifizierten Benutzer können Sie jetzt Ihre eigene AmongChat-Gruppe erstellen!
-Lassen Sie sich verifizieren und erstellen Sie einen exklusiven Kanal für Ihre Gruppe.
+In dieser Version optimieren und verbessern wir die Berichtsfunktion weiter.
+Superadministratoren und Monitore sind eher berechtigt, eine strengere Aufsicht über die Community auszuüben.
+Wir arbeiten kontinuierlich daran, allen Benutzern eine gesunde und sichere Community zu bieten.
 Finden und sprechen Sie mit Ihren Freunden, spielen zusammen und viel Spaß!

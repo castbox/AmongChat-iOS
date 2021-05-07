@@ -322,7 +322,7 @@ extension FansGroup.Views {
             
             memberIcon.snp.makeConstraints { (maker) in
                 maker.bottom.equalTo(topicView).offset(-1.5)
-                maker.trailing.equalTo(-53)
+                maker.trailing.equalTo(memberCountLabel.snp.leading).offset(-1.5)
             }
             
             memberCountLabel.snp.makeConstraints { (maker) in

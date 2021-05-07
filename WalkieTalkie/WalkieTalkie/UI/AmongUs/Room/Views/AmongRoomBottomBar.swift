@@ -125,7 +125,7 @@ class AmongRoomBottomBar: XibLoadableView {
     func update(_ room: RoomDetailable) {
         self.room = room
         if room.isGroup {
-            emojiButton.isHidden = true
+            emojiButton.isHidden = !room.loginUserIsAdmin && room.loginUserSeatNo == -1
         } else {
             emojiButton.isHidden = room.topicType != .chilling
         }

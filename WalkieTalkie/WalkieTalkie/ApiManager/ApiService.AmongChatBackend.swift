@@ -93,6 +93,7 @@ extension APIService {
         case deleteGroup([String : Any])
         case handleGroupApply([String: Any])
         case kickMemberFromGroup([String : Any])
+        case groupStatus([String : Any])
         
         //report
         case reportReasons
@@ -104,6 +105,11 @@ extension APIService {
         case adminUnmuteIm([String: Any])
         case roomMuteInfo([String: Any])
         
+        case noticeCheck([String : Any])
+        case peerMessage([String : Any])
+        case globalMessage([String : Any])
+        case myGroupApplyStat
+        case updateInstalledGames([String: Any])
     }
 }
 
@@ -275,6 +281,8 @@ extension APIService.AmongChatBackend: TargetType {
             return "/api/v1/group/leave"
         case .applyToJoinGroup:
             return "/api/v1/group/apply"
+        case .groupStatus:
+            return "/api/v1/group"
         case .deleteGroup:
             return "/api/v1/group"
         case .handleGroupApply:
@@ -297,6 +305,16 @@ extension APIService.AmongChatBackend: TargetType {
             return "/api/v1/rooms/im/unmute"
         case .roomMuteInfo:
             return "/api/v1/rooms/mute/info"
+        case .noticeCheck:
+            return "/api/v1/notice/check"
+        case .peerMessage:
+            return "/api/v1/peer/message/list"
+        case .globalMessage:
+            return "/api/v1/global/message/list"
+        case .myGroupApplyStat:
+            return "/api/v1/my/group/apply/stat"
+        case .updateInstalledGames:
+            return "/account/games"
         }
     }
     
@@ -331,6 +349,7 @@ extension APIService.AmongChatBackend: TargetType {
              .adminUnmuteMic,
              .adminMuteIm,
              .adminUnmuteIm,
+             .updateInstalledGames,
              .logout:
             return .post
             
@@ -382,9 +401,14 @@ extension APIService.AmongChatBackend: TargetType {
              .groupAppliedUserList,
              .groupMemberList,
              .groupInfo,
+             .groupStatus,
              .leaveGroup,
              .reportReasons,
              .roomMuteInfo,
+             .noticeCheck,
+             .peerMessage,
+             .globalMessage,
+             .myGroupApplyStat,
              .shareUserSign:
             return .get
         case .follow:
@@ -422,6 +446,7 @@ extension APIService.AmongChatBackend: TargetType {
              .globalSetting,
              .gameSkills,
              .reportReasons,
+             .myGroupApplyStat,
              .shareUserSign:
             return .requestParameters(parameters: [:], encoding: URLEncoding.default)
             
@@ -439,6 +464,7 @@ extension APIService.AmongChatBackend: TargetType {
              .adminUnmuteMic(let params),
              .adminMuteIm(let params),
              .adminUnmuteIm(let params),
+             .updateInstalledGames(let params),
              .updateDevice(let params):
             return .requestParameters(parameters: params, encoding: JSONEncoding.default)
             
@@ -493,11 +519,15 @@ extension APIService.AmongChatBackend: TargetType {
              .groupRoomInviteUser(let params),
              .groupInfo(let params),
              .groupRoomInviteFriends(let params),
+             .groupStatus(let params),
              .leaveGroup(let params),
              .applyToJoinGroup(let params),
              .handleGroupApply(let params),
              .deleteGroup(let params),
              .roomMuteInfo(let params),
+             .noticeCheck(let params),
+             .peerMessage(let params),
+             .globalMessage(let params),
              .unFollow(let params):
             return .requestParameters(parameters: params, encoding: URLEncoding.queryString)
             
