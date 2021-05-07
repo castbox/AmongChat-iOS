@@ -106,6 +106,7 @@ extension Entity {
         var decoPetId: Int?
         var inGroup: Bool?
         var followersCount: Int?
+        var online: Bool?
 
         var role: Int?
         
@@ -178,6 +179,7 @@ extension Entity {
             case inGroup = "in_group"
             case followersCount = "followers_count"
             case role
+            case online
         }
     }
     

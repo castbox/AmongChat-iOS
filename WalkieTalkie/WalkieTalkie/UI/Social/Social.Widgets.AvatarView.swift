@@ -101,3 +101,63 @@ extension Social.Widgets {
     }
     
 }
+
+extension Social.Widgets {
+    
+    class OnlineStatusView: UIView {
+        
+        private lazy var icon: UIImageView = {
+            let i = UIImageView(image: R.image.online())
+            return i
+        }()
+        
+        private lazy var label: UILabel = {
+            let l = UILabel()
+            l.font = R.font.nunitoBold(size: 14)
+            l.textColor = UIColor(hex6: 0xFFFFFF)
+            l.text = R.string.localizable.socialStatusOnline()
+            return l
+        }()
+        
+        override init(frame: CGRect) {
+            super.init(frame: frame)
+            setUpLayout()
+        }
+        
+        required init?(coder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
+        }
+        
+        override func layoutSubviews() {
+            super.layoutSubviews()
+            layer.cornerRadius = bounds.height / 2
+        }
+        
+        private func setUpLayout() {
+            
+            backgroundColor = UIColor(hex6: 0x222222)
+            clipsToBounds = true
+            
+            let layout = UILayoutGuide()
+            addLayoutGuide(layout)
+            layout.snp.makeConstraints { (maker) in
+                maker.edges.equalToSuperview()
+                maker.height.equalTo(24)
+            }
+            
+            addSubviews(views: icon, label)
+            icon.snp.makeConstraints { (maker) in
+                maker.width.height.equalTo(16)
+                maker.leading.equalToSuperview().offset(8)
+                maker.centerY.equalToSuperview()
+            }
+            
+            label.snp.makeConstraints { (maker) in
+                maker.leading.equalTo(icon.snp.trailing).offset(2)
+                maker.trailing.equalToSuperview().offset(-8)
+                maker.centerY.equalToSuperview()
+            }
+        }
+    }
+    
+}

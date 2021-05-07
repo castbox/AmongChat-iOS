@@ -216,7 +216,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 211 images.
+  /// This `R.image` struct is generated, and contains static references to 212 images.
   struct image {
     /// Image `ac_add_stats_add`.
     static let ac_add_stats_add = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_add_stats_add")
@@ -630,6 +630,8 @@ struct R: Rswift.Validatable {
     static let launch_name = Rswift.ImageResource(bundle: R.hostingBundle, name: "launch_name")
     /// Image `logo_snapchat`.
     static let logo_snapchat = Rswift.ImageResource(bundle: R.hostingBundle, name: "logo_snapchat")
+    /// Image `online`.
+    static let online = Rswift.ImageResource(bundle: R.hostingBundle, name: "online")
     /// Image `profile_avatar_random_btn`.
     static let profile_avatar_random_btn = Rswift.ImageResource(bundle: R.hostingBundle, name: "profile_avatar_random_btn")
     /// Image `profile_block_users`.
@@ -1669,6 +1671,11 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "logo_snapchat", bundle: ..., traitCollection: ...)`
     static func logo_snapchat(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.logo_snapchat, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "online", bundle: ..., traitCollection: ...)`
+    static func online(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.online, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "profile_avatar_random_btn", bundle: ..., traitCollection: ...)`

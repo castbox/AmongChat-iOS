@@ -137,6 +137,7 @@ extension Social.ProfileViewController {
                 .subscribe(onNext: { [weak self]() in
                     self?.headerHandle?(.customize)
                 }).disposed(by: bag)
+            btn.isHidden = !isSelf
             return btn
         }()
                 
@@ -151,6 +152,7 @@ extension Social.ProfileViewController {
         
         private(set) lazy var changeIcon: UIImageView = {
             let iv = UIImageView(image: R.image.profile_avatar_random_btn())
+            iv.isHidden = !isSelf
             return iv
         }()
                 
@@ -168,6 +170,12 @@ extension Social.ProfileViewController {
             lb.font = R.font.nunitoExtraBold(size: 16)
             lb.textColor = "#898989".color()
             return lb
+        }()
+        
+        private lazy var onlineStatusView: Social.Widgets.OnlineStatusView = {
+            let o = Social.Widgets.OnlineStatusView()
+            o.isHidden = true
+            return o
         }()
         
         private lazy var followingBtn: VerticalTitleButton = {
@@ -209,6 +217,7 @@ extension Social.ProfileViewController {
             let btn = WalkieButton(type: .custom)
             btn.addTarget(self, action: #selector(onEditBtn), for: .primaryActionTriggered)
             btn.setImage(R.image.ac_profile_edit(), for: .normal)
+            btn.isHidden = !isSelf
             return btn
         }()
         
@@ -276,12 +285,12 @@ extension Social.ProfileViewController {
             currentName = nameLabel.text ?? ""
             uidLabel.text = "ID: \(profile.uid)"
             avatarIV.updateAvatar(with: profile)
-            if isSelf {
-                editBtn.isHidden = false
-            }
             profile.decorations.forEach({ (deco) in
                 skinView.updateLook(deco)
             })
+            if !isSelf {
+                onlineStatusView.isHidden = !(profile.online ?? false)
+            }
         }
         
         func setProfileData(_ model: Entity.RoomUser) {
@@ -377,7 +386,7 @@ extension Social.ProfileViewController {
                     .disposed(by: bag)
             }
 
-            infoContainer.addSubviews(views: avatarIV, changeIcon, editBtn, relationContainer, redCountLabel)
+            infoContainer.addSubviews(views: avatarIV, changeIcon, relationContainer, redCountLabel)
 
             followingBtn.snp.makeConstraints { (maker) in
                 maker.leading.top.bottom.equalToSuperview()
@@ -414,10 +423,6 @@ extension Social.ProfileViewController {
 
             setCommonLayout()
             
-            if !isSelf {
-                setLayoutForOther()
-            }
-            
             let tap = UITapGestureRecognizer()
             tap.numberOfTapsRequired = 5
             nameLabel.isUserInteractionEnabled = true
@@ -447,24 +452,44 @@ extension Social.ProfileViewController {
             infoContainer.snp.makeConstraints { maker in
                 maker.leading.equalTo(avatarIV.snp.trailing).offset(16)
                 maker.centerY.equalTo(avatarIV)
-                maker.trailing.equalTo(-56)
+                maker.trailing.equalToSuperview()
             }
             infoContainer.addSubviews(views: nameLabel, uidLabel)
             
-            nameLabel.snp.makeConstraints { (maker) in
-                maker.top.leading.trailing.equalToSuperview()
+            if isSelf {
+                
+                infoContainer.addSubview(editBtn)
+                
+                editBtn.snp.makeConstraints { (maker) in
+                    maker.trailing.equalTo(-20)
+                    maker.centerY.equalTo(nameLabel.snp.centerY)
+                    maker.width.equalTo(28)
+                    maker.height.equalTo(27)
+                }
+                
+                nameLabel.snp.makeConstraints { (maker) in
+                    maker.top.leading.equalToSuperview()
+                    maker.trailing.lessThanOrEqualTo(editBtn.snp.leading).offset(-20)
+                }
+                
+            } else {
+                nameLabel.snp.makeConstraints { (maker) in
+                    maker.top.leading.equalToSuperview()
+                    maker.trailing.lessThanOrEqualToSuperview().offset(-20)
+                }
+                
+                infoContainer.addSubview(onlineStatusView)
+                onlineStatusView.snp.makeConstraints { (maker) in
+                    maker.centerY.equalTo(uidLabel)
+                    maker.trailing.equalToSuperview().offset(-20)
+                    maker.leading.greaterThanOrEqualTo(uidLabel.snp.trailing).offset(20)
+                }
             }
-
+            
             uidLabel.snp.makeConstraints { (maker) in
                 maker.top.equalTo(nameLabel.snp.bottom).offset(6)
                 maker.leading.bottom.equalToSuperview()
             }
-
-            editBtn.snp.makeConstraints { (maker) in
-                maker.trailing.equalTo(-20)
-                maker.centerY.equalTo(nameLabel.snp.centerY)
-            }
-            editBtn.isHidden = true
             
             relationContainer.snp.makeConstraints { maker in
                 maker.leading.trailing.equalToSuperview()
@@ -478,13 +503,6 @@ extension Social.ProfileViewController {
                 make.width.greaterThanOrEqualTo(30)
             }
         }
-        
-        private func setLayoutForOther() {
-            editBtn.isHidden = true
-            changeIcon.isHidden = true
-            customizeBtn.isHidden = true
-        }
-        
         
         @objc private func onEditBtn() {
             headerHandle?(.edit)
