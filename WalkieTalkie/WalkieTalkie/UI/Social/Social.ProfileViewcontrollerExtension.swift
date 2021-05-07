@@ -172,7 +172,7 @@ extension Social.ProfileViewController {
             return lb
         }()
         
-        private lazy var onlineStatusView: Social.Widgets.OnlineStatusView = {
+        private(set) lazy var onlineStatusView: Social.Widgets.OnlineStatusView = {
             let o = Social.Widgets.OnlineStatusView()
             o.isHidden = true
             return o
@@ -288,9 +288,6 @@ extension Social.ProfileViewController {
             profile.decorations.forEach({ (deco) in
                 skinView.updateLook(deco)
             })
-            if !isSelf {
-                onlineStatusView.isHidden = !(profile.online ?? false)
-            }
         }
         
         func setProfileData(_ model: Entity.RoomUser) {

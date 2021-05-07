@@ -355,6 +355,21 @@ private extension Social.ProfileViewController {
             }, onError: {(error) in
                 cdPrint("profilePage error : \(error.localizedDescription)")
             }).disposed(by: bag)
+        
+        if !isSelfProfile.value {
+            Request.userStatus(uid)
+                .subscribe(onSuccess: { [weak self] (status) in
+                    
+                    guard let status = status else { return }
+                    
+                    self?.headerView.onlineStatusView.isHidden = !(status.isOnline ?? false)
+                    
+                }, onError: { (error) in
+                    
+                })
+                .disposed(by: bag)
+
+        }
     }
     
     func loadGameSkills() {

@@ -106,7 +106,6 @@ extension Entity {
         var decoPetId: Int?
         var inGroup: Bool?
         var followersCount: Int?
-        var online: Bool?
 
         var role: Int?
         
@@ -179,7 +178,6 @@ extension Entity {
             case inGroup = "in_group"
             case followersCount = "followers_count"
             case role
-            case online
         }
     }
     
@@ -271,4 +269,23 @@ extension Entity {
         var startTimeStamp: Double?
         
     }
+}
+
+extension Entity {
+    
+    struct UserStatus: Codable {
+        
+        var uid: Int
+        var room: String?
+        var group: String?
+        var isOnline: Bool?
+        
+        private enum CodingKeys: String, CodingKey {
+            case uid
+            case room
+            case group
+            case isOnline = "is_online"
+        }
+    }
+    
 }
