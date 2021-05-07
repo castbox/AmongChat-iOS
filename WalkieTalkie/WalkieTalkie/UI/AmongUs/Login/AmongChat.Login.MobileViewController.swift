@@ -812,6 +812,8 @@ fileprivate extension AmongChat.Login.LoginStyle.AuthNeededSource {
             return R.string.localizable.amongChatLoginAuthTip(R.string.localizable.amongChatLoginAuthSourceProfile())
         case .upgradedToPro:
             return nil
+        case .chat:
+            return R.string.localizable.amongChatLoginAuthTip(R.string.localizable.amongChatLoginAuthSourceChat())
         }
         
     }

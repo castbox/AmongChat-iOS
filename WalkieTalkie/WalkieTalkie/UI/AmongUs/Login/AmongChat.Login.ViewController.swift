@@ -26,6 +26,7 @@ extension AmongChat.Login {
             case editProfile
             case upgradedToPro
             case applyVerified
+            case chat
         }
         
         var loggerSource: String? {
@@ -48,6 +49,9 @@ extension AmongChat.Login {
                     
                 case .applyVerified:
                     return "apply_verify"
+                    
+                case .chat:
+                    return "chat"
                 }
             }
         }
