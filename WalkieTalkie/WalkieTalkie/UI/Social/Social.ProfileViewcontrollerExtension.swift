@@ -896,3 +896,78 @@ extension Social.ProfileViewController {
     }
     
 }
+
+extension Social.ProfileViewController {
+    
+    class LiveCell: UICollectionViewCell {
+        
+        private let bag = DisposeBag()
+        
+        private lazy var coverIV: UIImageView = {
+            let i = UIImageView()
+            i.layer.cornerRadius = 12
+            i.clipsToBounds = true
+            i.contentMode = .scaleAspectFill
+            return i
+        }()
+        
+        private lazy var label: UILabel = {
+            let lb = UILabel()
+            lb.textColor = UIColor(hexString: "#FFFFFF")
+            lb.font = R.font.nunitoExtraBold(size: 16)
+            lb.numberOfLines = 2
+            lb.adjustsFontSizeToFitWidth = true
+            return lb
+        }()
+        
+        private lazy var joinBtn: UIButton = {
+            let btn = UIButton(type: .custom)
+            btn.titleLabel?.font = R.font.nunitoExtraBold(size: 14)
+            btn.setTitleColor(UIColor.black, for: .normal)
+            btn.backgroundColor = UIColor(hex6: 0xFFF000)
+            btn.setTitle(R.string.localizable.socialJoinAction().uppercased(), for: .normal)
+            btn.layer.masksToBounds = true
+            btn.layer.cornerRadius = 16
+            btn.contentEdgeInsets = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
+            btn.setContentHuggingPriority(.required, for: .horizontal)
+            return btn
+        }()
+        
+        override init(frame: CGRect) {
+            super.init(frame: frame)
+            setUpLayout()
+        }
+        
+        required init?(coder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
+        }
+        
+        private func setUpLayout() {
+            backgroundColor = .clear
+            contentView.layer.cornerRadius = 12
+            contentView.backgroundColor = UIColor(hex6: 0x222222)
+
+            contentView.addSubviews(views: coverIV, label, joinBtn)
+            
+            coverIV.snp.makeConstraints { (maker) in
+                maker.leading.top.bottom.equalToSuperview()
+                maker.width.equalTo(coverIV.snp.height)
+            }
+            
+            label.snp.makeConstraints { (maker) in
+                maker.centerY.equalToSuperview()
+                maker.leading.equalTo(coverIV.snp.trailing).offset(12)
+                maker.trailing.equalTo(joinBtn.snp.leading).offset(-12)
+            }
+            
+            joinBtn.snp.makeConstraints { (maker) in
+                maker.trailing.equalToSuperview().offset(-16)
+                maker.centerY.equalToSuperview()
+                maker.height.equalTo(32)
+            }
+            
+        }
+        
+    }
+    
+}
