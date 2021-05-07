@@ -18,7 +18,7 @@ extension Entity {
         var fromUid: Int
         var uid: Int?
         var ms: Int64
-        
+        var isRead: Bool?
         var message: NoticeMessage
         
         enum CodingKeys: String, CodingTableKey {
@@ -32,11 +32,11 @@ extension Entity {
             }
             
             case identifier = "id"
-            
             case fromUid = "from_uid"
             case uid
             case ms
             case message
+            case isRead = "is_read"
         }
         
     }
@@ -54,6 +54,8 @@ extension Entity {
             link = message.link
             objType = message.objType
             objId = message.objId
+            imgWidth = message.imgWidth
+            imgHeight = message.imgHeight
         }
         
         func archivedValue() -> FundamentalValue {
@@ -72,6 +74,8 @@ extension Entity {
         var link: String?
         var objType: String?
         var objId: String?
+        var imgWidth: Int64?
+        var imgHeight: Int64?
         
         enum CodingKeys: String, CodingTableKey {
             typealias Root = NoticeMessage
@@ -95,6 +99,8 @@ extension Entity {
             case link
             case objType = "obj_type"
             case objId = "obj_id"
+            case imgWidth = "img_width"
+            case imgHeight = "img_height"
         }
         
         enum MessageType: String {

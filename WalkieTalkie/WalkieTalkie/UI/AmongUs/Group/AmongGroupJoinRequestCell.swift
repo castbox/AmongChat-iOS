@@ -69,7 +69,7 @@ class AmongGroupJoinRequestCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func bind(_ profile: Entity.UserProfile?, showFollowsCount: Bool = false) {
+    func bind(_ profile: Entity.UserProfile?, showFollowsCount: Bool = false, verifyStayle: AvatarImageView.VerifyIconStyle = .gray) {
         self.profile = profile
         guard let profile = profile else {
             return
@@ -77,6 +77,7 @@ class AmongGroupJoinRequestCell: UITableViewCell {
         userView.bind(viewModel: profile, showFollowersCount: showFollowsCount) {
             
         }
+        userView.setVerifyIcon(style: verifyStayle)
     }
     
     func bindSubviewEvent() {

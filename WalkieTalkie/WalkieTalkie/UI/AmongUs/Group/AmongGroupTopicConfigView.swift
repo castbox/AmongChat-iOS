@@ -40,7 +40,7 @@ class AmongGroupTopicConfigView: XibLoadableView {
         label.backgroundColor = .clear
         label.type = .continuous
         label.fadeLength = 20
-        label.speed = .duration(12)
+        label.speed = .rate(24)
         label.animationDelay = 0
         return label
     }()

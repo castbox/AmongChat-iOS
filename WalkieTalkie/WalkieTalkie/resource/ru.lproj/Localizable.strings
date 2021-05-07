@@ -504,3 +504,6 @@
 "among.chat.notice.group.requests" = "Групповые запросы";
 "among.chat.notice.click.to.go" = "Нажмите, чтобы перейти";
 "among.chat.notice.empty.tip" = "Ой, здесь пока ничего нет.";
+
+"group.dismissed.tips" = "Извините, администратор закрыл группу.";
+

@@ -413,7 +413,7 @@ extension Social {
             avatarIV.setAvatarImage(with: model.pictureUrl)
             usernameLabel.attributedText = model.nameWithVerified(isShowVerify: false)
             avatarIV.isVerify = model.isVerified
-            avatarIV.verifyIconStyle = .gray
+            avatarIV.setVerifyIcon(style: .gray)
             if userInfo.inGroup ?? false {
                 grayInGroupStyle()
             } else if userInfo.invited ?? false {

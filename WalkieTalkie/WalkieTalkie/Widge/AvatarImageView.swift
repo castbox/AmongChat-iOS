@@ -36,11 +36,7 @@ class AvatarImageView: UIView {
         }
     }
     
-    var verifyIconStyle: VerifyIconStyle = .gray {
-        didSet {
-            verifyIV.image = verifyIconStyle == .gray ? R.image.iconVerifyGrayBorder() : R.image.iconVerifyBlackBorder()
-        }
-    }
+//    var verifyIconStyle: VerifyIconStyle = .gray
     
     static var placeholder: UIImage?
     
@@ -49,7 +45,7 @@ class AvatarImageView: UIView {
         get { avatarIV.image }
     }
     
-    init(_ verifyStyle: VerifyIconStyle = .gray) {
+    init(_ verifyStyle: VerifyIconStyle = .black) {
 //        self.verifyIconStyle = verifyStyle
         super.init(frame: .zero)
         backgroundColor = .clear
@@ -58,7 +54,8 @@ class AvatarImageView: UIView {
             maker.edges.equalToSuperview()
         }
         
-        verifyIconStyle = verifyStyle
+        setVerifyIcon(style: verifyStyle)
+//        verifyIconStyle = verifyStyle
 //        verifyIV.image = verifyStyle == .gray ? R.image.iconVerifyGrayBorder() : R.image.iconVerifyBlackBorder()
         verifyIV.snp.makeConstraints { maker in
             maker.top.equalTo(-2)
@@ -90,5 +87,10 @@ class AvatarImageView: UIView {
  
     func setAvatarImage(with urlString: String?) {
         avatarIV.setImage(with: urlString, placeholder: R.image.ac_profile_avatar())
+    }
+    
+    func setVerifyIcon(style: VerifyIconStyle) {
+//        self.verifyIconStyle = verifyIconStyle
+        verifyIV.image = style == .gray ? R.image.iconVerifyGrayBorder() : R.image.iconVerifyBlackBorder()
     }
 }

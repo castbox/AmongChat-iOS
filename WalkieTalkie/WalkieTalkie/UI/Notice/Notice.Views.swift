@@ -169,22 +169,28 @@ extension Notice.Views {
             
             var containerHeight: CGFloat = 0
             
-            let titleHeight: CGFloat = notice.message.title?.height(forConstrainedWidth: cellWidth - textHPadding * 2, font: Self.titleFont) ?? 0
-            let txtHeight: CGFloat = notice.message.text?.height(forConstrainedWidth: cellWidth - textHPadding * 2, font: Self.textFont) ?? 0
+            let message = notice.message
+            
+            let titleHeight: CGFloat = message.title?.height(forConstrainedWidth: cellWidth - textHPadding * 2, font: Self.titleFont) ?? 0
+            let txtHeight: CGFloat = message.text?.height(forConstrainedWidth: cellWidth - textHPadding * 2, font: Self.textFont) ?? 0
             
             let titleAreaHeight: CGFloat = titleHeight > 0 ? titleTopPadding + titleHeight : 0
             let txtAreaHeight: CGFloat = txtHeight > 0 ? messageTopPadding + txtHeight + messageBodyBottomPadding : 0
             
             containerHeight = titleAreaHeight + txtAreaHeight
             
-            switch notice.message.messageType {
+            switch message.messageType {
             
             case .TxtMsg:
                 ()
                 
             case .ImgMsg, .ImgTxtMsg:
-                
-                containerHeight = containerHeight + aboveTextImageHeight
+                if let imgWidth = message.imgWidth?.cgFloat, let imgHeight = message.imgHeight?.cgFloat {
+                    //height
+                    containerHeight = containerHeight + imgHeight * cellWidth / imgWidth
+                } else {
+                    containerHeight = containerHeight + aboveTextImageHeight
+                }
                 
             case .TxtImgMsg:
                 
@@ -374,9 +380,18 @@ extension Notice.Views {
                 aboveTextImageView.isHidden = false
                 belowTextImageView.image = nil
                 belowTextImageView.isHidden = true
+                
+                var imageHeight: CGFloat {
+                    if let imgWidth = notice.message.imgWidth?.cgFloat, let imgHeight = notice.message.imgHeight?.cgFloat {
+                        //height
+                        return imgHeight * Notice.Views.SystemMessageCell.cellWidth / imgWidth
+                    } else {
+                        return Self.aboveTextImageHeight
+                    }
+                }
                 aboveTextImageView.snp.remakeConstraints { (maker) in
                     maker.leading.top.trailing.equalToSuperview()
-                    maker.height.equalTo(Self.aboveTextImageHeight)
+                    maker.height.equalTo(imageHeight)
                 }
 
             case .TxtImgMsg:

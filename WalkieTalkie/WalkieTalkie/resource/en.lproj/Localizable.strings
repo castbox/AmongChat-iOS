@@ -504,3 +504,5 @@
 "among.chat.notice.group.requests" = "Group Requests";
 "among.chat.notice.click.to.go" = "Click to Go";
 "among.chat.notice.empty.tip" = "Oops, nothing here yet.";
+
+"group.dismissed.tips" = "Sorry, the admin has dismissed the group.";

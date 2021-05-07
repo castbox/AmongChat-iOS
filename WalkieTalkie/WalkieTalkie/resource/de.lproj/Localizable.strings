@@ -498,9 +498,12 @@
 //1.19
 "among.chat.group.admin.invitation.msg" = "Ich habe gerade eine neue Sitzung für die Gruppe %@ gestartet";
 "enter.closed.group.room.tips" = "Die Gruppensitzung ist beendet. Bitte versuchen Sie es später erneut.";
-"among.chat.notice.all.notice.title" = "Beachten";
+"among.chat.notice.all.notice.title" = "Benachrichtigung";
 "among.chat.notice.system" = "System";
 "among.chat.notice.social" = "Sozial";
 "among.chat.notice.group.requests" = "Gruppenanfragen";
 "among.chat.notice.click.to.go" = "Klicken Sie, um zu gehen";
 "among.chat.notice.empty.tip" = "Ups, noch nichts hier.";
+
+"group.dismissed.tips" = "Entschuldigung, der Administrator hat die Gruppe entlassen.";
+

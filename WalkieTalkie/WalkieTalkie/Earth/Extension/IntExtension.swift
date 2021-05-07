@@ -92,6 +92,20 @@ extension UInt {
     }
 }
 
+extension Int64 {
+    var string: String {
+        return String(self)
+    }
+    
+    var cgFloat: CGFloat {
+        return CGFloat(self)
+    }
+    
+    var numberValue: NSNumber {
+        return NSNumber(value: self)
+    }
+}
+
 extension Int32 {
     var int: Int {
         return Int(self)
