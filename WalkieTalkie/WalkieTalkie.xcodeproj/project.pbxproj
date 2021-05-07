@@ -27,6 +27,7 @@
 		26430FD9263803E40096177B /* Notice.Views.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26430FD8263803E40096177B /* Notice.Views.swift */; };
 		264A076325B6FE67001F998E /* AmongChat.Login.SmsCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 264A076225B6FE67001F998E /* AmongChat.Login.SmsCodeViewController.swift */; };
 		264CCE5F2639307600D5410C /* Notice.NoticeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 264CCE5E2639307600D5410C /* Notice.NoticeViewModel.swift */; };
+		2656752D2645029A004D77D6 /* SampleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2656752C2645029A004D77D6 /* SampleViewController.swift */; };
 		265E53E9262DBC70003500D0 /* FansGroup.Views.GroupCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = 265E53E8262DBC70003500D0 /* FansGroup.Views.GroupCells.swift */; };
 		265FB7C725B690A7004987AB /* mobileRegions.json in Resources */ = {isa = PBXBuildFile; fileRef = 265FB7C625B690A7004987AB /* mobileRegions.json */; };
 		265FB7CB25B69C3A004987AB /* AmongChat.Login.MobileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 265FB7CA25B69C3A004987AB /* AmongChat.Login.MobileViewController.swift */; };
@@ -431,6 +432,7 @@
 		26430FD8263803E40096177B /* Notice.Views.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notice.Views.swift; sourceTree = "<group>"; };
 		264A076225B6FE67001F998E /* AmongChat.Login.SmsCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChat.Login.SmsCodeViewController.swift; sourceTree = "<group>"; };
 		264CCE5E2639307600D5410C /* Notice.NoticeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notice.NoticeViewModel.swift; sourceTree = "<group>"; };
+		2656752C2645029A004D77D6 /* SampleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleViewController.swift; sourceTree = "<group>"; };
 		265E53E8262DBC70003500D0 /* FansGroup.Views.GroupCells.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FansGroup.Views.GroupCells.swift; sourceTree = "<group>"; };
 		265FB7C625B690A7004987AB /* mobileRegions.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = mobileRegions.json; sourceTree = "<group>"; };
 		265FB7CA25B69C3A004987AB /* AmongChat.Login.MobileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChat.Login.MobileViewController.swift; sourceTree = "<group>"; };
@@ -1467,6 +1469,7 @@
 		FECA43B42459A8360075D139 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				2656752C2645029A004D77D6 /* SampleViewController.swift */,
 				26A3D0E126366AFD00DD4F53 /* Notice */,
 				26F414952611BB56003ED5BE /* Group */,
 				BD6C36EA256E516900D1E708 /* AmongUs */,
@@ -2053,6 +2056,7 @@
 				FE6AF8582457E03500FD474A /* RxKeyboard.swift in Sources */,
 				FEE8502F259B31DF00CF9A74 /* JoinRoomable.swift in Sources */,
 				FE0D1A292448A06200518793 /* UIViewExtension.swift in Sources */,
+				2656752D2645029A004D77D6 /* SampleViewController.swift in Sources */,
 				BD8B4E57257E1E5000BE6520 /* IMManager.swift in Sources */,
 				FE72186F2456D696005274CA /* MJMaterialSwitch.swift in Sources */,
 				BDC06EEF24F51E780016770D /* Social.EditProfileViewController.swift in Sources */,

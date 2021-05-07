@@ -234,6 +234,7 @@ extension AmongChat.Home.MainTabController {
     enum Tab: CaseIterable {
         case topics
         case friends
+        case messages
         
         var viewController: UIViewController {
             
@@ -244,7 +245,7 @@ extension AmongChat.Home.MainTabController {
                 item.image = R.image.ac_home_topic_tab_normal()
                 item.selectedImage = R.image.ac_home_topic_tab_selected()
                 item.imageInsets = UIEdgeInsets(top: 6.5, left: 0, bottom: -6.5, right: 0)
-                item.titlePositionAdjustment = UIOffset(horizontal: 10, vertical: 6.5)
+                item.titlePositionAdjustment = UIOffset(horizontal: 0, vertical: 6.5)
                 let anim = AmongChat.Home.MainTabItemAnimation()
                 anim.selectedImage = R.image.ac_home_topic_tab_selected()
                 anim.normalImage = R.image.ac_home_topic_tab_normal()
@@ -258,7 +259,7 @@ extension AmongChat.Home.MainTabController {
                 let item = RAMAnimatedTabBarItem()
                 item.image = R.image.ac_home_friends_tab_normal()
                 item.imageInsets = UIEdgeInsets(top: 6.5, left: 0, bottom: -6.5, right: 0)
-                item.titlePositionAdjustment = UIOffset(horizontal: -10, vertical: 6.5)
+                item.titlePositionAdjustment = UIOffset(horizontal: 0, vertical: 6.5)
                 let anim = AmongChat.Home.MainTabItemAnimation()
                 anim.selectedImage = R.image.ac_home_friends_tab_selected()
                 anim.normalImage = R.image.ac_home_friends_tab_normal()
@@ -266,6 +267,21 @@ extension AmongChat.Home.MainTabController {
                 relationVC.tabBarItem = item
                 relationVC.loadViewIfNeeded()
                 let nav = NavigationViewController(rootViewController: relationVC)
+                nav.tabBarItem = item
+                return nav
+                
+            case .messages:
+                let vc = SampleViewController()
+                let item = RAMAnimatedTabBarItem()
+                item.image = R.image.ac_home_messge_tab_normal()
+                item.imageInsets = UIEdgeInsets(top: 6.5, left: 0, bottom: -6.5, right: 0)
+                item.titlePositionAdjustment = UIOffset(horizontal: 0, vertical: 6.5)
+                let anim = AmongChat.Home.MainTabItemAnimation()
+                anim.selectedImage = R.image.ac_home_messge_tab_selected()
+                anim.normalImage = R.image.ac_home_messge_tab_normal()
+                item.animation = anim
+                vc.tabBarItem = item
+                let nav = NavigationViewController(rootViewController: vc)
                 nav.tabBarItem = item
                 return nav
             }
