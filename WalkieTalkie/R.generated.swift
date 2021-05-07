@@ -2180,7 +2180,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
     
-    /// This `R.string.localizable` struct is generated, and contains static references to 440 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 441 localization keys.
     struct localizable {
       /// en translation:  Congratulations!
       /// 
@@ -2414,6 +2414,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let chatroomMessageSystemChangeToPublic = Rswift.StringResource(key: "chatroom.message.system.change.to.public", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Chat
+      /// 
+      /// Locales: en
+      static let amongChatProfileChat = Rswift.StringResource(key: "among.chat.profile.chat", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Chat Language
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -4347,6 +4351,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func chatroomMessageSystemChangeToPublic(_: Void = ()) -> String {
         return NSLocalizedString("chatroom.message.system.change.to.public", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Chat
+      /// 
+      /// Locales: en
+      static func amongChatProfileChat(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.profile.chat", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Chat Language

@@ -75,14 +75,42 @@ extension Social {
             return btn
         }()
         
+        private lazy var chatButton: UIButton = {
+            let btn = UIButton()
+            btn.layer.borderColor = UIColor(hex6: 0xFFF000).cgColor
+            btn.layer.borderWidth = 2
+            btn.titleLabel?.font = R.font.nunitoExtraBold(size: 20)
+            btn.layer.cornerRadius = 24
+            btn.setTitleColor(UIColor(hex6: 0xFFF000), for: .normal)
+            btn.setTitle(R.string.localizable.amongChatProfileChat(), for: .normal)
+            btn.rx.tap
+                .subscribe(onNext: { () in
+                    //TODO: - Chat
+                }).disposed(by: bag)
+            btn.isHidden = true
+            return btn
+        }()
+
+        
         private lazy var bottomGradientView: GradientView = {
-            let v = Social.ChooseGame.bottomGradientView()
-            v.addSubviews(views: followButton)
-            followButton.snp.makeConstraints { (maker) in
-                maker.centerX.equalToSuperview()
+            let v = GradientView()
+            let l = v.layer
+            l.colors = [UIColor(hex6: 0x121212, alpha: 0).cgColor, UIColor(hex6: 0x121212, alpha: 0.18).cgColor, UIColor(hex6: 0x121212, alpha: 0.57).cgColor, UIColor(hex6: 0x121212).cgColor]
+            l.startPoint = CGPoint(x: 0.5, y: 0)
+            l.endPoint = CGPoint(x: 0.5, y: 0.4)
+            l.locations = [0, 0.3, 0.6, 1]
+            v.addSubviews(views: chatButton, followButton)
+            chatButton.snp.makeConstraints { (maker) in
+                maker.leading.equalTo(20)
                 maker.bottom.equalTo(-33)
                 maker.height.equalTo(48)
-                maker.leading.equalTo(20)
+            }
+            followButton.snp.makeConstraints { (maker) in
+                maker.bottom.equalTo(-33)
+                maker.height.equalTo(48)
+                maker.leading.equalTo(chatButton.snp.trailing).offset(20)
+                maker.trailing.equalTo(-20)
+                maker.width.equalTo(chatButton.snp.width)
             }
             v.isHidden = true
             return v
@@ -640,6 +668,7 @@ private extension Social.ProfileViewController {
             yellowFollowButton()
         }
         followButton.isHidden = false
+        chatButton.isHidden = false
     }
     
     private func greyFollowButton() {
