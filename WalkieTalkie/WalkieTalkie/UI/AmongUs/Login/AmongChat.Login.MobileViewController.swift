@@ -36,7 +36,7 @@ extension AmongChat.Login {
                 btn.addTarget(self, action: #selector(onCLoseBtn), for: .primaryActionTriggered)
                 btn.setImage(R.image.ac_profile_close()?.withRenderingMode(.alwaysTemplate), for: .normal)
                 btn.tintColor = .white
-            case .authNeeded, .unlockPro, .applyVerify:
+            case .authNeeded:
                 btn.addTarget(self, action: #selector(onCLoseBtn), for: .primaryActionTriggered)
                 btn.setImage(R.image.ac_profile_close()?.withRenderingMode(.alwaysTemplate), for: .normal)
                 btn.tintColor = .black
@@ -63,24 +63,28 @@ extension AmongChat.Login {
             case .inAppLogin:
                 ()
             case .authNeeded(let source):
-                l.text = R.string.localizable.amongChatLoginAuthTip(source)
-                l.numberOfLines = 2
-            case .unlockPro:
-                let attTxt = NSMutableAttributedString()
-                let attachment = NSTextAttachment()
-                let image = R.image.ac_login_fireworks()
-                let h1Font = R.font.nunitoExtraBold(size: 24) ?? UIFont.systemFont(ofSize: 24, weight: .init(rawValue: UIFont.Weight.bold.rawValue))
-                let h2Font = R.font.nunitoExtraBold(size: 20) ?? UIFont.systemFont(ofSize: 20, weight: .init(rawValue: UIFont.Weight.bold.rawValue))
-                attachment.image = image
-                attachment.bounds = CGRect(origin: CGPoint(x: 0, y: (h1Font.capHeight - (image?.size.height ?? 0)).rounded() / 2), size: image?.size ?? .zero)
-                attTxt.append(NSAttributedString(attachment: attachment))
-                attTxt.append(NSAttributedString(string: R.string.localizable.amongChatLoginCongrat() + "\n", attributes: [NSAttributedString.Key.font : h1Font]))
-                attTxt.append(NSAttributedString(string: R.string.localizable.amongChatLoginAuthTip(R.string.localizable.amongChatLoginAuthSourcePro()), attributes: [NSAttributedString.Key.font : h2Font]))
-                l.attributedText = attTxt
-                l.numberOfLines = 3
-            case .applyVerify:
-                l.text = R.string.localizable.amongChatLoginAuthTipApply()
-                l.numberOfLines = 2
+                
+                switch source {
+                case .upgradedToPro:
+                    let attTxt = NSMutableAttributedString()
+                    let attachment = NSTextAttachment()
+                    let image = R.image.ac_login_fireworks()
+                    let h1Font = R.font.nunitoExtraBold(size: 24) ?? UIFont.systemFont(ofSize: 24, weight: .init(rawValue: UIFont.Weight.bold.rawValue))
+                    let h2Font = R.font.nunitoExtraBold(size: 20) ?? UIFont.systemFont(ofSize: 20, weight: .init(rawValue: UIFont.Weight.bold.rawValue))
+                    attachment.image = image
+                    attachment.bounds = CGRect(origin: CGPoint(x: 0, y: (h1Font.capHeight - (image?.size.height ?? 0)).rounded() / 2), size: image?.size ?? .zero)
+                    attTxt.append(NSAttributedString(attachment: attachment))
+                    attTxt.append(NSAttributedString(string: R.string.localizable.amongChatLoginCongrat() + "\n", attributes: [NSAttributedString.Key.font : h1Font]))
+                    attTxt.append(NSAttributedString(string: R.string.localizable.amongChatLoginAuthTip(R.string.localizable.amongChatLoginAuthSourcePro()), attributes: [NSAttributedString.Key.font : h2Font]))
+                    l.attributedText = attTxt
+                    l.numberOfLines = 3
+                    
+                default:
+                    l.text = source.tipString
+                    l.numberOfLines = 2
+                    
+                }
+                
             }
             
             return l
@@ -304,12 +308,12 @@ extension AmongChat.Login {
         private let style: LoginStyle
         
         private var loggerSource: String? {
-            return Logger.Action.loginSource(from: style)
+            return style.loggerSource
         }
         
         override var preferredStatusBarStyle: UIStatusBarStyle {
             switch style {
-            case .authNeeded, .unlockPro, .applyVerify:
+            case .authNeeded:
                 if #available(iOS 13.0, *) {
                     return .darkContent
                 } else {
@@ -603,7 +607,7 @@ extension AmongChat.Login.MobileViewController {
     private func setupTopTipLayout() {
         
         switch style {
-        case .authNeeded, .unlockPro, .applyVerify:
+        case .authNeeded(let source):
             view.insertSubview(topBg, belowSubview: backBtn)
             view.addSubviews(views: topTipLabel)
             
@@ -617,7 +621,7 @@ extension AmongChat.Login.MobileViewController {
             
             topTipLabel.snp.makeConstraints { (maker) in
                 maker.leading.trailing.equalToSuperview().inset(30)
-                maker.top.equalTo(navLayoutGuide.snp.bottom).offset(style == . unlockPro ? 0 : (Frame.Screen.height < 812 ? 0 : 8))
+                maker.top.equalTo(navLayoutGuide.snp.bottom).offset(source == .upgradedToPro ? 0 : (Frame.Screen.height < 812 ? 0 : 8))
             }
             
             topBg.snp.makeConstraints { (maker) in
@@ -645,7 +649,7 @@ extension AmongChat.Login.MobileViewController {
                 maker.width.height.equalTo(24)
             }
             
-        case .inAppLogin, .authNeeded, .unlockPro, .applyVerify:
+        case .inAppLogin, .authNeeded:
             backBtn.snp.makeConstraints { (maker) in
                 maker.trailing.equalToSuperview().inset(20)
                 maker.centerY.equalTo(navLayoutGuide)
@@ -670,7 +674,7 @@ extension AmongChat.Login.MobileViewController {
                 maker.top.equalTo(mobileIcon.snp.bottom).offset(8)
             }
             
-        case .authNeeded, .unlockPro, .applyVerify:
+        case .authNeeded:
             mobileTitle.snp.makeConstraints { (maker) in
                 maker.leading.trailing.equalToSuperview().inset(30)
                 maker.bottom.equalTo(mobileInputContainer.snp.top).offset(-12)
@@ -789,6 +793,25 @@ fileprivate extension AmongChat.Login.MobileViewController {
             }
             
             return super.canPerformAction(action, withSender: sender)
+        }
+        
+    }
+    
+}
+
+fileprivate extension AmongChat.Login.LoginStyle.AuthNeededSource {
+    
+    var tipString: String? {
+        
+        switch self {
+        case .applyVerified:
+            return R.string.localizable.amongChatLoginAuthTipApply()
+        case .createChannel:
+            return R.string.localizable.amongChatLoginAuthTip(R.string.localizable.amongChatLoginAuthSourceChannel())
+        case .editProfile:
+            return R.string.localizable.amongChatLoginAuthTip(R.string.localizable.amongChatLoginAuthSourceProfile())
+        case .upgradedToPro:
+            return nil
         }
         
     }

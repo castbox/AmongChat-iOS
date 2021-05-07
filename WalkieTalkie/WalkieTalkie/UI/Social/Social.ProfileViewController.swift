@@ -100,7 +100,7 @@ extension Social {
                     self.present(vc, animated: false)
                 case .edit:
                     
-                    guard AmongChat.Login.canDoLoginEvent(style: .authNeeded(source: R.string.localizable.amongChatLoginAuthSourceProfile())) else {
+                    guard AmongChat.Login.canDoLoginEvent(style: .authNeeded(source: .editProfile)) else {
                         return
                     }
                     
