@@ -216,7 +216,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 209 images.
+  /// This `R.image` struct is generated, and contains static references to 211 images.
   struct image {
     /// Image `ac_add_stats_add`.
     static let ac_add_stats_add = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_add_stats_add")
@@ -306,6 +306,10 @@ struct R: Rswift.Validatable {
     static let ac_home_invite = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_home_invite")
     /// Image `ac_home_load_error`.
     static let ac_home_load_error = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_home_load_error")
+    /// Image `ac_home_messge_tab_normal`.
+    static let ac_home_messge_tab_normal = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_home_messge_tab_normal")
+    /// Image `ac_home_messge_tab_selected`.
+    static let ac_home_messge_tab_selected = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_home_messge_tab_selected")
     /// Image `ac_home_profile`.
     static let ac_home_profile = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_home_profile")
     /// Image `ac_home_tab_shadow`.
@@ -855,6 +859,16 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "ac_home_load_error", bundle: ..., traitCollection: ...)`
     static func ac_home_load_error(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ac_home_load_error, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_home_messge_tab_normal", bundle: ..., traitCollection: ...)`
+    static func ac_home_messge_tab_normal(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_home_messge_tab_normal, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_home_messge_tab_selected", bundle: ..., traitCollection: ...)`
+    static func ac_home_messge_tab_selected(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_home_messge_tab_selected, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "ac_home_profile", bundle: ..., traitCollection: ...)`

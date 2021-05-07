@@ -185,7 +185,7 @@ extension Notice.Views {
                 ()
                 
             case .ImgMsg, .ImgTxtMsg:
-                if let imgWidth = message.imgWidth?.cgFloat, let imgHeight = message.imgHeight?.cgFloat {
+                if let imgWidth = message.imgWidth?.cgFloat, let imgHeight = message.imgHeight?.cgFloat, imgWidth * imgHeight > 0 {
                     //height
                     containerHeight = containerHeight + imgHeight * cellWidth / imgWidth
                 } else {
@@ -382,7 +382,7 @@ extension Notice.Views {
                 belowTextImageView.isHidden = true
                 
                 var imageHeight: CGFloat {
-                    if let imgWidth = notice.message.imgWidth?.cgFloat, let imgHeight = notice.message.imgHeight?.cgFloat {
+                    if let imgWidth = notice.message.imgWidth?.cgFloat, let imgHeight = notice.message.imgHeight?.cgFloat, imgWidth * imgHeight > 0 {
                         //height
                         return imgHeight * Notice.Views.SystemMessageCell.cellWidth / imgWidth
                     } else {
