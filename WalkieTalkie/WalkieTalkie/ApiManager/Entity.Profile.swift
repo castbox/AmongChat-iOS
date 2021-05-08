@@ -270,3 +270,22 @@ extension Entity {
         
     }
 }
+
+extension Entity {
+    
+    struct UserStatus: Codable {
+        
+        var uid: Int
+        var room: String?
+        var group: String?
+        var isOnline: Bool?
+        
+        private enum CodingKeys: String, CodingKey {
+            case uid
+            case room
+            case group
+            case isOnline = "is_online"
+        }
+    }
+    
+}

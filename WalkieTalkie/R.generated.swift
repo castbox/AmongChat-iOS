@@ -216,7 +216,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 209 images.
+  /// This `R.image` struct is generated, and contains static references to 212 images.
   struct image {
     /// Image `ac_add_stats_add`.
     static let ac_add_stats_add = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_add_stats_add")
@@ -306,6 +306,10 @@ struct R: Rswift.Validatable {
     static let ac_home_invite = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_home_invite")
     /// Image `ac_home_load_error`.
     static let ac_home_load_error = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_home_load_error")
+    /// Image `ac_home_messge_tab_normal`.
+    static let ac_home_messge_tab_normal = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_home_messge_tab_normal")
+    /// Image `ac_home_messge_tab_selected`.
+    static let ac_home_messge_tab_selected = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_home_messge_tab_selected")
     /// Image `ac_home_profile`.
     static let ac_home_profile = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_home_profile")
     /// Image `ac_home_tab_shadow`.
@@ -626,6 +630,8 @@ struct R: Rswift.Validatable {
     static let launch_name = Rswift.ImageResource(bundle: R.hostingBundle, name: "launch_name")
     /// Image `logo_snapchat`.
     static let logo_snapchat = Rswift.ImageResource(bundle: R.hostingBundle, name: "logo_snapchat")
+    /// Image `online`.
+    static let online = Rswift.ImageResource(bundle: R.hostingBundle, name: "online")
     /// Image `profile_avatar_random_btn`.
     static let profile_avatar_random_btn = Rswift.ImageResource(bundle: R.hostingBundle, name: "profile_avatar_random_btn")
     /// Image `profile_block_users`.
@@ -855,6 +861,16 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "ac_home_load_error", bundle: ..., traitCollection: ...)`
     static func ac_home_load_error(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ac_home_load_error, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_home_messge_tab_normal", bundle: ..., traitCollection: ...)`
+    static func ac_home_messge_tab_normal(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_home_messge_tab_normal, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_home_messge_tab_selected", bundle: ..., traitCollection: ...)`
+    static func ac_home_messge_tab_selected(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_home_messge_tab_selected, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "ac_home_profile", bundle: ..., traitCollection: ...)`
@@ -1657,6 +1673,11 @@ struct R: Rswift.Validatable {
       return UIKit.UIImage(resource: R.image.logo_snapchat, compatibleWith: traitCollection)
     }
     
+    /// `UIImage(named: "online", bundle: ..., traitCollection: ...)`
+    static func online(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.online, compatibleWith: traitCollection)
+    }
+    
     /// `UIImage(named: "profile_avatar_random_btn", bundle: ..., traitCollection: ...)`
     static func profile_avatar_random_btn(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.profile_avatar_random_btn, compatibleWith: traitCollection)
@@ -2171,7 +2192,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
     
-    /// This `R.string.localizable` struct is generated, and contains static references to 439 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 441 localization keys.
     struct localizable {
       /// en translation:  Congratulations!
       /// 
@@ -2405,6 +2426,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let chatroomMessageSystemChangeToPublic = Rswift.StringResource(key: "chatroom.message.system.change.to.public", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Chat
+      /// 
+      /// Locales: en
+      static let amongChatProfileChat = Rswift.StringResource(key: "among.chat.profile.chat", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Chat Language
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3913,6 +3938,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let socialInvited = Rswift.StringResource(key: "social.invited", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: start chatting
+      /// 
+      /// Locales: en
+      static let amongChatLoginAuthSourceChat = Rswift.StringResource(key: "among.chat.login.auth.source.chat", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: the next screen
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -4334,6 +4363,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func chatroomMessageSystemChangeToPublic(_: Void = ()) -> String {
         return NSLocalizedString("chatroom.message.system.change.to.public", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Chat
+      /// 
+      /// Locales: en
+      static func amongChatProfileChat(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.profile.chat", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Chat Language
@@ -6973,6 +7009,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func socialInvited(_: Void = ()) -> String {
         return NSLocalizedString("social.invited", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: start chatting
+      /// 
+      /// Locales: en
+      static func amongChatLoginAuthSourceChat(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.login.auth.source.chat", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: the next screen

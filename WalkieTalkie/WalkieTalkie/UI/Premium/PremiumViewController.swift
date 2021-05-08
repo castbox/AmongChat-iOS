@@ -786,7 +786,7 @@ extension WalkieTalkie.ViewController {
         premiumVC.source = source
         premiumVC.dismissHandler = { (purchased) in
             if purchased {
-                AmongChat.Login.canDoLoginEvent(style: .authNeeded(source: R.string.localizable.amongChatLoginAuthSourcePro()))
+                AmongChat.Login.canDoLoginEvent(style: .authNeeded(source: .upgradedToPro))
             }
             afterDismiss?(purchased)
         }

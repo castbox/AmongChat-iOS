@@ -1614,4 +1614,13 @@ extension Request {
             .mapToDataKeyJsonValue()
             .mapToProcessedValue()
     }
+    
+    static func userStatus(_ uid: Int) -> Single<Entity.UserStatus?> {
+        let paras: [String: Any] = ["uid": uid]
+        return amongchatProvider.rx.request(.userStatus(paras))
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .mapTo(Entity.UserStatus.self)
+            .observeOn(MainScheduler.asyncInstance)
+    }
 }

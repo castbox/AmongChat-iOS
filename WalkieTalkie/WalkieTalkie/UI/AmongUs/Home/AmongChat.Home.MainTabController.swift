@@ -30,6 +30,8 @@ extension AmongChat.Home {
             UIApplication.topViewController() as? WalkieTalkie.ViewController
         }
         
+        private lazy var tabs = Tab.allCases.map { $0.tabTuple }
+        
         override func viewDidLoad() {
             super.viewDidLoad()
             delegate = self
@@ -159,7 +161,7 @@ extension AmongChat.Home.MainTabController {
     }
     
     private func setupViewControllers() {
-        setViewControllers(Tab.allCases.map({ $0.viewController }), animated: false)
+        setViewControllers(tabs.map({ $0.0 }), animated: false)
     }
     
     private func setupEvent() {
@@ -214,6 +216,21 @@ extension AmongChat.Home.MainTabController {
             .disposed(by: bag)
         //
         checkHaveGroupLiveRoom()
+        
+        //TODO: combine unread messages and unread notices
+        Observable.combineLatest(Settings.shared.hasUnreadNoticeRelay,
+                                 tabs.safe(2)?.1
+                                    .filterNil()
+                                    .take(1) ?? Observable.empty())
+            .observeOn(MainScheduler.asyncInstance)
+            .subscribe(onNext: { unread, icon in
+                if unread {
+                    icon.badgeOn()
+                } else {
+                    icon.badgeOff()
+                }
+            })
+            .disposed(by: bag)
     }
     
     func checkHaveGroupLiveRoom() {
@@ -238,42 +255,66 @@ extension AmongChat.Home.MainTabController {
     enum Tab: CaseIterable {
         case topics
         case friends
+        case messages
         
-        var viewController: UIViewController {
+        var tabTuple: (NavigationViewController, Observable<UIImageView?>) {
             
+            let vc = rootViewController
+            let item = RAMAnimatedTabBarItem()
+            item.image = normalIcon
+            item.imageInsets = UIEdgeInsets(top: 6.5, left: 0, bottom: -6.5, right: 0)
+            item.titlePositionAdjustment = UIOffset(horizontal: 0, vertical: 6.5)
+            let anim = AmongChat.Home.MainTabItemAnimation()
+            anim.selectedImage = selectedIcon
+            anim.normalImage = normalIcon
+            item.animation = anim
+            vc.tabBarItem = item
+            let nav = NavigationViewController(rootViewController: vc)
+            nav.tabBarItem = item
+            return (nav, anim.iconRelay.asObservable())
+            
+        }
+        
+        private var rootViewController: UIViewController {
             switch self {
             case .topics:
-                let topicVC = AmongChat.Home.TopicsViewController()
-                let item = RAMAnimatedTabBarItem()
-                item.image = R.image.ac_home_topic_tab_normal()
-                item.selectedImage = R.image.ac_home_topic_tab_selected()
-                item.imageInsets = UIEdgeInsets(top: 6.5, left: 0, bottom: -6.5, right: 0)
-                item.titlePositionAdjustment = UIOffset(horizontal: 10, vertical: 6.5)
-                let anim = AmongChat.Home.MainTabItemAnimation()
-                anim.selectedImage = R.image.ac_home_topic_tab_selected()
-                anim.normalImage = R.image.ac_home_topic_tab_normal()
-                item.animation = anim
-                let nav = NavigationViewController(rootViewController: topicVC)
-                nav.tabBarItem = item
-                return nav
+                return AmongChat.Home.TopicsViewController()
                 
             case .friends:
-                let relationVC = AmongChat.Home.RelationsViewController()
-                let item = RAMAnimatedTabBarItem()
-                item.image = R.image.ac_home_friends_tab_normal()
-                item.imageInsets = UIEdgeInsets(top: 6.5, left: 0, bottom: -6.5, right: 0)
-                item.titlePositionAdjustment = UIOffset(horizontal: -10, vertical: 6.5)
-                let anim = AmongChat.Home.MainTabItemAnimation()
-                anim.selectedImage = R.image.ac_home_friends_tab_selected()
-                anim.normalImage = R.image.ac_home_friends_tab_normal()
-                item.animation = anim
-                relationVC.tabBarItem = item
-                relationVC.loadViewIfNeeded()
-                let nav = NavigationViewController(rootViewController: relationVC)
-                nav.tabBarItem = item
-                return nav
+                return AmongChat.Home.RelationsViewController()
+                
+            case .messages:
+                return SampleViewController()
             }
             
+        }
+        
+        private var normalIcon: UIImage? {
+            switch self {
+            case .topics:
+                return R.image.ac_home_topic_tab_normal()
+                
+            case .friends:
+                return R.image.ac_home_friends_tab_normal()
+                
+            case .messages:
+                return R.image.ac_home_messge_tab_normal()
+            }
+
+        }
+        
+        private var selectedIcon: UIImage? {
+            switch self {
+            case .topics:
+                return R.image.ac_home_topic_tab_selected()
+                
+            case .friends:
+                return R.image.ac_home_friends_tab_selected()
+                
+            case .messages:
+                return R.image.ac_home_messge_tab_selected()
+            }
+
         }
         
     }
@@ -293,6 +334,23 @@ extension AmongChat.Home.MainTabController: UITabBarControllerDelegate {
         HapticFeedback.Impact.light()
     }
     
+    func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
+        
+        guard let nav = viewController as? UINavigationController else { return true }
+        
+        if let _ = nav.viewControllers.first as? SampleViewController {
+            
+            if AmongChat.Login.canDoLoginEvent(style: .authNeeded(source: .chat)) {
+                return true
+            } else {
+                return false
+            }
+            
+        } else {
+            return true
+        }
+        
+    }
 }
 
 extension AmongChat.Home {
@@ -301,6 +359,8 @@ extension AmongChat.Home {
         
         var selectedImage: UIImage?
         var normalImage: UIImage?
+        
+        let iconRelay = BehaviorRelay<UIImageView?>(value: nil)
         
         override func playAnimation(_ icon: UIImageView, textLabel _: UILabel) {
             selectedAnimation(icon)
@@ -314,12 +374,14 @@ extension AmongChat.Home {
             icon.image = selectedImage
             icon.layer.anchorPoint = CGPoint(x: 0, y: 0.5)
             icon.layer.transform = CATransform3D(scaleX: 1.2, y: 1.2, z: 1).rotated(by: (-25).degreesToRadians.cgFloat, x: 0.001, y: 0, z: 1)
+            iconRelay.accept(icon)
         }
         
         override func deselectedState(_ icon: UIImageView, textLabel _: UILabel) {
             icon.image = normalImage
             icon.layer.anchorPoint = CGPoint(x: 0, y: 0.5)
             icon.layer.transform = CATransform3D(scaleX: 0.9, y: 0.9, z: 1).rotated(by: 0.001, x: 0.001, y: 0, z: 1)
+            iconRelay.accept(icon)
         }
         
         private func selectedAnimation(_ icon: UIImageView) {

@@ -64,18 +64,57 @@ extension Social {
             return height + 140
         }
         
-        private lazy var followButton: UIButton = bottomGradientView.button
-        
-        private lazy var bottomGradientView: FansGroup.Views.BottomGradientButton = {
-            let v = FansGroup.Views.BottomGradientButton()
-            v.button.setTitle(R.string.localizable.channelUserListFollow(), for: .normal)
-            v.button.rx.tap
+        private lazy var followButton: UIButton = {
+            let btn = UIButton()
+            btn.backgroundColor = UIColor(hex6: 0xFFF000)
+            btn.titleLabel?.font = R.font.nunitoExtraBold(size: 20)
+            btn.layer.cornerRadius = 24
+            btn.setTitleColor(.black, for: .normal)
+            btn.setTitle(R.string.localizable.channelUserListFollow(), for: .normal)
+            btn.rx.tap
                 .subscribe(onNext: { [weak self]() in
                     self?.headerView.headerHandle?(.follow)
                 }).disposed(by: bag)
-            v.button.isHidden = true
-            v.button.setBackgroundImage(nil, for: .normal)
-            v.button.setBackgroundImage(nil, for: .disabled)
+            btn.isHidden = true
+            return btn
+        }()
+        
+        private lazy var chatButton: UIButton = {
+            let btn = UIButton()
+            btn.layer.borderColor = UIColor(hex6: 0xFFF000).cgColor
+            btn.layer.borderWidth = 2
+            btn.titleLabel?.font = R.font.nunitoExtraBold(size: 20)
+            btn.layer.cornerRadius = 24
+            btn.setTitleColor(UIColor(hex6: 0xFFF000), for: .normal)
+            btn.setTitle(R.string.localizable.amongChatProfileChat(), for: .normal)
+            btn.rx.tap
+                .subscribe(onNext: { () in
+                    //TODO: - Chat
+                }).disposed(by: bag)
+            btn.isHidden = true
+            return btn
+        }()
+        
+        private lazy var bottomGradientView: GradientView = {
+            let v = GradientView()
+            let l = v.layer
+            l.colors = [UIColor(hex6: 0x121212, alpha: 0).cgColor, UIColor(hex6: 0x121212, alpha: 0.18).cgColor, UIColor(hex6: 0x121212, alpha: 0.57).cgColor, UIColor(hex6: 0x121212).cgColor]
+            l.startPoint = CGPoint(x: 0.5, y: 0)
+            l.endPoint = CGPoint(x: 0.5, y: 0.4)
+            l.locations = [0, 0.3, 0.6, 1]
+            v.addSubviews(views: chatButton, followButton)
+            chatButton.snp.makeConstraints { (maker) in
+                maker.leading.equalTo(20)
+                maker.bottom.equalTo(-33)
+                maker.height.equalTo(48)
+            }
+            followButton.snp.makeConstraints { (maker) in
+                maker.bottom.equalTo(-33)
+                maker.height.equalTo(48)
+                maker.leading.equalTo(chatButton.snp.trailing).offset(20)
+                maker.trailing.equalTo(-20)
+                maker.width.equalTo(chatButton.snp.width)
+            }
             v.isHidden = true
             return v
         }()
@@ -92,7 +131,7 @@ extension Social {
                     self.present(vc, animated: false)
                 case .edit:
                     
-                    guard AmongChat.Login.canDoLoginEvent(style: .authNeeded(source: R.string.localizable.amongChatLoginAuthSourceProfile())) else {
+                    guard AmongChat.Login.canDoLoginEvent(style: .authNeeded(source: .editProfile)) else {
                         return
                     }
                     
@@ -319,6 +358,21 @@ private extension Social.ProfileViewController {
             }, onError: {(error) in
                 cdPrint("profilePage error : \(error.localizedDescription)")
             }).disposed(by: bag)
+        
+        if !isSelfProfile.value {
+            Request.userStatus(uid)
+                .subscribe(onSuccess: { [weak self] (status) in
+                    
+                    guard let status = status else { return }
+                    
+                    self?.headerView.onlineStatusView.isHidden = !(status.isOnline ?? false)
+                    
+                }, onError: { (error) in
+                    
+                })
+                .disposed(by: bag)
+
+        }
     }
     
     func loadGameSkills() {
@@ -632,6 +686,7 @@ private extension Social.ProfileViewController {
             yellowFollowButton()
         }
         followButton.isHidden = false
+        chatButton.isHidden = false
     }
     
     private func greyFollowButton() {

@@ -362,24 +362,7 @@ extension Logger {
 extension Logger.Action {
     
     static func loginSource(from style: AmongChat.Login.LoginStyle) -> String? {
-        switch style {
-        case .tutorial:
-            return "login"
-        case .inAppLogin:
-            return "profile"
-        case .authNeeded(let source):
-            if source == R.string.localizable.amongChatLoginAuthSourceProfile() {
-                return "profile_edit"
-            } else if source == R.string.localizable.amongChatLoginAuthSourceChannel() {
-                return "create_channel"
-            } else {
-                return nil
-            }
-        case .applyVerify:
-            return "apply_verify"
-        case .unlockPro:
-            return nil
-        }
+        return style.loggerSource
     }
     
 }
