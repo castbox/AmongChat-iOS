@@ -290,9 +290,9 @@ extension AmongChat.Home.MainTabController {
                 anim.normalImage = R.image.ac_home_messge_tab_normal()
                 item.animation = anim
                 vc.tabBarItem = item
-                let nav = NavigationViewController(rootViewController: vc)
-                nav.tabBarItem = item
-                return nav
+//                let nav = NavigationViewController(rootViewController: vc)
+//                nav.tabBarItem = item
+                return vc
             }
             
         }
@@ -346,7 +346,7 @@ extension AmongChat.Home.MainTabController: UITabBarControllerDelegate {
         
         guard let nav = viewController as? UINavigationController else { return true }
         
-        if let _ = nav.viewControllers.first as? SampleViewController {
+        if let _ = nav.viewControllers.first as? AmongChat.Home.ConversationListController {
             
             if AmongChat.Login.canDoLoginEvent(style: .authNeeded(source: .chat)) {
                 return true
