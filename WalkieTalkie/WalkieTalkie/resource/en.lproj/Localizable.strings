@@ -506,3 +506,7 @@
 "among.chat.notice.empty.tip" = "Oops, nothing here yet.";
 
 "group.dismissed.tips" = "Sorry, the admin has dismissed the group.";
+
+//05.07
+"among.chat.login.auth.source.chat" = "start chatting";
+"among.chat.profile.chat" = "Chat";

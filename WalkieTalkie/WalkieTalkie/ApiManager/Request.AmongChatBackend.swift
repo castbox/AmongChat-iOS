@@ -1615,6 +1615,7 @@ extension Request {
             .mapToProcessedValue()
     }
     
+
     static func send(dm text: String) -> Single<Bool> {
         return amongchatProvider.rx.request(.sendDM(["type": "TxtMsg","text": text]))
             .mapJSON()
@@ -1622,7 +1623,12 @@ extension Request {
             .mapToProcessedValue()
     }
     
-//    curl --location --request POST 'http://dev.api.among.chat/api/v1/direct/message?uid=110002&type=TxtMsg&text=testsendmsg' \
-//    --header 'X-Uid: 110001' \
-//    --header 'X-Access-Token: eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IjJhNzVmNmUwYzg2ZjQ2ZDE4MDYyNzNkODI3YWI0ZDNmIn0.eyJpZCI6IjkwZDJiODM5MmY0MWViYzcyMDcxYmEzM2IxY2VjMTEwNjlhNGQ5N2UiLCJlbWFpbCI6IjNAcXEuY29tIiwibmFtZSI6IkpvZSIsInByb3ZpZGVyIjoiZW1haWwiLCJ1aWQiOjExMDAwMSwiaXNzIjoic2VydmljZUBhbW9uZ2NoYXRsaXZlLmNvbSIsImlhdCI6MTYwODE5Njc1MywiZXhwIjoxNjEwNzg4NzUzfQ.CjlMKhNFJdHWRtYfCHHak0_33NSQwH2OtfjkfPZ0lv_Bpm4UtcznDscgBGC5ubeFv5Pzot8sCizCG7s4baVRDsZmSeE4tDjEJdT-Vt02w0Aa-o3c1acvfOrFx9n74fVF5eADHFTkqzDuGSoUthHOZgcbwprozqOYWxuOX_G8p503BfUs4sIuUgYt1bMJ0ZdzaG0moIYC8LuCf75dPswQCm0zU1yDJnUFDY-newJFc9oFIO5KF_XLiQJONaPgEFRTiHS4v83aLNH6fAldyxg0EScoovnz1RuOM6W7NvBGGL8bNGV92bWiTxnaYuv4L5UabqXHCFl_q_FYvbuldjPIng'
+    static func userStatus(_ uid: Int) -> Single<Entity.UserStatus?> {
+        let paras: [String: Any] = ["uid": uid]
+        return amongchatProvider.rx.request(.userStatus(paras))
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .mapTo(Entity.UserStatus.self)
+            .observeOn(MainScheduler.asyncInstance)
+    }
 }

@@ -137,6 +137,7 @@ extension Social.ProfileViewController {
                 .subscribe(onNext: { [weak self]() in
                     self?.headerHandle?(.customize)
                 }).disposed(by: bag)
+            btn.isHidden = !isSelf
             return btn
         }()
                 
@@ -151,6 +152,7 @@ extension Social.ProfileViewController {
         
         private(set) lazy var changeIcon: UIImageView = {
             let iv = UIImageView(image: R.image.profile_avatar_random_btn())
+            iv.isHidden = !isSelf
             return iv
         }()
                 
@@ -168,6 +170,12 @@ extension Social.ProfileViewController {
             lb.font = R.font.nunitoExtraBold(size: 16)
             lb.textColor = "#898989".color()
             return lb
+        }()
+        
+        private(set) lazy var onlineStatusView: Social.Widgets.OnlineStatusView = {
+            let o = Social.Widgets.OnlineStatusView()
+            o.isHidden = true
+            return o
         }()
         
         private lazy var followingBtn: VerticalTitleButton = {
@@ -209,6 +217,7 @@ extension Social.ProfileViewController {
             let btn = WalkieButton(type: .custom)
             btn.addTarget(self, action: #selector(onEditBtn), for: .primaryActionTriggered)
             btn.setImage(R.image.ac_profile_edit(), for: .normal)
+            btn.isHidden = !isSelf
             return btn
         }()
         
@@ -276,9 +285,6 @@ extension Social.ProfileViewController {
             currentName = nameLabel.text ?? ""
             uidLabel.text = "ID: \(profile.uid)"
             avatarIV.updateAvatar(with: profile)
-            if isSelf {
-                editBtn.isHidden = false
-            }
             profile.decorations.forEach({ (deco) in
                 skinView.updateLook(deco)
             })
@@ -377,7 +383,7 @@ extension Social.ProfileViewController {
                     .disposed(by: bag)
             }
 
-            infoContainer.addSubviews(views: avatarIV, changeIcon, editBtn, relationContainer, redCountLabel)
+            infoContainer.addSubviews(views: avatarIV, changeIcon, relationContainer, redCountLabel)
 
             followingBtn.snp.makeConstraints { (maker) in
                 maker.leading.top.bottom.equalToSuperview()
@@ -414,10 +420,6 @@ extension Social.ProfileViewController {
 
             setCommonLayout()
             
-            if !isSelf {
-                setLayoutForOther()
-            }
-            
             let tap = UITapGestureRecognizer()
             tap.numberOfTapsRequired = 5
             nameLabel.isUserInteractionEnabled = true
@@ -447,24 +449,44 @@ extension Social.ProfileViewController {
             infoContainer.snp.makeConstraints { maker in
                 maker.leading.equalTo(avatarIV.snp.trailing).offset(16)
                 maker.centerY.equalTo(avatarIV)
-                maker.trailing.equalTo(-56)
+                maker.trailing.equalToSuperview()
             }
             infoContainer.addSubviews(views: nameLabel, uidLabel)
             
-            nameLabel.snp.makeConstraints { (maker) in
-                maker.top.leading.trailing.equalToSuperview()
+            if isSelf {
+                
+                infoContainer.addSubview(editBtn)
+                
+                editBtn.snp.makeConstraints { (maker) in
+                    maker.trailing.equalTo(-20)
+                    maker.centerY.equalTo(nameLabel.snp.centerY)
+                    maker.width.equalTo(28)
+                    maker.height.equalTo(27)
+                }
+                
+                nameLabel.snp.makeConstraints { (maker) in
+                    maker.top.leading.equalToSuperview()
+                    maker.trailing.lessThanOrEqualTo(editBtn.snp.leading).offset(-20)
+                }
+                
+            } else {
+                nameLabel.snp.makeConstraints { (maker) in
+                    maker.top.leading.equalToSuperview()
+                    maker.trailing.lessThanOrEqualToSuperview().offset(-20)
+                }
+                
+                infoContainer.addSubview(onlineStatusView)
+                onlineStatusView.snp.makeConstraints { (maker) in
+                    maker.centerY.equalTo(uidLabel)
+                    maker.trailing.equalToSuperview().offset(-20)
+                    maker.leading.greaterThanOrEqualTo(uidLabel.snp.trailing).offset(20)
+                }
             }
-
+            
             uidLabel.snp.makeConstraints { (maker) in
                 maker.top.equalTo(nameLabel.snp.bottom).offset(6)
                 maker.leading.bottom.equalToSuperview()
             }
-
-            editBtn.snp.makeConstraints { (maker) in
-                maker.trailing.equalTo(-20)
-                maker.centerY.equalTo(nameLabel.snp.centerY)
-            }
-            editBtn.isHidden = true
             
             relationContainer.snp.makeConstraints { maker in
                 maker.leading.trailing.equalToSuperview()
@@ -478,13 +500,6 @@ extension Social.ProfileViewController {
                 make.width.greaterThanOrEqualTo(30)
             }
         }
-        
-        private func setLayoutForOther() {
-            editBtn.isHidden = true
-            changeIcon.isHidden = true
-            customizeBtn.isHidden = true
-        }
-        
         
         @objc private func onEditBtn() {
             headerHandle?(.edit)
@@ -875,6 +890,92 @@ extension Social.ProfileViewController {
         required init?(coder: NSCoder) {
             fatalError("init(coder:) has not been implemented")
         }
+    }
+    
+}
+
+extension Social.ProfileViewController {
+    
+    class LiveCell: UICollectionViewCell {
+        
+        private let bag = DisposeBag()
+        
+        private(set) lazy var coverIV: UIImageView = {
+            let i = UIImageView()
+            i.layer.cornerRadius = 12
+            i.clipsToBounds = true
+            i.contentMode = .scaleAspectFill
+            return i
+        }()
+        
+        private(set) lazy var label: UILabel = {
+            let lb = UILabel()
+            lb.textColor = UIColor(hexString: "#FFFFFF")
+            lb.font = R.font.nunitoExtraBold(size: 16)
+            lb.numberOfLines = 2
+            lb.adjustsFontSizeToFitWidth = true
+            return lb
+        }()
+        
+        private lazy var joinBtn: UIButton = {
+            let btn = UIButton(type: .custom)
+            btn.titleLabel?.font = R.font.nunitoExtraBold(size: 14)
+            btn.setTitleColor(UIColor.black, for: .normal)
+            btn.backgroundColor = UIColor(hex6: 0xFFF000)
+            btn.setTitle(R.string.localizable.socialJoinAction().uppercased(), for: .normal)
+            btn.layer.masksToBounds = true
+            btn.layer.cornerRadius = 16
+            btn.contentEdgeInsets = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
+            btn.rx.controlEvent(.primaryActionTriggered)
+                .subscribe(onNext: { [weak self] (_) in
+                    self?.joinHandler?()
+                })
+                .disposed(by: bag)
+
+            return btn
+        }()
+        
+        var joinHandler: (() -> Void)? = nil
+        
+        override init(frame: CGRect) {
+            super.init(frame: frame)
+            setUpLayout()
+        }
+        
+        required init?(coder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
+        }
+        
+        private func setUpLayout() {
+            backgroundColor = .clear
+            contentView.layer.cornerRadius = 12
+            contentView.backgroundColor = UIColor(hex6: 0x222222)
+
+            contentView.addSubviews(views: coverIV, label, joinBtn)
+            
+            coverIV.snp.makeConstraints { (maker) in
+                maker.leading.top.bottom.equalToSuperview()
+                maker.width.equalTo(coverIV.snp.height)
+            }
+            
+            label.snp.makeConstraints { (maker) in
+                maker.centerY.equalToSuperview()
+                maker.leading.equalTo(coverIV.snp.trailing).offset(12)
+                maker.trailing.equalTo(joinBtn.snp.leading).offset(-12)
+            }
+            
+            joinBtn.snp.makeConstraints { (maker) in
+                maker.trailing.equalToSuperview().offset(-16)
+                maker.centerY.equalToSuperview()
+                maker.height.equalTo(32)
+            }
+            
+            joinBtn.setContentHuggingPriority(UILayoutPriority(UILayoutPriority.defaultHigh.rawValue + 1), for: .horizontal)
+            joinBtn.setContentCompressionResistancePriority(UILayoutPriority(UILayoutPriority.defaultHigh.rawValue + 1), for: .horizontal)
+            label.setContentHuggingPriority(UILayoutPriority(UILayoutPriority.defaultLow.rawValue - 1), for: .horizontal)
+            label.setContentCompressionResistancePriority(UILayoutPriority(UILayoutPriority.defaultLow.rawValue - 1), for: .horizontal)
+        }
+        
     }
     
 }

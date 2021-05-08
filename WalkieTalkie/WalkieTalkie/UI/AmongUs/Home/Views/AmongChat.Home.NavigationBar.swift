@@ -162,7 +162,7 @@ extension AmongChat.Home {
         
         @objc
         private func onCreateRoomBtn() {
-            guard AmongChat.Login.canDoLoginEvent(style: .authNeeded(source: R.string.localizable.amongChatLoginAuthSourceChannel())) else {
+            guard AmongChat.Login.canDoLoginEvent(style: .authNeeded(source: .createChannel)) else {
                 return
             }
             Routes.handle("/createRoom")

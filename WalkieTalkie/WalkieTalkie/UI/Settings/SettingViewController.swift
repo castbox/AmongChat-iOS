@@ -262,7 +262,7 @@ extension SettingViewController {
     
     private func getVerified() {
         
-        guard AmongChat.Login.canDoLoginEvent(style: .applyVerify) else {
+        guard AmongChat.Login.canDoLoginEvent(style: .authNeeded(source: .applyVerified)) else {
             return
         }
         self.open(urlSting: "https://docs.google.com/forms/d/e/1FAIpQLSeTzpMgWikmqajPHbEBAstCdFVB4Xo1CjYDc29wj4zSJq99Kg/viewform")        
