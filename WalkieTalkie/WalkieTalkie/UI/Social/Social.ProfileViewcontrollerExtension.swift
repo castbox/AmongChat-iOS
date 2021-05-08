@@ -914,7 +914,7 @@ extension Social.ProfileViewController {
         
         private let bag = DisposeBag()
         
-        private lazy var coverIV: UIImageView = {
+        private(set) lazy var coverIV: UIImageView = {
             let i = UIImageView()
             i.layer.cornerRadius = 12
             i.clipsToBounds = true
@@ -922,7 +922,7 @@ extension Social.ProfileViewController {
             return i
         }()
         
-        private lazy var label: UILabel = {
+        private(set) lazy var label: UILabel = {
             let lb = UILabel()
             lb.textColor = UIColor(hexString: "#FFFFFF")
             lb.font = R.font.nunitoExtraBold(size: 16)
@@ -940,9 +940,16 @@ extension Social.ProfileViewController {
             btn.layer.masksToBounds = true
             btn.layer.cornerRadius = 16
             btn.contentEdgeInsets = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
-            btn.setContentHuggingPriority(.required, for: .horizontal)
+            btn.rx.controlEvent(.primaryActionTriggered)
+                .subscribe(onNext: { [weak self] (_) in
+                    self?.joinHandler?()
+                })
+                .disposed(by: bag)
+
             return btn
         }()
+        
+        var joinHandler: (() -> Void)? = nil
         
         override init(frame: CGRect) {
             super.init(frame: frame)
@@ -977,6 +984,10 @@ extension Social.ProfileViewController {
                 maker.height.equalTo(32)
             }
             
+            joinBtn.setContentHuggingPriority(UILayoutPriority(UILayoutPriority.defaultHigh.rawValue + 1), for: .horizontal)
+            joinBtn.setContentCompressionResistancePriority(UILayoutPriority(UILayoutPriority.defaultHigh.rawValue + 1), for: .horizontal)
+            label.setContentHuggingPriority(UILayoutPriority(UILayoutPriority.defaultLow.rawValue - 1), for: .horizontal)
+            label.setContentCompressionResistancePriority(UILayoutPriority(UILayoutPriority.defaultLow.rawValue - 1), for: .horizontal)
         }
         
     }

@@ -23,6 +23,7 @@ extension Social {
             case gameStats
             case groupsCreated
             case groupsJoined
+            case live
             
             func image() -> UIImage? {
                 switch self {
@@ -30,7 +31,7 @@ extension Social {
                     return R.image.ac_social_tiktok()
                 case .gameStats:
                     return R.image.ac_profile_game()
-                case .groupsJoined, .groupsCreated, .profile:
+                case .groupsJoined, .groupsCreated, .profile, .live:
                     return nil
                 }
             }
@@ -41,7 +42,7 @@ extension Social {
                     return R.string.localizable.profileShareTiktokTitle()
                 case .gameStats:
                     return R.string.localizable.amongChatProfileAddAGame()
-                case .groupsJoined, .groupsCreated, .profile:
+                case .groupsJoined, .groupsCreated, .profile, .live:
                     return nil
                 }
             }
@@ -172,6 +173,7 @@ extension Social {
             v.register(cellWithClass: ProfileTableCell.self)
             v.register(cellWithClass: GameCell.self)
             v.register(cellWithClass: JoinedGroupCell.self)
+            v.register(LiveCell.self, forCellWithReuseIdentifier: NSStringFromClass(LiveCell.self))
             v.register(cellWithClass: UICollectionViewCell.self)
             v.register(supplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withClass: SectionHeader.self)
             v.showsVerticalScrollIndicator = false
@@ -218,6 +220,7 @@ extension Social {
         
         private let createdGroupsRelay = BehaviorRelay<[Entity.Group]>(value: [])
         private let joinedGroupsRelay = BehaviorRelay<[Entity.Group]>(value: [])
+        private let liveRoomRelay = BehaviorRelay<[Any]>(value: [])
         
         init(with uid: Int) {
             super.init(nibName: nil, bundle: nil)
@@ -288,8 +291,8 @@ private extension Social.ProfileViewController {
             })
             .disposed(by: bag)
         
-        Observable.combineLatest(isSelfProfile, createdGroupsRelay, joinedGroupsRelay)
-            .subscribe(onNext: { [weak self] isSelf, createdGroups, joinedGroups in
+        Observable.combineLatest(isSelfProfile, createdGroupsRelay, joinedGroupsRelay, liveRoomRelay)
+            .subscribe(onNext: { [weak self] isSelf, createdGroups, joinedGroups, liveRooms in
                 
                 if !isSelf {
                     self?.options = [.gameStats]
@@ -312,6 +315,10 @@ private extension Social.ProfileViewController {
                 
                 if createdGroups.count > 0 {
                     self?.options.insert(.groupsCreated, at: 0)
+                }
+                
+                if liveRooms.count > 0 {
+                    self?.options.insert(.live, at: 0)
                 }
                 
                 self?.options.insert(.profile, at: 0)
@@ -366,6 +373,19 @@ private extension Social.ProfileViewController {
                     guard let status = status else { return }
                     
                     self?.headerView.onlineStatusView.isHidden = !(status.isOnline ?? false)
+                    
+                    var liveRooms = [Any]()
+                    
+                    
+                    if let room = status.room {
+                        liveRooms.append(room)
+                    }
+                    
+                    if let group = status.group {
+                        liveRooms.append(group)
+                    }
+                    
+                    self?.liveRoomRelay.accept(liveRooms)
                     
                 }, onError: { (error) in
                     
@@ -753,6 +773,8 @@ extension Social.ProfileViewController: UICollectionViewDataSource, UICollection
             return joinedGroupsRelay.value.count
         case .profile:
             return 1
+        case .live:
+            return liveRoomRelay.value.count
         }
         
     }
@@ -826,6 +848,30 @@ extension Social.ProfileViewController: UICollectionViewDataSource, UICollection
                 maker.edges.equalToSuperview()
             }
             return cell
+            
+        case .live:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NSStringFromClass(LiveCell.self), for: indexPath)
+            if let cell = cell as? LiveCell {
+                
+                let liveRoom = liveRoomRelay.value.safe(indexPath.item)
+                
+                if let room = liveRoom as? Entity.Room {
+                    
+                    cell.coverIV.setImage(with: room.coverUrl)
+                    cell.label.text = room.topicName
+                    cell.joinHandler = { [weak self] in
+                        self?.enterRoom(roomId: room.roomId, topicId: room.topicId)
+                    }
+                } else if let group = liveRoom as? Entity.UserStatus.Group {
+                    cell.coverIV.setImage(with: group.cover)
+                    cell.label.text = group.name
+                    cell.joinHandler = { [weak self] in
+                        self?.enter(group: group.gid)
+                    }
+                }
+                
+            }
+            return cell
         }
         
     }
@@ -875,7 +921,7 @@ extension Social.ProfileViewController: UICollectionViewDataSource, UICollection
                     navigationController?.pushViewController(vc, animated: true)
                 }
                 
-            case .profile:
+            case .profile, .live:
                 ()
             }
         }
@@ -958,7 +1004,7 @@ extension Social.ProfileViewController: UICollectionViewDataSource, UICollection
                     self.navigationController?.pushViewController(listVC, animated: true)
                 }
                 
-            case .profile:
+            case .profile, .live:
                 ()
                 
             }
@@ -984,6 +1030,13 @@ extension Social.ProfileViewController: UICollectionViewDelegateFlowLayout {
         let padding: CGFloat = collectionView.contentInset.left + collectionView.contentInset.right
         
         switch op {
+        case .live:
+            
+            let cellWidth = UIScreen.main.bounds.width - padding
+            let cellHeight = CGFloat(56)
+            
+            return CGSize(width: cellWidth, height: cellHeight)
+            
         case .gameStats:
             
             if let _ = gameSkills.safe(indexPath.row) {
@@ -1049,6 +1102,8 @@ extension Social.ProfileViewController: UICollectionViewDelegateFlowLayout {
         switch op {
         case .profile:
             return .zero
+        case .live:
+            return UIEdgeInsets(top: 13, left: 0, bottom: 56, right: 0)
         default:
             return (collectionViewLayout as? UICollectionViewFlowLayout)?.sectionInset ?? .zero
         }
@@ -1072,7 +1127,7 @@ extension Social.ProfileViewController: UICollectionViewDelegateFlowLayout {
         let op = options[section]
         
         switch op {
-        case .profile:
+        case .profile, .live:
             return .zero
         default:
             return CGSize(width: Frame.Screen.width, height: 27)
