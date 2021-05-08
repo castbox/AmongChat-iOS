@@ -276,8 +276,8 @@ extension Entity {
     struct UserStatus: Codable {
         
         var uid: Int
-        var room: String?
-        var group: String?
+        var room: Entity.Room?
+        var group: Group?
         var isOnline: Bool?
         
         private enum CodingKeys: String, CodingKey {
@@ -285,6 +285,16 @@ extension Entity {
             case room
             case group
             case isOnline = "is_online"
+        }
+        
+        struct Group: Codable {
+            var gid: String
+            var topicId: String
+            var status: Int
+            var name: String
+            var cover: String
+            var uid: Int
+            var topicName: String
         }
     }
     
