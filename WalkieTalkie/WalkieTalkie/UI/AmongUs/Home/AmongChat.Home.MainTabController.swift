@@ -271,7 +271,7 @@ extension AmongChat.Home.MainTabController {
                 return nav
                 
             case .messages:
-                let vc = SampleViewController()
+                let vc = AmongChat.Home.ConversationListController()
                 let item = RAMAnimatedTabBarItem()
                 item.image = R.image.ac_home_messge_tab_normal()
                 item.imageInsets = UIEdgeInsets(top: 6.5, left: 0, bottom: -6.5, right: 0)

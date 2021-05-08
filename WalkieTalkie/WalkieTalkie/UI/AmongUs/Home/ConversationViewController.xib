@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Nunito-ExtraBold.ttf">
+            <string>Nunito-ExtraBold</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ConversationViewController" customModule="WalkieTalkie" customModuleProvider="target">
+            <connections>
+                <outlet property="collectionView" destination="cxB-cu-u72" id="uIB-kg-Lny"/>
+                <outlet property="followButton" destination="AKs-5a-Lcp" id="az4-ev-7Q7"/>
+                <outlet property="titleLabel" destination="Tk0-fI-ITX" id="Cu0-Xd-sdp"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ay3-en-jMj">
+                    <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WqX-Go-sOp">
+                            <rect key="frame" x="14" y="0.0" width="44" height="44"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="44" id="b5w-dI-QBW"/>
+                                <constraint firstAttribute="height" constant="44" id="f4b-0q-gFR"/>
+                            </constraints>
+                            <state key="normal" image="ac_back"/>
+                            <connections>
+                                <action selector="backButtonAction:" destination="-1" eventType="touchUpInside" id="7bT-lY-V38"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h6A-W3-4H9">
+                            <rect key="frame" x="360" y="0.0" width="44" height="44"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="44" id="R8B-It-ddV"/>
+                                <constraint firstAttribute="height" constant="44" id="fjY-ie-6QE"/>
+                            </constraints>
+                            <state key="normal" image="ac_profile_more_icon"/>
+                            <connections>
+                                <action selector="moreButtonAction:" destination="-1" eventType="touchUpInside" id="l6F-6J-vGu"/>
+                            </connections>
+                        </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tk0-fI-ITX">
+                            <rect key="frame" x="72" y="11" width="195" height="22"/>
+                            <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito" pointSize="16"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="254" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AKs-5a-Lcp">
+                            <rect key="frame" x="282" y="6" width="68" height="32"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="32" id="jB9-HH-DwY"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito" pointSize="14"/>
+                            <inset key="contentEdgeInsets" minX="12" minY="0.0" maxX="12" maxY="0.0"/>
+                            <state key="normal" title="Follow">
+                                <color key="titleColor" red="1" green="0.94117647058823528" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            </state>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                    <color key="value" red="1" green="0.94117647058823528" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                    <real key="value" value="2"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                    <real key="value" value="16"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="string" keyPath="xibLocKey" value="profile.follow"/>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="followButtonAction:" destination="-1" eventType="touchUpInside" id="uDj-q5-8Pe"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" red="0.070588235289999995" green="0.070588235289999995" blue="0.070588235289999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstItem="Tk0-fI-ITX" firstAttribute="leading" secondItem="WqX-Go-sOp" secondAttribute="trailing" constant="14" id="3CA-ye-wAD"/>
+                        <constraint firstItem="AKs-5a-Lcp" firstAttribute="leading" secondItem="Tk0-fI-ITX" secondAttribute="trailing" constant="15" id="GSH-cK-vnK"/>
+                        <constraint firstAttribute="trailing" secondItem="h6A-W3-4H9" secondAttribute="trailing" constant="10" id="JW8-DG-1m1"/>
+                        <constraint firstItem="WqX-Go-sOp" firstAttribute="leading" secondItem="Ay3-en-jMj" secondAttribute="leading" constant="14" id="LrC-A9-Kxr"/>
+                        <constraint firstAttribute="height" constant="44" id="M6Z-7h-bar"/>
+                        <constraint firstItem="h6A-W3-4H9" firstAttribute="centerY" secondItem="Ay3-en-jMj" secondAttribute="centerY" id="QHl-LE-3bW"/>
+                        <constraint firstItem="AKs-5a-Lcp" firstAttribute="centerY" secondItem="h6A-W3-4H9" secondAttribute="centerY" id="TpS-sm-kly"/>
+                        <constraint firstItem="h6A-W3-4H9" firstAttribute="leading" secondItem="AKs-5a-Lcp" secondAttribute="trailing" constant="10" id="cZ4-5G-c9e"/>
+                        <constraint firstItem="Tk0-fI-ITX" firstAttribute="centerY" secondItem="WqX-Go-sOp" secondAttribute="centerY" id="icB-QI-FXB"/>
+                        <constraint firstItem="WqX-Go-sOp" firstAttribute="centerY" secondItem="Ay3-en-jMj" secondAttribute="centerY" id="mND-Gd-EgU"/>
+                    </constraints>
+                </view>
+                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="cxB-cu-u72">
+                    <rect key="frame" x="0.0" y="88" width="414" height="714"/>
+                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="nRB-hk-WWg">
+                        <size key="itemSize" width="128" height="128"/>
+                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    </collectionViewFlowLayout>
+                </collectionView>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <color key="backgroundColor" red="0.070588235294117646" green="0.070588235294117646" blue="0.070588235294117646" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="Ay3-en-jMj" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="0gt-MR-qgK"/>
+                <constraint firstItem="Ay3-en-jMj" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="YBX-CC-yFm"/>
+                <constraint firstItem="cxB-cu-u72" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="Z5u-z7-bKL"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="cxB-cu-u72" secondAttribute="trailing" id="gDn-6I-16g"/>
+                <constraint firstItem="cxB-cu-u72" firstAttribute="top" secondItem="Ay3-en-jMj" secondAttribute="bottom" id="kPN-r7-UKv"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="cxB-cu-u72" secondAttribute="bottom" constant="60" id="kib-qn-vFX"/>
+                <constraint firstItem="Ay3-en-jMj" firstAttribute="trailing" secondItem="i5M-Pr-FkT" secondAttribute="trailing" id="zM3-BS-MRJ"/>
+            </constraints>
+            <point key="canvasLocation" x="11.594202898550726" y="112.5"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="ac_back" width="24" height="24"/>
+        <image name="ac_profile_more_icon" width="40" height="40"/>
+    </resources>
+</document>

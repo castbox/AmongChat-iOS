@@ -1699,7 +1699,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.nib` struct is generated, and contains static references to 30 nibs.
+  /// This `R.nib` struct is generated, and contains static references to 33 nibs.
   struct nib {
     /// Nib `AmongChatRoomConfigView`.
     static let amongChatRoomConfigView = _R.nib._AmongChatRoomConfigView()
@@ -1737,6 +1737,12 @@ struct R: Rswift.Validatable {
     static let appTrackingGuideView = _R.nib._AppTrackingGuideView()
     /// Nib `AvatarGuideViewController`.
     static let avatarGuideViewController = _R.nib._AvatarGuideViewController()
+    /// Nib `ConversationCollectionCell`.
+    static let conversationCollectionCell = _R.nib._ConversationCollectionCell()
+    /// Nib `ConversationListCell`.
+    static let conversationListCell = _R.nib._ConversationListCell()
+    /// Nib `ConversationViewController`.
+    static let conversationViewController = _R.nib._ConversationViewController()
     /// Nib `EndUserLicenseController`.
     static let endUserLicenseController = _R.nib._EndUserLicenseController()
     /// Nib `InfoWithNicknameView`.
@@ -1868,6 +1874,24 @@ struct R: Rswift.Validatable {
     @available(*, deprecated, message: "Use UINib(resource: R.nib.avatarGuideViewController) instead")
     static func avatarGuideViewController(_: Void = ()) -> UIKit.UINib {
       return UIKit.UINib(resource: R.nib.avatarGuideViewController)
+    }
+    
+    /// `UINib(name: "ConversationCollectionCell", in: bundle)`
+    @available(*, deprecated, message: "Use UINib(resource: R.nib.conversationCollectionCell) instead")
+    static func conversationCollectionCell(_: Void = ()) -> UIKit.UINib {
+      return UIKit.UINib(resource: R.nib.conversationCollectionCell)
+    }
+    
+    /// `UINib(name: "ConversationListCell", in: bundle)`
+    @available(*, deprecated, message: "Use UINib(resource: R.nib.conversationListCell) instead")
+    static func conversationListCell(_: Void = ()) -> UIKit.UINib {
+      return UIKit.UINib(resource: R.nib.conversationListCell)
+    }
+    
+    /// `UINib(name: "ConversationViewController", in: bundle)`
+    @available(*, deprecated, message: "Use UINib(resource: R.nib.conversationViewController) instead")
+    static func conversationViewController(_: Void = ()) -> UIKit.UINib {
+      return UIKit.UINib(resource: R.nib.conversationViewController)
     }
     
     /// `UINib(name: "EndUserLicenseController", in: bundle)`
@@ -2012,6 +2036,18 @@ struct R: Rswift.Validatable {
     
     static func avatarGuideViewController(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
       return R.nib.avatarGuideViewController.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+    }
+    
+    static func conversationCollectionCell(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> ConversationCollectionCell? {
+      return R.nib.conversationCollectionCell.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? ConversationCollectionCell
+    }
+    
+    static func conversationListCell(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> ConversationListCell? {
+      return R.nib.conversationListCell.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? ConversationListCell
+    }
+    
+    static func conversationViewController(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+      return R.nib.conversationViewController.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
     }
     
     static func endUserLicenseController(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
@@ -7039,6 +7075,7 @@ struct _R: Rswift.Validatable {
       try _AmongRoomBottomBar.validate()
       try _AppTrackingGuideView.validate()
       try _AvatarGuideViewController.validate()
+      try _ConversationViewController.validate()
       try _ReportCell.validate()
       try _ReportImageCell.validate()
       try _ShareContainerView.validate()
@@ -7325,6 +7362,46 @@ struct _R: Rswift.Validatable {
       
       static func validate() throws {
         if UIKit.UIImage(named: "ac_profile_close", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ac_profile_close' is used in nib 'AvatarGuideViewController', but couldn't be loaded.") }
+        if #available(iOS 11.0, *) {
+        }
+      }
+      
+      fileprivate init() {}
+    }
+    
+    struct _ConversationCollectionCell: Rswift.NibResourceType {
+      let bundle = R.hostingBundle
+      let name = "ConversationCollectionCell"
+      
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> ConversationCollectionCell? {
+        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? ConversationCollectionCell
+      }
+      
+      fileprivate init() {}
+    }
+    
+    struct _ConversationListCell: Rswift.NibResourceType {
+      let bundle = R.hostingBundle
+      let name = "ConversationListCell"
+      
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> ConversationListCell? {
+        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? ConversationListCell
+      }
+      
+      fileprivate init() {}
+    }
+    
+    struct _ConversationViewController: Rswift.NibResourceType, Rswift.Validatable {
+      let bundle = R.hostingBundle
+      let name = "ConversationViewController"
+      
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+      }
+      
+      static func validate() throws {
+        if UIKit.UIImage(named: "ac_back", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ac_back' is used in nib 'ConversationViewController', but couldn't be loaded.") }
+        if UIKit.UIImage(named: "ac_profile_more_icon", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ac_profile_more_icon' is used in nib 'ConversationViewController', but couldn't be loaded.") }
         if #available(iOS 11.0, *) {
         }
       }

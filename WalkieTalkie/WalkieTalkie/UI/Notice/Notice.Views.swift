@@ -24,8 +24,8 @@ protocol NoticeCellGeometory {
 extension NoticeCellGeometory {
     
     static var cellWidth: CGFloat {
-        var hInset: CGFloat = 20
-        var columns: Int = 1
+        let hInset: CGFloat = 20
+        let columns: Int = 1
         let interitemSpacing: CGFloat = 20
         let cellWidth = ((UIScreen.main.bounds.width - hInset * 2 - interitemSpacing * CGFloat(columns - 1)) / CGFloat(columns)).rounded(.towardZero)
         return cellWidth
