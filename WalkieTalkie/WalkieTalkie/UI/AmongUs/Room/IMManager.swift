@@ -112,10 +112,10 @@ class IMManager: NSObject {
                         }
                     case .unreadNotice, .unreadGroupApply:
                         item = try JSONDecoder().decodeAnyData(Peer.UnreadNotice.self, from: json) as PeerMessage
-                        
-                    default:
-                        assert(true, "message type not handler")
-                        item = nil
+                    case .dm:
+                        var dmMessage = try JSONDecoder().decodeAnyData(Entity.DMMessage.self, from: json)
+                        dmMessage.ms = Double(message.serverReceivedTs)
+                        item = dmMessage
                     }
                 }
                 return item

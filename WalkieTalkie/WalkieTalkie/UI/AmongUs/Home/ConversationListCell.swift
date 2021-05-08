@@ -22,4 +22,12 @@ class ConversationListCell: UICollectionViewCell {
         // Initialization code
     }
 
+    func bind(_ item: Entity.DMConversation) {
+        let msg = item.message
+        avatarView.setAvatarImage(with: msg.fromUser.pictureUrl)
+        nameLabel.text = msg.fromUser.name
+        contentLabel.text = msg.message.text
+        timeLabel.text = msg.dateString
+        countLabel.text = item.unreadCount.string
+    }
 }

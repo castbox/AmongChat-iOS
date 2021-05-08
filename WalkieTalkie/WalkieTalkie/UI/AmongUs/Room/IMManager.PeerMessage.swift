@@ -32,6 +32,7 @@ extension Peer {
         case roomInvitationInviteStranger = "AC:PEER:InviteStranger"
         case unreadNotice = "AC:PEER:UnreadNotice"
         case unreadGroupApply = "AC:PEER:UnreadGroupApply"
+        case dm = "AC:PEER:Dm"
     }
     
     struct UnreadNotice: PeerMessage {
@@ -274,7 +275,3 @@ extension Peer.SystemMessage.ContentType {
     }
     
 }
-
-
-
-
