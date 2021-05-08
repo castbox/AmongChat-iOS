@@ -71,12 +71,14 @@ extension FansGroup {
         private lazy var bottomGradientView: FansGroup.Views.BottomGradientButton = {
             let v = FansGroup.Views.BottomGradientButton()
             v.button.setTitle(R.string.localizable.amongChatGroupApplyToJoin(), for: .normal)
+            v.button.setTitle(R.string.localizable.amongChatGroupApplied(), for: .disabled)
             v.button.rx.controlEvent(.primaryActionTriggered)
                 .subscribe(onNext: { [weak self] (_) in
                     Logger.Action.log(.group_info_clk, categoryValue:  self?.groupInfoViewModel?.groupInfo.group.topicId, "apply")
                     self?.apply()
                 })
                 .disposed(by: bag)
+            v.button.isHidden = true
             v.isHidden = true
             return v
         }()
@@ -86,6 +88,8 @@ extension FansGroup {
             didSet {
                 
                 bottomGradientView.isHidden = !(groupInfoViewModel?.userStatus == .some(.applied) || groupInfoViewModel?.userStatus == .some(.none))
+                bottomGradientView.button.isEnabled = groupInfoViewModel?.userStatus == .some(.none)
+                bottomGradientView.button.isHidden = false
                 settingBtn.isHidden = !(groupInfoViewModel?.userStatus == .some(.admin) || groupInfoViewModel?.userStatus == .some(.owner))
                 
             }
@@ -226,7 +230,7 @@ extension FansGroup.GroupInfoViewController {
                 hudRemoval()
             })
             .subscribe(onSuccess: { [weak self] (_) in
-                self?.bottomGradientView.isHidden = true
+                self?.bottomGradientView.button.isEnabled = false
             }, onError: { [weak self] (error) in
                 self?.view.raft.autoShow(.text(error.msgOfError ?? R.string.localizable.amongChatUnknownError()))
             })
