@@ -763,7 +763,7 @@ private extension Social.ProfileViewController {
     
     func startChatIfCould() {
         //判断为非匿名用户
-        guard let profile = userProfile?.dmProfile else {
+        guard let profile = userProfile.value?.dmProfile else {
             return
         }
         

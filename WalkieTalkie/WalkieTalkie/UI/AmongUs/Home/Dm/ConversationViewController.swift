@@ -80,6 +80,7 @@ class ConversationViewController: ViewController {
     
     @IBAction func moreButtonAction(_ sender: Any) {
         moreAction()
+//        IMManager.shared.sendFile()
     }
     
     @IBAction func followButtonAction(_ sender: Any) {
@@ -149,20 +150,13 @@ private extension ConversationViewController {
                 
                 guard let `self` = self, let status = status else { return }
                 
-//                self?.headerView.onlineStatusView.isHidden = !(status.isOnline ?? false)
-                
-//                var liveRooms = [Any]()
-                
-                
                 if let room = status.room {
-//                    liveRooms.append(room)
                     self.liveView.coverIV.setImage(with: room.coverUrl)
                     self.liveView.label.text = room.topicName
                     self.liveView.joinHandler = { [weak self] in
                         self?.enterRoom(roomId: room.roomId, topicId: room.topicId)
                     }
                 } else if let group = status.group {
-//                    liveRooms.append(group)
                     self.liveView.coverIV.setImage(with: group.cover)
                     self.liveView.label.text = group.name
                     self.liveView.joinHandler = { [weak self] in
@@ -171,8 +165,6 @@ private extension ConversationViewController {
                 }
                 self.liveView.isHidden = status.room == nil && status.group == nil
                 self.updateUser(isOnline: status.isOnline == true)
-//                self?.liveRoomRelay.accept(liveRooms)
-                
             }, onError: { (error) in
                 
             })
@@ -284,6 +276,18 @@ private extension ConversationViewController {
 
 
 private extension ConversationViewController {
+    func sendVoiceMessage(duration: Int, filePath: String) {
+        let removeBlock = view.raft.show(.loading)
+        viewModel.sendVoiceMessage(duration: duration, filePath: filePath)
+            .subscribe(onSuccess: { result in
+                removeBlock()
+            }) { error in
+                removeBlock()
+            }
+            .disposed(by: bag)
+    }
+    
+    
     func moreAction() {
         var type:[AmongSheetController.ItemType]!
         if blocked {
@@ -420,6 +424,9 @@ private extension ConversationViewController {
                 ()
             case .send(let text):
                 self?.viewModel.sendMessage(text)
+                //
+                self?.sendVoiceMessage(duration: 20, filePath: "")
+                
             }
         }
         

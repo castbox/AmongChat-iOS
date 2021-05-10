@@ -1616,8 +1616,25 @@ extension Request {
     }
     
 
-    static func sendDm(text: String, to uid: String) -> Single<Bool> {
-        return amongchatProvider.rx.request(.sendDM(["uid": uid, "type": "TxtMsg","text": text]))
+    static func sendDm(message: Entity.DMMessageBody, to uid: String) -> Single<Bool> {
+        let request: APIService.AmongChatBackend
+        switch message.msgType {
+        case .text:
+            request = .sendDM(["uid": uid, "type": message.type, "text": message.text ?? ""])
+        case .gif:
+            guard let url = message.url, let imageWidth = message.imageWidth, let imageHeight = message.imageHeight else {
+                return .just(false)
+            }
+            request = .sendDM(["uid": uid, "type": message.type, "url": url, "img_width": imageWidth, "img_height": imageHeight])
+        case .voice:
+            guard let url = message.url, let duration = message.duration else {
+                return .just(false)
+            }
+            request = .sendDM(["uid": uid, "type": message.type, "url": url, "duration": duration])
+        default:
+            return .just(false)
+        }
+        return amongchatProvider.rx.request(request)
             .mapJSON()
             .mapToDataKeyJsonValue()
             .mapToProcessedValue()

@@ -209,9 +209,11 @@ extension Entity {
     
     struct DMMessageBody: TableCodable, ColumnCodable {
         let type: String
-        let url: URL?
+        let url: String?
         let duration: Double?
         let text: String?
+        let imageWidth: Double?
+        let imageHeight: Double?
         
         var msgType: DMMsgType? {
             DMMsgType(rawValue: type)
@@ -224,16 +226,22 @@ extension Entity {
             url = message.url
             duration = message.duration
             text = message.text
+            imageWidth = message.imageWidth
+            imageHeight = message.imageHeight
         }
         
         init(type: DMMsgType,
-             url: URL?,
-             duration: Double?,
-             text: String?) {
+             url: String? = nil,
+             duration: Double? = nil,
+             text: String? = nil,
+             imageWidth: Double = 0,
+             imageHeight: Double = 0) {
             self.type = type.rawValue
             self.url = url
             self.duration = duration
             self.text = text
+            self.imageWidth = imageWidth
+            self.imageHeight = imageHeight
         }
         
         func archivedValue() -> FundamentalValue {
@@ -252,6 +260,8 @@ extension Entity {
             case url
             case duration
             case text
+            case imageWidth = "img_width"
+            case imageHeight = "img_height"
         }
         
         

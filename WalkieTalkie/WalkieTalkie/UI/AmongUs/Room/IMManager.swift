@@ -200,6 +200,45 @@ class IMManager: NSObject {
                 
             }
         }
+    }
+    
+    func getMediaId(with filePath: String) -> Single<String?> {
+        let fileManager = FileManager.default
+        guard fileManager.fileExists(atPath: filePath) else {
+            return .just(nil)
+        }
+        return Single.create { [weak self] observer in
+            var requestId: Int64 = 0
+            self?.rtmKit?.createFileMessage(byUploading: filePath, withRequest: &requestId, completion: { rId, message, error in
+                observer(.success(message?.mediaId))
+                cdPrint("filePath: \(filePath) rid: \(rId) message: \(message?.fileName) error: \(error.rawValue)")
+            })
+            return Disposables.create()
+        }
+    }
+    
+    func sendFile() {
+        //filepath
+        let fileManager = FileManager.default
+        var requestId: Int64 = 0
+        guard let directoryURL = fileManager.urls(for: .cachesDirectory, in: .userDomainMask).first else {
+            return
+        }
+        let filePath = directoryURL.appendingPathComponent("launch_img")
+        do {
+            try R.image.launch_logo()?.pngData()?.write(to: filePath)
+        } catch {
+            cdPrint("error: \(filePath): \(error))")
+        }
+//        rtmKit?.createFileMessage(byMediaId: <#T##String#>)
+//        rtmKit?.downloadMedia(<#T##mediaId: String##String#>, toFile: <#T##String#>, withRequest: <#T##UnsafeMutablePointer<Int64>!#>, completion: <#T##AgoraRtmDownloadMediaToFileBlock?##AgoraRtmDownloadMediaToFileBlock?##(Int64, AgoraRtmDownloadMediaErrorCode) -> Void#>)
+        rtmKit?.createFileMessage(byUploading: filePath.path, withRequest: &requestId, completion: { rId, message, error in
+            cdPrint("filePath: \(filePath) rid: \(rId) message: \(message?.fileName) id: \(message?.mediaId) error: \(error.rawValue)")
+        })
+    }
+    
+    func sendPeer(_ fileMessage: AgoraRtmFileMessage) {
+        //filepath
         
     }
     

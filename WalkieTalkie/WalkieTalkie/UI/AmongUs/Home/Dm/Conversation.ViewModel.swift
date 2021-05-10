@@ -66,6 +66,11 @@ extension Conversation {
             conversation.fromUid
         }
         
+        var loginUserDmProfile: Entity.DMProfile {
+            Settings.loginUserProfile!.dmProfile
+        }
+
+        
         init(_ conversation: Entity.DMConversation) {
             self.conversation = conversation
             let uid = conversation.fromUid
@@ -105,10 +110,34 @@ extension Conversation {
             sendMessage(message)
         }
         
+        func sendVoiceMessage(duration: Int, filePath: String) -> Single<Bool> {
+            let fileManager = FileManager.default
+            var requestId: Int64 = 0
+            guard let directoryURL = fileManager.urls(for: .cachesDirectory, in: .userDomainMask).first else {
+                return .just(false)
+            }
+            let filePath = directoryURL.appendingPathComponent("launch_img")
+            do {
+                try R.image.launch_logo()?.pngData()?.write(to: filePath)
+            } catch {
+                cdPrint("error: \(filePath): \(error))")
+            }
+            return IMManager.shared.getMediaId(with: filePath.path)
+                .do(onSuccess: { [weak self] mediaId in
+                    guard let `self` = self, let mediaId = mediaId else {
+                        return
+                    }
+                    let messageBody = Entity.DMMessageBody(type: .voice, url: mediaId, duration: duration.double)
+                    let message = Entity.DMMessage(body: messageBody, relation: 1, fromUid: self.targetUid, unread: false, fromUser: self.loginUserDmProfile, status: .sending)
+                    self.sendMessage(message)
+                })
+                .map { $0 != nil }
+        }
+        
         func sendMessage(_ message: Entity.DMMessage) {
             DMManager.shared.insertOrReplace(message: message)
             var message = message
-            Request.sendDm(text: message.body.text ?? "", to: targetUid)
+            Request.sendDm(message: message.body, to: message.fromUid)
                 .subscribe(onSuccess: { result in
                     message.status = .success
                     DMManager.shared.insertOrReplace(message: message)
