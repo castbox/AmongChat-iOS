@@ -45,7 +45,7 @@ class ConversationCollectionCell: UICollectionViewCell, ConversationCellGeometor
     }
     
     private lazy var container: UIView = {
-        let i = UIView()
+        let i = UIView(frame: CGRect(x: 0, y: 0, width: Frame.Screen.width, height: 200))
         i.clipsToBounds = true
         i.addSubviews(views: avatarImageView, textContainer)
         return i
@@ -83,13 +83,14 @@ class ConversationCollectionCell: UICollectionViewCell, ConversationCellGeometor
         l.font = R.font.nunitoBold(size: 14)
         l.textColor = UIColor(hex6: 0xFFFFFF)
         l.numberOfLines = 0
-        l.lineBreakMode = .byWordWrapping
+//        l.lineBreakMode = .byWordWrapping
         return l
     }()
     
     private lazy var timeLabel: UILabel = {
-        let l = UILabel()
+        let l = UILabel(frame: CGRect(x: 20, y: 0, width: Frame.Screen.width - 20 * 2, height: 19))
         l.font = R.font.nunitoBold(size: 14)
+        l.textAlignment = .center
         l.textColor = UIColor(hex6: 0x595959)
         return l
     }()
@@ -104,11 +105,30 @@ class ConversationCollectionCell: UICollectionViewCell, ConversationCellGeometor
         setUpLayout()
     }
     
+    func bind(_ viewModel: Conversation.MessageCellViewModel) {
+        let msg = viewModel.message
+        avatarImageView.setAvatarImage(with: msg.fromUser.pictureUrl)
+        messageTextLabel.text = msg.body.text
+        timeLabel.text = msg.dateString
+        
+        textContainer.size = CGSize(width: viewModel.contentSize.width + 12 * 2, height: viewModel.contentSize.height + 12 * 2)
+        messageTextLabel.size = viewModel.contentSize
+        if viewModel.showTime {
+            container.top = 33
+        } else {
+            container.top = 6
+        }
+        container.height = textContainer.size.height
+        timeLabel.isHidden = !viewModel.showTime
+//        countLabel.text = item.unreadCount.string
+    }
+    
     private func setUpLayout() {
         backgroundColor = .clear
         contentView.backgroundColor = .clear
         
-        contentView.addSubviews(views: avatarImageView, textContainer, timeLabel)
+        contentView.addSubviews(views: container, timeLabel)
+        container.addSubviews(views: avatarImageView, textContainer)
         
 //        avatarImageView.snp.makeConstraints { (maker) in
 //            maker.top.leading.equalToSuperview()
@@ -133,25 +153,6 @@ class ConversationCollectionCell: UICollectionViewCell, ConversationCellGeometor
 //            maker.top.equalTo(messageTextLabel.snp.bottom).offset(Self.timeLableTopPadding)
 //            maker.bottom.equalToSuperview()
 //        }
-        
-    }
-    
-    func bindNoticeData(_ noticeVM: Notice.NoticeViewModel) {
-        let notice = noticeVM.notice
-        
-        let imagePlaceholder: UIImage?
-        messageTextLabel.text = notice.message.text
-        timeLabel.text = noticeVM.timeString
-        
-        switch notice.message.messageObjType {
-        case .group, .room, .unknown:
-            avatarImageView.layer.cornerRadius = 8
-            imagePlaceholder = nil
-        case .user:
-            avatarImageView.layer.cornerRadius = Self.imageViewSize.height / 2
-            imagePlaceholder = R.image.ac_profile_avatar()
-        }
-        avatarImageView.setImage(with: notice.message.img, placeholder: imagePlaceholder)
         
     }
 

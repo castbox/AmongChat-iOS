@@ -10,47 +10,26 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-class ConversationViewModel {
-    private var conversation: Entity.DMConversation
-    
-    private var dataSource: [Entity.DMMessage] = []
-    
-    let dataSourceReplay = BehaviorRelay<[Entity.DMMessage]>(value: [])
-    
-    private let bag = DisposeBag()
-    
-    init(_ conversation: Entity.DMConversation) {
-        self.conversation = conversation
-        let uid = conversation.fromUid
-        
-        DMManager.shared.observableMessages(for: uid)
-            .startWith(())
-            .flatMap { item -> Single<[Entity.DMMessage]> in
-                return DMManager.shared.messages(for: uid)
-            }
-            .observeOn(MainScheduler.asyncInstance)
-            .bind(to: dataSourceReplay)
-            .disposed(by: bag)
-    }
-}
-
 class ConversationViewController: ViewController {
 
-    @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var followButton: UIButton!
-    @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet private weak var titleLabel: UILabel!
+    @IBOutlet private weak var followButton: UIButton!
+    @IBOutlet private weak var collectionView: UICollectionView!
+    @IBOutlet weak var collectionViewBottomConstraint: NSLayoutConstraint!
+    private lazy var bottomBar = ConversationBottomBar()
+    
     private var conversation: Entity.DMConversation
-    private let viewModel: ConversationViewModel
-    private var dataSource: [Entity.DMMessage] = [] {
+    private let viewModel: Conversation.ViewModel
+    
+    private var dataSource: [Conversation.MessageCellViewModel] = [] {
         didSet {
             collectionView.reloadData()
         }
     }
 
-    
     init(_ conversation: Entity.DMConversation) {
         self.conversation = conversation
-        self.viewModel = ConversationViewModel(conversation)
+        self.viewModel = Conversation.ViewModel(conversation)
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -78,16 +57,6 @@ class ConversationViewController: ViewController {
     @IBAction func followButtonAction(_ sender: Any) {
         
     }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
 
 
@@ -103,7 +72,7 @@ extension ConversationViewController: UICollectionViewDataSource {
         }
         
         let cell = collectionView.dequeueReusableCell(withClass: ConversationCollectionCell.self, for: indexPath)
-        
+        cell.bind(item)
 //        cell.bind(item)
 //        switch notice.notice.message.messageType {
 //        case .TxtMsg, .ImgMsg, .ImgTxtMsg, .TxtImgMsg:
@@ -129,11 +98,11 @@ extension ConversationViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
 
-        guard let notice = dataSource.safe(indexPath.item) else {
+        guard let viewModel = dataSource.safe(indexPath.item) else {
             return .zero
         }
 
-        return CGSize(width: Frame.Screen.width, height: 100)
+        return CGSize(width: Frame.Screen.width, height: viewModel.height)
     }
     
 }
@@ -153,6 +122,13 @@ extension ConversationViewController: UICollectionViewDelegate {
 
 extension ConversationViewController {
     func configureSubview() {
+        view.addSubviews(views: bottomBar)
+        
+        bottomBar.snp.makeConstraints { maker in
+            maker.leading.bottom.trailing.equalToSuperview()
+            maker.height.equalTo(Frame.Height.safeAeraBottomHeight + 60)
+        }
+        
         titleLabel.text = conversation.message.fromUser.name
         collectionView.register(nibWithCellClass: ConversationCollectionCell.self)
     }
@@ -163,5 +139,19 @@ extension ConversationViewController {
                 self?.dataSource = source
             })
             .disposed(by: bag)
+        
+        RxKeyboard.instance.visibleHeight
+            .drive(onNext: { [weak self] keyboardVisibleHeight in
+                guard let `self` = self else { return }
+                self.bottomBar.snp.updateConstraints { (maker) in
+                    maker.bottom.equalToSuperview().offset(-keyboardVisibleHeight)
+                }
+                self.collectionViewBottomConstraint.constant = 60 + keyboardVisibleHeight
+                UIView.animate(withDuration: 0) {
+                    self.view.layoutIfNeeded()
+                }
+            })
+            .disposed(by: bag)
+
     }
 }

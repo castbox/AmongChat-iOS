@@ -510,3 +510,7 @@
 //05.07
 "among.chat.login.auth.source.chat" = "start chatting";
 "among.chat.profile.chat" = "Chat";
+
+//
+"dm.hold.to.talk" = "Hold to talk";
+"dm.text.placeholder" = "Type a message…";

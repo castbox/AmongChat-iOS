@@ -10,6 +10,12 @@ import Foundation
 import WCDBSwift
 
 extension Entity {
+    enum DMMsgType: String {
+        case text = "TxtMsg"
+        case gif = "GifMsg"
+        case voice = "VcMsg"
+    }
+    
     struct DMProfile: Codable, ColumnCodable {
         
         let uid: Int64
@@ -73,22 +79,31 @@ extension Entity {
     
     struct DMMessage: PeerMessage, TableCodable, ColumnCodable {
         
-        let message: DMMessageBody
+        let body: DMMessageBody
         let relation: Int
         let fromUid: String
         var msgType: Peer.MessageType
         let unread: Bool?
         let fromUser: DMProfile
+        
         var ms: Double?
         
+        //seconds
+        var timestamp: Double {
+            guard let ms = ms else {
+                return 0
+            }
+            return ms / 1000
+        }
+        
         var dateString: String {
-            Date(timeIntervalSince1970: ms ?? 0).dateTimeString()
+            Date(timeIntervalSince1970: timestamp).dateTimeString()
         }
         
         init?(with value: FundamentalValue) {
             guard let json = value.stringValue.jsonObject(),
                   let msg = try? JSONDecoder().decodeAnyData(DMMessage.self, from: json) else { return nil }
-            message = msg.message
+            body = msg.body
             relation = msg.relation
             fromUid = msg.fromUid
             msgType = msg.msgType
@@ -119,7 +134,7 @@ extension Entity {
 //                    fromUid: ColumnConstraintBinding(isPrimary: true),
 //                ]
 //            }
-            case message
+            case body = "message"
             case relation
             case unread
             case fromUser = "from_user"
@@ -134,6 +149,10 @@ extension Entity {
         let url: URL?
         let duration: Double?
         let text: String?
+        
+        var msgType: DMMsgType? {
+            DMMsgType(rawValue: type)
+        }
         
         init?(with value: FundamentalValue) {
             guard let json = value.stringValue.jsonObject(),

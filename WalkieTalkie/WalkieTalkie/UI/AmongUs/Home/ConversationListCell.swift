@@ -26,7 +26,7 @@ class ConversationListCell: UICollectionViewCell {
         let msg = item.message
         avatarView.setAvatarImage(with: msg.fromUser.pictureUrl)
         nameLabel.text = msg.fromUser.name
-        contentLabel.text = msg.message.text
+        contentLabel.text = msg.body.text
         timeLabel.text = msg.dateString
         countLabel.text = item.unreadCount.string
     }

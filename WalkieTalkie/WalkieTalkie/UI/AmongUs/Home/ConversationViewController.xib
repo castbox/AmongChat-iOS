@@ -16,6 +16,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ConversationViewController" customModule="WalkieTalkie" customModuleProvider="target">
             <connections>
                 <outlet property="collectionView" destination="cxB-cu-u72" id="uIB-kg-Lny"/>
+                <outlet property="collectionViewBottomConstraint" destination="kib-qn-vFX" id="qai-l3-ATt"/>
                 <outlet property="followButton" destination="AKs-5a-Lcp" id="az4-ev-7Q7"/>
                 <outlet property="titleLabel" destination="Tk0-fI-ITX" id="Cu0-Xd-sdp"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
