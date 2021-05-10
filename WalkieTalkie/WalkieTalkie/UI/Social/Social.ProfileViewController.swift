@@ -100,19 +100,45 @@ extension Social {
             l.startPoint = CGPoint(x: 0.5, y: 0)
             l.endPoint = CGPoint(x: 0.5, y: 0.4)
             l.locations = [0, 0.3, 0.6, 1]
-            v.addSubviews(views: chatButton, followButton)
-            chatButton.snp.makeConstraints { (maker) in
-                maker.leading.equalTo(20)
-                maker.bottom.equalTo(-33)
-                maker.height.equalTo(48)
-            }
-            followButton.snp.makeConstraints { (maker) in
-                maker.bottom.equalTo(-33)
-                maker.height.equalTo(48)
-                maker.leading.equalTo(chatButton.snp.trailing).offset(20)
-                maker.trailing.equalTo(-20)
-                maker.width.equalTo(chatButton.snp.width)
-            }
+            
+            userProfile
+                .filterNil()
+                .take(1)
+                .observeOn(MainScheduler.asyncInstance)
+                .subscribe(onNext: { [weak self] (p) in
+                    
+                    guard let `self` = self else { return }
+                    
+                    if AmongChat.Login.isLogedin,
+                       !(p.isAnonymous ?? true) {
+                        v.addSubviews(views: self.chatButton, self.followButton)
+                        self.chatButton.snp.makeConstraints { (maker) in
+                            maker.leading.equalTo(20)
+                            maker.bottom.equalTo(-33)
+                            maker.height.equalTo(48)
+                        }
+                        self.followButton.snp.makeConstraints { (maker) in
+                            maker.bottom.equalTo(-33)
+                            maker.height.equalTo(48)
+                            maker.leading.equalTo(self.chatButton.snp.trailing).offset(20)
+                            maker.trailing.equalTo(-20)
+                            maker.width.equalTo(self.chatButton.snp.width)
+                        }
+                        self.chatButton.isHidden = false
+                    } else {
+                        v.addSubviews(views: self.followButton)
+                        self.followButton.snp.makeConstraints { (maker) in
+                            maker.bottom.equalTo(-33)
+                            maker.height.equalTo(48)
+                            maker.leading.trailing.equalToSuperview().inset(20)
+                        }
+                    }
+                    
+                    let follow = p.isFollowed ?? false
+                    self.setFollowButton(follow)
+                })
+                .disposed(by: bag)
+            
             v.isHidden = true
             return v
         }()
@@ -209,7 +235,7 @@ extension Social {
         private let isSelfProfile = BehaviorRelay(value: true)
         private var blocked = false
         var roomUser: Entity.RoomUser!
-        private var userProfile: Entity.UserProfile?
+        private let userProfile = BehaviorRelay<Entity.UserProfile?>(value: nil)
         private var pullToDismiss: PullToDismiss?
         
         private let createdGroupsRelay = BehaviorRelay<[Entity.Group]>(value: [])
@@ -357,7 +383,7 @@ private extension Social.ProfileViewController {
             .map({$0?.profile})
             .subscribe(onSuccess: { [weak self](data) in
                 guard let data = data, let `self` = self else { return }
-                self.userProfile = data
+                self.userProfile.accept(data)
                 self.headerView.configProfile(data)
             }, onError: {(error) in
                 cdPrint("profilePage error : \(error.localizedDescription)")
@@ -494,8 +520,6 @@ private extension Social.ProfileViewController {
                 self.relationData = data
                 self.blocked = data.isBlocked ?? false
                 self.headerView.setViewData(data, isSelf: self.isSelfProfile.value)
-                let follow = data.isFollowed ?? false
-                self.setFollowButton(follow)
             }, onError: { (error) in
                 cdPrint("relationData error :\(error.localizedDescription)")
             }).disposed(by: bag)
@@ -621,7 +645,7 @@ private extension Social.ProfileViewController {
         if isBlocked {
             blocked = true
             if !blockedUsers.contains(where: { $0.uid == uid}) {
-                let newUser = Entity.RoomUser(uid: uid, name: userProfile?.name ?? "", pic: userProfile?.pictureUrl ?? "")
+                let newUser = Entity.RoomUser(uid: uid, name: userProfile.value?.name ?? "", pic: userProfile.value?.pictureUrl ?? "")
                 blockedUsers.append(newUser)
                 Defaults[\.blockedUsersV2Key] = blockedUsers
             }
@@ -703,7 +727,6 @@ private extension Social.ProfileViewController {
             yellowFollowButton()
         }
         followButton.isHidden = false
-        chatButton.isHidden = false
     }
     
     private func greyFollowButton() {
