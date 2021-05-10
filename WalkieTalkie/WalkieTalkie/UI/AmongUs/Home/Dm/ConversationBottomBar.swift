@@ -104,7 +104,7 @@ extension ConversationBottomBar: UITextFieldDelegate {
               let rangeOfTextToReplace = Range(range, in: textFieldText) else {
             return false
         }
-        textField.textColor = .black
+//        textField.textColor = .white
         let substringToReplace = textFieldText[rangeOfTextToReplace]
         let count = textFieldText.count - substringToReplace.count + string.count
         return count <= 200

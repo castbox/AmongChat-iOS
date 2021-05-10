@@ -55,7 +55,7 @@ class ConversationCollectionCell: UICollectionViewCell {
     
     private lazy var messageTextLabel: UILabel = {
         let l = UILabel()
-        l.font = R.font.nunitoBold(size: 14)
+        l.font = R.font.nunitoBold(size: 16)
         l.textColor = UIColor(hex6: 0xFFFFFF)
         l.numberOfLines = 0
 //        l.lineBreakMode = .byWordWrapping
@@ -121,11 +121,13 @@ class ConversationCollectionCell: UICollectionViewCell {
             container.height = textContainer.size.height
             if viewModel.sendFromMe {
                 //avatar
+                messageTextLabel.textColor = "#FFF000".color()
                 avatarImageView.right = Frame.Screen.width - avatarLeftEdge
                 textContainer.right = Frame.Screen.width - contentLeftEdge
                 textContainer.roundCorners(topLeft: 18, topRight: 2, bottomLeft: 18, bottomRight: 18)
                 statusView.right = textContainer.left - 8
             } else {
+                messageTextLabel.textColor = .white
                 avatarImageView.left = avatarLeftEdge
                 textContainer.left = contentLeftEdge
                 textContainer.roundCorners(topLeft: 2, topRight: 18, bottomLeft: 18, bottomRight: 18)
