@@ -114,7 +114,7 @@ extension ConversationBottomBar: UITextFieldDelegate {
         
         textField.resignFirstResponder()
         
-        guard let text = textField.text,
+        guard let text = textField.text?.trim(),
               text.count > 0 else {
             return true
         }

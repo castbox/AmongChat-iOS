@@ -23,8 +23,9 @@ class ConversationViewController: ViewController {
     
     private var dataSource: [Conversation.MessageCellViewModel] = [] {
         didSet {
-            collectionView.reloadData()
+//            collectionView.reloadData()
             //calculate height
+            reloadCollectionView()
         }
     }
 
@@ -75,23 +76,12 @@ extension ConversationViewController: UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(withClass: ConversationCollectionCell.self, for: indexPath)
         cell.transform = CGAffineTransform(scaleX: 1, y: -1)
         cell.bind(item)
-//        cell.bind(item)
-//        switch notice.notice.message.messageType {
-//        case .TxtMsg, .ImgMsg, .ImgTxtMsg, .TxtImgMsg:
-//            cell = collectionView.dequeueReusableCell(withClass: ConversationListCell.self, for: indexPath)
-//            if let cell = cell as? ConversationListCell {
-////                cell.bindNoticeData(notice)
-//            }
-
-//        case .SocialMsg:
-//            cell = collectionView.dequeueReusableCell(withReuseIdentifier: NSStringFromClass(SocialMessageCell.self), for: indexPath)
-//
-//            if let cell = cell as? SocialMessageCell {
-//                cell.bindNoticeData(notice)
-//            }
-//
-//        }
-        
+        cell.actionHandler = { [weak self] action in
+            switch action {
+            case .resend(let message):
+                self?.viewModel.sendMessage(message)
+            }
+        }
         return cell
     }
 }
@@ -142,15 +132,14 @@ extension ConversationViewController {
                 collectionView.performBatchUpdates {
                     collectionView.insertItems(at: indexPaths)
                 } completion: { result in
-                    
+                    if let endPath = indexPaths.last {
+                        self.collectionView.scrollToItem(at: endPath, at: .bottom, animated: true)
+                    }
                 }
 
 //                self.collectionView.beginUpdates()
 //                self.collectionView.insertRows(at: indexPaths, with: .none)
 //                self.collectionView.endUpdates()
-                if let endPath = indexPaths.last {
-                    collectionView.scrollToItem(at: endPath, at: .bottom, animated: true)
-                }
             } else {
                 //                    if self.collectionView.numberOfRows(inSection: 0) <= 2 {
                 //                        self.newMessageButton.isHidden = true
@@ -163,6 +152,7 @@ extension ConversationViewController {
     }
     
     func configureSubview() {
+        
         collectionView.transform = CGAffineTransform(scaleX: 1, y: -1)
 
         view.addSubviews(views: bottomBar)
@@ -188,7 +178,7 @@ extension ConversationViewController {
             case .gif:
                 ()
             case .send(let text):
-                ()
+                self?.viewModel.sendMessage(text)
             }
         }
         

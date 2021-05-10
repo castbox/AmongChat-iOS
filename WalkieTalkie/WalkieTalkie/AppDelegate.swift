@@ -101,7 +101,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         DoraemonManager.shareInstance().showDoraemon()
         DoraemonManager.shareInstance().install()
         #endif
-//        IQKeyboardManager.shared.keyboardDistanceFromTextField = 20
+        
+        IQKeyboardManager.shared.enableAutoToolbar = false
+        IQKeyboardManager.shared.shouldResignOnTouchOutside = true
+        IQKeyboardManager.shared.enable = false
 //        // end
 //        TikTokOpenSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
         

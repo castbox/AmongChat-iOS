@@ -19,8 +19,12 @@ extension Entity {
     struct DMProfile: Codable, ColumnCodable {
         
         let uid: Int64
-        let name: String
-        let pictureUrl: String
+        let name: String?
+        let pictureUrl: String?
+        
+        var isLoginUser: Bool {
+            Settings.loginUserId?.int64 == uid
+        }
         
         init?(with value: FundamentalValue) {
             guard let json = value.stringValue.jsonObject(),
@@ -29,6 +33,15 @@ extension Entity {
             name = profile.name
             pictureUrl = profile.pictureUrl
         }
+        
+        init(uid: Int64,
+             name: String?,
+             pictureUrl: String?) {
+            self.uid = uid
+            self.name = name
+            self.pictureUrl = pictureUrl
+        }
+        
         
         func archivedValue() -> FundamentalValue {
             return .init(asString ?? "")
@@ -104,8 +117,7 @@ extension Entity {
         var msgType: Peer.MessageType
         let unread: Bool?
         let fromUser: DMProfile
-        let status: Status?
-        
+        var status: Status?
         var ms: Double?
         
         //seconds
@@ -133,6 +145,24 @@ extension Entity {
             ms = msg.ms
         }
         
+        init(body: DMMessageBody,
+             relation: Int,
+             fromUid: String,
+             msgType: Peer.MessageType = .dm,
+             unread: Bool? = false,
+             fromUser: DMProfile,
+             status: Status? = .sending,
+             ms: Double? = Date().timeIntervalSince1970 * 1000) {
+            self.body = body
+            self.relation = relation
+            self.fromUid = fromUid
+            self.msgType = msgType
+            self.unread = unread
+            self.fromUser = fromUser
+            self.status = status
+            self.ms = ms
+        }
+        
         func toConversation() -> DMConversation {
             return DMConversation(message: self, fromUid: self.fromUid, unreadCount: 1, lastMsgMs: Date().timeIntervalSince1970)
         }
@@ -151,10 +181,21 @@ extension Entity {
             static let objectRelationalMapping = TableBinding(CodingKeys.self)
             
 //            static var columnConstraintBindings: [CodingKeys: ColumnConstraintBinding]? {
+//                let multiPrimaryBinding =
+//                    MultiPrimaryBinding(indexesBy: objType.asIndex(orderBy: .descending), objId)
 //                return [
 //                    fromUid: ColumnConstraintBinding(isPrimary: true),
 //                ]
 //            }
+            
+            static var tableConstraintBindings: [TableConstraintBinding.Name: TableConstraintBinding]? {
+                let multiPrimaryBinding =
+                    MultiPrimaryBinding(indexesBy: fromUid, ms)
+                return [
+                    "MultiPrimaryConstraint": multiPrimaryBinding,
+                ]
+            }
+
             case body = "message"
             case relation
             case unread
@@ -183,6 +224,16 @@ extension Entity {
             url = message.url
             duration = message.duration
             text = message.text
+        }
+        
+        init(type: DMMsgType,
+             url: URL?,
+             duration: Double?,
+             text: String?) {
+            self.type = type.rawValue
+            self.url = url
+            self.duration = duration
+            self.text = text
         }
         
         func archivedValue() -> FundamentalValue {

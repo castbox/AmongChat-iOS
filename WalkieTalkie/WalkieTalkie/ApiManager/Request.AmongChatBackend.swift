@@ -1616,8 +1616,8 @@ extension Request {
     }
     
 
-    static func send(dm text: String) -> Single<Bool> {
-        return amongchatProvider.rx.request(.sendDM(["type": "TxtMsg","text": text]))
+    static func sendDm(text: String, to uid: String) -> Single<Bool> {
+        return amongchatProvider.rx.request(.sendDM(["uid": uid, "type": "TxtMsg","text": text]))
             .mapJSON()
             .mapToDataKeyJsonValue()
             .mapToProcessedValue()

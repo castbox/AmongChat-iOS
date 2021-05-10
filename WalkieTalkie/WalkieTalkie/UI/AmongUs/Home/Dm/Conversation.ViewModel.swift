@@ -62,6 +62,10 @@ extension Conversation {
         //分级时间
         private var groupTime: Double = 0
         
+        private var targetUid: String {
+            conversation.fromUid
+        }
+        
         init(_ conversation: Entity.DMConversation) {
             self.conversation = conversation
             let uid = conversation.fromUid
@@ -89,6 +93,29 @@ extension Conversation {
                 }
                 .observeOn(MainScheduler.asyncInstance)
                 .bind(to: dataSourceReplay)
+                .disposed(by: bag)
+        }
+        
+        func sendMessage(_ text: String) {
+            guard let profile = Settings.loginUserProfile?.dmProfile else {
+                return
+            }
+            let messageBody = Entity.DMMessageBody(type: .text, url: nil, duration: nil, text: text)
+            let message = Entity.DMMessage(body: messageBody, relation: 1, fromUid: targetUid, unread: false, fromUser: profile, status: .sending)
+            sendMessage(message)
+        }
+        
+        func sendMessage(_ message: Entity.DMMessage) {
+            DMManager.shared.insertOrReplace(message: message)
+            var message = message
+            Request.sendDm(text: message.body.text ?? "", to: targetUid)
+                .subscribe(onSuccess: { result in
+                    message.status = .success
+                    DMManager.shared.insertOrReplace(message: message)
+                }, onError: { error in
+                    message.status = .failed
+                    DMManager.shared.insertOrReplace(message: message)
+                })
                 .disposed(by: bag)
         }
     }

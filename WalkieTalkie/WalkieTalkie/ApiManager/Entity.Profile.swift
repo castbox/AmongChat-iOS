@@ -228,6 +228,10 @@ extension Entity {
 }
 
 extension Entity.UserProfile {
+    var dmProfile: Entity.DMProfile {
+        Entity.DMProfile(uid: uid.int64, name: name, pictureUrl: pictureUrl)
+    }
+    
     var nameWithAge: String {
         if let b = birthday, !b.isEmpty {
             let dateFormatter = DateFormatter()

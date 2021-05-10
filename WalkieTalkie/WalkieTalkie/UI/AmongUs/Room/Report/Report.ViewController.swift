@@ -74,7 +74,6 @@ extension Report {
         override func viewDidAppear(_ animated: Bool) {
             super.viewDidAppear(animated)
             IQKeyboardManager.shared.enable = true
-            IQKeyboardManager.shared.enableAutoToolbar = false
         }
         
         override func viewDidDisappear(_ animated: Bool) {
@@ -94,7 +93,6 @@ extension Report {
             
             configureSubview()
             bindSubviewEvent()
-            IQKeyboardManager.shared.shouldResignOnTouchOutside = true
         }
         
 //        override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

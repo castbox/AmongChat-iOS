@@ -99,7 +99,7 @@
                         <constraint firstItem="WqX-Go-sOp" firstAttribute="centerY" secondItem="Ay3-en-jMj" secondAttribute="centerY" id="mND-Gd-EgU"/>
                     </constraints>
                 </view>
-                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="cxB-cu-u72">
+                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" bouncesZoom="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="cxB-cu-u72">
                     <rect key="frame" x="0.0" y="88" width="414" height="714"/>
                     <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="nRB-hk-WWg">
                         <size key="itemSize" width="128" height="128"/>

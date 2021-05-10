@@ -38,6 +38,11 @@ class DMManager {
             })
     }
     
+    func insertOrReplace(message: Entity.DMMessage) {
+        _ = add(message: message)
+            .subscribe()
+    }
+    
     func add(message: Entity.DMMessage) -> Single<Void> {
         //1. replace or add conversation
         return queryConversation(fromUid: message.fromUid)
@@ -47,7 +52,9 @@ class DMManager {
                         return message.toConversation()
                     }
                     //update message
-                    item.unreadCount += 1
+                    if !item.message.fromUser.isLoginUser {
+                        item.unreadCount += 1
+                    }
                     item.message = message
                     item.lastMsgMs = Date().timeIntervalSince1970
                     return item
