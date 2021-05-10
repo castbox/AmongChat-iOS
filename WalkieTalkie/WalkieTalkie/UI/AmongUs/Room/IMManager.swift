@@ -115,6 +115,7 @@ class IMManager: NSObject {
                     case .dm:
                         var dmMessage = try JSONDecoder().decodeAnyData(Entity.DMMessage.self, from: json)
                         dmMessage.ms = Double(message.serverReceivedTs)
+                        dmMessage.status = .success
                         item = dmMessage
                     }
                 }

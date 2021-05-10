@@ -28,7 +28,7 @@ extension Conversation {
 //            case .text:
                 let maxWidth = Frame.Screen.width - 72 * 2
             let textSize = message.body.text?.boundingRect(with: CGSize(width: maxWidth, height: 1000), font: R.font.nunitoBold(size: 16)!) ?? CGSize(width: 0, height: 0)
-            contentSize = textSize
+            contentSize = textSize.ceil
             let topEdge: CGFloat = 18
             var height = contentSize.height + topEdge * 2
             if showTime {
@@ -62,7 +62,7 @@ extension Conversation {
         //分级时间
         private var groupTime: Double = 0
         
-        private var targetUid: String {
+        var targetUid: String {
             conversation.fromUid
         }
         
@@ -118,5 +118,12 @@ extension Conversation {
                 })
                 .disposed(by: bag)
         }
+    }
+}
+
+
+extension CGSize {
+    var ceil: CGSize {
+        CGSize(width: width.ceil, height: height.ceil)
     }
 }

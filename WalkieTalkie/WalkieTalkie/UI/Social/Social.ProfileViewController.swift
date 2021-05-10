@@ -85,13 +85,12 @@ extension Social {
             btn.setTitleColor(UIColor(hex6: 0xFFF000), for: .normal)
             btn.setTitle(R.string.localizable.amongChatProfileChat(), for: .normal)
             btn.rx.tap
-                .subscribe(onNext: { () in
-                    //TODO: - Chat
+                .subscribe(onNext: { [weak self] () in
+                    self?.startChatIfCould()
                 }).disposed(by: bag)
             btn.isHidden = true
             return btn
         }()
-
         
         private lazy var bottomGradientView: GradientView = {
             let v = GradientView()
@@ -737,6 +736,37 @@ private extension Social.ProfileViewController {
             })
             .disposed(by: bag)
         
+    }
+    
+    func startChatIfCould() {
+        //判断为非匿名用户
+        guard let profile = userProfile?.dmProfile else {
+            return
+        }
+        
+        let hudRemoval = view.raft.show(.loading)
+        //query
+        DMManager.shared.queryConversation(fromUid: profile.uid.string)
+            .flatMap { conversation -> Single<Entity.DMConversation?> in
+                guard conversation == nil else {
+                    return .just(conversation)
+                }
+                let body = Entity.DMMessageBody(type: .text, url: nil, duration: 0, text: "")
+                let message = Entity.DMMessage(body: body, relation: 1, fromUid: profile.uid.string, fromUser: profile, status: .empty)
+                return DMManager.shared.add(message: message)
+                    .flatMap { DMManager.shared.queryConversation(fromUid: profile.uid.string) }
+            }
+            .subscribe(onSuccess: { [weak self] conversation in
+                hudRemoval()
+                guard let conversation = conversation else {
+                    return
+                }
+                let vc = ConversationViewController(conversation)
+                self?.navigationController?.pushViewController(vc)
+            }, onError: { error in
+                hudRemoval()
+            })
+            .disposed(by: bag)
     }
 }
 // MARK: - UICollectionViewDataSource

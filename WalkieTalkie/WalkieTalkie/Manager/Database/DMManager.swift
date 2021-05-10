@@ -51,11 +51,13 @@ class DMManager {
                     guard var item = item else {
                         return message.toConversation()
                     }
-                    //update message
-                    if !item.message.fromUser.isLoginUser {
+                    //消息为本人发送，则只更新 conversation body 内容
+                    if message.fromUser.isLoginUser {
+                        item.message.body = message.body
+                    } else {
+                        item.message = message
                         item.unreadCount += 1
                     }
-                    item.message = message
                     item.lastMsgMs = Date().timeIntervalSince1970
                     return item
                 }
@@ -131,7 +133,7 @@ class DMManager {
     }
     
     func messages(for uid: String, limit: Int? = nil, offset: Int? = nil) -> Single<[Entity.DMMessage]> {
-        let ex = Entity.DMMessage.Properties.fromUid == uid
+        let ex = Entity.DMMessage.Properties.fromUid == uid && Entity.DMMessage.Properties.status != "empty"
         return database.mapTransactionToSingle { (db) in
             try db.getObjects(fromTable: dmMessagesTableName,
                               where: ex,

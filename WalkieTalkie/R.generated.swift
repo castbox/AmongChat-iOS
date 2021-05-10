@@ -7512,6 +7512,7 @@ struct _R: Rswift.Validatable {
       static func validate() throws {
         if UIKit.UIImage(named: "ac_back", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ac_back' is used in nib 'ConversationViewController', but couldn't be loaded.") }
         if UIKit.UIImage(named: "ac_profile_more_icon", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ac_profile_more_icon' is used in nib 'ConversationViewController', but couldn't be loaded.") }
+        if UIKit.UIImage(named: "online", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'online' is used in nib 'ConversationViewController', but couldn't be loaded.") }
         if #available(iOS 11.0, *) {
         }
       }

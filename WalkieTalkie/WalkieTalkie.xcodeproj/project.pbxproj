@@ -1654,9 +1654,9 @@
 				FE045FC726451CB20032FE67 /* ConversationListCell.xib */,
 				FE045FCA2645219E0032FE67 /* ConversationViewController.swift */,
 				FE045FCB2645219E0032FE67 /* ConversationViewController.xib */,
+				FE857C4B2646B9C2008C4ADC /* Conversation.ViewModel.swift */,
 				FEEB70602648CCA800D7EB82 /* ConversationBottomBar.swift */,
 				FEEB70622648CCB000D7EB82 /* ConversationBottomBar.xib */,
-				FE857C4B2646B9C2008C4ADC /* Conversation.ViewModel.swift */,
 				FE7E227026455DFB00DAD431 /* ConversationCollectionCell.swift */,
 				FE7E227126455DFB00DAD431 /* ConversationCollectionCell.xib */,
 			);

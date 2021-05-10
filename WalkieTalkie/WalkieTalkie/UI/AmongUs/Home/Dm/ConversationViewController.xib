@@ -18,7 +18,9 @@
                 <outlet property="collectionView" destination="cxB-cu-u72" id="uIB-kg-Lny"/>
                 <outlet property="collectionViewBottomConstraint" destination="kib-qn-vFX" id="qai-l3-ATt"/>
                 <outlet property="followButton" destination="AKs-5a-Lcp" id="az4-ev-7Q7"/>
+                <outlet property="onlineView" destination="btE-Zl-39A" id="UFf-0R-Pg6"/>
                 <outlet property="titleLabel" destination="Tk0-fI-ITX" id="Cu0-Xd-sdp"/>
+                <outlet property="userInfostackView" destination="wgs-6R-SNW" id="zit-UZ-c9i"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -52,12 +54,43 @@
                                 <action selector="moreButtonAction:" destination="-1" eventType="touchUpInside" id="l6F-6J-vGu"/>
                             </connections>
                         </button>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tk0-fI-ITX">
+                        <stackView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="wgs-6R-SNW">
                             <rect key="frame" x="72" y="11" width="195" height="22"/>
-                            <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito" pointSize="16"/>
-                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <nil key="highlightedColor"/>
-                        </label>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tk0-fI-ITX">
+                                    <rect key="frame" x="0.0" y="0.0" width="195" height="22"/>
+                                    <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito" pointSize="16"/>
+                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="btE-Zl-39A">
+                                    <rect key="frame" x="0.0" y="0.0" width="195" height="16"/>
+                                    <subviews>
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="online" translatesAutoresizingMaskIntoConstraints="NO" id="bzG-i3-Msz">
+                                            <rect key="frame" x="0.0" y="0.0" width="16" height="16"/>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Online" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WsQ-yf-OaQ">
+                                            <rect key="frame" x="18" y="-1.5" width="43" height="19.5"/>
+                                            <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito" pointSize="14"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <nil key="highlightedColor"/>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="string" keyPath="xibLocKey" value="social.status.online"/>
+                                            </userDefinedRuntimeAttributes>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <constraints>
+                                        <constraint firstItem="WsQ-yf-OaQ" firstAttribute="leading" secondItem="bzG-i3-Msz" secondAttribute="trailing" constant="2" id="3kC-k8-2hG"/>
+                                        <constraint firstItem="WsQ-yf-OaQ" firstAttribute="centerY" secondItem="btE-Zl-39A" secondAttribute="centerY" id="Bk1-5a-DCi"/>
+                                        <constraint firstItem="bzG-i3-Msz" firstAttribute="leading" secondItem="btE-Zl-39A" secondAttribute="leading" id="SwY-Ap-9xD"/>
+                                        <constraint firstAttribute="height" constant="16" id="mUq-Pm-aHW"/>
+                                        <constraint firstItem="bzG-i3-Msz" firstAttribute="top" secondItem="btE-Zl-39A" secondAttribute="top" id="n3e-ax-Ck4"/>
+                                    </constraints>
+                                </view>
+                            </subviews>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </stackView>
                         <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="254" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AKs-5a-Lcp">
                             <rect key="frame" x="282" y="6" width="68" height="32"/>
                             <constraints>
@@ -87,16 +120,16 @@
                     </subviews>
                     <color key="backgroundColor" red="0.070588235289999995" green="0.070588235289999995" blue="0.070588235289999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
-                        <constraint firstItem="Tk0-fI-ITX" firstAttribute="leading" secondItem="WqX-Go-sOp" secondAttribute="trailing" constant="14" id="3CA-ye-wAD"/>
-                        <constraint firstItem="AKs-5a-Lcp" firstAttribute="leading" secondItem="Tk0-fI-ITX" secondAttribute="trailing" constant="15" id="GSH-cK-vnK"/>
+                        <constraint firstItem="wgs-6R-SNW" firstAttribute="leading" secondItem="WqX-Go-sOp" secondAttribute="trailing" constant="14" id="7y7-iI-jKl"/>
+                        <constraint firstItem="AKs-5a-Lcp" firstAttribute="leading" secondItem="wgs-6R-SNW" secondAttribute="trailing" constant="15" id="E1A-6t-fjg"/>
                         <constraint firstAttribute="trailing" secondItem="h6A-W3-4H9" secondAttribute="trailing" constant="10" id="JW8-DG-1m1"/>
                         <constraint firstItem="WqX-Go-sOp" firstAttribute="leading" secondItem="Ay3-en-jMj" secondAttribute="leading" constant="14" id="LrC-A9-Kxr"/>
                         <constraint firstAttribute="height" constant="44" id="M6Z-7h-bar"/>
                         <constraint firstItem="h6A-W3-4H9" firstAttribute="centerY" secondItem="Ay3-en-jMj" secondAttribute="centerY" id="QHl-LE-3bW"/>
                         <constraint firstItem="AKs-5a-Lcp" firstAttribute="centerY" secondItem="h6A-W3-4H9" secondAttribute="centerY" id="TpS-sm-kly"/>
                         <constraint firstItem="h6A-W3-4H9" firstAttribute="leading" secondItem="AKs-5a-Lcp" secondAttribute="trailing" constant="10" id="cZ4-5G-c9e"/>
-                        <constraint firstItem="Tk0-fI-ITX" firstAttribute="centerY" secondItem="WqX-Go-sOp" secondAttribute="centerY" id="icB-QI-FXB"/>
                         <constraint firstItem="WqX-Go-sOp" firstAttribute="centerY" secondItem="Ay3-en-jMj" secondAttribute="centerY" id="mND-Gd-EgU"/>
+                        <constraint firstItem="wgs-6R-SNW" firstAttribute="centerY" secondItem="WqX-Go-sOp" secondAttribute="centerY" id="ud5-Bz-wfN"/>
                     </constraints>
                 </view>
                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" bouncesZoom="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="cxB-cu-u72">
@@ -130,5 +163,6 @@
     <resources>
         <image name="ac_back" width="24" height="24"/>
         <image name="ac_profile_more_icon" width="40" height="40"/>
+        <image name="online" width="16" height="16"/>
     </resources>
 </document>

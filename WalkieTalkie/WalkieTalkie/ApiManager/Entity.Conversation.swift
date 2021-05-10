@@ -95,7 +95,7 @@ extension Entity {
             case success
             case sending
             case failed
-            
+            case empty //空消息
             
             init?(with value: FundamentalValue) {
                 guard let type = Status(rawValue: value.stringValue) else { return nil }
@@ -111,7 +111,7 @@ extension Entity {
             }
         }
         
-        let body: DMMessageBody
+        var body: DMMessageBody
         let relation: Int
         let fromUid: String
         var msgType: Peer.MessageType
@@ -164,7 +164,7 @@ extension Entity {
         }
         
         func toConversation() -> DMConversation {
-            return DMConversation(message: self, fromUid: self.fromUid, unreadCount: 1, lastMsgMs: Date().timeIntervalSince1970)
+            return DMConversation(message: self, fromUid: self.fromUid, unreadCount: status == .empty ? 0 : 1, lastMsgMs: Date().timeIntervalSince1970)
         }
         
         func archivedValue() -> FundamentalValue {

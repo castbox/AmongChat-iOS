@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 private let avatarLeftEdge: CGFloat = 20
 private let contentLeftEdge: CGFloat = 60
@@ -15,6 +17,7 @@ class ConversationCollectionCell: UICollectionViewCell {
     
     enum Action {
         case resend(Entity.DMMessage)
+        case user(Int64)
     }
     
     private lazy var container: UIView = {
@@ -29,6 +32,13 @@ class ConversationCollectionCell: UICollectionViewCell {
         i.cornerRadius = 16
         i.clipsToBounds = true
         i.contentMode = .scaleAspectFill
+        i.isUserInteractionEnabled = true
+        i.rx.tapGesture()
+            .subscribe(onNext: { [weak self] _ in
+                guard let `self` = self, let uid = self.viewModel?.message.fromUser.uid else { return }
+                self.actionHandler?(.user(uid))
+            })
+            .disposed(by: bag)
         return i
     }()
     
@@ -92,6 +102,8 @@ class ConversationCollectionCell: UICollectionViewCell {
         indicatorView.hidesWhenStopped = true
         return indicatorView
     }()
+    
+    private let bag = DisposeBag()
     
     var viewModel: Conversation.MessageCellViewModel?
     
@@ -178,31 +190,5 @@ class ConversationCollectionCell: UICollectionViewCell {
         
         contentView.addSubviews(views: container, timeLabel)
         container.addSubviews(views: avatarImageView, textContainer, statusView, indicatorView)
-        
-//        avatarImageView.snp.makeConstraints { (maker) in
-//            maker.top.leading.equalToSuperview()
-//            maker.size.equalTo(Self.imageViewSize)
-//        }
-//
-//        textContainer.snp.makeConstraints { (maker) in
-//            maker.top.equalTo(avatarImageView)
-//            maker.leading.equalTo(avatarImageView.snp.trailing).offset(Self.textLeading)
-//            maker.trailing.equalToSuperview()
-//            maker.height.equalTo(Self.titleHeight)
-//        }
-//
-//        messageTextLabel.snp.makeConstraints { (maker) in
-//            maker.leading.trailing.equalTo(messageTitleLabel)
-//            maker.top.equalTo(messageTitleLabel.snp.bottom).offset(Self.messageTopPadding)
-//        }
-//
-//        timeLabel.snp.makeConstraints { (maker) in
-//            maker.leading.trailing.equalTo(messageTitleLabel)
-//            maker.height.equalTo(Self.timeLableHeight)
-//            maker.top.equalTo(messageTextLabel.snp.bottom).offset(Self.timeLableTopPadding)
-//            maker.bottom.equalToSuperview()
-//        }
-        
     }
-
 }

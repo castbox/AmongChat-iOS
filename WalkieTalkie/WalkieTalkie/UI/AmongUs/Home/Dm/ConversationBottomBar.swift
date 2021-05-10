@@ -112,7 +112,7 @@ extension ConversationBottomBar: UITextFieldDelegate {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         
-        textField.resignFirstResponder()
+//        textField.resignFirstResponder()
         
         guard let text = textField.text?.trim(),
               text.count > 0 else {

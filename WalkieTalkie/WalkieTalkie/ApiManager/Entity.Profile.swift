@@ -280,7 +280,7 @@ extension Entity {
     struct UserStatus: Codable {
         
         var uid: Int
-        var room: Entity.Room?
+        var room: Room?
         var group: Group?
         var isOnline: Bool?
         
@@ -289,6 +289,15 @@ extension Entity {
             case room
             case group
             case isOnline = "is_online"
+        }
+        
+        struct Room: Codable {
+            let roomId: String
+            let state: String
+            let topicId: String
+            let playerCount: Int?
+            let topicName: String
+            let coverUrl: URL?
         }
         
         struct Group: Codable {
