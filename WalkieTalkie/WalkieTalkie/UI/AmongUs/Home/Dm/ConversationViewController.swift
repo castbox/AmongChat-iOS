@@ -24,6 +24,7 @@ class ConversationViewController: ViewController {
     private var dataSource: [Conversation.MessageCellViewModel] = [] {
         didSet {
             collectionView.reloadData()
+            //calculate height
         }
     }
 
@@ -72,6 +73,7 @@ extension ConversationViewController: UICollectionViewDataSource {
         }
         
         let cell = collectionView.dequeueReusableCell(withClass: ConversationCollectionCell.self, for: indexPath)
+        cell.transform = CGAffineTransform(scaleX: 1, y: -1)
         cell.bind(item)
 //        cell.bind(item)
 //        switch notice.notice.message.messageType {
@@ -121,7 +123,48 @@ extension ConversationViewController: UICollectionViewDelegate {
 
 
 extension ConversationViewController {
+    func reloadCollectionView() {
+        let contentHeight = self.collectionView.contentSize.height
+        let height = self.collectionView.bounds.size.height
+        let contentOffsetY = self.collectionView.contentOffset.y
+        let bottomOffset = contentHeight - contentOffsetY
+        //            self.newMessageButton.isHidden = true
+        // 消息不足一屏
+        if contentHeight < height {
+            self.collectionView.reloadData()
+            //获取高度，更新 collectionview height
+        } else {// 超过一屏
+            if floor(bottomOffset) - floor(height) < 40 {// 已经在底部
+                let rows = self.collectionView.numberOfItems(inSection: 0)
+                let newRow = self.dataSource.count
+                guard newRow > rows else { return }
+                let indexPaths = Array(rows..<newRow).map({ IndexPath(row: $0, section: 0) })
+                collectionView.performBatchUpdates {
+                    collectionView.insertItems(at: indexPaths)
+                } completion: { result in
+                    
+                }
+
+//                self.collectionView.beginUpdates()
+//                self.collectionView.insertRows(at: indexPaths, with: .none)
+//                self.collectionView.endUpdates()
+                if let endPath = indexPaths.last {
+                    collectionView.scrollToItem(at: endPath, at: .bottom, animated: true)
+                }
+            } else {
+                //                    if self.collectionView.numberOfRows(inSection: 0) <= 2 {
+                //                        self.newMessageButton.isHidden = true
+                //                    } else {
+                //                        self.newMessageButton.isHidden = false
+                //                    }
+                self.collectionView.reloadData()
+            }
+        }
+    }
+    
     func configureSubview() {
+        collectionView.transform = CGAffineTransform(scaleX: 1, y: -1)
+
         view.addSubviews(views: bottomBar)
         
         bottomBar.snp.makeConstraints { maker in
@@ -139,6 +182,15 @@ extension ConversationViewController {
                 self?.dataSource = source
             })
             .disposed(by: bag)
+        
+        bottomBar.actionHandler = { [weak self] action in
+            switch action {
+            case .gif:
+                ()
+            case .send(let text):
+                ()
+            }
+        }
         
         RxKeyboard.instance.visibleHeight
             .drive(onNext: { [weak self] keyboardVisibleHeight in

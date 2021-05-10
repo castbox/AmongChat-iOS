@@ -16,10 +16,12 @@ extension Conversation {
         let height: CGFloat
         let showTime: Bool
         let contentSize: CGSize
+        let sendFromMe: Bool
         
         init(message: Entity.DMMessage, showTime: Bool) {
             self.message = message
             self.showTime = showTime
+            self.sendFromMe = message.fromUser.uid == Settings.loginUserId?.int64
             //calculate height
             
 //            switch message.body.msgType {
@@ -76,7 +78,7 @@ extension Conversation {
                             self.groupTime = message.timestamp
                         }
                         //大余5分钟则显示时间，
-                        let showTimeLabel = (message.timestamp - self.groupTime) > 60 * 5
+                        let showTimeLabel = (self.groupTime - message.timestamp) > 60 * 5
                         if showTimeLabel {
                             self.groupTime = message.timestamp
                         }

@@ -216,7 +216,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 215 images.
+  /// This `R.image` struct is generated, and contains static references to 216 images.
   struct image {
     /// Image `ac_add_stats_add`.
     static let ac_add_stats_add = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_add_stats_add")
@@ -542,6 +542,8 @@ struct R: Rswift.Validatable {
     static let btn_share = Rswift.ImageResource(bundle: R.hostingBundle, name: "btn_share")
     /// Image `btn_up`.
     static let btn_up = Rswift.ImageResource(bundle: R.hostingBundle, name: "btn_up")
+    /// Image `dmSendFailed`.
+    static let dmSendFailed = Rswift.ImageResource(bundle: R.hostingBundle, name: "dmSendFailed")
     /// Image `home_name_edit`.
     static let home_name_edit = Rswift.ImageResource(bundle: R.hostingBundle, name: "home_name_edit")
     /// Image `iconDmGif`.
@@ -1457,6 +1459,11 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "btn_up", bundle: ..., traitCollection: ...)`
     static func btn_up(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.btn_up, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "dmSendFailed", bundle: ..., traitCollection: ...)`
+    static func dmSendFailed(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.dmSendFailed, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "home_name_edit", bundle: ..., traitCollection: ...)`

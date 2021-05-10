@@ -8,41 +8,7 @@
 
 import UIKit
 
-protocol ConversationCellGeometory {
-        
-    static func cellSize(for notice: Entity.Notice) -> CGSize
-}
-
-
-extension ConversationCellGeometory {
-    
-    static var cellWidth: CGFloat {
-        let hInset: CGFloat = 20
-        let columns: Int = 1
-        let interitemSpacing: CGFloat = 20
-        let cellWidth = ((UIScreen.main.bounds.width - hInset * 2 - interitemSpacing * CGFloat(columns - 1)) / CGFloat(columns)).rounded(.towardZero)
-        return cellWidth
-    }
-    
-}
-
-class ConversationCollectionCell: UICollectionViewCell, ConversationCellGeometory {
-    
-    private static let titleHeight:CGFloat = 27
-    private static let textLeading: CGFloat = 12
-    private static let messageTopPadding: CGFloat = 1
-    private static let textFont = R.font.nunitoBold(size: 14) ?? UIFont.systemFont(ofSize: 14, weight: .bold)
-    private static let imageViewSize = CGSize(width: 48, height: 48)
-    private static let timeLableTopPadding: CGFloat = 4
-    private static let timeLableHeight: CGFloat = 19
-    
-    static func cellSize(for notice: Entity.Notice) -> CGSize {
-
-        let txtHeight = notice.message.text?.height(forConstrainedWidth: cellWidth - imageViewSize.width - textLeading, font: Self.textFont) ?? 0
-        
-        let height = ceil(titleHeight + messageTopPadding + txtHeight + timeLableTopPadding + timeLableHeight)
-        return CGSize(width: cellWidth, height: max(height, imageViewSize.height))
-    }
+class ConversationCollectionCell: UICollectionViewCell {
     
     private lazy var container: UIView = {
         let i = UIView(frame: CGRect(x: 0, y: 0, width: Frame.Screen.width, height: 200))
@@ -62,8 +28,9 @@ class ConversationCollectionCell: UICollectionViewCell, ConversationCellGeometor
         let i = UIImageView(frame: CGRect(x: 60, y: 0, width: Frame.Screen.width - 60 * 2, height: 109))
         i.clipsToBounds = true
         i.contentMode = .scaleAspectFill
-        i.backgroundColor = .red
+        i.backgroundColor = "#222222".color()
         i.addSubview(messageTextLabel)
+        i.roundCorners(topLeft: 2, topRight: 18, bottomLeft: 18, bottomRight: 18)
         
         messageTextLabel.snp.makeConstraints { maker in
             maker.edges.equalToSuperview().inset(12)
@@ -95,6 +62,27 @@ class ConversationCollectionCell: UICollectionViewCell, ConversationCellGeometor
         return l
     }()
     
+    private lazy var statusView: UIButton = {
+        let button = UIButton()
+        button.setImage(R.image.dmSendFailed(), for: .normal)
+        button.isHidden = true
+        return button
+    }()
+    
+    private lazy var unreadView: UIView = {
+        let v = UIView(frame: CGRect(x: 0, y: 0, width: 9, height: 9))
+        v.cornerRadius = 4.5
+        v.backgroundColor = "#FB5858".color()
+        v.isHidden = true
+        return v
+    }()
+    
+    private lazy var indicatorView: UIActivityIndicatorView = {
+        let indicatorView = UIActivityIndicatorView(style: .whiteLarge)
+        indicatorView.hidesWhenStopped = true
+        return indicatorView
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setUpLayout()
@@ -108,19 +96,51 @@ class ConversationCollectionCell: UICollectionViewCell, ConversationCellGeometor
     func bind(_ viewModel: Conversation.MessageCellViewModel) {
         let msg = viewModel.message
         avatarImageView.setAvatarImage(with: msg.fromUser.pictureUrl)
-        messageTextLabel.text = msg.body.text
         timeLabel.text = msg.dateString
         
-        textContainer.size = CGSize(width: viewModel.contentSize.width + 12 * 2, height: viewModel.contentSize.height + 12 * 2)
-        messageTextLabel.size = viewModel.contentSize
+        switch msg.body.msgType {
+        case .text:
+            messageTextLabel.text = msg.body.text
+            textContainer.size = CGSize(width: viewModel.contentSize.width + 12 * 2, height: viewModel.contentSize.height + 12 * 2)
+            messageTextLabel.size = viewModel.contentSize
+            container.height = textContainer.size.height
+            if viewModel.sendFromMe {
+                textContainer.roundCorners(topLeft: 18, topRight: 18, bottomLeft: 18, bottomRight: 18)
+                statusView.right = textContainer.left - 8
+            } else {
+                textContainer.roundCorners(topLeft: 2, topRight: 18, bottomLeft: 18, bottomRight: 18)
+                statusView.left = textContainer.right + 8
+            }
+            statusView.centerY = textContainer.centerY
+            indicatorView.center = statusView.center
+        case .gif:
+            ()
+        case .voice:
+            ()
+        case .none:
+            ()
+        }
+        //
+        switch msg.status {
+        case .sending:
+            indicatorView.startAnimating()
+            statusView.isHidden = true
+        case .failed:
+            indicatorView.stopAnimating()
+            statusView.setImage(R.image.dmSendFailed(), for: .normal)
+            statusView.isHidden = false
+        default:
+            statusView.isHidden = true
+            indicatorView.stopAnimating()
+        }
+        unreadView.isHidden = !(msg.unread == true)
+        
         if viewModel.showTime {
             container.top = 33
         } else {
             container.top = 6
         }
-        container.height = textContainer.size.height
         timeLabel.isHidden = !viewModel.showTime
-//        countLabel.text = item.unreadCount.string
     }
     
     private func setUpLayout() {
@@ -128,7 +148,7 @@ class ConversationCollectionCell: UICollectionViewCell, ConversationCellGeometor
         contentView.backgroundColor = .clear
         
         contentView.addSubviews(views: container, timeLabel)
-        container.addSubviews(views: avatarImageView, textContainer)
+        container.addSubviews(views: avatarImageView, textContainer, statusView, indicatorView)
         
 //        avatarImageView.snp.makeConstraints { (maker) in
 //            maker.top.leading.equalToSuperview()

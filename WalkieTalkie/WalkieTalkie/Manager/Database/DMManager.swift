@@ -128,7 +128,7 @@ class DMManager {
         return database.mapTransactionToSingle { (db) in
             try db.getObjects(fromTable: dmMessagesTableName,
                               where: ex,
-                              orderBy: [Entity.DMMessage.Properties.ms.asOrder(by: .ascending)],
+                              orderBy: [Entity.DMMessage.Properties.ms.asOrder(by: .descending)],
                               limit: limit,
                               offset: offset)
         }

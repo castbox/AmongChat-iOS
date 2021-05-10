@@ -1007,16 +1007,7 @@
 				FEE8502E259B31DF00CF9A74 /* JoinRoomable.swift */,
 				FE80A58325AD96BB009914A7 /* Search.ViewController.swift */,
 				FE857C4D2646B9EC008C4ADC /* Conversation.swift */,
-				2656752C2645029A004D77D6 /* AmongChat.Home.ConversationListController.swift */,
-				FE045FC626451CB20032FE67 /* ConversationListCell.swift */,
-				FE045FC726451CB20032FE67 /* ConversationListCell.xib */,
-				FE045FCA2645219E0032FE67 /* ConversationViewController.swift */,
-				FE045FCB2645219E0032FE67 /* ConversationViewController.xib */,
-				FEEB70602648CCA800D7EB82 /* ConversationBottomBar.swift */,
-				FEEB70622648CCB000D7EB82 /* ConversationBottomBar.xib */,
-				FE857C4B2646B9C2008C4ADC /* Conversation.ViewModel.swift */,
-				FE7E227026455DFB00DAD431 /* ConversationCollectionCell.swift */,
-				FE7E227126455DFB00DAD431 /* ConversationCollectionCell.xib */,
+				FEEB70642648D72700D7EB82 /* Dm */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -1653,6 +1644,23 @@
 				2B9566F9259ADD2E001C7B91 /* R.generated.swift */,
 			);
 			name = "Recovered References";
+			sourceTree = "<group>";
+		};
+		FEEB70642648D72700D7EB82 /* Dm */ = {
+			isa = PBXGroup;
+			children = (
+				2656752C2645029A004D77D6 /* AmongChat.Home.ConversationListController.swift */,
+				FE045FC626451CB20032FE67 /* ConversationListCell.swift */,
+				FE045FC726451CB20032FE67 /* ConversationListCell.xib */,
+				FE045FCA2645219E0032FE67 /* ConversationViewController.swift */,
+				FE045FCB2645219E0032FE67 /* ConversationViewController.xib */,
+				FEEB70602648CCA800D7EB82 /* ConversationBottomBar.swift */,
+				FEEB70622648CCB000D7EB82 /* ConversationBottomBar.xib */,
+				FE857C4B2646B9C2008C4ADC /* Conversation.ViewModel.swift */,
+				FE7E227026455DFB00DAD431 /* ConversationCollectionCell.swift */,
+				FE7E227126455DFB00DAD431 /* ConversationCollectionCell.xib */,
+			);
+			path = Dm;
 			sourceTree = "<group>";
 		};
 		FEF170F725C9593E004C3FD3 /* Views */ = {

@@ -17,7 +17,7 @@
             <connections>
                 <outlet property="gifButton" destination="CoN-C0-YAy" id="yt6-1J-OyH"/>
                 <outlet property="leftButton" destination="Et7-5C-X1J" id="Jxj-oy-cOQ"/>
-                <outlet property="textField" destination="lEm-K6-rwg" id="G0Y-sw-TqG"/>
+                <outlet property="textField" destination="lEm-K6-rwg" id="orq-qH-zIE"/>
                 <outlet property="voiceButton" destination="Pgp-2Z-QjQ" id="NUu-Uu-zmw"/>
             </connections>
         </placeholder>
@@ -48,7 +48,7 @@
                         <action selector="gifButtonAction:" destination="-1" eventType="touchUpInside" id="hZ9-Id-IJB"/>
                     </connections>
                 </button>
-                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Type a message…" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lEm-K6-rwg">
+                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Type a message…" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lEm-K6-rwg" customClass="PaddingTextField" customModule="WalkieTalkie" customModuleProvider="target">
                     <rect key="frame" x="62" y="12" width="288" height="36"/>
                     <color key="backgroundColor" red="0.16862745098039217" green="0.16862745098039217" blue="0.16862745098039217" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
@@ -67,14 +67,18 @@
                         <outlet property="delegate" destination="-1" id="SEz-EA-Fdp"/>
                     </connections>
                 </textField>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pgp-2Z-QjQ">
+                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pgp-2Z-QjQ">
                     <rect key="frame" x="62" y="12" width="288" height="36"/>
+                    <color key="backgroundColor" red="0.16862745098039217" green="0.16862745098039217" blue="0.16862745098039217" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <fontDescription key="fontDescription" name="Nunito-Bold" family="Nunito" pointSize="16"/>
                     <state key="normal" title="Button">
                         <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </state>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="string" keyPath="xibLocKey" value="dm.hold.to.talk"/>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <real key="value" value="18"/>
+                        </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                     <connections>
                         <action selector="voiceButtonAction:" destination="-1" eventType="touchUpInside" id="Smz-jM-AzC"/>

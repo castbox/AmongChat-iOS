@@ -78,6 +78,25 @@ extension Entity {
     }
     
     struct DMMessage: PeerMessage, TableCodable, ColumnCodable {
+        enum Status: String, ColumnCodable {
+            case success
+            case sending
+            case failed
+            
+            
+            init?(with value: FundamentalValue) {
+                guard let type = Status(rawValue: value.stringValue) else { return nil }
+                self = type
+            }
+            
+            func archivedValue() -> FundamentalValue {
+                return .init(rawValue)
+            }
+            
+            static var columnType: ColumnType {
+                return .text
+            }
+        }
         
         let body: DMMessageBody
         let relation: Int
@@ -85,6 +104,7 @@ extension Entity {
         var msgType: Peer.MessageType
         let unread: Bool?
         let fromUser: DMProfile
+        let status: Status?
         
         var ms: Double?
         
@@ -109,6 +129,7 @@ extension Entity {
             msgType = msg.msgType
             unread = msg.unread
             fromUser = msg.fromUser
+            status = msg.status
             ms = msg.ms
         }
         
@@ -141,6 +162,7 @@ extension Entity {
             case fromUid = "from_uid"
             case msgType = "message_type"
             case ms = "ms"
+            case status
         }
     }
     
