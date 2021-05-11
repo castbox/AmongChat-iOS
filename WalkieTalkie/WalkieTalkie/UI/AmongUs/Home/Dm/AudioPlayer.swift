@@ -56,36 +56,42 @@ class AudioPlayerManager {
         guard !isPlaying(fileUrl) else {
             return false
         }
-        self.fileUrl = fileUrl
         stopPlay()
         self.playFinishHandler = playFinishHandler
         do {
             let url = URL(fileURLWithPath: fileUrl)
             player = try AudioPlayer(contentsOf: url)
             player?.play()
+            cdPrint("[AudioPlayerManager] - playing \(fileUrl)")
         } catch {
             cdPrint("[AudioPlayerManager] - play error: \(error)")
         }
-        
-        return player != nil
+        let isPlaying = player != nil
+        if isPlaying {
+            self.fileUrl = fileUrl
+        } else {
+            playFinishHandler?()
+        }
+        return isPlaying
     }
     
    
-
-@objc
+    @objc
     func handleCompletion(_ notification: Notification) {
+        fileUrl = nil
         if let audioPlayer = notification.object as? AudioPlayer,
            let name = audioPlayer.name,
            let success = notification.userInfo?[AudioPlayer.SoundDidFinishPlayingSuccessfully] {
-            print("AudioPlayer with name '\(name)' did finish playing with success: \(success)")
-            playFinishHandler?()
+            cdPrint("[AudioPlayerManager] - AudioPlayer with name '\(name)' did finish playing with success: \(success)")
         }
+        playFinishHandler?()
     }
 
     
     func stopPlay() {
         player?.stop()
         player = nil
+        fileUrl = nil
     }
 }
 

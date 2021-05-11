@@ -200,6 +200,8 @@ class ConversationCollectionCell: UICollectionViewCell {
 //            let url = Bundle.main.url(forResource: "sample3", withExtension: "aac")!
             if let path = msg.body.localAbsolutePath, AudioPlayerManager.default.isPlaying(path) {
                 voicePlayIndiator.startAnimating()
+            } else {
+                voicePlayIndiator.stopAnimating()
             }
             statusView.centerY = textContainer.centerY
             unreadView.isHidden = !(msg.unread ?? false)
@@ -240,7 +242,7 @@ class ConversationCollectionCell: UICollectionViewCell {
     @objc func clickContentViewAction() {
         guard let viewModel = viewModel,
               let path = viewModel.message.body.localAbsolutePath,
-              AudioPlayerManager.default.isPlaying(path) else {
+              !AudioPlayerManager.default.isPlaying(path) else {
             voicePlayIndiator.stopAnimating()
             AudioPlayerManager.default.stopPlay()
             return

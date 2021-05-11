@@ -476,9 +476,9 @@ private extension ConversationViewController {
                 guard let `self` = self else { return }
                 
                 audioFileSingleValue
-                    .subscribe(onSuccess: { url, seconds in
-                        
+                    .subscribe(onSuccess: { [weak self] url, seconds in
                         //TODO: url, seconds
+                        self?.sendVoiceMessage(duration: seconds, filePath: url.path)
                         
                     }, onError: { (error) in
                         guard let error = error as? MsgError else {

@@ -173,24 +173,27 @@ extension Conversation {
         }
         
         func sendVoiceMessage(duration: Int, filePath: String) -> Single<Bool> {
-            let url = Bundle.main.url(forResource: "sample3", withExtension: "aac")!
-            guard let pathString = FileManager.voiceFilePath(with: "sample3.aac") else {
+//            let url = Bundle.main.url(forResource: "sample3", withExtension: "aac")!
+//            guard let pathString = FileManager.voiceFilePath(with: "sample3.aac") else {
+//                return .just(false)
+//            }
+//            let filePath = URL(fileURLWithPath: pathString)
+            //            if !FileManager.default.fileExists(atPath: filePath.path) {
+            //                do {
+            //                    try FileManager.default.copyItem(atPath: url.path, toPath: filePath.path)
+            //                    //                try R.image.launch_logo()?.pngData()?.write(to: filePath)
+            //                } catch {
+            //                    cdPrint("error: \(filePath): \(error))")
+            //                }
+            //            }
+            guard FileManager.default.fileExists(atPath: filePath) else {
                 return .just(false)
             }
-            let filePath = URL(fileURLWithPath: pathString)
-            if !FileManager.default.fileExists(atPath: filePath.path) {
-                do {
-                    try FileManager.default.copyItem(atPath: url.path, toPath: filePath.path)
-                    //                try R.image.launch_logo()?.pngData()?.write(to: filePath)
-                } catch {
-                    cdPrint("error: \(filePath): \(error))")
-                }
-            }
-            
-            var messageBody = Entity.DMMessageBody(type: .voice, url: "", duration: duration.double, localRelativePath: FileManager.relativePath(of: filePath.path))
+
+            var messageBody = Entity.DMMessageBody(type: .voice, url: "", duration: duration.double, localRelativePath: FileManager.relativePath(of: filePath))
             var message = Entity.DMMessage(body: messageBody, relation: 1, fromUid: self.targetUid, unread: false, fromUser: self.loginUserDmProfile, status: .sending)
             insertOrReplace(message: message)
-            return IMManager.shared.getMediaId(with: filePath.path)
+            return IMManager.shared.getMediaId(with: filePath)
                 .do(onSuccess: { [weak self] mediaId in
                     guard let `self` = self, let mediaId = mediaId else {
                         return
