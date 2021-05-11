@@ -400,6 +400,8 @@
 		FEF170FB25C9598C004C3FD3 /* AmongChat.Room.TopEntranceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEF170FA25C9598C004C3FD3 /* AmongChat.Room.TopEntranceView.swift */; };
 		FEF170FF25C95BE0004C3FD3 /* RoomTopEntranceContentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FEF170FE25C95BE0004C3FD3 /* RoomTopEntranceContentView.xib */; };
 		FEF3114E258B51470070DBE7 /* UIViewControllerStoryProductExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEF3114D258B51470070DBE7 /* UIViewControllerStoryProductExtension.swift */; };
+		FEF61716264A9810007CC97E /* ConversationTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEF61714264A9810007CC97E /* ConversationTableCell.swift */; };
+		FEF61717264A9810007CC97E /* ConversationTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FEF61715264A9810007CC97E /* ConversationTableCell.xib */; };
 		FEFF9356258B30980011A274 /* AmongChat.Room.ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEFF9355258B30970011A274 /* AmongChat.Room.ViewModel.swift */; };
 		FEFF935A258B33420011A274 /* AmongInputNotesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEFF9359258B33420011A274 /* AmongInputNotesView.swift */; };
 		FEFF935E258B33480011A274 /* AmongInputNotesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FEFF935D258B33480011A274 /* AmongInputNotesView.xib */; };
@@ -849,6 +851,8 @@
 		FEF170FA25C9598C004C3FD3 /* AmongChat.Room.TopEntranceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChat.Room.TopEntranceView.swift; sourceTree = "<group>"; };
 		FEF170FE25C95BE0004C3FD3 /* RoomTopEntranceContentView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RoomTopEntranceContentView.xib; sourceTree = "<group>"; };
 		FEF3114D258B51470070DBE7 /* UIViewControllerStoryProductExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerStoryProductExtension.swift; sourceTree = "<group>"; };
+		FEF61714264A9810007CC97E /* ConversationTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationTableCell.swift; sourceTree = "<group>"; };
+		FEF61715264A9810007CC97E /* ConversationTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ConversationTableCell.xib; sourceTree = "<group>"; };
 		FEFF9355258B30970011A274 /* AmongChat.Room.ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChat.Room.ViewModel.swift; sourceTree = "<group>"; };
 		FEFF9359258B33420011A274 /* AmongInputNotesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongInputNotesView.swift; sourceTree = "<group>"; };
 		FEFF935D258B33480011A274 /* AmongInputNotesView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AmongInputNotesView.xib; sourceTree = "<group>"; };
@@ -1661,6 +1665,8 @@
 			isa = PBXGroup;
 			children = (
 				2656752C2645029A004D77D6 /* AmongChat.Home.ConversationListController.swift */,
+				FEF61714264A9810007CC97E /* ConversationTableCell.swift */,
+				FEF61715264A9810007CC97E /* ConversationTableCell.xib */,
 				FE045FC626451CB20032FE67 /* ConversationListCell.swift */,
 				FE045FC726451CB20032FE67 /* ConversationListCell.xib */,
 				FE045FCA2645219E0032FE67 /* ConversationViewController.swift */,
@@ -1858,6 +1864,7 @@
 				BDB21A52250A20DA000ADC20 /* Nunito-BoldItalic.ttf in Resources */,
 				FE7CE9D72589C1C60067952C /* AmongRoomInfoView.xib in Resources */,
 				FEF170FF25C95BE0004C3FD3 /* RoomTopEntranceContentView.xib in Resources */,
+				FEF61717264A9810007CC97E /* ConversationTableCell.xib in Resources */,
 				FE7CEB73258A0FA10067952C /* AmongInputCodeView.xib in Resources */,
 				FE045FCD2645219E0032FE67 /* ConversationViewController.xib in Resources */,
 				FE64007324C7014200DEE336 /* EndUserLicenseController.xib in Resources */,
@@ -2087,6 +2094,7 @@
 				FEC17A4924A99BF0003719BC /* Entity.swift in Sources */,
 				FE87C2C4259C29F000799883 /* ConnectState.swift in Sources */,
 				2BBBFD2D259CAA1100A3AB2C /* Social.ReportViewController.swift in Sources */,
+				FEF61716264A9810007CC97E /* ConversationTableCell.swift in Sources */,
 				FE7E227926466B3500DAD431 /* DMManager.swift in Sources */,
 				FE80679E261DD2C300207992 /* IMManager.PeerMessage.swift in Sources */,
 				FE126D582434823B00BEDD60 /* MemberUtil.swift in Sources */,
