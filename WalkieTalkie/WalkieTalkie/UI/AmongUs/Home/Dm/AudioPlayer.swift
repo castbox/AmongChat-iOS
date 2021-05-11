@@ -56,6 +56,7 @@ class AudioPlayerManager {
         guard !isPlaying(fileUrl) else {
             return false
         }
+        self.fileUrl = fileUrl
         stopPlay()
         self.playFinishHandler = playFinishHandler
         do {

@@ -11,7 +11,45 @@ import RxSwift
 import RxCocoa
 
 extension FileManager {
-//    ac
+    static var voiceFileDirectory: String? {
+        let voiceDic = CachesDirectory()+"/voice"
+        let (isSuccess, error) = createFolder(folderPath: voiceDic)
+        guard isSuccess else {
+            cdPrint("error: \(error)")
+            return nil
+        }
+        return voiceDic
+    }
+    
+    static func voiceFilePath(with name: String) -> String? {
+        //create doctory
+        guard let fold = voiceFileDirectory else {
+            return nil
+        }
+        return fold.appendingPathComponent(name.contains(".aac") ? name: name + ".aac")
+    }
+    
+    static func gifFilePath(with name: String) -> String? {
+        //create doctory
+        guard let fold = voiceFileDirectory else {
+            return nil
+        }
+        return fold.appendingPathComponent(name.contains(".gif") ? name: name + ".gif")
+    }
+    
+    //relativepath
+    static func relativePath(of absolutePath: String) -> String {
+        return absolutePath.replacingOccurrences(of: CachesDirectory(), with: "")
+    }
+    
+    static func absolutePath(for relativePath: String) -> String {
+        if relativePath.starts(with: "/") {
+            return CachesDirectory() + relativePath
+        } else {
+            return CachesDirectory() + "/" + relativePath
+        }
+    }
+    
 }
 
 extension Conversation {
@@ -101,9 +139,11 @@ extension Conversation {
                 }
                 .map { [weak self] items -> [MessageCellViewModel] in
                     guard let `self` = self else { return [] }
+                    _ = DMManager.shared.clearUnreadCount(with: self.conversation)
+                        .subscribe()
+                    
                     return items.map { message -> MessageCellViewModel in
                         self.downloadFileIfNeed(for: message)
-                        
                         if self.groupTime == 0 {
                             self.groupTime = message.timestamp
                         }
@@ -120,10 +160,6 @@ extension Conversation {
                 .observeOn(MainScheduler.asyncInstance)
                 .bind(to: dataSourceReplay)
                 .disposed(by: bag)
-            
-            //
-            _ = DMManager.shared.clearUnreadCount(with: conversation)
-                .subscribe()
         }
         
         func sendMessage(_ text: String) {
@@ -132,29 +168,28 @@ extension Conversation {
             }
             let messageBody = Entity.DMMessageBody(type: .text, url: nil, duration: nil, text: text)
             let message = Entity.DMMessage(body: messageBody, relation: 1, fromUid: targetUid, unread: false, fromUser: profile, status: .sending)
-            DMManager.shared.insertOrReplace(message: message)
+            insertOrReplace(message: message)
             sendMessage(message)
         }
         
         func sendVoiceMessage(duration: Int, filePath: String) -> Single<Bool> {
             let url = Bundle.main.url(forResource: "sample3", withExtension: "aac")!
-            let fileManager = FileManager.default
-            guard let directoryURL = fileManager.urls(for: .cachesDirectory, in: .userDomainMask).first else {
+            guard let pathString = FileManager.voiceFilePath(with: "sample3.aac") else {
                 return .just(false)
             }
-            let filePath = directoryURL.appendingPathComponent("sample3.aac")
-            if !fileManager.fileExists(atPath: filePath.path) {
+            let filePath = URL(fileURLWithPath: pathString)
+            if !FileManager.default.fileExists(atPath: filePath.path) {
                 do {
-                    try fileManager.copyItem(atPath: url.path, toPath: filePath.path)
+                    try FileManager.default.copyItem(atPath: url.path, toPath: filePath.path)
                     //                try R.image.launch_logo()?.pngData()?.write(to: filePath)
                 } catch {
-                    cdPrint("error: \(filePath.relativePath): \(error))")
+                    cdPrint("error: \(filePath): \(error))")
                 }
             }
             
-            var messageBody = Entity.DMMessageBody(type: .voice, url: "", duration: duration.double, localRelativePath: filePath.relativePath)
+            var messageBody = Entity.DMMessageBody(type: .voice, url: "", duration: duration.double, localRelativePath: FileManager.relativePath(of: filePath.path))
             var message = Entity.DMMessage(body: messageBody, relation: 1, fromUid: self.targetUid, unread: false, fromUser: self.loginUserDmProfile, status: .sending)
-            DMManager.shared.insertOrReplace(message: message)
+            insertOrReplace(message: message)
             return IMManager.shared.getMediaId(with: filePath.path)
                 .do(onSuccess: { [weak self] mediaId in
                     guard let `self` = self, let mediaId = mediaId else {
@@ -170,12 +205,13 @@ extension Conversation {
         func sendMessage(_ message: Entity.DMMessage) {
             var message = message
             Request.sendDm(message: message.body, to: message.fromUid)
-                .subscribe(onSuccess: { result in
+                .subscribe(onSuccess: { [weak self] result in
                     message.status = .success
-                    DMManager.shared.insertOrReplace(message: message)
-                }, onError: { error in
+                    
+                    self?.insertOrReplace(message: message)
+                }, onError: { [weak self] error in
                     message.status = .failed
-                    DMManager.shared.insertOrReplace(message: message)
+                    self?.insertOrReplace(message: message)
                 })
                 .disposed(by: bag)
         }
@@ -188,15 +224,15 @@ extension Conversation {
             }
             //manager
             IMManager.shared.downloadFile(with: message.body)
-                .subscribe(onSuccess: { filePath in
+                .subscribe(onSuccess: { [weak self] filePath in
                     guard let path = filePath else {
                         return
                     }
                     var message = message
                     message.status = .success
-                    message.body.localRelativePath = path.path
+                    message.body.localRelativePath = FileManager.relativePath(of: path.path)
                     //update path
-                    DMManager.shared.insertOrReplace(message: message)
+                    self?.insertOrReplace(message: message)
                 }) { error in
                     
                 }
@@ -206,11 +242,16 @@ extension Conversation {
         func clearUnread(_ message: Entity.DMMessage) {
             var newItem = message
             newItem.unread = false
-            DMManager.shared.insertOrReplace(message: newItem)
+            insertOrReplace(message: newItem)
         }
         
         func deleteAllHistory() -> Single<Void> {
             return DMManager.shared.clearAllMessage(of: targetUid)
+        }
+        
+        func insertOrReplace(message: Entity.DMMessage) {
+            groupTime = 0
+            DMManager.shared.insertOrReplace(message: message)
         }
     }
 }

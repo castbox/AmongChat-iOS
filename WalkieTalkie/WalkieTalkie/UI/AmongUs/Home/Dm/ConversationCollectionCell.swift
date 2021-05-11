@@ -198,7 +198,7 @@ class ConversationCollectionCell: UICollectionViewCell {
                 unreadView.left = statusView.left
             }
 //            let url = Bundle.main.url(forResource: "sample3", withExtension: "aac")!
-            if let path = msg.body.localRelativePath, AudioPlayerManager.default.isPlaying(path) {
+            if let path = msg.body.localAbsolutePath, AudioPlayerManager.default.isPlaying(path) {
                 voicePlayIndiator.startAnimating()
             }
             statusView.centerY = textContainer.centerY
@@ -238,10 +238,13 @@ class ConversationCollectionCell: UICollectionViewCell {
     }
     
     @objc func clickContentViewAction() {
-        guard let viewModel = viewModel, let path = viewModel.message.body.localRelativePath else {
+        guard let viewModel = viewModel,
+              let path = viewModel.message.body.localAbsolutePath,
+              AudioPlayerManager.default.isPlaying(path) else {
+            voicePlayIndiator.stopAnimating()
+            AudioPlayerManager.default.stopPlay()
             return
         }
-//        let url = Bundle.main.url(forResource: "sample3", withExtension: "aac")!
         voicePlayIndiator.startAnimating()
         AudioPlayerManager.default.play(fileUrl: path) { [weak self] in
             self?.voicePlayIndiator.stopAnimating()

@@ -235,6 +235,21 @@ extension Entity {
         //relative path
         var localRelativePath: String?
         
+        var localAbsolutePath: String? {
+            guard let path = localRelativePath else {
+                return nil
+            }
+            return FileManager.absolutePath(for: path)
+        }
+        
+        var isVoiceMsg: Bool {
+            msgType == .voice
+        }
+        
+        var isGifMsg: Bool {
+            msgType == .gif
+        }
+        
         var localFileName: String? {
             switch msgType {
             case .gif:
