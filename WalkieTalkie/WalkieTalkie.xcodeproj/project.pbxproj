@@ -183,6 +183,7 @@
 		FE401E3E244D9C450081F793 /* IAP.Restore.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE401E37244D9C450081F793 /* IAP.Restore.swift */; };
 		FE401E46244DA3B60081F793 /* UIWindow+Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE401E45244DA3B60081F793 /* UIWindow+Controller.swift */; };
 		FE401E48244DAD680081F793 /* Scheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE401E47244DAD680081F793 /* Scheduler.swift */; };
+		FE402A3C264A42480060486D /* AudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE402A3B264A42480060486D /* AudioPlayer.swift */; };
 		FE49CE9F24361A1F00C36EC6 /* HapticFeedback.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE49CE9E24361A1F00C36EC6 /* HapticFeedback.swift */; };
 		FE49CEAB2436EFE600C36EC6 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE49CEAA2436EFE600C36EC6 /* StringExtension.swift */; };
 		FE49CEAD2436F00100C36EC6 /* UILabelExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE49CEAC2436F00100C36EC6 /* UILabelExtension.swift */; };
@@ -340,6 +341,7 @@
 		FEA2E93E25C166E6007485A8 /* UserTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEA2E93D25C166E6007485A8 /* UserTagView.swift */; };
 		FEA2F988249C8AF200CB1315 /* DefaultRemoteConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = FEA2F987249C8AF200CB1315 /* DefaultRemoteConfig.plist */; };
 		FEA79E63249B52EF0067C1C1 /* ShareManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEA79E62249B52EF0067C1C1 /* ShareManager.swift */; };
+		FEA9359A264A641900CEC89A /* NSFileManagerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEA93599264A641900CEC89A /* NSFileManagerExtension.swift */; };
 		FEAD54D52449B6A0006454F6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEAD54D22449B69F006454F6 /* ViewController.swift */; };
 		FEAD54D62449B6A0006454F6 /* GestureBackable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEAD54D32449B69F006454F6 /* GestureBackable.swift */; };
 		FEAD54D72449B6A0006454F6 /* NavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEAD54D42449B69F006454F6 /* NavigationViewController.swift */; };
@@ -393,6 +395,7 @@
 		FEE8502F259B31DF00CF9A74 /* JoinRoomable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEE8502E259B31DF00CF9A74 /* JoinRoomable.swift */; };
 		FEEB70612648CCA800D7EB82 /* ConversationBottomBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEEB70602648CCA800D7EB82 /* ConversationBottomBar.swift */; };
 		FEEB70632648CCB000D7EB82 /* ConversationBottomBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = FEEB70622648CCB000D7EB82 /* ConversationBottomBar.xib */; };
+		FEEB70662649642400D7EB82 /* sample3.aac in Resources */ = {isa = PBXBuildFile; fileRef = FEEB70652649642300D7EB82 /* sample3.aac */; };
 		FEF170FB25C9598C004C3FD3 /* AmongChat.Room.TopEntranceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEF170FA25C9598C004C3FD3 /* AmongChat.Room.TopEntranceView.swift */; };
 		FEF170FF25C95BE0004C3FD3 /* RoomTopEntranceContentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FEF170FE25C95BE0004C3FD3 /* RoomTopEntranceContentView.xib */; };
 		FEF3114E258B51470070DBE7 /* UIViewControllerStoryProductExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEF3114D258B51470070DBE7 /* UIViewControllerStoryProductExtension.swift */; };
@@ -628,6 +631,7 @@
 		FE401E37244D9C450081F793 /* IAP.Restore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IAP.Restore.swift; sourceTree = "<group>"; };
 		FE401E45244DA3B60081F793 /* UIWindow+Controller.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIWindow+Controller.swift"; sourceTree = "<group>"; };
 		FE401E47244DAD680081F793 /* Scheduler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Scheduler.swift; sourceTree = "<group>"; };
+		FE402A3B264A42480060486D /* AudioPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioPlayer.swift; sourceTree = "<group>"; };
 		FE49CE9E24361A1F00C36EC6 /* HapticFeedback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticFeedback.swift; sourceTree = "<group>"; };
 		FE49CEAA2436EFE600C36EC6 /* StringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		FE49CEAC2436F00100C36EC6 /* UILabelExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UILabelExtension.swift; sourceTree = "<group>"; };
@@ -785,6 +789,7 @@
 		FEA2E93D25C166E6007485A8 /* UserTagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTagView.swift; sourceTree = "<group>"; };
 		FEA2F987249C8AF200CB1315 /* DefaultRemoteConfig.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = DefaultRemoteConfig.plist; sourceTree = "<group>"; };
 		FEA79E62249B52EF0067C1C1 /* ShareManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareManager.swift; sourceTree = "<group>"; };
+		FEA93599264A641900CEC89A /* NSFileManagerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSFileManagerExtension.swift; sourceTree = "<group>"; };
 		FEAD54D22449B69F006454F6 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		FEAD54D32449B69F006454F6 /* GestureBackable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GestureBackable.swift; sourceTree = "<group>"; };
 		FEAD54D42449B69F006454F6 /* NavigationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationViewController.swift; sourceTree = "<group>"; };
@@ -838,6 +843,7 @@
 		FEE8502E259B31DF00CF9A74 /* JoinRoomable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinRoomable.swift; sourceTree = "<group>"; };
 		FEEB70602648CCA800D7EB82 /* ConversationBottomBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationBottomBar.swift; sourceTree = "<group>"; };
 		FEEB70622648CCB000D7EB82 /* ConversationBottomBar.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ConversationBottomBar.xib; sourceTree = "<group>"; };
+		FEEB70652649642300D7EB82 /* sample3.aac */ = {isa = PBXFileReference; lastKnownFileType = file; path = sample3.aac; sourceTree = "<group>"; };
 		FEF170FA25C9598C004C3FD3 /* AmongChat.Room.TopEntranceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChat.Room.TopEntranceView.swift; sourceTree = "<group>"; };
 		FEF170FE25C95BE0004C3FD3 /* RoomTopEntranceContentView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RoomTopEntranceContentView.xib; sourceTree = "<group>"; };
 		FEF3114D258B51470070DBE7 /* UIViewControllerStoryProductExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerStoryProductExtension.swift; sourceTree = "<group>"; };
@@ -1135,6 +1141,7 @@
 				FEE0E79F25A44C3200DC67B8 /* UIViewLocalizableExtension.swift */,
 				2696D42225B8082200C38C09 /* UITextFieldExtension.swift */,
 				FEC2A94825CAB637001B9556 /* StringSizeExtension.swift */,
+				FEA93599264A641900CEC89A /* NSFileManagerExtension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -1191,6 +1198,7 @@
 				FE4FDADF2435E4C500CD5E97 /* GoogleService-Info.plist */,
 				FECA43B52459A8A40075D139 /* resource */,
 				2BAC1458258E5D690064F55D /* R.generated.swift */,
+				FEEB70652649642300D7EB82 /* sample3.aac */,
 				FE126D20243461EA00BEDD60 /* Assets.xcassets */,
 				FE126D25243461EA00BEDD60 /* Info.plist */,
 				BD9F273025A716A800FA3616 /* Infoplist.strings */,
@@ -1659,6 +1667,7 @@
 				FEEB70622648CCB000D7EB82 /* ConversationBottomBar.xib */,
 				FE7E227026455DFB00DAD431 /* ConversationCollectionCell.swift */,
 				FE7E227126455DFB00DAD431 /* ConversationCollectionCell.xib */,
+				FE402A3B264A42480060486D /* AudioPlayer.swift */,
 			);
 			path = Dm;
 			sourceTree = "<group>";
@@ -1851,6 +1860,7 @@
 				FE64007324C7014200DEE336 /* EndUserLicenseController.xib in Resources */,
 				FEA2E93425C139E4007485A8 /* AvatarGuideViewController.xib in Resources */,
 				266A42F625F10C5A003B583B /* InfoWithNicknameView.xib in Resources */,
+				FEEB70662649642400D7EB82 /* sample3.aac in Resources */,
 				FE126D1F243461E800BEDD60 /* Main.storyboard in Resources */,
 				FE87C2D6259C2EC200799883 /* ShareContainerView.xib in Resources */,
 				FED38C8E26132984003C3F7D /* AmongGroupTopicConfigView.xib in Resources */,
@@ -2140,6 +2150,7 @@
 				FE4FDAD32435B98D00CD5E97 /* Frame.swift in Sources */,
 				FE126D3F243481BD00BEDD60 /* RtmManager.swift in Sources */,
 				FECA43B2245987CA0075D139 /* PushSettingController.swift in Sources */,
+				FE402A3C264A42480060486D /* AudioPlayer.swift in Sources */,
 				FEA2E93325C139E4007485A8 /* AvatarGuideViewController.swift in Sources */,
 				FEBE522E262D345B00E49EC4 /* UIImageExtension.swift in Sources */,
 				FE125F6325B841F900609D81 /* Social.InviteFirendsViewModel.swift in Sources */,
@@ -2190,6 +2201,7 @@
 				2BA2DB462594AB320050BF8E /* Social.FollowerViewController.swift in Sources */,
 				FE8DEA66243DB09A0059C252 /* APIService.swift in Sources */,
 				FEFF9356258B30980011A274 /* AmongChat.Room.ViewModel.swift in Sources */,
+				FEA9359A264A641900CEC89A /* NSFileManagerExtension.swift in Sources */,
 				FE7E227526456AE600DAD431 /* Entity.Conversation.swift in Sources */,
 				FE7CE9CB2589BEBD0067952C /* AmongChatRoomTopBar.swift in Sources */,
 				FE8089CC2449E7FD006A1644 /* PremiumViewController.swift in Sources */,

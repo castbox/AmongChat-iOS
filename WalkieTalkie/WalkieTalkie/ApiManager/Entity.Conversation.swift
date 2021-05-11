@@ -94,6 +94,7 @@ extension Entity {
         enum Status: String, ColumnCodable {
             case success
             case sending
+            case downloading
             case failed
             case empty //空消息
             
@@ -115,10 +116,26 @@ extension Entity {
         let relation: Int
         let fromUid: String
         var msgType: Peer.MessageType
-        let unread: Bool?
+        var unread: Bool?
         let fromUser: DMProfile
         var status: Status?
         var ms: Double?
+        
+        var isUnread: Bool {
+            unread ?? false
+        }
+        
+        var isNeedDownloadSource: Bool {
+            // 时间小余7天
+            guard !fromUser.isLoginUser,
+                  body.msgType != .text,
+                  body.url.isValid,
+                  !body.localRelativePath.isValid,
+                  (Date().timeIntervalSince1970 - (ms ?? 0) / 1000) < 604800 else {//7 * 24 * 60 * 60
+                return false
+            }
+            return true
+        }
         
         //seconds
         var timestamp: Double {
@@ -209,11 +226,31 @@ extension Entity {
     
     struct DMMessageBody: TableCodable, ColumnCodable {
         let type: String
-        let url: String?
+        var url: String?
         let duration: Double?
         let text: String?
         let imageWidth: Double?
         let imageHeight: Double?
+        
+        //relative path
+        var localRelativePath: String?
+        
+        var localFileName: String? {
+            switch msgType {
+            case .gif:
+                guard let url = url else {
+                    return nil
+                }
+                return url+".gif"
+            case .voice:
+                guard let url = url else {
+                    return nil
+                }
+                return url+".aac"
+            default:
+                return nil
+            }
+        }
         
         var msgType: DMMsgType? {
             DMMsgType(rawValue: type)
@@ -228,6 +265,7 @@ extension Entity {
             text = message.text
             imageWidth = message.imageWidth
             imageHeight = message.imageHeight
+            localRelativePath = message.localRelativePath
         }
         
         init(type: DMMsgType,
@@ -235,13 +273,15 @@ extension Entity {
              duration: Double? = nil,
              text: String? = nil,
              imageWidth: Double = 0,
-             imageHeight: Double = 0) {
+             imageHeight: Double = 0,
+             localRelativePath: String? = nil) {
             self.type = type.rawValue
             self.url = url
             self.duration = duration
             self.text = text
             self.imageWidth = imageWidth
             self.imageHeight = imageHeight
+            self.localRelativePath = localRelativePath
         }
         
         func archivedValue() -> FundamentalValue {
@@ -262,6 +302,7 @@ extension Entity {
             case text
             case imageWidth = "img_width"
             case imageHeight = "img_height"
+            case localRelativePath = "local_relative_path"
         }
         
         

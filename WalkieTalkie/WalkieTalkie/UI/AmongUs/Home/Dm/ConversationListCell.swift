@@ -26,8 +26,18 @@ class ConversationListCell: UICollectionViewCell {
         let msg = item.message
         avatarView.setAvatarImage(with: msg.fromUser.pictureUrl)
         nameLabel.text = msg.fromUser.name
-        contentLabel.text = msg.body.text
+        switch item.message.body.msgType {
+        case .text:
+            contentLabel.text = msg.body.text
+        case .gif:
+            contentLabel.text = R.string.localizable.dmGifText()
+        case .voice:
+            contentLabel.text = R.string.localizable.dmVoiceMessageText()
+        default:
+            ()
+        }
         timeLabel.text = msg.dateString
         countLabel.text = item.unreadCount.string
+        countView.isHidden = item.unreadCount <= 0
     }
 }

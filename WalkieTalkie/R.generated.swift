@@ -17,7 +17,7 @@ struct R: Rswift.Validatable {
     try intern.validate()
   }
   
-  /// This `R.file` struct is generated, and contains static references to 16 files.
+  /// This `R.file` struct is generated, and contains static references to 17 files.
   struct file {
     /// Resource file `Adjust-Info.plist`.
     static let adjustInfoPlist = Rswift.FileResource(bundle: R.hostingBundle, name: "Adjust-Info", pathExtension: "plist")
@@ -51,6 +51,8 @@ struct R: Rswift.Validatable {
     static let roomEmojiRedSvga = Rswift.FileResource(bundle: R.hostingBundle, name: "room-emoji-red", pathExtension: "svga")
     /// Resource file `room-emoji-yellow.svga`.
     static let roomEmojiYellowSvga = Rswift.FileResource(bundle: R.hostingBundle, name: "room-emoji-yellow", pathExtension: "svga")
+    /// Resource file `sample3.aac`.
+    static let sample3Aac = Rswift.FileResource(bundle: R.hostingBundle, name: "sample3", pathExtension: "aac")
     
     /// `bundle.url(forResource: "Adjust-Info", withExtension: "plist")`
     static func adjustInfoPlist(_: Void = ()) -> Foundation.URL? {
@@ -145,6 +147,12 @@ struct R: Rswift.Validatable {
     /// `bundle.url(forResource: "room-emoji-yellow", withExtension: "svga")`
     static func roomEmojiYellowSvga(_: Void = ()) -> Foundation.URL? {
       let fileResource = R.file.roomEmojiYellowSvga
+      return fileResource.bundle.url(forResource: fileResource)
+    }
+    
+    /// `bundle.url(forResource: "sample3", withExtension: "aac")`
+    static func sample3Aac(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.sample3Aac
       return fileResource.bundle.url(forResource: fileResource)
     }
     
@@ -2256,7 +2264,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
     
-    /// This `R.string.localizable` struct is generated, and contains static references to 443 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 447 localization keys.
     struct localizable {
       /// en translation:  Congratulations!
       /// 
@@ -2406,6 +2414,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatGroupLeaveTip = Rswift.StringResource(key: "among.chat.group.leave.tip", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Are you sure you want to delete the chat history?
+      /// 
+      /// Locales: en
+      static let dmDeleteHistoryAlertTitle = Rswift.StringResource(key: "dm.delete.history.alert.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Asia
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2650,6 +2662,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatDelete = Rswift.StringResource(key: "among.chat.delete", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Delete History
+      /// 
+      /// Locales: en
+      static let dmConversationDeleteHistory = Rswift.StringResource(key: "dm.conversation.delete.history", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Delete group
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3950,6 +3966,14 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatRoomKickout = Rswift.StringResource(key: "among.chat.room.kickout", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: [GIF]
+      /// 
+      /// Locales: en
+      static let dmGifText = Rswift.StringResource(key: "dm.gif.text", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: [Voice Message]
+      /// 
+      /// Locales: en
+      static let dmVoiceMessageText = Rswift.StringResource(key: "dm.voice.message.text", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: click to copy the code
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -4288,6 +4312,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func amongChatGroupLeaveTip(_: Void = ()) -> String {
         return NSLocalizedString("among.chat.group.leave.tip", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Are you sure you want to delete the chat history?
+      /// 
+      /// Locales: en
+      static func dmDeleteHistoryAlertTitle(_: Void = ()) -> String {
+        return NSLocalizedString("dm.delete.history.alert.title", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Asia
@@ -4715,6 +4746,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func amongChatDelete(_: Void = ()) -> String {
         return NSLocalizedString("among.chat.delete", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Delete History
+      /// 
+      /// Locales: en
+      static func dmConversationDeleteHistory(_: Void = ()) -> String {
+        return NSLocalizedString("dm.conversation.delete.history", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Delete group
@@ -6990,6 +7028,20 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func amongChatRoomKickout(_: Void = ()) -> String {
         return NSLocalizedString("among.chat.room.kickout", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: [GIF]
+      /// 
+      /// Locales: en
+      static func dmGifText(_: Void = ()) -> String {
+        return NSLocalizedString("dm.gif.text", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: [Voice Message]
+      /// 
+      /// Locales: en
+      static func dmVoiceMessageText(_: Void = ()) -> String {
+        return NSLocalizedString("dm.voice.message.text", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: click to copy the code

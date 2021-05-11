@@ -91,28 +91,6 @@ class DMManager {
         }
     }
     
-//
-//    func add(messgeBody messageList: [Entity.NoticeMessage]) -> Single<Void> {
-//
-//        let messages: [Entity.NoticeMessage] = messageList.compactMap {
-//            guard let _ = $0.objType,
-//                  let _ = $0.objId else {
-//                return nil
-//            }
-//            return $0
-//        }
-//
-//        guard messages.count > 0 else {
-//            return Single<Void>.just(())
-//        }
-//
-//        return database.mapTransactionToSingle { (db) in
-//            try db.insertOrReplace(objects: messages,
-//                                   on: [Entity.NoticeMessage.Properties.img, Entity.NoticeMessage.Properties.title],
-//                                   intoTable: messageBodyTableName)
-//        }
-//    }
-    
     func queryConversation(fromUid: String) -> Single<Entity.DMConversation?> {
         return database.mapTransactionToSingle { (db) in
             let ex = Entity.DMConversation.Properties.fromUid == fromUid
@@ -142,6 +120,27 @@ class DMManager {
                               offset: offset)
         }
 
+    }
+    
+    func clearUnreadCount(with conversation: Entity.DMConversation) -> Single<Entity.DMConversation> {
+        var newItem = conversation
+        newItem.unreadCount = 0
+        return database.mapTransactionToSingle { (db) in
+            try db.insertOrReplace(objects: newItem, intoTable: dmConversationTableName)
+        }.map { newItem }
+        .do(onSuccess: { [weak self] _ in
+            self?.conversactionUpdateReplay.accept(newItem)
+        })
+    }
+    
+    func clearAllMessage(of uid: String) -> Single<Void> {
+        return database.mapTransactionToSingle { (db) in
+            try db.delete(fromTable: dmConversationTableName, where: Entity.DMConversation.Properties.fromUid == uid)
+            try db.delete(fromTable: dmMessagesTableName, where: Entity.DMMessage.Properties.fromUid == uid)
+        }
+        .do(onSuccess: { [weak self] _ in
+            self?.conversactionUpdateReplay.accept(nil)
+        })
     }
     
 //

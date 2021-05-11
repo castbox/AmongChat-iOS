@@ -115,7 +115,15 @@ class IMManager: NSObject {
                     case .dm:
                         var dmMessage = try JSONDecoder().decodeAnyData(Entity.DMMessage.self, from: json)
                         dmMessage.ms = Double(message.serverReceivedTs)
-                        dmMessage.status = .success
+                        //
+                        if dmMessage.isNeedDownloadSource {
+                            dmMessage.status = .downloading
+                        } else {
+                            dmMessage.status = .success
+                        }
+                        if dmMessage.body.msgType == .voice {
+                            dmMessage.unread = true
+                        }
                         item = dmMessage
                     }
                 }
@@ -211,9 +219,38 @@ class IMManager: NSObject {
             var requestId: Int64 = 0
             self?.rtmKit?.createFileMessage(byUploading: filePath, withRequest: &requestId, completion: { rId, message, error in
                 observer(.success(message?.mediaId))
-                cdPrint("filePath: \(filePath) rid: \(rId) message: \(message?.fileName) error: \(error.rawValue)")
+                cdPrint("filePath: \(filePath) rid: \(rId) message: \(message?.mediaId) error: \(error.rawValue)")
             })
             return Disposables.create()
+        }
+    }
+    
+    //file path
+    func downloadFile(with body: Entity.DMMessageBody) -> Single<URL?> {
+        let fileManager = FileManager.default
+        guard let directoryURL = fileManager.urls(for: .cachesDirectory, in: .userDomainMask).first, let mediaId = body.url, let fileName = body.localFileName else {
+            return .just(nil)
+        }
+        let filePath = directoryURL.appendingPathComponent(fileName)
+        guard !fileManager.fileExists(atPath: filePath.path) else {
+            return .just(filePath)
+        }
+        return Single.create { [weak self] observer in
+            var requestId: Int64 = 0
+            self?.rtmKit?.downloadMedia(mediaId, toFile: filePath.path, withRequest: &requestId, completion: { rId, error in
+                if error == .ok {
+                    observer(.success(filePath))
+                }
+                cdPrint("downloadMedia filePath: \(filePath) rid: \(rId) error: \(error.rawValue)")
+            })
+            return Disposables.create {
+                self?.rtmKit?.cancelMediaDownload(requestId, completion: { rId, error in
+                    if error == .ok {
+                        observer(.success(filePath))
+                    }
+                    cdPrint("cancelMediaDownload filePath: \(filePath) rid: \(rId) error: \(error.rawValue)")
+                })
+            }
         }
     }
     
@@ -236,6 +273,7 @@ class IMManager: NSObject {
             cdPrint("filePath: \(filePath) rid: \(rId) message: \(message?.fileName) id: \(message?.mediaId) error: \(error.rawValue)")
         })
     }
+    
     
     func sendPeer(_ fileMessage: AgoraRtmFileMessage) {
         //filepath

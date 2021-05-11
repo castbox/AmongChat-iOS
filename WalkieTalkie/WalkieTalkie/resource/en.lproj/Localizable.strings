@@ -514,3 +514,8 @@
 //
 "dm.hold.to.talk" = "Hold to talk";
 "dm.text.placeholder" = "Type a message…";
+"dm.voice.message.text" = "[Voice Message]";
+"dm.gif.text" = "[GIF]";
+"dm.conversation.delete.history" = "Delete History";
+"dm.delete.history.alert.title" = "Are you sure you want to delete the chat history?";
+

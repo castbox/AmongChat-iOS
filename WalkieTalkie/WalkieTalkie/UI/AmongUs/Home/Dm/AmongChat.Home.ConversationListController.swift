@@ -44,15 +44,10 @@ extension AmongChat.Home {
             var hInset: CGFloat = 20
             var columns: Int = 1
             let interitemSpacing: CGFloat = 20
-//            let cellWidth = ((UIScreen.main.bounds.width - hInset * 2 - interitemSpacing * CGFloat(columns - 1)) / CGFloat(columns)).rounded(.towardZero)
-//            let cellHeight: CGFloat = 64
             layout.itemSize = CGSize(width: UIScreen.main.bounds.width, height: 84)
-//            layout.minimumInteritemSpacing = interitemSpacing
-//            layout.minimumLineSpacing = 36
             layout.sectionInset = UIEdgeInsets(top: 12, left: hInset, bottom: 0, right: hInset)
             let v = UICollectionView(frame: .zero, collectionViewLayout: layout)
             v.register(nibWithCellClass: ConversationListCell.self)
-//            v.register(SystemMessageCell.self, forCellWithReuseIdentifier: NSStringFromClass(SystemMessageCell.self))
             v.showsVerticalScrollIndicator = false
             v.showsHorizontalScrollIndicator = false
             v.dataSource = self
@@ -180,9 +175,9 @@ extension AmongChat.Home.ConversationListController {
         
         
         emptyView.snp.makeConstraints { (maker) in
-            maker.centerX.equalToSuperview()
-            maker.leading.greaterThanOrEqualToSuperview().offset(40)
-            maker.top.equalTo(navigationView.snp.bottom)
+            maker.center.equalTo(collectionView.snp.center)
+//            maker.leading.greaterThanOrEqualToSuperview().offset(40)
+//            maker.top.equalTo(navigationView.snp.bottom)
         }
         
         collectionView.snp.makeConstraints { (maker) in

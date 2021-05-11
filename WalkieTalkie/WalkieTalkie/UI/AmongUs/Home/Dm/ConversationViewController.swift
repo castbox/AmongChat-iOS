@@ -49,6 +49,10 @@ class ConversationViewController: ViewController {
 //        self.viewModel = Conversation.ViewModel(conversation)
 //        super.init(nibName: nil, bundle: nil)
 //    }
+    
+    deinit {
+        AudioPlayerManager.default.stopPlay()
+    }
 
     init(_ conversation: Entity.DMConversation) {
         self.conversation = conversation
@@ -108,6 +112,8 @@ extension ConversationViewController: UICollectionViewDataSource {
             switch action {
             case .resend(let message):
                 self?.viewModel.sendMessage(message)
+            case .clickVoiceMessage(let message):
+                self?.viewModel.clearUnread(message)
             case .user(let uid):
                 let vc = Social.ProfileViewController(with: uid.string.intValue)
                 self?.navigationController?.pushViewController(vc)
@@ -276,13 +282,25 @@ private extension ConversationViewController {
 
 
 private extension ConversationViewController {
-    func sendVoiceMessage(duration: Int, filePath: String) {
+    
+    func deleteAllHistory() {
         let removeBlock = view.raft.show(.loading)
-        viewModel.sendVoiceMessage(duration: duration, filePath: filePath)
-            .subscribe(onSuccess: { result in
+        viewModel.deleteAllHistory()
+            .subscribe(onSuccess: { [weak self] in
                 removeBlock()
+                self?.navigationController?.popViewController()
             }) { error in
                 removeBlock()
+            }
+            .disposed(by: bag)
+    }
+    func sendVoiceMessage(duration: Int, filePath: String) {
+//        let removeBlock = view.raft.show(.loading)
+        viewModel.sendVoiceMessage(duration: duration, filePath: filePath)
+            .subscribe(onSuccess: { result in
+//                removeBlock()
+            }) { error in
+//                removeBlock()
             }
             .disposed(by: bag)
     }
@@ -291,9 +309,9 @@ private extension ConversationViewController {
     func moreAction() {
         var type:[AmongSheetController.ItemType]!
         if blocked {
-            type = [.unblock, .report, .cancel]
+            type = [.unblock, .report, .dmDeleteHistory, .cancel]
         } else {
-            type = [.block, .report, .cancel]
+            type = [.block, .report, .dmDeleteHistory, .cancel]
         }
         AmongSheetController.show(items: type, in: self, uiType: .profile) { [weak self](type) in
             switch type {
@@ -301,10 +319,22 @@ private extension ConversationViewController {
                 self?.showReportSheet()
             case .block, .unblock:
                 self?.showBlockAlter()
+            case .dmDeleteHistory:
+                self?.showDeleteHistoryAlter()
             default:
                 break
             }
         }
+    }
+    
+    func showDeleteHistoryAlter() {
+        let message = R.string.localizable.dmDeleteHistoryAlertTitle()
+        let confirmString = R.string.localizable.groupRoomYes()
+        showAmongAlert(title: message, message: nil,
+                       cancelTitle: R.string.localizable.toastCancel(),
+                       confirmTitle: confirmString, confirmAction: { [weak self] in
+                        self?.deleteAllHistory()
+                       })
     }
     
     func showBlockAlter() {
@@ -421,12 +451,9 @@ private extension ConversationViewController {
         bottomBar.actionHandler = { [weak self] action in
             switch action {
             case .gif:
-                ()
+                self?.sendVoiceMessage(duration: 20 + Int(arc4random() % 40), filePath: "")
             case .send(let text):
                 self?.viewModel.sendMessage(text)
-                //
-                self?.sendVoiceMessage(duration: 20, filePath: "")
-                
             }
         }
         
