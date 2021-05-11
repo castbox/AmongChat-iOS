@@ -106,7 +106,8 @@ extension Entity {
         var decoPetId: Int?
         var inGroup: Bool?
         var followersCount: Int?
-
+        var isAnonymous: Bool?
+        
         var role: Int?
         
         var roleType: Role {
@@ -178,6 +179,7 @@ extension Entity {
             case inGroup = "in_group"
             case followersCount = "followers_count"
             case role
+            case isAnonymous = "is_anonymous"
         }
     }
     
@@ -228,6 +230,10 @@ extension Entity {
 }
 
 extension Entity.UserProfile {
+    var dmProfile: Entity.DMProfile {
+        Entity.DMProfile(uid: uid.int64, name: name, pictureUrl: pictureUrl)
+    }
+    
     var nameWithAge: String {
         if let b = birthday, !b.isEmpty {
             let dateFormatter = DateFormatter()
@@ -276,7 +282,7 @@ extension Entity {
     struct UserStatus: Codable {
         
         var uid: Int
-        var room: Entity.Room?
+        var room: Room?
         var group: Group?
         var isOnline: Bool?
         
@@ -285,6 +291,15 @@ extension Entity {
             case room
             case group
             case isOnline = "is_online"
+        }
+        
+        struct Room: Codable {
+            let roomId: String
+            let state: String
+            let topicId: String
+            let playerCount: Int?
+            let topicName: String
+            let coverUrl: URL?
         }
         
         struct Group: Codable {

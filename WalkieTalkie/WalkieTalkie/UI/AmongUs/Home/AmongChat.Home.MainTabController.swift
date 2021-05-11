@@ -284,7 +284,7 @@ extension AmongChat.Home.MainTabController {
                 return AmongChat.Home.RelationsViewController()
                 
             case .messages:
-                return SampleViewController()
+                return AmongChat.Home.ConversationListController()
             }
             
         }
@@ -338,7 +338,7 @@ extension AmongChat.Home.MainTabController: UITabBarControllerDelegate {
         
         guard let nav = viewController as? UINavigationController else { return true }
         
-        if let _ = nav.viewControllers.first as? SampleViewController {
+        if let _ = nav.viewControllers.first as? AmongChat.Home.ConversationListController {
             
             if AmongChat.Login.canDoLoginEvent(style: .authNeeded(source: .chat)) {
                 return true

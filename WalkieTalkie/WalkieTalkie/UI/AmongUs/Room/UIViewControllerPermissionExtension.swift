@@ -14,12 +14,12 @@ import AppTrackingTransparency
 
 extension UIViewController {
     /// 获取麦克风权限
-    func checkMicroPermission(completion: @escaping ()->()) {
+    func checkMicroPermission(title: String? = R.string.localizable.microphoneNotAllowTitle(), message: String? = R.string.localizable.microphoneNotAllowSubtitle(), completion: @escaping ()->()) {
         AVAudioSession.sharedInstance().requestRecordPermission { [weak self] isOpen in
             DispatchQueue.main.async {
                 guard let `self` = self else { return }
                 if !isOpen {
-                    self.showAmongAlert(title: R.string.localizable.microphoneNotAllowTitle(), message: R.string.localizable.microphoneNotAllowSubtitle(), cancelTitle: R.string.localizable.toastCancel(), confirmTitle: R.string.localizable.microphoneNotAllowSetting()) {
+                    self.showAmongAlert(title: title, message: message, cancelTitle: R.string.localizable.toastCancel(), confirmTitle: R.string.localizable.microphoneNotAllowSetting()) {
                         Self.openAppSystemSetting()
                     }
                 } else {

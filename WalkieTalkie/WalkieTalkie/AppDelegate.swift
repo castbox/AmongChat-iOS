@@ -14,7 +14,7 @@ import RxSwift
 import RxCocoa
 import SwiftyUserDefaults
 #if DEBUG
-import DoraemonKit
+import DoraemonKit.DoraemonManager
 //import CocoaDebug
 #endif
 import FirebaseInAppMessaging
@@ -97,7 +97,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //设置内存缓存失效时间为12h,修复直播间内“闪“的问题
         KingfisherManager.shared.cache.memoryStorage.config.expiration = .seconds(60 * 60 * 24) //12 h
 
-//        IQKeyboardManager.shared.keyboardDistanceFromTextField = 20
+        #if DEBUG
+        DoraemonManager.shareInstance().showDoraemon()
+        DoraemonManager.shareInstance().install()
+        #endif
+        
+        IQKeyboardManager.shared.enableAutoToolbar = false
+        IQKeyboardManager.shared.shouldResignOnTouchOutside = true
+        IQKeyboardManager.shared.enable = false
 //        // end
 //        TikTokOpenSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
         

@@ -27,6 +27,7 @@ class AmongSheetController: ViewController {
         case adminMuteMic
         case adminUnmuteMic
         case adminKick
+        case dmDeleteHistory
     }
     
     enum UIStyleType {
@@ -169,7 +170,7 @@ extension AmongSheetController: Modalable {
 extension AmongSheetController.ItemType {
     var titleColor: UIColor {
         switch self {
-        case .profile, .follow, .drop:
+        case .profile, .follow, .drop, .dmDeleteHistory:
             return .white
         case .block, .unblock, .mute, .unmute, .report, .kick, .adminKick, .adminMuteIm, .adminMuteMic, .adminUnmuteMic, .adminUnmuteIm:
             return "FB5858".color()
@@ -219,6 +220,8 @@ extension AmongSheetController.ItemType {
             return R.string.localizable.alertAdminUnmuteMic()
         case .adminUnmuteIm:
             return R.string.localizable.alertAdminUnmuteIm()
+        case .dmDeleteHistory:
+            return R.string.localizable.dmConversationDeleteHistory()
         default:
             return ""
         }
