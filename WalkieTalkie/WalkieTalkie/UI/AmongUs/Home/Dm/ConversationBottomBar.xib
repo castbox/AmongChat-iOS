@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -17,8 +17,8 @@
             <connections>
                 <outlet property="gifButton" destination="CoN-C0-YAy" id="yt6-1J-OyH"/>
                 <outlet property="leftButton" destination="Et7-5C-X1J" id="Jxj-oy-cOQ"/>
-                <outlet property="textField" destination="lEm-K6-rwg" id="orq-qH-zIE"/>
-                <outlet property="voiceButton" destination="Pgp-2Z-QjQ" id="NUu-Uu-zmw"/>
+                <outlet property="textField" destination="lEm-K6-rwg" id="G0Y-sw-TqG"/>
+                <outlet property="voiceButton" destination="Pgp-2Z-QjQ" id="eVb-dX-Wsw"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -67,7 +67,7 @@
                         <outlet property="delegate" destination="-1" id="SEz-EA-Fdp"/>
                     </connections>
                 </textField>
-                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pgp-2Z-QjQ">
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pgp-2Z-QjQ" customClass="HoldToTalkButton" customModule="WalkieTalkie" customModuleProvider="target">
                     <rect key="frame" x="62" y="12" width="288" height="36"/>
                     <color key="backgroundColor" red="0.16862745098039217" green="0.16862745098039217" blue="0.16862745098039217" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <fontDescription key="fontDescription" name="Nunito-Bold" family="Nunito" pointSize="16"/>

@@ -25,8 +25,8 @@ class ConversationBottomBar: XibLoadableView {
     @IBOutlet private weak var leftButton: UIButton!
     @IBOutlet private weak var gifButton: UIButton!
     @IBOutlet private weak var textField: PaddingTextField!
-    @IBOutlet private weak var voiceButton: UIButton!
-    
+    @IBOutlet weak var voiceButton: HoldToTalkButton!
+
     private var style: Style = .keyboard {
         didSet {
             switch style {
