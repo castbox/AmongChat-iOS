@@ -280,19 +280,7 @@ extension AmongChat.Home.MainTabController {
                 return AmongChat.Home.RelationsViewController()
                 
             case .messages:
-                let vc = AmongChat.Home.ConversationListController()
-                let item = RAMAnimatedTabBarItem()
-                item.image = R.image.ac_home_messge_tab_normal()
-                item.imageInsets = UIEdgeInsets(top: 6.5, left: 0, bottom: -6.5, right: 0)
-                item.titlePositionAdjustment = UIOffset(horizontal: 0, vertical: 6.5)
-                let anim = AmongChat.Home.MainTabItemAnimation()
-                anim.selectedImage = R.image.ac_home_messge_tab_selected()
-                anim.normalImage = R.image.ac_home_messge_tab_normal()
-                item.animation = anim
-                vc.tabBarItem = item
-//                let nav = NavigationViewController(rootViewController: vc)
-//                nav.tabBarItem = item
-                return vc
+                return AmongChat.Home.ConversationListController()
             }
             
         }
