@@ -604,13 +604,15 @@ extension Social.ProfileViewController {
             super.init(frame: .zero)
             addSubviews(views: titleLabel, subtitleLabel)
             titleLabel.snp.makeConstraints { (maker) in
-                maker.top.leading.trailing.equalToSuperview()
+                maker.top.centerX.equalToSuperview()
+                maker.leading.greaterThanOrEqualToSuperview()
                 maker.height.equalTo(30)
             }
             
             subtitleLabel.snp.makeConstraints { (maker) in
                 maker.top.equalTo(titleLabel.snp.bottom).inset(4)
-                maker.leading.trailing.bottom.equalToSuperview()
+                maker.centerX.bottom.equalToSuperview()
+                maker.leading.greaterThanOrEqualToSuperview()
                 maker.height.equalTo(19)
             }
         }

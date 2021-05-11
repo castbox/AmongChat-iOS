@@ -470,5 +470,39 @@ private extension ConversationViewController {
             })
             .disposed(by: bag)
 
+        bottomBar.voiceButton.audioFileObservable
+            .subscribe(onNext: { [weak self] (audioFileSingleValue) in
+                
+                guard let `self` = self else { return }
+                
+                audioFileSingleValue
+                    .subscribe(onSuccess: { url, seconds in
+                        
+                        //TODO: url, seconds
+                        
+                    }, onError: { (error) in
+                        guard let error = error as? MsgError else {
+                            return
+                        }
+                        
+                        switch error.code {
+                        case -100:
+                            //TODO: canceled
+                            ()
+                        case -101:
+                            //TODO: too short
+                            ()
+                        default:
+                            //其他都是retry
+                            ()
+                        }
+                    })
+                    .disposed(by: self.bag)
+                
+            }, onError: { (error) in
+                
+            })
+            .disposed(by: bag)
+
     }
 }
