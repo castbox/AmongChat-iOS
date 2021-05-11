@@ -75,6 +75,19 @@ class AudioRecorderViewController: WalkieTalkie.ViewController {
         return lb
     }()
     
+    var endTipLabelFrame: CGRect? = nil {
+        didSet {
+            guard let frame = endTipLabelFrame else {
+                return
+            }
+            endTipLabel.snp.remakeConstraints { (maker) in
+                maker.size.equalTo(frame.size)
+                maker.left.equalTo(frame.origin.x)
+                maker.top.equalTo(frame.origin.y)
+            }
+        }
+    }
+    
     private let sm = SM()
     private let countdown = 60
     private var recordedSeconds = 0
@@ -414,6 +427,8 @@ class HoldToTalkButton: UIButton {
         UIApplication.topViewController()?.present(recorder, animated: false) {
             recorder.touchesBegan(touches, with: event)
         }
+        let frameInController = UIApplication.topViewController()?.view.convert(frame, from: superview)
+        recorder.endTipLabelFrame = frameInController
         self.recorder = recorder
         audioFileSubject.onNext(recorder.recordedAudioFileSubject.take(1).asSingle())
     }
