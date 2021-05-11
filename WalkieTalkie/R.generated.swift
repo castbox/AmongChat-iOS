@@ -224,7 +224,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 216 images.
+  /// This `R.image` struct is generated, and contains static references to 218 images.
   struct image {
     /// Image `ac_add_stats_add`.
     static let ac_add_stats_add = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_add_stats_add")
@@ -256,6 +256,10 @@ struct R: Rswift.Validatable {
     static let ac_back = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_back")
     /// Image `ac_channel_card_ad`.
     static let ac_channel_card_ad = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_channel_card_ad")
+    /// Image `ac_chat_speak_cancel`.
+    static let ac_chat_speak_cancel = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_chat_speak_cancel")
+    /// Image `ac_chat_speak`.
+    static let ac_chat_speak = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_chat_speak")
     /// Image `ac_choose_game_added`.
     static let ac_choose_game_added = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_choose_game_added")
     /// Image `ac_create_room_bar_top_shadow`.
@@ -732,6 +736,16 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "ac_channel_card_ad", bundle: ..., traitCollection: ...)`
     static func ac_channel_card_ad(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ac_channel_card_ad, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_chat_speak", bundle: ..., traitCollection: ...)`
+    static func ac_chat_speak(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_chat_speak, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_chat_speak_cancel", bundle: ..., traitCollection: ...)`
+    static func ac_chat_speak_cancel(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_chat_speak_cancel, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "ac_choose_game_added", bundle: ..., traitCollection: ...)`
@@ -2264,7 +2278,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
     
-    /// This `R.string.localizable` struct is generated, and contains static references to 447 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 453 localization keys.
     struct localizable {
       /// en translation:  Congratulations!
       /// 
@@ -2486,6 +2500,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let toastCancel = Rswift.StringResource(key: "toast.cancel", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Canceled
+      /// 
+      /// Locales: en
+      static let amongChatAudioRecordingCanceled = Rswift.StringResource(key: "among.chat.audio.recording.canceled", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Channel ID
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3006,6 +3024,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatHomeFriendsShareTitle = Rswift.StringResource(key: "among.chat.home.friends.share.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: It can be sent up to 60 seconds
+      /// 
+      /// Locales: en
+      static let amongChatAudioRecordingTimeLimit = Rswift.StringResource(key: "among.chat.audio.recording.time.limit", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Jan
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3446,6 +3468,14 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let groupRoomReject = Rswift.StringResource(key: "group.room.reject", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Release to cancel
+      /// 
+      /// Locales: en
+      static let amongChatAudioRecordingReleaseCancel = Rswift.StringResource(key: "among.chat.audio.recording.release.cancel", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Release to end
+      /// 
+      /// Locales: en
+      static let amongChatAudioRecordingEnd = Rswift.StringResource(key: "among.chat.audio.recording.end", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Remaining SPACE cards:
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3654,6 +3684,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let profileBirthdaySkip = Rswift.StringResource(key: "profile.birthday.skip", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Slide up to cancel
+      /// 
+      /// Locales: en
+      static let amongChatAudioRecordingSlideCancel = Rswift.StringResource(key: "among.chat.audio.recording.slide.cancel", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Social
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3766,6 +3800,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let microphoneNotAllowSubtitle = Rswift.StringResource(key: "microphone.not.allow.subtitle", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Too short
+      /// 
+      /// Locales: en
+      static let amongChatAudioRecordingTooShort = Rswift.StringResource(key: "among.chat.audio.recording.too.short", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Top priority to match
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -4438,6 +4476,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func toastCancel(_: Void = ()) -> String {
         return NSLocalizedString("toast.cancel", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Canceled
+      /// 
+      /// Locales: en
+      static func amongChatAudioRecordingCanceled(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.audio.recording.canceled", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Channel ID
@@ -5350,6 +5395,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("among.chat.home.friends.share.title", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: It can be sent up to 60 seconds
+      /// 
+      /// Locales: en
+      static func amongChatAudioRecordingTimeLimit(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.audio.recording.time.limit", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Jan
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -6120,6 +6172,20 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("group.room.reject", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Release to cancel
+      /// 
+      /// Locales: en
+      static func amongChatAudioRecordingReleaseCancel(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.audio.recording.release.cancel", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Release to end
+      /// 
+      /// Locales: en
+      static func amongChatAudioRecordingEnd(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.audio.recording.end", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Remaining SPACE cards:
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -6484,6 +6550,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("profile.birthday.skip", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Slide up to cancel
+      /// 
+      /// Locales: en
+      static func amongChatAudioRecordingSlideCancel(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.audio.recording.slide.cancel", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Social
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -6678,6 +6751,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func microphoneNotAllowSubtitle(_: Void = ()) -> String {
         return NSLocalizedString("microphone.not.allow.subtitle", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Too short
+      /// 
+      /// Locales: en
+      static func amongChatAudioRecordingTooShort(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.audio.recording.too.short", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Top priority to match

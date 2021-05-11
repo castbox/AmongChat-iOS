@@ -54,6 +54,7 @@
 		26AFD8B525C976D900B652E8 /* Social.ProfileLookViewController+Widgets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26AFD8B425C976D900B652E8 /* Social.ProfileLookViewController+Widgets.swift */; };
 		26AFD8B925CA7E6600B652E8 /* Social.ProfileLookViewController+ViewModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26AFD8B825CA7E6500B652E8 /* Social.ProfileLookViewController+ViewModels.swift */; };
 		26AFD90725CAB81300B652E8 /* IAP.ConsumableProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26AFD90625CAB81200B652E8 /* IAP.ConsumableProduct.swift */; };
+		26BA22AA26491C8C00F4554B /* AudioRecorderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26BA22A926491C8C00F4554B /* AudioRecorderViewController.swift */; };
 		26DBBF7626008C1B00A1B9BA /* Social.AgePromptModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26DBBF7526008C1B00A1B9BA /* Social.AgePromptModal.swift */; };
 		26DC82752609C891000A9111 /* Social.ChooseGame.ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26DC82742609C891000A9111 /* Social.ChooseGame.ViewController.swift */; };
 		26DC82792609C8F1000A9111 /* Social.ChooseGame+Views.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26DC82782609C8F1000A9111 /* Social.ChooseGame+Views.swift */; };
@@ -477,6 +478,7 @@
 		26AFD8B425C976D900B652E8 /* Social.ProfileLookViewController+Widgets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Social.ProfileLookViewController+Widgets.swift"; sourceTree = "<group>"; };
 		26AFD8B825CA7E6500B652E8 /* Social.ProfileLookViewController+ViewModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Social.ProfileLookViewController+ViewModels.swift"; sourceTree = "<group>"; };
 		26AFD90625CAB81200B652E8 /* IAP.ConsumableProduct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAP.ConsumableProduct.swift; sourceTree = "<group>"; };
+		26BA22A926491C8C00F4554B /* AudioRecorderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioRecorderViewController.swift; sourceTree = "<group>"; };
 		26DBBF7526008C1B00A1B9BA /* Social.AgePromptModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Social.AgePromptModal.swift; sourceTree = "<group>"; };
 		26DC82742609C891000A9111 /* Social.ChooseGame.ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Social.ChooseGame.ViewController.swift; sourceTree = "<group>"; };
 		26DC82782609C8F1000A9111 /* Social.ChooseGame+Views.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Social.ChooseGame+Views.swift"; sourceTree = "<group>"; };
@@ -1536,6 +1538,7 @@
 				FE64007124C7014200DEE336 /* EndUserLicenseController.xib */,
 				FE126D1D243461E800BEDD60 /* Main.storyboard */,
 				FE126D22243461EA00BEDD60 /* LaunchScreen.storyboard */,
+				26BA22A926491C8C00F4554B /* AudioRecorderViewController.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -2171,6 +2174,7 @@
 				26126058251C7B5800CD1A98 /* UserDefaults+Extension.swift in Sources */,
 				FE126D4B243481FF00BEDD60 /* Constants.swift in Sources */,
 				2BAB4F832595E25600A1C8DC /* Social.ShareRoomViewController.swift in Sources */,
+				26BA22AA26491C8C00F4554B /* AudioRecorderViewController.swift in Sources */,
 				BDFCA5732595E239000ABB39 /* AmongChat.Home+RelationsViews.swift in Sources */,
 				FE80677D261C90C900207992 /* AmongGroupRoomTipsView.swift in Sources */,
 				FEAE2561262045DC001F10A9 /* BadgeHub.swift in Sources */,
