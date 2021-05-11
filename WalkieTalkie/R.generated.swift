@@ -3024,10 +3024,6 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatHomeFriendsShareTitle = Rswift.StringResource(key: "among.chat.home.friends.share.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
-      /// en translation: It can be sent up to 60 seconds
-      /// 
-      /// Locales: en
-      static let amongChatAudioRecordingTimeLimit = Rswift.StringResource(key: "among.chat.audio.recording.time.limit", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Jan
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3472,7 +3468,7 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let amongChatAudioRecordingReleaseCancel = Rswift.StringResource(key: "among.chat.audio.recording.release.cancel", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
-      /// en translation: Release to end
+      /// en translation: Release to send
       /// 
       /// Locales: en
       static let amongChatAudioRecordingEnd = Rswift.StringResource(key: "among.chat.audio.recording.end", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
@@ -3684,10 +3680,6 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let profileBirthdaySkip = Rswift.StringResource(key: "profile.birthday.skip", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
-      /// en translation: Slide up to cancel
-      /// 
-      /// Locales: en
-      static let amongChatAudioRecordingSlideCancel = Rswift.StringResource(key: "among.chat.audio.recording.slide.cancel", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Social
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3744,6 +3736,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let socialSuggestedContacts = Rswift.StringResource(key: "social.suggested.contacts", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Swipe up to cancel
+      /// 
+      /// Locales: en
+      static let amongChatAudioRecordingSlideCancel = Rswift.StringResource(key: "among.chat.audio.recording.slide.cancel", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: System
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3960,6 +3956,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let groupRoomAnoymonusUserApplySeatTips = Rswift.StringResource(key: "group.room.anoymonus.user.apply.seat.tips", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: You can record up to 60 seconds
+      /// 
+      /// Locales: en
+      static let amongChatAudioRecordingTimeLimit = Rswift.StringResource(key: "among.chat.audio.recording.time.limit", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: You have been muted because of a violation of Community Guidelines.
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -4068,14 +4068,14 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatLoginAuthSourcePro = Rswift.StringResource(key: "among.chat.login.auth.source.pro", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: send a message
+      /// 
+      /// Locales: en
+      static let amongChatLoginAuthSourceChat = Rswift.StringResource(key: "among.chat.login.auth.source.chat", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: sent
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let socialInvited = Rswift.StringResource(key: "social.invited", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
-      /// en translation: start chatting
-      /// 
-      /// Locales: en
-      static let amongChatLoginAuthSourceChat = Rswift.StringResource(key: "among.chat.login.auth.source.chat", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: the next screen
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -5395,13 +5395,6 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("among.chat.home.friends.share.title", bundle: R.hostingBundle, comment: "")
       }
       
-      /// en translation: It can be sent up to 60 seconds
-      /// 
-      /// Locales: en
-      static func amongChatAudioRecordingTimeLimit(_: Void = ()) -> String {
-        return NSLocalizedString("among.chat.audio.recording.time.limit", bundle: R.hostingBundle, comment: "")
-      }
-      
       /// en translation: Jan
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -6179,7 +6172,7 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("among.chat.audio.recording.release.cancel", bundle: R.hostingBundle, comment: "")
       }
       
-      /// en translation: Release to end
+      /// en translation: Release to send
       /// 
       /// Locales: en
       static func amongChatAudioRecordingEnd(_: Void = ()) -> String {
@@ -6550,13 +6543,6 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("profile.birthday.skip", bundle: R.hostingBundle, comment: "")
       }
       
-      /// en translation: Slide up to cancel
-      /// 
-      /// Locales: en
-      static func amongChatAudioRecordingSlideCancel(_: Void = ()) -> String {
-        return NSLocalizedString("among.chat.audio.recording.slide.cancel", bundle: R.hostingBundle, comment: "")
-      }
-      
       /// en translation: Social
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -6653,6 +6639,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func socialSuggestedContacts(_: Void = ()) -> String {
         return NSLocalizedString("social.suggested.contacts", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Swipe up to cancel
+      /// 
+      /// Locales: en
+      static func amongChatAudioRecordingSlideCancel(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.audio.recording.slide.cancel", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: System
@@ -7033,6 +7026,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("group.room.anoymonus.user.apply.seat.tips", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: You can record up to 60 seconds
+      /// 
+      /// Locales: en
+      static func amongChatAudioRecordingTimeLimit(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.audio.recording.time.limit", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: You have been muted because of a violation of Community Guidelines.
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -7222,18 +7222,18 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("among.chat.login.auth.source.pro", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: send a message
+      /// 
+      /// Locales: en
+      static func amongChatLoginAuthSourceChat(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.login.auth.source.chat", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: sent
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func socialInvited(_: Void = ()) -> String {
         return NSLocalizedString("social.invited", bundle: R.hostingBundle, comment: "")
-      }
-      
-      /// en translation: start chatting
-      /// 
-      /// Locales: en
-      static func amongChatLoginAuthSourceChat(_: Void = ()) -> String {
-        return NSLocalizedString("among.chat.login.auth.source.chat", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: the next screen
