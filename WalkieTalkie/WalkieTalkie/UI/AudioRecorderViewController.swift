@@ -34,7 +34,7 @@ class AudioRecorderViewController: WalkieTalkie.ViewController {
         v.progressLineWidth = 4.5
         v.progressLineColor = UIColor(hex6: 0xFFF000)
         v.progressBackgroundColor = .clear
-        
+        v.isHidden = true
         return v
     }()
     
@@ -91,20 +91,7 @@ class AudioRecorderViewController: WalkieTalkie.ViewController {
     private let countdown = 60
     private var recordedSeconds = 0
     private var recorder: AVAudioRecorder? = nil
-    private lazy var savedFileURL: URL = {
-        let user = Settings.shared.loginResult.value?.uid.string ?? "anonymous"
-//        let dirPath = NSSearchPathForDirectoriesInDomains(.documentDirectory,
-//                                                          .userDomainMask,
-//                                                          true).last! + "/\(user)/temp/audio/"
-//
-//        if FileManager.default.fileExists(atPath: dirPath) == false {
-//            do {
-//                try FileManager.default.createDirectory(at: URL(fileURLWithPath: dirPath, isDirectory: true), withIntermediateDirectories: true)
-//            } catch let error {
-//
-//            }
-//        }
-        
+    private lazy var savedFileURL: URL = {        
         let filePath = FileManager.voiceFilePath(with: "\(Date().timeIntervalSince1970).aac") ?? ""
         let fileURL = URL(fileURLWithPath: filePath)
         
@@ -118,7 +105,6 @@ class AudioRecorderViewController: WalkieTalkie.ViewController {
         super.viewDidLoad()
         setUpLayout()
         setUpEvents()
-        startRecording()
     }
     
     override func viewDidLayoutSubviews() {
@@ -235,6 +221,8 @@ extension AudioRecorderViewController {
             .subscribe(onNext: { [weak self] (_) in
                 guard let `self` = self else { return }
                 self.circleView.updateProgress(fromValue: 0, toValue: 1, animationDuration: Double(self.countdown))
+                self.circleView.isHidden = false
+                self.startRecording()
             })
             .disposed(by: bag)
         
