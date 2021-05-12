@@ -17,6 +17,13 @@ extension Social {
             return i
         }()
         
+        private lazy var navView: NavigationBar = {
+            let n = NavigationBar()
+            n.leftBtn.isHidden = true
+            n.titleLabel.isHidden = true
+            return n
+        }()
+        
         private lazy var mainTitle: UILabel = {
             let label = UILabel()
             label.textColor = UIColor(hex6: 0xFFFFFF)
@@ -90,19 +97,16 @@ extension Social {
         override func viewDidLoad() {
             super.viewDidLoad()
             
-            view.addSubviews(views: birthdayIcon, mainTitle, subTitle, birthdayPicker, confirmBtn, policyLabel)
+            view.addSubviews(views: navView, birthdayIcon, mainTitle, subTitle, birthdayPicker, confirmBtn, policyLabel)
             
-            let navLayoutGuide = UILayoutGuide()
-            view.addLayoutGuide(navLayoutGuide)
-            navLayoutGuide.snp.makeConstraints { (maker) in
+            navView.snp.makeConstraints { (maker) in
                 maker.leading.trailing.equalToSuperview()
                 maker.top.equalTo(topLayoutGuide.snp.bottom)
-                maker.height.equalTo(49)
             }
-                        
+            
             birthdayIcon.snp.makeConstraints { (maker) in
                 maker.centerX.equalToSuperview()
-                maker.top.equalTo(navLayoutGuide.snp.bottom).offset(24)
+                maker.top.equalTo(navView.snp.bottom).offset(24)
             }
             
             mainTitle.snp.makeConstraints { (maker) in

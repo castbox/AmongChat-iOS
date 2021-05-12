@@ -22,19 +22,14 @@ extension Social.ChooseGame {
         
         private typealias GameCell = Social.ChooseGame.GameCell
         
-        private lazy var titleLabel: UILabel = {
-            let lb = UILabel()
-            lb.font = R.font.nunitoExtraBold(size: 24)
-            lb.textColor = UIColor.white
+        private lazy var navView: NavigationBar = {
+            let n = NavigationBar()
+            let lb = n.titleLabel
             lb.text = R.string.localizable.amongChatChooseGame()
-            return lb
-        }()
-        
-        private lazy var backBtn: UIButton = {
-            let btn = UIButton(type: .custom)
+            let btn = n.leftBtn
             btn.setImage(R.image.ac_back(), for: .normal)
             btn.addTarget(self, action: #selector(onBackBtn), for: .primaryActionTriggered)
-            return btn
+            return n
         }()
         
         private lazy var gameCollectionView: UICollectionView = {
@@ -129,28 +124,16 @@ extension Social.ChooseGame.ViewController {
 extension Social.ChooseGame.ViewController {
     
     private func setUpLayout() {
-        view.addSubviews(views: backBtn, titleLabel, gameCollectionView, bottomGradientView)
+        view.addSubviews(views: navView, gameCollectionView, bottomGradientView)
         
-        let navLayoutGuide = UILayoutGuide()
-        view.addLayoutGuide(navLayoutGuide)
-        navLayoutGuide.snp.makeConstraints { (maker) in
+        navView.snp.makeConstraints { (maker) in
             maker.leading.trailing.equalToSuperview()
             maker.top.equalTo(topLayoutGuide.snp.bottom)
-            maker.height.equalTo(49)
-        }
-        
-        backBtn.snp.makeConstraints { (maker) in
-            maker.leading.equalToSuperview().offset(20)
-            maker.centerY.equalTo(navLayoutGuide)
-        }
-        
-        titleLabel.snp.makeConstraints { (maker) in
-            maker.center.equalTo(navLayoutGuide)
         }
         
         gameCollectionView.snp.makeConstraints { (maker) in
             maker.leading.trailing.bottom.equalToSuperview()
-            maker.top.equalTo(navLayoutGuide.snp.bottom)
+            maker.top.equalTo(navView.snp.bottom)
         }
         
         bottomGradientView.snp.makeConstraints { (maker) in

@@ -13,19 +13,13 @@ import SwiftyUserDefaults
 import SnapKit
 
 class PremiumViewController: ViewController {
-    
-    private lazy var titleLabel: UILabel = {
-        let lb = UILabel()
-        lb.font = R.font.nunitoExtraBold(size: 24)
-        lb.textColor = UIColor.white
-        return lb
-    }()
-    
-    private lazy var backBtn: UIButton = {
-        let btn = UIButton(type: .custom)
+        
+    private lazy var navView: NavigationBar = {
+        let n = NavigationBar()
+        let btn = n.leftBtn
         btn.setImage(R.image.ac_back(), for: .normal)
         btn.addTarget(self, action: #selector(onBackBtn), for: .primaryActionTriggered)
-        return btn
+        return n
     }()
     
     private lazy var layoutScrollView: UIScrollView = {
@@ -436,7 +430,7 @@ extension PremiumViewController {
             .observeOn(MainScheduler.asyncInstance)
             .subscribe(onNext: { [weak self] (isPro) in
                 self?.badgeIcon.image = isPro ? R.image.ac_pro_unlocked_badge() : R.image.ac_pro_unbuy_badge()
-                self?.titleLabel.text = isPro ? R.string.localizable.amongChatProfileProCenter() : R.string.localizable.profileUnlockPro()
+                self?.navView.titleLabel.text = isPro ? R.string.localizable.amongChatProfileProCenter() : R.string.localizable.profileUnlockPro()
                 guard isPro else { return }
                 
                 self?.statusLabel.removeFromSuperview()
@@ -469,27 +463,15 @@ extension PremiumViewController {
             maker.width.equalTo(view)
         }
         
-        scrollContentView.addSubviews(views: backBtn, titleLabel,  avatarIV, nameLabel, badgeIcon, statusLabel, productsStack,
+        scrollContentView.addSubviews(views: navView, avatarIV, nameLabel, badgeIcon, statusLabel, productsStack,
                                       continueBtn, termsLabel, policyLabel, privilegesTitle, privLeftLine, privRightLine)
         
-        let navLayoutGuide = UILayoutGuide()
-        scrollContentView.addLayoutGuide(navLayoutGuide)
-        navLayoutGuide.snp.makeConstraints { (maker) in
+        navView.snp.makeConstraints { (maker) in
             maker.top.leading.trailing.equalToSuperview()
-            maker.height.equalTo(49)
-        }
-        
-        backBtn.snp.makeConstraints { (maker) in
-            maker.leading.equalToSuperview().offset(20)
-            maker.centerY.equalTo(navLayoutGuide)
-        }
-        
-        titleLabel.snp.makeConstraints { (maker) in
-            maker.center.equalTo(navLayoutGuide)
         }
         
         avatarIV.snp.makeConstraints { (maker) in
-            maker.top.equalTo(navLayoutGuide.snp.bottom).offset(24)
+            maker.top.equalTo(navView.snp.bottom).offset(24)
             maker.width.height.equalTo(60)
             maker.centerX.equalToSuperview()
         }

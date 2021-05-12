@@ -16,20 +16,15 @@ extension AmongChat.CreateRoom {
     class ViewController: WalkieTalkie.ViewController {
         
         private typealias TopicCell = AmongChat.CreateRoom.TopicCell
-        
-        private lazy var titleLabel: UILabel = {
-            let lb = UILabel()
-            lb.font = R.font.nunitoExtraBold(size: 24)
-            lb.textColor = UIColor.white
+                
+        private lazy var navView: NavigationBar = {
+            let n = NavigationBar()
+            let lb = n.titleLabel
             lb.text = R.string.localizable.amongChatCreateRoomTitle()
-            return lb
-        }()
-        
-        private lazy var backBtn: UIButton = {
-            let btn = UIButton(type: .custom)
+            let btn = n.leftBtn
             btn.setImage(R.image.ac_back(), for: .normal)
             btn.addTarget(self, action: #selector(onBackBtn), for: .primaryActionTriggered)
-            return btn
+            return n
         }()
         
         private lazy var topicCollectionView: UICollectionView = {
@@ -367,28 +362,16 @@ extension AmongChat.CreateRoom.ViewController {
     
     private func setupLayout() {
         
-        view.addSubviews(views: backBtn, titleLabel, topicCollectionView, bottomBar, bottomrBarShadowIV)
-        
-        let navLayoutGuide = UILayoutGuide()
-        view.addLayoutGuide(navLayoutGuide)
-        navLayoutGuide.snp.makeConstraints { (maker) in
+        view.addSubviews(views: navView, topicCollectionView, bottomBar, bottomrBarShadowIV)
+                
+        navView.snp.makeConstraints { (maker) in
             maker.leading.trailing.equalToSuperview()
             maker.top.equalTo(topLayoutGuide.snp.bottom)
-            maker.height.equalTo(49)
-        }
-        
-        backBtn.snp.makeConstraints { (maker) in
-            maker.leading.equalToSuperview().offset(20)
-            maker.centerY.equalTo(navLayoutGuide)
-        }
-        
-        titleLabel.snp.makeConstraints { (maker) in
-            maker.center.equalTo(navLayoutGuide)
         }
         
         topicCollectionView.snp.makeConstraints { (maker) in
             maker.leading.trailing.equalToSuperview()
-            maker.top.equalTo(navLayoutGuide.snp.bottom)
+            maker.top.equalTo(navView.snp.bottom)
             maker.bottom.equalTo(bottomBar.snp.top)
         }
         

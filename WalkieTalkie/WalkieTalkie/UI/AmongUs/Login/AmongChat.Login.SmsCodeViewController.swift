@@ -16,11 +16,12 @@ extension AmongChat.Login {
     
     class SmsCodeViewController: WalkieTalkie.ViewController {
         
-        private lazy var backBtn: UIButton = {
-            let btn = UIButton(type: .custom)
+        private lazy var navView: NavigationBar = {
+            let n = NavigationBar()
+            let btn = n.leftBtn
             btn.addTarget(self, action: #selector(onBackBtn), for: .primaryActionTriggered)
             btn.setImage(R.image.ac_back(), for: .normal)
-            return btn
+            return n
         }()
         
         private lazy var codeIcon: UIImageView = {
@@ -179,24 +180,15 @@ extension AmongChat.Login.SmsCodeViewController {
     
     private func setupLayout() {
         
-        view.addSubviews(views: codeInputField, backBtn, codeIcon, codeTitle, smsTip, digitCollectionView, timingTip)
+        view.addSubviews(views: codeInputField, navView, codeIcon, codeTitle, smsTip, digitCollectionView, timingTip)
         
-        let navLayoutGuide = UILayoutGuide()
-        view.addLayoutGuide(navLayoutGuide)
-        navLayoutGuide.snp.makeConstraints { (maker) in
+        navView.snp.makeConstraints { (maker) in
             maker.leading.trailing.equalToSuperview()
             maker.top.equalTo(topLayoutGuide.snp.bottom)
-            maker.height.equalTo(49)
         }
-        
-        backBtn.snp.makeConstraints { (maker) in
-            maker.leading.equalToSuperview().offset(20)
-            maker.centerY.equalTo(navLayoutGuide)
-            maker.width.height.equalTo(24)
-        }
-        
+                
         codeIcon.snp.makeConstraints { (maker) in
-            maker.top.equalTo(navLayoutGuide.snp.bottom).offset(24)
+            maker.top.equalTo(navView.snp.bottom).offset(24)
             maker.centerX.equalToSuperview()
         }
         

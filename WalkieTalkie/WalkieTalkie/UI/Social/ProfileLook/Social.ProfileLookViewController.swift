@@ -18,20 +18,14 @@ extension Social {
             return .customize
         }
         
-        private lazy var backBtn: UIButton = {
-            let btn = UIButton(type: .custom)
+        private lazy var navView: NavigationBar = {
+            let n = NavigationBar()
+            let btn = n.leftBtn
             btn.addTarget(self, action: #selector(onBackBtn), for: .primaryActionTriggered)
             btn.setImage(R.image.ac_profile_back(), for: .normal)
-            return btn
-        }()
-        
-        private lazy var titleLabel: UILabel = {
-            let lb = UILabel()
-            lb.font = R.font.nunitoExtraBold(size: 24)
-            lb.textColor = .white
-            lb.textAlignment = .center
+            let lb = n.titleLabel
             lb.text = R.string.localizable.amongChatProfileCustomize()
-            return lb
+            return n
         }()
         
         private lazy var profileLookView: ProfileLookView = {
@@ -100,7 +94,7 @@ private extension Social.ProfileLookViewController {
     func setupLayout() {
         
         
-        view.addSubviews(views: profileLookView, backBtn, titleLabel, segmentedButton, scrollView)
+        view.addSubviews(views: profileLookView, navView, segmentedButton, scrollView)
         
         profileLookView.snp.makeConstraints { (maker) in
             maker.top.leading.trailing.equalToSuperview()
@@ -114,21 +108,9 @@ private extension Social.ProfileLookViewController {
             }
         }
         
-        let navLayoutGuide = UILayoutGuide()
-        view.addLayoutGuide(navLayoutGuide)
-        navLayoutGuide.snp.makeConstraints { (maker) in
+        navView.snp.makeConstraints { (maker) in
             maker.leading.trailing.equalToSuperview()
             maker.top.equalTo(topLayoutGuide.snp.bottom)
-            maker.height.equalTo(49)
-        }
-        
-        backBtn.snp.makeConstraints { (maker) in
-            maker.leading.equalToSuperview().offset(12)
-            maker.centerY.equalTo(navLayoutGuide)
-        }
-        
-        titleLabel.snp.makeConstraints { (maker) in
-            maker.center.equalTo(navLayoutGuide)
         }
         
         segmentedButton.snp.makeConstraints { (maker) in

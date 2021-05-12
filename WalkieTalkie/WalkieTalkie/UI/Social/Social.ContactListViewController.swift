@@ -13,23 +13,18 @@ import SwiftyUserDefaults
 
 extension Social {
     class ContactListViewController: WalkieTalkie.ViewController {
-        private lazy var backBtn: UIButton = {
-            let btn = UIButton(type: .custom)
+        
+        private lazy var navView: NavigationBar = {
+            let n = NavigationBar()
+            let btn = n.leftBtn
             btn.rx.tap.observeOn(MainScheduler.instance)
                 .subscribe(onNext: { [weak self]() in
                     self?.navigationController?.popViewController()
                 }).disposed(by: bag)
             btn.setImage(R.image.ac_back(), for: .normal)
-            return btn
-        }()
-        
-        private lazy var titleLabel: WalkieLabel = {
-            let lb = WalkieLabel()
-            lb.font = R.font.nunitoExtraBold(size: 24)
+            let lb = n.titleLabel
             lb.text = R.string.localizable.contactSearchTitle()
-            lb.textColor = .white
-            lb.appendKern()
-            return lb
+            return n
         }()
         
         private lazy var tableView: UITableView = {
@@ -88,24 +83,11 @@ extension Social {
             isNavigationBarHiddenWhenAppear = true
             view.backgroundColor = UIColor.theme(.backgroundBlack)
             
-            view.addSubviews(views: backBtn, titleLabel)
+            view.addSubviews(views: navView)
             
-            let navLayoutGuide = UILayoutGuide()
-            view.addLayoutGuide(navLayoutGuide)
-            navLayoutGuide.snp.makeConstraints { (maker) in
+            navView.snp.makeConstraints { (maker) in
                 maker.leading.trailing.equalToSuperview()
-                maker.height.equalTo(48)
                 maker.top.equalTo(topLayoutGuide.snp.bottom)
-            }
-            
-            backBtn.snp.makeConstraints { (maker) in
-                maker.centerY.equalTo(navLayoutGuide)
-                maker.leading.equalToSuperview().offset(20)
-                maker.width.height.equalTo(25)
-            }
-            
-            titleLabel.snp.makeConstraints { (maker) in
-                maker.center.equalTo(navLayoutGuide)
             }
             
             view.addSubviews(views: tableView, headerView)
@@ -115,7 +97,7 @@ extension Social {
                 maker.bottom.equalTo(bottomLayoutGuide.snp.top)
             }
             headerView.snp.makeConstraints { maker in
-                maker.top.equalTo(navLayoutGuide.snp.bottom)
+                maker.top.equalTo(navView.snp.bottom)
                 maker.leading.trailing.equalToSuperview()
                 maker.height.equalTo(86)
             }

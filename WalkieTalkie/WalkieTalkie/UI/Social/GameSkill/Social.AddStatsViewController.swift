@@ -15,23 +15,18 @@ extension Social {
     
     class AddStatsViewController: WalkieTalkie.ViewController {
         
-        private lazy var titleLabel: UILabel = {
-            let lb = UILabel()
-            lb.font = R.font.nunitoExtraBold(size: 24)
-            lb.textColor = UIColor.white
+        private lazy var navView: NavigationBar = {
+            let n = NavigationBar()
+            let lb = n.titleLabel
             lb.text = R.string.localizable.amongChatAddStats()
-            return lb
-        }()
-        
-        private lazy var backBtn: UIButton = {
-            let btn = UIButton(type: .custom)
+            let btn = n.leftBtn
             btn.setImage(R.image.ac_back(), for: .normal)
             btn.rx.controlEvent(.primaryActionTriggered)
                 .subscribe(onNext: { [weak self] (_) in
                     self?.navigationController?.popViewController()
                 })
                 .disposed(by: bag)
-            return btn
+            return n
         }()
         
         private lazy var layoutScrollView: UIScrollView = {
@@ -139,14 +134,11 @@ extension Social.AddStatsViewController {
     
     private func setUpLayout() {
         
-        view.addSubviews(views: backBtn, titleLabel, layoutScrollView, bottomGradientView)
+        view.addSubviews(views: navView, layoutScrollView, bottomGradientView)
         
-        let navLayoutGuide = UILayoutGuide()
-        view.addLayoutGuide(navLayoutGuide)
-        navLayoutGuide.snp.makeConstraints { (maker) in
+        navView.snp.makeConstraints { (maker) in
             maker.leading.trailing.equalToSuperview()
             maker.top.equalTo(topLayoutGuide.snp.bottom)
-            maker.height.equalTo(49)
         }
         
         var hEdgePadding: CGFloat = 0
@@ -155,19 +147,10 @@ extension Social.AddStatsViewController {
             hEdgePadding = 20
         }
         
-        backBtn.snp.makeConstraints { (maker) in
-            maker.leading.equalToSuperview().offset(20)
-            maker.centerY.equalTo(navLayoutGuide)
-        }
-        
-        titleLabel.snp.makeConstraints { (maker) in
-            maker.center.equalTo(navLayoutGuide)
-        }
-        
         layoutScrollView.snp.makeConstraints { (maker) in
             maker.leading.trailing.equalToSuperview().inset(hEdgePadding)
             maker.bottom.equalToSuperview()
-            maker.top.equalTo(navLayoutGuide.snp.bottom)
+            maker.top.equalTo(navView.snp.bottom)
         }
         
         bottomGradientView.snp.makeConstraints { (maker) in

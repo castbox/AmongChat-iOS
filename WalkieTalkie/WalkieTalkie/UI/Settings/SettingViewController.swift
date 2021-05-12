@@ -17,6 +17,20 @@ class SettingViewController: ViewController {
     
     private typealias Language = Entity.GlobalSetting.KeyValue
     
+    private lazy var navView: NavigationBar = {
+        let n = NavigationBar()
+        let btn = n.leftBtn
+        btn.setImage(R.image.ac_back(), for: .normal)
+        btn.rx.controlEvent(.primaryActionTriggered)
+            .subscribe(onNext: { [weak self] () in
+                self?.navigationController?.popViewController()
+            })
+            .disposed(by: bag)
+        let lb = n.titleLabel
+        lb.text = R.string.localizable.settingsTitle()
+        return n
+    }()
+    
     private lazy var versionLabel: UILabel = {
         let lb = UILabel()
         lb.font = R.font.nunitoExtraBold(size: 12)
@@ -159,27 +173,22 @@ extension SettingViewController {
 
 extension SettingViewController {
     
-    private func showSystemNavigationBar() {
-        isNavigationBarHiddenWhenAppear = false
-        self.navigationController?.navigationBar.setColors(background: UIColor.theme(.backgroundBlack), text: .white)
-        self.navigationController?.navigationBar.setTitleFont(R.font.nunitoExtraBold(size: 24) ?? .systemFont(ofSize: 24, weight: .medium), color: .white)
-        self.customBackButton.setImage(R.image.ac_back(), for: .normal)
-    }
-    
     private func setupLayout() {
 
         view.backgroundColor = UIColor.theme(.backgroundBlack)
         
-        showSystemNavigationBar()
-        
-        self.title = R.string.localizable.settingsTitle()
         versionLabel.text = "version: \(Config.appVersionWithBuildVersion)"
         
-        view.addSubviews(views: settingsTable)
+        view.addSubviews(views: navView, settingsTable)
+        
+        navView.snp.makeConstraints { (maker) in
+            maker.leading.trailing.equalToSuperview()
+            maker.top.equalTo(topLayoutGuide.snp.bottom)
+        }
         
         settingsTable.snp.makeConstraints { (maker) in
-            maker.left.right.equalToSuperview()
-            maker.top.equalTo(topLayoutGuide.snp.bottom)
+            maker.leading.trailing.equalToSuperview()
+            maker.top.equalTo(navView.snp.bottom)
             maker.bottom.equalTo(bottomLayoutGuide.snp.top)
         }
         

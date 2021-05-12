@@ -15,19 +15,9 @@ extension AmongChat.Login {
     
     class MobileViewController: WalkieTalkie.ViewController {
         
-        private lazy var navLayoutGuide: UILayoutGuide = {
-            let l = UILayoutGuide()
-            view.addLayoutGuide(l)
-            l.snp.makeConstraints { (maker) in
-                maker.leading.trailing.equalToSuperview()
-                maker.top.equalTo(topLayoutGuide.snp.bottom)
-                maker.height.equalTo(49)
-            }
-            return l
-        }()
-        
-        private lazy var backBtn: UIButton = {
-            let btn = UIButton(type: .custom)
+        private lazy var navView: NavigationBar = {
+            let n = NavigationBar()
+            let btn = n.leftBtn
             switch style {
             case .tutorial:
                 btn.addTarget(self, action: #selector(onBackBtn), for: .primaryActionTriggered)
@@ -41,7 +31,7 @@ extension AmongChat.Login {
                 btn.setImage(R.image.ac_profile_close()?.withRenderingMode(.alwaysTemplate), for: .normal)
                 btn.tintColor = .black
             }
-            return btn
+            return n
         }()
         
         private lazy var topBg: UIImageView = {
@@ -551,8 +541,14 @@ extension AmongChat.Login.MobileViewController {
                                    spacing: 40,
                                    distribution: .equalSpacing)
         
-        view.addSubviews(views: backBtn, mobileTitle, mobileInputContainer, smsTip, nextBtn,
+        view.addSubviews(views: navView, mobileTitle, mobileInputContainer, smsTip, nextBtn,
                          moreLabel, leftSeperator, rightSeperator, btnStack, policyLabel)
+        
+        navView.snp.makeConstraints { (maker) in
+            maker.leading.trailing.equalToSuperview()
+            maker.top.equalTo(topLayoutGuide.snp.bottom)
+        }
+        
         setupBackBtnLayout()
         setupTopTipLayout()
         setupTitleLayout()
@@ -564,7 +560,7 @@ extension AmongChat.Login.MobileViewController {
         mobileInputContainer.snp.makeConstraints { (maker) in
             maker.leading.trailing.equalToSuperview().inset(30)
             maker.height.equalTo(48)
-            maker.top.equalTo(navLayoutGuide.snp.bottom).offset(Frame.Scale.height(221))
+            maker.top.equalTo(navView.snp.bottom).offset(Frame.Scale.height(221))
         }
         
         smsTip.snp.makeConstraints { (maker) in
@@ -612,7 +608,7 @@ extension AmongChat.Login.MobileViewController {
         
         switch style {
         case .authNeeded(let source):
-            view.insertSubview(topBg, belowSubview: backBtn)
+            view.insertSubview(topBg, belowSubview: navView)
             view.addSubviews(views: topTipLabel)
             
             let spaceLayoutGuide = UILayoutGuide()
@@ -625,7 +621,7 @@ extension AmongChat.Login.MobileViewController {
             
             topTipLabel.snp.makeConstraints { (maker) in
                 maker.leading.trailing.equalToSuperview().inset(30)
-                maker.top.equalTo(navLayoutGuide.snp.bottom).offset(source == .upgradedToPro ? 0 : (Frame.Screen.height < 812 ? 0 : 8))
+                maker.top.equalTo(navView.snp.bottom).offset(source == .upgradedToPro ? 0 : (Frame.Screen.height < 812 ? 0 : 8))
             }
             
             topBg.snp.makeConstraints { (maker) in
@@ -647,16 +643,16 @@ extension AmongChat.Login.MobileViewController {
         
         switch style {
         case .tutorial:
-            backBtn.snp.makeConstraints { (maker) in
-                maker.leading.equalToSuperview().inset(20)
-                maker.centerY.equalTo(navLayoutGuide)
+            navView.leftBtn.snp.remakeConstraints { (maker) in
+                maker.leading.equalToSuperview().inset(Frame.horizontalBleedWidth)
+                maker.centerY.equalToSuperview()
                 maker.width.height.equalTo(24)
             }
             
         case .inAppLogin, .authNeeded:
-            backBtn.snp.makeConstraints { (maker) in
-                maker.trailing.equalToSuperview().inset(20)
-                maker.centerY.equalTo(navLayoutGuide)
+            navView.leftBtn.snp.remakeConstraints { (maker) in
+                maker.trailing.equalToSuperview().inset(Frame.horizontalBleedWidth)
+                maker.centerY.equalToSuperview()
                 maker.width.height.equalTo(24)
             }
             
@@ -670,7 +666,7 @@ extension AmongChat.Login.MobileViewController {
             view.addSubviews(views: mobileIcon)
             mobileIcon.snp.makeConstraints { (maker) in
                 maker.centerX.equalToSuperview()
-                maker.top.equalTo(navLayoutGuide.snp.bottom).offset(24.scalHValue)
+                maker.top.equalTo(navView.snp.bottom).offset(24.scalHValue)
             }
             
             mobileTitle.snp.makeConstraints { (maker) in

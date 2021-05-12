@@ -15,11 +15,12 @@ import SnapKit
 extension Social {
     class EditProfileViewController: ViewController {
         
-        private lazy var backBtn: UIButton = {
-            let btn = UIButton(type: .custom)
+        private lazy var navView: NavigationBar = {
+            let n = NavigationBar()
+            let btn = n.leftBtn
             btn.addTarget(self, action: #selector(onBackBtn), for: .primaryActionTriggered)
             btn.setImage(R.image.ac_back(), for: .normal)
-            return btn
+            return n
         }()
         
         private lazy var avatarIV: AvatarImageView = {
@@ -79,24 +80,15 @@ private extension Social.EditProfileViewController {
         isNavigationBarHiddenWhenAppear = true
         statusBarStyle = .lightContent
         view.backgroundColor = UIColor.theme(.backgroundBlack)
-        view.addSubviews(views: backBtn, avatarIV, randomIconIV, userButton, birthdayButton)
+        view.addSubviews(views: navView, avatarIV, randomIconIV, userButton, birthdayButton)
         
-        let navLayoutGuide = UILayoutGuide()
-        view.addLayoutGuide(navLayoutGuide)
-        navLayoutGuide.snp.makeConstraints { (maker) in
-            maker.left.right.equalToSuperview()
+        navView.snp.makeConstraints { (maker) in
+            maker.leading.trailing.equalToSuperview()
             maker.top.equalTo(topLayoutGuide.snp.bottom)
-            maker.height.equalTo(49)
-        }
-        
-        backBtn.snp.makeConstraints { (maker) in
-            maker.left.equalToSuperview().offset(20)
-            maker.centerY.equalTo(navLayoutGuide)
-            maker.width.height.equalTo(24)
         }
         
         avatarIV.snp.makeConstraints { (maker) in
-            maker.top.equalTo(navLayoutGuide.snp.bottom).offset(40)
+            maker.top.equalTo(navView.snp.bottom).offset(40)
             maker.width.height.equalTo(80)
             maker.centerX.equalToSuperview()
         }
