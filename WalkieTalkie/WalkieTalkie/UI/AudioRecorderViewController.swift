@@ -66,7 +66,6 @@ class AudioRecorderViewController: WalkieTalkie.ViewController {
     
     private lazy var endTipLabel: UILabel = {
         let lb = UILabel()
-        lb.layer.cornerRadius = 18
         lb.clipsToBounds = true
         lb.font = R.font.nunitoExtraBold(size: 16)
         lb.text = R.string.localizable.amongChatAudioRecordingEnd()
@@ -74,6 +73,19 @@ class AudioRecorderViewController: WalkieTalkie.ViewController {
         lb.textAlignment = .center
         return lb
     }()
+    
+    var endTipLabelFrame: CGRect? = nil {
+        didSet {
+            guard let frame = endTipLabelFrame else {
+                return
+            }
+            endTipLabel.snp.remakeConstraints { (maker) in
+                maker.size.equalTo(frame.size)
+                maker.left.equalTo(frame.origin.x)
+                maker.top.equalTo(frame.origin.y)
+            }
+        }
+    }
     
     private let sm = SM()
     private let countdown = 60
@@ -107,6 +119,11 @@ class AudioRecorderViewController: WalkieTalkie.ViewController {
         setUpLayout()
         setUpEvents()
         startRecording()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        endTipLabel.layer.cornerRadius = endTipLabel.bounds.height / 2
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -414,6 +431,8 @@ class HoldToTalkButton: UIButton {
         UIApplication.topViewController()?.present(recorder, animated: false) {
             recorder.touchesBegan(touches, with: event)
         }
+        let frameInController = UIApplication.topViewController()?.view.convert(frame, from: superview)
+        recorder.endTipLabelFrame = frameInController
         self.recorder = recorder
         audioFileSubject.onNext(recorder.recordedAudioFileSubject.take(1).asSingle())
     }

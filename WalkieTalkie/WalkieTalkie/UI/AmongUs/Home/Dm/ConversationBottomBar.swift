@@ -74,11 +74,7 @@ class ConversationBottomBar: XibLoadableView {
     
     @IBAction func gifButtonAction(_ sender: Any) {
         actionHandler?(.gif)
-    }
-    
-    @IBAction func voiceButtonAction(_ sender: Any) {
-        cdPrint("voiceButtonAction")
-    }
+    }    
 }
 
 
