@@ -459,25 +459,25 @@ extension SettingViewController {
             
             leftIcon.snp.makeConstraints { (maker) in
                 maker.width.height.equalTo(30)
-                maker.left.equalTo(20)
+                maker.leading.equalToSuperview().inset(Frame.horizontalBleedWidth)
                 maker.centerY.equalToSuperview()
             }
             
             leftLabel.snp.makeConstraints { (maker) in
                 maker.centerY.equalToSuperview()
-                maker.left.equalTo(leftIcon.snp.right).offset(12)
-                maker.right.lessThanOrEqualTo(rightLabel.snp.left).offset(-8)
+                maker.leading.equalTo(leftIcon.snp.trailing).offset(12)
+                maker.trailing.lessThanOrEqualTo(rightLabel.snp.leading).offset(-8)
             }
             
             rightLabel.snp.makeConstraints { (maker) in
                 maker.centerY.equalToSuperview()
-                maker.right.equalTo(rightIcon.snp.left).offset(-8)
+                maker.trailing.equalTo(rightIcon.snp.leading).offset(-8)
             }
             
             rightIcon.snp.makeConstraints { (maker) in
                 maker.centerY.equalToSuperview()
                 maker.width.height.equalTo(20)
-                maker.right.equalToSuperview().inset(20)
+                maker.trailing.equalToSuperview().inset(Frame.horizontalBleedWidth)
             }
         }
         
