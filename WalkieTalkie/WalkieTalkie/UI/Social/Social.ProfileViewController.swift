@@ -290,6 +290,7 @@ private extension Social.ProfileViewController {
         
         bottomGradientView.snp.makeConstraints { (maker) in
             maker.leading.trailing.bottom.equalToSuperview()
+            maker.height.equalTo(134)
         }
         
         table.snp.makeConstraints { (maker) in
