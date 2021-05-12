@@ -98,7 +98,11 @@ extension AmongChat.Login {
         private lazy var mobileTitle: UILabel = {
             let lb = UILabel()
             lb.textAlignment = .center
-            lb.font = R.font.nunitoExtraBold(size: 28.scalHValue)
+            var fontSize = 28.scalHValue
+            adaptToIPad {
+                fontSize = 28
+            }
+            lb.font = R.font.nunitoExtraBold(size: 28)
             lb.textColor = .white
             lb.numberOfLines = 2
             lb.adjustsFontSizeToFitWidth = true
