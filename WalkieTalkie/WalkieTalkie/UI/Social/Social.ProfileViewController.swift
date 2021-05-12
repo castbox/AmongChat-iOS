@@ -104,11 +104,11 @@ extension Social {
             l.endPoint = CGPoint(x: 0.5, y: 0.4)
             l.locations = [0, 0.3, 0.6, 1]
             
-            userProfile
-                .filterNil()
+            Observable.combineLatest(relationData.filterNil(),
+                                     userProfile.filterNil())
                 .take(1)
                 .observeOn(MainScheduler.asyncInstance)
-                .subscribe(onNext: { [weak self] (p) in
+                .subscribe(onNext: { [weak self] relation, p in
                     
                     guard let `self` = self else { return }
                     
@@ -137,7 +137,7 @@ extension Social {
                         }
                     }
                     
-                    let follow = p.isFollowed ?? false
+                    let follow = relation.isFollowed ?? false
                     self.setFollowButton(follow)
                 })
                 .disposed(by: bag)
@@ -222,7 +222,7 @@ extension Social {
             }
         }
         
-        private var relationData: Entity.RelationData?
+        private let relationData = BehaviorRelay<Entity.RelationData?>(value: nil)
         
         private var gameSkills = [Entity.UserGameSkill]() {
             didSet {
@@ -520,7 +520,7 @@ private extension Social.ProfileViewController {
         Request.relationData(uid: uid)
             .subscribe(onSuccess: { [weak self](data) in
                 guard let `self` = self, let data = data else { return }
-                self.relationData = data
+                self.relationData.accept(data)
                 self.blocked = data.isBlocked ?? false
                 self.headerView.setViewData(data, isSelf: self.isSelfProfile.value)
             }, onError: { (error) in
@@ -530,7 +530,7 @@ private extension Social.ProfileViewController {
     
     func followAction() {
         let removeBlock = view.raft.show(.loading)
-        let isFollowed = relationData?.isFollowed ?? false
+        let isFollowed = relationData.value?.isFollowed ?? false
         if isFollowed {
             
             Logger.Action.log(.profile_other_clk, category: .unfollow, "\(uid)")
@@ -540,7 +540,9 @@ private extension Social.ProfileViewController {
                     removeBlock()
                     if success {
                         self.fetchRealation()
-                        self.relationData?.isFollowed = false
+                        var r = self.relationData.value
+                        r?.isFollowed = false
+                        self.relationData.accept(r)
                         self.setFollowButton(false)
                         self.followedHandle?(false)
                     }
@@ -556,7 +558,9 @@ private extension Social.ProfileViewController {
                     removeBlock()
                     if success {
                         self.fetchRealation()
-                        self.relationData?.isFollowed = true
+                        var r = self.relationData.value
+                        r?.isFollowed = true
+                        self.relationData.accept(r)
                         self.setFollowButton(true)
                         self.followedHandle?(true)
                     }
