@@ -596,7 +596,7 @@ extension Social.ProfileLookViewController {
                 adaptToIPad {
                     decorationIV.snp.remakeConstraints { (maker) in
                         maker.center.equalToSuperview()
-                        maker.width.height.equalTo(95)
+                        maker.width.height.equalTo(120)
                     }
                 }
                 
@@ -623,7 +623,8 @@ extension Social.ProfileLookViewController {
                 adaptToIPad {
                     svgaView.snp.remakeConstraints { (maker) in
                         maker.centerX.equalToSuperview()
-                        maker.width.height.equalTo(95)
+                        maker.width.equalTo(svgaView.snp.height)
+                        maker.leading.equalToSuperview().inset(39)
                         maker.centerY.equalToSuperview().multipliedBy(0.8)
                     }
                     
