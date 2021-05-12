@@ -38,6 +38,8 @@ class ConversationViewController: ViewController {
     private var relationData: Entity.RelationData?
     private var blocked = false
     private var firstDataLoaded: Bool = true
+    //count changed
+    private var lastCount: Int = 0
     
     private var dataSource: [Conversation.MessageCellViewModel] = [] {
         didSet {
@@ -46,13 +48,7 @@ class ConversationViewController: ViewController {
     }
     
     var followedHandle:((Bool) -> Void)?
-    
-    //    convenience init(_ uid: String, conversation: Entity.DMConversation?) {
-    //        self.conversation = conversation
-    //        self.viewModel = Conversation.ViewModel(conversation)
-    //        super.init(nibName: nil, bundle: nil)
-    //    }
-    
+        
     deinit {
         AudioPlayerManager.default.stopPlay()
     }
@@ -181,6 +177,11 @@ private extension ConversationViewController {
     }
     
     func updateUser(isOnline: Bool) {
+//        if isOnline {
+//            onlineView.fadeIn(duration: 0.2)
+//        } else {
+//            onlineView.fadeOut(duration: 0.2)
+//        }
         onlineView.isHidden = !isOnline
         updateContentInsert()
     }
@@ -191,7 +192,6 @@ private extension ConversationViewController {
                 guard let `self` = self, let data = data else { return }
                 self.relationData = data
                 self.blocked = data.isBlocked ?? false
-                //                self.headerView.setViewData(data, isSelf: self.isSelfProfile.value)
                 let follow = data.isFollowed ?? false
                 self.setFollowButton(follow)
             }, onError: { (error) in
@@ -382,42 +382,44 @@ private extension ConversationViewController {
     
     
     func reloadCollectionView() {
-        let contentHeight = self.collectionView.contentSize.height
-        let height = self.collectionView.bounds.size.height
-        let contentOffsetY = self.collectionView.contentOffset.y
+        let contentHeight = collectionView.contentSize.height
+        let height = collectionView.bounds.size.height
+        let contentOffsetY = collectionView.contentOffset.y
         let bottomOffset = contentHeight - contentOffsetY
         //            self.newMessageButton.isHidden = true
         // 消息不足一屏
         if contentHeight < height {
-            if !self.dataSource.isEmpty, self.firstDataLoaded {
-                self.firstDataLoaded = false
+            if !dataSource.isEmpty, firstDataLoaded {
+                firstDataLoaded = false
                 UIView.animate(withDuration: 0) {
                     self.collectionView.reloadData()
                 } completion: { _ in
                     self.messageListScrollToBottom(animated: false)
                 }
             } else {
-                self.collectionView.reloadData()
+                collectionView.reloadData()
                 
             }
             //获取高度，更新 collectionview height
         } else {// 超过一屏
-            if floor(bottomOffset) - floor(height) < 40 {// 已经在底部
-                let rows = self.collectionView.numberOfItems(inSection: 0)
-                let newRow = self.dataSource.count
+            if dataSource.count > lastCount,
+               floor(bottomOffset) - floor(height) < 40 {// 已经在底部
+                let rows = collectionView.numberOfItems(inSection: 0)
+                let newRow = dataSource.count
                 guard newRow > rows else { return }
                 let indexPaths = Array(rows..<newRow).map({ IndexPath(row: $0, section: 0) })
                 collectionView.performBatchUpdates {
-                    collectionView.insertItems(at: indexPaths)
+                    self.collectionView.insertItems(at: indexPaths)
                 } completion: { result in
                     if let endPath = indexPaths.last {
                         self.collectionView.scrollToItem(at: endPath, at: .bottom, animated: true)
                     }
                 }
             } else {
-                self.collectionView.reloadData()
+                collectionView.reloadData()
             }
         }
+        lastCount = dataSource.count
     }
     
     func showGifViewController() {
