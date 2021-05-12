@@ -53,6 +53,10 @@ class ConversationBottomBar: XibLoadableView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override var isFirstResponder: Bool {
+        textField.isFirstResponder
+    }
+    
     private func bindSubviewEvent() {
         
     }

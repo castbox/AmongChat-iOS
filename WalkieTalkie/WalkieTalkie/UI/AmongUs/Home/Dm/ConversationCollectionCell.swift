@@ -11,6 +11,7 @@ import RxSwift
 import RxCocoa
 import NVActivityIndicatorView
 import AVFoundation
+import Kingfisher
 
 private let avatarLeftEdge: CGFloat = 20
 private let contentLeftEdge: CGFloat = 60
@@ -77,7 +78,7 @@ class ConversationCollectionCell: UICollectionViewCell {
         l.font = R.font.nunitoBold(size: 16)
         l.textColor = UIColor(hex6: 0xFFFFFF)
         l.numberOfLines = 0
-//        l.lineBreakMode = .byWordWrapping
+        //        l.lineBreakMode = .byWordWrapping
         return l
     }()
     
@@ -87,8 +88,17 @@ class ConversationCollectionCell: UICollectionViewCell {
         l.textColor = UIColor(hex6: 0xFFFFFF)
         l.numberOfLines = 1
         l.isHidden = true
-//        l.lineBreakMode = .byWordWrapping
+        //        l.lineBreakMode = .byWordWrapping
         return l
+    }()
+    
+    private lazy var gifImageView: AnimatedImageView = {
+        let v = AnimatedImageView()
+        v.contentMode = .scaleAspectFit
+        v.isHidden = true
+        v.isUserInteractionEnabled = false
+//        v.backgroundColor = "222222".color()
+        return v
     }()
     
     private lazy var voicePlayIndiator = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 24, height: 30), type: .lineScale, color: .white, padding: 0)
@@ -167,15 +177,40 @@ class ConversationCollectionCell: UICollectionViewCell {
                 statusView.left = textContainer.right + 8
             }
             statusView.centerY = textContainer.centerY
-            
-//            textContainer.isHidden = false
+            indicatorView.center = statusView.center
+            //            textContainer.isHidden = false
             messageTextLabel.isHidden = false
             voiceDurationLabel.isHidden = true
             voicePlayIndiator.isHidden = true
+            textContainer.isHidden = false
+            gifImageView.isHidden = true
         case .gif:
-            ()
+            gifImageView.size = viewModel.contentSize
+            container.height = gifImageView.size.height
+            if viewModel.sendFromMe {
+                avatarImageView.right = Frame.Screen.width - avatarLeftEdge
+                gifImageView.right = Frame.Screen.width - contentLeftEdge
+                statusView.right = gifImageView.left - 8
+                statusView.centerY = gifImageView.centerY
+                indicatorView.center = statusView.center
+                gifImageView.setImage(with: msg.body.img)
+            } else {
+                avatarImageView.left = avatarLeftEdge
+                gifImageView.left = contentLeftEdge
+                statusView.left = gifImageView.right + 8
+                statusView.centerY = statusView.centerY
+                indicatorView.center = gifImageView.center
+                indicatorView.startAnimating()
+                gifImageView.setImage(with: msg.body.img, completionHandler: { [weak self] result in
+                    self?.indicatorView.stopAnimating()
+                })
+            }
+            voiceDurationLabel.isHidden = false
+            voicePlayIndiator.isHidden = false
+            messageTextLabel.isHidden = true
+            textContainer.isHidden = true
+            gifImageView.isHidden = false
         case .voice:
-//            textContainer.isHidden = true
             textContainer.size = viewModel.contentSize
             voiceDurationLabel.text = "\(viewModel.message.body.duration ?? 0)″"
             if viewModel.sendFromMe {
@@ -187,7 +222,7 @@ class ConversationCollectionCell: UICollectionViewCell {
                 statusView.right = textContainer.left - 8
                 voicePlayIndiator.color = "#FFF000".color()
                 unreadView.right = statusView.right
-
+                
             } else {
                 voiceDurationLabel.textColor = .white
                 voicePlayIndiator.color = .white
@@ -197,22 +232,23 @@ class ConversationCollectionCell: UICollectionViewCell {
                 statusView.left = textContainer.right + 8
                 unreadView.left = statusView.left
             }
-//            let url = Bundle.main.url(forResource: "sample3", withExtension: "aac")!
-            if let path = msg.body.localRelativePath, AudioPlayerManager.default.isPlaying(path) {
+            if let path = msg.body.localAbsolutePath, AudioPlayerManager.default.isPlaying(path) {
                 voicePlayIndiator.startAnimating()
+            } else {
+                voicePlayIndiator.stopAnimating()
             }
+            indicatorView.center = statusView.center
             statusView.centerY = textContainer.centerY
             unreadView.isHidden = !(msg.unread ?? false)
-//            voicePlayIndiator.right = viewModel.contentSize.width - 12
-//            voicePlayIndiator.centerY = textContainer.centerY
             unreadView.centerY = textContainer.centerY
             voiceDurationLabel.isHidden = false
             voicePlayIndiator.isHidden = false
+            textContainer.isHidden = false
             messageTextLabel.isHidden = true
+            gifImageView.isHidden = true
         case .none:
             ()
         }
-        indicatorView.center = statusView.center
         switch msg.status {
         case .sending, .downloading:
             indicatorView.startAnimating()
@@ -238,10 +274,13 @@ class ConversationCollectionCell: UICollectionViewCell {
     }
     
     @objc func clickContentViewAction() {
-        guard let viewModel = viewModel, let path = viewModel.message.body.localRelativePath else {
+        guard let viewModel = viewModel,
+              let path = viewModel.message.body.localAbsolutePath,
+              !AudioPlayerManager.default.isPlaying(path) else {
+            voicePlayIndiator.stopAnimating()
+            AudioPlayerManager.default.stopPlay()
             return
         }
-//        let url = Bundle.main.url(forResource: "sample3", withExtension: "aac")!
         voicePlayIndiator.startAnimating()
         AudioPlayerManager.default.play(fileUrl: path) { [weak self] in
             self?.voicePlayIndiator.stopAnimating()
@@ -261,6 +300,6 @@ class ConversationCollectionCell: UICollectionViewCell {
         contentView.backgroundColor = .clear
         
         contentView.addSubviews(views: container, timeLabel)
-        container.addSubviews(views: avatarImageView, textContainer, statusView, indicatorView, unreadView)
+        container.addSubviews(views: avatarImageView, textContainer, gifImageView, statusView, indicatorView, unreadView)
     }
 }

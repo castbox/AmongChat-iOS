@@ -224,7 +224,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 219 images.
+  /// This `R.image` struct is generated, and contains static references to 221 images.
   struct image {
     /// Image `ac_add_stats_add`.
     static let ac_add_stats_add = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_add_stats_add")
@@ -560,6 +560,8 @@ struct R: Rswift.Validatable {
     static let dmSendFailed = Rswift.ImageResource(bundle: R.hostingBundle, name: "dmSendFailed")
     /// Image `home_name_edit`.
     static let home_name_edit = Rswift.ImageResource(bundle: R.hostingBundle, name: "home_name_edit")
+    /// Image `iconDmConversationDelete`.
+    static let iconDmConversationDelete = Rswift.ImageResource(bundle: R.hostingBundle, name: "iconDmConversationDelete")
     /// Image `iconDmGif`.
     static let iconDmGif = Rswift.ImageResource(bundle: R.hostingBundle, name: "iconDmGif")
     /// Image `iconDmKeyboard`.
@@ -568,6 +570,8 @@ struct R: Rswift.Validatable {
     static let iconDmVoice = Rswift.ImageResource(bundle: R.hostingBundle, name: "iconDmVoice")
     /// Image `iconMutedTips`.
     static let iconMutedTips = Rswift.ImageResource(bundle: R.hostingBundle, name: "iconMutedTips")
+    /// Image `iconPoweredbyBlackVert`.
+    static let iconPoweredbyBlackVert = Rswift.ImageResource(bundle: R.hostingBundle, name: "iconPoweredbyBlackVert")
     /// Image `iconReportDelete`.
     static let iconReportDelete = Rswift.ImageResource(bundle: R.hostingBundle, name: "iconReportDelete")
     /// Image `iconReportImageAdd`.
@@ -1500,6 +1504,11 @@ struct R: Rswift.Validatable {
       return UIKit.UIImage(resource: R.image.home_name_edit, compatibleWith: traitCollection)
     }
     
+    /// `UIImage(named: "iconDmConversationDelete", bundle: ..., traitCollection: ...)`
+    static func iconDmConversationDelete(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.iconDmConversationDelete, compatibleWith: traitCollection)
+    }
+    
     /// `UIImage(named: "iconDmGif", bundle: ..., traitCollection: ...)`
     static func iconDmGif(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.iconDmGif, compatibleWith: traitCollection)
@@ -1518,6 +1527,11 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "iconMutedTips", bundle: ..., traitCollection: ...)`
     static func iconMutedTips(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.iconMutedTips, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "iconPoweredbyBlackVert", bundle: ..., traitCollection: ...)`
+    static func iconPoweredbyBlackVert(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.iconPoweredbyBlackVert, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "iconReport", bundle: ..., traitCollection: ...)`
@@ -1763,7 +1777,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.nib` struct is generated, and contains static references to 35 nibs.
+  /// This `R.nib` struct is generated, and contains static references to 36 nibs.
   struct nib {
     /// Nib `AmongChatRoomConfigView`.
     static let amongChatRoomConfigView = _R.nib._AmongChatRoomConfigView()
@@ -1809,6 +1823,8 @@ struct R: Rswift.Validatable {
     static let conversationCollectionCell = _R.nib._ConversationCollectionCell()
     /// Nib `ConversationListCell`.
     static let conversationListCell = _R.nib._ConversationListCell()
+    /// Nib `ConversationTableCell`.
+    static let conversationTableCell = _R.nib._ConversationTableCell()
     /// Nib `ConversationViewController`.
     static let conversationViewController = _R.nib._ConversationViewController()
     /// Nib `EndUserLicenseController`.
@@ -1966,6 +1982,12 @@ struct R: Rswift.Validatable {
     @available(*, deprecated, message: "Use UINib(resource: R.nib.conversationListCell) instead")
     static func conversationListCell(_: Void = ()) -> UIKit.UINib {
       return UIKit.UINib(resource: R.nib.conversationListCell)
+    }
+    
+    /// `UINib(name: "ConversationTableCell", in: bundle)`
+    @available(*, deprecated, message: "Use UINib(resource: R.nib.conversationTableCell) instead")
+    static func conversationTableCell(_: Void = ()) -> UIKit.UINib {
+      return UIKit.UINib(resource: R.nib.conversationTableCell)
     }
     
     /// `UINib(name: "ConversationViewController", in: bundle)`
@@ -2134,6 +2156,10 @@ struct R: Rswift.Validatable {
       return R.nib.conversationListCell.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? ConversationListCell
     }
     
+    static func conversationTableCell(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> ConversationTableCell? {
+      return R.nib.conversationTableCell.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? ConversationTableCell
+    }
+    
     static func conversationViewController(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
       return R.nib.conversationViewController.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
     }
@@ -2297,7 +2323,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
     
-    /// This `R.string.localizable` struct is generated, and contains static references to 453 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 454 localization keys.
     struct localizable {
       /// en translation:  Congratulations!
       /// 
@@ -3571,6 +3597,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let contactSearchInputPlaceholder = Rswift.StringResource(key: "contact.search.input.placeholder", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Search for GIFs
+      /// 
+      /// Locales: en
+      static let dmGifSearchPlaceholder = Rswift.StringResource(key: "dm.gif.search.placeholder", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: See all
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -6338,6 +6368,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("contact.search.input.placeholder", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Search for GIFs
+      /// 
+      /// Locales: en
+      static func dmGifSearchPlaceholder(_: Void = ()) -> String {
+        return NSLocalizedString("dm.gif.search.placeholder", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: See all
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -7658,6 +7695,17 @@ struct _R: Rswift.Validatable {
       
       func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> ConversationListCell? {
         return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? ConversationListCell
+      }
+      
+      fileprivate init() {}
+    }
+    
+    struct _ConversationTableCell: Rswift.NibResourceType {
+      let bundle = R.hostingBundle
+      let name = "ConversationTableCell"
+      
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> ConversationTableCell? {
+        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? ConversationTableCell
       }
       
       fileprivate init() {}

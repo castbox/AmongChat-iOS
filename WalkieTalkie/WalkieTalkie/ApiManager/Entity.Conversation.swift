@@ -229,11 +229,27 @@ extension Entity {
         var url: String?
         let duration: Double?
         let text: String?
+        var img: String?
         let imageWidth: Double?
         let imageHeight: Double?
         
         //relative path
         var localRelativePath: String?
+        
+        var localAbsolutePath: String? {
+            guard let path = localRelativePath else {
+                return nil
+            }
+            return FileManager.absolutePath(for: path)
+        }
+        
+        var isVoiceMsg: Bool {
+            msgType == .voice
+        }
+        
+        var isGifMsg: Bool {
+            msgType == .gif
+        }
         
         var localFileName: String? {
             switch msgType {
@@ -263,6 +279,7 @@ extension Entity {
             url = message.url
             duration = message.duration
             text = message.text
+            img = message.img
             imageWidth = message.imageWidth
             imageHeight = message.imageHeight
             localRelativePath = message.localRelativePath
@@ -272,13 +289,15 @@ extension Entity {
              url: String? = nil,
              duration: Double? = nil,
              text: String? = nil,
-             imageWidth: Double = 0,
-             imageHeight: Double = 0,
+             img: String? = nil,
+             imageWidth: Double? = 0,
+             imageHeight: Double? = 0,
              localRelativePath: String? = nil) {
             self.type = type.rawValue
             self.url = url
             self.duration = duration
             self.text = text
+            self.img = img
             self.imageWidth = imageWidth
             self.imageHeight = imageHeight
             self.localRelativePath = localRelativePath
@@ -300,6 +319,7 @@ extension Entity {
             case url
             case duration
             case text
+            case img
             case imageWidth = "img_width"
             case imageHeight = "img_height"
             case localRelativePath = "local_relative_path"

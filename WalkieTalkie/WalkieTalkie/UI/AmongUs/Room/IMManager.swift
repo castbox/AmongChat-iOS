@@ -227,12 +227,23 @@ class IMManager: NSObject {
     
     //file path
     func downloadFile(with body: Entity.DMMessageBody) -> Single<URL?> {
-        let fileManager = FileManager.default
-        guard let directoryURL = fileManager.urls(for: .cachesDirectory, in: .userDomainMask).first, let mediaId = body.url, let fileName = body.localFileName else {
+        guard let mediaId = body.url,
+              let fileName = body.localFileName else {
             return .just(nil)
         }
-        let filePath = directoryURL.appendingPathComponent(fileName)
-        guard !fileManager.fileExists(atPath: filePath.path) else {
+        let filePath: URL
+        if body.isVoiceMsg {
+            guard let path = FileManager.voiceFilePath(with: fileName) else {
+                return .just(nil)
+            }
+            filePath = URL(fileURLWithPath: path)
+        } else {
+            guard let path = FileManager.voiceFilePath(with: fileName) else {
+                return .just(nil)
+            }
+            filePath = URL(fileURLWithPath: path)
+        }
+        guard !FileManager.default.fileExists(atPath: filePath.path) else {
             return .just(filePath)
         }
         return Single.create { [weak self] observer in

@@ -11,8 +11,10 @@ import RxSwift
 import RxCocoa
 import SwiftyUserDefaults
 
-class ConversationViewController: ViewController {
+private let bottomBarHeight = 60 + Frame.Height.safeAeraBottomHeight
 
+class ConversationViewController: ViewController {
+    
     @IBOutlet private weak var titleLabel: UILabel!
     @IBOutlet private weak var followButton: UIButton!
     @IBOutlet private weak var collectionView: UICollectionView!
@@ -35,6 +37,7 @@ class ConversationViewController: ViewController {
     
     private var relationData: Entity.RelationData?
     private var blocked = false
+    private var firstDataLoaded: Bool = true
     
     private var dataSource: [Conversation.MessageCellViewModel] = [] {
         didSet {
@@ -44,16 +47,16 @@ class ConversationViewController: ViewController {
     
     var followedHandle:((Bool) -> Void)?
     
-//    convenience init(_ uid: String, conversation: Entity.DMConversation?) {
-//        self.conversation = conversation
-//        self.viewModel = Conversation.ViewModel(conversation)
-//        super.init(nibName: nil, bundle: nil)
-//    }
+    //    convenience init(_ uid: String, conversation: Entity.DMConversation?) {
+    //        self.conversation = conversation
+    //        self.viewModel = Conversation.ViewModel(conversation)
+    //        super.init(nibName: nil, bundle: nil)
+    //    }
     
     deinit {
         AudioPlayerManager.default.stopPlay()
     }
-
+    
     init(_ conversation: Entity.DMConversation) {
         self.conversation = conversation
         self.viewModel = Conversation.ViewModel(conversation)
@@ -66,25 +69,25 @@ class ConversationViewController: ViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
         configureSubview()
         bindSubviewEvent()
     }
-
+    
     override func showReportSheet() {
         Report.ViewController.showReport(on: self, uid: viewModel.targetUid, type: .user, roomId: "", operate: nil) { [weak self] in
             self?.view.raft.autoShow(.text(R.string.localizable.reportSuccess()))
         }
     }
-
+    
     @IBAction func backButtonAction(_ sender: Any) {
         navigationController?.popViewController()
     }
     
     @IBAction func moreButtonAction(_ sender: Any) {
         moreAction()
-//        IMManager.shared.sendFile()
+        //        IMManager.shared.sendFile()
     }
     
     @IBAction func followButtonAction(_ sender: Any) {
@@ -106,7 +109,7 @@ extension ConversationViewController: UICollectionViewDataSource {
         }
         
         let cell = collectionView.dequeueReusableCell(withClass: ConversationCollectionCell.self, for: indexPath)
-        cell.transform = CGAffineTransform(scaleX: 1, y: -1)
+        //        cell.transform = CGAffineTransform(scaleX: 1, y: -1)
         cell.bind(item)
         cell.actionHandler = { [weak self] action in
             switch action {
@@ -126,11 +129,11 @@ extension ConversationViewController: UICollectionViewDataSource {
 extension ConversationViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-
+        
         guard let viewModel = dataSource.safe(indexPath.item) else {
             return .zero
         }
-
+        
         return CGSize(width: Frame.Screen.width, height: viewModel.height)
     }
     
@@ -142,8 +145,8 @@ extension ConversationViewController: UICollectionViewDelegate {
         guard let item = dataSource.safe(indexPath.item) else {
             return
         }
-//        let vc = ConversationViewController(item)
-//        navigationController?.pushViewController(vc)
+        //        let vc = ConversationViewController(item)
+        //        navigationController?.pushViewController(vc)
     }
     
 }
@@ -179,7 +182,7 @@ private extension ConversationViewController {
     
     func updateUser(isOnline: Bool) {
         onlineView.isHidden = !isOnline
-        collectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: isOnline ? 80: 0, right: 0)
+        updateContentInsert()
     }
     
     func fetchRealation() {
@@ -188,7 +191,7 @@ private extension ConversationViewController {
                 guard let `self` = self, let data = data else { return }
                 self.relationData = data
                 self.blocked = data.isBlocked ?? false
-//                self.headerView.setViewData(data, isSelf: self.isSelfProfile.value)
+                //                self.headerView.setViewData(data, isSelf: self.isSelfProfile.value)
                 let follow = data.isFollowed ?? false
                 self.setFollowButton(follow)
             }, onError: { (error) in
@@ -245,7 +248,7 @@ private extension ConversationViewController {
         let removeBlock = view.raft.show(.loading)
         let isFollowed = relationData?.isFollowed ?? false
         if isFollowed {
-//            Logger.Action.log(.profile_other_clk, category: .unfollow, "\(uid)")
+            //            Logger.Action.log(.profile_other_clk, category: .unfollow, "\(uid)")
             Request.unFollow(uid: viewModel.targetUid.intValue, type: "follow")
                 .subscribe(onSuccess: { [weak self](success) in
                     guard let `self` = self else { return }
@@ -261,7 +264,7 @@ private extension ConversationViewController {
                     cdPrint("unfollow error:\(error.localizedDescription)")
                 }).disposed(by: bag)
         } else {
-//            Logger.Action.log(.profile_other_clk, category: .follow, "\(uid)")
+            //            Logger.Action.log(.profile_other_clk, category: .follow, "\(uid)")
             Request.follow(uid: viewModel.targetUid.intValue, type: "follow")
                 .subscribe(onSuccess: { [weak self](success) in
                     guard let `self` = self else { return }
@@ -295,12 +298,12 @@ private extension ConversationViewController {
             .disposed(by: bag)
     }
     func sendVoiceMessage(duration: Int, filePath: String) {
-//        let removeBlock = view.raft.show(.loading)
+        //        let removeBlock = view.raft.show(.loading)
         viewModel.sendVoiceMessage(duration: duration, filePath: filePath)
             .subscribe(onSuccess: { result in
-//                removeBlock()
+                //                removeBlock()
             }) { error in
-//                removeBlock()
+                //                removeBlock()
             }
             .disposed(by: bag)
     }
@@ -350,7 +353,7 @@ private extension ConversationViewController {
                         self?.blockUser()
                        })
     }
-        
+    
     
     func setFollowButton(_ isFollowed: Bool) {
         if isFollowed {
@@ -359,7 +362,7 @@ private extension ConversationViewController {
             yellowFollowButton()
         }
         followButton.isHidden = false
-//        chatButton.isHidden = false
+        //        chatButton.isHidden = false
     }
     
     private func greyFollowButton() {
@@ -367,7 +370,7 @@ private extension ConversationViewController {
         followButton.setTitleColor(UIColor(hex6: 0x898989), for: .normal)
         followButton.layer.borderWidth = 2
         followButton.layer.borderColor = UIColor(hex6: 0x898989).cgColor
-//        followButton.backgroundColor = UIColor.theme(.backgroundBlack)
+        //        followButton.backgroundColor = UIColor.theme(.backgroundBlack)
     }
     
     private func yellowFollowButton() {
@@ -386,7 +389,17 @@ private extension ConversationViewController {
         //            self.newMessageButton.isHidden = true
         // 消息不足一屏
         if contentHeight < height {
-            self.collectionView.reloadData()
+            if !self.dataSource.isEmpty, self.firstDataLoaded {
+                self.firstDataLoaded = false
+                UIView.animate(withDuration: 0) {
+                    self.collectionView.reloadData()
+                } completion: { _ in
+                    self.messageListScrollToBottom(animated: false)
+                }
+            } else {
+                self.collectionView.reloadData()
+                
+            }
             //获取高度，更新 collectionview height
         } else {// 超过一屏
             if floor(bottomOffset) - floor(height) < 40 {// 已经在底部
@@ -401,25 +414,49 @@ private extension ConversationViewController {
                         self.collectionView.scrollToItem(at: endPath, at: .bottom, animated: true)
                     }
                 }
-
-//                self.collectionView.beginUpdates()
-//                self.collectionView.insertRows(at: indexPaths, with: .none)
-//                self.collectionView.endUpdates()
             } else {
-                //                    if self.collectionView.numberOfRows(inSection: 0) <= 2 {
-                //                        self.newMessageButton.isHidden = true
-                //                    } else {
-                //                        self.newMessageButton.isHidden = false
-                //                    }
                 self.collectionView.reloadData()
             }
         }
     }
     
+    func showGifViewController() {
+        let gifVc = Giphy.GifsViewController()
+        gifVc.selectAction = { [weak self] media in
+            self?.viewModel.sendGif(media)
+        }
+        presentPanModal(gifVc)
+    }
+    
+    func updateContentInsert() {
+        //        guard collectionView.contentInset.top > 0 else {
+        //            return
+        //        }
+        let contentHeight = dataSource.reduce(0) { $0 + $1.height }
+        //top insert
+        let onlineViewContentHeight: CGFloat = onlineView.isHidden ? 0 : 80
+        var topInset = Frame.Screen.height - bottomBarHeight - Frame.Height.navigation - contentHeight + onlineViewContentHeight
+        if topInset < 0 {
+            topInset = 0
+        }
+        collectionView.contentInset = UIEdgeInsets(top: topInset, left: 0, bottom: 0, right: 0)
+    }
+    
+    func messageListScrollToBottom(animated: Bool = true) {
+        let rows = collectionView.numberOfItems(inSection: 0)
+        if rows > 0 {
+            let endPath = IndexPath(row: rows - 1, section: 0)
+            //
+            let contentSize = collectionView.contentSize.height
+            collectionView.scrollToItem(at: endPath, at: .bottom, animated: animated)
+//            collectionView.setContentOffset(CGPoint(x: 0, y: -contentSize), animated: animated)
+        }
+    }
+    
     func configureSubview() {
         
-        collectionView.transform = CGAffineTransform(scaleX: 1, y: -1)
-
+        //        collectionView.transform = CGAffineTransform(scaleX: 1, y: -1)
+        
         view.addSubviews(views: bottomBar, liveView)
         
         bottomBar.snp.makeConstraints { maker in
@@ -443,15 +480,17 @@ private extension ConversationViewController {
         fetchUserStatus()
         
         viewModel.dataSourceReplay
+            .skip(0)
             .subscribe(onNext: { [weak self] source in
                 self?.dataSource = source
+                self?.updateContentInsert()
             })
             .disposed(by: bag)
         
         bottomBar.actionHandler = { [weak self] action in
             switch action {
             case .gif:
-                self?.sendVoiceMessage(duration: 20 + Int(arc4random() % 40), filePath: "")
+                self?.showGifViewController()
             case .send(let text):
                 self?.viewModel.sendMessage(text)
             }
@@ -459,26 +498,30 @@ private extension ConversationViewController {
         
         RxKeyboard.instance.visibleHeight
             .drive(onNext: { [weak self] keyboardVisibleHeight in
-                guard let `self` = self else { return }
+                guard let `self` = self, self.bottomBar.isFirstResponder else {
+                    return
+                }
                 self.bottomBar.snp.updateConstraints { (maker) in
                     maker.bottom.equalToSuperview().offset(-keyboardVisibleHeight)
+                    //                    maker.height.equalTo((keyboardVisibleHeight > 20 ? 0 : Frame.Height.safeAeraBottomHeight) + 60)
                 }
                 self.collectionViewBottomConstraint.constant = 60 + keyboardVisibleHeight
                 UIView.animate(withDuration: 0) {
                     self.view.layoutIfNeeded()
                 }
+                self.messageListScrollToBottom()
             })
             .disposed(by: bag)
-
+        
         bottomBar.voiceButton.audioFileObservable
             .subscribe(onNext: { [weak self] (audioFileSingleValue) in
                 
                 guard let `self` = self else { return }
                 
                 audioFileSingleValue
-                    .subscribe(onSuccess: { url, seconds in
-                        
+                    .subscribe(onSuccess: { [weak self] url, seconds in
                         //TODO: url, seconds
+                        self?.sendVoiceMessage(duration: seconds, filePath: url.path)
                         
                     }, onError: { [weak self] (error) in
                         guard let msgError = error as? MsgError else {
@@ -509,6 +552,6 @@ private extension ConversationViewController {
                 
             })
             .disposed(by: bag)
-
+        
     }
 }

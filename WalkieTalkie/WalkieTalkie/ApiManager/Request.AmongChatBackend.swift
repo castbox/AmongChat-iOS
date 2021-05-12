@@ -33,6 +33,8 @@ struct MsgError: Error {
         case needUpgrade = 3005 //need upgrade app
         case cannotFindMatchRoom = 3007 //No channel match your language and age.
         case roomNotFound = 202 //'can not find this room'
+        
+        case sendDmError = 100000
     }
     
     static let `default` = MsgError(code: 202, msg: "Please try again.", data: nil)
@@ -58,7 +60,15 @@ struct MsgError: Error {
         self.msg = msg
         self.data = data
     }
-    //
+    
+    init(_ code: CodeType,
+         msg: String? = nil,
+         data: [String: Any]? = nil) {
+        self.code = code.rawValue
+        self.msg = msg
+        self.data = data
+    }
+    
     var codeType: CodeType? {
         return CodeType(rawValue: code)
     }
@@ -1622,22 +1632,23 @@ extension Request {
         case .text:
             request = .sendDM(["uid": uid, "type": message.type, "text": message.text ?? ""])
         case .gif:
-            guard let url = message.url, let imageWidth = message.imageWidth, let imageHeight = message.imageHeight else {
-                return .just(false)
+            guard let url = message.img, let imageWidth = message.imageWidth, let imageHeight = message.imageHeight else {
+                return .error(MsgError(.sendDmError))
             }
-            request = .sendDM(["uid": uid, "type": message.type, "url": url, "img_width": imageWidth, "img_height": imageHeight])
+            request = .sendDM(["uid": uid, "type": message.type, "img": url, "img_width": imageWidth, "img_height": imageHeight])
         case .voice:
             guard let url = message.url, let duration = message.duration else {
-                return .just(false)
+                return .error(MsgError(.sendDmError))
             }
             request = .sendDM(["uid": uid, "type": message.type, "url": url, "duration": duration])
         default:
-            return .just(false)
+            return .error(MsgError(.sendDmError))
         }
         return amongchatProvider.rx.request(request)
             .mapJSON()
             .mapToDataKeyJsonValue()
             .mapToProcessedValue()
+            .observeOn(MainScheduler.asyncInstance)
     }
     
     static func userStatus(_ uid: Int) -> Single<Entity.UserStatus?> {

@@ -522,4 +522,4 @@
 "dm.gif.text" = "[GIF]";
 "dm.conversation.delete.history" = "Delete History";
 "dm.delete.history.alert.title" = "Are you sure you want to delete the chat history?";
-
+"dm.gif.search.placeholder" = "Search for GIFs";

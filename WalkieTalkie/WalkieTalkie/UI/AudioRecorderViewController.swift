@@ -93,19 +93,19 @@ class AudioRecorderViewController: WalkieTalkie.ViewController {
     private var recorder: AVAudioRecorder? = nil
     private lazy var savedFileURL: URL = {
         let user = Settings.shared.loginResult.value?.uid.string ?? "anonymous"
-        let dirPath = NSSearchPathForDirectoriesInDomains(.documentDirectory,
-                                                          .userDomainMask,
-                                                          true).last! + "/\(user)/temp/audio/"
+//        let dirPath = NSSearchPathForDirectoriesInDomains(.documentDirectory,
+//                                                          .userDomainMask,
+//                                                          true).last! + "/\(user)/temp/audio/"
+//
+//        if FileManager.default.fileExists(atPath: dirPath) == false {
+//            do {
+//                try FileManager.default.createDirectory(at: URL(fileURLWithPath: dirPath, isDirectory: true), withIntermediateDirectories: true)
+//            } catch let error {
+//
+//            }
+//        }
         
-        if FileManager.default.fileExists(atPath: dirPath) == false {
-            do {
-                try FileManager.default.createDirectory(at: URL(fileURLWithPath: dirPath, isDirectory: true), withIntermediateDirectories: true)
-            } catch let error {
-                
-            }
-        }
-        
-        let filePath = dirPath + "\(Date().timeIntervalSince1970).aac"
+        let filePath = FileManager.voiceFilePath(with: "\(Date().timeIntervalSince1970).aac") ?? ""
         let fileURL = URL(fileURLWithPath: filePath)
         
         return fileURL
