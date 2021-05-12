@@ -137,7 +137,11 @@ class PermissionManager {
         content.snp.makeConstraints { (maker) in
             maker.edges.equalToSuperview()
         }
-        alert.visualStyle.width = Frame.Screen.width - 28 * 2
+        var hPadding: CGFloat = 28
+        adaptToIPad {
+            hPadding = 190
+        }
+        alert.visualStyle.width = Frame.Screen.width - hPadding * 2
         alert.visualStyle.verticalElementSpacing = 0
         alert.visualStyle.contentPadding = UIEdgeInsets(top: 20, left: 0, bottom: 0, right: 0)
         alert.visualStyle.actionViewSize = CGSize(width: 0, height: 49)
