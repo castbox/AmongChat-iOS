@@ -491,21 +491,27 @@ private extension ConversationViewController {
                         //TODO: url, seconds
                         self?.sendVoiceMessage(duration: seconds, filePath: url.path)
                         
-                    }, onError: { (error) in
-                        guard let error = error as? MsgError else {
+                    }, onError: { [weak self] (error) in
+                        guard let msgError = error as? MsgError else {
+                            let err = error as NSError
+                            self?.view.raft.autoShow(.text(err.localizedDescription))
                             return
                         }
                         
-                        switch error.code {
+                        guard let msg = msgError.msg else {
+                            return
+                        }
+                        
+                        switch msgError.code {
                         case -100:
                             //TODO: canceled
-                            ()
+                            self?.view.raft.autoShow(.text(msg))
                         case -101:
                             //TODO: too short
-                            ()
+                            self?.view.raft.autoShow(.text(msg))
                         default:
                             //其他都是retry
-                            ()
+                            self?.view.raft.autoShow(.text(msg))
                         }
                     })
                     .disposed(by: self.bag)

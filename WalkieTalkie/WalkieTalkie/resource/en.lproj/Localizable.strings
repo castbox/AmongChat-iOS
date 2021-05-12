@@ -507,7 +507,7 @@
 
 "group.dismissed.tips" = "Sorry, the admin has dismissed the group.";
 
-//05.07
+//1.20
 "among.chat.login.auth.source.chat" = "send a message";
 "among.chat.profile.chat" = "Chat";
 "among.chat.audio.recording.time.limit" = "You can record up to 60 seconds";
@@ -516,8 +516,6 @@
 "among.chat.audio.recording.end" = "Release to send";
 "among.chat.audio.recording.too.short" = "Too short";
 "among.chat.audio.recording.canceled" = "Canceled";
-
-//
 "dm.hold.to.talk" = "Hold to talk";
 "dm.text.placeholder" = "Type a message…";
 "dm.voice.message.text" = "[Voice Message]";
