@@ -77,7 +77,7 @@ extension FansGroup {
             v.addSubviews(views: icon, label, goBtn)
             
             icon.snp.makeConstraints { (maker) in
-                maker.leading.equalToSuperview().inset(20)
+                maker.leading.equalToSuperview().inset(Frame.horizontalBleedWidth)
                 maker.centerY.equalToSuperview()
             }
             
@@ -90,7 +90,7 @@ extension FansGroup {
             goBtn.snp.makeConstraints { (maker) in
                 maker.centerY.equalToSuperview()
                 maker.height.equalTo(32)
-                maker.trailing.equalTo(-20)
+                maker.trailing.equalToSuperview().inset(Frame.horizontalBleedWidth)
             }
             
             goBtn.setContentHuggingPriority(UILayoutPriority(UILayoutPriority.defaultHigh.rawValue + 1), for: .horizontal)
