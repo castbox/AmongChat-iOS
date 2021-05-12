@@ -160,8 +160,9 @@ class PremiumViewController: ViewController {
         return i
     }()
     
-    private lazy var privilegeStack: UIStackView = {
-        let privilegeViewModels = [
+    private lazy var privilegeStacks: [UIStackView] = {
+        
+        let viewModelSections = [[
             (
                 R.image.ac_pro_privilege_no_ad(),
                 R.string.localizable.amongChatProPrivilegeNoAd(),
@@ -176,8 +177,8 @@ class PremiumViewController: ViewController {
                 R.image.ac_pro_privilege_badge(),
                 R.string.localizable.amongChatProPrivilegeBadge(),
                 R.string.localizable.amongChatProPrivilegeBadgeSub()
-            ),
-            (
+            )],
+            [(
                 R.image.ac_pro_privilege_match(),
                 R.string.localizable.amongChatProPrivilegeMatch(),
                 R.string.localizable.amongChatProPrivilegeMatchSub()
@@ -191,21 +192,28 @@ class PremiumViewController: ViewController {
                 R.image.ac_pro_privilege_upload_avatar(),
                 R.string.localizable.amongChatProPrivilegeCustomAvatars(),
                 R.string.localizable.amongChatProPrivilegeCustomAvatarsSub()
-            )
+            )]
         ]
         
-        let privilegeViews: [PrivilegeView] = privilegeViewModels.map {
-            let view = PrivilegeView()
-            view.iconIV.image = $0.0
-            view.titleLabel.text = $0.1
-            view.subtitleLabel.text = $0.2
-            return view
+        let viewSections: [[PrivilegeView]] = viewModelSections.map({ (viewModels) in
+            viewModels.map {
+                let view = PrivilegeView()
+                view.iconIV.image = $0.0
+                view.titleLabel.text = $0.1
+                view.subtitleLabel.text = $0.2
+                return view
+            }
+        })
+        
+        let stacks: [UIStackView] = viewSections.map { (views) in
+            let stack = UIStackView(arrangedSubviews: views)
+            stack.axis = .vertical
+            stack.distribution = .equalSpacing
+            stack.spacing = 24
+            return stack
         }
-        let stack = UIStackView(arrangedSubviews: privilegeViews)
-        stack.axis = .vertical
-        stack.distribution = .equalSpacing
-        stack.spacing = 24
-        return stack
+        
+        return stacks
     }()
     
     private var weekProduct: IAP.ProductInfo? = nil {
@@ -462,7 +470,7 @@ extension PremiumViewController {
         }
         
         scrollContentView.addSubviews(views: backBtn, titleLabel,  avatarIV, nameLabel, badgeIcon, statusLabel, productsStack,
-                                      continueBtn, termsLabel, policyLabel, privilegesTitle, privLeftLine, privRightLine, privilegeStack)
+                                      continueBtn, termsLabel, policyLabel, privilegesTitle, privLeftLine, privRightLine)
         
         let navLayoutGuide = UILayoutGuide()
         scrollContentView.addLayoutGuide(navLayoutGuide)
@@ -486,11 +494,17 @@ extension PremiumViewController {
             maker.centerX.equalToSuperview()
         }
         
+        var hEdgeInset: CGFloat = 20
+        
+        adaptToIPad {
+            hEdgeInset = 160
+        }
+        
         let nameLayoutGuide = UILayoutGuide()
         scrollContentView.addLayoutGuide(nameLayoutGuide)
         nameLayoutGuide.snp.makeConstraints { (maker) in
             maker.centerX.equalToSuperview()
-            maker.leading.greaterThanOrEqualToSuperview().offset(20)
+            maker.leading.greaterThanOrEqualToSuperview().inset(hEdgeInset)
         }
         
         nameLabel.snp.makeConstraints { (maker) in
@@ -508,38 +522,35 @@ extension PremiumViewController {
         
         scrollContentView.addLayoutGuide(removableContentlayoutGuide)
         removableContentlayoutGuide.snp.makeConstraints { (maker) in
-            maker.leading.trailing.equalToSuperview()
+            maker.leading.trailing.equalToSuperview().inset(hEdgeInset)
             maker.top.equalTo(nameLabel.snp.bottom)
         }
         
         statusLabel.snp.makeConstraints { (maker) in
             maker.top.equalTo(removableContentlayoutGuide).offset(1)
-            maker.centerX.equalToSuperview()
-            maker.leading.greaterThanOrEqualToSuperview().offset(20)
+            maker.centerX.equalTo(removableContentlayoutGuide)
+            maker.leading.greaterThanOrEqualTo(removableContentlayoutGuide)
         }
         
         productsStack.snp.makeConstraints { (maker) in
             maker.top.equalTo(statusLabel.snp.bottom).offset(40)
-            maker.centerX.equalToSuperview()
+            maker.centerX.equalTo(removableContentlayoutGuide)
         }
         
         continueBtn.snp.makeConstraints { (maker) in
-            maker.leading.equalToSuperview().inset(20)
+            maker.leading.trailing.equalTo(removableContentlayoutGuide)
             maker.top.equalTo(productsStack.snp.bottom).offset(20)
             maker.height.equalTo(48)
-            maker.centerX.equalToSuperview()
         }
         
         termsLabel.snp.makeConstraints { (maker) in
-            maker.leading.trailing.equalToSuperview().inset(20)
+            maker.leading.trailing.equalTo(removableContentlayoutGuide)
             maker.top.equalTo(continueBtn.snp.bottom).offset(12)
         }
         
         policyLabel.snp.makeConstraints { (maker) in
-            maker.leading.equalToSuperview().inset(20)
-            maker.centerX.equalToSuperview()
+            maker.leading.trailing.bottom.equalTo(removableContentlayoutGuide)
             maker.top.equalTo(termsLabel.snp.bottom)
-            maker.bottom.equalTo(removableContentlayoutGuide)
         }
         
         privilegesTitle.snp.makeConstraints { (maker) in
@@ -548,24 +559,55 @@ extension PremiumViewController {
         }
         
         privLeftLine.snp.makeConstraints { (maker) in
-            maker.leading.greaterThanOrEqualToSuperview().offset(20)
+            maker.leading.greaterThanOrEqualToSuperview().inset(hEdgeInset)
             maker.centerY.equalTo(privilegesTitle)
             maker.trailing.equalTo(privilegesTitle.snp.leading).offset(-8)
         }
         
         privRightLine.snp.makeConstraints { (maker) in
-            maker.trailing.greaterThanOrEqualToSuperview().inset(20)
+            maker.trailing.greaterThanOrEqualToSuperview().inset(hEdgeInset)
             maker.centerY.equalTo(privilegesTitle)
             maker.leading.equalTo(privilegesTitle.snp.trailing).offset(8)
             maker.width.equalTo(privLeftLine)
         }
         
-        privilegeStack.snp.makeConstraints { (maker) in
-            maker.leading.equalToSuperview().inset(20)
-            maker.centerX.equalToSuperview()
-            maker.top.equalTo(privilegesTitle.snp.bottom).offset(20)
-            maker.bottom.equalToSuperview().offset(-28)
+        scrollContentView.addSubviews(privilegeStacks)
+        
+        for (idx, privilegeStack) in privilegeStacks.enumerated() {
+            if UIDevice.current.userInterfaceIdiom == .pad {
+                privilegeStack.snp.makeConstraints { (maker) in
+                    maker.top.equalTo(privilegesTitle.snp.bottom).offset(20)
+                    maker.bottom.greaterThanOrEqualToSuperview().inset(28)
+                    if idx == 0 {
+                        maker.leading.equalToSuperview().inset(hEdgeInset)
+                    } else if idx == privilegeStacks.count - 1 {
+                        maker.trailing.equalToSuperview().inset(hEdgeInset)
+                    }
+                                        
+                    if idx > 0,
+                       let pre = privilegeStacks.safe(idx - 1) {
+                        maker.leading.equalTo(pre.snp.trailing).offset(20)
+                        maker.width.equalTo(pre)
+                    }
+                }
+
+            } else {
+                privilegeStack.snp.makeConstraints { (maker) in
+                    maker.leading.trailing.equalToSuperview().inset(hEdgeInset)
+                    if idx == 0 {
+                        maker.top.equalTo(privilegesTitle.snp.bottom).offset(20)
+                    } else if idx == privilegeStacks.count - 1 {
+                        maker.bottom.equalToSuperview().offset(-28)
+                    }
+                                        
+                    if idx > 0,
+                       let pre = privilegeStacks.safe(idx - 1) {
+                        maker.top.equalTo(pre.snp.bottom).offset(privilegeStack.spacing)
+                    }
+                }
+            }
         }
+        
         
         updateProductViewsLayout()
     }
@@ -573,8 +615,13 @@ extension PremiumViewController {
     private func updateProductViewsLayout() {
         
         let size: ((Bool) -> CGSize) = { isSelected in
-            return isSelected ? CGSize(width: 131.scalValue, height: 131.scalValue * 175.0 / 131.0) :
-                CGSize(width: 90.scalValue, height: 90.scalValue * 124.0 / 90.0)
+            if UIDevice.current.userInterfaceIdiom == .pad {
+                return isSelected ? CGSize(width: 131.0, height: 175.0) :
+                    CGSize(width: 80, height: 124.0)
+            } else {
+                return isSelected ? CGSize(width: 131.scalValue, height: 131.scalValue * 175.0 / 131.0) :
+                    CGSize(width: 90.scalValue, height: 90.scalValue * 124.0 / 90.0)
+            }
         }
         
         productsStack.arrangedSubviews.forEach {
