@@ -263,8 +263,6 @@ extension AmongChat.Home.ConversationListController {
         
         emptyView.snp.makeConstraints { (maker) in
             maker.center.equalTo(listView.snp.center)
-//            maker.leading.greaterThanOrEqualToSuperview().offset(40)
-//            maker.top.equalTo(navigationView.snp.bottom)
         }
         
         listView.snp.makeConstraints { (maker) in

@@ -28,6 +28,8 @@ struct Constants {
     
     static let appId = "1539641263"
     
+    static let giphyApiKey = "7QHAiZsbbDQEczlOLPM2173dYaMBbGYb"
+    
     static let abGroup: ABGroup = {
 //        #if DEBUG
         return .b

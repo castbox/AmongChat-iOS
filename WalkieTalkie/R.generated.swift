@@ -2297,7 +2297,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
     
-    /// This `R.string.localizable` struct is generated, and contains static references to 453 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 454 localization keys.
     struct localizable {
       /// en translation:  Congratulations!
       /// 
@@ -3571,6 +3571,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let contactSearchInputPlaceholder = Rswift.StringResource(key: "contact.search.input.placeholder", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Search for GIFs
+      /// 
+      /// Locales: en
+      static let dmGifSearchPlaceholder = Rswift.StringResource(key: "dm.gif.search.placeholder", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: See all
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -6336,6 +6340,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func contactSearchInputPlaceholder(_: Void = ()) -> String {
         return NSLocalizedString("contact.search.input.placeholder", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Search for GIFs
+      /// 
+      /// Locales: en
+      static func dmGifSearchPlaceholder(_: Void = ()) -> String {
+        return NSLocalizedString("dm.gif.search.placeholder", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: See all

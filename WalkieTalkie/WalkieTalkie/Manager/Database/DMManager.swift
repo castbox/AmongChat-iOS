@@ -10,6 +10,11 @@ import Foundation
 import WCDBSwift
 import RxSwift
 import RxCocoa
+import CastboxDebuger
+
+fileprivate func cdPrint(_ message: Any) {
+    Debug.info("[DMManager]-\(message)")
+}
 
 private let dmConversationTableName = Database.TableName.dmConversation.rawValue
 private let dmMessagesTableName = Database.TableName.dmMessages.rawValue
@@ -67,7 +72,6 @@ class DMManager {
                 }
                 .do(onSuccess: { [unowned self] in
                     self.conversactionUpdateReplay.accept(conversation)
-                    //
                     if let subject = messageObservables[message.fromUid] {
                         subject.onNext(())
                     }
@@ -126,7 +130,10 @@ class DMManager {
         var newItem = conversation
         newItem.unreadCount = 0
         return database.mapTransactionToSingle { (db) in
-            try db.insertOrReplace(objects: newItem, intoTable: dmConversationTableName)
+            try db.update(table: dmConversationTableName,
+                          on: [Entity.DMConversation.Properties.unreadCount],
+                          with: conversation,
+                          where: Entity.DMConversation.Properties.fromUid == conversation.fromUid)
         }.map { newItem }
         .do(onSuccess: { [weak self] _ in
             self?.conversactionUpdateReplay.accept(newItem)
@@ -142,72 +149,4 @@ class DMManager {
             self?.conversactionUpdateReplay.accept(nil)
         })
     }
-    
-//
-//    func queryMessageBody(objType: String, objId: String) -> Single<Entity.NoticeMessage?> {
-//        return database.mapTransactionToSingle { (db) in
-//            let ex = Entity.NoticeMessage.Properties.objType == objType && Entity.NoticeMessage.Properties.objId == objId
-//            return try db.getObject(fromTable: messageBodyTableName,
-//                                    where: ex)
-//        }
-//    }
-//
-//    func updateMessageBody(_ message: Entity.NoticeMessage) -> Single<Void> {
-//        return database.mapTransactionToSingle { (db) in
-//            guard let objId = message.objId, let objType = message.objType else {
-//                return
-//            }
-//            let ex = Entity.NoticeMessage.Properties.objType == objType && Entity.NoticeMessage.Properties.objId == objId
-//            try db.update(table: messageBodyTableName,
-//                          on: [Entity.NoticeMessage.Properties.img, Entity.NoticeMessage.Properties.title],
-//                          with: message,
-//                          where: ex)
-//        }
-//        .do(onSuccess: { [weak self] (_) in
-//            guard let `self` = self,
-//                let type = message.objType,
-//                  let objId = message.objId else { return }
-//            NotificationCenter.default.post(name: self.messageBodyUpdateNotification(objType: type, objId: objId),
-//                                            object: nil)
-//        })
-//
-//    }
-//
-//    private func messageBodyUpdateNotification(objType: String, objId: String) -> Notification.Name {
-//        return Notification.Name("among.chat.notice.message.body.update-\(objType)-\(objId)")
-//    }
-//
-//    func messageBodyObservable(objType: String, objId: String) -> Observable<Entity.NoticeMessage?> {
-//
-//        return NotificationCenter.default.rx.notification(messageBodyUpdateNotification(objType: objType, objId: objId))
-//            .startWith(Notification(name: messageBodyUpdateNotification(objType: objType, objId: objId)))
-//            .flatMap({ [weak self] (_) -> Observable<Entity.NoticeMessage?> in
-//                guard let `self` = self else {
-//                    return Observable.just(nil)
-//                }
-//
-//                return self.queryMessageBody(objType: objType, objId: objId)
-//                    .asObservable()
-//            })
-//
-//    }
-//
-//    func noticeList(limit: Int? = nil, offset: Int? = nil) -> Single<[Entity.Notice]> {
-//
-//        return database.mapTransactionToSingle { (db) in
-//            try db.getObjects(fromTable: noticeTableName,
-//                              orderBy: [Entity.Notice.Properties.ms.asOrder(by: .descending)],
-//                              limit: limit,
-//                              offset: offset)
-//        }
-//
-//    }
-//
-//    func latestNotice() -> Single<Entity.Notice?> {
-//        return database.mapTransactionToSingle { (db) in
-//            try db.getObject(fromTable: noticeTableName,
-//                             orderBy: [Entity.Notice.Properties.ms.asOrder(by: .descending)])
-//        }
-//    }
-    
 }

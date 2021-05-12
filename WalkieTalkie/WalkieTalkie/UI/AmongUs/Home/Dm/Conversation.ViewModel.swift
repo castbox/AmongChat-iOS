@@ -65,24 +65,42 @@ extension Conversation {
             self.showTime = showTime
             self.sendFromMe = message.fromUser.uid == Settings.loginUserId?.int64
             //calculate height
+            let maxWidth = Frame.Screen.width - 72 * 2
             
             switch message.body.msgType {
             case .text:
-                let maxWidth = Frame.Screen.width - 72 * 2
-            let textSize = message.body.text?.boundingRect(with: CGSize(width: maxWidth, height: 1000), font: R.font.nunitoBold(size: 16)!) ?? CGSize(width: 0, height: 0)
-            contentSize = textSize.ceil
-            let topEdge: CGFloat = 18
-            var height = contentSize.height + topEdge * 2
-            if showTime {
-                height += 27
-            }
-            self.height = height
+                let textSize = message.body.text?.boundingRect(with: CGSize(width: maxWidth, height: 1000), font: R.font.nunitoBold(size: 16)!) ?? CGSize(width: 0, height: 0)
+                contentSize = textSize.ceil
+                let topEdge: CGFloat = 18
+                var height = contentSize.height + topEdge * 2
+                if showTime {
+                    height += 27
+                }
+                self.height = height
             case .gif:
-                self.height = 100
-                contentSize = .zero
+                //最小
+                let minWidth: CGFloat = 50
+                let rawHeight = (message.body.imageHeight?.cgFloat ?? 1)
+                let rawWidth = (message.body.imageWidth?.cgFloat ?? 1)
+                var gifWidth = rawWidth
+                var gifHeight = rawHeight
+                if gifWidth > maxWidth {
+                    gifWidth = maxWidth
+                    gifHeight = maxWidth * rawHeight / rawWidth
+                } else if gifWidth < minWidth {
+                    gifWidth = minWidth
+                    gifHeight = minWidth * rawHeight / rawWidth
+                }
+                contentSize = CGSize(width: gifWidth, height: gifHeight)
+                
+                let topEdge: CGFloat = 6
+                var height = contentSize.height + topEdge * 2
+                if showTime {
+                    height += 27
+                }
+                self.height = height
             case .voice:
-//                let topEdge: CGFloat = 6
-                let maxWidth = Frame.Screen.width - 72 * 2
+                //                let topEdge: CGFloat = 6
                 contentSize = CGSize(width: max(100, Double(maxWidth) / 60 * (message.body.duration ?? 0)), height: 36)
                 var height: CGFloat = 48
                 if showTime {
@@ -126,7 +144,7 @@ extension Conversation {
         var loginUserDmProfile: Entity.DMProfile {
             Settings.loginUserProfile!.dmProfile
         }
-
+        
         
         init(_ conversation: Entity.DMConversation) {
             self.conversation = conversation
@@ -141,7 +159,6 @@ extension Conversation {
                     guard let `self` = self else { return [] }
                     _ = DMManager.shared.clearUnreadCount(with: self.conversation)
                         .subscribe()
-                    
                     return items.map { message -> MessageCellViewModel in
                         self.downloadFileIfNeed(for: message)
                         if self.groupTime == 0 {
@@ -155,7 +172,7 @@ extension Conversation {
                         //auto download
                         return MessageCellViewModel(message: message, showTime: showTimeLabel)
                     }
-//                    //show time
+                    //                    //show time
                 }
                 .observeOn(MainScheduler.asyncInstance)
                 .bind(to: dataSourceReplay)
@@ -172,24 +189,21 @@ extension Conversation {
             sendMessage(message)
         }
         
+        func sendGif(_ media: Giphy.GPHMedia) {
+            guard let profile = Settings.loginUserProfile?.dmProfile, let url = media.gifUrl else {
+                return
+            }
+            let messageBody = Entity.DMMessageBody(type: .gif, img: url.absoluteString, imageWidth: media.imageWidth, imageHeight: media.imageHeight)
+            let message = Entity.DMMessage(body: messageBody, relation: 1, fromUid: targetUid, unread: false, fromUser: profile, status: .sending)
+            insertOrReplace(message: message)
+            sendMessage(message)
+        }
+        
         func sendVoiceMessage(duration: Int, filePath: String) -> Single<Bool> {
-//            let url = Bundle.main.url(forResource: "sample3", withExtension: "aac")!
-//            guard let pathString = FileManager.voiceFilePath(with: "sample3.aac") else {
-//                return .just(false)
-//            }
-//            let filePath = URL(fileURLWithPath: pathString)
-            //            if !FileManager.default.fileExists(atPath: filePath.path) {
-            //                do {
-            //                    try FileManager.default.copyItem(atPath: url.path, toPath: filePath.path)
-            //                    //                try R.image.launch_logo()?.pngData()?.write(to: filePath)
-            //                } catch {
-            //                    cdPrint("error: \(filePath): \(error))")
-            //                }
-            //            }
             guard FileManager.default.fileExists(atPath: filePath) else {
                 return .just(false)
             }
-
+            
             var messageBody = Entity.DMMessageBody(type: .voice, url: "", duration: duration.double, localRelativePath: FileManager.relativePath(of: filePath))
             var message = Entity.DMMessage(body: messageBody, relation: 1, fromUid: self.targetUid, unread: false, fromUser: self.loginUserDmProfile, status: .sending)
             insertOrReplace(message: message)

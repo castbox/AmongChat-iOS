@@ -801,7 +801,7 @@ extension FansGroup.Views {
     
     class EmptyDataView: UIView {
         
-        private lazy var iconIV: UIImageView = {
+        private(set) lazy var iconIV: UIImageView = {
             let i = UIImageView(image: R.image.ac_among_apply_empty())
             return i
         }()

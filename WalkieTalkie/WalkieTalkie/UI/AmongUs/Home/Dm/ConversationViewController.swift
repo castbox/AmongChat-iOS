@@ -416,6 +416,14 @@ private extension ConversationViewController {
         }
     }
     
+    func showGifViewController() {
+        let gifVc = Giphy.GifsViewController()
+        gifVc.selectAction = { [weak self] media in
+            self?.viewModel.sendGif(media)
+        }
+        presentPanModal(gifVc)
+    }
+    
     func configureSubview() {
         
         collectionView.transform = CGAffineTransform(scaleX: 1, y: -1)
@@ -451,7 +459,7 @@ private extension ConversationViewController {
         bottomBar.actionHandler = { [weak self] action in
             switch action {
             case .gif:
-                self?.sendVoiceMessage(duration: 20 + Int(arc4random() % 40), filePath: "")
+                self?.showGifViewController()
             case .send(let text):
                 self?.viewModel.sendMessage(text)
             }
@@ -459,9 +467,12 @@ private extension ConversationViewController {
         
         RxKeyboard.instance.visibleHeight
             .drive(onNext: { [weak self] keyboardVisibleHeight in
-                guard let `self` = self else { return }
+                guard let `self` = self, self.bottomBar.isFirstResponder else {
+                    return
+                }
                 self.bottomBar.snp.updateConstraints { (maker) in
                     maker.bottom.equalToSuperview().offset(-keyboardVisibleHeight)
+                    maker.height.equalTo(keyboardVisibleHeight > 20 ? 0 : Frame.Height.safeAeraBottomHeight + 60)
                 }
                 self.collectionViewBottomConstraint.constant = 60 + keyboardVisibleHeight
                 UIView.animate(withDuration: 0) {
