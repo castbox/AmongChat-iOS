@@ -193,17 +193,17 @@ extension AmongChat.Login.SmsCodeViewController {
         }
         
         codeTitle.snp.makeConstraints { (maker) in
-            maker.leading.trailing.equalToSuperview().inset(30)
+            maker.leading.trailing.equalToSuperview().inset(Frame.horizontalBleedWidth)
             maker.top.equalTo(codeIcon.snp.bottom).offset(12)
         }
         
         smsTip.snp.makeConstraints { (maker) in
-            maker.leading.trailing.equalToSuperview().inset(30)
+            maker.leading.trailing.equalToSuperview().inset(Frame.horizontalBleedWidth)
             maker.top.equalTo(codeTitle.snp.bottom).offset(8)
         }
         
         timingTip.snp.makeConstraints { (maker) in
-            maker.leading.trailing.equalToSuperview().inset(30)
+            maker.leading.trailing.equalToSuperview().inset(Frame.horizontalBleedWidth)
             maker.top.equalTo(digitCollectionView.snp.bottom).offset(12)
         }
         

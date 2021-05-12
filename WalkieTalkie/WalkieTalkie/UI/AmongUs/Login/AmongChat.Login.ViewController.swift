@@ -301,13 +301,13 @@ extension AmongChat.Login.ViewController {
         }
         
         startBtn.snp.makeConstraints { (maker) in
-            maker.leading.trailing.equalToSuperview().inset(30)
+            maker.leading.trailing.equalToSuperview().inset(Frame.horizontalBleedWidth)
             maker.height.equalTo(48)
             maker.bottom.equalTo(signInLabel.snp.top).offset(-24)
         }
         
         signInLabel.snp.makeConstraints { (maker) in
-            maker.leading.trailing.equalToSuperview().inset(30)
+            maker.leading.trailing.equalToSuperview().inset(Frame.horizontalBleedWidth)
             maker.bottom.equalTo(bottomLayoutGuide.snp.top).offset(-140)
         }
     }

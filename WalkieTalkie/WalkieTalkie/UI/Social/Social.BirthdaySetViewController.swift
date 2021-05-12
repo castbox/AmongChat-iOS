@@ -111,7 +111,7 @@ extension Social {
             
             mainTitle.snp.makeConstraints { (maker) in
                 maker.top.equalTo(birthdayIcon.snp.bottom).offset(8)
-                maker.leading.trailing.equalToSuperview().inset(30)
+                maker.leading.trailing.equalToSuperview().inset(Frame.horizontalBleedWidth)
             }
             
             subTitle.snp.makeConstraints { (maker) in
@@ -120,21 +120,20 @@ extension Social {
             }
 
             birthdayPicker.snp.makeConstraints { (maker) in
-                maker.leading.trailing.equalToSuperview().inset(30)
+                maker.leading.trailing.equalToSuperview().inset(Frame.horizontalBleedWidth)
                 maker.height.equalTo(215.scalHValue)
                 maker.top.equalTo(subTitle.snp.bottom).offset(64.scalHValue)
             }
             
             confirmBtn.snp.makeConstraints { (maker) in
-                maker.left.equalTo(40)
-                maker.right.equalTo(-40)
+                maker.leading.trailing.equalToSuperview().inset(Frame.horizontalBleedWidth)
                 maker.height.equalTo(50)
-                maker.bottom.equalTo(-58 - Frame.Height.safeAeraBottomHeight)
+                maker.bottom.equalTo(bottomLayoutGuide.snp.top).offset(-97)
             }
             
             policyLabel.snp.makeConstraints { (maker) in
-                maker.leading.trailing.equalToSuperview().inset(Frame.Scale.width(30))
-                maker.bottom.equalTo(bottomLayoutGuide.snp.top).offset(-Frame.Scale.height(12))
+                maker.leading.trailing.equalToSuperview().inset(Frame.horizontalBleedWidth)
+                maker.bottom.equalTo(bottomLayoutGuide.snp.top).offset(-24)
             }
             
             rx.viewDidAppear.take(1)

@@ -224,7 +224,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 221 images.
+  /// This `R.image` struct is generated, and contains static references to 222 images.
   struct image {
     /// Image `ac_add_stats_add`.
     static let ac_add_stats_add = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_add_stats_add")
@@ -408,6 +408,8 @@ struct R: Rswift.Validatable {
     static let ac_login_snapchat = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_login_snapchat")
     /// Image `ac_login_start`.
     static let ac_login_start = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_login_start")
+    /// Image `ac_login_top_bg_pad`.
+    static let ac_login_top_bg_pad = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_login_top_bg_pad")
     /// Image `ac_login_top_bg`.
     static let ac_login_top_bg = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_login_top_bg")
     /// Image `ac_login_wrong_code_bubble`.
@@ -1127,6 +1129,11 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "ac_login_top_bg", bundle: ..., traitCollection: ...)`
     static func ac_login_top_bg(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ac_login_top_bg, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_login_top_bg_pad", bundle: ..., traitCollection: ...)`
+    static func ac_login_top_bg_pad(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_login_top_bg_pad, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "ac_login_wrong_code_bubble", bundle: ..., traitCollection: ...)`
