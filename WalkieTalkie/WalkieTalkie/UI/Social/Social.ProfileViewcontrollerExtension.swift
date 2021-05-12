@@ -348,7 +348,7 @@ extension Social.ProfileViewController {
             }
             
             loginButton.snp.makeConstraints { (maker) in
-                maker.leading.trailing.equalToSuperview().inset(20)
+                maker.leading.trailing.equalToSuperview().inset(Frame.horizontalBleedWidth)
                 maker.bottom.equalToSuperview().offset(-88)
                 maker.height.equalTo(48)
             }
