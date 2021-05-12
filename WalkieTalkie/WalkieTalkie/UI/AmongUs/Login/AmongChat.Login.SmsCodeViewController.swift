@@ -51,12 +51,17 @@ extension AmongChat.Login {
         private lazy var digitCollectionView: UICollectionView = {
             let layout = UICollectionViewFlowLayout()
             layout.scrollDirection = .vertical
-            let hInset: CGFloat = 30
+            var hInset: CGFloat = 30
             let vInset: CGFloat = 0
             let hwRatio: CGFloat = 52.0 / 45.0
             let interSpace: CGFloat = 9
-            let cellWidth = (UIScreen.main.bounds.width - hInset * 2 - interSpace * 5 ) / 6
-            let cellHeight = cellWidth * hwRatio
+            var cellWidth = (UIScreen.main.bounds.width - hInset * 2 - interSpace * 5 ) / 6
+            var cellHeight = cellWidth * hwRatio
+            adaptToIPad {
+                cellWidth = 45
+                cellHeight = 52
+                hInset = (UIScreen.main.bounds.width - cellWidth * 6 - interSpace * 5 ) / 2
+            }
             digitCollectionViewHeight = cellHeight
             layout.itemSize = CGSize(width: cellWidth, height: cellHeight)
             layout.minimumLineSpacing = 0
