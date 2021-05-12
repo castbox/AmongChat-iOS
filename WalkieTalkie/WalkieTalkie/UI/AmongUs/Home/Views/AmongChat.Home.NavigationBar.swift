@@ -114,17 +114,18 @@ extension AmongChat.Home {
                 maker.height.equalTo(49)
             }
             
+            let hEdgeInset = Frame.horizontalBleedWidth
             switch style {
             case .default:
                 addSubviews(views: profileBtn, searchTextfield, createRoomBtn)
                 profileBtn.snp.makeConstraints { (maker) in
                     maker.width.height.equalTo(32)
-                    maker.leading.equalToSuperview().inset(20)
+                    maker.leading.equalToSuperview().inset(hEdgeInset)
                     maker.centerY.equalToSuperview()
                 }
                 
                 createRoomBtn.snp.makeConstraints { (maker) in
-                    maker.trailing.equalToSuperview().inset(20)
+                    maker.trailing.equalToSuperview().inset(hEdgeInset)
                     maker.width.height.equalTo(32)
                     maker.centerY.equalToSuperview()
                 }
@@ -140,7 +141,7 @@ extension AmongChat.Home {
                 addSubviews(views: searchTextfield, noticeBtn)
                 
                 searchTextfield.snp.makeConstraints { (maker) in
-                    maker.leading.equalToSuperview().offset(20)
+                    maker.leading.equalToSuperview().offset(hEdgeInset)
                     maker.trailing.equalTo(noticeBtn.snp.leading).offset(-20)
                     maker.centerY.equalToSuperview()
                     maker.height.equalTo(36)
@@ -148,7 +149,7 @@ extension AmongChat.Home {
                                 
                 noticeBtn.snp.makeConstraints { (maker) in
                     maker.width.height.equalTo(32)
-                    maker.trailing.equalToSuperview().offset(-20)
+                    maker.trailing.equalToSuperview().inset(hEdgeInset)
                     maker.centerY.equalToSuperview()
                 }
                 

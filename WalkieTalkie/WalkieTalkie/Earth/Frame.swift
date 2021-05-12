@@ -107,4 +107,15 @@ struct Frame {
         static let message: CGFloat = 12
     }
     
+    static var isPad: Bool {
+        Device.allPads.contains(Device.current) || Device.allSimulatorPads.contains(Device.current)
+    }
+    
+    static var horizontalBleedWidth: CGFloat {
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            return 40
+        } else {
+            return 20
+        }
+    }
 }
