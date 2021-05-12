@@ -139,7 +139,6 @@ extension FansGroup.CreateGroupViewController {
         navView.snp.makeConstraints { (maker) in
             maker.leading.trailing.equalToSuperview()
             maker.top.equalTo(topLayoutGuide.snp.bottom)
-            maker.height.equalTo(49)
         }
         
         bottomGradientView.snp.makeConstraints { (maker) in

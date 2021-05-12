@@ -168,7 +168,6 @@ extension FansGroup.GroupEditViewController {
         navView.snp.makeConstraints { (maker) in
             maker.leading.trailing.equalToSuperview()
             maker.top.equalTo(topLayoutGuide.snp.bottom)
-            maker.height.equalTo(49)
         }
         
         setUpInfoView.nameView.inputField.text = groupInfo.group.name

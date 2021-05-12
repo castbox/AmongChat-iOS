@@ -204,7 +204,6 @@ extension FansGroup.SelectGroupMemberViewController {
         navView.snp.makeConstraints { (maker) in
             maker.leading.trailing.equalToSuperview()
             maker.top.equalTo(topLayoutGuide.snp.bottom)
-            maker.height.equalTo(49)
         }
         
         emptyView.snp.makeConstraints { (maker) in
