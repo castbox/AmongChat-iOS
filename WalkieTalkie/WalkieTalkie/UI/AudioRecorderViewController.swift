@@ -66,7 +66,6 @@ class AudioRecorderViewController: WalkieTalkie.ViewController {
     
     private lazy var endTipLabel: UILabel = {
         let lb = UILabel()
-        lb.layer.cornerRadius = 18
         lb.clipsToBounds = true
         lb.font = R.font.nunitoExtraBold(size: 16)
         lb.text = R.string.localizable.amongChatAudioRecordingEnd()
@@ -120,6 +119,11 @@ class AudioRecorderViewController: WalkieTalkie.ViewController {
         setUpLayout()
         setUpEvents()
         startRecording()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        endTipLabel.layer.cornerRadius = endTipLabel.bounds.height / 2
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
