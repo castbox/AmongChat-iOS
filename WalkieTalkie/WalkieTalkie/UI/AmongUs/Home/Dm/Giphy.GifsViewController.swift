@@ -38,8 +38,15 @@ extension Giphy {
         }()
         
         private lazy var collectionView: UICollectionView = {
-            let layout = Giphy.GifViewLayout()
+            let layout = WaterfallLayout()
             layout.delegate = self
+            layout.sectionInset = UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 20)
+            layout.minimumLineSpacing = 12
+            layout.minimumInteritemSpacing = 12
+            layout.headerHeight = 50.0
+            
+            //            let layout = Giphy.GifViewLayout()
+            //            layout.delegate = self
             //            layout.scrollDirection = .vertical
             //            var hInset: CGFloat = 20
             //            var columns: Int = 1
@@ -49,6 +56,7 @@ extension Giphy {
             let v = UICollectionView(frame: .zero, collectionViewLayout: layout)
             //            v.register(nibWithCellClass: ConversationListCell.self)
             v.register(cellWithClass: Cell.self)
+            v.register(supplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withClass: GiphyHeaderView.self)
             //            v.contentInset = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
             v.showsVerticalScrollIndicator = false
             v.showsHorizontalScrollIndicator = false
@@ -92,6 +100,8 @@ extension Giphy {
                 }
             }
         }
+        
+        private var searchKey: String?
         
         var selectAction: ((Giphy.GPHMedia) -> Void)?
         
@@ -138,9 +148,9 @@ extension Giphy {
                 self?.searchGifs(key)
             }
             
-            collectionView.pullToRefresh { [weak self] in
-                self?.loadData()
-            }
+            //            collectionView.pullToRefresh { [weak self] in
+            //                self?.loadData()
+            //            }
             collectionView.pullToLoadMore { [weak self] in
                 self?.loadMore()
             }
@@ -161,7 +171,6 @@ extension Giphy {
             let removeBlock = view.raft.show(.loading)
             Request.gifTreading()
                 .subscribe(onSuccess: { [weak self] medias in
-                    cdPrint("medias: \(medias)")
                     removeBlock()
                     guard let `self` = self else { return }
                     self.treadingDataSource = medias ?? []
@@ -185,22 +194,46 @@ extension Giphy {
         }
         
         private func loadMore() {
-            //            let skipMS = dataSource.last?.opTime ?? 0
-            
-            //            Request.groupLivedataSource(groupId, skipMs: skipMS)
-            //                .subscribe(onSuccess: { [weak self](data) in
-            ////                    guard let data = data else { return }
-            //                    let list =  data.list
-            //                    var origenList = self?.dataSource
-            //                    list.forEach({ origenList?.append($0)})
-            //                    self?.dataSource = origenList ?? []
-            //                    self?.collectionView.endLoadMore(data.more)
-            //                }, onError: { (error) in
-            //                    cdPrint("followingList error: \(error.localizedDescription)")
-            //                }).disposed(by: bag)
+            if type == .search {
+                guard let key = searchKey else {
+                    self.collectionView.endLoadMore(false)
+                    return
+                }
+                let offset = dataSource.count
+                Request.gifSearch(key: key, offset: offset)
+                    .subscribe(onSuccess: { [weak self] medias in
+                        //                        removeBlock()
+                        guard let `self` = self, let list = medias else { return }
+                        //                        self.treadingDataSource = medias ?? []
+                        var originList = self.treadingDataSource
+                        originList.append(contentsOf: list)
+                        self.treadingDataSource = originList
+                        self.collectionView.endLoadMore(true)
+                    }, onError: { [weak self] error in
+                        self?.collectionView.endLoadMore(false)
+                    })
+                    .disposed(by: bag)
+            } else {
+                let offset = dataSource.count
+                Request.gifTreading(offset: offset)
+                    .subscribe(onSuccess: { [weak self] medias in
+                        //                        removeBlock()
+                        guard let `self` = self, let list = medias else { return }
+                        //                        self.treadingDataSource = medias ?? []
+                        var originList = self.treadingDataSource
+                        originList.append(contentsOf: list)
+                        self.treadingDataSource = originList
+                        self.collectionView.endLoadMore(true)
+                    }, onError: { [weak self] error in
+                        self?.collectionView.endLoadMore(false)
+                    })
+                    .disposed(by: bag)
+                
+            }
         }
         
         private func searchGifs(_ key: String?) {
+            searchKey = key
             guard let key = key, !key.isEmpty else {
                 type = .treading
                 return
@@ -209,7 +242,6 @@ extension Giphy {
             let removeBlock = view.raft.show(.loading)
             Request.gifSearch(key: key)
                 .subscribe(onSuccess: { [weak self] medias in
-                    cdPrint("medias: \(medias)")
                     removeBlock()
                     guard let `self` = self else { return }
                     self.dataSource = medias ?? []
@@ -217,19 +249,6 @@ extension Giphy {
                     
                 })
                 .disposed(by: bag)
-            //            Request.groupLivedataSource(groupId, skipMs: 0)
-            //                    .subscribe(onSuccess: { [weak self](data) in
-            //                        removeBlock()
-            //                        guard let `self` = self else { return }
-            //                        self.dataSource = data.list
-            ////                        self.tableView.endLoadMore(data.more)
-            //                    }, onError: { [weak self](error) in
-            //                        removeBlock()
-            //                        self?.addErrorView({ [weak self] in
-            //                            self?.loadData()
-            //                        })
-            //                        cdPrint("followingList error: \(error.localizedDescription)")
-            //                    }).disposed(by: bag)
         }
     }
 }
@@ -247,9 +266,19 @@ extension Giphy.GifsViewController: UICollectionViewDataSource, UICollectionView
         return cell
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let itemSize = (collectionView.frame.width - (collectionView.contentInset.left + collectionView.contentInset.right + 10)) / 2
-        return CGSize(width: itemSize, height: itemSize)
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        //        v.register(supplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withClass: GiphyHeaderView.self)
+        let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withClass: GiphyHeaderView.self, for: indexPath)
+        return view
+    }
+    
+    //    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    //        let itemSize = (collectionView.frame.width - (collectionView.contentInset.left + collectionView.contentInset.right + 10)) / 2
+    //        return CGSize(width: itemSize, height: itemSize)
+    //    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        return CGSize(width: Frame.Screen.width, height: 40)
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -261,16 +290,66 @@ extension Giphy.GifsViewController: UICollectionViewDataSource, UICollectionView
     }
 }
 
-extension Giphy.GifsViewController: GiphyGifViewLayoutDelegate {
-    func collectionView(
-        _ collectionView: UICollectionView,
-        heightForPhotoAtIndexPath indexPath:IndexPath) -> CGFloat {
-        return dataSource[indexPath.item].height
+extension Giphy.GifsViewController: WaterfallLayoutDelegate {
+    func collectionView(_ collectionView: UICollectionView, layout: WaterfallLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        if let media = dataSource.safe(indexPath.item) {
+            let leftEdge: CGFloat = 20
+            let itemSpace: CGFloat = 12
+            let itemWidth: CGFloat = ((Frame.Screen.width - leftEdge * 2 - itemSpace) / 2).floor
+            return CGSize(width: itemWidth, height: media.height)
+        }
+        return WaterfallLayout.automaticSize //CGSize(width: 300, height: 180)
     }
+    
+    func collectionViewLayout(for section: Int) -> WaterfallLayout.Layout {
+        return .waterfall(column: 2, distributionMethod: .balanced)
+    }
+    
 }
+
+//extension Giphy.GifsViewController: GiphyGifViewLayoutDelegate {
+//    func collectionView(
+//        _ collectionView: UICollectionView,
+//        heightForPhotoAtIndexPath indexPath:IndexPath) -> CGFloat {
+//        return dataSource[indexPath.item].height
+//    }
+//}
 
 
 extension Giphy.GifsViewController {
+    
+    class GiphyHeaderView: UICollectionReusableView {
+        lazy var imageView: AnimatedImageView = {
+            let v = AnimatedImageView()
+            v.image = R.image.iconPoweredbyBlackVert()
+            v.contentMode = .scaleAspectFill
+            v.clipsToBounds = true
+            return v
+        }()
+        
+        override init(frame: CGRect) {
+            super.init(frame: frame)
+            setupLayout()
+        }
+        
+        required init?(coder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
+        }
+        
+        override func prepareForReuse() {
+            super.prepareForReuse()
+            
+        }
+        
+        private func setupLayout() {
+            addSubviews(views: imageView)
+            
+            imageView.snp.makeConstraints { (maker) in
+                maker.left.equalTo(20)
+                maker.centerY.equalToSuperview()
+            }
+        }
+    }
     
     class Cell: UICollectionViewCell {
         lazy var imageView: AnimatedImageView = {
@@ -323,7 +402,7 @@ extension Giphy.GifsViewController {
             textfield.attributedPlaceholder = NSAttributedString(string: R.string.localizable.dmGifSearchPlaceholder(), attributes: [
                 NSAttributedString.Key.foregroundColor : UIColor("#646464"),
                 NSAttributedString.Key.font: R.font.nunitoExtraBold(size: 20)
-             ])
+            ])
             return textfield
         }()
         
@@ -369,9 +448,9 @@ extension Giphy.GifsViewController.HeaderView: UITextFieldDelegate {
         textField.resignFirstResponder()
         
         if let text = textField.text?.trimmed,
-              text.count > 0 {
+           text.count > 0 {
             searchAction?(text)
-           
+            
         } else {
             textField.text = nil
             searchAction?(nil)
