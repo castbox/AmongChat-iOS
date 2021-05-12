@@ -241,7 +241,6 @@ extension Report.ViewController {
         navView.snp.makeConstraints { (maker) in
             maker.leading.trailing.equalToSuperview()
             maker.top.equalTo(topLayoutGuide.snp.bottom)
-            maker.height.equalTo(49)
         }
         
         footerView = ReportFooterView(frame: CGRect(x: 0, y: 0, width: Frame.Screen.width, height: 364 + ReportFooterView.collectionItemWidth))

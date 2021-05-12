@@ -15,49 +15,7 @@ extension FansGroup {
 }
 
 extension FansGroup.Views {
-    
-    class NavigationBar: UIView {
-        
-        private(set) lazy var titleLabel: UILabel = {
-            let lb = UILabel()
-            lb.font = R.font.nunitoExtraBold(size: 24)
-            lb.textColor = UIColor.white
-            lb.textAlignment = .center
-            lb.adjustsFontSizeToFitWidth = true
-            return lb
-        }()
-        
-        private(set) lazy var leftBtn: UIButton = {
-            let btn = SmallSizeButton(type: .custom)
-            return btn
-        }()
-        
-        override init(frame: CGRect) {
-            super.init(frame: frame)
-            setUpLayout()
-        }
-        
-        required init?(coder: NSCoder) {
-            fatalError("init(coder:) has not been implemented")
-        }
-        
-        private func setUpLayout() {
-            addSubviews(views: titleLabel, leftBtn)
-            
-            leftBtn.snp.makeConstraints { (maker) in
-                maker.leading.equalToSuperview().offset(20)
-                maker.centerY.equalToSuperview()
-            }
-            
-            titleLabel.snp.makeConstraints { (maker) in
-                maker.center.equalToSuperview()
-                maker.leading.equalToSuperview().inset(64)
-            }
-            
-        }
-        
-    }
-    
+    typealias NavigationBar = WalkieTalkie.NavigationBar
 }
 
 extension FansGroup.Views {
