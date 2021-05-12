@@ -216,7 +216,12 @@ extension Search {
                 maker.height.equalTo(49 + Frame.Height.safeAeraTopHeight)
             }
             
-        
+            searchTextfield.snp.makeConstraints { maker in
+                maker.leading.equalTo(20)
+                maker.height.equalTo(36)
+                maker.bottom.equalTo(-6.5)
+                maker.trailing.equalTo(cancelBtn.snp.leading)
+            }
             cancelBtn.snp.makeConstraints { maker in
                 maker.trailing.equalTo(-10)
                 maker.centerY.equalTo(searchTextfield)

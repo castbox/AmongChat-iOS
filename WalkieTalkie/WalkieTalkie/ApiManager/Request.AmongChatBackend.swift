@@ -1648,6 +1648,7 @@ extension Request {
             .mapJSON()
             .mapToDataKeyJsonValue()
             .mapToProcessedValue()
+            .observeOn(MainScheduler.asyncInstance)
     }
     
     static func userStatus(_ uid: Int) -> Single<Entity.UserStatus?> {

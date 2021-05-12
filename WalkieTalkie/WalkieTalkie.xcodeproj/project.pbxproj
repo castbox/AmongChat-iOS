@@ -407,6 +407,7 @@
 		FEF6171F264AB62C007CC97E /* Giphy.Entity.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEF6171E264AB62C007CC97E /* Giphy.Entity.swift */; };
 		FEF61721264AC62E007CC97E /* APIService.Giphy.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEF61720264AC62E007CC97E /* APIService.Giphy.swift */; };
 		FEF61723264AC8FB007CC97E /* Request.Giphy.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEF61722264AC8FB007CC97E /* Request.Giphy.swift */; };
+		FEF61725264BCD5E007CC97E /* WaterfallLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEF61724264BCD5D007CC97E /* WaterfallLayout.swift */; };
 		FEFF9356258B30980011A274 /* AmongChat.Room.ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEFF9355258B30970011A274 /* AmongChat.Room.ViewModel.swift */; };
 		FEFF935A258B33420011A274 /* AmongInputNotesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEFF9359258B33420011A274 /* AmongInputNotesView.swift */; };
 		FEFF935E258B33480011A274 /* AmongInputNotesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FEFF935D258B33480011A274 /* AmongInputNotesView.xib */; };
@@ -863,6 +864,7 @@
 		FEF6171E264AB62C007CC97E /* Giphy.Entity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Giphy.Entity.swift; sourceTree = "<group>"; };
 		FEF61720264AC62E007CC97E /* APIService.Giphy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.Giphy.swift; sourceTree = "<group>"; };
 		FEF61722264AC8FB007CC97E /* Request.Giphy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Request.Giphy.swift; sourceTree = "<group>"; };
+		FEF61724264BCD5D007CC97E /* WaterfallLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaterfallLayout.swift; sourceTree = "<group>"; };
 		FEFF9355258B30970011A274 /* AmongChat.Room.ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChat.Room.ViewModel.swift; sourceTree = "<group>"; };
 		FEFF9359258B33420011A274 /* AmongInputNotesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongInputNotesView.swift; sourceTree = "<group>"; };
 		FEFF935D258B33480011A274 /* AmongInputNotesView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AmongInputNotesView.xib; sourceTree = "<group>"; };
@@ -1692,6 +1694,7 @@
 				FEF61718264AB2A7007CC97E /* Giphy.GifsViewController.swift */,
 				FEF6171E264AB62C007CC97E /* Giphy.Entity.swift */,
 				FEF6171C264AB46E007CC97E /* Giphy.GifViewLayout.swift */,
+				FEF61724264BCD5D007CC97E /* WaterfallLayout.swift */,
 			);
 			path = Dm;
 			sourceTree = "<group>";
@@ -2114,6 +2117,7 @@
 				FE7E227926466B3500DAD431 /* DMManager.swift in Sources */,
 				FE80679E261DD2C300207992 /* IMManager.PeerMessage.swift in Sources */,
 				FE126D582434823B00BEDD60 /* MemberUtil.swift in Sources */,
+				FEF61725264BCD5E007CC97E /* WaterfallLayout.swift in Sources */,
 				FE6738AE2611F1840044C0D2 /* AmongChat.Room.MessageInputView.swift in Sources */,
 				2B956766259B3262001C7B91 /* Social.ProfileViewcontrollerExtension.swift in Sources */,
 				FE4FDADB2435D70A00CD5E97 /* FireLink.swift in Sources */,

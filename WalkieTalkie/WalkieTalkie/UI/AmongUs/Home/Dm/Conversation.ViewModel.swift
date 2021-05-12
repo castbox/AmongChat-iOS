@@ -79,14 +79,15 @@ extension Conversation {
                 self.height = height
             case .gif:
                 //最小
-                let minWidth: CGFloat = 50
+                let minWidth: CGFloat = 80
+                let gifMaxWidth: CGFloat = 170
                 let rawHeight = (message.body.imageHeight?.cgFloat ?? 1)
                 let rawWidth = (message.body.imageWidth?.cgFloat ?? 1)
                 var gifWidth = rawWidth
                 var gifHeight = rawHeight
-                if gifWidth > maxWidth {
-                    gifWidth = maxWidth
-                    gifHeight = maxWidth * rawHeight / rawWidth
+                if gifWidth > gifMaxWidth {
+                    gifWidth = gifMaxWidth
+                    gifHeight = gifMaxWidth * rawHeight / rawWidth
                 } else if gifWidth < minWidth {
                     gifWidth = minWidth
                     gifHeight = minWidth * rawHeight / rawWidth
@@ -145,6 +146,10 @@ extension Conversation {
             Settings.loginUserProfile!.dmProfile
         }
         
+        deinit {
+            cdPrint("Conversation.ViewModel.deinit")
+        }
+        
         
         init(_ conversation: Entity.DMConversation) {
             self.conversation = conversation
@@ -165,7 +170,7 @@ extension Conversation {
                             self.groupTime = message.timestamp
                         }
                         //大余5分钟则显示时间，
-                        let showTimeLabel = (self.groupTime - message.timestamp) > 60 * 5
+                        let showTimeLabel = (self.groupTime - message.timestamp) < 60 * 5
                         if showTimeLabel {
                             self.groupTime = message.timestamp
                         }

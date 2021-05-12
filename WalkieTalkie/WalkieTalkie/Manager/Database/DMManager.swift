@@ -119,7 +119,7 @@ class DMManager {
         return database.mapTransactionToSingle { (db) in
             try db.getObjects(fromTable: dmMessagesTableName,
                               where: ex,
-                              orderBy: [Entity.DMMessage.Properties.ms.asOrder(by: .descending)],
+                              orderBy: [Entity.DMMessage.Properties.ms.asOrder(by: .ascending)],
                               limit: limit,
                               offset: offset)
         }
@@ -132,7 +132,7 @@ class DMManager {
         return database.mapTransactionToSingle { (db) in
             try db.update(table: dmConversationTableName,
                           on: [Entity.DMConversation.Properties.unreadCount],
-                          with: conversation,
+                          with: newItem,
                           where: Entity.DMConversation.Properties.fromUid == conversation.fromUid)
         }.map { newItem }
         .do(onSuccess: { [weak self] _ in

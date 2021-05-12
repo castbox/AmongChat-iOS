@@ -97,7 +97,7 @@ class ConversationCollectionCell: UICollectionViewCell {
         v.contentMode = .scaleAspectFit
         v.isHidden = true
         v.isUserInteractionEnabled = false
-        v.backgroundColor = "222222".color()
+//        v.backgroundColor = "222222".color()
         return v
     }()
     
@@ -177,7 +177,7 @@ class ConversationCollectionCell: UICollectionViewCell {
                 statusView.left = textContainer.right + 8
             }
             statusView.centerY = textContainer.centerY
-            
+            indicatorView.center = statusView.center
             //            textContainer.isHidden = false
             messageTextLabel.isHidden = false
             voiceDurationLabel.isHidden = true
@@ -185,20 +185,26 @@ class ConversationCollectionCell: UICollectionViewCell {
             textContainer.isHidden = false
             gifImageView.isHidden = true
         case .gif:
-            gifImageView.setImage(with: msg.body.img)
             gifImageView.size = viewModel.contentSize
             container.height = gifImageView.size.height
             if viewModel.sendFromMe {
                 avatarImageView.right = Frame.Screen.width - avatarLeftEdge
                 gifImageView.right = Frame.Screen.width - contentLeftEdge
                 statusView.right = gifImageView.left - 8
+                statusView.centerY = gifImageView.centerY
+                indicatorView.center = statusView.center
+                gifImageView.setImage(with: msg.body.img)
             } else {
                 avatarImageView.left = avatarLeftEdge
                 gifImageView.left = contentLeftEdge
                 statusView.left = gifImageView.right + 8
+                statusView.centerY = statusView.centerY
+                indicatorView.center = gifImageView.center
+                indicatorView.startAnimating()
+                gifImageView.setImage(with: msg.body.img, completionHandler: { [weak self] result in
+                    self?.indicatorView.stopAnimating()
+                })
             }
-            statusView.centerY = textContainer.centerY
-            
             voiceDurationLabel.isHidden = false
             voicePlayIndiator.isHidden = false
             messageTextLabel.isHidden = true
@@ -231,6 +237,7 @@ class ConversationCollectionCell: UICollectionViewCell {
             } else {
                 voicePlayIndiator.stopAnimating()
             }
+            indicatorView.center = statusView.center
             statusView.centerY = textContainer.centerY
             unreadView.isHidden = !(msg.unread ?? false)
             unreadView.centerY = textContainer.centerY
@@ -242,7 +249,6 @@ class ConversationCollectionCell: UICollectionViewCell {
         case .none:
             ()
         }
-        indicatorView.center = statusView.center
         switch msg.status {
         case .sending, .downloading:
             indicatorView.startAnimating()
