@@ -36,7 +36,7 @@ extension FansGroup.GroupMemberListViewController {
             contentView.addSubviews(views: userView)
             
             userView.snp.makeConstraints { (maker) in
-                maker.leading.trailing.equalToSuperview().inset(20)
+                maker.leading.trailing.equalToSuperview().inset(Frame.horizontalBleedWidth)
                 maker.top.bottom.equalToSuperview()
             }
         }
@@ -86,7 +86,7 @@ extension FansGroup.GroupMemberListViewController {
             contentView.addSubviews(views: icon, title)
             
             icon.snp.makeConstraints { (maker) in
-                maker.leading.equalTo(20)
+                maker.leading.equalTo(Frame.horizontalBleedWidth)
                 maker.centerY.equalToSuperview()
                 maker.width.height.equalTo(40)
             }
@@ -94,7 +94,7 @@ extension FansGroup.GroupMemberListViewController {
             title.snp.makeConstraints { (maker) in
                 maker.leading.equalTo(icon.snp.trailing).offset(12)
                 maker.centerY.equalToSuperview()
-                maker.trailing.equalToSuperview().inset(20)
+                maker.trailing.equalToSuperview().inset(Frame.horizontalBleedWidth)
             }
             
             let tap = UITapGestureRecognizer()

@@ -20,10 +20,12 @@ extension FansGroup.GroupInfoViewController {
         
         private let descriptionLength = 130
         
-        private let nameTop = CGFloat(226)
+        private let coverTop: CGFloat = Frame.Height.safeAeraTopHeight + 49 + 24
+        private let coverSize = CGSize(width: 97, height: 97)
+        private let nameTop = CGFloat(12)
         private let nameHeight = CGFloat(26)
-        private let namePadding = CGFloat(20)
-        private let descTop = CGFloat(255)
+        private let namePadding = Frame.horizontalBleedWidth
+        private let descTop = CGFloat(4)
         private let descBottom = CGFloat(24)
         private let leaveBtnLayoutGuideHeight = CGFloat(86)
         private let leaveViewBottomSpace = CGFloat(22)
@@ -85,7 +87,7 @@ extension FansGroup.GroupInfoViewController {
             
             v.addSubview(leaveBtn)
             leaveBtn.snp.makeConstraints { (maker) in
-                maker.leading.trailing.equalToSuperview().inset(20)
+                maker.leading.trailing.equalToSuperview().inset(Frame.horizontalBleedWidth)
                 maker.height.equalTo(50)
                 maker.top.equalTo(24)
             }
@@ -124,21 +126,21 @@ extension FansGroup.GroupInfoViewController {
             }
             
             coverView.snp.makeConstraints { (maker) in
-                maker.leading.equalTo(20)
-                maker.top.equalTo(Frame.Height.safeAeraTopHeight + 49 + 24)
-                maker.width.height.equalTo(97)
+                maker.leading.equalToSuperview().inset(Frame.horizontalBleedWidth)
+                maker.top.equalTo(coverTop)
+                maker.size.equalTo(coverSize)
             }
             
             nameLabel.snp.makeConstraints { (maker) in
                 maker.leading.trailing.equalToSuperview().inset(namePadding)
                 maker.height.equalTo(nameHeight)
-                maker.top.equalTo(nameTop)
+                maker.top.equalTo(coverView.snp.bottom).offset(nameTop)
             }
             
             descriptionLabel.snp.makeConstraints { (maker) in
                 maker.leading.trailing.equalToSuperview().inset(namePadding)
-                maker.top.equalTo(descTop)
-                maker.bottom.equalTo(topBg.snp.bottom).offset(-24)
+                maker.top.equalTo(nameLabel.snp.bottom).offset(descTop)
+                maker.bottom.equalTo(topBg.snp.bottom).inset(descBottom)
             }
             
             leaveView.snp.makeConstraints { (maker) in
@@ -213,7 +215,7 @@ extension FansGroup.GroupInfoViewController {
                 descHeight = textSize.height.ceil
             }
             
-            var height = descTop + descHeight + descBottom + leaveViewBottomSpace
+            var height = coverTop + coverSize.height + nameTop + nameHeight + descTop + descHeight + descBottom + leaveViewBottomSpace
             
             switch groupInfo?.userStatus {
             case .memeber:
