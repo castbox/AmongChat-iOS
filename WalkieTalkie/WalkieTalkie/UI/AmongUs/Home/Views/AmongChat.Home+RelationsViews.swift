@@ -711,12 +711,20 @@ extension AmongChat.Home {
         private let bag = DisposeBag()
         
         class func size(width: CGFloat) -> CGSize {
-            let h = ceil((width - edgeInset.left - edgeInset.right) * 155 / 335 + edgeInset.top + edgeInset.bottom)
+            
+            var hwRatio: CGFloat = 155.0 / 335.0
+            adaptToIPad {
+                hwRatio = 300 / 754
+            }
+            let h = ceil((width - edgeInset.left - edgeInset.right) * hwRatio + edgeInset.top + edgeInset.bottom)
             return CGSize(width: width, height: h)
         }
         
         private lazy var bg: UIImageView = {
             let i = UIImageView(image: R.image.ac_group_banner())
+            adaptToIPad {
+                i.image = R.image.ac_group_banner_pad()
+            }
             i.layer.cornerRadius = 24
             i.clipsToBounds = true
             return i

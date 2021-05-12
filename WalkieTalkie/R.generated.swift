@@ -224,7 +224,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 218 images.
+  /// This `R.image` struct is generated, and contains static references to 219 images.
   struct image {
     /// Image `ac_add_stats_add`.
     static let ac_add_stats_add = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_add_stats_add")
@@ -268,6 +268,8 @@ struct R: Rswift.Validatable {
     static let ac_group_Leave = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_group_Leave")
     /// Image `ac_group_add`.
     static let ac_group_add = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_group_add")
+    /// Image `ac_group_banner_pad`.
+    static let ac_group_banner_pad = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_group_banner_pad")
     /// Image `ac_group_banner`.
     static let ac_group_banner = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_group_banner")
     /// Image `ac_group_cover_add`.
@@ -771,6 +773,11 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "ac_group_banner", bundle: ..., traitCollection: ...)`
     static func ac_group_banner(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ac_group_banner, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_group_banner_pad", bundle: ..., traitCollection: ...)`
+    static func ac_group_banner_pad(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_group_banner_pad, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "ac_group_cover_add", bundle: ..., traitCollection: ...)`
