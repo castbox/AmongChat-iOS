@@ -65,7 +65,7 @@ extension FansGroup {
             
             v.addSubview(deleteBtn)
             deleteBtn.snp.makeConstraints { (maker) in
-                maker.leading.trailing.equalToSuperview().inset(20)
+                maker.leading.trailing.equalToSuperview().inset(Frame.horizontalBleedWidth)
                 maker.height.equalTo(50)
                 maker.top.equalTo(36)
                 maker.bottom.equalTo(-44)

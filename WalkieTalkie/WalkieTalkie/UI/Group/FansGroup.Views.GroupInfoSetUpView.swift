@@ -140,42 +140,42 @@ extension FansGroup.Views {
             }
             
             addCoverBtn.snp.makeConstraints { (maker) in
-                maker.leading.equalTo(20)
+                maker.leading.equalTo(Frame.horizontalBleedWidth)
                 maker.top.equalTo(Frame.Height.safeAeraTopHeight + 49 + 24)
                 maker.width.height.equalTo(97)
             }
             
             nameTitleLabel.snp.makeConstraints { (maker) in
-                maker.leading.trailing.equalToSuperview().inset(20)
+                maker.leading.trailing.equalToSuperview().inset(Frame.horizontalBleedWidth)
                 maker.height.equalTo(22)
                 maker.top.equalTo(topBg.snp.bottom).offset(24)
             }
             
             nameView.snp.makeConstraints { (maker) in
-                maker.leading.trailing.equalToSuperview().inset(20)
+                maker.leading.trailing.equalToSuperview().inset(Frame.horizontalBleedWidth)
                 maker.height.equalTo(56)
                 maker.top.equalTo(nameTitleLabel.snp.bottom).offset(12)
             }
             
             descriptionTitleLabel.snp.makeConstraints { (maker) in
-                maker.leading.trailing.equalToSuperview().inset(20)
+                maker.leading.trailing.equalToSuperview().inset(Frame.horizontalBleedWidth)
                 maker.height.equalTo(22)
                 maker.top.equalTo(nameView.snp.bottom).offset(36)
             }
             
             descriptionView.snp.makeConstraints { (maker) in
-                maker.leading.trailing.equalToSuperview().inset(20)
+                maker.leading.trailing.equalToSuperview().inset(Frame.horizontalBleedWidth)
                 maker.top.equalTo(descriptionTitleLabel.snp.bottom).offset(12)
             }
             
             topicTitleLabel.snp.makeConstraints { (maker) in
-                maker.leading.trailing.equalToSuperview().inset(20)
+                maker.leading.trailing.equalToSuperview().inset(Frame.horizontalBleedWidth)
                 maker.height.equalTo(22)
                 maker.top.equalTo(descriptionView.snp.bottom).offset(36)
             }
             
             topicSetView.snp.makeConstraints { (maker) in
-                maker.leading.trailing.equalToSuperview().inset(20)
+                maker.leading.trailing.equalToSuperview().inset(Frame.horizontalBleedWidth)
                 maker.height.equalTo(32)
                 maker.top.equalTo(topicTitleLabel.snp.bottom).offset(12)
             }
