@@ -58,7 +58,7 @@ class AudioRecorderViewController: WalkieTalkie.ViewController {
     private lazy var cancelTipLabel: UILabel = {
         let lb = UILabel()
         lb.font = R.font.nunitoExtraBold(size: 16)
-        lb.text = R.string.localizable.amongChatAudioRecordingReleaseCancel()
+        lb.text = R.string.localizable.amongChatAudioRecordingSlideCancel()
         lb.textColor = .white
         lb.textAlignment = .center
         return lb
@@ -307,10 +307,12 @@ extension AudioRecorderViewController {
         
         if toCancelStyle {
             cancelTipLabel.textColor = UIColor(hex6: 0xFB5858)
+            cancelTipLabel.text = R.string.localizable.amongChatAudioRecordingReleaseCancel()
             endTipLabel.backgroundColor = UIColor(hex6: 0xFB5858)
             micButton.setImage(R.image.ac_chat_speak_cancel(), for: .normal)
         } else {
             cancelTipLabel.textColor = .white
+            cancelTipLabel.text = R.string.localizable.amongChatAudioRecordingSlideCancel()
             endTipLabel.backgroundColor = UIColor(hex6: 0xFFF000)
             micButton.setImage(R.image.ac_chat_speak(), for: .normal)
         }
