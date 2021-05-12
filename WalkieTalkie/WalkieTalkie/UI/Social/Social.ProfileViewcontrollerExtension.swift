@@ -719,7 +719,11 @@ extension Social.ProfileViewController {
             container.addLayoutGuide(titleLayout)
             titleLayout.snp.makeConstraints { (maker) in
                 maker.leading.top.trailing.equalToSuperview()
-                maker.height.equalTo(44)
+                var height: CGFloat = 44
+                adaptToIPad {
+                    height = 48
+                }
+                maker.height.equalTo(height)
             }
             
             nameLabel.snp.makeConstraints { (maker) in

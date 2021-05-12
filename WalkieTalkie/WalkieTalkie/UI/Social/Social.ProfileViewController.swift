@@ -1096,10 +1096,11 @@ extension Social.ProfileViewController: UICollectionViewDelegateFlowLayout {
             if let _ = gameSkills.safe(indexPath.row) {
                 
                 let interitemSpacing: CGFloat = 20
-                let hwRatio: CGFloat = 180.0 / 335.0
+                var hwRatio: CGFloat = 180.0 / 335.0
                 var columns: Int = 1
                 adaptToIPad {
                     columns = 2
+                    hwRatio = 227.0 / 367.0
                 }
                 let cellWidth = ((UIScreen.main.bounds.width - padding - interitemSpacing * CGFloat(columns - 1)) / CGFloat(columns)).rounded(.towardZero)
                 let cellHeight = ceil(cellWidth * hwRatio)
