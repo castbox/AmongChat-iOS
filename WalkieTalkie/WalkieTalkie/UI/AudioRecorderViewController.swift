@@ -224,7 +224,7 @@ extension AudioRecorderViewController {
                 self.recordedSeconds = timePassed
                 let m = timePassed / 60
                 let s = timePassed % 60
-                self.timeLabel.text = "\(m):\(s)"
+                self.timeLabel.text = String(format: "%0.2d:%0.2d", m, s)
             }, onCompleted: { [weak self] in
                 self?.sm.eventOccurs(.timeout)
             })
