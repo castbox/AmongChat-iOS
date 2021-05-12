@@ -180,7 +180,7 @@ extension FansGroup.GroupMemberListViewController: UITableViewDelegate {
             
             v.addSubview(l)
             l.snp.makeConstraints { (maker) in
-                maker.leading.trailing.equalToSuperview().inset(20)
+                maker.leading.trailing.equalToSuperview().inset(Frame.horizontalBleedWidth)
                 maker.centerY.equalToSuperview()
                 maker.height.equalTo(22)
             }
@@ -194,7 +194,7 @@ extension FansGroup.GroupMemberListViewController: UITableViewDelegate {
             
             v.addSubview(l)
             l.snp.makeConstraints { (maker) in
-                maker.leading.trailing.equalToSuperview().inset(20)
+                maker.leading.trailing.equalToSuperview().inset(Frame.horizontalBleedWidth)
                 maker.centerY.equalToSuperview()
                 maker.height.equalTo(22)
             }
@@ -232,7 +232,7 @@ extension FansGroup.GroupMemberListViewController: UITableViewDelegate {
                 v.addSubview(kickButton)
                 kickButton.snp.makeConstraints { (maker) in
                     maker.centerY.equalToSuperview()
-                    maker.trailing.equalToSuperview().inset(20)
+                    maker.trailing.equalToSuperview().inset(Frame.horizontalBleedWidth)
                 }
                 
             }

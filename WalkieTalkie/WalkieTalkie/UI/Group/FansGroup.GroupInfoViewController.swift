@@ -27,7 +27,7 @@ extension FansGroup {
             
             n.addSubview(settingBtn)
             settingBtn.snp.makeConstraints { (maker) in
-                maker.trailing.equalToSuperview().offset(-20)
+                maker.trailing.equalToSuperview().inset(Frame.horizontalBleedWidth)
                 maker.centerY.equalToSuperview()
             }
             return n
