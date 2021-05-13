@@ -130,6 +130,12 @@ class IMManager: NSObject {
                 return item
             }
             .filterNil()
+            .do(onNext: { item in
+                guard item.msgType == .dm else {
+                    return
+                }
+                HapticFeedback.Impact.medium()
+            })
 
     }
     

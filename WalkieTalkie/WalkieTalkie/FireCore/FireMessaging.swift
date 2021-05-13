@@ -303,7 +303,7 @@
         }
         
         var canShowWhenActive: Bool {
-            !["invite_join_room", "invite_join_group", "new_group_room"].contains(pushSourceType)
+            !["invite_join_room", "invite_join_group", "new_group_room", "new_dm"].contains(pushSourceType)
         }
     }
  }

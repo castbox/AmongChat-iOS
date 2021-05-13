@@ -408,6 +408,7 @@
 		FEF61721264AC62E007CC97E /* APIService.Giphy.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEF61720264AC62E007CC97E /* APIService.Giphy.swift */; };
 		FEF61723264AC8FB007CC97E /* Request.Giphy.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEF61722264AC8FB007CC97E /* Request.Giphy.swift */; };
 		FEF61725264BCD5E007CC97E /* WaterfallLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEF61724264BCD5D007CC97E /* WaterfallLayout.swift */; };
+		FEF61728264C00C3007CC97E /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEF61727264C00C3007CC97E /* DateExtension.swift */; };
 		FEFF9356258B30980011A274 /* AmongChat.Room.ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEFF9355258B30970011A274 /* AmongChat.Room.ViewModel.swift */; };
 		FEFF935A258B33420011A274 /* AmongInputNotesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEFF9359258B33420011A274 /* AmongInputNotesView.swift */; };
 		FEFF935E258B33480011A274 /* AmongInputNotesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FEFF935D258B33480011A274 /* AmongInputNotesView.xib */; };
@@ -865,6 +866,7 @@
 		FEF61720264AC62E007CC97E /* APIService.Giphy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.Giphy.swift; sourceTree = "<group>"; };
 		FEF61722264AC8FB007CC97E /* Request.Giphy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Request.Giphy.swift; sourceTree = "<group>"; };
 		FEF61724264BCD5D007CC97E /* WaterfallLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaterfallLayout.swift; sourceTree = "<group>"; };
+		FEF61727264C00C3007CC97E /* DateExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
 		FEFF9355258B30970011A274 /* AmongChat.Room.ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChat.Room.ViewModel.swift; sourceTree = "<group>"; };
 		FEFF9359258B33420011A274 /* AmongInputNotesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongInputNotesView.swift; sourceTree = "<group>"; };
 		FEFF935D258B33480011A274 /* AmongInputNotesView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AmongInputNotesView.xib; sourceTree = "<group>"; };
@@ -1160,6 +1162,7 @@
 				2696D42225B8082200C38C09 /* UITextFieldExtension.swift */,
 				FEC2A94825CAB637001B9556 /* StringSizeExtension.swift */,
 				FEA93599264A641900CEC89A /* NSFileManagerExtension.swift */,
+				FEF61727264C00C3007CC97E /* DateExtension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -2012,6 +2015,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FE8DEA65243DB09A0059C252 /* ApiManager.Plugin.swift in Sources */,
+				FEF61728264C00C3007CC97E /* DateExtension.swift in Sources */,
 				FEBE5221262D2DF500E49EC4 /* ReportImageCell.swift in Sources */,
 				2BAB4EF72595C6F200A1C8DC /* Social.LeaveGameViewController.swift in Sources */,
 				BDFEFEF125864517007F40FC /* AmongChat.CreateRoom.ViewController.swift in Sources */,

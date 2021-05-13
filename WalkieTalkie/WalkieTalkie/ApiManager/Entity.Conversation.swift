@@ -145,8 +145,8 @@ extension Entity {
             return ms / 1000
         }
         
-        var dateString: String {
-            Date(timeIntervalSince1970: timestamp).dateTimeString()
+        var date: Date {
+            Date(timeIntervalSince1970: timestamp)
         }
         
         init?(with value: FundamentalValue) {

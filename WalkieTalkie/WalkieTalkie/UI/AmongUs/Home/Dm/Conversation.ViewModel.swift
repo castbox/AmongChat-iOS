@@ -59,11 +59,13 @@ extension Conversation {
         let showTime: Bool
         let contentSize: CGSize
         let sendFromMe: Bool
+        let dateString: String
         
         init(message: Entity.DMMessage, showTime: Bool) {
             self.message = message
             self.showTime = showTime
             self.sendFromMe = message.fromUser.uid == Settings.loginUserId?.int64
+            dateString = message.date.timeFormattedForConversation()
             //calculate height
             let maxWidth = Frame.Screen.width - 72 * 2
             

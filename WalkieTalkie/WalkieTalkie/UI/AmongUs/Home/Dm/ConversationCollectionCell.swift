@@ -154,7 +154,7 @@ class ConversationCollectionCell: UICollectionViewCell {
         self.viewModel = viewModel
         let msg = viewModel.message
         avatarImageView.setAvatarImage(with: msg.fromUser.pictureUrl)
-        timeLabel.text = msg.dateString
+        timeLabel.text = viewModel.dateString
         
         switch msg.body.msgType {
         case .text:
