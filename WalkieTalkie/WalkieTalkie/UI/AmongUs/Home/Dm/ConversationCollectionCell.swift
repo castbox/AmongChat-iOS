@@ -53,7 +53,7 @@ class ConversationCollectionCell: UICollectionViewCell {
         i.backgroundColor = "#222222".color()
         i.addTarget(self, action: #selector(clickContentViewAction), for: .primaryActionTriggered)
         
-        i.addSubviews(views: messageTextLabel, voiceDurationLabel, voicePlayIndiator)
+        i.addSubviews(views: messageTextLabel, voiceDurationLabel, voicePlayIndiator, voiceTagView)
         i.roundCorners(topLeft: 2, topRight: 20, bottomLeft: 20, bottomRight: 20)
         
         messageTextLabel.snp.makeConstraints { maker in
@@ -69,6 +69,9 @@ class ConversationCollectionCell: UICollectionViewCell {
             maker.right.equalTo(-12)
             maker.centerY.equalToSuperview()
             maker.size.equalTo(CGSize(width: 24, height: 30))
+        }
+        voiceTagView.snp.makeConstraints { maker in
+            maker.center.equalTo(voicePlayIndiator)
         }
         return i
     }()
@@ -102,6 +105,14 @@ class ConversationCollectionCell: UICollectionViewCell {
     }()
     
     private lazy var voicePlayIndiator = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 24, height: 30), type: .lineScale, color: .white, padding: 0)
+    
+    private lazy var voiceTagView: UIImageView = {
+        let v = UIImageView(image: R.image.iconDmVoiceTag())
+        v.contentMode = .scaleAspectFit
+        v.isHidden = true
+//        v.backgroundColor = "222222".color()
+        return v
+    }()
     
     private lazy var timeLabel: UILabel = {
         let l = UILabel(frame: CGRect(x: 20, y: 0, width: Frame.Screen.width - 20 * 2, height: 19))
@@ -182,6 +193,7 @@ class ConversationCollectionCell: UICollectionViewCell {
             messageTextLabel.isHidden = false
             voiceDurationLabel.isHidden = true
             voicePlayIndiator.isHidden = true
+            voiceTagView.isHidden = true
             textContainer.isHidden = false
             gifImageView.isHidden = true
         case .gif:
@@ -206,7 +218,8 @@ class ConversationCollectionCell: UICollectionViewCell {
                 })
             }
             voiceDurationLabel.isHidden = false
-            voicePlayIndiator.isHidden = false
+            voicePlayIndiator.isHidden = true
+            voiceTagView.isHidden = true
             messageTextLabel.isHidden = true
             textContainer.isHidden = true
             gifImageView.isHidden = false
@@ -233,10 +246,11 @@ class ConversationCollectionCell: UICollectionViewCell {
                 unreadView.left = statusView.left
             }
             if let path = msg.body.localAbsolutePath, AudioPlayerManager.default.isPlaying(path) {
-                voicePlayIndiator.startAnimating()
+                startVoicePlay(animated: true)
             } else {
-                voicePlayIndiator.stopAnimating()
+                startVoicePlay(animated: false)
             }
+            voiceTagView.tintColor = voicePlayIndiator.color
             statusView.centerY = textContainer.centerY
             indicatorView.center = statusView.center
             unreadView.isHidden = !(msg.unread ?? false)
@@ -277,15 +291,25 @@ class ConversationCollectionCell: UICollectionViewCell {
         guard let viewModel = viewModel,
               let path = viewModel.message.body.localAbsolutePath,
               !AudioPlayerManager.default.isPlaying(path) else {
-            voicePlayIndiator.stopAnimating()
+            startVoicePlay(animated: false)
             AudioPlayerManager.default.stopPlay()
             return
         }
-        voicePlayIndiator.startAnimating()
-        AudioPlayerManager.default.play(fileUrl: path) { [weak self] in
-            self?.voicePlayIndiator.stopAnimating()
+        startVoicePlay(animated: true)
+         AudioPlayerManager.default.play(fileUrl: path) { [weak self] in
+            self?.startVoicePlay(animated: false)
         }
         actionHandler?(.clickVoiceMessage(viewModel.message))
+    }
+    
+    func startVoicePlay(animated: Bool) {
+        if animated {
+            voicePlayIndiator.startAnimating()
+            voiceTagView.isHidden = true
+        } else {
+            voiceTagView.isHidden = false
+            voicePlayIndiator.stopAnimating()
+        }
     }
     
     @objc private func statusViewAction() {
