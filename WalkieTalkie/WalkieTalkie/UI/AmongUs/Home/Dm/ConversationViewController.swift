@@ -10,8 +10,9 @@ import UIKit
 import RxSwift
 import RxCocoa
 import SwiftyUserDefaults
+import SDCAlertView
 
-private let bottomBarHeight = 60 + Frame.Height.safeAeraBottomHeight
+private let bottomBarHeight = 64 + Frame.Height.safeAeraBottomHeight
 
 class ConversationViewController: ViewController {
     
@@ -40,6 +41,7 @@ class ConversationViewController: ViewController {
     private var firstDataLoaded: Bool = true
     //count changed
     private var lastCount: Int = 0
+    private var isFirstShowFollow: Bool = true
     
     private var dataSource: [Conversation.MessageCellViewModel] = [] {
         didSet {
@@ -82,6 +84,7 @@ class ConversationViewController: ViewController {
     }
     
     @IBAction func moreButtonAction(_ sender: Any) {
+        view.endEditing(true)
         moreAction()
         //        IMManager.shared.sendFile()
     }
@@ -331,13 +334,35 @@ private extension ConversationViewController {
     }
     
     func showDeleteHistoryAlter() {
-        let message = R.string.localizable.dmDeleteHistoryAlertTitle()
-        let confirmString = R.string.localizable.groupRoomYes()
-        showAmongAlert(title: message, message: nil,
-                       cancelTitle: R.string.localizable.toastCancel(),
-                       confirmTitle: confirmString, confirmAction: { [weak self] in
-                        self?.deleteAllHistory()
-                       })
+        
+        let titleAttr = NSAttributedString(string: R.string.localizable.dmDeleteHistoryAlertTitle(), attributes: [
+            NSAttributedString.Key.font: R.font.nunitoExtraBold(size: 16),
+            .foregroundColor: UIColor.white
+        ])
+        
+        let cancelAttr = NSAttributedString(string: R.string.localizable.toastCancel(), attributes: [
+            NSAttributedString.Key.font: R.font.nunitoExtraBold(size: 16),
+            .foregroundColor: "#6C6C6C".color()
+        ])
+        let confirmAttr = NSAttributedString(string: R.string.localizable.groupRoomYes(), attributes: [
+            NSAttributedString.Key.font: R.font.nunitoExtraBold(size: 16),
+            .foregroundColor: "#FB5858".color()
+        ])
+        
+        let alertVC = AlertController(attributedTitle: titleAttr, attributedMessage: nil, preferredStyle: .alert)
+        let visualStyle = AlertVisualStyle(alertStyle: .alert)
+        visualStyle.backgroundColor = "#222222".color()
+        visualStyle.actionViewSeparatorColor = UIColor.white.alpha(0.08)
+        alertVC.visualStyle = visualStyle
+        
+        alertVC.addAction(AlertAction(attributedTitle: cancelAttr, style: .normal, handler: { _ in
+            //                    cancelAction?()
+        }))
+        alertVC.addAction(AlertAction(attributedTitle: confirmAttr, style: .normal) { [weak self] _ in
+            self?.deleteAllHistory()
+        })
+        alertVC.view.backgroundColor = UIColor.black.alpha(0.7)
+        alertVC.present()
     }
     
     func showBlockAlter() {
@@ -361,8 +386,9 @@ private extension ConversationViewController {
         } else {
             yellowFollowButton()
         }
-        followButton.isHidden = false
-        //        chatButton.isHidden = false
+        followButton.isEnabled = !isFollowed
+        followButton.isHidden = isFirstShowFollow && isFollowed
+        isFirstShowFollow = false
     }
     
     private func greyFollowButton() {
@@ -463,7 +489,7 @@ private extension ConversationViewController {
         
         bottomBar.snp.makeConstraints { maker in
             maker.leading.bottom.trailing.equalToSuperview()
-            maker.height.equalTo(Frame.Height.safeAeraBottomHeight + 60)
+            maker.height.equalTo(bottomBarHeight)
         }
         
         liveView.snp.makeConstraints { (maker) in
@@ -507,7 +533,7 @@ private extension ConversationViewController {
                     maker.bottom.equalToSuperview().offset(-keyboardVisibleHeight)
                     //                    maker.height.equalTo((keyboardVisibleHeight > 20 ? 0 : Frame.Height.safeAeraBottomHeight) + 60)
                 }
-                self.collectionViewBottomConstraint.constant = 60 + keyboardVisibleHeight
+                self.collectionViewBottomConstraint.constant = 64 + keyboardVisibleHeight
                 UIView.animate(withDuration: 0) {
                     self.view.layoutIfNeeded()
                 }

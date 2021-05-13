@@ -437,6 +437,8 @@ class Settings {
     
     let hasUnreadNoticeRelay = BehaviorRelay<Bool>(value: false)
     
+    let hasUnreadMessageRelay = BehaviorRelay<Bool>(value: false)
+    
     //设置默认值
     func updateDefaultConfig() {
         if Defaults[\.showQuickChangeRoomButton] == nil {

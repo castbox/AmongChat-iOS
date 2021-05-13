@@ -54,7 +54,7 @@ class ConversationCollectionCell: UICollectionViewCell {
         i.addTarget(self, action: #selector(clickContentViewAction), for: .primaryActionTriggered)
         
         i.addSubviews(views: messageTextLabel, voiceDurationLabel, voicePlayIndiator)
-        i.roundCorners(topLeft: 2, topRight: 18, bottomLeft: 18, bottomRight: 18)
+        i.roundCorners(topLeft: 2, topRight: 20, bottomLeft: 20, bottomRight: 20)
         
         messageTextLabel.snp.makeConstraints { maker in
             maker.edges.equalToSuperview().inset(12)
@@ -167,13 +167,13 @@ class ConversationCollectionCell: UICollectionViewCell {
                 messageTextLabel.textColor = "#FFF000".color()
                 avatarImageView.right = Frame.Screen.width - avatarLeftEdge
                 textContainer.right = Frame.Screen.width - contentLeftEdge
-                textContainer.roundCorners(topLeft: 18, topRight: 2, bottomLeft: 18, bottomRight: 18)
+                textContainer.roundCorners(topLeft: 20, topRight: 2, bottomLeft: 20, bottomRight: 20)
                 statusView.right = textContainer.left - 8
             } else {
                 messageTextLabel.textColor = .white
                 avatarImageView.left = avatarLeftEdge
                 textContainer.left = contentLeftEdge
-                textContainer.roundCorners(topLeft: 2, topRight: 18, bottomLeft: 18, bottomRight: 18)
+                textContainer.roundCorners(topLeft: 2, topRight: 20, bottomLeft: 20, bottomRight: 20)
                 statusView.left = textContainer.right + 8
             }
             statusView.centerY = textContainer.centerY
@@ -237,8 +237,8 @@ class ConversationCollectionCell: UICollectionViewCell {
             } else {
                 voicePlayIndiator.stopAnimating()
             }
-            indicatorView.center = statusView.center
             statusView.centerY = textContainer.centerY
+            indicatorView.center = statusView.center
             unreadView.isHidden = !(msg.unread ?? false)
             unreadView.centerY = textContainer.centerY
             voiceDurationLabel.isHidden = false

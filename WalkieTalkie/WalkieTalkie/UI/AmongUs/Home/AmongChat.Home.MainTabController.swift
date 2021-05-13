@@ -214,7 +214,11 @@ extension AmongChat.Home.MainTabController {
         checkHaveGroupLiveRoom()
         
         //TODO: combine unread messages and unread notices
-        Observable.combineLatest(Settings.shared.hasUnreadNoticeRelay,
+        let messageTabHasUnreadReply =
+            Observable.combineLatest(Settings.shared.hasUnreadNoticeRelay,
+                          Settings.shared.hasUnreadMessageRelay)
+            .map { $0 || $1 }
+        Observable.combineLatest(messageTabHasUnreadReply,
                                  tabs.safe(2)?.1
                                     .filterNil()
                                     .take(1) ?? Observable.empty())

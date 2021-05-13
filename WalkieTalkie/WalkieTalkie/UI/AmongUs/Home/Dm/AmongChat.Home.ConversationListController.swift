@@ -22,6 +22,10 @@ extension AmongChat.Home {
                 .flatMap { item -> Single<[Entity.DMConversation]> in
                     return DMManager.shared.conversations()
                 }
+                .do(onNext: { items in
+                    let unreadCount = items.reduce(0, { $0 + $1.unreadCount })
+                    Settings.shared.hasUnreadMessageRelay.accept(unreadCount > 0)
+                })
                 .observeOn(MainScheduler.asyncInstance)
                 .bind(to: dataSourceReplay)
                 .disposed(by: bag)
@@ -120,12 +124,6 @@ extension AmongChat.Home.ConversationListController: UITableViewDataSource, UITa
         let cell = tableView.dequeueReusableCell(withClass: ConversationTableCell.self, for: indexPath)
         if let item = dataSource.safe(indexPath.row) {
             cell.bind(item)
-//            cell.configView(with: user, isFollowing: false, isSelf: false)
-//            cell.updateFollowData = { [weak self] (follow) in
-//                guard let `self` = self else { return }
-//                self.userList[indexPath.row].isFollowed = follow
-//                self.addLogForFollow(with: self.userList[indexPath.row].uid)
-//            }
         }
         return cell
     }
@@ -139,7 +137,7 @@ extension AmongChat.Home.ConversationListController: UITableViewDataSource, UITa
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 0.001
+        return 6
     }
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
@@ -232,7 +230,7 @@ extension AmongChat.Home.ConversationListController {
     
     func deleteAllHistory(for uid: String) {
         let removeBlock = view.raft.show(.loading)
-        DMManager.shared.clearAllMessage(of: uid)
+        DMManager.shared.deleteConversation(of: uid)
             .subscribe(onSuccess: { [weak self] in
                 removeBlock()
 //                self?.navigationController?.popViewController()
