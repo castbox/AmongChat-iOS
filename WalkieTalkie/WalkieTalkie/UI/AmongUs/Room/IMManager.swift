@@ -117,7 +117,8 @@ class IMManager: NSObject {
                     case .dm:
                         var dmMessage = try JSONDecoder().decodeAnyData(Entity.DMMessage.self, from: json)
                         dmMessage.ms = Double(message.serverReceivedTs)
-                        //
+                        dmMessage.isFromMe = dmMessage.fromUid == Settings.loginUserId?.string
+                        
                         if dmMessage.isNeedDownloadSource {
                             dmMessage.status = .downloading
                         } else {

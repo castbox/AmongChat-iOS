@@ -165,7 +165,10 @@ class DMManager {
     }
     
     func observeUpdate(profile: Entity.DMProfile) -> Single<Void> {
-//        let profileArchivedValue = profile.archivedValue()
+        guard profile.uid.string != Settings.loginUserId?.string else {
+            return .just(())
+        }
+
         return self.queryConversation(fromUid: profile.uid.string)
             .flatMap { [unowned self] item -> Single<Void> in
                 guard var conversation = item else {
@@ -175,7 +178,7 @@ class DMManager {
                 conversation.message = message
                 return self.database.mapTransactionToSingle { db in
                     try db.insertOrReplace(objects: conversation, intoTable: dmConversationTableName)
-                    try db.update(table: dmMessagesTableName, on: [Entity.DMMessage.Properties.fromUser], with: message, where: Entity.DMMessage.Properties.fromUid == profile.uid.string) //更新用户头像
+                    try db.update(table: dmMessagesTableName, on: [Entity.DMMessage.Properties.fromUser], with: message, where: Entity.DMMessage.Properties.fromUid == profile.uid.string && Entity.DMMessage.Properties.isFromMe == false) //更新用户头像
                 }
             }
             .do(onSuccess: { [weak self] _ in

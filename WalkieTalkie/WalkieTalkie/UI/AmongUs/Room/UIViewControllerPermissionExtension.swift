@@ -103,11 +103,11 @@ extension UIViewController {
         }
     }
     
-    func showAmongAlert(title: String?, message: String? = nil, cancelTitle: String? = nil, confirmTitle: String? = nil, cancelAction: (() -> Void)? = nil, confirmAction: (() -> Void)? = nil) {
-        amongChatAlert(title: title, message: message, cancelTitle: cancelTitle, confirmTitle: confirmTitle, cancelAction: cancelAction, confirmAction: confirmAction).present()
+    func showAmongAlert(title: String?, message: String? = nil, cancelTitle: String? = nil, confirmTitle: String? = nil, confirmTitleColor: UIColor? = nil, cancelAction: (() -> Void)? = nil, confirmAction: (() -> Void)? = nil) {
+        amongChatAlert(title: title, message: message, cancelTitle: cancelTitle, confirmTitle: confirmTitle, confirmTitleColor: confirmTitleColor, cancelAction: cancelAction, confirmAction: confirmAction).present()
     }
     
-    func amongChatAlert(title: String?, message: String? = nil, cancelTitle: String? = nil, confirmTitle: String? = nil, cancelAction: (() -> Void)? = nil, confirmAction: (() -> Void)? = nil) -> AlertController {
+    func amongChatAlert(title: String?, message: String? = nil, cancelTitle: String? = nil, confirmTitle: String? = nil, confirmTitleColor: UIColor? = nil, cancelAction: (() -> Void)? = nil, confirmAction: (() -> Void)? = nil) -> AlertController {
         let titleAttr: NSAttributedString?
         if let title = title {
             let attribates: [NSAttributedString.Key: Any] = [
@@ -145,7 +145,7 @@ extension UIViewController {
         //        if let confirmTitle = confirmTitle {
         let attribates: [NSAttributedString.Key: Any] = [
             NSAttributedString.Key.font: R.font.nunitoExtraBold(size: 16),
-            .foregroundColor: "#FFF000".color()
+            .foregroundColor: confirmTitleColor ?? "#FFF000".color()
         ]
         let confirmAttr = NSAttributedString(string: confirmTitle ?? R.string.localizable.toastConfirm(), attributes: attribates)
         //        } else {

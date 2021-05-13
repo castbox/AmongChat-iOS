@@ -118,6 +118,7 @@ extension Entity {
         var msgType: Peer.MessageType
         var unread: Bool?
         let fromUser: DMProfile
+        var isFromMe: Bool?
         var status: Status?
         var ms: Double?
         
@@ -158,6 +159,7 @@ extension Entity {
             msgType = msg.msgType
             unread = msg.unread
             fromUser = msg.fromUser
+            isFromMe = msg.isFromMe
             status = msg.status
             ms = msg.ms
         }
@@ -168,6 +170,7 @@ extension Entity {
              msgType: Peer.MessageType = .dm,
              unread: Bool? = false,
              fromUser: DMProfile,
+             isFromMe: Bool = true,
              status: Status? = .sending,
              ms: Double? = Date().timeIntervalSince1970 * 1000) {
             self.body = body
@@ -176,17 +179,13 @@ extension Entity {
             self.msgType = msgType
             self.unread = unread
             self.fromUser = fromUser
+            self.isFromMe = isFromMe
             self.status = status
             self.ms = ms
         }
         
         func toConversation() -> DMConversation {
             return DMConversation(message: self, fromUid: self.fromUid, unreadCount: status == .empty ? 0 : 1, lastMsgMs: Date().timeIntervalSince1970)
-        }
-        
-        static func emptyMessage(for uid: String) -> Entity.DMMessage {
-            let body = Entity.DMMessageBody(type: .text, url: nil, duration: 0, text: "")
-            return Entity.DMMessage(body: body, relation: 1, fromUid: uid, fromUser: DMProfile(uid: 0, name: nil, pictureUrl: nil), status: .empty)
         }
         
         static func emptyMessage(for profile: DMProfile) -> Entity.DMMessage {
@@ -205,7 +204,6 @@ extension Entity {
         static var columnType: ColumnType {
             return .text
         }
-        
         
         enum CodingKeys: String, CodingTableKey {
             typealias Root = DMMessage
@@ -232,6 +230,7 @@ extension Entity {
             case unread
             case fromUser = "from_user"
             case fromUid = "from_uid"
+            case isFromMe = "is_from_me"
             case msgType = "message_type"
             case ms = "ms"
             case status

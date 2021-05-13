@@ -132,8 +132,15 @@ extension AmongChat.Home.ConversationListController: UITableViewDataSource, UITa
             return nil
         }
         let action = UIContextualAction(style: .destructive, title: R.string.localizable.amongChatDelete()) { [weak self] action, view, handler in
-            handler(true)
-            self?.deleteAllHistory(for: item.fromUid)
+            guard let `self` = self else { return }
+            self.showAmongAlert(title: R.string.localizable.dmDeleteHistoryAlertTitle(),
+                                cancelTitle: R.string.localizable.toastCancel(),
+                                confirmTitle: R.string.localizable.groupRoomYes(),
+                                confirmTitleColor: "#FB5858".color(),
+                                confirmAction: { [weak self] in
+                                    handler(true)
+                                    self?.deleteAllHistory(for: item.fromUid)
+                                })
         }
         action.image = R.image.iconDmConversationDelete()
         action.backgroundColor = .red
