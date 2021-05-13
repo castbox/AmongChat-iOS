@@ -202,6 +202,8 @@ public class AudioPlayer: NSObject {
     public init(contentsOf url: URL) throws {
         self.url = url
         name = url.lastPathComponent
+        try AVAudioSession.sharedInstance().setCategory(.playback)
+        try AVAudioSession.sharedInstance().setActive(true, options: [.notifyOthersOnDeactivation])
         sound = try AVAudioPlayer(contentsOf: url as URL)
         super.init()
         sound?.delegate = self
