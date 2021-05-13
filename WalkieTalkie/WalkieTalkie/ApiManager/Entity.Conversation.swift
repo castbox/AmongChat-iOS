@@ -51,12 +51,6 @@ extension Entity {
             return .text
         }
         
-        private enum CodingKeys: String, CodingKey {
-            case uid
-            case name
-            case pictureUrl = "picture_url"
-        }
-        
 //        enum CodingKeys: String, CodingTableKey {
 //            typealias Root = DMProfile
 //            static let objectRelationalMapping = TableBinding(CodingKeys.self)
@@ -65,6 +59,12 @@ extension Entity {
 //            case name
 //            case pictureUrl = "picture_url"
 //        }
+        
+        private enum CodingKeys: String, CodingKey {
+            case uid
+            case name
+            case pictureUrl = "picture_url"
+        }
     }
     
     struct DMConversation: TableCodable {
@@ -187,6 +187,15 @@ extension Entity {
         static func emptyMessage(for uid: String) -> Entity.DMMessage {
             let body = Entity.DMMessageBody(type: .text, url: nil, duration: 0, text: "")
             return Entity.DMMessage(body: body, relation: 1, fromUid: uid, fromUser: DMProfile(uid: 0, name: nil, pictureUrl: nil), status: .empty)
+        }
+        
+        static func emptyMessage(for profile: DMProfile) -> Entity.DMMessage {
+            let body = Entity.DMMessageBody(type: .text, url: nil, duration: 0, text: "")
+            return Entity.DMMessage(body: body, relation: 1, fromUid: profile.uid.string, fromUser: profile, status: .empty)
+        }
+        
+        func update(profile: DMProfile) -> Entity.DMMessage {
+            return Entity.DMMessage(body: body, relation: relation, fromUid: fromUid, msgType: msgType, unread: unread, fromUser: profile, status: status, ms: ms)
         }
         
         func archivedValue() -> FundamentalValue {

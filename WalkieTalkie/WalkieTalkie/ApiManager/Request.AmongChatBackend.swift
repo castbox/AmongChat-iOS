@@ -13,7 +13,7 @@ import SwiftyUserDefaults
 
 extension Request {
     static let amongchatProvider = MoyaProvider<APIService.AmongChatBackend>(plugins: [
-//        NetworkLoggerPlugin(configuration: NetworkLoggerPlugin.Configuration(formatter: NetworkLoggerPlugin.Configuration.Formatter(), output: NetworkLoggerPlugin.Configuration.defaultOutput, logOptions: .verbose)),
+        NetworkLoggerPlugin(configuration: NetworkLoggerPlugin.Configuration(formatter: NetworkLoggerPlugin.Configuration.Formatter(), output: NetworkLoggerPlugin.Configuration.defaultOutput, logOptions: .verbose)),
         NetworkCachePolicyPlugin(),
         ResponseInterceptPlugin()
     ])
@@ -157,6 +157,12 @@ extension Request {
             .mapToDataKeyJsonValue()
             .mapTo(Entity.UserProfile.self)
             .observeOn(MainScheduler.asyncInstance)
+            .do(onNext: { item in
+                guard let profile = item else {
+                    return
+                }
+                DMManager.shared.update(profile: profile.dmProfile)
+            })
     }
     
     @available(*, deprecated, message: "use the one parameter type is Entity.ProfileProto instead")
@@ -428,6 +434,12 @@ extension Request {
                     } onError: { (_) in
                         
                     }
+            })
+            .do(onNext: { item in
+                guard let profile = item?.profile else {
+                    return
+                }
+                DMManager.shared.update(profile: profile.dmProfile)
             })
 
     }

@@ -155,10 +155,15 @@ extension Conversation {
         
         init(_ conversation: Entity.DMConversation) {
             self.conversation = conversation
+            updateProfile()
+
             let uid = conversation.fromUid
             
             DMManager.shared.observableMessages(for: uid)
                 .startWith(())
+                .do(onNext: { [weak self] in
+                    self?.groupTime = 0
+                })
                 .flatMap { item -> Single<[Entity.DMMessage]> in
                     return DMManager.shared.messages(for: uid)
                 }
@@ -181,6 +186,7 @@ extension Conversation {
                     }
                     //                    //show time
                 }
+                .catchErrorJustReturn([])
                 .observeOn(MainScheduler.asyncInstance)
                 .bind(to: dataSourceReplay)
                 .disposed(by: bag)
@@ -270,12 +276,18 @@ extension Conversation {
         }
         
         func deleteAllHistory() -> Single<Void> {
-            return DMManager.shared.clearAllMessage(of: targetUid)
+            return DMManager.shared.deleteConversation(of: targetUid)
         }
         
         func insertOrReplace(message: Entity.DMMessage) {
-            groupTime = 0
+//            groupTime = 0
             DMManager.shared.insertOrReplace(message: message)
+        }
+        
+        func updateProfile() {
+            Request.profile(targetUid.intValue)
+                .subscribe()
+                .disposed(by: bag)
         }
     }
 }

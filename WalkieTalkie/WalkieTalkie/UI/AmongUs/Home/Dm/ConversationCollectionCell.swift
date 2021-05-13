@@ -164,13 +164,17 @@ class ConversationCollectionCell: UICollectionViewCell {
     func bind(_ viewModel: Conversation.MessageCellViewModel) {
         self.viewModel = viewModel
         let msg = viewModel.message
-        avatarImageView.setAvatarImage(with: msg.fromUser.pictureUrl)
+        if viewModel.sendFromMe {
+            avatarImageView.setAvatarImage(with: Settings.shared.profilePage.value?.profile?.pictureUrl)
+        } else {
+            avatarImageView.setAvatarImage(with: msg.fromUser.pictureUrl)
+        }
         timeLabel.text = viewModel.dateString
         
         switch msg.body.msgType {
         case .text:
             messageTextLabel.text = msg.body.text
-            textContainer.size = CGSize(width: viewModel.contentSize.width + 12 * 2, height: viewModel.contentSize.height + 12 * 2)
+            textContainer.size = CGSize(width: max(viewModel.contentSize.width + 12 * 2, 48), height: viewModel.contentSize.height + 12 * 2)
             messageTextLabel.size = viewModel.contentSize
             container.height = textContainer.size.height
             if viewModel.sendFromMe {
@@ -180,12 +184,14 @@ class ConversationCollectionCell: UICollectionViewCell {
                 textContainer.right = Frame.Screen.width - contentLeftEdge
                 textContainer.roundCorners(topLeft: 20, topRight: 2, bottomLeft: 20, bottomRight: 20)
                 statusView.right = textContainer.left - 8
+                messageTextLabel.textAlignment = .right
             } else {
                 messageTextLabel.textColor = .white
                 avatarImageView.left = avatarLeftEdge
                 textContainer.left = contentLeftEdge
                 textContainer.roundCorners(topLeft: 2, topRight: 20, bottomLeft: 20, bottomRight: 20)
                 statusView.left = textContainer.right + 8
+                messageTextLabel.textAlignment = .left
             }
             statusView.centerY = textContainer.centerY
             indicatorView.center = statusView.center
@@ -288,19 +294,26 @@ class ConversationCollectionCell: UICollectionViewCell {
     }
     
     @objc func clickContentViewAction() {
-        guard let viewModel = viewModel,
-              viewModel.message.body.msgType == .voice,
-              let path = viewModel.message.body.localAbsolutePath,
-              !AudioPlayerManager.default.isPlaying(path) else {
-            startVoicePlay(animated: false)
-            AudioPlayerManager.default.stopPlay()
+        guard let message = viewModel?.message else {
             return
         }
-        startVoicePlay(animated: true)
-        AudioPlayerManager.default.play(fileUrl: path) { [weak self] in
-            self?.startVoicePlay(animated: false)
+        if message.status == .failed {
+            //resend
+            statusViewAction()
+        } else {
+            guard message.body.msgType == .voice,
+                  let path = message.body.localAbsolutePath,
+                  !AudioPlayerManager.default.isPlaying(path) else {
+                startVoicePlay(animated: false)
+                AudioPlayerManager.default.stopPlay()
+                return
+            }
+            startVoicePlay(animated: true)
+            AudioPlayerManager.default.play(fileUrl: path) { [weak self] in
+                self?.startVoicePlay(animated: false)
+            }
+            actionHandler?(.clickVoiceMessage(message))
         }
-        actionHandler?(.clickVoiceMessage(viewModel.message))
     }
     
     func startVoicePlay(animated: Bool) {
