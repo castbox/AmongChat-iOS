@@ -100,7 +100,7 @@ class ConversationCollectionCell: UICollectionViewCell {
         v.contentMode = .scaleAspectFit
         v.isHidden = true
         v.isUserInteractionEnabled = false
-//        v.backgroundColor = "222222".color()
+        //        v.backgroundColor = "222222".color()
         return v
     }()
     
@@ -110,7 +110,7 @@ class ConversationCollectionCell: UICollectionViewCell {
         let v = UIImageView(image: R.image.iconDmVoiceTag())
         v.contentMode = .scaleAspectFit
         v.isHidden = true
-//        v.backgroundColor = "222222".color()
+        //        v.backgroundColor = "222222".color()
         return v
     }()
     
@@ -289,6 +289,7 @@ class ConversationCollectionCell: UICollectionViewCell {
     
     @objc func clickContentViewAction() {
         guard let viewModel = viewModel,
+              viewModel.message.body.msgType == .voice,
               let path = viewModel.message.body.localAbsolutePath,
               !AudioPlayerManager.default.isPlaying(path) else {
             startVoicePlay(animated: false)
@@ -296,7 +297,7 @@ class ConversationCollectionCell: UICollectionViewCell {
             return
         }
         startVoicePlay(animated: true)
-         AudioPlayerManager.default.play(fileUrl: path) { [weak self] in
+        AudioPlayerManager.default.play(fileUrl: path) { [weak self] in
             self?.startVoicePlay(animated: false)
         }
         actionHandler?(.clickVoiceMessage(viewModel.message))

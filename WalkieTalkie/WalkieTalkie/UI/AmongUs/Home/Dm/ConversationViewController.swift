@@ -42,6 +42,8 @@ class ConversationViewController: ViewController {
     //count changed
     private var lastCount: Int = 0
     private var isFirstShowFollow: Bool = true
+    private var keyboardVisibleHeight: CGFloat = 0
+//    private var isKeyboardShow = false
     
     private var dataSource: [Conversation.MessageCellViewModel] = [] {
         didSet {
@@ -415,12 +417,12 @@ private extension ConversationViewController {
         //            self.newMessageButton.isHidden = true
         // 消息不足一屏
         if contentHeight < height {
-            if !dataSource.isEmpty, firstDataLoaded {
+            if (!dataSource.isEmpty && firstDataLoaded) || keyboardVisibleHeight > 0 {
                 firstDataLoaded = false
                 UIView.animate(withDuration: 0) {
                     self.collectionView.reloadData()
                 } completion: { _ in
-                    self.messageListScrollToBottom(animated: false)
+                    self.messageListScrollToBottom(animated: self.keyboardVisibleHeight > 0)
                 }
             } else {
                 collectionView.reloadData()
@@ -463,7 +465,7 @@ private extension ConversationViewController {
         let contentHeight = dataSource.reduce(0) { $0 + $1.height }
         //top insert
         let onlineViewContentHeight: CGFloat = onlineView.isHidden ? 0 : 80
-        var topInset = Frame.Screen.height - bottomBarHeight - Frame.Height.navigation - contentHeight + onlineViewContentHeight
+        var topInset = Frame.Screen.height - bottomBarHeight - Frame.Height.navigation - contentHeight + onlineViewContentHeight - keyboardVisibleHeight
         if topInset < 0 {
             topInset = 0
         }
@@ -529,6 +531,8 @@ private extension ConversationViewController {
                 guard let `self` = self, self.bottomBar.isFirstResponder else {
                     return
                 }
+                self.keyboardVisibleHeight = keyboardVisibleHeight
+                self.updateContentInsert()
                 self.bottomBar.snp.updateConstraints { (maker) in
                     maker.bottom.equalToSuperview().offset(-keyboardVisibleHeight)
                     //                    maker.height.equalTo((keyboardVisibleHeight > 20 ? 0 : Frame.Height.safeAeraBottomHeight) + 60)
