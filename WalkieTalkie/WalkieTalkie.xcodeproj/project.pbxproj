@@ -58,6 +58,7 @@
 		26DBBF7626008C1B00A1B9BA /* Social.AgePromptModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26DBBF7526008C1B00A1B9BA /* Social.AgePromptModal.swift */; };
 		26DC82752609C891000A9111 /* Social.ChooseGame.ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26DC82742609C891000A9111 /* Social.ChooseGame.ViewController.swift */; };
 		26DC82792609C8F1000A9111 /* Social.ChooseGame+Views.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26DC82782609C8F1000A9111 /* Social.ChooseGame+Views.swift */; };
+		26DCEEF6264BD63F00B874FB /* NavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26DCEEF5264BD63F00B874FB /* NavigationBar.swift */; };
 		26F4149C2611C4EA003ED5BE /* FansGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26F4149B2611C4EA003ED5BE /* FansGroup.swift */; };
 		26F414A42611C548003ED5BE /* FansGroup.CreateGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26F414A32611C548003ED5BE /* FansGroup.CreateGroupViewController.swift */; };
 		26F414AA2611DB1D003ED5BE /* FansGroup.Views.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26F414A92611DB1D003ED5BE /* FansGroup.Views.swift */; };
@@ -491,6 +492,7 @@
 		26DBBF7526008C1B00A1B9BA /* Social.AgePromptModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Social.AgePromptModal.swift; sourceTree = "<group>"; };
 		26DC82742609C891000A9111 /* Social.ChooseGame.ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Social.ChooseGame.ViewController.swift; sourceTree = "<group>"; };
 		26DC82782609C8F1000A9111 /* Social.ChooseGame+Views.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Social.ChooseGame+Views.swift"; sourceTree = "<group>"; };
+		26DCEEF5264BD63F00B874FB /* NavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBar.swift; sourceTree = "<group>"; };
 		26F4149B2611C4EA003ED5BE /* FansGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FansGroup.swift; sourceTree = "<group>"; };
 		26F414A32611C548003ED5BE /* FansGroup.CreateGroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FansGroup.CreateGroupViewController.swift; sourceTree = "<group>"; };
 		26F414A92611DB1D003ED5BE /* FansGroup.Views.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FansGroup.Views.swift; sourceTree = "<group>"; };
@@ -1342,6 +1344,7 @@
 				26259F55260D8D0F00636E50 /* SmallSizeButton.swift */,
 				FE914B1526146DC900C755FF /* BottomTitleButton.swift */,
 				FE806791261DBBE800207992 /* SeatLoadingView.swift */,
+				26DCEEF5264BD63F00B874FB /* NavigationBar.swift */,
 			);
 			path = Widge;
 			sourceTree = "<group>";
@@ -2096,6 +2099,7 @@
 				FE078C912615C028004C38C5 /* AmongChat.GroupRoom.JoinRequestListController.swift in Sources */,
 				FEAE256B262078D5001F10A9 /* AmongChat.GroupRoom.ViewController.Audience.swift in Sources */,
 				269A6DE8261D9DFD00A07C7D /* FansGroup.GroupInfoViewController+ViewModels.swift in Sources */,
+				26DCEEF6264BD63F00B874FB /* NavigationBar.swift in Sources */,
 				FE860D4E2446D1D700087B73 /* Padding.swift in Sources */,
 				FE2AF9F7244DCC0400763747 /* URI.swift in Sources */,
 				BDC9D2A22589DA2D00412BDC /* Entity.LoginResult.swift in Sources */,
