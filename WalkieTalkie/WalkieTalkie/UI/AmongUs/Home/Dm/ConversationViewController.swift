@@ -335,7 +335,7 @@ private extension ConversationViewController {
               msgError.codeType == .beBlocked else {
             return
         }
-        let offset = (Frame.Screen.height - keyboardVisibleHeight) / 2
+        let offset = keyboardVisibleHeight > 0 ? (Frame.Screen.height - keyboardVisibleHeight) / 4 : 0
         view.raft.autoShow(.text(msgError.codeType?.tips ?? ""), userInteractionEnabled: false, offset: CGPoint(x: 0, y: -offset))
     }
     
@@ -504,6 +504,7 @@ private extension ConversationViewController {
     }
     
     func configureSubview() {
+        
         liveContainer = UIView()
         liveContainer.alpha = 0
         liveContainer.backgroundColor = "121212".color()
@@ -534,6 +535,8 @@ private extension ConversationViewController {
         
         
         titleLabel.text = conversation.message.fromUser.name
+        collectionView.keyboardDismissMode = .interactive
+//        collectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 16, right: 0)
         collectionView.register(nibWithCellClass: ConversationCollectionCell.self)
     }
     
