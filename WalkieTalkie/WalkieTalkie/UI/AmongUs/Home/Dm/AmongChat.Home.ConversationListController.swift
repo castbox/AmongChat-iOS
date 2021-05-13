@@ -42,25 +42,6 @@ extension AmongChat.Home {
         
         private lazy var navigationView = AmongChat.Home.NavigationBar(.notice)
         
-//        private lazy var collectionView: UICollectionView = {
-//            let layout = UICollectionViewFlowLayout()
-//            layout.scrollDirection = .vertical
-//            var hInset: CGFloat = 20
-//            var columns: Int = 1
-//            let interitemSpacing: CGFloat = 20
-//            layout.itemSize = CGSize(width: UIScreen.main.bounds.width, height: 84)
-//            layout.sectionInset = UIEdgeInsets(top: 12, left: hInset, bottom: 0, right: hInset)
-//            let v = UICollectionView(frame: .zero, collectionViewLayout: layout)
-//            v.register(nibWithCellClass: ConversationListCell.self)
-//            v.showsVerticalScrollIndicator = false
-//            v.showsHorizontalScrollIndicator = false
-//            v.dataSource = self
-//            v.delegate = self
-//            v.backgroundColor = .clear
-//            v.alwaysBounceVertical = true
-//            return v
-//        }()
-        
         private lazy var listView: UITableView = {
             let v = UITableView(frame: .zero, style: .plain)
             v.register(nibWithCellClass: ConversationTableCell.self)
@@ -82,18 +63,7 @@ extension AmongChat.Home {
         }()
         
         private let hasUnreadNotice = BehaviorRelay(value: false)
-                
-//        var dataSource: [Entity.Notice] = [] {
-//            didSet {
-////                noticeVMList = dataSource.enumerated().map({ [weak self] (idx, notice) in
-////                    NoticeViewModel(with: notice) {
-////                        self?.noticeListView.reloadItems(at: [IndexPath(item: idx, section: 0)])
-////                    }
-////
-////                })
-//            }
-//        }
-        
+                        
         private var dataSource: [Entity.DMConversation] = [] {
             didSet {
                 listView.reloadData()
@@ -178,52 +148,6 @@ extension AmongChat.Home.ConversationListController: UITableViewDataSource, UITa
         let vc = ConversationViewController(item)
         navigationController?.pushViewController(vc)
     }
-}
-
-extension AmongChat.Home.ConversationListController: UICollectionViewDataSource {
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return dataSource.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let item = dataSource.safe(indexPath.item) else {
-            return UICollectionViewCell()
-        }
-        
-        let cell = collectionView.dequeueReusableCell(withClass: ConversationListCell.self, for: indexPath)
-        
-        cell.bind(item)
-//        switch notice.notice.message.messageType {
-//        case .TxtMsg, .ImgMsg, .ImgTxtMsg, .TxtImgMsg:
-//            cell = collectionView.dequeueReusableCell(withClass: ConversationListCell.self, for: indexPath)
-//            if let cell = cell as? ConversationListCell {
-////                cell.bindNoticeData(notice)
-//            }
-
-//        case .SocialMsg:
-//            cell = collectionView.dequeueReusableCell(withReuseIdentifier: NSStringFromClass(SocialMessageCell.self), for: indexPath)
-//
-//            if let cell = cell as? SocialMessageCell {
-//                cell.bindNoticeData(notice)
-//            }
-//
-//        }
-        
-        return cell
-    }
-}
-
-extension AmongChat.Home.ConversationListController: UICollectionViewDelegate {
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let item = dataSource.safe(indexPath.item) else {
-            return
-        }
-        let vc = ConversationViewController(item)
-        navigationController?.pushViewController(vc)
-    }
-    
 }
 
 extension AmongChat.Home.ConversationListController {

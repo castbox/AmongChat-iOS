@@ -58,6 +58,8 @@ extension Routes {
                         self.handleFansGroup(group.groupId)
                     case _ as URI.AllNotice:
                         self.handleAllNotice()
+                    case let message as URI.DMMessage:
+                        self.handleDmMessage(message.uid)
                     default:
                         cdAssertFailure("should never enter here")
                     }
@@ -176,6 +178,39 @@ extension Routes {
         func handleAllNotice() {
             let vc = Notice.AllNoticeViewController()
             UIApplication.topViewController()?.navigationController?.pushViewController(vc)
+        }
+        
+        func handleDmMessage(_ uid: String) {
+            let loadingHandler = UIApplication.topViewController()?.view.raft.show(.loading)
+            _ = DMManager.shared.queryConversation(fromUid: uid)
+                .flatMap { item -> Single<Entity.DMConversation?> in
+                    if let conversation = item {
+                        return .just(conversation)
+                    } else {
+                        // get user info create conversation
+                        return Request.profile(uid.intValue)
+                            .flatMap { profile -> Single<Entity.DMConversation?> in
+                                guard let dmProfile = profile?.dmProfile else {
+                                    return .just(nil)
+                                }
+                                let message = Entity.DMMessage.emptyMessage(for: dmProfile)
+                                return DMManager.shared.add(message: message)
+                                    .flatMap { _ in
+                                        return DMManager.shared.queryConversation(fromUid: uid)
+                                    }
+                            }
+                    }
+                }
+                .subscribe(onSuccess: { item in
+                    loadingHandler?()
+                    guard let conversation = item else {
+                        return
+                    }
+                    let vc = ConversationViewController(conversation)
+                    UIApplication.topViewController()?.navigationController?.pushViewController(vc)
+                }) { Error in
+                    loadingHandler?()
+                }
         }
         
         func showWebViewController(urlString: String) {

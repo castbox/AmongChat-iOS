@@ -34,6 +34,7 @@ final class Routes {
             URI.InviteUser.self,
             URI.FansGroup.self,
             URI.AllNotice.self,
+            URI.DMMessage.self,
             ]
         
         types.forEach { (type) in

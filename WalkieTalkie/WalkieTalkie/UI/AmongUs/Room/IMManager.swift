@@ -31,6 +31,8 @@ class IMManager: NSObject {
     //max login retry twice
     private var retryCount = 2
     
+    private var triggerImpactTs: TimeInterval = 0
+    
     var newChannelMessageObservable: Observable<ChatRoomMessage> {
         return newChannelMessageSubject.asObservable()
             .observeOn(SerialDispatchQueueScheduler(qos: .default))
@@ -130,13 +132,13 @@ class IMManager: NSObject {
                 return item
             }
             .filterNil()
-            .do(onNext: { item in
+            .do(onNext: { [weak self] item in
                 guard item.msgType == .dm else {
                     return
                 }
-                HapticFeedback.Impact.medium()
+                self?.triggerImpactIfCould()
             })
-
+        
     }
     
     var joinedChannelSignal: Observable<Bool> {
@@ -271,38 +273,21 @@ class IMManager: NSObject {
         }
     }
     
-    func sendFile() {
-        //filepath
-        let fileManager = FileManager.default
-        var requestId: Int64 = 0
-        guard let directoryURL = fileManager.urls(for: .cachesDirectory, in: .userDomainMask).first else {
-            return
-        }
-        let filePath = directoryURL.appendingPathComponent("launch_img")
-        do {
-            try R.image.launch_logo()?.pngData()?.write(to: filePath)
-        } catch {
-            cdPrint("error: \(filePath): \(error))")
-        }
-//        rtmKit?.createFileMessage(byMediaId: <#T##String#>)
-//        rtmKit?.downloadMedia(<#T##mediaId: String##String#>, toFile: <#T##String#>, withRequest: <#T##UnsafeMutablePointer<Int64>!#>, completion: <#T##AgoraRtmDownloadMediaToFileBlock?##AgoraRtmDownloadMediaToFileBlock?##(Int64, AgoraRtmDownloadMediaErrorCode) -> Void#>)
-        rtmKit?.createFileMessage(byUploading: filePath.path, withRequest: &requestId, completion: { rId, message, error in
-            cdPrint("filePath: \(filePath) rid: \(rId) message: \(message?.fileName) id: \(message?.mediaId) error: \(error.rawValue)")
-        })
-    }
-    
-    
-    func sendPeer(_ fileMessage: AgoraRtmFileMessage) {
-        //filepath
-        
-    }
-    
 }
 
 private extension IMManager {
     
     enum LoginStatus {
         case online, offline
+    }
+    
+    func triggerImpactIfCould() {
+        let interval = Date().timeIntervalSince1970
+        guard interval - triggerImpactTs > 1 else {
+            return
+        }
+        triggerImpactTs = interval
+        HapticFeedback.Impact.medium()
     }
     
     func bindEvents() {

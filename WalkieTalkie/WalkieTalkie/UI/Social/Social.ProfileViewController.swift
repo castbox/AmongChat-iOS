@@ -394,10 +394,9 @@ private extension Social.ProfileViewController {
                     
                     guard let status = status else { return }
                     
-                    self?.headerView.onlineStatusView.isHidden = !(status.isOnline ?? false)
+                    self?.headerView.onlineStatusView.isHidden = !(status.isOnline == true && status.room == nil && status.group == nil)
                     
                     var liveRooms = [Any]()
-                    
                     
                     if let room = status.room {
                         liveRooms.append(room)
@@ -905,18 +904,20 @@ extension Social.ProfileViewController: UICollectionViewDataSource, UICollection
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NSStringFromClass(LiveCell.self), for: indexPath)
             if let cell = cell as? LiveCell {
                 
-                let liveRoom = liveRoomRelay.value.safe(indexPath.item)
+                let liveRoom = liveRoomRelay.value.first
                 
-                if let room = liveRoom as? Entity.Room {
+                if let room = liveRoom as? Entity.UserStatus.Room {
                     
                     cell.coverIV.setImage(with: room.coverUrl)
                     cell.label.text = room.topicName
+                    cell.label.text = R.string.localizable.profileUserInChannel(room.topicName)
+                    
                     cell.joinHandler = { [weak self] in
                         self?.enterRoom(roomId: room.roomId, topicId: room.topicId)
                     }
                 } else if let group = liveRoom as? Entity.UserStatus.Group {
                     cell.coverIV.setImage(with: group.cover)
-                    cell.label.text = group.name
+                    cell.label.text = R.string.localizable.profileUserInGroup(group.name)
                     cell.joinHandler = { [weak self] in
                         self?.enter(group: group.gid)
                     }

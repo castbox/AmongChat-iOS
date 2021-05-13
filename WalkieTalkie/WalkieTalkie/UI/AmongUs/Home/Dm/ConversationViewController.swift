@@ -19,23 +19,19 @@ class ConversationViewController: ViewController {
     @IBOutlet private weak var titleLabel: UILabel!
     @IBOutlet private weak var followButton: UIButton!
     @IBOutlet private weak var collectionView: UICollectionView!
-    @IBOutlet weak var collectionViewBottomConstraint: NSLayoutConstraint!
+    @IBOutlet private weak var collectionViewBottomConstraint: NSLayoutConstraint!
     
-    @IBOutlet weak var userInfostackView: UIStackView!
-    @IBOutlet weak var onlineView: UIView!
+    @IBOutlet private weak var userInfostackView: UIStackView!
     
-    private(set) lazy var liveView: Social.ProfileViewController.LiveCell = {
-        let o = Social.ProfileViewController.LiveCell()
-        o.isHidden = true
-        return o
-    }()
+    @IBOutlet private weak var onlineView: UIView!
+
+    private var liveContainer: UIView!
+    private var liveView: Social.ProfileViewController.LiveCell!
     
     private lazy var bottomBar = ConversationBottomBar()
-    
+
     private var conversation: Entity.DMConversation
-    
     private let viewModel: Conversation.ViewModel
-    
     private var relationData: Entity.RelationData?
     private var blocked = false
     private var firstDataLoaded: Bool = true
@@ -120,6 +116,9 @@ extension ConversationViewController: UICollectionViewDataSource {
                 self?.viewModel.clearUnread(message)
             case .user(let uid):
                 let vc = Social.ProfileViewController(with: uid.string.intValue)
+                vc.followedHandle = { [weak self] follow in
+                    self?.setFollowButton(follow, isHidden: false)
+                }
                 self?.navigationController?.pushViewController(vc)
             }
         }
@@ -173,8 +172,11 @@ private extension ConversationViewController {
                         self?.enter(group: group.gid)
                     }
                 }
-                self.liveView.isHidden = status.room == nil && status.group == nil
-                self.updateUser(isOnline: status.isOnline == true && self.liveView.isHidden)
+                let isHiddenLiveContainer = status.room == nil && status.group == nil
+                if !isHiddenLiveContainer {
+                    self.liveContainer.fadeIn(duration: 0.2)
+                } 
+                self.updateUser(isOnline: status.isOnline == true && self.liveContainer.isHidden)
             }, onError: { (error) in
                 
             })
@@ -382,15 +384,19 @@ private extension ConversationViewController {
     }
     
     
-    func setFollowButton(_ isFollowed: Bool) {
+    func setFollowButton(_ isFollowed: Bool, isHidden: Bool? = nil) {
         if isFollowed {
             greyFollowButton()
         } else {
             yellowFollowButton()
         }
+        if let isHidden = isHidden {
+            followButton.isHidden = isHidden
+        } else {
+            followButton.isHidden = isFirstShowFollow && isFollowed
+            isFirstShowFollow = false
+        }
         followButton.isEnabled = !isFollowed
-        followButton.isHidden = isFirstShowFollow && isFollowed
-        isFirstShowFollow = false
     }
     
     private func greyFollowButton() {
@@ -486,20 +492,34 @@ private extension ConversationViewController {
     func configureSubview() {
         
         //        collectionView.transform = CGAffineTransform(scaleX: 1, y: -1)
+        liveContainer = UIView()
+        liveContainer.alpha = 0
+        liveContainer.backgroundColor = "121212".color()
+        liveContainer.isHidden = true
+        liveView = Social.ProfileViewController.LiveCell()
         
-        view.addSubviews(views: bottomBar, liveView)
+        view.addSubviews(views: bottomBar, liveContainer)
         
         bottomBar.snp.makeConstraints { maker in
             maker.leading.bottom.trailing.equalToSuperview()
             maker.height.equalTo(bottomBarHeight)
         }
         
+        liveContainer.snp.makeConstraints { (maker) in
+            maker.top.equalTo(Frame.Height.navigation)
+            maker.centerX.equalToSuperview()
+            maker.trailing.equalToSuperview()
+            maker.height.equalTo(80)
+        }
+        
+        liveContainer.addSubview(liveView)
         liveView.snp.makeConstraints { (maker) in
-            maker.top.equalTo(Frame.Height.navigation + 12)
+            maker.top.equalTo(12)
             maker.centerX.equalToSuperview()
             maker.trailing.equalToSuperview().offset(-20)
             maker.height.equalTo(56)
         }
+        
         
         titleLabel.text = conversation.message.fromUser.name
         collectionView.register(nibWithCellClass: ConversationCollectionCell.self)

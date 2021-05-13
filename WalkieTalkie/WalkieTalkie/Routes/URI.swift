@@ -201,6 +201,25 @@ extension URI {
         
     }
     
+    struct DMMessage: URIRepresentable {
+        
+        static func patterns() -> [String] {
+            return [
+                "/message/:uid",
+                "/message"
+            ]
+        }
+        let uid: String
+        
+        init?(_ paras: [String : Any]) {
+            
+            guard let uid = paras["uid"] as? String else { return nil }
+            
+            self.uid = uid
+        }
+        
+    }
+    
     struct AllNotice: URIRepresentable {
         static func patterns() -> [String] {
             return [

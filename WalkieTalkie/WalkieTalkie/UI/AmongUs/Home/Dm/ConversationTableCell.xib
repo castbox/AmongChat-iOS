@@ -50,16 +50,16 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Monday" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Oog-kW-092">
-                        <rect key="frame" x="80" y="46" width="253" height="22"/>
+                        <rect key="frame" x="80" y="46" width="249" height="22"/>
                         <fontDescription key="fontDescription" name="Nunito-Bold" family="Nunito" pointSize="16"/>
                         <color key="textColor" red="0.53725490200000003" green="0.53725490200000003" blue="0.53725490200000003" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <view contentMode="scaleToFill" horizontalHuggingPriority="253" horizontalCompressionResistancePriority="752" translatesAutoresizingMaskIntoConstraints="NO" id="bRM-V4-RBa">
-                        <rect key="frame" x="345" y="47" width="16" height="20"/>
+                        <rect key="frame" x="341" y="47" width="20" height="20"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="253" verticalHuggingPriority="251" text="3" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VqQ-dh-rHy">
-                                <rect key="frame" x="4" y="0.5" width="8" height="19.5"/>
+                                <rect key="frame" x="6" y="0.5" width="8" height="19.5"/>
                                 <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito" pointSize="14"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -67,10 +67,10 @@
                         </subviews>
                         <color key="backgroundColor" red="0.98431372549999996" green="0.34509803919999998" blue="0.34509803919999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="VqQ-dh-rHy" firstAttribute="leading" secondItem="bRM-V4-RBa" secondAttribute="leading" constant="4" id="RQL-Pg-YrW"/>
+                            <constraint firstItem="VqQ-dh-rHy" firstAttribute="leading" secondItem="bRM-V4-RBa" secondAttribute="leading" constant="6" id="RQL-Pg-YrW"/>
                             <constraint firstAttribute="height" constant="20" id="ZS6-jn-5gT"/>
                             <constraint firstItem="VqQ-dh-rHy" firstAttribute="centerY" secondItem="bRM-V4-RBa" secondAttribute="centerY" id="ZkS-j2-Yje"/>
-                            <constraint firstAttribute="trailing" secondItem="VqQ-dh-rHy" secondAttribute="trailing" constant="4" id="ZuC-sp-epI"/>
+                            <constraint firstAttribute="trailing" secondItem="VqQ-dh-rHy" secondAttribute="trailing" constant="6" id="ZuC-sp-epI"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">

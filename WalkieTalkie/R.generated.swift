@@ -2311,7 +2311,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
     
-    /// This `R.string.localizable` struct is generated, and contains static references to 456 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 457 localization keys.
     struct localizable {
       /// en translation:  Congratulations!
       /// 
@@ -3997,6 +3997,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatCreateRoomCardUnlockPro = Rswift.StringResource(key: "among.chat.create.room.card.unlock.pro", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: You can no longer send Direct Messages to this person.
+      /// 
+      /// Locales: en
+      static let dmSendMessageError = Rswift.StringResource(key: "dm.send.message.error", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: You can only raise your hand if you join the group
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -7083,6 +7087,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func amongChatCreateRoomCardUnlockPro(_: Void = ()) -> String {
         return NSLocalizedString("among.chat.create.room.card.unlock.pro", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: You can no longer send Direct Messages to this person.
+      /// 
+      /// Locales: en
+      static func dmSendMessageError(_: Void = ()) -> String {
+        return NSLocalizedString("dm.send.message.error", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: You can only raise your hand if you join the group
