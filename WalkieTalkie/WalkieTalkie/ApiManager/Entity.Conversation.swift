@@ -184,6 +184,11 @@ extension Entity {
             return DMConversation(message: self, fromUid: self.fromUid, unreadCount: status == .empty ? 0 : 1, lastMsgMs: Date().timeIntervalSince1970)
         }
         
+        static func emptyMessage(for uid: String) -> Entity.DMMessage {
+            let body = Entity.DMMessageBody(type: .text, url: nil, duration: 0, text: "")
+            return Entity.DMMessage(body: body, relation: 1, fromUid: uid, fromUser: DMProfile(uid: 0, name: nil, pictureUrl: nil), status: .empty)
+        }
+        
         func archivedValue() -> FundamentalValue {
             return .init(asString ?? "")
         }

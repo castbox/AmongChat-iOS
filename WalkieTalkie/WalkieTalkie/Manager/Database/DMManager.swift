@@ -141,7 +141,29 @@ class DMManager {
     }
     
     func clearAllMessage(of uid: String) -> Single<Void> {
-        return database.mapTransactionToSingle { (db) in
+        return self.database.mapTransactionToSingle { (db) in
+            try db.delete(fromTable: dmMessagesTableName, where: Entity.DMMessage.Properties.fromUid == uid)
+        }
+        .flatMap { [unowned self] _ in
+            return self.queryConversation(fromUid: uid)
+                .flatMap { [unowned self] item -> Single<Void> in
+                    guard var conversation = item else {
+                        return .just(())
+                    }
+                    conversation.message.body = Entity.DMMessageBody(type: .text)
+                    return self.database.mapTransactionToSingle { db in
+                        try db.insertOrReplace(objects: conversation, intoTable: dmConversationTableName)
+                    }
+                }
+        }
+        .do(onSuccess: { [weak self] _ in
+            self?.conversactionUpdateReplay.accept(nil)
+        })
+    }
+    
+    func deleteConversation(of uid: String) -> Single<Void> {
+
+        return self.database.mapTransactionToSingle { (db) in
             try db.delete(fromTable: dmConversationTableName, where: Entity.DMConversation.Properties.fromUid == uid)
             try db.delete(fromTable: dmMessagesTableName, where: Entity.DMMessage.Properties.fromUid == uid)
         }

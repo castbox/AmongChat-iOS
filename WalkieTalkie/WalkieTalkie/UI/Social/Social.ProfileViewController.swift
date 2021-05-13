@@ -778,9 +778,7 @@ private extension Social.ProfileViewController {
                 guard conversation == nil else {
                     return .just(conversation)
                 }
-                let body = Entity.DMMessageBody(type: .text, url: nil, duration: 0, text: "")
-                let message = Entity.DMMessage(body: body, relation: 1, fromUid: profile.uid.string, fromUser: profile, status: .empty)
-                return DMManager.shared.add(message: message)
+                return DMManager.shared.add(message: Entity.DMMessage.emptyMessage(for: profile.uid.string))
                     .flatMap { DMManager.shared.queryConversation(fromUid: profile.uid.string) }
             }
             .subscribe(onSuccess: { [weak self] conversation in
