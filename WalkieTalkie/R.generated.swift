@@ -3754,6 +3754,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let groupItemStartLive = Rswift.StringResource(key: "group.item.start.live", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Start typing
+      /// 
+      /// Locales: en
+      static let dmTextPlaceholder = Rswift.StringResource(key: "dm.text.placeholder", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Subscribe
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3842,10 +3846,6 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let premiumTryTitle = Rswift.StringResource(key: "premium.try.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
-      /// en translation: Type a message…
-      /// 
-      /// Locales: en
-      static let dmTextPlaceholder = Rswift.StringResource(key: "dm.text.placeholder", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Unban live chat
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -6657,6 +6657,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("group.item.start.live", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Start typing
+      /// 
+      /// Locales: en
+      static func dmTextPlaceholder(_: Void = ()) -> String {
+        return NSLocalizedString("dm.text.placeholder", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Subscribe
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -6809,13 +6816,6 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func premiumTryTitle(_: Void = ()) -> String {
         return NSLocalizedString("premium.try.title", bundle: R.hostingBundle, comment: "")
-      }
-      
-      /// en translation: Type a message…
-      /// 
-      /// Locales: en
-      static func dmTextPlaceholder(_: Void = ()) -> String {
-        return NSLocalizedString("dm.text.placeholder", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Unban live chat

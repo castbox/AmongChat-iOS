@@ -176,8 +176,8 @@ extension AudioRecorderViewController {
         
         endTipLabel.snp.makeConstraints { (maker) in
             maker.leading.trailing.equalToSuperview().inset(64)
-            maker.height.equalTo(36)
-            maker.bottom.equalTo(-46)
+            maker.height.equalTo(40)
+            maker.bottom.equalTo(-44)
         }
         
     }
