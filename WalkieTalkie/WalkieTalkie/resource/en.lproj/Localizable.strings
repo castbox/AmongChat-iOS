@@ -524,3 +524,5 @@
 "dm.gif.search.placeholder" = "Search for GIFs";
 //update
 "dm.text.placeholder" = "Start typing";
+"profile.user.in.channel" = "In %@ Channel";
+"profile.user.in.group" = "In %@ Group";

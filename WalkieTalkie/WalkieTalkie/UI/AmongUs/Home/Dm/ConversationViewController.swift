@@ -160,19 +160,19 @@ private extension ConversationViewController {
                 
                 if let room = status.room {
                     self.liveView.coverIV.setImage(with: room.coverUrl)
-                    self.liveView.label.text = room.topicName
+                    self.liveView.label.text = R.string.localizable.profileUserInChannel(room.topicName)
                     self.liveView.joinHandler = { [weak self] in
                         self?.enterRoom(roomId: room.roomId, topicId: room.topicId)
                     }
                 } else if let group = status.group {
                     self.liveView.coverIV.setImage(with: group.cover)
-                    self.liveView.label.text = group.name
+                    self.liveView.label.text = R.string.localizable.profileUserInGroup(group.name)
                     self.liveView.joinHandler = { [weak self] in
                         self?.enter(group: group.gid)
                     }
                 }
                 self.liveView.isHidden = status.room == nil && status.group == nil
-                self.updateUser(isOnline: status.isOnline == true)
+                self.updateUser(isOnline: status.isOnline == true && self.liveView.isHidden)
             }, onError: { (error) in
                 
             })

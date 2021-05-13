@@ -224,7 +224,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 220 images.
+  /// This `R.image` struct is generated, and contains static references to 221 images.
   struct image {
     /// Image `ac_add_stats_add`.
     static let ac_add_stats_add = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_add_stats_add")
@@ -564,6 +564,8 @@ struct R: Rswift.Validatable {
     static let iconDmGif = Rswift.ImageResource(bundle: R.hostingBundle, name: "iconDmGif")
     /// Image `iconDmKeyboard`.
     static let iconDmKeyboard = Rswift.ImageResource(bundle: R.hostingBundle, name: "iconDmKeyboard")
+    /// Image `iconDmVoiceTag`.
+    static let iconDmVoiceTag = Rswift.ImageResource(bundle: R.hostingBundle, name: "iconDmVoiceTag")
     /// Image `iconDmVoice`.
     static let iconDmVoice = Rswift.ImageResource(bundle: R.hostingBundle, name: "iconDmVoice")
     /// Image `iconMutedTips`.
@@ -1517,6 +1519,11 @@ struct R: Rswift.Validatable {
       return UIKit.UIImage(resource: R.image.iconDmVoice, compatibleWith: traitCollection)
     }
     
+    /// `UIImage(named: "iconDmVoiceTag", bundle: ..., traitCollection: ...)`
+    static func iconDmVoiceTag(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.iconDmVoiceTag, compatibleWith: traitCollection)
+    }
+    
     /// `UIImage(named: "iconMutedTips", bundle: ..., traitCollection: ...)`
     static func iconMutedTips(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.iconMutedTips, compatibleWith: traitCollection)
@@ -2304,7 +2311,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
     
-    /// This `R.string.localizable` struct is generated, and contains static references to 454 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 456 localization keys.
     struct localizable {
       /// en translation:  Congratulations!
       /// 
@@ -3022,6 +3029,14 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let groupRoomIgnore = Rswift.StringResource(key: "group.room.ignore", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: In %@ Channel
+      /// 
+      /// Locales: en
+      static let profileUserInChannel = Rswift.StringResource(key: "profile.user.in.channel", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: In %@ Group
+      /// 
+      /// Locales: en
+      static let profileUserInGroup = Rswift.StringResource(key: "profile.user.in.group", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: In Channel Members
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -5374,6 +5389,20 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func groupRoomIgnore(_: Void = ()) -> String {
         return NSLocalizedString("group.room.ignore", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: In %@ Channel
+      /// 
+      /// Locales: en
+      static func profileUserInChannel(_ value1: String) -> String {
+        return String(format: NSLocalizedString("profile.user.in.channel", bundle: R.hostingBundle, comment: ""), locale: R.applicationLocale, value1)
+      }
+      
+      /// en translation: In %@ Group
+      /// 
+      /// Locales: en
+      static func profileUserInGroup(_ value1: String) -> String {
+        return String(format: NSLocalizedString("profile.user.in.group", bundle: R.hostingBundle, comment: ""), locale: R.applicationLocale, value1)
       }
       
       /// en translation: In Channel Members
