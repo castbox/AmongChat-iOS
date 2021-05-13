@@ -2311,7 +2311,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
     
-    /// This `R.string.localizable` struct is generated, and contains static references to 457 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 459 localization keys.
     struct localizable {
       /// en translation:  Congratulations!
       /// 
@@ -2465,6 +2465,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let dmDeleteHistoryAlertTitle = Rswift.StringResource(key: "dm.delete.history.alert.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Are you sure you want to delete this chat?
+      /// 
+      /// Locales: en
+      static let dmDeleteConversationAlertTitle = Rswift.StringResource(key: "dm.delete.conversation.alert.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Asia
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3605,6 +3609,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatCustomAvatarSelectImage = Rswift.StringResource(key: "among.chat.custom.avatar.select.image", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Send failed, Please try again.
+      /// 
+      /// Locales: en
+      static let dmSendMessageError = Rswift.StringResource(key: "dm.send.message.error", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Sep
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -4000,7 +4008,7 @@ struct R: Rswift.Validatable {
       /// en translation: You can no longer send Direct Messages to this person.
       /// 
       /// Locales: en
-      static let dmSendMessageError = Rswift.StringResource(key: "dm.send.message.error", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      static let dmSendMessageBeblockedError = Rswift.StringResource(key: "dm.send.message.beblocked.error", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: You can only raise your hand if you join the group
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -4406,6 +4414,13 @@ struct R: Rswift.Validatable {
       /// Locales: en
       static func dmDeleteHistoryAlertTitle(_: Void = ()) -> String {
         return NSLocalizedString("dm.delete.history.alert.title", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Are you sure you want to delete this chat?
+      /// 
+      /// Locales: en
+      static func dmDeleteConversationAlertTitle(_: Void = ()) -> String {
+        return NSLocalizedString("dm.delete.conversation.alert.title", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Asia
@@ -6403,6 +6418,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("among.chat.custom.avatar.select.image", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Send failed, Please try again.
+      /// 
+      /// Locales: en
+      static func dmSendMessageError(_: Void = ()) -> String {
+        return NSLocalizedString("dm.send.message.error", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Sep
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -7092,8 +7114,8 @@ struct R: Rswift.Validatable {
       /// en translation: You can no longer send Direct Messages to this person.
       /// 
       /// Locales: en
-      static func dmSendMessageError(_: Void = ()) -> String {
-        return NSLocalizedString("dm.send.message.error", bundle: R.hostingBundle, comment: "")
+      static func dmSendMessageBeblockedError(_: Void = ()) -> String {
+        return NSLocalizedString("dm.send.message.beblocked.error", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: You can only raise your hand if you join the group

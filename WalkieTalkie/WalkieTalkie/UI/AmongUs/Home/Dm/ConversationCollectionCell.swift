@@ -195,7 +195,6 @@ class ConversationCollectionCell: UICollectionViewCell {
             }
             statusView.centerY = textContainer.centerY
             indicatorView.center = statusView.center
-            //            textContainer.isHidden = false
             messageTextLabel.isHidden = false
             voiceDurationLabel.isHidden = true
             voicePlayIndiator.isHidden = true

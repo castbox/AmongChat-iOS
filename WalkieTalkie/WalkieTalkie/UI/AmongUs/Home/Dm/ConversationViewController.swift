@@ -111,7 +111,7 @@ extension ConversationViewController: UICollectionViewDataSource {
         cell.actionHandler = { [weak self] action in
             switch action {
             case .resend(let message):
-                self?.viewModel.sendMessage(message)
+                self?.sendMessage(message)
             case .clickVoiceMessage(let message):
                 self?.viewModel.clearUnread(message)
             case .user(let uid):
@@ -288,8 +288,58 @@ private extension ConversationViewController {
                 }).disposed(by: bag)
         }
     }
-}
+    
+    func sendMessage(_ message: String) {
+        self.viewModel.sendMessage(message)
+            .subscribe(onSuccess: { result in
+                
+            }) { [weak self] error in
+                self?.showBeblockedErrorTipsIfNeed(error)
+            }
+            .disposed(by: bag)
+    }
+    
+    func sendMessage(_ message: Entity.DMMessage) {
+        self.viewModel.sendMessage(message)
+            .subscribe(onSuccess: { result in
 
+            }) { [weak self] error in
+                self?.showBeblockedErrorTipsIfNeed(error)
+            }
+            .disposed(by: bag)
+    }
+    
+    func sendVoiceMessage(duration: Int, filePath: String) {
+        viewModel.sendVoiceMessage(duration: duration, filePath: filePath)
+            .subscribe(onSuccess: { result in
+
+            }) { [weak self] error in
+                self?.showBeblockedErrorTipsIfNeed(error)
+            }
+            .disposed(by: bag)
+    }
+    
+    func sendGif(_ media: Giphy.GPHMedia) {
+        viewModel.sendGif(media)
+            .subscribe(onSuccess: { result in
+                
+            }) { [weak self] error in
+                self?.showBeblockedErrorTipsIfNeed(error)
+            }
+            .disposed(by: bag)
+
+    }
+    
+    func showBeblockedErrorTipsIfNeed(_ error: Error) {
+        guard let msgError = error as? MsgError,
+              msgError.codeType == .beBlocked else {
+            return
+        }
+        let offset = (Frame.Screen.height - keyboardVisibleHeight) / 2
+        view.raft.autoShow(.text(msgError.codeType?.tips ?? ""), userInteractionEnabled: false, offset: CGPoint(x: 0, y: -offset))
+    }
+    
+}
 
 private extension ConversationViewController {
     
@@ -304,17 +354,6 @@ private extension ConversationViewController {
             }
             .disposed(by: bag)
     }
-    func sendVoiceMessage(duration: Int, filePath: String) {
-        //        let removeBlock = view.raft.show(.loading)
-        viewModel.sendVoiceMessage(duration: duration, filePath: filePath)
-            .subscribe(onSuccess: { result in
-                //                removeBlock()
-            }) { error in
-                //                removeBlock()
-            }
-            .disposed(by: bag)
-    }
-    
     
     func moreAction() {
         var type:[AmongSheetController.ItemType]!
@@ -338,35 +377,13 @@ private extension ConversationViewController {
     }
     
     func showDeleteHistoryAlter() {
-        
-        let titleAttr = NSAttributedString(string: R.string.localizable.dmDeleteHistoryAlertTitle(), attributes: [
-            NSAttributedString.Key.font: R.font.nunitoExtraBold(size: 16),
-            .foregroundColor: UIColor.white
-        ])
-        
-        let cancelAttr = NSAttributedString(string: R.string.localizable.toastCancel(), attributes: [
-            NSAttributedString.Key.font: R.font.nunitoExtraBold(size: 16),
-            .foregroundColor: "#6C6C6C".color()
-        ])
-        let confirmAttr = NSAttributedString(string: R.string.localizable.groupRoomYes(), attributes: [
-            NSAttributedString.Key.font: R.font.nunitoExtraBold(size: 16),
-            .foregroundColor: "#FB5858".color()
-        ])
-        
-        let alertVC = AlertController(attributedTitle: titleAttr, attributedMessage: nil, preferredStyle: .alert)
-        let visualStyle = AlertVisualStyle(alertStyle: .alert)
-        visualStyle.backgroundColor = "#222222".color()
-        visualStyle.actionViewSeparatorColor = UIColor.white.alpha(0.08)
-        alertVC.visualStyle = visualStyle
-        
-        alertVC.addAction(AlertAction(attributedTitle: cancelAttr, style: .normal, handler: { _ in
-            //                    cancelAction?()
-        }))
-        alertVC.addAction(AlertAction(attributedTitle: confirmAttr, style: .normal) { [weak self] _ in
-            self?.deleteAllHistory()
-        })
-        alertVC.view.backgroundColor = UIColor.black.alpha(0.7)
-        alertVC.present()
+        showAmongAlert(title: R.string.localizable.dmDeleteHistoryAlertTitle(),
+                       cancelTitle: R.string.localizable.toastCancel(),
+                       confirmTitle: R.string.localizable.groupRoomYes(),
+                       confirmTitleColor: "#FB5858".color(),
+                       confirmAction: { [weak self] in
+                        self?.deleteAllHistory()
+                       })
     }
     
     func showBlockAlter() {
@@ -459,7 +476,7 @@ private extension ConversationViewController {
     func showGifViewController() {
         let gifVc = Giphy.GifsViewController()
         gifVc.selectAction = { [weak self] media in
-            self?.viewModel.sendGif(media)
+            self?.sendGif(media)
         }
         presentPanModal(gifVc)
     }
@@ -482,16 +499,11 @@ private extension ConversationViewController {
         let rows = collectionView.numberOfItems(inSection: 0)
         if rows > 0 {
             let endPath = IndexPath(row: rows - 1, section: 0)
-            //
-            let contentSize = collectionView.contentSize.height
             collectionView.scrollToItem(at: endPath, at: .bottom, animated: animated)
-//            collectionView.setContentOffset(CGPoint(x: 0, y: -contentSize), animated: animated)
         }
     }
     
     func configureSubview() {
-        
-        //        collectionView.transform = CGAffineTransform(scaleX: 1, y: -1)
         liveContainer = UIView()
         liveContainer.alpha = 0
         liveContainer.backgroundColor = "121212".color()
@@ -542,9 +554,16 @@ private extension ConversationViewController {
             case .gif:
                 self?.showGifViewController()
             case .send(let text):
-                self?.viewModel.sendMessage(text)
+                self?.sendMessage(text)
             }
         }
+        
+        Settings.shared.amongChatUserProfile.replay()
+            .skip(1)
+            .subscribe(onNext: { [weak self] _ in
+                self?.collectionView.reloadData()
+            })
+            .disposed(by: bag)
         
         RxKeyboard.instance.visibleHeight
             .drive(onNext: { [weak self] keyboardVisibleHeight in

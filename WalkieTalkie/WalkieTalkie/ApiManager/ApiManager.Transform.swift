@@ -147,9 +147,11 @@ extension PrimitiveSequence where Trait == SingleTrait, Element == Any {
     func mapToDataKeyJsonValue() -> Single<[String: AnyObject]> {
         return observeOn(SerialDispatchQueueScheduler(qos: .default))
             .map { item in
-                guard let json = item as? [String: AnyObject],
-                 let data = json["data"] as? [String: AnyObject] else {
+                guard let json = item as? [String: AnyObject] else {
                     return [:]
+                }
+                guard let data = json["data"] as? [String: AnyObject] else {
+                    throw MsgError.from(dic: json)
                 }
                 return data
             }

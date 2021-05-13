@@ -526,4 +526,6 @@
 "dm.text.placeholder" = "Start typing";
 "profile.user.in.channel" = "In %@ Channel";
 "profile.user.in.group" = "In %@ Group";
-"dm.send.message.error" = "You can no longer send Direct Messages to this person.";
+"dm.send.message.error" = "Send failed, Please try again.";
+"dm.send.message.beblocked.error" = "You can no longer send Direct Messages to this person.";
+"dm.delete.conversation.alert.title" = "Are you sure you want to delete this chat?";
