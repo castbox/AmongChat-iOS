@@ -74,13 +74,16 @@ class ConversationBottomBar: XibLoadableView {
                 textField.resignFirstResponder()
             }
             style = .voice
+            Logger.Action.log(.dm_detail_tool_bar_clk, categoryValue: "voice")
         case .voice:
             style = .keyboard
+            Logger.Action.log(.dm_detail_tool_bar_clk, categoryValue: "text")
         }
     }
     
     @IBAction func gifButtonAction(_ sender: Any) {
         actionHandler?(.gif)
+        Logger.Action.log(.dm_detail_tool_bar_clk, categoryValue: "gif")
     }    
 }
 

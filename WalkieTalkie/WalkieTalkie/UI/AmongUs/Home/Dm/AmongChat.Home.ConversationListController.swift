@@ -124,6 +124,7 @@ extension AmongChat.Home.ConversationListController: UITableViewDataSource, UITa
             return
         }
         deleteAllHistory(for: item.fromUid)
+        Logger.Action.log(.dm_list_item_click, categoryValue: "delete", item.fromUid)
     }
     
     @available(iOS 11.0, *)
@@ -154,6 +155,7 @@ extension AmongChat.Home.ConversationListController: UITableViewDataSource, UITa
         }
         let vc = ConversationViewController(item)
         navigationController?.pushViewController(vc)
+        Logger.Action.log(.dm_list_item_click, categoryValue: "chat", item.fromUid)
     }
 }
 

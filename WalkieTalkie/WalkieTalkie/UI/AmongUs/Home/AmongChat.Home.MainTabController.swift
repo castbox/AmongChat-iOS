@@ -257,7 +257,7 @@ extension AmongChat.Home.MainTabController {
         case friends
         case messages
         
-        var tabTuple: (NavigationViewController, Observable<UIImageView?>) {
+        var tabTuple: (NavigationViewController, Observable<UIImageView?>, Tab) {
             
             let vc = rootViewController
             let item = RAMAnimatedTabBarItem()
@@ -271,7 +271,7 @@ extension AmongChat.Home.MainTabController {
             vc.tabBarItem = item
             let nav = NavigationViewController(rootViewController: vc)
             nav.tabBarItem = item
-            return (nav, anim.iconRelay.asObservable())
+            return (nav, anim.iconRelay.asObservable(), self)
             
         }
         
@@ -317,6 +317,17 @@ extension AmongChat.Home.MainTabController {
 
         }
         
+        var loggerSource: String {
+            switch self {
+            case .friends:
+                return "friends"
+            case .topics:
+                return "game"
+            case .messages:
+                return "dm"
+            }
+        }
+        
     }
     
 }
@@ -324,14 +335,9 @@ extension AmongChat.Home.MainTabController {
 extension AmongChat.Home.MainTabController: UITabBarControllerDelegate {
     
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
-        guard let nav = viewController as? UINavigationController else { return }
-        
-        if let _ = nav.viewControllers.first as? AmongChat.Home.TopicsViewController {
-            Logger.Action.log(.home_tab, categoryValue: "game")
-        } else if let _ = nav.viewControllers.first as? AmongChat.Home.RelationsViewController {
-            Logger.Action.log(.home_tab, categoryValue: "friends")
-        }
         HapticFeedback.Impact.light()
+        let tab = tabs.first { $0.0 == viewController }
+        Logger.Action.log(.home_tab, categoryValue: tab?.2.loggerSource)
     }
     
     func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {

@@ -138,6 +138,7 @@ extension Giphy {
             
             titleView.searchAction = { [weak self] key in
                 self?.searchGifs(key)
+                Logger.Action.log(.gif_search_clk, categoryValue: key)
             }
             
             //            collectionView.pullToRefresh { [weak self] in

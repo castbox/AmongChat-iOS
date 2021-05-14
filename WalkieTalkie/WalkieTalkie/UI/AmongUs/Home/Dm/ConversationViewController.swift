@@ -112,8 +112,10 @@ extension ConversationViewController: UICollectionViewDataSource {
             switch action {
             case .resend(let message):
                 self?.sendMessage(message)
+                Logger.Action.log(.dm_detail_item_clk, categoryValue: "resend")
             case .clickVoiceMessage(let message):
                 self?.viewModel.clearUnread(message)
+                Logger.Action.log(.dm_detail_item_clk, categoryValue: "voice_play")
             case .user(let uid):
                 let vc = Social.ProfileViewController(with: uid.string.intValue)
                 vc.followedHandle = { [weak self] follow in
@@ -165,12 +167,14 @@ private extension ConversationViewController {
                     self.liveView.label.text = R.string.localizable.profileUserInChannel(room.topicName)
                     self.liveView.joinHandler = { [weak self] in
                         self?.enterRoom(roomId: room.roomId, topicId: room.topicId)
+                        Logger.Action.log(.dm_detail_clk, categoryValue: "join_channel")
                     }
                 } else if let group = status.group {
                     self.liveView.coverIV.setImage(with: group.cover)
                     self.liveView.label.text = R.string.localizable.profileUserInGroup(group.name)
                     self.liveView.joinHandler = { [weak self] in
                         self?.enter(group: group.gid)
+                        Logger.Action.log(.dm_detail_clk, categoryValue: "join_group")
                     }
                 }
                 let isHiddenLiveContainer = status.room == nil && status.group == nil
@@ -256,7 +260,7 @@ private extension ConversationViewController {
         let removeBlock = view.raft.show(.loading)
         let isFollowed = relationData?.isFollowed ?? false
         if isFollowed {
-            //            Logger.Action.log(.profile_other_clk, category: .unfollow, "\(uid)")
+            Logger.Action.log(.dm_detail_clk, categoryValue: "unfollow")
             Request.unFollow(uid: viewModel.targetUid.intValue, type: "follow")
                 .subscribe(onSuccess: { [weak self](success) in
                     guard let `self` = self else { return }
@@ -272,7 +276,7 @@ private extension ConversationViewController {
                     cdPrint("unfollow error:\(error.localizedDescription)")
                 }).disposed(by: bag)
         } else {
-            //            Logger.Action.log(.profile_other_clk, category: .follow, "\(uid)")
+            Logger.Action.log(.dm_detail_clk, categoryValue: "follow")
             Request.follow(uid: viewModel.targetUid.intValue, type: "follow")
                 .subscribe(onSuccess: { [weak self](success) in
                     guard let `self` = self else { return }
@@ -377,10 +381,17 @@ private extension ConversationViewController {
             switch type {
             case.report:
                 self?.showReportSheet()
+                Logger.Action.log(.dm_detail_clk, categoryValue: "report")
             case .block, .unblock:
                 self?.showBlockAlter()
+                if type == .block {
+                    Logger.Action.log(.dm_detail_clk, categoryValue: "block")
+                } else if type == .unblock {
+                    Logger.Action.log(.dm_detail_clk, categoryValue: "unblock")
+                }
             case .dmDeleteHistory:
                 self?.showDeleteHistoryAlter()
+                Logger.Action.log(.dm_detail_clk, categoryValue: "delete_history")
             default:
                 break
             }
@@ -489,6 +500,8 @@ private extension ConversationViewController {
         let gifVc = Giphy.GifsViewController()
         gifVc.selectAction = { [weak self] media in
             self?.sendGif(media)
+            Logger.Action.log(.dm_detail_send_msg, categoryValue: "gif", self?.conversation.fromUid)
+            Logger.Action.log(.gif_select_clk, categoryValue: media.id)
         }
         presentPanModal(gifVc)
     }
@@ -570,6 +583,7 @@ private extension ConversationViewController {
                 self?.showGifViewController()
             case .send(let text):
                 self?.sendMessage(text)
+                Logger.Action.log(.dm_detail_send_msg, categoryValue: "text", self?.conversation.fromUid)
             }
         }
         
@@ -611,7 +625,7 @@ private extension ConversationViewController {
                     .subscribe(onSuccess: { [weak self] url, seconds in
                         //TODO: url, seconds
                         self?.sendVoiceMessage(duration: seconds, filePath: url.path)
-                        
+                        Logger.Action.log(.dm_detail_send_msg, categoryValue: "voice", self?.conversation.fromUid)
                     }, onError: { [weak self] (error) in
                         guard let msgError = error as? MsgError else {
                             let err = error as NSError
@@ -642,5 +656,11 @@ private extension ConversationViewController {
             })
             .disposed(by: bag)
         
+        rx.viewDidAppear.take(1)
+            .subscribe(onNext: { [weak self] (_) in
+                Logger.Action.log(.dm_detail_imp, categoryValue: nil, self?.conversation.fromUid)
+            })
+            .disposed(by: bag)
+
     }
 }
