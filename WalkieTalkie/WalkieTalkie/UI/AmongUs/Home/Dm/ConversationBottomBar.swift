@@ -70,6 +70,9 @@ class ConversationBottomBar: XibLoadableView {
     @IBAction func leftButtonAction(_ sender: Any) {
         switch style {
         case .keyboard:
+            if isFirstResponder {
+                textField.resignFirstResponder()
+            }
             style = .voice
         case .voice:
             style = .keyboard

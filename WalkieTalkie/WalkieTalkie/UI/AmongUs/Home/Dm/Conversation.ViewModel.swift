@@ -60,6 +60,8 @@ extension Conversation {
         let contentSize: CGSize
         let sendFromMe: Bool
         let dateString: String
+        //
+        var isPlayingVoice: Bool = false
         
         init(message: Entity.DMMessage, showTime: Bool) {
             self.message = message

@@ -45,26 +45,23 @@ class AvatarImageView: UIView {
         get { avatarIV.image }
     }
     
-    init(_ verifyStyle: VerifyIconStyle = .black) {
-//        self.verifyIconStyle = verifyStyle
-        super.init(frame: .zero)
-        backgroundColor = .clear
-        addSubviews(views: avatarIV, verifyIV)
-        avatarIV.snp.makeConstraints { maker in
-            maker.edges.equalToSuperview()
-        }
-        
-        setVerifyIcon(style: verifyStyle)
-//        verifyIconStyle = verifyStyle
-//        verifyIV.image = verifyStyle == .gray ? R.image.iconVerifyGrayBorder() : R.image.iconVerifyBlackBorder()
-        verifyIV.snp.makeConstraints { maker in
-            maker.top.equalTo(-2)
-            maker.trailing.equalTo(7.5)
+    var verifyStyle: VerifyIconStyle {
+        didSet {
+            setVerifyIcon(style: verifyStyle)
         }
     }
     
+    init(_ verifyStyle: VerifyIconStyle = .black) {
+        self.verifyStyle = verifyStyle
+        super.init(frame: .zero)
+        backgroundColor = .clear
+        configureSubview()
+    }
+    
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        self.verifyStyle = .black
+        super.init(coder: coder)
+        configureSubview()
     }
     
     override func layoutSubviews() {
@@ -92,5 +89,18 @@ class AvatarImageView: UIView {
     func setVerifyIcon(style: VerifyIconStyle) {
 //        self.verifyIconStyle = verifyIconStyle
         verifyIV.image = style == .gray ? R.image.iconVerifyGrayBorder() : R.image.iconVerifyBlackBorder()
+    }
+    
+    func configureSubview() {
+        addSubviews(views: avatarIV, verifyIV)
+        avatarIV.snp.makeConstraints { maker in
+            maker.edges.equalToSuperview()
+        }
+        
+        setVerifyIcon(style: verifyStyle)
+        verifyIV.snp.makeConstraints { maker in
+            maker.top.equalTo(-2)
+            maker.trailing.equalTo(7.5)
+        }
     }
 }

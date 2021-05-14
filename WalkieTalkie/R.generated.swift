@@ -17,7 +17,7 @@ struct R: Rswift.Validatable {
     try intern.validate()
   }
   
-  /// This `R.file` struct is generated, and contains static references to 17 files.
+  /// This `R.file` struct is generated, and contains static references to 18 files.
   struct file {
     /// Resource file `Adjust-Info.plist`.
     static let adjustInfoPlist = Rswift.FileResource(bundle: R.hostingBundle, name: "Adjust-Info", pathExtension: "plist")
@@ -27,6 +27,10 @@ struct R: Rswift.Validatable {
     static let googleServiceInfoPlist = Rswift.FileResource(bundle: R.hostingBundle, name: "GoogleService-Info", pathExtension: "plist")
     /// Resource file `SupportedLanguages.json`.
     static let supportedLanguagesJson = Rswift.FileResource(bundle: R.hostingBundle, name: "SupportedLanguages", pathExtension: "json")
+    /// Resource file `dmWaveWhite.svga`.
+    static let dmWaveWhiteSvga = Rswift.FileResource(bundle: R.hostingBundle, name: "dmWaveWhite", pathExtension: "svga")
+    /// Resource file `dmWaveYellow.svga`.
+    static let dmWaveYellowSvga = Rswift.FileResource(bundle: R.hostingBundle, name: "dmWaveYellow", pathExtension: "svga")
     /// Resource file `emojis.json`.
     static let emojisJson = Rswift.FileResource(bundle: R.hostingBundle, name: "emojis", pathExtension: "json")
     /// Resource file `mobileRegions.json`.
@@ -51,8 +55,6 @@ struct R: Rswift.Validatable {
     static let roomEmojiRedSvga = Rswift.FileResource(bundle: R.hostingBundle, name: "room-emoji-red", pathExtension: "svga")
     /// Resource file `room-emoji-yellow.svga`.
     static let roomEmojiYellowSvga = Rswift.FileResource(bundle: R.hostingBundle, name: "room-emoji-yellow", pathExtension: "svga")
-    /// Resource file `sample3.aac`.
-    static let sample3Aac = Rswift.FileResource(bundle: R.hostingBundle, name: "sample3", pathExtension: "aac")
     
     /// `bundle.url(forResource: "Adjust-Info", withExtension: "plist")`
     static func adjustInfoPlist(_: Void = ()) -> Foundation.URL? {
@@ -75,6 +77,18 @@ struct R: Rswift.Validatable {
     /// `bundle.url(forResource: "SupportedLanguages", withExtension: "json")`
     static func supportedLanguagesJson(_: Void = ()) -> Foundation.URL? {
       let fileResource = R.file.supportedLanguagesJson
+      return fileResource.bundle.url(forResource: fileResource)
+    }
+    
+    /// `bundle.url(forResource: "dmWaveWhite", withExtension: "svga")`
+    static func dmWaveWhiteSvga(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.dmWaveWhiteSvga
+      return fileResource.bundle.url(forResource: fileResource)
+    }
+    
+    /// `bundle.url(forResource: "dmWaveYellow", withExtension: "svga")`
+    static func dmWaveYellowSvga(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.dmWaveYellowSvga
       return fileResource.bundle.url(forResource: fileResource)
     }
     
@@ -147,12 +161,6 @@ struct R: Rswift.Validatable {
     /// `bundle.url(forResource: "room-emoji-yellow", withExtension: "svga")`
     static func roomEmojiYellowSvga(_: Void = ()) -> Foundation.URL? {
       let fileResource = R.file.roomEmojiYellowSvga
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-    
-    /// `bundle.url(forResource: "sample3", withExtension: "aac")`
-    static func sample3Aac(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.sample3Aac
       return fileResource.bundle.url(forResource: fileResource)
     }
     

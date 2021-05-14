@@ -394,10 +394,11 @@
 		FED7B605244ED1B900D94F97 /* Logger+UserAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = FED7B604244ED1B900D94F97 /* Logger+UserAction.swift */; };
 		FED7B607244EDEA500D94F97 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = FED7B606244EDEA500D94F97 /* Reachability.swift */; };
 		FEE0E7A025A44C3200DC67B8 /* UIViewLocalizableExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEE0E79F25A44C3200DC67B8 /* UIViewLocalizableExtension.swift */; };
+		FEE6F213264E53E800F4C0C5 /* dmWaveWhite.svga in Resources */ = {isa = PBXBuildFile; fileRef = FEE6F212264E53E800F4C0C5 /* dmWaveWhite.svga */; };
+		FEE6F215264E53FE00F4C0C5 /* dmWaveYellow.svga in Resources */ = {isa = PBXBuildFile; fileRef = FEE6F214264E53FE00F4C0C5 /* dmWaveYellow.svga */; };
 		FEE8502F259B31DF00CF9A74 /* JoinRoomable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEE8502E259B31DF00CF9A74 /* JoinRoomable.swift */; };
 		FEEB70612648CCA800D7EB82 /* ConversationBottomBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEEB70602648CCA800D7EB82 /* ConversationBottomBar.swift */; };
 		FEEB70632648CCB000D7EB82 /* ConversationBottomBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = FEEB70622648CCB000D7EB82 /* ConversationBottomBar.xib */; };
-		FEEB70662649642400D7EB82 /* sample3.aac in Resources */ = {isa = PBXBuildFile; fileRef = FEEB70652649642300D7EB82 /* sample3.aac */; };
 		FEF170FB25C9598C004C3FD3 /* AmongChat.Room.TopEntranceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEF170FA25C9598C004C3FD3 /* AmongChat.Room.TopEntranceView.swift */; };
 		FEF170FF25C95BE0004C3FD3 /* RoomTopEntranceContentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FEF170FE25C95BE0004C3FD3 /* RoomTopEntranceContentView.xib */; };
 		FEF3114E258B51470070DBE7 /* UIViewControllerStoryProductExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEF3114D258B51470070DBE7 /* UIViewControllerStoryProductExtension.swift */; };
@@ -853,10 +854,11 @@
 		FED7B604244ED1B900D94F97 /* Logger+UserAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Logger+UserAction.swift"; sourceTree = "<group>"; };
 		FED7B606244EDEA500D94F97 /* Reachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 		FEE0E79F25A44C3200DC67B8 /* UIViewLocalizableExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewLocalizableExtension.swift; sourceTree = "<group>"; };
+		FEE6F212264E53E800F4C0C5 /* dmWaveWhite.svga */ = {isa = PBXFileReference; lastKnownFileType = file; path = dmWaveWhite.svga; sourceTree = "<group>"; };
+		FEE6F214264E53FE00F4C0C5 /* dmWaveYellow.svga */ = {isa = PBXFileReference; lastKnownFileType = file; path = dmWaveYellow.svga; sourceTree = "<group>"; };
 		FEE8502E259B31DF00CF9A74 /* JoinRoomable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinRoomable.swift; sourceTree = "<group>"; };
 		FEEB70602648CCA800D7EB82 /* ConversationBottomBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationBottomBar.swift; sourceTree = "<group>"; };
 		FEEB70622648CCB000D7EB82 /* ConversationBottomBar.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ConversationBottomBar.xib; sourceTree = "<group>"; };
-		FEEB70652649642300D7EB82 /* sample3.aac */ = {isa = PBXFileReference; lastKnownFileType = file; path = sample3.aac; sourceTree = "<group>"; };
 		FEF170FA25C9598C004C3FD3 /* AmongChat.Room.TopEntranceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChat.Room.TopEntranceView.swift; sourceTree = "<group>"; };
 		FEF170FE25C95BE0004C3FD3 /* RoomTopEntranceContentView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RoomTopEntranceContentView.xib; sourceTree = "<group>"; };
 		FEF3114D258B51470070DBE7 /* UIViewControllerStoryProductExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerStoryProductExtension.swift; sourceTree = "<group>"; };
@@ -1221,7 +1223,6 @@
 				FE4FDADF2435E4C500CD5E97 /* GoogleService-Info.plist */,
 				FECA43B52459A8A40075D139 /* resource */,
 				2BAC1458258E5D690064F55D /* R.generated.swift */,
-				FEEB70652649642300D7EB82 /* sample3.aac */,
 				FE126D20243461EA00BEDD60 /* Assets.xcassets */,
 				FE126D25243461EA00BEDD60 /* Info.plist */,
 				BD9F273025A716A800FA3616 /* Infoplist.strings */,
@@ -1581,6 +1582,8 @@
 				FE7ED8FD25F20291009C608A /* room-emoji-purple.svga */,
 				FE7ED8F825F20291009C608A /* room-emoji-red.svga */,
 				FE7ED8FE25F20292009C608A /* room-emoji-yellow.svga */,
+				FEE6F212264E53E800F4C0C5 /* dmWaveWhite.svga */,
+				FEE6F214264E53FE00F4C0C5 /* dmWaveYellow.svga */,
 				FE3AEE6425AED1B600E91D01 /* Bungee-Regular.ttf */,
 				BDC9D4B1258A2BC200412BDC /* Adjust-Info.plist */,
 				FE1A2DF4248A4BAD00F9A44D /* emojis.json */,
@@ -1885,7 +1888,9 @@
 				FE9EF534258B2DC1008C0BAD /* AmongInputNickNameView.xib in Resources */,
 				FE169E2E2613516500AD7866 /* AmongGroupJoinRequestCell.xib in Resources */,
 				FE7ED90825F20292009C608A /* room-emoji-yellow.svga in Resources */,
+				FEE6F215264E53FE00F4C0C5 /* dmWaveYellow.svga in Resources */,
 				BDB21A52250A20DA000ADC20 /* Nunito-BoldItalic.ttf in Resources */,
+				FEE6F213264E53E800F4C0C5 /* dmWaveWhite.svga in Resources */,
 				FE7CE9D72589C1C60067952C /* AmongRoomInfoView.xib in Resources */,
 				FEF170FF25C95BE0004C3FD3 /* RoomTopEntranceContentView.xib in Resources */,
 				FEF61717264A9810007CC97E /* ConversationTableCell.xib in Resources */,
@@ -1894,7 +1899,6 @@
 				FE64007324C7014200DEE336 /* EndUserLicenseController.xib in Resources */,
 				FEA2E93425C139E4007485A8 /* AvatarGuideViewController.xib in Resources */,
 				266A42F625F10C5A003B583B /* InfoWithNicknameView.xib in Resources */,
-				FEEB70662649642400D7EB82 /* sample3.aac in Resources */,
 				FE126D1F243461E800BEDD60 /* Main.storyboard in Resources */,
 				FE87C2D6259C2EC200799883 /* ShareContainerView.xib in Resources */,
 				FED38C8E26132984003C3F7D /* AmongGroupTopicConfigView.xib in Resources */,

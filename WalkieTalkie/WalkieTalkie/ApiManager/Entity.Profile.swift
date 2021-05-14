@@ -63,8 +63,8 @@ func attribuated(with name: String?, isVerified: Bool?, isVip: Bool?, fontSize: 
 
 extension Verifiedable {
     
-    func nameWithVerified(fontSize: CGFloat = 16) -> NSAttributedString {
-        return attribuated(with: name ?? "", isVerified: isVerified, isVip: isVip, fontSize: fontSize)
+    func nameWithVerified(fontSize: CGFloat = 16, isShowVerify: Bool = true) -> NSAttributedString {
+        return attribuated(with: name, isVerified: isShowVerify ? isVerified : false, isVip: isVip, fontSize: fontSize)
     }
 }
 
@@ -231,7 +231,7 @@ extension Entity {
 
 extension Entity.UserProfile {
     var dmProfile: Entity.DMProfile {
-        Entity.DMProfile(uid: uid.int64, name: name, pictureUrl: pictureUrl)
+        Entity.DMProfile(uid: uid.int64, name: name, pictureUrl: pictureUrl, isVerified: isVerified, isVip: isVip)
     }
     
     var nameWithAge: String {

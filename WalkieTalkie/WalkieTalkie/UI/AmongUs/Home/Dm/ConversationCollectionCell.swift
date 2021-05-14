@@ -9,9 +9,9 @@
 import UIKit
 import RxSwift
 import RxCocoa
-import NVActivityIndicatorView
 import AVFoundation
 import Kingfisher
+import SVGAPlayer
 
 private let avatarLeftEdge: CGFloat = 20
 private let contentLeftEdge: CGFloat = 60
@@ -104,7 +104,17 @@ class ConversationCollectionCell: UICollectionViewCell {
         return v
     }()
     
-    private lazy var voicePlayIndiator = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 24, height: 30), type: .lineScale, color: .white, padding: 0)
+    private lazy var voicePlayIndiator: SVGAPlayer = {
+        let player = SVGAPlayer(frame: .zero)
+        player.clearsAfterStop = true
+        player.delegate = self
+        player.loops = 0
+        player.contentMode = .scaleAspectFill
+        player.isUserInteractionEnabled = false
+        return player
+    }()
+    
+    private var svagPlayerStatus: AmongChat.Room.UserCell.SvagPlayerStatus = .free
     
     private lazy var voiceTagView: UIImageView = {
         let v = UIImageView(image: R.image.iconDmVoiceTag())
@@ -162,7 +172,6 @@ class ConversationCollectionCell: UICollectionViewCell {
     }
     
     func bind(_ viewModel: Conversation.MessageCellViewModel) {
-        self.viewModel = viewModel
         let msg = viewModel.message
         if viewModel.sendFromMe {
             avatarImageView.setAvatarImage(with: Settings.shared.profilePage.value?.profile?.pictureUrl)
@@ -238,24 +247,25 @@ class ConversationCollectionCell: UICollectionViewCell {
                 textContainer.right = Frame.Screen.width - contentLeftEdge
                 textContainer.roundCorners(topLeft: 18, topRight: 2, bottomLeft: 18, bottomRight: 18)
                 statusView.right = textContainer.left - 8
-                voicePlayIndiator.color = "#FFF000".color()
                 unreadView.right = statusView.right
                 
             } else {
                 voiceDurationLabel.textColor = .white
-                voicePlayIndiator.color = .white
                 avatarImageView.left = avatarLeftEdge
                 textContainer.left = contentLeftEdge
                 textContainer.roundCorners(topLeft: 2, topRight: 18, bottomLeft: 18, bottomRight: 18)
                 statusView.left = textContainer.right + 8
                 unreadView.left = statusView.left
             }
+            voiceTagView.tintColor = voiceDurationLabel.textColor
             if let path = msg.body.localAbsolutePath, AudioPlayerManager.default.isPlaying(path) {
                 startVoicePlay(animated: true)
+                AudioPlayerManager.default.playFinishHandler = { [weak self] in
+                    self?.startVoicePlay(animated: false)
+                }
             } else {
                 startVoicePlay(animated: false)
             }
-            voiceTagView.tintColor = voicePlayIndiator.color
             statusView.centerY = textContainer.centerY
             indicatorView.center = statusView.center
             unreadView.isHidden = !(msg.unread ?? false)
@@ -290,6 +300,35 @@ class ConversationCollectionCell: UICollectionViewCell {
             container.top = 6
         }
         timeLabel.isHidden = !viewModel.showTime
+        self.viewModel = viewModel
+    }
+    
+    func startPlayVoiceAnimating() {
+        //        guard let name = name else {
+        //            return
+        //        }
+        //如果正在播放，则不用再次播放
+        guard svagPlayerStatus == .free else {
+            return
+        }
+        let name = viewModel?.sendFromMe == true ? "dmWaveYellow" : "dmWaveWhite"
+        let parser = SVGAGlobalParser.defaut
+        parser.parse(withNamed: name, in: nil,
+                     completionBlock: { [weak self] (item) in
+                        self?.voicePlayIndiator.clearsAfterStop = true
+                        self?.svagPlayerStatus = .playingEmoji
+                        self?.voicePlayIndiator.videoItem = item
+                        self?.voicePlayIndiator.startAnimation()
+                     },
+                     failureBlock: { [weak self] error in
+                        self?.svagPlayerStatus = .free
+                        debugPrint("error: \(error.localizedDescription ?? "")")
+                     })
+    }
+    
+    func stopPlayVoiceAnimating() {
+        voicePlayIndiator.videoItem = nil
+        voicePlayIndiator.stopAnimation()
     }
     
     @objc func clickContentViewAction() {
@@ -308,7 +347,8 @@ class ConversationCollectionCell: UICollectionViewCell {
                 return
             }
             startVoicePlay(animated: true)
-            AudioPlayerManager.default.play(fileUrl: path) { [weak self] in
+            AudioPlayerManager.default.play(fileUrl: path)
+            AudioPlayerManager.default.playFinishHandler = { [weak self] in
                 self?.startVoicePlay(animated: false)
             }
             actionHandler?(.clickVoiceMessage(message))
@@ -316,12 +356,17 @@ class ConversationCollectionCell: UICollectionViewCell {
     }
     
     func startVoicePlay(animated: Bool) {
-        if animated {
-            voicePlayIndiator.startAnimating()
+        guard viewModel?.message.body.msgType == .voice else {
             voiceTagView.isHidden = true
+            stopPlayVoiceAnimating()
+            return
+        }
+        if animated {
+            voiceTagView.isHidden = true
+            startPlayVoiceAnimating()
         } else {
             voiceTagView.isHidden = false
-            voicePlayIndiator.stopAnimating()
+            stopPlayVoiceAnimating()
         }
     }
     
@@ -338,5 +383,12 @@ class ConversationCollectionCell: UICollectionViewCell {
         
         contentView.addSubviews(views: container, timeLabel)
         container.addSubviews(views: avatarImageView, textContainer, gifImageView, statusView, indicatorView, unreadView)
+    }
+}
+
+extension ConversationCollectionCell: SVGAPlayerDelegate {
+    func svgaPlayerDidFinishedAnimation(_ player: SVGAPlayer!) {
+        svagPlayerStatus = .free
+        startVoicePlay(animated: false)
     }
 }

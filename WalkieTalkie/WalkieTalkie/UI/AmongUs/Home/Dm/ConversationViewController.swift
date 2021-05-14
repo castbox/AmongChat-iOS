@@ -124,6 +124,21 @@ extension ConversationViewController: UICollectionViewDataSource {
         }
         return cell
     }
+    
+//    func clickVoice(message: ) -> <#return type#> {
+//        guard message.body.msgType == .voice,
+//              let path = message.body.localAbsolutePath,
+//              !AudioPlayerManager.default.isPlaying(path) else {
+//            startVoicePlay(animated: false)
+//            AudioPlayerManager.default.stopPlay()
+//            return
+//        }
+//        startVoicePlay(animated: true)
+//        AudioPlayerManager.default.play(fileUrl: path) { [weak self] in
+//            self?.startVoicePlay(animated: false)
+//        }
+//        actionHandler?(.clickVoiceMessage(message))
+//    }
 }
 
 extension ConversationViewController: UICollectionViewDelegateFlowLayout {
@@ -440,17 +455,17 @@ private extension ConversationViewController {
         //            self.newMessageButton.isHidden = true
         // 消息不足一屏
         if contentHeight < height {
-            if (!dataSource.isEmpty && firstDataLoaded) || keyboardVisibleHeight > 0 {
-                firstDataLoaded = false
+//            if (!dataSource.isEmpty && firstDataLoaded) || keyboardVisibleHeight > 0 {
+//                firstDataLoaded = false
                 UIView.animate(withDuration: 0) {
                     self.collectionView.reloadData()
                 } completion: { _ in
                     self.messageListScrollToBottom(animated: self.keyboardVisibleHeight > 0)
                 }
-            } else {
-                collectionView.reloadData()
-                
-            }
+//            } else {
+//                collectionView.reloadData()
+//
+//            }
             //获取高度，更新 collectionview height
         } else {// 超过一屏
             if dataSource.count > lastCount,
