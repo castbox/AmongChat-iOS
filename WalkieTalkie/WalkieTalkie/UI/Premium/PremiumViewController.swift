@@ -558,9 +558,9 @@ extension PremiumViewController {
         for (idx, privilegeStack) in privilegeStacks.enumerated() {
             if UIDevice.current.userInterfaceIdiom == .pad {
                 privilegeStack.snp.makeConstraints { (maker) in
-                    maker.top.equalTo(privilegesTitle.snp.bottom).offset(20)
-                    maker.bottom.greaterThanOrEqualToSuperview().inset(28)
                     if idx == 0 {
+                        maker.top.equalTo(privilegesTitle.snp.bottom).offset(20)
+                        maker.bottom.equalToSuperview().offset(-28)
                         maker.leading.equalToSuperview().inset(hEdgeInset)
                     } else if idx == privilegeStacks.count - 1 {
                         maker.trailing.equalToSuperview().inset(hEdgeInset)
@@ -569,7 +569,7 @@ extension PremiumViewController {
                     if idx > 0,
                        let pre = privilegeStacks.safe(idx - 1) {
                         maker.leading.equalTo(pre.snp.trailing).offset(20)
-                        maker.width.equalTo(pre)
+                        maker.top.width.height.equalTo(pre)
                     }
                 }
 
@@ -599,7 +599,7 @@ extension PremiumViewController {
         let size: ((Bool) -> CGSize) = { isSelected in
             if UIDevice.current.userInterfaceIdiom == .pad {
                 return isSelected ? CGSize(width: 131.0, height: 175.0) :
-                    CGSize(width: 80, height: 124.0)
+                    CGSize(width: 90, height: 124.0)
             } else {
                 return isSelected ? CGSize(width: 131.scalValue, height: 131.scalValue * 175.0 / 131.0) :
                     CGSize(width: 90.scalValue, height: 90.scalValue * 124.0 / 90.0)
