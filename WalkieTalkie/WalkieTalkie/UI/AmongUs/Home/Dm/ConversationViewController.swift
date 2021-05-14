@@ -12,7 +12,8 @@ import RxCocoa
 import SwiftyUserDefaults
 import SDCAlertView
 
-private let bottomBarHeight = 64 + Frame.Height.safeAeraBottomHeight
+private let bottomBarHeight: CGFloat = 64 + Frame.Height.safeAeraBottomHeight
+private let collectionBottomEdge: CGFloat = 64 + 18 + Frame.Height.safeAeraBottomHeight
 
 class ConversationViewController: ViewController {
     
@@ -21,6 +22,7 @@ class ConversationViewController: ViewController {
     @IBOutlet private weak var collectionView: UICollectionView!
     @IBOutlet private weak var collectionViewBottomConstraint: NSLayoutConstraint!
     
+    @IBOutlet weak var navBarHeightConstraint: NSLayoutConstraint!
     @IBOutlet private weak var userInfostackView: UIStackView!
     
     @IBOutlet private weak var onlineView: UIView!
@@ -465,17 +467,24 @@ private extension ConversationViewController {
 //            }
             //获取高度，更新 collectionview height
         } else {// 超过一屏
-            if dataSource.count > lastCount,
-               floor(bottomOffset) - floor(height) < 40 {// 已经在底部
-                let rows = collectionView.numberOfItems(inSection: 0)
-                let newRow = dataSource.count
-                guard newRow > rows else { return }
-                let indexPaths = Array(rows..<newRow).map({ IndexPath(row: $0, section: 0) })
-                collectionView.performBatchUpdates {
-                    self.collectionView.insertItems(at: indexPaths)
-                } completion: { result in
-                    if let endPath = indexPaths.last {
-                        self.collectionView.scrollToItem(at: endPath, at: .bottom, animated: true)
+            if dataSource.count > lastCount {// 已经在底部
+                if floor(bottomOffset) - floor(height) < 40 {
+                    let rows = collectionView.numberOfItems(inSection: 0)
+                    let newRow = dataSource.count
+                    guard newRow > rows else { return }
+                    let indexPaths = Array(rows..<newRow).map({ IndexPath(row: $0, section: 0) })
+                    collectionView.performBatchUpdates {
+                        self.collectionView.insertItems(at: indexPaths)
+                    } completion: { result in
+                        if let endPath = indexPaths.last {
+                            self.collectionView.scrollToItem(at: endPath, at: .bottom, animated: true)
+                        }
+                    }
+                } else {
+                    collectionView.reloadData()
+                    //检查最后一个是否为自己消息
+                    if dataSource.count > lastCount, dataSource.last?.sendFromMe == true {
+                        messageListScrollToBottom()
                     }
                 }
             } else {
@@ -494,13 +503,10 @@ private extension ConversationViewController {
     }
     
     func updateContentInsert() {
-        //        guard collectionView.contentInset.top > 0 else {
-        //            return
-        //        }
         let contentHeight = dataSource.reduce(0) { $0 + $1.height }
         //top insert
         let onlineViewContentHeight: CGFloat = onlineView.isHidden ? 0 : 80
-        var topInset = Frame.Screen.height - bottomBarHeight - Frame.Height.navigation - contentHeight + onlineViewContentHeight - keyboardVisibleHeight
+        var topInset = Frame.Screen.height - collectionBottomEdge - Frame.Height.navigation - contentHeight + onlineViewContentHeight - keyboardVisibleHeight
         if topInset < 0 {
             topInset = 0
         }
@@ -547,8 +553,9 @@ private extension ConversationViewController {
         
         
         titleLabel.text = conversation.message.fromUser.name
+        collectionViewBottomConstraint.constant = collectionBottomEdge
+        navBarHeightConstraint.constant = Frame.Height.navigation
         collectionView.keyboardDismissMode = .interactive
-//        collectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 16, right: 0)
         collectionView.register(nibWithCellClass: ConversationCollectionCell.self)
     }
     
@@ -593,8 +600,8 @@ private extension ConversationViewController {
                     maker.bottom.equalToSuperview().offset(-keyboardVisibleHeight)
                     maker.height.equalTo(bottomBarHeight)
                 }
-                let extraBottomEdge: CGFloat = keyboardVisibleHeight > 0 ? 12 : 0
-                self.collectionViewBottomConstraint.constant = 64 + keyboardVisibleHeight + extraBottomEdge
+                let isKeyboardShow = keyboardVisibleHeight > 0
+                self.collectionViewBottomConstraint.constant = collectionBottomEdge + keyboardVisibleHeight - (isKeyboardShow ? Frame.Height.safeAeraBottomHeight : 0)
                 UIView.animate(withDuration: 0) {
                     self.view.layoutIfNeeded()
                 }

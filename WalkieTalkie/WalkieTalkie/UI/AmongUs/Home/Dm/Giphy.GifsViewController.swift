@@ -43,12 +43,12 @@ extension Giphy {
             layout.sectionInset = UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 20)
             layout.minimumLineSpacing = 12
             layout.minimumInteritemSpacing = 12
-            layout.headerHeight = 50.0
+//            layout.headerHeight = 50.0
             
             let v = UICollectionView(frame: .zero, collectionViewLayout: layout)
             //            v.register(nibWithCellClass: ConversationListCell.self)
             v.register(cellWithClass: Cell.self)
-            v.register(supplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withClass: GiphyHeaderView.self)
+//            v.register(supplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withClass: GiphyHeaderView.self)
             //            v.contentInset = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
             v.showsVerticalScrollIndicator = false
             v.showsHorizontalScrollIndicator = false
@@ -261,16 +261,11 @@ extension Giphy.GifsViewController: UICollectionViewDataSource, UICollectionView
         return cell
     }
     
-    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        //        v.register(supplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withClass: GiphyHeaderView.self)
-        let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withClass: GiphyHeaderView.self, for: indexPath)
-        return view
-    }
-    
-    //    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-    //        let itemSize = (collectionView.frame.width - (collectionView.contentInset.left + collectionView.contentInset.right + 10)) / 2
-    //        return CGSize(width: itemSize, height: itemSize)
-    //    }
+//    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+//        //        v.register(supplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withClass: GiphyHeaderView.self)
+//        let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withClass: GiphyHeaderView.self, for: indexPath)
+//        return view
+//    }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         return CGSize(width: Frame.Screen.width, height: 40)

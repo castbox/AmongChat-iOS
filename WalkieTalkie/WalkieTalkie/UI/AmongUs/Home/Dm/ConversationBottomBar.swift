@@ -80,6 +80,9 @@ class ConversationBottomBar: XibLoadableView {
     }
     
     @IBAction func gifButtonAction(_ sender: Any) {
+        if isFirstResponder {
+            textField.resignFirstResponder()
+        }
         actionHandler?(.gif)
     }    
 }

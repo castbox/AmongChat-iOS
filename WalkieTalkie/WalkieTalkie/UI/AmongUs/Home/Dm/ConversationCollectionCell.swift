@@ -81,7 +81,7 @@ class ConversationCollectionCell: UICollectionViewCell {
         l.font = R.font.nunitoBold(size: 16)
         l.textColor = UIColor(hex6: 0xFFFFFF)
         l.numberOfLines = 0
-        l.textAlignment = .center
+        l.textAlignment = .left
         //        l.lineBreakMode = .byWordWrapping
         return l
     }()
@@ -128,8 +128,8 @@ class ConversationCollectionCell: UICollectionViewCell {
     private lazy var timeLabel: UILabel = {
         let l = UILabel(frame: CGRect(x: 20, y: 0, width: Frame.Screen.width - 20 * 2, height: 19))
         l.font = R.font.nunitoBold(size: 14)
-        l.textAlignment = .left
         l.textColor = UIColor(hex6: 0x595959)
+        l.textAlignment = .center
         return l
     }()
     

@@ -38,7 +38,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CoN-C0-YAy">
-                    <rect key="frame" x="356" y="8" width="44" height="44"/>
+                    <rect key="frame" x="356" y="10" width="44" height="44"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="44" id="Vzp-E4-m39"/>
                         <constraint firstAttribute="width" constant="44" id="Wxv-r0-oFl"/>
@@ -97,8 +97,8 @@
                 <constraint firstItem="dBK-00-tlf" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="7Ln-4d-fwA"/>
                 <constraint firstItem="Pgp-2Z-QjQ" firstAttribute="bottom" secondItem="lEm-K6-rwg" secondAttribute="bottom" id="8zL-vO-hHt"/>
                 <constraint firstItem="lEm-K6-rwg" firstAttribute="leading" secondItem="Et7-5C-X1J" secondAttribute="trailing" constant="6" id="CVm-5X-DiS"/>
-                <constraint firstItem="CoN-C0-YAy" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="8" id="H9r-1s-soe"/>
                 <constraint firstItem="Et7-5C-X1J" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="12" id="HAc-hu-0U9"/>
+                <constraint firstItem="CoN-C0-YAy" firstAttribute="centerY" secondItem="Pgp-2Z-QjQ" secondAttribute="centerY" id="JQU-Zo-dd2"/>
                 <constraint firstAttribute="trailing" secondItem="CoN-C0-YAy" secondAttribute="trailing" constant="14" id="NjU-yo-jOM"/>
                 <constraint firstItem="lEm-K6-rwg" firstAttribute="centerY" secondItem="Et7-5C-X1J" secondAttribute="centerY" id="Qic-ak-gYR"/>
                 <constraint firstItem="dBK-00-tlf" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="ZXH-2m-ebE"/>
