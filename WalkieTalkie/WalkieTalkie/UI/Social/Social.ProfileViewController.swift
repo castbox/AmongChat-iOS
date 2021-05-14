@@ -575,7 +575,7 @@ private extension Social.ProfileViewController {
         if !isSelfProfile.value {
             Logger.Action.log(.profile_other_clk, category: .followers, "\(uid)")
         }
-        headerView.redCountLabel.isHidden = true
+        headerView.redDotView.isHidden = true
         let vc = Social.FollowerViewController(with: uid, isFollowing: false)
         navigationController?.pushViewController(vc)
     }

@@ -239,16 +239,26 @@ extension Social.ProfileViewController {
             return btn
         }()
         
-        lazy var redCountLabel: UILabel = {
+        private lazy var redCountLabel: UILabel = {
             let lb = WalkieLabel()
             lb.font = R.font.nunitoExtraBold(size: 12)
             lb.textColor = .white
-            lb.backgroundColor = UIColor(hex6: 0xFB5858)
-            lb.layer.masksToBounds = true
-            lb.layer.cornerRadius = 8
-            lb.isHidden = true
             lb.textAlignment = .center
             return lb
+        }()
+        
+        private(set) lazy var redDotView: UIView = {
+            let v = UIView()
+            v.addSubview(redCountLabel)
+            redCountLabel.snp.makeConstraints { (maker) in
+                maker.top.bottom.equalToSuperview()
+                maker.leading.trailing.equalToSuperview().inset(4)
+            }
+            v.backgroundColor = UIColor(hex6: 0xFB5858)
+            v.layer.masksToBounds = true
+            v.layer.cornerRadius = 8
+            v.isHidden = true
+            return v
         }()
         
         private var isSelf = true
@@ -310,9 +320,9 @@ extension Social.ProfileViewController {
                 Defaults[\.followersCount] = followersCount
                 if followersCount > lastCount {
                     redCountLabel.text = "+\(followersCount - lastCount)"
-                    redCountLabel.isHidden = false
+                    redDotView.isHidden = false
                 } else {
-                    redCountLabel.isHidden = true
+                    redDotView.isHidden = true
                 }
             }
         }
@@ -383,7 +393,7 @@ extension Social.ProfileViewController {
                     .disposed(by: bag)
             }
 
-            infoContainer.addSubviews(views: avatarIV, changeIcon, relationContainer, redCountLabel)
+            infoContainer.addSubviews(views: avatarIV, changeIcon, relationContainer, redDotView)
 
             followingBtn.snp.makeConstraints { (maker) in
                 maker.leading.top.bottom.equalToSuperview()
@@ -507,7 +517,7 @@ extension Social.ProfileViewController {
                 maker.top.equalTo(avatarIV.snp.bottom).offset(33)
             }
             
-            redCountLabel.snp.makeConstraints { (make) in
+            redDotView.snp.makeConstraints { (make) in
                 make.leading.equalTo(followerBtn.titleLabel.snp.trailing).offset(4)
                 make.centerY.equalTo(followerBtn.titleLabel.snp.centerY)
                 make.height.equalTo(16)
