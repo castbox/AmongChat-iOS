@@ -145,7 +145,7 @@ target 'WalkieTalkie' do
     pod 'SVGAPlayer'
     
     #https://developers.facebook.com/docs/facebook-login/ios?sdk=cocoapods
-    pod 'FBSDKLoginKit'
+    pod 'FBSDKLoginKit', "~> 9.2.0"
     
     pod 'NotificationBannerSwift', '~> 3.0.0'
     pod 'PullToDismiss', '~> 2.2'

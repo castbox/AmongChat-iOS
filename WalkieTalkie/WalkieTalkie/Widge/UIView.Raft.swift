@@ -58,11 +58,13 @@ extension Raft where Base: UIView {
     func autoShow(_ type: ShowType, interval: TimeInterval = 2,
                   userInteractionEnabled: Bool = true,
                   backColor: UIColor? = nil,
+                  offset: CGPoint = .zero,
                   completion: (() -> Void)? = nil) {
         
         MBProgressHUD.hide(for: self.base, animated: false)
         let hud = hudFor(type: type, backColor: backColor)
         hud.isUserInteractionEnabled = userInteractionEnabled
+        hud.offset = offset
         hud.show(animated: true)
         hud.hide(animated: true, afterDelay: interval > 0 ? interval : 2)
         hud.label.numberOfLines = 0

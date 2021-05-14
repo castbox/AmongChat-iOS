@@ -34,7 +34,7 @@ class AudioRecorderViewController: WalkieTalkie.ViewController {
         v.progressLineWidth = 4.5
         v.progressLineColor = UIColor(hex6: 0xFFF000)
         v.progressBackgroundColor = .clear
-        
+        v.isHidden = true
         return v
     }()
     
@@ -58,7 +58,7 @@ class AudioRecorderViewController: WalkieTalkie.ViewController {
     private lazy var cancelTipLabel: UILabel = {
         let lb = UILabel()
         lb.font = R.font.nunitoExtraBold(size: 16)
-        lb.text = R.string.localizable.amongChatAudioRecordingReleaseCancel()
+        lb.text = R.string.localizable.amongChatAudioRecordingSlideCancel()
         lb.textColor = .white
         lb.textAlignment = .center
         return lb
@@ -91,20 +91,7 @@ class AudioRecorderViewController: WalkieTalkie.ViewController {
     private let countdown = 60
     private var recordedSeconds = 0
     private var recorder: AVAudioRecorder? = nil
-    private lazy var savedFileURL: URL = {
-        let user = Settings.shared.loginResult.value?.uid.string ?? "anonymous"
-//        let dirPath = NSSearchPathForDirectoriesInDomains(.documentDirectory,
-//                                                          .userDomainMask,
-//                                                          true).last! + "/\(user)/temp/audio/"
-//
-//        if FileManager.default.fileExists(atPath: dirPath) == false {
-//            do {
-//                try FileManager.default.createDirectory(at: URL(fileURLWithPath: dirPath, isDirectory: true), withIntermediateDirectories: true)
-//            } catch let error {
-//
-//            }
-//        }
-        
+    private lazy var savedFileURL: URL = {        
         let filePath = FileManager.voiceFilePath(with: "\(Date().timeIntervalSince1970).aac") ?? ""
         let fileURL = URL(fileURLWithPath: filePath)
         
@@ -118,7 +105,6 @@ class AudioRecorderViewController: WalkieTalkie.ViewController {
         super.viewDidLoad()
         setUpLayout()
         setUpEvents()
-        startRecording()
     }
     
     override func viewDidLayoutSubviews() {
@@ -190,8 +176,8 @@ extension AudioRecorderViewController {
         
         endTipLabel.snp.makeConstraints { (maker) in
             maker.leading.trailing.equalToSuperview().inset(64)
-            maker.height.equalTo(36)
-            maker.bottom.equalTo(-46)
+            maker.height.equalTo(40)
+            maker.bottom.equalTo(-44)
         }
         
     }
@@ -224,7 +210,7 @@ extension AudioRecorderViewController {
                 self.recordedSeconds = timePassed
                 let m = timePassed / 60
                 let s = timePassed % 60
-                self.timeLabel.text = "\(m):\(s)"
+                self.timeLabel.text = String(format: "%0.2d:%0.2d", m, s)
             }, onCompleted: { [weak self] in
                 self?.sm.eventOccurs(.timeout)
             })
@@ -235,6 +221,8 @@ extension AudioRecorderViewController {
             .subscribe(onNext: { [weak self] (_) in
                 guard let `self` = self else { return }
                 self.circleView.updateProgress(fromValue: 0, toValue: 1, animationDuration: Double(self.countdown))
+                self.circleView.isHidden = false
+                self.startRecording()
             })
             .disposed(by: bag)
         
@@ -307,10 +295,12 @@ extension AudioRecorderViewController {
         
         if toCancelStyle {
             cancelTipLabel.textColor = UIColor(hex6: 0xFB5858)
+            cancelTipLabel.text = R.string.localizable.amongChatAudioRecordingReleaseCancel()
             endTipLabel.backgroundColor = UIColor(hex6: 0xFB5858)
             micButton.setImage(R.image.ac_chat_speak_cancel(), for: .normal)
         } else {
             cancelTipLabel.textColor = .white
+            cancelTipLabel.text = R.string.localizable.amongChatAudioRecordingSlideCancel()
             endTipLabel.backgroundColor = UIColor(hex6: 0xFFF000)
             micButton.setImage(R.image.ac_chat_speak(), for: .normal)
         }

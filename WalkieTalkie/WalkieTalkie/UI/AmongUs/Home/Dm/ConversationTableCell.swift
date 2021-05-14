@@ -36,7 +36,7 @@ class ConversationTableCell: UITableViewCell {
         default:
             ()
         }
-        timeLabel.text = msg.dateString
+        timeLabel.text = msg.date.timeFormattedForConversationList()
         countLabel.text = item.unreadCount.string
         countView.isHidden = item.unreadCount <= 0
     }

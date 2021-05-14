@@ -36,7 +36,6 @@ class ConversationListCell: UICollectionViewCell {
         default:
             ()
         }
-        timeLabel.text = msg.dateString
         countLabel.text = item.unreadCount.string
         countView.isHidden = item.unreadCount <= 0
     }

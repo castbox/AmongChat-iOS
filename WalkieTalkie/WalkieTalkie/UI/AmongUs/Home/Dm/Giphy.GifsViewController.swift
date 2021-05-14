@@ -45,14 +45,6 @@ extension Giphy {
             layout.minimumInteritemSpacing = 12
             layout.headerHeight = 50.0
             
-            //            let layout = Giphy.GifViewLayout()
-            //            layout.delegate = self
-            //            layout.scrollDirection = .vertical
-            //            var hInset: CGFloat = 20
-            //            var columns: Int = 1
-            //            let interitemSpacing: CGFloat = 20
-            //            layout.itemSize = CGSize(width: UIScreen.main.bounds.width, height: 84)
-            //            layout.sectionInset = UIEdgeInsets(top: 12, left: hInset, bottom: 0, right: hInset)
             let v = UICollectionView(frame: .zero, collectionViewLayout: layout)
             //            v.register(nibWithCellClass: ConversationListCell.self)
             v.register(cellWithClass: Cell.self)
@@ -133,7 +125,7 @@ extension Giphy {
             
             titleView.snp.makeConstraints { (maker) in
                 maker.leading.trailing.equalToSuperview()
-                maker.height.equalTo(65.5)
+                maker.height.equalTo(72)
                 maker.top.equalTo(topLayoutGuide.snp.bottom)
             }
             
@@ -262,7 +254,10 @@ extension Giphy.GifsViewController: UICollectionViewDataSource, UICollectionView
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withClass: Cell.self, for: indexPath)
         //    cell.photo = Data[indexPath.item]
-        cell.imageView.setImage(with: dataSource.safe(indexPath.item)?.previewGifUrl)
+        cell.indicator.startAnimating()
+        cell.imageView.setImage(with: dataSource.safe(indexPath.item)?.previewGifUrl, completionHandler: { [weak cell] _ in
+            cell?.indicator.stopAnimating()
+        })
         return cell
     }
     
@@ -352,6 +347,12 @@ extension Giphy.GifsViewController {
     }
     
     class Cell: UICollectionViewCell {
+        lazy var indicator: UIActivityIndicatorView = {
+            let v = UIActivityIndicatorView(style: .white)
+            v.hidesWhenStopped = true
+            return v
+        }()
+        
         lazy var imageView: AnimatedImageView = {
             let v = AnimatedImageView()
             v.contentMode = .scaleAspectFill
@@ -374,10 +375,14 @@ extension Giphy.GifsViewController {
         }
         
         private func setupLayout() {
-            contentView.addSubviews(views: imageView)
+            contentView.addSubviews(views: indicator, imageView)
             
             imageView.snp.makeConstraints { (maker) in
                 maker.edges.equalToSuperview()
+            }
+            
+            indicator.snp.makeConstraints { maker in
+                maker.center.equalTo(imageView.snp.center)
             }
         }
     }

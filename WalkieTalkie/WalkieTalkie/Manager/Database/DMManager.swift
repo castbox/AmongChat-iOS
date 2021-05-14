@@ -72,13 +72,11 @@ class DMManager {
                 }
                 .do(onSuccess: { [unowned self] in
                     self.conversactionUpdateReplay.accept(conversation)
-                    if let subject = messageObservables[message.fromUid] {
-                        subject.onNext(())
-                    }
+                    self.notifyMessagesUpdated(of: message.fromUid)
                 })
             }
     }
-    
+        
     func observableMessages(for uid: String) -> Observable<Void> {
         guard messageObservables[uid] == nil else {
             return .empty()
@@ -141,7 +139,57 @@ class DMManager {
     }
     
     func clearAllMessage(of uid: String) -> Single<Void> {
-        return database.mapTransactionToSingle { (db) in
+        return self.database.mapTransactionToSingle { (db) in
+            try db.delete(fromTable: dmMessagesTableName, where: Entity.DMMessage.Properties.fromUid == uid)
+        }
+        .flatMap { [unowned self] _ in
+            return self.queryConversation(fromUid: uid)
+                .flatMap { [unowned self] item -> Single<Void> in
+                    guard var conversation = item else {
+                        return .just(())
+                    }
+                    conversation.message.body = Entity.DMMessageBody(type: .text)
+                    return self.database.mapTransactionToSingle { db in
+                        try db.insertOrReplace(objects: conversation, intoTable: dmConversationTableName)
+                    }
+                }
+        }
+        .do(onSuccess: { [weak self] _ in
+            self?.conversactionUpdateReplay.accept(nil)
+        })
+    }
+    
+    func update(profile: Entity.DMProfile) {
+        _ = observeUpdate(profile: profile)
+            .subscribe()
+    }
+    
+    func observeUpdate(profile: Entity.DMProfile) -> Single<Void> {
+        guard profile.uid.string != Settings.loginUserId?.string else {
+            return .just(())
+        }
+
+        return self.queryConversation(fromUid: profile.uid.string)
+            .flatMap { [unowned self] item -> Single<Void> in
+                guard var conversation = item else {
+                    return .just(())
+                }
+                let message = conversation.message.update(profile: profile)
+                conversation.message = message
+                return self.database.mapTransactionToSingle { db in
+                    try db.insertOrReplace(objects: conversation, intoTable: dmConversationTableName)
+                    try db.update(table: dmMessagesTableName, on: [Entity.DMMessage.Properties.fromUser], with: message, where: Entity.DMMessage.Properties.fromUid == profile.uid.string && Entity.DMMessage.Properties.isFromMe == false) //更新用户头像
+                }
+            }
+            .do(onSuccess: { [weak self] _ in
+                self?.conversactionUpdateReplay.accept(nil)
+                self?.notifyMessagesUpdated(of: profile.uid.string)
+            })
+    }
+    
+    func deleteConversation(of uid: String) -> Single<Void> {
+
+        return self.database.mapTransactionToSingle { (db) in
             try db.delete(fromTable: dmConversationTableName, where: Entity.DMConversation.Properties.fromUid == uid)
             try db.delete(fromTable: dmMessagesTableName, where: Entity.DMMessage.Properties.fromUid == uid)
         }
@@ -149,4 +197,13 @@ class DMManager {
             self?.conversactionUpdateReplay.accept(nil)
         })
     }
+}
+
+private extension DMManager {
+    func notifyMessagesUpdated(of uid: String) {
+        if let subject = messageObservables[uid] {
+            subject.onNext(())
+        }
+    }
+
 }

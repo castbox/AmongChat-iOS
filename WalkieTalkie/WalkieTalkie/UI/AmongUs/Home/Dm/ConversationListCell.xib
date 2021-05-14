@@ -50,16 +50,16 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Monday" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xcl-vA-lo8">
-                        <rect key="frame" x="80" y="44" width="248" height="22"/>
+                        <rect key="frame" x="80" y="44" width="247" height="22"/>
                         <fontDescription key="fontDescription" name="Nunito-Bold" family="Nunito" pointSize="16"/>
                         <color key="textColor" red="0.53725490196078429" green="0.53725490196078429" blue="0.53725490196078429" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <view contentMode="scaleToFill" horizontalHuggingPriority="253" horizontalCompressionResistancePriority="752" translatesAutoresizingMaskIntoConstraints="NO" id="OAA-r1-7vJ">
-                        <rect key="frame" x="340" y="47" width="15" height="16"/>
+                        <rect key="frame" x="339" y="47" width="16" height="16"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="253" verticalHuggingPriority="251" text="3" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ur6-KB-Sce">
-                                <rect key="frame" x="4" y="0.0" width="7" height="16.5"/>
+                                <rect key="frame" x="4" y="0.0" width="8" height="16.5"/>
                                 <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito" pointSize="12"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -71,6 +71,7 @@
                             <constraint firstAttribute="height" constant="16" id="O4B-Fk-yZR"/>
                             <constraint firstItem="Ur6-KB-Sce" firstAttribute="centerY" secondItem="OAA-r1-7vJ" secondAttribute="centerY" id="POe-XT-mLF"/>
                             <constraint firstAttribute="trailing" secondItem="Ur6-KB-Sce" secondAttribute="trailing" constant="4" id="ao8-Wv-T4d"/>
+                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="16" id="bHZ-WZ-d0L"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">

@@ -107,11 +107,11 @@ extension UIViewController {
         }
     }
     
-    func showAmongAlert(title: String?, message: String? = nil, cancelTitle: String? = nil, confirmTitle: String? = nil, cancelAction: (() -> Void)? = nil, confirmAction: (() -> Void)? = nil) {
-        amongChatAlert(title: title, message: message, cancelTitle: cancelTitle, confirmTitle: confirmTitle, cancelAction: cancelAction, confirmAction: confirmAction).present()
+    func showAmongAlert(title: String?, message: String? = nil, cancelTitle: String? = nil, confirmTitle: String? = nil, confirmTitleColor: UIColor? = nil, cancelAction: (() -> Void)? = nil, confirmAction: (() -> Void)? = nil) {
+        amongChatAlert(title: title, message: message, cancelTitle: cancelTitle, confirmTitle: confirmTitle, confirmTitleColor: confirmTitleColor, cancelAction: cancelAction, confirmAction: confirmAction).present()
     }
     
-    func amongChatAlert(title: String?, message: String? = nil, cancelTitle: String? = nil, confirmTitle: String? = nil, cancelAction: (() -> Void)? = nil, confirmAction: (() -> Void)? = nil) -> AlertController {
+    func amongChatAlert(title: String?, message: String? = nil, cancelTitle: String? = nil, confirmTitle: String? = nil, confirmTitleColor: UIColor? = nil, cancelAction: (() -> Void)? = nil, confirmAction: (() -> Void)? = nil) -> AlertController {
         let titleAttr: NSAttributedString?
         if let title = title {
             let attribates: [NSAttributedString.Key: Any] = [
@@ -149,7 +149,7 @@ extension UIViewController {
         //        if let confirmTitle = confirmTitle {
         let attribates: [NSAttributedString.Key: Any] = [
             NSAttributedString.Key.font: R.font.nunitoExtraBold(size: 16),
-            .foregroundColor: "#FFF000".color()
+            .foregroundColor: confirmTitleColor ?? "#FFF000".color()
         ]
         let confirmAttr = NSAttributedString(string: confirmTitle ?? R.string.localizable.toastConfirm(), attributes: attribates)
         //        } else {
@@ -162,7 +162,6 @@ extension UIViewController {
 //        visualStyle.verticalElementSpacing = 40
         visualStyle.backgroundColor = "#222222".color()
         visualStyle.actionViewSeparatorColor = UIColor.white.alpha(0.08)
-//        visualStyle.dimmingColor = UIColor.black.alpha(0.7)
         alertVC.visualStyle = visualStyle
         //        alertVC.contentView.backgroundColor = "222222".color()
         

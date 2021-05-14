@@ -59,11 +59,13 @@ extension Conversation {
         let showTime: Bool
         let contentSize: CGSize
         let sendFromMe: Bool
+        let dateString: String
         
         init(message: Entity.DMMessage, showTime: Bool) {
             self.message = message
             self.showTime = showTime
             self.sendFromMe = message.fromUser.uid == Settings.loginUserId?.int64
+            dateString = message.date.timeFormattedForConversation()
             //calculate height
             let maxWidth = Frame.Screen.width - 72 * 2
             
@@ -153,10 +155,15 @@ extension Conversation {
         
         init(_ conversation: Entity.DMConversation) {
             self.conversation = conversation
+            updateProfile()
+
             let uid = conversation.fromUid
             
             DMManager.shared.observableMessages(for: uid)
                 .startWith(())
+                .do(onNext: { [weak self] in
+                    self?.groupTime = 0
+                })
                 .flatMap { item -> Single<[Entity.DMMessage]> in
                     return DMManager.shared.messages(for: uid)
                 }
@@ -179,63 +186,63 @@ extension Conversation {
                     }
                     //                    //show time
                 }
+                .catchErrorJustReturn([])
                 .observeOn(MainScheduler.asyncInstance)
                 .bind(to: dataSourceReplay)
                 .disposed(by: bag)
         }
         
-        func sendMessage(_ text: String) {
+        func sendMessage(_ text: String) -> Single<Bool> {
             guard let profile = Settings.loginUserProfile?.dmProfile else {
-                return
+                return .error(MsgError(.sendDmError))
             }
             let messageBody = Entity.DMMessageBody(type: .text, url: nil, duration: nil, text: text)
             let message = Entity.DMMessage(body: messageBody, relation: 1, fromUid: targetUid, unread: false, fromUser: profile, status: .sending)
-            insertOrReplace(message: message)
-            sendMessage(message)
+            return sendMessage(message)
         }
         
-        func sendGif(_ media: Giphy.GPHMedia) {
+        func sendGif(_ media: Giphy.GPHMedia) -> Single<Bool> {
             guard let profile = Settings.loginUserProfile?.dmProfile, let url = media.gifUrl else {
-                return
+                return .error(MsgError(.sendDmError))
             }
             let messageBody = Entity.DMMessageBody(type: .gif, img: url.absoluteString, imageWidth: media.imageWidth, imageHeight: media.imageHeight)
             let message = Entity.DMMessage(body: messageBody, relation: 1, fromUid: targetUid, unread: false, fromUser: profile, status: .sending)
-            insertOrReplace(message: message)
-            sendMessage(message)
+            return sendMessage(message)
         }
         
         func sendVoiceMessage(duration: Int, filePath: String) -> Single<Bool> {
             guard FileManager.default.fileExists(atPath: filePath) else {
-                return .just(false)
+                return .error(MsgError(.sendDmError))
             }
             
             var messageBody = Entity.DMMessageBody(type: .voice, url: "", duration: duration.double, localRelativePath: FileManager.relativePath(of: filePath))
             var message = Entity.DMMessage(body: messageBody, relation: 1, fromUid: self.targetUid, unread: false, fromUser: self.loginUserDmProfile, status: .sending)
             insertOrReplace(message: message)
             return IMManager.shared.getMediaId(with: filePath)
-                .do(onSuccess: { [weak self] mediaId in
+                .flatMap { [weak self] mediaId in
                     guard let `self` = self, let mediaId = mediaId else {
-                        return
+                        return .error(MsgError(.sendDmError))
                     }
                     messageBody.url = mediaId
                     message.body = messageBody
-                    self.sendMessage(message)
-                })
-                .map { $0 != nil }
+                    return self.sendMessage(message)
+                }
         }
         
-        func sendMessage(_ message: Entity.DMMessage) {
+        func sendMessage(_ message: Entity.DMMessage) -> Single<Bool> {
             var message = message
-            Request.sendDm(message: message.body, to: message.fromUid)
-                .subscribe(onSuccess: { [weak self] result in
+            if message.status != .sending {
+                message.status = .sending
+            }
+            insertOrReplace(message: message)
+            return Request.sendDm(message: message.body, to: message.fromUid)
+                .do(onSuccess: { [weak self] result in
                     message.status = .success
-                    
                     self?.insertOrReplace(message: message)
                 }, onError: { [weak self] error in
                     message.status = .failed
                     self?.insertOrReplace(message: message)
                 })
-                .disposed(by: bag)
         }
         
         func downloadFileIfNeed(for message: Entity.DMMessage) {
@@ -268,12 +275,18 @@ extension Conversation {
         }
         
         func deleteAllHistory() -> Single<Void> {
-            return DMManager.shared.clearAllMessage(of: targetUid)
+            return DMManager.shared.deleteConversation(of: targetUid)
         }
         
         func insertOrReplace(message: Entity.DMMessage) {
-            groupTime = 0
+//            groupTime = 0
             DMManager.shared.insertOrReplace(message: message)
+        }
+        
+        func updateProfile() {
+            Request.profile(targetUid.intValue)
+                .subscribe()
+                .disposed(by: bag)
         }
     }
 }

@@ -33,13 +33,13 @@ extension Giphy {
     struct GPHImages: Codable {
         let downsizedMedium: GPHImage?
         let fixedHeight: GPHImage?
-        let previewGif: GPHImage?
+//        let previewGif: GPHImage?
 //        let fixedHeight: GPHImage?
         
         private enum CodingKeys: String, CodingKey {
             case downsizedMedium = "downsized_medium"
             case fixedHeight = "fixed_height"
-            case previewGif = "preview_gif"
+//            case previewGif = "preview_gif"
 //            case fixedHeight = "fixed_height"
         }
     }

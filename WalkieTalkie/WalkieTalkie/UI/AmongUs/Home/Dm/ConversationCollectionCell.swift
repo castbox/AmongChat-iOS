@@ -53,8 +53,8 @@ class ConversationCollectionCell: UICollectionViewCell {
         i.backgroundColor = "#222222".color()
         i.addTarget(self, action: #selector(clickContentViewAction), for: .primaryActionTriggered)
         
-        i.addSubviews(views: messageTextLabel, voiceDurationLabel, voicePlayIndiator)
-        i.roundCorners(topLeft: 2, topRight: 18, bottomLeft: 18, bottomRight: 18)
+        i.addSubviews(views: messageTextLabel, voiceDurationLabel, voicePlayIndiator, voiceTagView)
+        i.roundCorners(topLeft: 2, topRight: 20, bottomLeft: 20, bottomRight: 20)
         
         messageTextLabel.snp.makeConstraints { maker in
             maker.edges.equalToSuperview().inset(12)
@@ -69,6 +69,9 @@ class ConversationCollectionCell: UICollectionViewCell {
             maker.right.equalTo(-12)
             maker.centerY.equalToSuperview()
             maker.size.equalTo(CGSize(width: 24, height: 30))
+        }
+        voiceTagView.snp.makeConstraints { maker in
+            maker.center.equalTo(voicePlayIndiator)
         }
         return i
     }()
@@ -97,11 +100,19 @@ class ConversationCollectionCell: UICollectionViewCell {
         v.contentMode = .scaleAspectFit
         v.isHidden = true
         v.isUserInteractionEnabled = false
-//        v.backgroundColor = "222222".color()
+        //        v.backgroundColor = "222222".color()
         return v
     }()
     
     private lazy var voicePlayIndiator = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 24, height: 30), type: .lineScale, color: .white, padding: 0)
+    
+    private lazy var voiceTagView: UIImageView = {
+        let v = UIImageView(image: R.image.iconDmVoiceTag())
+        v.contentMode = .scaleAspectFit
+        v.isHidden = true
+        //        v.backgroundColor = "222222".color()
+        return v
+    }()
     
     private lazy var timeLabel: UILabel = {
         let l = UILabel(frame: CGRect(x: 20, y: 0, width: Frame.Screen.width - 20 * 2, height: 19))
@@ -153,13 +164,17 @@ class ConversationCollectionCell: UICollectionViewCell {
     func bind(_ viewModel: Conversation.MessageCellViewModel) {
         self.viewModel = viewModel
         let msg = viewModel.message
-        avatarImageView.setAvatarImage(with: msg.fromUser.pictureUrl)
-        timeLabel.text = msg.dateString
+        if viewModel.sendFromMe {
+            avatarImageView.setAvatarImage(with: Settings.shared.profilePage.value?.profile?.pictureUrl)
+        } else {
+            avatarImageView.setAvatarImage(with: msg.fromUser.pictureUrl)
+        }
+        timeLabel.text = viewModel.dateString
         
         switch msg.body.msgType {
         case .text:
             messageTextLabel.text = msg.body.text
-            textContainer.size = CGSize(width: viewModel.contentSize.width + 12 * 2, height: viewModel.contentSize.height + 12 * 2)
+            textContainer.size = CGSize(width: max(viewModel.contentSize.width + 12 * 2, 48), height: viewModel.contentSize.height + 12 * 2)
             messageTextLabel.size = viewModel.contentSize
             container.height = textContainer.size.height
             if viewModel.sendFromMe {
@@ -167,21 +182,23 @@ class ConversationCollectionCell: UICollectionViewCell {
                 messageTextLabel.textColor = "#FFF000".color()
                 avatarImageView.right = Frame.Screen.width - avatarLeftEdge
                 textContainer.right = Frame.Screen.width - contentLeftEdge
-                textContainer.roundCorners(topLeft: 18, topRight: 2, bottomLeft: 18, bottomRight: 18)
+                textContainer.roundCorners(topLeft: 20, topRight: 2, bottomLeft: 20, bottomRight: 20)
                 statusView.right = textContainer.left - 8
+                messageTextLabel.textAlignment = .right
             } else {
                 messageTextLabel.textColor = .white
                 avatarImageView.left = avatarLeftEdge
                 textContainer.left = contentLeftEdge
-                textContainer.roundCorners(topLeft: 2, topRight: 18, bottomLeft: 18, bottomRight: 18)
+                textContainer.roundCorners(topLeft: 2, topRight: 20, bottomLeft: 20, bottomRight: 20)
                 statusView.left = textContainer.right + 8
+                messageTextLabel.textAlignment = .left
             }
             statusView.centerY = textContainer.centerY
             indicatorView.center = statusView.center
-            //            textContainer.isHidden = false
             messageTextLabel.isHidden = false
             voiceDurationLabel.isHidden = true
             voicePlayIndiator.isHidden = true
+            voiceTagView.isHidden = true
             textContainer.isHidden = false
             gifImageView.isHidden = true
         case .gif:
@@ -206,7 +223,8 @@ class ConversationCollectionCell: UICollectionViewCell {
                 })
             }
             voiceDurationLabel.isHidden = false
-            voicePlayIndiator.isHidden = false
+            voicePlayIndiator.isHidden = true
+            voiceTagView.isHidden = true
             messageTextLabel.isHidden = true
             textContainer.isHidden = true
             gifImageView.isHidden = false
@@ -233,12 +251,13 @@ class ConversationCollectionCell: UICollectionViewCell {
                 unreadView.left = statusView.left
             }
             if let path = msg.body.localAbsolutePath, AudioPlayerManager.default.isPlaying(path) {
-                voicePlayIndiator.startAnimating()
+                startVoicePlay(animated: true)
             } else {
-                voicePlayIndiator.stopAnimating()
+                startVoicePlay(animated: false)
             }
-            indicatorView.center = statusView.center
+            voiceTagView.tintColor = voicePlayIndiator.color
             statusView.centerY = textContainer.centerY
+            indicatorView.center = statusView.center
             unreadView.isHidden = !(msg.unread ?? false)
             unreadView.centerY = textContainer.centerY
             voiceDurationLabel.isHidden = false
@@ -274,18 +293,36 @@ class ConversationCollectionCell: UICollectionViewCell {
     }
     
     @objc func clickContentViewAction() {
-        guard let viewModel = viewModel,
-              let path = viewModel.message.body.localAbsolutePath,
-              !AudioPlayerManager.default.isPlaying(path) else {
-            voicePlayIndiator.stopAnimating()
-            AudioPlayerManager.default.stopPlay()
+        guard let message = viewModel?.message else {
             return
         }
-        voicePlayIndiator.startAnimating()
-        AudioPlayerManager.default.play(fileUrl: path) { [weak self] in
-            self?.voicePlayIndiator.stopAnimating()
+        if message.status == .failed {
+            //resend
+            statusViewAction()
+        } else {
+            guard message.body.msgType == .voice,
+                  let path = message.body.localAbsolutePath,
+                  !AudioPlayerManager.default.isPlaying(path) else {
+                startVoicePlay(animated: false)
+                AudioPlayerManager.default.stopPlay()
+                return
+            }
+            startVoicePlay(animated: true)
+            AudioPlayerManager.default.play(fileUrl: path) { [weak self] in
+                self?.startVoicePlay(animated: false)
+            }
+            actionHandler?(.clickVoiceMessage(message))
         }
-        actionHandler?(.clickVoiceMessage(viewModel.message))
+    }
+    
+    func startVoicePlay(animated: Bool) {
+        if animated {
+            voicePlayIndiator.startAnimating()
+            voiceTagView.isHidden = true
+        } else {
+            voiceTagView.isHidden = false
+            voicePlayIndiator.stopAnimating()
+        }
     }
     
     @objc private func statusViewAction() {

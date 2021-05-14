@@ -34,6 +34,7 @@ struct MsgError: Error {
         case cannotFindMatchRoom = 3007 //No channel match your language and age.
         case roomNotFound = 202 //'can not find this room'
         
+        case beBlocked = 1003 //You are on this user\'s blacklist. You can not message this user any more.
         case sendDmError = 100000
     }
     
@@ -91,6 +92,8 @@ extension MsgError.CodeType {
             return R.string.localizable.enterKickedRoomTips()
         case .cannotFindMatchRoom:
             return R.string.localizable.adminCannotMatchedRoomTips()
+        case .beBlocked:
+            return R.string.localizable.dmSendMessageBeblockedError()
         default:
             return nil
         }
@@ -157,6 +160,12 @@ extension Request {
             .mapToDataKeyJsonValue()
             .mapTo(Entity.UserProfile.self)
             .observeOn(MainScheduler.asyncInstance)
+            .do(onNext: { item in
+                guard let profile = item else {
+                    return
+                }
+                DMManager.shared.update(profile: profile.dmProfile)
+            })
     }
     
     @available(*, deprecated, message: "use the one parameter type is Entity.ProfileProto instead")
@@ -428,6 +437,12 @@ extension Request {
                     } onError: { (_) in
                         
                     }
+            })
+            .do(onNext: { item in
+                guard let profile = item?.profile else {
+                    return
+                }
+                DMManager.shared.update(profile: profile.dmProfile)
             })
 
     }
