@@ -143,7 +143,7 @@ extension AmongChat.Home.ConversationListController: UITableViewDataSource, UITa
                                 })
         }
         action.image = R.image.iconDmConversationDelete()
-        action.backgroundColor = .red
+        action.backgroundColor = "FB5858".color()
         return UISwipeActionsConfiguration(actions: [action])
     }
     
@@ -189,9 +189,9 @@ extension AmongChat.Home.ConversationListController {
             maker.height.equalTo(49)
         }
         
-        
         emptyView.snp.makeConstraints { (maker) in
-            maker.center.equalTo(listView.snp.center)
+            maker.centerX.equalToSuperview()
+            maker.centerY.equalToSuperview().multipliedBy(0.7)
         }
         
         listView.snp.makeConstraints { (maker) in

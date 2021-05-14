@@ -117,6 +117,7 @@ extension ConversationViewController: UICollectionViewDataSource {
             case .user(let uid):
                 let vc = Social.ProfileViewController(with: uid.string.intValue)
                 vc.followedHandle = { [weak self] follow in
+                    self?.relationData?.isFollowed = follow
                     self?.setFollowButton(follow, isHidden: false)
                 }
                 self?.navigationController?.pushViewController(vc)
@@ -124,21 +125,6 @@ extension ConversationViewController: UICollectionViewDataSource {
         }
         return cell
     }
-    
-//    func clickVoice(message: ) -> <#return type#> {
-//        guard message.body.msgType == .voice,
-//              let path = message.body.localAbsolutePath,
-//              !AudioPlayerManager.default.isPlaying(path) else {
-//            startVoicePlay(animated: false)
-//            AudioPlayerManager.default.stopPlay()
-//            return
-//        }
-//        startVoicePlay(animated: true)
-//        AudioPlayerManager.default.play(fileUrl: path) { [weak self] in
-//            self?.startVoicePlay(animated: false)
-//        }
-//        actionHandler?(.clickVoiceMessage(message))
-//    }
 }
 
 extension ConversationViewController: UICollectionViewDelegateFlowLayout {
@@ -304,6 +290,16 @@ private extension ConversationViewController {
         }
     }
     
+    func updateProfile() {
+        Request.profile(viewModel.targetUid.intValue)
+            .subscribe(onSuccess: { [weak self] profile in
+                self?.titleLabel.text = profile?.name
+            }, onError: { error in
+                
+            })
+            .disposed(by: bag)
+    }
+    
     func sendMessage(_ message: String) {
         self.viewModel.sendMessage(message)
             .subscribe(onSuccess: { result in
@@ -424,11 +420,12 @@ private extension ConversationViewController {
         }
         if let isHidden = isHidden {
             followButton.isHidden = isHidden
+            followButton.isEnabled = !isHidden
         } else {
             followButton.isHidden = isFirstShowFollow && isFollowed
             isFirstShowFollow = false
+            followButton.isEnabled = !isFollowed
         }
-        followButton.isEnabled = !isFollowed
     }
     
     private func greyFollowButton() {
@@ -588,13 +585,16 @@ private extension ConversationViewController {
                 guard let `self` = self, self.bottomBar.isFirstResponder else {
                     return
                 }
+                cdPrint("bottomBar: \(keyboardVisibleHeight)")
                 self.keyboardVisibleHeight = keyboardVisibleHeight
                 self.updateContentInsert()
+                let bottomBarHeight = 64 + Frame.Height.safeAeraBottomHeight - (keyboardVisibleHeight > 0 ? Frame.Height.safeAeraBottomHeight : 0)
                 self.bottomBar.snp.updateConstraints { (maker) in
                     maker.bottom.equalToSuperview().offset(-keyboardVisibleHeight)
-                    //                    maker.height.equalTo((keyboardVisibleHeight > 20 ? 0 : Frame.Height.safeAeraBottomHeight) + 60)
+                    maker.height.equalTo(bottomBarHeight)
                 }
-                self.collectionViewBottomConstraint.constant = 64 + keyboardVisibleHeight
+                let extraBottomEdge: CGFloat = keyboardVisibleHeight > 0 ? 12 : 0
+                self.collectionViewBottomConstraint.constant = 64 + keyboardVisibleHeight + extraBottomEdge
                 UIView.animate(withDuration: 0) {
                     self.view.layoutIfNeeded()
                 }

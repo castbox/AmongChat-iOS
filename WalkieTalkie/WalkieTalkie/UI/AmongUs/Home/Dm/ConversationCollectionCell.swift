@@ -81,6 +81,7 @@ class ConversationCollectionCell: UICollectionViewCell {
         l.font = R.font.nunitoBold(size: 16)
         l.textColor = UIColor(hex6: 0xFFFFFF)
         l.numberOfLines = 0
+        l.textAlignment = .center
         //        l.lineBreakMode = .byWordWrapping
         return l
     }()
@@ -127,7 +128,7 @@ class ConversationCollectionCell: UICollectionViewCell {
     private lazy var timeLabel: UILabel = {
         let l = UILabel(frame: CGRect(x: 20, y: 0, width: Frame.Screen.width - 20 * 2, height: 19))
         l.font = R.font.nunitoBold(size: 14)
-        l.textAlignment = .center
+        l.textAlignment = .left
         l.textColor = UIColor(hex6: 0x595959)
         return l
     }()
@@ -172,6 +173,7 @@ class ConversationCollectionCell: UICollectionViewCell {
     }
     
     func bind(_ viewModel: Conversation.MessageCellViewModel) {
+        self.viewModel = viewModel
         let msg = viewModel.message
         if viewModel.sendFromMe {
             avatarImageView.setAvatarImage(with: Settings.shared.profilePage.value?.profile?.pictureUrl)
@@ -191,16 +193,14 @@ class ConversationCollectionCell: UICollectionViewCell {
                 messageTextLabel.textColor = "#FFF000".color()
                 avatarImageView.right = Frame.Screen.width - avatarLeftEdge
                 textContainer.right = Frame.Screen.width - contentLeftEdge
-                textContainer.roundCorners(topLeft: 20, topRight: 2, bottomLeft: 20, bottomRight: 20)
+                textContainer.roundCorners(topLeft: 20, topRight: viewModel.contentCornerRadius, bottomLeft: 20, bottomRight: 20)
                 statusView.right = textContainer.left - 8
-                messageTextLabel.textAlignment = .right
             } else {
                 messageTextLabel.textColor = .white
                 avatarImageView.left = avatarLeftEdge
                 textContainer.left = contentLeftEdge
-                textContainer.roundCorners(topLeft: 2, topRight: 20, bottomLeft: 20, bottomRight: 20)
+                textContainer.roundCorners(topLeft: viewModel.contentCornerRadius, topRight: 20, bottomLeft: 20, bottomRight: 20)
                 statusView.left = textContainer.right + 8
-                messageTextLabel.textAlignment = .left
             }
             statusView.centerY = textContainer.centerY
             indicatorView.center = statusView.center
@@ -239,13 +239,13 @@ class ConversationCollectionCell: UICollectionViewCell {
             gifImageView.isHidden = false
         case .voice:
             textContainer.size = viewModel.contentSize
-            voiceDurationLabel.text = "\(viewModel.message.body.duration ?? 0)″"
+            voiceDurationLabel.text = "\(viewModel.message.body.duration?.int ?? 0)″"
             if viewModel.sendFromMe {
                 //avatar
                 voiceDurationLabel.textColor = "#FFF000".color()
                 avatarImageView.right = Frame.Screen.width - avatarLeftEdge
                 textContainer.right = Frame.Screen.width - contentLeftEdge
-                textContainer.roundCorners(topLeft: 18, topRight: 2, bottomLeft: 18, bottomRight: 18)
+                textContainer.roundCorners(topLeft: 18, topRight: viewModel.contentCornerRadius, bottomLeft: 18, bottomRight: 18)
                 statusView.right = textContainer.left - 8
                 unreadView.right = statusView.right
                 
@@ -253,7 +253,7 @@ class ConversationCollectionCell: UICollectionViewCell {
                 voiceDurationLabel.textColor = .white
                 avatarImageView.left = avatarLeftEdge
                 textContainer.left = contentLeftEdge
-                textContainer.roundCorners(topLeft: 2, topRight: 18, bottomLeft: 18, bottomRight: 18)
+                textContainer.roundCorners(topLeft: viewModel.contentCornerRadius, topRight: 18, bottomLeft: 18, bottomRight: 18)
                 statusView.left = textContainer.right + 8
                 unreadView.left = statusView.left
             }
@@ -300,7 +300,6 @@ class ConversationCollectionCell: UICollectionViewCell {
             container.top = 6
         }
         timeLabel.isHidden = !viewModel.showTime
-        self.viewModel = viewModel
     }
     
     func startPlayVoiceAnimating() {

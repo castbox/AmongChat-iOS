@@ -110,7 +110,7 @@ extension ConversationBottomBar: UITextFieldDelegate {
 //        textField.textColor = .white
         let substringToReplace = textFieldText[rangeOfTextToReplace]
         let count = textFieldText.count - substringToReplace.count + string.count
-        return count <= 200
+        return count <= 300
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -127,19 +127,3 @@ extension ConversationBottomBar: UITextFieldDelegate {
         return true
     }
 }
-
-//extension AmongInputNickNameView {
-//
-//    func redAttributesString(text: String, redText: String) -> NSAttributedString {
-//        let attributes = NSMutableAttributedString(string: text, attributes: [NSAttributedString.Key.foregroundColor: UIColor.black, NSAttributedString.Key.font: R.font.nunitoExtraBold(size: 16)])
-//        if let range = text.nsRange(of: redText) {
-//            attributes.addAttributes([NSAttributedString.Key.foregroundColor: UIColor.red], range: range)
-//        }
-//        return attributes
-//    }
-//
-//    func updateSelectedButton() {
-//
-//    }
-//}
-

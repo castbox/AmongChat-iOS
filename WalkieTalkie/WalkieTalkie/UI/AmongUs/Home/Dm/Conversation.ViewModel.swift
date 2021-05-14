@@ -60,6 +60,7 @@ extension Conversation {
         let contentSize: CGSize
         let sendFromMe: Bool
         let dateString: String
+        let contentCornerRadius: CGFloat
         //
         var isPlayingVoice: Bool = false
         
@@ -80,6 +81,7 @@ extension Conversation {
                 if showTime {
                     height += 27
                 }
+                self.contentCornerRadius = contentSize.height < 50 ? 20 : 2
                 self.height = height
             case .gif:
                 //最小
@@ -104,6 +106,7 @@ extension Conversation {
                     height += 27
                 }
                 self.height = height
+                self.contentCornerRadius = 0
             case .voice:
                 //                let topEdge: CGFloat = 6
                 contentSize = CGSize(width: max(100, Double(maxWidth) / 60 * (message.body.duration ?? 0)), height: 36)
@@ -111,11 +114,13 @@ extension Conversation {
                 if showTime {
                     height += 27
                 }
+                self.contentCornerRadius = contentSize.height < 50 ? 20 : 2
                 self.height = height
             case .none:
                 let maxWidth = Frame.Screen.width - 72 * 2
                 contentSize = CGSize(width: Double(maxWidth) / 60 * (message.body.duration ?? 0), height: 36)
                 self.height = 0
+                self.contentCornerRadius = 0
             }
         }
     }
@@ -138,7 +143,7 @@ extension Conversation {
         private let bag = DisposeBag()
         
         //分级时间
-        private var groupTime: Double = 0
+        private var barrierTime: Double = 0
         
         private var downloadTasks: [String: Entity.DMMessage] = [:]
         
@@ -157,14 +162,13 @@ extension Conversation {
         
         init(_ conversation: Entity.DMConversation) {
             self.conversation = conversation
-            updateProfile()
-
+            
             let uid = conversation.fromUid
             
             DMManager.shared.observableMessages(for: uid)
                 .startWith(())
                 .do(onNext: { [weak self] in
-                    self?.groupTime = 0
+                    self?.barrierTime = 0
                 })
                 .flatMap { item -> Single<[Entity.DMMessage]> in
                     return DMManager.shared.messages(for: uid)
@@ -175,14 +179,15 @@ extension Conversation {
                         .subscribe()
                     return items.map { message -> MessageCellViewModel in
                         self.downloadFileIfNeed(for: message)
-                        if self.groupTime == 0 {
-                            self.groupTime = message.timestamp
+                        if self.barrierTime == 0 {
+                            self.barrierTime = message.timestamp
                         }
                         //大余5分钟则显示时间，
-                        let showTimeLabel = (self.groupTime - message.timestamp) < 60 * 5
+                        let showTimeLabel = self.barrierTime == message.timestamp || ((message.timestamp - self.barrierTime) > 300)
                         if showTimeLabel {
-                            self.groupTime = message.timestamp
+                            self.barrierTime = message.timestamp
                         }
+                        cdPrint("barrierTime: \(self.barrierTime) reduce: \((message.timestamp - self.barrierTime))")
                         //auto download
                         return MessageCellViewModel(message: message, showTime: showTimeLabel)
                     }
@@ -281,14 +286,8 @@ extension Conversation {
         }
         
         func insertOrReplace(message: Entity.DMMessage) {
-//            groupTime = 0
+//            barrierTime = 0
             DMManager.shared.insertOrReplace(message: message)
-        }
-        
-        func updateProfile() {
-            Request.profile(targetUid.intValue)
-                .subscribe()
-                .disposed(by: bag)
         }
     }
 }
