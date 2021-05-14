@@ -248,9 +248,9 @@ extension Social.ProfileLookViewController {
                 btn.snp.makeConstraints { (maker) in
                     maker.centerY.equalToSuperview().offset(-2)
                     if idx == 0 {
-                        maker.leading.equalToSuperview().inset(20)
+                        maker.leading.equalToSuperview().inset(Frame.horizontalBleedWidth)
                     } else if idx == buttons.count - 1 {
-                        maker.trailing.equalToSuperview().inset(20)
+                        maker.trailing.equalToSuperview().inset(Frame.horizontalBleedWidth)
                     }
                     
                     if idx > 0,
@@ -297,11 +297,11 @@ extension Social.ProfileLookViewController {
                 button.transform = CGAffineTransform(scaleX: enlargeFractor, y: enlargeFractor)
                 if button == self.buttons.last {
                     button.snp.updateConstraints { (maker) in
-                        maker.trailing.equalToSuperview().inset(20 + ceil((enlargeFractor - 1) * button.frame.width) / 2)
+                        maker.trailing.equalToSuperview().inset(Frame.horizontalBleedWidth + ceil((enlargeFractor - 1) * button.frame.width) / 2)
                     }
                 } else if button == self.buttons.first {
                     button.snp.updateConstraints { (maker) in
-                        maker.leading.equalToSuperview().inset(20 + ceil((enlargeFractor - 1) * button.frame.width) / 2)
+                        maker.leading.equalToSuperview().inset(Frame.horizontalBleedWidth + ceil((enlargeFractor - 1) * button.frame.width) / 2)
                     }
                 }
                 
@@ -310,11 +310,11 @@ extension Social.ProfileLookViewController {
                 self.selectedBtn?.transform = .identity
                 if self.selectedBtn == self.buttons.last {
                     self.selectedBtn?.snp.updateConstraints { (maker) in
-                        maker.trailing.equalToSuperview().inset(20)
+                        maker.trailing.equalToSuperview().inset(Frame.horizontalBleedWidth)
                     }
                 } else if self.selectedBtn == self.buttons.first {
                     self.selectedBtn?.snp.updateConstraints { (maker) in
-                        maker.leading.equalToSuperview().inset(20)
+                        maker.leading.equalToSuperview().inset(Frame.horizontalBleedWidth)
                     }
                 }
 
