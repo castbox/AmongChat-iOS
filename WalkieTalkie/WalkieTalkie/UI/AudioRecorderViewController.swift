@@ -24,7 +24,7 @@ class AudioRecorderViewController: WalkieTalkie.ViewController {
     private typealias CircularProgressView = AmongChat.Home.RoomInvitationModal.CircularProgressView
     private lazy var circleView: CircularProgressView = {
         let v = CircularProgressView()
-        
+        v.clockwise = true
         v.backgroundColor = .clear
         
         v.circleLineWidth = 0
