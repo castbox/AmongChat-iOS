@@ -49,3 +49,35 @@ extension Logger {
     }
     
 }
+
+extension Logger {
+    
+    class AdRevenue {
+        
+        enum ParamKey: String {
+            case ad_platform
+            case ad_source
+            case ad_format
+            case ad_unit_name
+            case value
+            case currency
+            case precision
+            case country
+        }
+        
+        private var data = [String : Any]()
+        
+        func addData(key: ParamKey, value: Any?) -> AdRevenue {
+            if let value = value {
+                data[key.rawValue] = value
+            }
+            return self
+        }
+        
+        func log() {
+            GuruAnalytics.log(event: "tch_ad_rev_value", extra: data)
+        }
+        
+    }
+    
+}
