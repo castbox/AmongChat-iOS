@@ -108,7 +108,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        // end
 //        TikTokOpenSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
         
-        UIApplication.shared.applicationIconBadgeNumber = 0
+        removeAllDeliveredNotifications()
         
         ApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
         return true
@@ -179,7 +179,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func applicationWillEnterForeground(_ application: UIApplication) {
-        UIApplication.shared.applicationIconBadgeNumber = 0
+        removeAllDeliveredNotifications()
     }
     
     func applicationDidEnterBackground(_ application: UIApplication) {
@@ -247,6 +247,11 @@ extension AppDelegate {
 //        }
 //        self.window = window
 //    }
+    
+    func removeAllDeliveredNotifications() {
+        UIApplication.shared.applicationIconBadgeNumber = 0
+        UNUserNotificationCenter.current().removeAllDeliveredNotifications()
+    }
     
     func setupInitialView() {
         
