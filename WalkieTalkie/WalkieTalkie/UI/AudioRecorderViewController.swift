@@ -408,6 +408,7 @@ class HoldToTalkButton: UIButton {
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         
+        HapticFeedback.Impact.medium()
         guard AVAudioSession.sharedInstance().recordPermission == .granted else {
             
             UIApplication.topViewController()?.checkMicroPermission(title: R.string.localizable.microphoneNotAllowTitle(),
