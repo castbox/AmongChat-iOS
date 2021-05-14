@@ -824,7 +824,6 @@ extension Social.ProfileViewController {
             onlineStatusView.snp.makeConstraints { (maker) in
                 maker.trailing.equalToSuperview().offset(2.5)
                 maker.top.equalTo(-10)
-                maker.width.equalTo(64)
             }
             
         }
