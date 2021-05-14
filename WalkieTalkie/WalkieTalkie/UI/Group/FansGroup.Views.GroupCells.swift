@@ -70,13 +70,13 @@ extension FansGroup.Views {
             case .online:
                 addSubviews(views: titleLabel, dot)
                 titleLabel.snp.makeConstraints { (maker) in
-                    maker.edges.equalToSuperview().inset(UIEdgeInsets(top: 4, left: 17, bottom: 4, right: 8))
+                    maker.edges.equalToSuperview().inset(UIEdgeInsets(top: 4, left: 19, bottom: 4, right: 10))
                 }
                 
                 dot.snp.makeConstraints { (maker) in
                     maker.width.height.equalTo(7)
                     maker.centerY.equalToSuperview()
-                    maker.leading.equalTo(8)
+                    maker.leading.equalTo(10)
                 }
             }
             

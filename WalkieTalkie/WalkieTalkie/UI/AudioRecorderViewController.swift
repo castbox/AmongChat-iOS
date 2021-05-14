@@ -24,7 +24,7 @@ class AudioRecorderViewController: WalkieTalkie.ViewController {
     private typealias CircularProgressView = AmongChat.Home.RoomInvitationModal.CircularProgressView
     private lazy var circleView: CircularProgressView = {
         let v = CircularProgressView()
-        
+        v.clockwise = true
         v.backgroundColor = .clear
         
         v.circleLineWidth = 0
@@ -241,7 +241,8 @@ extension AudioRecorderViewController {
         do {
             try session.setActive(true)
         } catch let error {
-            self.sm.eventOccurs(.error(error))        }
+            self.sm.eventOccurs(.error(error))
+        }
         
         let recordSetting: [String : Any] = [
             AVFormatIDKey : NSNumber(value: kAudioFormatMPEG4AAC),
@@ -266,12 +267,18 @@ extension AudioRecorderViewController {
     private func stopRecording(with error: Error? = nil) {
         
         recorder?.stop()
+        do {
+            try AVAudioSession.sharedInstance().setActive(false, options: [.notifyOthersOnDeactivation])
+        } catch let error {
+            cdPrint("deactive audio session error: \(error)")
+        }
+
         if let error = error {
             recordedAudioFileSubject.onError(error)
             do {
                 try FileManager.default.removeItem(at: savedFileURL)
-            } catch let _ {
-                cdPrint("")
+            } catch let error {
+                cdPrint("remove recorded audio file error: \(savedFileURL), \(error)")
             }
         } else {
             
@@ -408,6 +415,7 @@ class HoldToTalkButton: UIButton {
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         
+        HapticFeedback.Impact.medium()
         guard AVAudioSession.sharedInstance().recordPermission == .granted else {
             
             UIApplication.topViewController()?.checkMicroPermission(title: R.string.localizable.microphoneNotAllowTitle(),

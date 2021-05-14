@@ -3129,6 +3129,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatGroupLeaveGroup = Rswift.StringResource(key: "among.chat.group.leave.group", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Live
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let groupOnline = Rswift.StringResource(key: "group.online", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Log in
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3301,10 +3305,6 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let alertOk = Rswift.StringResource(key: "alert.ok", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
-      /// en translation: Online
-      /// 
-      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
-      static let groupOnline = Rswift.StringResource(key: "group.online", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Online
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -5572,6 +5572,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("among.chat.group.leave.group", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Live
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func groupOnline(_: Void = ()) -> String {
+        return NSLocalizedString("group.online", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Log in
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -5871,13 +5878,6 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func alertOk(_: Void = ()) -> String {
         return NSLocalizedString("alert.ok", bundle: R.hostingBundle, comment: "")
-      }
-      
-      /// en translation: Online
-      /// 
-      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
-      static func groupOnline(_: Void = ()) -> String {
-        return NSLocalizedString("group.online", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Online

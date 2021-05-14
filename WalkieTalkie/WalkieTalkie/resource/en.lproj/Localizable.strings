@@ -375,7 +375,6 @@
 "group.room.members.title" = "In Channel Members";
 "group.item.edit" = "Edit";
 "group.item.start.live" = "Start";
-"group.online" = "Online";
 "group.owner" = "Owner";
 "group.room.join.request" = "Join Requests";
 "group.room.host.request" = "Raised Hands";
@@ -529,3 +528,4 @@
 "dm.send.message.error" = "Send failed, Please try again.";
 "dm.send.message.beblocked.error" = "You can no longer send Direct Messages to this person.";
 "dm.delete.conversation.alert.title" = "Are you sure you want to delete this chat?";
+"group.online" = "Live";
