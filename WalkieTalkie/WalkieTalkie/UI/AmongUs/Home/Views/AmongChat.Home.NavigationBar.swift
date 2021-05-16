@@ -71,7 +71,7 @@ extension AmongChat.Home {
             btn.rx.controlEvent(.primaryActionTriggered)
                 .subscribe(onNext: { () in
                     Routes.handle("/allNotice")
-                    Logger.Action.log(.home_notice_clk)
+                    Logger.Action.log(.dm_notice_clk)
                 })
                 .disposed(by: bag)
             
