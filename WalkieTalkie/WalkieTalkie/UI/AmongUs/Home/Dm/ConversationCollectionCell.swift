@@ -193,13 +193,13 @@ class ConversationCollectionCell: UICollectionViewCell {
                 messageTextLabel.textColor = "#FFF000".color()
                 avatarImageView.right = Frame.Screen.width - avatarLeftEdge
                 textContainer.right = Frame.Screen.width - contentLeftEdge
-                textContainer.roundCorners(topLeft: 20, topRight: viewModel.contentCornerRadius, bottomLeft: 20, bottomRight: 20)
+                textContainer.roundCorners(topLeft: 20, topRight: 2, bottomLeft: 20, bottomRight: 20)
                 statusView.right = textContainer.left - 8
             } else {
                 messageTextLabel.textColor = .white
                 avatarImageView.left = avatarLeftEdge
                 textContainer.left = contentLeftEdge
-                textContainer.roundCorners(topLeft: viewModel.contentCornerRadius, topRight: 20, bottomLeft: 20, bottomRight: 20)
+                textContainer.roundCorners(topLeft: 2, topRight: 20, bottomLeft: 20, bottomRight: 20)
                 statusView.left = textContainer.right + 8
             }
             statusView.centerY = textContainer.centerY
@@ -245,7 +245,7 @@ class ConversationCollectionCell: UICollectionViewCell {
                 voiceDurationLabel.textColor = "#FFF000".color()
                 avatarImageView.right = Frame.Screen.width - avatarLeftEdge
                 textContainer.right = Frame.Screen.width - contentLeftEdge
-                textContainer.roundCorners(topLeft: 18, topRight: viewModel.contentCornerRadius, bottomLeft: 18, bottomRight: 18)
+                textContainer.roundCorners(topLeft: 18, topRight: 2, bottomLeft: 18, bottomRight: 18)
                 statusView.right = textContainer.left - 8
                 unreadView.right = statusView.right
                 
@@ -253,7 +253,7 @@ class ConversationCollectionCell: UICollectionViewCell {
                 voiceDurationLabel.textColor = .white
                 avatarImageView.left = avatarLeftEdge
                 textContainer.left = contentLeftEdge
-                textContainer.roundCorners(topLeft: viewModel.contentCornerRadius, topRight: 18, bottomLeft: 18, bottomRight: 18)
+                textContainer.roundCorners(topLeft: 2, topRight: 18, bottomLeft: 18, bottomRight: 18)
                 statusView.left = textContainer.right + 8
                 unreadView.left = statusView.left
             }

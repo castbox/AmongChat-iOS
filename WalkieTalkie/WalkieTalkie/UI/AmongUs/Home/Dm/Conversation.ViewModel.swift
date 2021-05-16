@@ -60,7 +60,6 @@ extension Conversation {
         let contentSize: CGSize
         let sendFromMe: Bool
         let dateString: String
-        let contentCornerRadius: CGFloat
         //
         var isPlayingVoice: Bool = false
         
@@ -81,7 +80,6 @@ extension Conversation {
                 if showTime {
                     height += 27
                 }
-                self.contentCornerRadius = contentSize.height < 50 ? 20 : 2
                 self.height = height
             case .gif:
                 //最小
@@ -106,21 +104,18 @@ extension Conversation {
                     height += 27
                 }
                 self.height = height
-                self.contentCornerRadius = 0
             case .voice:
                 //                let topEdge: CGFloat = 6
-                contentSize = CGSize(width: max(100, Double(maxWidth) / 60 * (message.body.duration ?? 0)), height: 36)
+                contentSize = CGSize(width: max(100, Double(maxWidth) / 60 * (message.body.duration ?? 0)), height: 40)
                 var height: CGFloat = 48
                 if showTime {
                     height += 27
                 }
-                self.contentCornerRadius = contentSize.height < 50 ? 20 : 2
                 self.height = height
             case .none:
                 let maxWidth = Frame.Screen.width - 72 * 2
-                contentSize = CGSize(width: Double(maxWidth) / 60 * (message.body.duration ?? 0), height: 36)
+                contentSize = CGSize(width: Double(maxWidth) / 60 * (message.body.duration ?? 0), height: 40)
                 self.height = 0
-                self.contentCornerRadius = 0
             }
         }
     }
