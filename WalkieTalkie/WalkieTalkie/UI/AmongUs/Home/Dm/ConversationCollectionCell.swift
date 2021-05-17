@@ -57,7 +57,10 @@ class ConversationCollectionCell: UICollectionViewCell {
         i.roundCorners(topLeft: 2, topRight: 20, bottomLeft: 20, bottomRight: 20)
         
         messageTextLabel.snp.makeConstraints { maker in
-            maker.edges.equalToSuperview().inset(12)
+//            maker.edges.equalToSuperview().inset(12)
+            maker.leading.trailing.equalToSuperview().inset(12)
+            maker.top.equalTo(9.5)
+            maker.bottom.equalTo(-9)
         }
         
         voiceDurationLabel.snp.makeConstraints { maker in
@@ -126,7 +129,7 @@ class ConversationCollectionCell: UICollectionViewCell {
     }()
     
     private lazy var timeLabel: UILabel = {
-        let l = UILabel(frame: CGRect(x: 20, y: 0, width: Frame.Screen.width - 20 * 2, height: 19))
+        let l = UILabel(frame: CGRect(x: 20, y: 6, width: Frame.Screen.width - 20 * 2, height: 19))
         l.font = R.font.nunitoBold(size: 14)
         l.textColor = UIColor(hex6: 0x595959)
         l.textAlignment = .center
@@ -185,7 +188,7 @@ class ConversationCollectionCell: UICollectionViewCell {
         switch msg.body.msgType {
         case .text:
             messageTextLabel.text = msg.body.text
-            textContainer.size = CGSize(width: max(viewModel.contentSize.width + 12 * 2, 48), height: viewModel.contentSize.height + 12 * 2)
+            textContainer.size = CGSize(width: max(viewModel.contentSize.width + 12 * 2, 48), height: viewModel.contentSize.height + 18.5)
             messageTextLabel.size = viewModel.contentSize
             container.height = textContainer.size.height
             if viewModel.sendFromMe {
@@ -229,6 +232,12 @@ class ConversationCollectionCell: UICollectionViewCell {
                 indicatorView.startAnimating()
                 gifImageView.setImage(with: msg.body.img, completionHandler: { [weak self] result in
                     self?.indicatorView.stopAnimating()
+                    switch result {
+                    case .failure:
+                        self?.gifImageView.image = R.image.iconDmGifLoadFailed()
+                    default:
+                        ()
+                    }
                 })
             }
             voiceDurationLabel.isHidden = false
@@ -280,7 +289,6 @@ class ConversationCollectionCell: UICollectionViewCell {
         }
         switch msg.status {
         case .sending, .downloading:
-            indicatorView.startAnimating()
             statusView.isHidden = true
             unreadView.isHidden = true
         case .failed:
@@ -289,8 +297,10 @@ class ConversationCollectionCell: UICollectionViewCell {
             statusView.isHidden = false
             unreadView.isHidden = true
         default:
+            if msg.body.msgType != .gif {
+                indicatorView.stopAnimating()
+            }
             statusView.isHidden = true
-            indicatorView.stopAnimating()
             unreadView.isHidden = !(msg.unread == true)
         }
         

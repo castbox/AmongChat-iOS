@@ -572,10 +572,14 @@ struct R: Rswift.Validatable {
     static let home_name_edit = Rswift.ImageResource(bundle: R.hostingBundle, name: "home_name_edit")
     /// Image `iconDmConversationDelete`.
     static let iconDmConversationDelete = Rswift.ImageResource(bundle: R.hostingBundle, name: "iconDmConversationDelete")
+    /// Image `iconDmGifLoadFailed`.
+    static let iconDmGifLoadFailed = Rswift.ImageResource(bundle: R.hostingBundle, name: "iconDmGifLoadFailed")
     /// Image `iconDmGif`.
     static let iconDmGif = Rswift.ImageResource(bundle: R.hostingBundle, name: "iconDmGif")
     /// Image `iconDmKeyboard`.
     static let iconDmKeyboard = Rswift.ImageResource(bundle: R.hostingBundle, name: "iconDmKeyboard")
+    /// Image `iconDmMore`.
+    static let iconDmMore = Rswift.ImageResource(bundle: R.hostingBundle, name: "iconDmMore")
     /// Image `iconDmVoiceTag`.
     static let iconDmVoiceTag = Rswift.ImageResource(bundle: R.hostingBundle, name: "iconDmVoiceTag")
     /// Image `iconDmVoice`.
@@ -1531,9 +1535,19 @@ struct R: Rswift.Validatable {
       return UIKit.UIImage(resource: R.image.iconDmGif, compatibleWith: traitCollection)
     }
     
+    /// `UIImage(named: "iconDmGifLoadFailed", bundle: ..., traitCollection: ...)`
+    static func iconDmGifLoadFailed(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.iconDmGifLoadFailed, compatibleWith: traitCollection)
+    }
+    
     /// `UIImage(named: "iconDmKeyboard", bundle: ..., traitCollection: ...)`
     static func iconDmKeyboard(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.iconDmKeyboard, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "iconDmMore", bundle: ..., traitCollection: ...)`
+    static func iconDmMore(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.iconDmMore, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "iconDmVoice", bundle: ..., traitCollection: ...)`
@@ -7798,7 +7812,7 @@ struct _R: Rswift.Validatable {
       
       static func validate() throws {
         if UIKit.UIImage(named: "ac_back", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ac_back' is used in nib 'ConversationViewController', but couldn't be loaded.") }
-        if UIKit.UIImage(named: "ac_profile_more_icon", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ac_profile_more_icon' is used in nib 'ConversationViewController', but couldn't be loaded.") }
+        if UIKit.UIImage(named: "iconDmMore", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'iconDmMore' is used in nib 'ConversationViewController', but couldn't be loaded.") }
         if UIKit.UIImage(named: "online", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'online' is used in nib 'ConversationViewController', but couldn't be loaded.") }
         if #available(iOS 11.0, *) {
         }

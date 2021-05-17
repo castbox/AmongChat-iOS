@@ -11,6 +11,7 @@ import RxSwift
 import RxCocoa
 import AgoraRtmKit
 import CastboxDebuger
+import AudioToolbox
 
 fileprivate func cdPrint(_ message: Any) {
     Debug.info("[IMManager]-\(message)")
@@ -36,8 +37,6 @@ class IMManager: NSObject {
     private let bag = DisposeBag()
     //max login retry twice
     private var retryCount = 2
-    
-    private var triggerImpactTs: TimeInterval = 0
     
     var newChannelMessageObservable: Observable<ChatRoomMessage> {
         return newChannelMessageSubject.asObservable()
@@ -285,12 +284,7 @@ class IMManager: NSObject {
 private extension IMManager {
     
     func triggerImpactIfCould() {
-        let interval = Date().timeIntervalSince1970
-        guard interval - triggerImpactTs > 1 else {
-            return
-        }
-        triggerImpactTs = interval
-        HapticFeedback.Impact.medium()
+        AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
     }
     
     func bindEvents() {

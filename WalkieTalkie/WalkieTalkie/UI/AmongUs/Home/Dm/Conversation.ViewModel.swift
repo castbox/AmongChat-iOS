@@ -279,8 +279,8 @@ extension Conversation {
             insertOrReplace(message: newItem)
         }
         
-        func deleteAllHistory() -> Single<Void> {
-            return DMManager.shared.deleteConversation(of: targetUid)
+        func clearAllMessage() -> Single<Void> {
+            return DMManager.shared.clearAllMessage(of: targetUid)
         }
         
         func insertOrReplace(message: Entity.DMMessage) {

@@ -48,7 +48,7 @@ class ConversationViewController: ViewController {
     
     private var dataSource: [Conversation.MessageCellViewModel] = [] {
         didSet {
-            updateContentInsert()
+            updateContentInset()
         }
     }
     
@@ -66,6 +66,12 @@ class ConversationViewController: ViewController {
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        removeDuplicateConversation()
     }
     
     override func viewDidLoad() {
@@ -154,6 +160,12 @@ extension ConversationViewController: UICollectionViewDataSource {
             loadMore()
         }
     }
+    
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        if bottomBar.isFirstResponder {
+            view.endEditing(true)
+        }
+    }
 }
 
 extension ConversationViewController: UICollectionViewDelegateFlowLayout {
@@ -168,9 +180,9 @@ extension ConversationViewController: UICollectionViewDelegateFlowLayout {
     }
  
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-//        guard hasEarlyMessage else {
-//            return .zero
-//        }
+        guard hasEarlyMessage else {
+            return .zero
+        }
         return CGSize(width: Frame.Screen.width, height: 40)
     }
 }
@@ -228,7 +240,7 @@ private extension ConversationViewController {
         //            onlineView.fadeOut(duration: 0.2)
         //        }
         onlineView.isHidden = !isOnline
-        updateContentInsert()
+        updateContentInset()
     }
     
     func fetchRealation() {
@@ -397,12 +409,20 @@ private extension ConversationViewController {
 
 private extension ConversationViewController {
     
-    func deleteAllHistory() {
+    func removeDuplicateConversation() {
+        if let nav = navigationController,
+           let conVc = nav.viewControllers.first(where: { $0 is ConversationViewController }),
+           conVc != self {
+            nav.viewControllers = nav.viewControllers.removeAll(conVc)
+        }
+    }
+    
+    func clearAllMessage() {
         let removeBlock = view.raft.show(.loading)
-        viewModel.deleteAllHistory()
+        viewModel.clearAllMessage()
             .subscribe(onSuccess: { [weak self] in
                 removeBlock()
-                self?.navigationController?.popViewController()
+                self?.updateContentInset()
             }) { error in
                 removeBlock()
             }
@@ -443,7 +463,7 @@ private extension ConversationViewController {
                        confirmTitle: R.string.localizable.groupRoomYes(),
                        confirmTitleColor: "#FB5858".color(),
                        confirmAction: { [weak self] in
-                        self?.deleteAllHistory()
+                        self?.clearAllMessage()
                        })
     }
     
@@ -495,19 +515,25 @@ private extension ConversationViewController {
     
     func reloadCollectionView() {
         guard !dataSource.isEmpty else {
+            collectionView.reloadData()
             return
         }
         let contentHeight = collectionView.contentSize.height
-        let height = collectionView.bounds.size.height
+        let height = collectionView.bounds.size.height - collectionView.contentInset.top
         let contentOffsetY = collectionView.contentOffset.y
         let bottomOffset = contentHeight - contentOffsetY
-        
         // 消息不足一屏
         if contentHeight < height {
+            let messageHeight = dataSource.map { $0.height }.reduce(0, { $0 + $1 })
+            let autoScrollToBottom = messageHeight > height
             UIView.animate(withDuration: 0) {
                 self.collectionView.reloadData()
             } completion: { _ in
-                self.messageListScrollToBottom(animated: self.keyboardVisibleHeight > 0)
+                //内容超过一屏
+                if autoScrollToBottom {
+//                    self.messageListScrollToBottom(animated: self.keyboardVisibleHeight > 0)
+                    self.messageListScrollToBottom(animated: self.keyboardVisibleHeight > 0)
+                }
                 //首次 alpha = 0 来规避屏幕闪烁
                 self.collectionView.alpha = 1
             }
@@ -583,11 +609,11 @@ private extension ConversationViewController {
         presentPanModal(gifVc)
     }
     
-    func updateContentInsert() {
+    func updateContentInset() {
         let contentHeight = dataSource.reduce(0) { $0 + $1.height }
         //top insert
-        let onlineViewContentHeight: CGFloat = onlineView.isHidden ? 0 : 80
-        var topInset = Frame.Screen.height - collectionBottomEdge - Frame.Height.navigation - contentHeight + onlineViewContentHeight - keyboardVisibleHeight
+        let onlineViewContentHeight: CGFloat = liveContainer.isHidden ? 0 : 80
+        var topInset = onlineViewContentHeight
         if topInset < 0 {
             topInset = 0
         }
@@ -637,7 +663,7 @@ private extension ConversationViewController {
         titleLabel.text = conversation.message.fromUser.name
         collectionViewBottomConstraint.constant = collectionBottomEdge
         navBarHeightConstraint.constant = Frame.Height.navigation
-        collectionView.keyboardDismissMode = .interactive
+        collectionView.keyboardDismissMode = .onDrag
         collectionView.register(nibWithCellClass: ConversationCollectionCell.self)
         collectionView.register(supplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withClass: Conversation.HeaderLoadingView.self)
         collectionView.alpha = 0
@@ -712,7 +738,7 @@ private extension ConversationViewController {
                 }
                 cdPrint("bottomBar: \(keyboardVisibleHeight)")
                 self.keyboardVisibleHeight = keyboardVisibleHeight
-                self.updateContentInsert()
+                self.updateContentInset()
                 let bottomBarHeight = 64 + Frame.Height.safeAeraBottomHeight - (keyboardVisibleHeight > 0 ? Frame.Height.safeAeraBottomHeight : 0)
                 self.bottomBar.snp.updateConstraints { (maker) in
                     maker.bottom.equalToSuperview().offset(-keyboardVisibleHeight)

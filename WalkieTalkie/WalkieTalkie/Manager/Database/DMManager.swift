@@ -158,6 +158,7 @@ class DMManager {
         }
         .do(onSuccess: { [weak self] _ in
             self?.conversactionUpdateReplay.accept(nil)
+            self?.notifyMessagesUpdated(of: uid)
         })
     }
     
