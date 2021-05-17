@@ -86,9 +86,15 @@
                 <constraint firstAttribute="bottom" secondItem="B5W-WQ-j3g" secondAttribute="bottom" id="EyU-Z2-GE7"/>
                 <constraint firstItem="kSo-z0-duw" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="Gnc-RX-TSr"/>
                 <constraint firstItem="6Hb-b4-imh" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="J6J-ce-f1I"/>
-                <constraint firstAttribute="trailing" secondItem="6Hb-b4-imh" secondAttribute="trailing" constant="24" id="KOv-1o-T2l"/>
-                <constraint firstAttribute="trailing" secondItem="kSo-z0-duw" secondAttribute="trailing" constant="24" id="Lx5-Bl-1gf"/>
-                <constraint firstAttribute="trailing" secondItem="B5W-WQ-j3g" secondAttribute="trailing" constant="24" id="Puz-wc-6hG"/>
+                <constraint firstAttribute="trailing" secondItem="6Hb-b4-imh" secondAttribute="trailing" constant="24" id="KOv-1o-T2l">
+                    <variation key="heightClass=regular-widthClass=regular" constant="40"/>
+                </constraint>
+                <constraint firstAttribute="trailing" secondItem="kSo-z0-duw" secondAttribute="trailing" constant="24" id="Lx5-Bl-1gf">
+                    <variation key="heightClass=regular-widthClass=regular" constant="40"/>
+                </constraint>
+                <constraint firstAttribute="trailing" secondItem="B5W-WQ-j3g" secondAttribute="trailing" constant="24" id="Puz-wc-6hG">
+                    <variation key="heightClass=regular-widthClass=regular" constant="40"/>
+                </constraint>
                 <constraint firstItem="kSo-z0-duw" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="QOS-VP-QU5"/>
                 <constraint firstItem="B5W-WQ-j3g" firstAttribute="top" secondItem="6Hb-b4-imh" secondAttribute="bottom" constant="8" id="Zht-JD-4tg"/>
                 <constraint firstItem="B5W-WQ-j3g" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="s1u-ty-btc"/>

@@ -64,11 +64,15 @@
                 <constraint firstItem="CXa-Ar-8aW" firstAttribute="top" secondItem="Yh4-PZ-D0E" secondAttribute="bottom" constant="8" id="7AI-G1-4PZ"/>
                 <constraint firstItem="C2k-fH-k3b" firstAttribute="top" secondItem="Yh4-PZ-D0E" secondAttribute="top" constant="11" id="Dcr-sy-PhQ"/>
                 <constraint firstAttribute="bottom" secondItem="CXa-Ar-8aW" secondAttribute="bottom" id="IEG-yx-Pmz"/>
-                <constraint firstAttribute="trailing" secondItem="CXa-Ar-8aW" secondAttribute="trailing" constant="24" id="KA6-0P-NZ3"/>
+                <constraint firstAttribute="trailing" secondItem="CXa-Ar-8aW" secondAttribute="trailing" constant="24" id="KA6-0P-NZ3">
+                    <variation key="heightClass=regular-widthClass=regular" constant="40"/>
+                </constraint>
                 <constraint firstItem="CXa-Ar-8aW" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="S6c-fg-0Mc"/>
                 <constraint firstItem="Yh4-PZ-D0E" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="SFI-5R-b6F"/>
                 <constraint firstItem="C2k-fH-k3b" firstAttribute="bottom" secondItem="Yh4-PZ-D0E" secondAttribute="bottom" constant="-11" id="TKN-Wx-tqq"/>
-                <constraint firstAttribute="trailing" secondItem="Yh4-PZ-D0E" secondAttribute="trailing" constant="24" id="bI1-8Z-ozB"/>
+                <constraint firstAttribute="trailing" secondItem="Yh4-PZ-D0E" secondAttribute="trailing" constant="24" id="bI1-8Z-ozB">
+                    <variation key="heightClass=regular-widthClass=regular" constant="40"/>
+                </constraint>
                 <constraint firstItem="C2k-fH-k3b" firstAttribute="leading" secondItem="Yh4-PZ-D0E" secondAttribute="leading" constant="12" id="sha-sO-UOi"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>

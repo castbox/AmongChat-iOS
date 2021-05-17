@@ -73,7 +73,9 @@
             <gestureRecognizers/>
             <constraints>
                 <constraint firstItem="P6a-tu-sNy" firstAttribute="centerY" secondItem="uR9-sv-LpM" secondAttribute="centerY" id="0k8-A6-ejM"/>
-                <constraint firstAttribute="trailing" secondItem="CyV-XZ-rIh" secondAttribute="trailing" constant="24" id="3G1-Dj-kdY"/>
+                <constraint firstAttribute="trailing" secondItem="CyV-XZ-rIh" secondAttribute="trailing" constant="24" id="3G1-Dj-kdY">
+                    <variation key="heightClass=regular-widthClass=regular" constant="40"/>
+                </constraint>
                 <constraint firstItem="uR9-sv-LpM" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="9Od-wR-qcG"/>
                 <constraint firstItem="CyV-XZ-rIh" firstAttribute="top" secondItem="uR9-sv-LpM" secondAttribute="bottom" constant="12.5" id="9bN-4R-InP"/>
                 <constraint firstItem="zzX-53-SvF" firstAttribute="centerY" secondItem="uR9-sv-LpM" secondAttribute="centerY" id="QTb-rI-DZD"/>
@@ -82,7 +84,9 @@
                 <constraint firstItem="uR9-sv-LpM" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="ofw-2y-Dve"/>
                 <constraint firstAttribute="bottom" secondItem="CyV-XZ-rIh" secondAttribute="bottom" id="tli-Zb-vrT"/>
                 <constraint firstItem="CyV-XZ-rIh" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="ufx-wr-e2Z"/>
-                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="zzX-53-SvF" secondAttribute="trailing" constant="20" id="ypS-vg-hOW"/>
+                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="zzX-53-SvF" secondAttribute="trailing" constant="20" id="ypS-vg-hOW">
+                    <variation key="heightClass=regular-widthClass=regular" constant="40"/>
+                </constraint>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
