@@ -3654,7 +3654,7 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatCustomAvatarSelectImage = Rswift.StringResource(key: "among.chat.custom.avatar.select.image", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
-      /// en translation: Send failed, Please try again.
+      /// en translation: Send failed. Please try again.
       /// 
       /// Locales: en
       static let dmSendMessageError = Rswift.StringResource(key: "dm.send.message.error", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
@@ -6478,7 +6478,7 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("among.chat.custom.avatar.select.image", bundle: R.hostingBundle, comment: "")
       }
       
-      /// en translation: Send failed, Please try again.
+      /// en translation: Send failed. Please try again.
       /// 
       /// Locales: en
       static func dmSendMessageError(_: Void = ()) -> String {
