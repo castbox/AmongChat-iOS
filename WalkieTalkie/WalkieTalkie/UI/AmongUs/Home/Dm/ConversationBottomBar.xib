@@ -37,7 +37,7 @@
                         <action selector="leftButtonAction:" destination="-1" eventType="touchUpInside" id="Z5F-Ue-DIR"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CoN-C0-YAy">
+                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CoN-C0-YAy">
                     <rect key="frame" x="356" y="10" width="44" height="44"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="44" id="Vzp-E4-m39"/>
