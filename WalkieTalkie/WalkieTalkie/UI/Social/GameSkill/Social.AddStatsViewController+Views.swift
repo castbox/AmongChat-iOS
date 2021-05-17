@@ -98,7 +98,7 @@ extension Social.AddStatsViewController {
         
         private lazy var removeBtn: UIButton = {
             let btn = UIButton(type: .custom)
-            btn.setImage(R.image.ac_add_stats_remove(), for: .normal)
+            btn.setBackgroundImage(R.image.ac_add_stats_remove(), for: .normal)
             btn.rx.controlEvent(.primaryActionTriggered)
                 .subscribe(onNext: { [weak self] (_) in
                     self?.screenshotIV.image = nil
@@ -156,7 +156,11 @@ extension Social.AddStatsViewController {
             }
             
             removeBtn.snp.makeConstraints { (maker) in
-                maker.width.height.equalTo(24)
+                var size = CGSize(width: 24, height: 24)
+                adaptToIPad {
+                    size = CGSize(width: 36, height: 36)
+                }
+                maker.size.equalTo(size)
                 maker.top.trailing.equalTo(addView).inset(12)
             }
         }
