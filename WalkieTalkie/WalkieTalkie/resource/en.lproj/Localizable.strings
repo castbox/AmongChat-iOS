@@ -529,3 +529,6 @@
 "dm.send.message.beblocked.error" = "You can no longer send Direct Messages to this person.";
 "dm.delete.conversation.alert.title" = "Are you sure you want to delete this chat?";
 "group.online" = "Live";
+"app.new.version.alert.title" = "New Update Available!";
+"app.new.version.alert.content" = "Update to the latest version and help spread the word.";
+"app.new.version.alert.update" = "Update";
