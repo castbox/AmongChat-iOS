@@ -68,6 +68,12 @@ class ConversationViewController: ViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        removeDuplicateConversation()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -396,6 +402,14 @@ private extension ConversationViewController {
 }
 
 private extension ConversationViewController {
+    
+    func removeDuplicateConversation() {
+        if let nav = navigationController,
+           let conVc = nav.viewControllers.first(where: { $0 is ConversationViewController }),
+           conVc != self {
+            nav.viewControllers = nav.viewControllers.removeAll(conVc)
+        }
+    }
     
     func deleteAllHistory() {
         let removeBlock = view.raft.show(.loading)
