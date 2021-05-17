@@ -160,6 +160,12 @@ extension ConversationViewController: UICollectionViewDataSource {
             loadMore()
         }
     }
+    
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        if bottomBar.isFirstResponder {
+            view.endEditing(true)
+        }
+    }
 }
 
 extension ConversationViewController: UICollectionViewDelegateFlowLayout {
