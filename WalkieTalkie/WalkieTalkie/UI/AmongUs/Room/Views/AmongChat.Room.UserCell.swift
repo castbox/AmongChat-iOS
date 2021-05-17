@@ -430,13 +430,22 @@ extension AmongChat.Room {
             
             nameLabel.snp.makeConstraints { (maker) in
                 maker.top.equalTo(avatarIV.snp.bottom).offset(4)
-                maker.trailing.leading.equalToSuperview().inset(2)
+                if Frame.isPad {
+                    maker.centerX.equalToSuperview()
+                    maker.leading.greaterThanOrEqualToSuperview().offset(2)
+                } else {
+                    maker.trailing.leading.equalToSuperview().inset(2)
+                }
             }
             
             gameNameButton.snp.makeConstraints { maker in
                 maker.top.equalTo(nameLabel.snp.bottom).offset(4)
-                maker.left.equalTo(3)
-                maker.right.equalTo(-3)
+                if Frame.isPad {
+                    maker.leading.trailing.equalTo(nameLabel).inset(-8)
+                } else {
+                    maker.left.equalTo(3)
+                    maker.right.equalTo(-3)
+                }
                 maker.height.equalTo(20)
             }
             
