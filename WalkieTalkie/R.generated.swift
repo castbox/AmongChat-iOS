@@ -2333,7 +2333,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
     
-    /// This `R.string.localizable` struct is generated, and contains static references to 459 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 462 localization keys.
     struct localizable {
       /// en translation:  Congratulations!
       /// 
@@ -3251,6 +3251,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let newAvatarsGuideTitle = Rswift.StringResource(key: "new.avatars.guide.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: New Update Available!
+      /// 
+      /// Locales: en
+      static let appNewVersionAlertTitle = Rswift.StringResource(key: "app.new.version.alert.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Next
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3631,7 +3635,7 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatCustomAvatarSelectImage = Rswift.StringResource(key: "among.chat.custom.avatar.select.image", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
-      /// en translation: Send failed, Please try again.
+      /// en translation: Send failed. Please try again.
       /// 
       /// Locales: en
       static let dmSendMessageError = Rswift.StringResource(key: "dm.send.message.error", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
@@ -3939,6 +3943,14 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let reportIncorrectUnreasonable = Rswift.StringResource(key: "report.incorrect.unreasonable", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Update
+      /// 
+      /// Locales: en
+      static let appNewVersionAlertUpdate = Rswift.StringResource(key: "app.new.version.alert.update", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Update to the latest version and help spread the word.
+      /// 
+      /// Locales: en
+      static let appNewVersionAlertContent = Rswift.StringResource(key: "app.new.version.alert.content", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Upload a screenshot
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -5775,6 +5787,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("new.avatars.guide.title", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: New Update Available!
+      /// 
+      /// Locales: en
+      static func appNewVersionAlertTitle(_: Void = ()) -> String {
+        return NSLocalizedString("app.new.version.alert.title", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Next
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -6440,7 +6459,7 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("among.chat.custom.avatar.select.image", bundle: R.hostingBundle, comment: "")
       }
       
-      /// en translation: Send failed, Please try again.
+      /// en translation: Send failed. Please try again.
       /// 
       /// Locales: en
       static func dmSendMessageError(_: Void = ()) -> String {
@@ -6977,6 +6996,20 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func reportIncorrectUnreasonable(_: Void = ()) -> String {
         return NSLocalizedString("report.incorrect.unreasonable", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Update
+      /// 
+      /// Locales: en
+      static func appNewVersionAlertUpdate(_: Void = ()) -> String {
+        return NSLocalizedString("app.new.version.alert.update", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Update to the latest version and help spread the word.
+      /// 
+      /// Locales: en
+      static func appNewVersionAlertContent(_: Void = ()) -> String {
+        return NSLocalizedString("app.new.version.alert.content", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Upload a screenshot
