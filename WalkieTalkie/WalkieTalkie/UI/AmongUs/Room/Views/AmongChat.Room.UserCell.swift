@@ -86,7 +86,7 @@ extension AmongChat.Room {
             lb.text = R.string.localizable.roomUserListMuted()
             lb.backgroundColor = UIColor.black.alpha(0.7)
             lb.isHidden = true
-            lb.cornerRadius = 20
+            lb.cornerRadius = UserCell.avatarWidth / 2
             return lb
         }()
         

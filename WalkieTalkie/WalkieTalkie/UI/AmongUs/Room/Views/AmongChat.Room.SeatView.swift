@@ -66,7 +66,7 @@ extension AmongChat.Room {
         let bag = DisposeBag()
         
         private let fixedListLength = Int(10)
-        static let itemWidth: CGFloat = ((UIScreen.main.bounds.width - 20 * 2) / 5).floor
+        static let itemWidth: CGFloat = ((UIScreen.main.bounds.width - Frame.horizontalBleedWidth * 2) / 5).floor
         static var itemHeight: CGFloat = 125.5
         lazy var leftEdge: CGFloat = (UIScreen.main.bounds.width - AmongChat.Room.SeatView.itemWidth * 5) / 2
 
@@ -179,7 +179,11 @@ extension AmongChat.Room {
             }
             
             bottomStackView.snp.makeConstraints { (maker) in
-                maker.top.equalTo(topStackView.snp.bottom)
+                var topPadding: CGFloat = 0
+                adaptToIPad {
+                    topPadding = 36
+                }
+                maker.top.equalTo(topStackView.snp.bottom).offset(topPadding)
                 maker.bottom.equalToSuperview()
                 maker.leading.trailing.equalToSuperview().inset(leftEdge)
                 maker.height.equalTo(topStackView)
