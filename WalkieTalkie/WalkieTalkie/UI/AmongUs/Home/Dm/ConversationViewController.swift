@@ -637,7 +637,7 @@ private extension ConversationViewController {
         titleLabel.text = conversation.message.fromUser.name
         collectionViewBottomConstraint.constant = collectionBottomEdge
         navBarHeightConstraint.constant = Frame.Height.navigation
-        collectionView.keyboardDismissMode = .interactive
+        collectionView.keyboardDismissMode = .onDrag
         collectionView.register(nibWithCellClass: ConversationCollectionCell.self)
         collectionView.register(supplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withClass: Conversation.HeaderLoadingView.self)
         collectionView.alpha = 0

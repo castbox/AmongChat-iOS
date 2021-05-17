@@ -64,7 +64,7 @@
                                 <constraint firstAttribute="width" constant="44" id="R8B-It-ddV"/>
                                 <constraint firstAttribute="height" constant="44" id="fjY-ie-6QE"/>
                             </constraints>
-                            <state key="normal" image="ac_profile_more_icon"/>
+                            <state key="normal" image="iconDmMore"/>
                             <connections>
                                 <action selector="moreButtonAction:" destination="-1" eventType="touchUpInside" id="l6F-6J-vGu"/>
                             </connections>
@@ -134,7 +134,7 @@
                             </connections>
                         </button>
                     </subviews>
-                    <color key="backgroundColor" red="0.070588235294117646" green="0.070588235294117646" blue="0.070588235294117646" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                    <color key="backgroundColor" red="0.070588235294117646" green="0.070588235294117646" blue="0.070588235294117646" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstItem="wgs-6R-SNW" firstAttribute="leading" secondItem="WqX-Go-sOp" secondAttribute="trailing" constant="14" id="7y7-iI-jKl"/>
                         <constraint firstItem="AKs-5a-Lcp" firstAttribute="leading" secondItem="wgs-6R-SNW" secondAttribute="trailing" constant="15" id="E1A-6t-fjg"/>
@@ -165,7 +165,7 @@
     </objects>
     <resources>
         <image name="ac_back" width="24" height="24"/>
-        <image name="ac_profile_more_icon" width="40" height="40"/>
+        <image name="iconDmMore" width="24" height="24"/>
         <image name="online" width="16" height="16"/>
     </resources>
 </document>
