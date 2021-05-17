@@ -24,7 +24,7 @@ class AudioRecorderViewController: WalkieTalkie.ViewController {
     private typealias CircularProgressView = AmongChat.Home.RoomInvitationModal.CircularProgressView
     private lazy var circleView: CircularProgressView = {
         let v = CircularProgressView()
-        
+        v.clockwise = true
         v.backgroundColor = .clear
         
         v.circleLineWidth = 0
@@ -184,23 +184,49 @@ extension AudioRecorderViewController {
     
     private func setUpEvents() {
         sm.stateObservable
-            .subscribe(onNext: { [weak self] (state) in
-                guard let `self` = self else { return }
+            .flatMap({ [weak self] (state) -> Observable<Void> in
+                guard let `self` = self else { throw MsgError.default }
                 switch state {
                 case .normalRecording:
                     self.updateUI(false)
+                    return Observable.empty()
                 case .aboutToQuitRecording:
                     self.updateUI(true)
+                    return Observable.empty()
                 case .quitRecording(let error):
-                    self.stopRecording(with: error)
+                    return self.stopRecording().map {
+                        throw error
+                    }
                 case .finishRecording:
                     if self.recordedSeconds < 1 {
-                        self.stopRecording(with: MsgError(code: -101, msg: R.string.localizable.amongChatAudioRecordingTooShort()))
+                        return self.stopRecording().map {
+                            throw MsgError(code: -101, msg: R.string.localizable.amongChatAudioRecordingTooShort())
+                        }
                     } else {
-                        self.stopRecording()
+                        return self.stopRecording()
                     }
                 }
             })
+            .do(onNext: { [weak self] (_) in
+                self?.dismiss(animated: false)
+            }, onError: { [weak self] (_) in
+                self?.dismiss(animated: false)
+            })
+            .flatMap({ [weak self] (_) -> Observable<Bool> in
+                guard let `self` = self else { throw MsgError.default }
+                return self.recorderFinishedSuccess
+            })
+            .map({ (success) -> (URL, Int) in
+                guard success else {
+                    throw MsgError.default
+                }
+                
+                return (self.savedFileURL, self.recordedSeconds)
+            })
+            .do(onError: { [weak self] (error) in
+                let _ = self?.recorder?.deleteRecording()
+            })
+            .bind(to: self.recordedAudioFileSubject)
             .disposed(by: bag)
         
         Observable<Int>.timer(.seconds(0), period: .seconds(1), scheduler: MainScheduler.instance)
@@ -216,79 +242,86 @@ extension AudioRecorderViewController {
             })
             .disposed(by: bag)
         
-        rx.viewDidAppear
+        Observable.combineLatest(startRecording(), rx.viewDidAppear)
             .take(1)
             .subscribe(onNext: { [weak self] (_) in
                 guard let `self` = self else { return }
                 self.circleView.updateProgress(fromValue: 0, toValue: 1, animationDuration: Double(self.countdown))
                 self.circleView.isHidden = false
-                self.startRecording()
+            }, onError: { [weak self] (error) in
+                self?.sm.eventOccurs(.error(error))
             })
             .disposed(by: bag)
         
     }
     
-    private func startRecording() {
+    private func startRecording() -> Observable<Void> {
         
-        let session = AVAudioSession.sharedInstance()
-        
-        do {
-            try session.setCategory(AVAudioSession.Category.playAndRecord)
-        } catch let error{
-            self.sm.eventOccurs(.error(error))
+        return Observable<Void>.create { [weak self] (subscriber) -> Disposable in
+            
+            guard let `self` = self else {
+                subscriber.onError(MsgError.default)
+                return Disposables.create()
+            }
+            
+            let session = AVAudioSession.sharedInstance()
+            
+            do {
+                try session.setCategory(AVAudioSession.Category.playAndRecord)
+            } catch let error{
+                subscriber.onError(error)
+            }
+            
+            do {
+                try session.setActive(true)
+            } catch let error {
+                subscriber.onError(error)
+                
+            }
+            
+            let recordSetting: [String : Any] = [
+                AVFormatIDKey : NSNumber(value: kAudioFormatMPEG4AAC),
+                AVLinearPCMBitDepthKey : NSNumber(value: 16),
+                AVNumberOfChannelsKey : NSNumber(value: 1),
+                AVEncoderAudioQualityKey : NSNumber(value: AVAudioQuality.min.rawValue),
+                AVSampleRateKey : 44100
+            ]
+            
+            do {
+                let recorder = try AVAudioRecorder(url: self.savedFileURL, settings: recordSetting)
+                recorder.delegate = self
+                recorder.prepareToRecord()
+                recorder.record()
+                self.recorder = recorder
+                subscriber.onNext(())
+                subscriber.onCompleted()
+            } catch let error {
+                subscriber.onError(error)
+            }
+            
+            return Disposables.create()
         }
-        
-        do {
-            try session.setActive(true)
-        } catch let error {
-            self.sm.eventOccurs(.error(error))        }
-        
-        let recordSetting: [String : Any] = [
-            AVFormatIDKey : NSNumber(value: kAudioFormatMPEG4AAC),
-            AVLinearPCMBitDepthKey : NSNumber(value: 16),
-            AVNumberOfChannelsKey : NSNumber(value: 1),
-            AVEncoderAudioQualityKey : NSNumber(value: AVAudioQuality.min.rawValue),
-            AVSampleRateKey : 44100
-        ]
-        
-        do {
-            let recorder = try AVAudioRecorder(url: savedFileURL, settings: recordSetting)
-            recorder.delegate = self
-            recorder.prepareToRecord()
-            recorder.record()
-            self.recorder = recorder
-        } catch let error {
-            self.sm.eventOccurs(.error(error))
-        }
+        .observeOn(MainScheduler.asyncInstance)
         
     }
     
-    private func stopRecording(with error: Error? = nil) {
+    private func stopRecording() -> Observable<Void> {
         
-        recorder?.stop()
-        if let error = error {
-            recordedAudioFileSubject.onError(error)
+        return Observable<Void>.create { [weak self] (subscriber) -> Disposable in
+            
+            self?.recorder?.stop()
             do {
-                try FileManager.default.removeItem(at: savedFileURL)
-            } catch let _ {
-                cdPrint("")
+                try AVAudioSession.sharedInstance().setActive(false, options: [.notifyOthersOnDeactivation])
+            } catch let error {
+                cdPrint("deactive audio session error: \(error)")
             }
-        } else {
             
-            recorderFinishedSuccess
-                .map({ (success) -> (URL, Int) in
-                    guard success else {
-                        throw MsgError.default
-                    }
-                    
-                    return (self.savedFileURL, self.recordedSeconds)
-                })
-                .bind(to: recordedAudioFileSubject)
-                .disposed(by: bag)
+            subscriber.onNext(())
+            subscriber.onCompleted()
             
+            return Disposables.create()
         }
-        dismiss(animated: false)
-        
+        .observeOn(MainScheduler.asyncInstance)
     }
     
     private func updateUI(_ toCancelStyle: Bool) {
@@ -408,6 +441,7 @@ class HoldToTalkButton: UIButton {
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         
+        HapticFeedback.Impact.medium()
         guard AVAudioSession.sharedInstance().recordPermission == .granted else {
             
             UIApplication.topViewController()?.checkMicroPermission(title: R.string.localizable.microphoneNotAllowTitle(),

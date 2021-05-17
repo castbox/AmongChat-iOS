@@ -108,9 +108,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        // end
 //        TikTokOpenSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
         
-        UIApplication.shared.applicationIconBadgeNumber = 0
+        removeAllDeliveredNotifications()
         
         ApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
+        observeMopubILRD()
         return true
     }
     
@@ -179,7 +180,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func applicationWillEnterForeground(_ application: UIApplication) {
-        UIApplication.shared.applicationIconBadgeNumber = 0
+        removeAllDeliveredNotifications()
     }
     
     func applicationDidEnterBackground(_ application: UIApplication) {
@@ -247,6 +248,11 @@ extension AppDelegate {
 //        }
 //        self.window = window
 //    }
+    
+    func removeAllDeliveredNotifications() {
+        UIApplication.shared.applicationIconBadgeNumber = 0
+        UNUserNotificationCenter.current().removeAllDeliveredNotifications()
+    }
     
     func setupInitialView() {
         
@@ -352,3 +358,35 @@ extension Data {
     }
 }
 
+extension AppDelegate {
+    
+    private func observeMopubILRD() {
+        
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(onImpressionFiredNotification(notification:)),
+                                               name: NSNotification.Name.mpImpressionTracked,
+                                               object: nil)
+
+    }
+    
+    @objc
+    private func onImpressionFiredNotification(notification: NSNotification) {
+        guard let userInfo = notification.userInfo as? [String: Any] else {
+            return
+        }
+        
+        let impressionData = userInfo[kMPImpressionTrackedInfoImpressionDataKey] as? MPImpressionData // the impression's impression data, or nil if ILRD is not enabled
+                
+        Logger.AdRevenue()
+            .addData(key: .ad_platform, value: "MoPub")
+            .addData(key: .ad_source, value: impressionData?.networkName)
+            .addData(key: .ad_format, value: impressionData?.adUnitFormat)
+            .addData(key: .ad_unit_name, value: impressionData?.adUnitName)
+            .addData(key: .value, value: impressionData?.publisherRevenue)
+            .addData(key: .currency, value: impressionData?.currency)
+            .addData(key: .precision, value: impressionData?.precision)
+            .addData(key: .country, value: impressionData?.country)
+            .log()
+    }
+
+}

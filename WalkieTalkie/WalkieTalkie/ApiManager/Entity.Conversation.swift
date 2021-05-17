@@ -16,11 +16,13 @@ extension Entity {
         case voice = "VcMsg"
     }
     
-    struct DMProfile: Codable, ColumnCodable {
+    struct DMProfile: Verifiedable, Codable, ColumnCodable {
         
         let uid: Int64
-        let name: String?
+        var name: String?
         let pictureUrl: String?
+        var isVerified: Bool?
+        var isVip: Bool?
         
         var isLoginUser: Bool {
             Settings.loginUserId?.int64 == uid
@@ -32,15 +34,22 @@ extension Entity {
             uid = profile.uid
             name = profile.name
             pictureUrl = profile.pictureUrl
+            isVerified = profile.isVerified
+            isVip = profile.isVip
         }
         
         init(uid: Int64,
              name: String?,
-             pictureUrl: String?) {
+             pictureUrl: String?,
+             isVerified: Bool?,
+             isVip: Bool?) {
             self.uid = uid
             self.name = name
             self.pictureUrl = pictureUrl
+            self.isVerified = isVerified
+            self.isVip = isVip
         }
+        
         
         
         func archivedValue() -> FundamentalValue {
@@ -64,6 +73,8 @@ extension Entity {
             case uid
             case name
             case pictureUrl = "picture_url"
+            case isVerified = "is_verified"
+            case isVip = "is_vip"
         }
     }
     

@@ -124,6 +124,7 @@ extension AmongChat.Home.ConversationListController: UITableViewDataSource, UITa
             return
         }
         deleteAllHistory(for: item.fromUid)
+        Logger.Action.log(.dm_list_item_click, categoryValue: "delete", item.fromUid)
     }
     
     @available(iOS 11.0, *)
@@ -143,7 +144,7 @@ extension AmongChat.Home.ConversationListController: UITableViewDataSource, UITa
                                 })
         }
         action.image = R.image.iconDmConversationDelete()
-        action.backgroundColor = .red
+        action.backgroundColor = "FB5858".color()
         return UISwipeActionsConfiguration(actions: [action])
     }
     
@@ -154,6 +155,7 @@ extension AmongChat.Home.ConversationListController: UITableViewDataSource, UITa
         }
         let vc = ConversationViewController(item)
         navigationController?.pushViewController(vc)
+        Logger.Action.log(.dm_list_item_click, categoryValue: "chat", item.fromUid)
     }
 }
 
@@ -189,9 +191,9 @@ extension AmongChat.Home.ConversationListController {
             maker.height.equalTo(49)
         }
         
-        
         emptyView.snp.makeConstraints { (maker) in
-            maker.center.equalTo(listView.snp.center)
+            maker.centerX.equalToSuperview()
+            maker.centerY.equalToSuperview().multipliedBy(0.7)
         }
         
         listView.snp.makeConstraints { (maker) in

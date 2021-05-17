@@ -53,12 +53,11 @@ class AudioPlayerManager {
     }
     
     @discardableResult
-    func play(fileUrl: String, playFinishHandler: CallBack? = nil) -> Bool {
+    func play(fileUrl: String) -> Bool {
         guard !isPlaying(fileUrl) else {
             return false
         }
         stopPlay()
-        self.playFinishHandler = playFinishHandler
         do {
             let url = URL(fileURLWithPath: fileUrl)
             player = try AudioPlayer(contentsOf: url)

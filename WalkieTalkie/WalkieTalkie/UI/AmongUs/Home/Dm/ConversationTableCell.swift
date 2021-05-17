@@ -10,12 +10,21 @@ import UIKit
 
 class ConversationTableCell: UITableViewCell {
     
-    @IBOutlet weak var avatarView: UIImageView!
+    @IBOutlet weak var avatarView: AvatarImageView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var contentLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var countView: UIView!
     @IBOutlet weak var countLabel: UILabel!
+    
+//    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+//        super.init(style: style, reuseIdentifier: reuseIdentifier)
+//        self.avatarView.verifyStyle = .gray
+//    }
+//
+//    required init?(coder aDecoder: NSCoder) {
+//        super
+//    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -25,7 +34,8 @@ class ConversationTableCell: UITableViewCell {
     func bind(_ item: Entity.DMConversation) {
         let msg = item.message
         avatarView.setAvatarImage(with: msg.fromUser.pictureUrl)
-        nameLabel.text = msg.fromUser.name
+        avatarView.isVerify = msg.fromUser.isVerified
+        nameLabel.attributedText = msg.fromUser.nameWithVerified(fontSize: 20, isShowVerify: false)
         switch item.message.body.msgType {
         case .text:
             contentLabel.text = msg.body.text

@@ -261,6 +261,12 @@ extension AmongChat.Home.RoomInvitationModal {
         var circleBackgroundColor: UIColor? = nil
         var circleLineWidth: CGFloat = 0.0
         
+        var clockwise = false {
+            didSet {
+                createCircularPath()
+            }
+        }
+        
         init() {
             super.init(frame: .zero)
             setupLayout()
@@ -281,7 +287,19 @@ extension AmongChat.Home.RoomInvitationModal {
         }
         
         private func createCircularPath() {
-            let circularPath = UIBezierPath(arcCenter: CGPoint(x: frame.width / 2.0, y: frame.height / 2.0), radius: min(frame.width / 2, frame.height / 2), startAngle: 3 * .pi / 2, endAngle: -.pi / 2, clockwise: false)
+            
+            var startAngle: CGFloat
+            var endAngle: CGFloat
+            
+            if clockwise {
+                startAngle = -.pi / 2
+                endAngle = 3 * .pi / 2
+            } else {
+                startAngle = 3 * .pi / 2
+                endAngle = -.pi / 2
+            }
+            
+            let circularPath = UIBezierPath(arcCenter: CGPoint(x: frame.width / 2.0, y: frame.height / 2.0), radius: min(frame.width / 2, frame.height / 2), startAngle: startAngle, endAngle: endAngle, clockwise: clockwise)
             circleLayer.path = circularPath.cgPath
             circleLayer.fillColor = circleBackgroundColor?.cgColor
             circleLayer.lineCap = .round

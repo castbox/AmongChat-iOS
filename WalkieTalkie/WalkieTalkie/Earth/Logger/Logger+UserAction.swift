@@ -273,6 +273,18 @@ extension Logger {
             case notice_tab_social_clk
             case notice_tab_group_request_clk
             case group_join_request_imp
+            
+            //dm
+            case profile_other_chat_clk
+            case dm_notice_clk
+            case dm_list_item_click
+            case dm_detail_imp
+            case dm_detail_clk
+            case dm_detail_item_clk
+            case dm_detail_tool_bar_clk
+            case dm_detail_send_msg
+            case gif_search_clk
+            case gif_select_clk
         }
         
         enum Category: String {
@@ -323,6 +335,20 @@ extension Logger {
             case copy
             case share
             case go
+            //dm
+            case chat
+            case delete
+            case join_channel
+            case join_group
+            case block
+            case unblock
+            case report
+            case delete_history
+            case resend //失败后重试
+            case voice_play // 播放语音消息"
+            case voice
+            case textvoice
+            case gift
         }
         
         static func log(_ eventName: EventName, category: Category? = nil, _ itemName: String? = nil, _ value: Int? = nil, extra: [String: Any]? = nil) {

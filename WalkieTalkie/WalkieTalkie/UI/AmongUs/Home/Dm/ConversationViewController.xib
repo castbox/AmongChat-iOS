@@ -18,6 +18,7 @@
                 <outlet property="collectionView" destination="cxB-cu-u72" id="uIB-kg-Lny"/>
                 <outlet property="collectionViewBottomConstraint" destination="kib-qn-vFX" id="qai-l3-ATt"/>
                 <outlet property="followButton" destination="AKs-5a-Lcp" id="az4-ev-7Q7"/>
+                <outlet property="navBarHeightConstraint" destination="M6Z-7h-bar" id="Mrv-Jb-5ib"/>
                 <outlet property="onlineView" destination="btE-Zl-39A" id="UFf-0R-Pg6"/>
                 <outlet property="titleLabel" destination="Tk0-fI-ITX" id="Cu0-Xd-sdp"/>
                 <outlet property="userInfostackView" destination="wgs-6R-SNW" id="zit-UZ-c9i"/>
@@ -29,8 +30,22 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <collectionView multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" bouncesZoom="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="cxB-cu-u72">
+                    <rect key="frame" x="0.0" y="44" width="414" height="736"/>
+                    <color key="backgroundColor" red="0.070588235294117646" green="0.070588235294117646" blue="0.070588235294117646" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="nRB-hk-WWg">
+                        <size key="itemSize" width="128" height="128"/>
+                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    </collectionViewFlowLayout>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="ZO2-S2-tYM"/>
+                        <outlet property="delegate" destination="-1" id="7kc-dt-Zv6"/>
+                    </connections>
+                </collectionView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ay3-en-jMj">
-                    <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WqX-Go-sOp">
                             <rect key="frame" x="14" y="0.0" width="44" height="44"/>
@@ -119,44 +134,30 @@
                             </connections>
                         </button>
                     </subviews>
-                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <color key="backgroundColor" red="0.070588235294117646" green="0.070588235294117646" blue="0.070588235294117646" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstItem="wgs-6R-SNW" firstAttribute="leading" secondItem="WqX-Go-sOp" secondAttribute="trailing" constant="14" id="7y7-iI-jKl"/>
                         <constraint firstItem="AKs-5a-Lcp" firstAttribute="leading" secondItem="wgs-6R-SNW" secondAttribute="trailing" constant="15" id="E1A-6t-fjg"/>
                         <constraint firstAttribute="trailing" secondItem="h6A-W3-4H9" secondAttribute="trailing" constant="10" id="JW8-DG-1m1"/>
                         <constraint firstItem="WqX-Go-sOp" firstAttribute="leading" secondItem="Ay3-en-jMj" secondAttribute="leading" constant="14" id="LrC-A9-Kxr"/>
                         <constraint firstAttribute="height" constant="44" id="M6Z-7h-bar"/>
-                        <constraint firstItem="h6A-W3-4H9" firstAttribute="centerY" secondItem="Ay3-en-jMj" secondAttribute="centerY" id="QHl-LE-3bW"/>
                         <constraint firstItem="AKs-5a-Lcp" firstAttribute="centerY" secondItem="h6A-W3-4H9" secondAttribute="centerY" id="TpS-sm-kly"/>
                         <constraint firstItem="h6A-W3-4H9" firstAttribute="leading" secondItem="AKs-5a-Lcp" secondAttribute="trailing" constant="10" id="cZ4-5G-c9e"/>
-                        <constraint firstItem="WqX-Go-sOp" firstAttribute="centerY" secondItem="Ay3-en-jMj" secondAttribute="centerY" id="mND-Gd-EgU"/>
+                        <constraint firstAttribute="bottom" secondItem="h6A-W3-4H9" secondAttribute="bottom" id="g30-XI-9nc"/>
                         <constraint firstItem="wgs-6R-SNW" firstAttribute="centerY" secondItem="WqX-Go-sOp" secondAttribute="centerY" id="ud5-Bz-wfN"/>
+                        <constraint firstAttribute="bottom" secondItem="WqX-Go-sOp" secondAttribute="bottom" id="xFv-05-lHW"/>
                     </constraints>
                 </view>
-                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" bouncesZoom="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="cxB-cu-u72">
-                    <rect key="frame" x="0.0" y="88" width="414" height="710"/>
-                    <color key="backgroundColor" red="0.070588235294117646" green="0.070588235294117646" blue="0.070588235294117646" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="nRB-hk-WWg">
-                        <size key="itemSize" width="128" height="128"/>
-                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="16"/>
-                    </collectionViewFlowLayout>
-                    <connections>
-                        <outlet property="dataSource" destination="-1" id="ZO2-S2-tYM"/>
-                        <outlet property="delegate" destination="-1" id="7kc-dt-Zv6"/>
-                    </connections>
-                </collectionView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" red="0.070588235294117646" green="0.070588235294117646" blue="0.070588235294117646" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="Ay3-en-jMj" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="0gt-MR-qgK"/>
+                <constraint firstItem="Ay3-en-jMj" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="0gt-MR-qgK"/>
                 <constraint firstItem="Ay3-en-jMj" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="YBX-CC-yFm"/>
                 <constraint firstItem="cxB-cu-u72" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="Z5u-z7-bKL"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="cxB-cu-u72" secondAttribute="trailing" id="gDn-6I-16g"/>
                 <constraint firstItem="cxB-cu-u72" firstAttribute="top" secondItem="Ay3-en-jMj" secondAttribute="bottom" id="kPN-r7-UKv"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="cxB-cu-u72" secondAttribute="bottom" constant="64" id="kib-qn-vFX"/>
+                <constraint firstAttribute="bottom" secondItem="cxB-cu-u72" secondAttribute="bottom" constant="116" id="kib-qn-vFX"/>
                 <constraint firstItem="Ay3-en-jMj" firstAttribute="trailing" secondItem="i5M-Pr-FkT" secondAttribute="trailing" id="zM3-BS-MRJ"/>
             </constraints>
             <point key="canvasLocation" x="11.594202898550726" y="112.5"/>

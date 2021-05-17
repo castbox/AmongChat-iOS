@@ -91,6 +91,7 @@ extension Social {
             btn.rx.tap
                 .subscribe(onNext: { [weak self] () in
                     self?.startChatIfCould()
+                    Logger.Action.log(.profile_other_chat_clk, category: nil, self?.userProfile.value?.uid.string)
                 }).disposed(by: bag)
             btn.isHidden = true
             return btn
