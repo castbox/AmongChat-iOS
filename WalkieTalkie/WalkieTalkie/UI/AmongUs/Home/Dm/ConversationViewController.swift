@@ -417,12 +417,12 @@ private extension ConversationViewController {
         }
     }
     
-    func deleteAllHistory() {
+    func clearAllMessage() {
         let removeBlock = view.raft.show(.loading)
-        viewModel.deleteAllHistory()
+        viewModel.clearAllMessage()
             .subscribe(onSuccess: { [weak self] in
                 removeBlock()
-                self?.navigationController?.popViewController()
+                self?.updateContentInsert()
             }) { error in
                 removeBlock()
             }
@@ -463,7 +463,7 @@ private extension ConversationViewController {
                        confirmTitle: R.string.localizable.groupRoomYes(),
                        confirmTitleColor: "#FB5858".color(),
                        confirmAction: { [weak self] in
-                        self?.deleteAllHistory()
+                        self?.clearAllMessage()
                        })
     }
     
@@ -515,6 +515,7 @@ private extension ConversationViewController {
     
     func reloadCollectionView() {
         guard !dataSource.isEmpty else {
+            collectionView.reloadData()
             return
         }
         let contentHeight = collectionView.contentSize.height
