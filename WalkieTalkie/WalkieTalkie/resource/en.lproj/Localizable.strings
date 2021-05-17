@@ -468,7 +468,7 @@
 
 //1.18
 "report.user" = "Report user";
-"report.success" = "Reported successfully";
+"report.success" = "You have successfully reported \nthis person";
 "report.failed" = "Report failed. Please try again";
 "report.comments" = "Comments";
 "report.comments.placeholder" = "Please describe the report";

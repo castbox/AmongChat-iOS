@@ -375,7 +375,6 @@
 "group.room.members.title" = "في أعضاء القناة";
 "group.item.edit" = "يحرر";
 "group.item.start.live" = "بداية";
-"group.online" = "متصل";
 "group.owner" = "مالك";
 "group.room.join.request" = "طلبات الانضمام";
 "group.room.host.request" = "أيدي مرفوعة";
@@ -507,3 +506,29 @@
 
 "group.dismissed.tips" = "عذرا ، لقد رفض المشرف المجموعة.";
 
+//1.20
+"among.chat.login.auth.source.chat" = "ارسل رسالة";
+"among.chat.profile.chat" = "شات";
+"among.chat.audio.recording.time.limit" = "يمكنك التسجيل حتى 60 ثانية";
+"among.chat.audio.recording.slide.cancel" = "اسحب لأعلى للإلغاء";
+"among.chat.audio.recording.release.cancel" = "تحرير الإلغاء";
+"among.chat.audio.recording.end" = "حرر للإرسال";
+"among.chat.audio.recording.too.short" = "قصير جدا";
+"among.chat.audio.recording.canceled" = "ألغيت";
+"dm.hold.to.talk" = "اضغط للتحدث";
+"dm.voice.message.text" = "[رسالة صوتية]";
+"dm.gif.text" = "[GIF]";
+"dm.conversation.delete.history" = "حذف التاريخ";
+"dm.delete.history.alert.title" = "هل أنت متأكد أنك تريد حذف محفوظات الدردشة؟";
+"dm.gif.search.placeholder" = "ابحث عن صور GIF";
+//update
+"dm.text.placeholder" = "ابدأ الطباعة";
+"profile.user.in.channel" = "في قناة %@";
+"profile.user.in.group" = "في مجموعة %@";
+"dm.send.message.error" = "فشل إرسال. حاول مرة اخرى.";
+"dm.send.message.beblocked.error" = "لم يعد بإمكانك إرسال رسائل خاصّة إلى هذا الشخص.";
+"dm.delete.conversation.alert.title" = "هل أنت متأكد أنك تريد حذف هذه الدردشة؟";
+"group.online" = "مباشر";
+"app.new.version.alert.title" = "تحديث جديد متاح!";
+"app.new.version.alert.content" = "قم بالتحديث إلى أحدث إصدار وساعد في نشر الكلمة.";
+"app.new.version.alert.update" = "تحديث";
