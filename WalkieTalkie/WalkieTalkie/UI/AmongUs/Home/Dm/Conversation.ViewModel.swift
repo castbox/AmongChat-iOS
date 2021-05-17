@@ -10,117 +10,6 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-extension FileManager {
-    static var voiceFileDirectory: String? {
-        let voiceDic = CachesDirectory()+"/voice"
-        let (isSuccess, error) = createFolder(folderPath: voiceDic)
-        guard isSuccess else {
-            cdPrint("error: \(error)")
-            return nil
-        }
-        return voiceDic
-    }
-    
-    static func voiceFilePath(with name: String) -> String? {
-        //create doctory
-        guard let fold = voiceFileDirectory else {
-            return nil
-        }
-        return fold.appendingPathComponent(name.contains(".aac") ? name: name + ".aac")
-    }
-    
-    static func gifFilePath(with name: String) -> String? {
-        //create doctory
-        guard let fold = voiceFileDirectory else {
-            return nil
-        }
-        return fold.appendingPathComponent(name.contains(".gif") ? name: name + ".gif")
-    }
-    
-    //relativepath
-    static func relativePath(of absolutePath: String) -> String {
-        return absolutePath.replacingOccurrences(of: CachesDirectory(), with: "")
-    }
-    
-    static func absolutePath(for relativePath: String) -> String {
-        if relativePath.starts(with: "/") {
-            return CachesDirectory() + relativePath
-        } else {
-            return CachesDirectory() + "/" + relativePath
-        }
-    }
-    
-}
-
-extension Conversation {
-    class MessageCellViewModel {
-        let message: Entity.DMMessage
-        let height: CGFloat
-        let showTime: Bool
-        let contentSize: CGSize
-        let sendFromMe: Bool
-        let dateString: String
-        //
-        var isPlayingVoice: Bool = false
-        
-        init(message: Entity.DMMessage, showTime: Bool) {
-            self.message = message
-            self.showTime = showTime
-            self.sendFromMe = message.fromUser.uid == Settings.loginUserId?.int64
-            dateString = message.date.timeFormattedForConversation()
-            //calculate height
-            let maxWidth = Frame.Screen.width - 72 * 2
-            
-            switch message.body.msgType {
-            case .text:
-                let textSize = message.body.text?.boundingRect(with: CGSize(width: maxWidth, height: 1000), font: R.font.nunitoBold(size: 16)!) ?? CGSize(width: 0, height: 0)
-                contentSize = textSize.ceil
-                let topEdge: CGFloat = 18
-                var height = contentSize.height + topEdge * 2
-                if showTime {
-                    height += 27
-                }
-                self.height = height
-            case .gif:
-                //最小
-                let minWidth: CGFloat = 80
-                let gifMaxWidth: CGFloat = 170
-                let rawHeight = (message.body.imageHeight?.cgFloat ?? 1)
-                let rawWidth = (message.body.imageWidth?.cgFloat ?? 1)
-                var gifWidth = rawWidth
-                var gifHeight = rawHeight
-                if gifWidth > gifMaxWidth {
-                    gifWidth = gifMaxWidth
-                    gifHeight = gifMaxWidth * rawHeight / rawWidth
-                } else if gifWidth < minWidth {
-                    gifWidth = minWidth
-                    gifHeight = minWidth * rawHeight / rawWidth
-                }
-                contentSize = CGSize(width: gifWidth, height: gifHeight)
-                
-                let topEdge: CGFloat = 6
-                var height = contentSize.height + topEdge * 2
-                if showTime {
-                    height += 27
-                }
-                self.height = height
-            case .voice:
-                //                let topEdge: CGFloat = 6
-                contentSize = CGSize(width: max(100, Double(maxWidth) / 60 * (message.body.duration ?? 0)), height: 40)
-                var height: CGFloat = 48
-                if showTime {
-                    height += 27
-                }
-                self.height = height
-            case .none:
-                let maxWidth = Frame.Screen.width - 72 * 2
-                contentSize = CGSize(width: Double(maxWidth) / 60 * (message.body.duration ?? 0), height: 40)
-                self.height = 0
-            }
-        }
-    }
-}
-
 extension Conversation {
     /**
      当天的消息，以每5分钟为一个跨度的显示时间；发送时间间隔大于5分钟显示时间，小于5分钟不显示；
@@ -131,9 +20,12 @@ extension Conversation {
     class ViewModel {
         private var conversation: Entity.DMConversation
         
-        private var dataSource: [MessageCellViewModel] = []
-        
-        let dataSourceReplay = BehaviorRelay<[MessageCellViewModel]>(value: [])
+//        var dataSource: [MessageCellViewModel] {
+//            get { dataSourceReplay.value }
+//            set { dataSourceReplay.accept(newValue) }
+//        }
+//
+//        let dataSourceReplay = BehaviorRelay<[MessageCellViewModel]>(value: [])
         
         private let bag = DisposeBag()
         
@@ -160,19 +52,51 @@ extension Conversation {
             
             let uid = conversation.fromUid
             
-            DMManager.shared.observableMessages(for: uid)
-                .startWith(())
-                .do(onNext: { [weak self] in
-                    self?.barrierTime = 0
-                })
-                .flatMap { item -> Single<[Entity.DMMessage]> in
-                    return DMManager.shared.messages(for: uid)
-                }
+//            DMManager.shared.observableMessages(for: uid)
+//                .startWith(())
+//                .do(onNext: { [weak self] in
+//                    self?.barrierTime = 0
+//                })
+//                .flatMap { item -> Single<[Entity.DMMessage]> in
+//                    return DMManager.shared.messages(for: uid)
+//                }
+//                .map { [weak self] items -> [MessageCellViewModel] in
+//                    guard let `self` = self else { return [] }
+//                    _ = DMManager.shared.clearUnreadCount(with: self.conversation)
+//                        .subscribe()
+//                    return items.map { message -> MessageCellViewModel in
+//                        self.downloadFileIfNeed(for: message)
+//                        if self.barrierTime == 0 {
+//                            self.barrierTime = message.timestamp
+//                        }
+//                        //大余5分钟则显示时间，
+//                        let showTimeLabel = self.barrierTime == message.timestamp || ((message.timestamp - self.barrierTime) > 300)
+//                        if showTimeLabel {
+//                            self.barrierTime = message.timestamp
+//                        }
+//                        cdPrint("barrierTime: \(self.barrierTime) reduce: \((message.timestamp - self.barrierTime))")
+//                        //auto download
+//                        return MessageCellViewModel(message: message, showTime: showTimeLabel)
+//                    }
+//                    //                    //show time
+//                }
+//                .catchErrorJustReturn([])
+//                .observeOn(MainScheduler.asyncInstance)
+//                .bind(to: dataSourceReplay)
+//                .disposed(by: bag)
+            
+        }
+        
+        func loadData(limit: Int, offset: Int = 0) -> Single<[MessageCellViewModel]> {
+            //
+            barrierTime = 0
+//            let limit = dataSource.isEmpty ? Self.requesLimit : dataSource.count
+            return DMManager.shared.messages(for: targetUid, limit: limit, offset: offset)
                 .map { [weak self] items -> [MessageCellViewModel] in
                     guard let `self` = self else { return [] }
                     _ = DMManager.shared.clearUnreadCount(with: self.conversation)
                         .subscribe()
-                    return items.map { message -> MessageCellViewModel in
+                    return items.reversed().map { message -> MessageCellViewModel in
                         self.downloadFileIfNeed(for: message)
                         if self.barrierTime == 0 {
                             self.barrierTime = message.timestamp
@@ -190,9 +114,88 @@ extension Conversation {
                 }
                 .catchErrorJustReturn([])
                 .observeOn(MainScheduler.asyncInstance)
-                .bind(to: dataSourceReplay)
-                .disposed(by: bag)
+//                .do(onSuccess: { [weak self] models in
+//                    guard let `self` = self else { return }
+//                    self.dataSource = models
+//                })
+//                .disposed(by: bag)
         }
+        
+        func loadMore(limit: Int, offset: Int = 0) -> Single<[MessageCellViewModel]> {
+//            let offset = dataSource.count
+            return DMManager.shared.messages(for: targetUid, limit: limit, offset: offset)
+                .map { [weak self] items -> [MessageCellViewModel] in
+                    guard let `self` = self else { return [] }
+                    _ = DMManager.shared.clearUnreadCount(with: self.conversation)
+                        .subscribe()
+                    return items.reversed().map { message -> MessageCellViewModel in
+                        self.downloadFileIfNeed(for: message)
+                        //大余5分钟则显示时间，
+                        let showTimeLabel = self.barrierTime == message.timestamp || ((message.timestamp - self.barrierTime) > 300)
+                        if showTimeLabel {
+                            self.barrierTime = message.timestamp
+                        }
+                        cdPrint("barrierTime: \(self.barrierTime) msg: \(message.timestamp) reduce: \((message.timestamp - self.barrierTime)) msg: \(message.body.text)")
+                        //auto download
+                        return MessageCellViewModel(message: message, showTime: showTimeLabel)
+                    }
+                }
+                .catchErrorJustReturn([])
+                .observeOn(MainScheduler.asyncInstance)
+//                .do(onSuccess: { [weak self] models in
+//                    guard let `self` = self else { return }
+//                    var source = self.dataSource
+//                    source.insert(contentsOf: models, at: 0)
+//                    self.dataSource = source
+//                })
+
+        }
+        
+        func message(for text: String) -> Entity.DMMessage? {
+            guard let profile = Settings.loginUserProfile?.dmProfile else {
+                return nil
+            }
+            let messageBody = Entity.DMMessageBody(type: .text, url: nil, duration: nil, text: text)
+            return Entity.DMMessage(body: messageBody, relation: 1, fromUid: targetUid, unread: false, fromUser: profile, status: .sending)
+        }
+        
+        func message(for media: Giphy.GPHMedia) -> Entity.DMMessage? {
+            guard let profile = Settings.loginUserProfile?.dmProfile, let url = media.gifUrl else {
+                return nil
+            }
+            let messageBody = Entity.DMMessageBody(type: .gif, img: url.absoluteString, imageWidth: media.imageWidth, imageHeight: media.imageHeight)
+            return Entity.DMMessage(body: messageBody, relation: 1, fromUid: targetUid, unread: false, fromUser: profile, status: .sending)
+        }
+        
+        func voiceMessage(with duration: Int, filePath: String) -> Entity.DMMessage? {
+            guard FileManager.default.fileExists(atPath: filePath) else {
+                return nil
+            }
+            
+            var messageBody = Entity.DMMessageBody(type: .voice, url: "", duration: duration.double, localRelativePath: FileManager.relativePath(of: filePath))
+            var message = Entity.DMMessage(body: messageBody, relation: 1, fromUid: self.targetUid, unread: false, fromUser: self.loginUserDmProfile, status: .sending)
+            return message
+        }
+        
+//        func sendVoice(message: Entity.DMMessage) -> Single<Bool> {
+//            guard let localAbsolutePath = message.body.localAbsolutePath, FileManager.default.fileExists(atPath: localAbsolutePath) else {
+//                return .error(MsgError(.sendDmError))
+//            }
+////
+////            var messageBody = Entity.DMMessageBody(type: .voice, url: "", duration: duration.double, localRelativePath: FileManager.relativePath(of: filePath))
+////            var message = Entity.DMMessage(body: messageBody, relation: 1, fromUid: self.targetUid, unread: false, fromUser: self.loginUserDmProfile, status: .sending)
+////            insertOrReplace(message: message)
+////            var message
+//            return IMManager.shared.getMediaId(with: filePath)
+//                .flatMap { [weak self] mediaId in
+//                    guard let `self` = self, let mediaId = mediaId else {
+//                        return .error(MsgError(.sendDmError))
+//                    }
+//                    messageBody.url = mediaId
+//                    message.body = messageBody
+//                    return self.sendMessage(message)
+//                }
+//        }
         
         func sendMessage(_ text: String) -> Single<Bool> {
             guard let profile = Settings.loginUserProfile?.dmProfile else {
@@ -202,7 +205,7 @@ extension Conversation {
             let message = Entity.DMMessage(body: messageBody, relation: 1, fromUid: targetUid, unread: false, fromUser: profile, status: .sending)
             return sendMessage(message)
         }
-        
+
         func sendGif(_ media: Giphy.GPHMedia) -> Single<Bool> {
             guard let profile = Settings.loginUserProfile?.dmProfile, let url = media.gifUrl else {
                 return .error(MsgError(.sendDmError))
@@ -211,12 +214,12 @@ extension Conversation {
             let message = Entity.DMMessage(body: messageBody, relation: 1, fromUid: targetUid, unread: false, fromUser: profile, status: .sending)
             return sendMessage(message)
         }
-        
+
         func sendVoiceMessage(duration: Int, filePath: String) -> Single<Bool> {
             guard FileManager.default.fileExists(atPath: filePath) else {
                 return .error(MsgError(.sendDmError))
             }
-            
+
             var messageBody = Entity.DMMessageBody(type: .voice, url: "", duration: duration.double, localRelativePath: FileManager.relativePath(of: filePath))
             var message = Entity.DMMessage(body: messageBody, relation: 1, fromUid: self.targetUid, unread: false, fromUser: self.loginUserDmProfile, status: .sending)
             insertOrReplace(message: message)
@@ -230,7 +233,7 @@ extension Conversation {
                     return self.sendMessage(message)
                 }
         }
-        
+//
         func sendMessage(_ message: Entity.DMMessage) -> Single<Bool> {
             var message = message
             if message.status != .sending {

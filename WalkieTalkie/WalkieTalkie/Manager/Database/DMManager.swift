@@ -41,6 +41,8 @@ class DMManager {
                 _ = self?.add(message: msg)
                     .subscribe()
             })
+        
+        updateLoadingMsgToFailedStatus()
     }
     
     func insertOrReplace(message: Entity.DMMessage) {
@@ -117,7 +119,7 @@ class DMManager {
         return database.mapTransactionToSingle { (db) in
             try db.getObjects(fromTable: dmMessagesTableName,
                               where: ex,
-                              orderBy: [Entity.DMMessage.Properties.ms.asOrder(by: .ascending)],
+                              orderBy: [Entity.DMMessage.Properties.ms.asOrder(by: .descending)],
                               limit: limit,
                               offset: offset)
         }
@@ -200,6 +202,22 @@ class DMManager {
 }
 
 private extension DMManager {
+    func updateLoadingMsgToFailedStatus() {
+       guard let profile = Settings.loginUserProfile?.dmProfile else {
+           return
+       }
+       var failedMessage = Entity.DMMessage.emptyMessage(for: profile)
+       failedMessage.status = .failed
+        //case sending case downloading
+        
+        let ex = (Entity.DMMessage.Properties.status == "sending" || Entity.DMMessage.Properties.status == "downloading")
+            //&& Entity.DMMessage.Properties.isFromMe == true
+       _ = database.mapTransactionToSingle { db in
+           try db.update(table: dmMessagesTableName, on: [Entity.DMMessage.Properties.status], with: failedMessage, where: ex)
+       }
+       .subscribe()
+   }
+    
     func notifyMessagesUpdated(of uid: String) {
         if let subject = messageObservables[uid] {
             subject.onNext(())

@@ -134,6 +134,9 @@
 		FE0D1A2124489BB700518793 /* FrozenButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE0D1A2024489BB700518793 /* FrozenButton.swift */; };
 		FE0D1A2724489FE300518793 /* UIBezierPathExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE0D1A2624489FE300518793 /* UIBezierPathExtension.swift */; };
 		FE0D1A292448A06200518793 /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE0D1A282448A06200518793 /* UIViewExtension.swift */; };
+		FE0DFDBC265132FE00A194A7 /* Conversation.HeaderLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE0DFDBB265132FE00A194A7 /* Conversation.HeaderLoadingView.swift */; };
+		FE0DFDBE2651338200A194A7 /* FileManagerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE0DFDBD2651338200A194A7 /* FileManagerExtension.swift */; };
+		FE0DFDC0265133BB00A194A7 /* Conversation.MessageCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE0DFDBF265133BB00A194A7 /* Conversation.MessageCellViewModel.swift */; };
 		FE125F5F25B7D92800609D81 /* Social.InviteFirendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE125F5E25B7D92800609D81 /* Social.InviteFirendsViewController.swift */; };
 		FE125F6325B841F900609D81 /* Social.InviteFirendsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE125F6225B841F900609D81 /* Social.InviteFirendsViewModel.swift */; };
 		FE126D18243461E800BEDD60 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE126D17243461E800BEDD60 /* AppDelegate.swift */; };
@@ -588,6 +591,9 @@
 		FE0D1A2024489BB700518793 /* FrozenButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrozenButton.swift; sourceTree = "<group>"; };
 		FE0D1A2624489FE300518793 /* UIBezierPathExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIBezierPathExtension.swift; sourceTree = "<group>"; };
 		FE0D1A282448A06200518793 /* UIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
+		FE0DFDBB265132FE00A194A7 /* Conversation.HeaderLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Conversation.HeaderLoadingView.swift; sourceTree = "<group>"; };
+		FE0DFDBD2651338200A194A7 /* FileManagerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManagerExtension.swift; sourceTree = "<group>"; };
+		FE0DFDBF265133BB00A194A7 /* Conversation.MessageCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Conversation.MessageCellViewModel.swift; sourceTree = "<group>"; };
 		FE125F5E25B7D92800609D81 /* Social.InviteFirendsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Social.InviteFirendsViewController.swift; sourceTree = "<group>"; };
 		FE125F6225B841F900609D81 /* Social.InviteFirendsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Social.InviteFirendsViewModel.swift; sourceTree = "<group>"; };
 		FE126D14243461E800BEDD60 /* AmongChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AmongChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1695,6 +1701,9 @@
 				FE045FCA2645219E0032FE67 /* ConversationViewController.swift */,
 				FE045FCB2645219E0032FE67 /* ConversationViewController.xib */,
 				FE857C4B2646B9C2008C4ADC /* Conversation.ViewModel.swift */,
+				FE0DFDBF265133BB00A194A7 /* Conversation.MessageCellViewModel.swift */,
+				FE0DFDBD2651338200A194A7 /* FileManagerExtension.swift */,
+				FE0DFDBB265132FE00A194A7 /* Conversation.HeaderLoadingView.swift */,
 				FEEB70602648CCA800D7EB82 /* ConversationBottomBar.swift */,
 				FEEB70622648CCB000D7EB82 /* ConversationBottomBar.xib */,
 				FE7E227026455DFB00DAD431 /* ConversationCollectionCell.swift */,
@@ -2091,6 +2100,7 @@
 				26F7023A25E670CC008F992C /* Social.CustomAvatarViewController.swift in Sources */,
 				FEE0E7A025A44C3200DC67B8 /* UIViewLocalizableExtension.swift in Sources */,
 				FE914B1626146DC900C755FF /* BottomTitleButton.swift in Sources */,
+				FE0DFDC0265133BB00A194A7 /* Conversation.MessageCellViewModel.swift in Sources */,
 				FEBCFEAA260C3B9900DD9B8D /* JSBridge.Links.swift in Sources */,
 				FEAE256726207477001F10A9 /* AmongChat.GroupRoom.GroupRoomBaseViewModel.swift in Sources */,
 				FE7CEB59258A029F0067952C /* AmongChatRoomConfigView.swift in Sources */,
@@ -2177,6 +2187,7 @@
 				FE392C682466C5AA00A2CCF3 /* KernUI.swift in Sources */,
 				FE775CE8258E5262002A21F6 /* UITextFieldInspectable.swift in Sources */,
 				269A6DF2261EA85F00A07C7D /* FansGroup.GroupEditViewController.swift in Sources */,
+				FE0DFDBC265132FE00A194A7 /* Conversation.HeaderLoadingView.swift in Sources */,
 				FE6AF8582457E03500FD474A /* RxKeyboard.swift in Sources */,
 				FEE8502F259B31DF00CF9A74 /* JoinRoomable.swift in Sources */,
 				FE0D1A292448A06200518793 /* UIViewExtension.swift in Sources */,
@@ -2330,6 +2341,7 @@
 				FEBE5226262D2DF500E49EC4 /* Report.ViewController.swift in Sources */,
 				FE2AF9FB244DDDC700763747 /* URLUnit.swift in Sources */,
 				FE79F38D258CDFA500E9BC6C /* AmongSheetUserCell.swift in Sources */,
+				FE0DFDBE2651338200A194A7 /* FileManagerExtension.swift in Sources */,
 				FE126D4D243481FF00BEDD60 /* Member.swift in Sources */,
 				FE860D3C2446D13D00087B73 /* UIView.Raft.swift in Sources */,
 				FE79F379258C76A800E9BC6C /* AmongChat.Room.SeatView.swift in Sources */,

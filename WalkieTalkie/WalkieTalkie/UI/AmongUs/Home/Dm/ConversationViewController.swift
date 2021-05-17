@@ -14,6 +14,7 @@ import SDCAlertView
 
 private let bottomBarHeight: CGFloat = 64 + Frame.Height.safeAeraBottomHeight
 private let collectionBottomEdge: CGFloat = 64 + 18 + Frame.Height.safeAeraBottomHeight
+private let messagePageLimit = 50
 
 class ConversationViewController: ViewController {
     
@@ -26,12 +27,12 @@ class ConversationViewController: ViewController {
     @IBOutlet private weak var userInfostackView: UIStackView!
     
     @IBOutlet private weak var onlineView: UIView!
-
+    
     private var liveContainer: UIView!
     private var liveView: Social.ProfileViewController.LiveCell!
     
     private lazy var bottomBar = ConversationBottomBar()
-
+    
     private var conversation: Entity.DMConversation
     private let viewModel: Conversation.ViewModel
     private var relationData: Entity.RelationData?
@@ -39,18 +40,20 @@ class ConversationViewController: ViewController {
     private var firstDataLoaded: Bool = true
     //count changed
     private var lastCount: Int = 0
+    private var lastMessageMs: Double = 0
     private var isFirstShowFollow: Bool = true
     private var keyboardVisibleHeight: CGFloat = 0
-//    private var isKeyboardShow = false
+    private var hasEarlyMessage = false
+    private var hasTriggeredLoadEarly = false
     
     private var dataSource: [Conversation.MessageCellViewModel] = [] {
         didSet {
-            reloadCollectionView()
+            updateContentInsert()
         }
     }
     
     var followedHandle:((Bool) -> Void)?
-        
+    
     deinit {
         AudioPlayerManager.default.stopPlay()
     }
@@ -86,7 +89,6 @@ class ConversationViewController: ViewController {
     @IBAction func moreButtonAction(_ sender: Any) {
         view.endEditing(true)
         moreAction()
-        //        IMManager.shared.sendFile()
     }
     
     @IBAction func followButtonAction(_ sender: Any) {
@@ -108,7 +110,6 @@ extension ConversationViewController: UICollectionViewDataSource {
         }
         
         let cell = collectionView.dequeueReusableCell(withClass: ConversationCollectionCell.self, for: indexPath)
-        //        cell.transform = CGAffineTransform(scaleX: 1, y: -1)
         cell.bind(item)
         cell.actionHandler = { [weak self] action in
             switch action {
@@ -129,6 +130,30 @@ extension ConversationViewController: UICollectionViewDataSource {
         }
         return cell
     }
+    
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+//        cell.transform = CGAffineTransform(scaleX: 1, y: -1)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withClass: Conversation.HeaderLoadingView.self, for: indexPath)
+        if hasEarlyMessage {
+            view.indicator.startAnimating()
+        } else {
+            view.indicator.stopAnimating()
+        }
+        return view
+        
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if hasEarlyMessage,
+           scrollView.contentOffset.y <= 0,
+           !hasTriggeredLoadEarly {
+            hasTriggeredLoadEarly = true
+            loadMore()
+        }
+    }
 }
 
 extension ConversationViewController: UICollectionViewDelegateFlowLayout {
@@ -141,7 +166,13 @@ extension ConversationViewController: UICollectionViewDelegateFlowLayout {
         
         return CGSize(width: Frame.Screen.width, height: viewModel.height)
     }
-    
+ 
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+//        guard hasEarlyMessage else {
+//            return .zero
+//        }
+        return CGSize(width: Frame.Screen.width, height: 40)
+    }
 }
 
 extension ConversationViewController: UICollectionViewDelegate {
@@ -191,11 +222,11 @@ private extension ConversationViewController {
     }
     
     func updateUser(isOnline: Bool) {
-//        if isOnline {
-//            onlineView.fadeIn(duration: 0.2)
-//        } else {
-//            onlineView.fadeOut(duration: 0.2)
-//        }
+        //        if isOnline {
+        //            onlineView.fadeIn(duration: 0.2)
+        //        } else {
+        //            onlineView.fadeOut(duration: 0.2)
+        //        }
         onlineView.isHidden = !isOnline
         updateContentInsert()
     }
@@ -306,8 +337,14 @@ private extension ConversationViewController {
             .disposed(by: bag)
     }
     
-    func sendMessage(_ message: String) {
-        self.viewModel.sendMessage(message)
+    func sendMessage(_ text: String) {
+//        guard var message = viewModel.message(for: text) else {
+//            return
+//        }
+//        DMManager.shared.insertOrReplace(message: message)
+//        //insert cell
+//        dataSource.insert(<#T##newElement: Conversation.MessageCellViewModel##Conversation.MessageCellViewModel#>, at: <#T##Int#>)
+        self.viewModel.sendMessage(text)
             .subscribe(onSuccess: { result in
                 
             }) { [weak self] error in
@@ -319,7 +356,7 @@ private extension ConversationViewController {
     func sendMessage(_ message: Entity.DMMessage) {
         self.viewModel.sendMessage(message)
             .subscribe(onSuccess: { result in
-
+                
             }) { [weak self] error in
                 self?.showBeblockedErrorTipsIfNeed(error)
             }
@@ -329,7 +366,7 @@ private extension ConversationViewController {
     func sendVoiceMessage(duration: Int, filePath: String) {
         viewModel.sendVoiceMessage(duration: duration, filePath: filePath)
             .subscribe(onSuccess: { result in
-
+                
             }) { [weak self] error in
                 self?.showBeblockedErrorTipsIfNeed(error)
             }
@@ -344,7 +381,7 @@ private extension ConversationViewController {
                 self?.showBeblockedErrorTipsIfNeed(error)
             }
             .disposed(by: bag)
-
+        
     }
     
     func showBeblockedErrorTipsIfNeed(_ error: Error) {
@@ -456,33 +493,35 @@ private extension ConversationViewController {
         followButton.setTitleColor(UIColor(hex6: 0xFFF000), for: .normal)
     }
     
-    
     func reloadCollectionView() {
+        guard !dataSource.isEmpty else {
+            return
+        }
         let contentHeight = collectionView.contentSize.height
         let height = collectionView.bounds.size.height
         let contentOffsetY = collectionView.contentOffset.y
         let bottomOffset = contentHeight - contentOffsetY
-        //            self.newMessageButton.isHidden = true
+        
         // 消息不足一屏
         if contentHeight < height {
-//            if (!dataSource.isEmpty && firstDataLoaded) || keyboardVisibleHeight > 0 {
-//                firstDataLoaded = false
-                UIView.animate(withDuration: 0) {
-                    self.collectionView.reloadData()
-                } completion: { _ in
-                    self.messageListScrollToBottom(animated: self.keyboardVisibleHeight > 0)
-                }
-//            } else {
-//                collectionView.reloadData()
-//
-//            }
-            //获取高度，更新 collectionview height
+            UIView.animate(withDuration: 0) {
+                self.collectionView.reloadData()
+            } completion: { _ in
+                self.messageListScrollToBottom(animated: self.keyboardVisibleHeight > 0)
+                //首次 alpha = 0 来规避屏幕闪烁
+                self.collectionView.alpha = 1
+            }
         } else {// 超过一屏
-            if dataSource.count > lastCount {// 已经在底部
+            //收到新消息
+            if (dataSource.last?.ms ?? 0) > lastMessageMs {
                 if floor(bottomOffset) - floor(height) < 40 {
                     let rows = collectionView.numberOfItems(inSection: 0)
                     let newRow = dataSource.count
-                    guard newRow > rows else { return }
+                    guard newRow > rows else {
+                        lastMessageMs = (dataSource.last?.ms ?? 0)
+                        reloadAndScrollToBottom()
+                        return
+                    }
                     let indexPaths = Array(rows..<newRow).map({ IndexPath(row: $0, section: 0) })
                     collectionView.performBatchUpdates {
                         self.collectionView.insertItems(at: indexPaths)
@@ -492,17 +531,46 @@ private extension ConversationViewController {
                         }
                     }
                 } else {
-                    collectionView.reloadData()
                     //检查最后一个是否为自己消息
-                    if dataSource.count > lastCount, dataSource.last?.sendFromMe == true {
-                        messageListScrollToBottom()
-                    }
+                    reloadAndScrollToBottom()
                 }
             } else {
-                collectionView.reloadData()
+                let indexPaths = collectionView.indexPathsForVisibleItems
+//                let newRow = dataSource.count
+//                guard newRow > rows else {
+//                    lastMessageMs = (dataSource.last?.ms ?? 0)
+//                    reloadAndScrollToBottom()
+//                    return
+//                }
+//                let indexPaths = Array(rows..<newRow).map({ IndexPath(row: $0, section: 0) })
+                
+                collectionView.performBatchUpdates {
+//                    self.collectionView.insertItems(at: indexPaths)
+                    self.collectionView.reloadItems(at: indexPaths)
+                } completion: { result in
+//                    if let endPath = indexPaths.last {
+//                        self.collectionView.scrollToItem(at: endPath, at: .bottom, animated: true)
+//                    }
+                }
+//                collectionView.reloadDataAndKeepOffset()
+//                collectionView.reloadData()
             }
         }
-        lastCount = dataSource.count
+//        lastCount = dataSource.count
+        lastMessageMs = (dataSource.last?.ms ?? 0)
+    }
+    
+    func reloadAndScrollToBottom() {
+        if dataSource.last?.sendFromMe == true {
+            UIView.animate(withDuration: 0) {
+                self.collectionView.reloadData()
+            } completion: { _ in
+                self.messageListScrollToBottom()
+            }
+        } else {
+            collectionView.reloadData()
+        }
+
     }
     
     func showGifViewController() {
@@ -565,25 +633,61 @@ private extension ConversationViewController {
         }
         
         
+//        collectionView.transform = CGAffineTransform(scaleX: 1, y: -1)
         titleLabel.text = conversation.message.fromUser.name
         collectionViewBottomConstraint.constant = collectionBottomEdge
         navBarHeightConstraint.constant = Frame.Height.navigation
         collectionView.keyboardDismissMode = .interactive
         collectionView.register(nibWithCellClass: ConversationCollectionCell.self)
+        collectionView.register(supplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withClass: Conversation.HeaderLoadingView.self)
+        collectionView.alpha = 0
+    }
+    
+    func loadData() {
+        let limit = max(min(dataSource.count, 200), messagePageLimit)
+        viewModel.loadData(limit: limit)
+            .subscribe { [weak self] items in
+                self?.hasEarlyMessage = items.count >= limit
+                self?.dataSource = items
+                self?.reloadCollectionView()
+            } onError: { error in
+                
+            }
+            .disposed(by: bag)
+        
+    }
+    
+    func loadMore() {
+        viewModel.loadMore(limit: messagePageLimit, offset: dataSource.count)
+            .subscribe { [weak self] items in
+                guard let `self` = self else { return }
+
+                var source = self.dataSource
+                source.insert(contentsOf: items, at: 0)
+                self.hasEarlyMessage = items.count == messagePageLimit
+                self.dataSource = source
+                self.hasTriggeredLoadEarly = false
+                self.collectionView.reloadDataAndKeepOffset()
+
+            } onError: { [weak self] _ in
+
+            }
+            .disposed(by: bag)
+        
     }
     
     func bindSubviewEvent() {
+        updateProfile()
         fetchRealation()
         fetchUserStatus()
-        
-        viewModel.dataSourceReplay
-            .skip(0)
-            .subscribe(onNext: { [weak self] source in
-                self?.dataSource = source
-                self?.updateContentInsert()
+        loadData()
+
+        DMManager.shared.observableMessages(for: viewModel.targetUid)
+            .subscribe(onNext: { [weak self] in
+                self?.loadData()
             })
             .disposed(by: bag)
-        
+                
         bottomBar.actionHandler = { [weak self] action in
             switch action {
             case .gif:
@@ -669,5 +773,25 @@ private extension ConversationViewController {
             })
             .disposed(by: bag)
 
+    }
+}
+
+
+extension UICollectionView {
+    public func reloadDataAndKeepOffset() {
+        // stop scrolling
+        setContentOffset(contentOffset, animated: false)
+        
+        // calculate the offset and reloadData
+        let beforeContentSize = contentSize
+        reloadData()
+        layoutIfNeeded()
+        let afterContentSize = contentSize
+        
+        // reset the contentOffset after data is updated
+        let newOffset = CGPoint(
+            x: contentOffset.x + (afterContentSize.width - beforeContentSize.width),
+            y: contentOffset.y + (afterContentSize.height - beforeContentSize.height))
+        setContentOffset(newOffset, animated: false)
     }
 }

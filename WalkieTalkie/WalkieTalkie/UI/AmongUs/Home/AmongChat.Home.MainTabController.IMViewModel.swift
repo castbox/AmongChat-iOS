@@ -37,6 +37,8 @@ extension AmongChat.Home.MainTabController {
                 })
                 .disposed(by: bag)
             
+            _ = DMManager.shared
+            
             #if DEBUG
 //            let _ = Observable<Int>.timer(.seconds(0), period: .seconds(5), scheduler: MainScheduler.instance)
 //                    .take(5)

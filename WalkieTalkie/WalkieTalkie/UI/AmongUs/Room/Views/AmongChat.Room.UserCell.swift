@@ -505,9 +505,10 @@ extension AmongChat.Room.UserCell {
             svgaUrl = nil
         }
         
-        if user.status == .talking {
-            startSoundAnimation()
-        } else if user.status == .muted {
+//        if user.status == .talking {
+////            startSoundAnimation()
+//        } else
+        if user.status == .muted {
             stopSoundAnimation()
         }
         if self.user?.uid != user.uid {

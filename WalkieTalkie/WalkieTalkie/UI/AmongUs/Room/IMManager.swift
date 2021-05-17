@@ -18,9 +18,15 @@ fileprivate func cdPrint(_ message: Any) {
 
 class IMManager: NSObject {
     private static let systemAgoraUid = Int(99999)
+
+    enum LoginStatus {
+        case online, offline
+    }
+    
     static let shared = IMManager()
+    let onlineRelay = BehaviorRelay<LoginStatus>(value: .offline)
+    
     private var rtmKit: AgoraRtmKit?
-    private let onlineRelay = BehaviorRelay<LoginStatus>(value: .offline)
     private var rtmChannel: AgoraRtmChannel?
     private let joinedSubject = BehaviorRelay<Bool>(value: false)
     private let newChannelMessageSubject = PublishSubject<(AgoraRtmMessage, AgoraRtmMember)>()
@@ -277,10 +283,6 @@ class IMManager: NSObject {
 }
 
 private extension IMManager {
-    
-    enum LoginStatus {
-        case online, offline
-    }
     
     func triggerImpactIfCould() {
         let interval = Date().timeIntervalSince1970
