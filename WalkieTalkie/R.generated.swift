@@ -232,7 +232,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 223 images.
+  /// This `R.image` struct is generated, and contains static references to 224 images.
   struct image {
     /// Image `ac_add_stats_add`.
     static let ac_add_stats_add = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_add_stats_add")
@@ -582,6 +582,8 @@ struct R: Rswift.Validatable {
     static let iconDmVoice = Rswift.ImageResource(bundle: R.hostingBundle, name: "iconDmVoice")
     /// Image `iconMutedTips`.
     static let iconMutedTips = Rswift.ImageResource(bundle: R.hostingBundle, name: "iconMutedTips")
+    /// Image `iconNewVersion`.
+    static let iconNewVersion = Rswift.ImageResource(bundle: R.hostingBundle, name: "iconNewVersion")
     /// Image `iconPoweredbyBlackVert`.
     static let iconPoweredbyBlackVert = Rswift.ImageResource(bundle: R.hostingBundle, name: "iconPoweredbyBlackVert")
     /// Image `iconReportDelete`.
@@ -1551,6 +1553,11 @@ struct R: Rswift.Validatable {
       return UIKit.UIImage(resource: R.image.iconMutedTips, compatibleWith: traitCollection)
     }
     
+    /// `UIImage(named: "iconNewVersion", bundle: ..., traitCollection: ...)`
+    static func iconNewVersion(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.iconNewVersion, compatibleWith: traitCollection)
+    }
+    
     /// `UIImage(named: "iconPoweredbyBlackVert", bundle: ..., traitCollection: ...)`
     static func iconPoweredbyBlackVert(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.iconPoweredbyBlackVert, compatibleWith: traitCollection)
@@ -1799,7 +1806,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.nib` struct is generated, and contains static references to 35 nibs.
+  /// This `R.nib` struct is generated, and contains static references to 36 nibs.
   struct nib {
     /// Nib `AmongChatRoomConfigView`.
     static let amongChatRoomConfigView = _R.nib._AmongChatRoomConfigView()
@@ -1853,6 +1860,8 @@ struct R: Rswift.Validatable {
     static let infoWithNicknameView = _R.nib._InfoWithNicknameView()
     /// Nib `JustChillingInfoView`.
     static let justChillingInfoView = _R.nib._JustChillingInfoView()
+    /// Nib `NewVersionAlertController`.
+    static let newVersionAlertController = _R.nib._NewVersionAlertController()
     /// Nib `ReportCell`.
     static let reportCell = _R.nib._ReportCell()
     /// Nib `ReportFooterView`.
@@ -2028,6 +2037,12 @@ struct R: Rswift.Validatable {
       return UIKit.UINib(resource: R.nib.justChillingInfoView)
     }
     
+    /// `UINib(name: "NewVersionAlertController", in: bundle)`
+    @available(*, deprecated, message: "Use UINib(resource: R.nib.newVersionAlertController) instead")
+    static func newVersionAlertController(_: Void = ()) -> UIKit.UINib {
+      return UIKit.UINib(resource: R.nib.newVersionAlertController)
+    }
+    
     /// `UINib(name: "ReportCell", in: bundle)`
     @available(*, deprecated, message: "Use UINib(resource: R.nib.reportCell) instead")
     static func reportCell(_: Void = ()) -> UIKit.UINib {
@@ -2186,6 +2201,10 @@ struct R: Rswift.Validatable {
       return R.nib.justChillingInfoView.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
     }
     
+    static func newVersionAlertController(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+      return R.nib.newVersionAlertController.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+    }
+    
     static func reportCell(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> ReportCell? {
       return R.nib.reportCell.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? ReportCell
     }
@@ -2333,7 +2352,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
     
-    /// This `R.string.localizable` struct is generated, and contains static references to 459 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 462 localization keys.
     struct localizable {
       /// en translation:  Congratulations!
       /// 
@@ -3251,6 +3270,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let newAvatarsGuideTitle = Rswift.StringResource(key: "new.avatars.guide.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: New Update Available!
+      /// 
+      /// Locales: en
+      static let appNewVersionAlertTitle = Rswift.StringResource(key: "app.new.version.alert.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Next
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3939,6 +3962,14 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let reportIncorrectUnreasonable = Rswift.StringResource(key: "report.incorrect.unreasonable", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Update
+      /// 
+      /// Locales: en
+      static let appNewVersionAlertUpdate = Rswift.StringResource(key: "app.new.version.alert.update", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Update to the latest version and help spread the word.
+      /// 
+      /// Locales: en
+      static let appNewVersionAlertContent = Rswift.StringResource(key: "app.new.version.alert.content", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Upload a screenshot
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -5775,6 +5806,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("new.avatars.guide.title", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: New Update Available!
+      /// 
+      /// Locales: en
+      static func appNewVersionAlertTitle(_: Void = ()) -> String {
+        return NSLocalizedString("app.new.version.alert.title", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Next
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -6979,6 +7017,20 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("report.incorrect.unreasonable", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Update
+      /// 
+      /// Locales: en
+      static func appNewVersionAlertUpdate(_: Void = ()) -> String {
+        return NSLocalizedString("app.new.version.alert.update", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Update to the latest version and help spread the word.
+      /// 
+      /// Locales: en
+      static func appNewVersionAlertContent(_: Void = ()) -> String {
+        return NSLocalizedString("app.new.version.alert.content", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Upload a screenshot
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -7421,6 +7473,7 @@ struct _R: Rswift.Validatable {
       try _AvatarGuideViewController.validate()
       try _ConversationBottomBar.validate()
       try _ConversationViewController.validate()
+      try _NewVersionAlertController.validate()
       try _ReportCell.validate()
       try _ReportImageCell.validate()
       try _ShareContainerView.validate()
@@ -7820,6 +7873,23 @@ struct _R: Rswift.Validatable {
       
       func secondView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
         return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[1] as? UIKit.UIView
+      }
+      
+      fileprivate init() {}
+    }
+    
+    struct _NewVersionAlertController: Rswift.NibResourceType, Rswift.Validatable {
+      let bundle = R.hostingBundle
+      let name = "NewVersionAlertController"
+      
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+      }
+      
+      static func validate() throws {
+        if UIKit.UIImage(named: "iconNewVersion", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'iconNewVersion' is used in nib 'NewVersionAlertController', but couldn't be loaded.") }
+        if #available(iOS 11.0, *) {
+        }
       }
       
       fileprivate init() {}
