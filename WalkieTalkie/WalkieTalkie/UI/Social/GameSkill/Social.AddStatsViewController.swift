@@ -15,23 +15,18 @@ extension Social {
     
     class AddStatsViewController: WalkieTalkie.ViewController {
         
-        private lazy var titleLabel: UILabel = {
-            let lb = UILabel()
-            lb.font = R.font.nunitoExtraBold(size: 24)
-            lb.textColor = UIColor.white
+        private lazy var navView: NavigationBar = {
+            let n = NavigationBar()
+            let lb = n.titleLabel
             lb.text = R.string.localizable.amongChatAddStats()
-            return lb
-        }()
-        
-        private lazy var backBtn: UIButton = {
-            let btn = UIButton(type: .custom)
+            let btn = n.leftBtn
             btn.setImage(R.image.ac_back(), for: .normal)
             btn.rx.controlEvent(.primaryActionTriggered)
                 .subscribe(onNext: { [weak self] (_) in
                     self?.navigationController?.popViewController()
                 })
                 .disposed(by: bag)
-            return btn
+            return n
         }()
         
         private lazy var layoutScrollView: UIScrollView = {
@@ -39,31 +34,6 @@ extension Social {
             s.showsVerticalScrollIndicator = false
             s.showsHorizontalScrollIndicator = false
             return s
-        }()
-        
-        private lazy var doneButton: UIButton = {
-            let btn = UIButton(type: .custom)
-            btn.layer.cornerRadius = 24
-            btn.rx.isEnable
-                .subscribe(onNext: { [weak btn] (_) in
-                    
-                    guard let `btn` = btn else { return }
-                    
-                    if btn.isEnabled {
-                        btn.backgroundColor = UIColor(hexString: "#FFF000")
-                    } else {
-                        btn.backgroundColor = UIColor(hexString: "#2B2B2B")
-                    }
-                })
-                .disposed(by: bag)
-            
-            btn.setTitle(R.string.localizable.profileDone(), for: .normal)
-            btn.setTitleColor(.black, for: .normal)
-            btn.setTitleColor(UIColor(hex6: 0x757575), for: .disabled)
-            btn.titleLabel?.font = R.font.nunitoExtraBold(size: 20)
-            btn.addTarget(self, action: #selector(onDoneBtn), for: .primaryActionTriggered)
-            btn.isEnabled = false
-            return btn
         }()
         
         private lazy var uploadView: StatsView = {
@@ -93,21 +63,17 @@ extension Social {
             return s
         }()
         
-        private lazy var bottomGradientView: GradientView = {
-            let v = Social.ChooseGame.bottomGradientView()
-            v.addSubviews(views: doneButton)
-            doneButton.snp.makeConstraints { (maker) in
-                maker.centerX.equalToSuperview()
-                maker.bottom.equalTo(-33)
-                maker.height.equalTo(48)
-                maker.leading.equalTo(20)
-            }
+        private lazy var bottomGradientView: FansGroup.Views.BottomGradientButton = {
+            let v = FansGroup.Views.BottomGradientButton()
+            v.button.setTitle(R.string.localizable.profileDone(), for: .normal)
+            v.button.isEnabled = false
+            v.button.addTarget(self, action: #selector(onDoneBtn), for: .primaryActionTriggered)
             return v
         }()
         
         private var screenshot: UIImage? = nil {
             didSet {
-                doneButton.isEnabled = (screenshot != nil)
+                bottomGradientView.button.isEnabled = (screenshot != nil)
             }
         }
         
@@ -171,48 +137,40 @@ extension Social.AddStatsViewController {
     
     private func setUpLayout() {
         
-        view.addSubviews(views: backBtn, titleLabel, layoutScrollView, bottomGradientView)
+        view.addSubviews(views: navView, layoutScrollView, bottomGradientView)
         
-        let navLayoutGuide = UILayoutGuide()
-        view.addLayoutGuide(navLayoutGuide)
-        navLayoutGuide.snp.makeConstraints { (maker) in
+        navView.snp.makeConstraints { (maker) in
             maker.leading.trailing.equalToSuperview()
             maker.top.equalTo(topLayoutGuide.snp.bottom)
-            maker.height.equalTo(49)
         }
         
-        backBtn.snp.makeConstraints { (maker) in
-            maker.leading.equalToSuperview().offset(20)
-            maker.centerY.equalTo(navLayoutGuide)
-        }
+        var hEdgePadding: CGFloat = 0
         
-        titleLabel.snp.makeConstraints { (maker) in
-            maker.center.equalTo(navLayoutGuide)
+        adaptToIPad {
+            hEdgePadding = 20
         }
         
         layoutScrollView.snp.makeConstraints { (maker) in
-            maker.leading.trailing.equalToSuperview()
-            maker.bottom.equalTo(bottomLayoutGuide.snp.top)
-            maker.top.equalTo(navLayoutGuide.snp.bottom)
+            maker.leading.trailing.equalToSuperview().inset(hEdgePadding)
+            maker.bottom.equalToSuperview()
+            maker.top.equalTo(navView.snp.bottom)
         }
         
         bottomGradientView.snp.makeConstraints { (maker) in
-            maker.leading.trailing.equalToSuperview()
-            maker.bottom.equalTo(bottomLayoutGuide.snp.top)
-            maker.height.equalTo(134)
+            maker.leading.trailing.bottom.equalToSuperview()
         }
         
         layoutScrollView.addSubviews(views: uploadView, exampleView)
         
         uploadView.snp.makeConstraints { (maker) in
             maker.leading.trailing.equalToSuperview()
-            maker.width.equalTo(view)
+            maker.width.equalTo(view).inset(hEdgePadding)
             maker.top.equalTo(26)
         }
         
         exampleView.snp.makeConstraints { (maker) in
             maker.leading.trailing.equalToSuperview()
-            maker.width.equalTo(view)
+            maker.width.equalTo(view).inset(hEdgePadding)
             maker.top.equalTo(uploadView.snp.bottom).offset(44)
             maker.bottom.equalToSuperview().offset(-134)
         }

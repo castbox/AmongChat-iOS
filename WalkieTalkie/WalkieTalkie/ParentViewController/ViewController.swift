@@ -309,3 +309,11 @@ class ActivityViewCustomActivity: UIActivity {
         activityDidFinish(true)
     }
 }
+    
+func adaptToIPad(_ adaption:(() -> Void)) {
+    
+    if UIDevice.current.userInterfaceIdiom == .pad {
+        adaption()
+    }
+    
+}

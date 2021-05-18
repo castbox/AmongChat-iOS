@@ -222,6 +222,7 @@ class AmongGroupTopicConfigView: XibLoadableView {
         preferences.drawing.foregroundColor = .black
         preferences.drawing.backgroundColor = .white
         preferences.drawing.arrowPosition = .top
+        preferences.positioning.contentInsets = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
         preferences.positioning.bubbleInsets = UIEdgeInsets(top: 8, left: 20, bottom: 0, right: 20)
         preferences.drawing.cornerRadius = 12
         preferences.animating.dismissDuration = 0.5

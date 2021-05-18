@@ -198,7 +198,7 @@ extension AmongChat.Room {
                 for j in 0 ..< itemCount {
                     
                     let indexPath = IndexPath(item: j, section: i)
-                    let itemSize = CGSize(width: (UIScreen.main.bounds.size.width - sectionInset.left * 2) / 5, height: 64)
+                    let itemSize = CGSize(width: (UIScreen.main.bounds.size.width - sectionInset.left * 2) / (Frame.isPad ? 10 : 5), height: 64)
                     //判断列/
                     let columenIndex = j % columnCount
                     let xOffset = CGFloat(i) * viewWidth + sectionInset.left + CGFloat(columenIndex) * (itemSize.width + minLineSpace)

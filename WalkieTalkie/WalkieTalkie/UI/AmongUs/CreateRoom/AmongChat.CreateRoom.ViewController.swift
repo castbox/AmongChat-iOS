@@ -16,31 +16,31 @@ extension AmongChat.CreateRoom {
     class ViewController: WalkieTalkie.ViewController {
         
         private typealias TopicCell = AmongChat.CreateRoom.TopicCell
-        
-        private lazy var titleLabel: UILabel = {
-            let lb = UILabel()
-            lb.font = R.font.nunitoExtraBold(size: 24)
-            lb.textColor = UIColor.white
+                
+        private lazy var navView: NavigationBar = {
+            let n = NavigationBar()
+            let lb = n.titleLabel
             lb.text = R.string.localizable.amongChatCreateRoomTitle()
-            return lb
-        }()
-        
-        private lazy var backBtn: UIButton = {
-            let btn = UIButton(type: .custom)
+            let btn = n.leftBtn
             btn.setImage(R.image.ac_back(), for: .normal)
             btn.addTarget(self, action: #selector(onBackBtn), for: .primaryActionTriggered)
-            return btn
+            return n
         }()
         
         private lazy var topicCollectionView: UICollectionView = {
             let layout = UICollectionViewFlowLayout()
             layout.scrollDirection = .vertical
-            let hInset: CGFloat = 20
+            var hInset: CGFloat = 20
             let vInset: CGFloat = 24
             let hwRatio: CGFloat = 128.0 / 128.0
             let interSpace: CGFloat = 20
-            let cellWidth = (UIScreen.main.bounds.width - hInset * 2 - interSpace ) / 2
-            let cellHeight = cellWidth * hwRatio
+            var columns: Int = 2
+            adaptToIPad {
+                hInset = 40
+                columns = 4
+            }
+            let cellWidth = ((UIScreen.main.bounds.width - hInset * 2 - interSpace * CGFloat(columns - 1) ) / CGFloat(columns)).rounded(.towardZero)
+            let cellHeight = ceil(cellWidth * hwRatio)
             layout.itemSize = CGSize(width: cellWidth, height: cellHeight)
             layout.minimumLineSpacing = 20
             layout.minimumInteritemSpacing = interSpace
@@ -91,8 +91,15 @@ extension AmongChat.CreateRoom {
             v.backgroundColor = Theme.mainBgColor
             v.addSubviews(views: privateStateLabel, privateStateSwitch, cardButton, confirmButton)
             
+            var hInset: CGFloat = 20
+            var confirmButtonBottom: CGFloat = 46
+            adaptToIPad {
+                hInset = 40
+                confirmButtonBottom = 32
+            }
+            
             privateStateLabel.snp.makeConstraints { (maker) in
-                maker.leading.equalToSuperview().inset(20)
+                maker.leading.equalToSuperview().inset(hInset)
                 maker.top.equalToSuperview().offset(12.5)
             }
             
@@ -102,14 +109,15 @@ extension AmongChat.CreateRoom {
             }
             
             cardButton.snp.makeConstraints { (maker) in
-                maker.trailing.equalToSuperview().offset(-20)
+                maker.trailing.equalToSuperview().inset(hInset)
                 maker.centerY.equalTo(privateStateLabel)
             }
             
             confirmButton.snp.makeConstraints { (maker) in
-                maker.leading.trailing.equalToSuperview().inset(20)
+                maker.leading.trailing.equalToSuperview().inset(hInset)
                 maker.height.equalTo(48)
                 maker.top.equalTo(62)
+                maker.bottom.equalTo(-confirmButtonBottom)
             }
             
             return v
@@ -354,35 +362,21 @@ extension AmongChat.CreateRoom.ViewController {
     
     private func setupLayout() {
         
-        view.addSubviews(views: backBtn, titleLabel, topicCollectionView, bottomBar, bottomrBarShadowIV)
-        
-        let navLayoutGuide = UILayoutGuide()
-        view.addLayoutGuide(navLayoutGuide)
-        navLayoutGuide.snp.makeConstraints { (maker) in
+        view.addSubviews(views: navView, topicCollectionView, bottomBar, bottomrBarShadowIV)
+                
+        navView.snp.makeConstraints { (maker) in
             maker.leading.trailing.equalToSuperview()
             maker.top.equalTo(topLayoutGuide.snp.bottom)
-            maker.height.equalTo(49)
-        }
-        
-        backBtn.snp.makeConstraints { (maker) in
-            maker.leading.equalToSuperview().offset(20)
-            maker.centerY.equalTo(navLayoutGuide)
-        }
-        
-        titleLabel.snp.makeConstraints { (maker) in
-            maker.center.equalTo(navLayoutGuide)
         }
         
         topicCollectionView.snp.makeConstraints { (maker) in
             maker.leading.trailing.equalToSuperview()
-            maker.top.equalTo(navLayoutGuide.snp.bottom)
+            maker.top.equalTo(navView.snp.bottom)
             maker.bottom.equalTo(bottomBar.snp.top)
         }
         
         bottomBar.snp.makeConstraints { (maker) in
-            maker.left.right.equalToSuperview()
-            maker.bottom.equalTo(bottomLayoutGuide.snp.top)
-            maker.height.equalTo(143)
+            maker.leading.trailing.bottom.equalToSuperview()
         }
         
         bottomrBarShadowIV.snp.makeConstraints { (maker) in
@@ -530,7 +524,11 @@ extension AmongChat.CreateRoom.ViewController {
     }
     
     private func decorateAlert(_ alert: AlertController) {
-        alert.visualStyle.width = Frame.Screen.width - 28 * 2
+        var hPadding: CGFloat = 28
+        adaptToIPad {
+            hPadding = 190
+        }
+        alert.visualStyle.width = Frame.Screen.width - hPadding * 2
         alert.visualStyle.verticalElementSpacing = 0
         alert.visualStyle.contentPadding = UIEdgeInsets(top: 33.5, left: 0, bottom: 0, right: 0)
         alert.visualStyle.actionViewSize = CGSize(width: 0, height: 49)

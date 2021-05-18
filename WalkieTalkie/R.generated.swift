@@ -280,6 +280,8 @@ struct R: Rswift.Validatable {
     static let ac_group_Leave = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_group_Leave")
     /// Image `ac_group_add`.
     static let ac_group_add = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_group_add")
+    /// Image `ac_group_banner_pad`.
+    static let ac_group_banner_pad = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_group_banner_pad")
     /// Image `ac_group_banner`.
     static let ac_group_banner = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_group_banner")
     /// Image `ac_group_cover_add`.
@@ -418,6 +420,8 @@ struct R: Rswift.Validatable {
     static let ac_login_snapchat = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_login_snapchat")
     /// Image `ac_login_start`.
     static let ac_login_start = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_login_start")
+    /// Image `ac_login_top_bg_pad`.
+    static let ac_login_top_bg_pad = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_login_top_bg_pad")
     /// Image `ac_login_top_bg`.
     static let ac_login_top_bg = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_login_top_bg")
     /// Image `ac_login_wrong_code_bubble`.
@@ -807,6 +811,11 @@ struct R: Rswift.Validatable {
       return UIKit.UIImage(resource: R.image.ac_group_banner, compatibleWith: traitCollection)
     }
     
+    /// `UIImage(named: "ac_group_banner_pad", bundle: ..., traitCollection: ...)`
+    static func ac_group_banner_pad(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_group_banner_pad, compatibleWith: traitCollection)
+    }
+    
     /// `UIImage(named: "ac_group_cover_add", bundle: ..., traitCollection: ...)`
     static func ac_group_cover_add(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ac_group_cover_add, compatibleWith: traitCollection)
@@ -1150,6 +1159,11 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "ac_login_top_bg", bundle: ..., traitCollection: ...)`
     static func ac_login_top_bg(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ac_login_top_bg, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_login_top_bg_pad", bundle: ..., traitCollection: ...)`
+    static func ac_login_top_bg_pad(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_login_top_bg_pad, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "ac_login_wrong_code_bubble", bundle: ..., traitCollection: ...)`
@@ -1830,6 +1844,8 @@ struct R: Rswift.Validatable {
     static let amongChatRoomTopBar = _R.nib._AmongChatRoomTopBar()
     /// Nib `AmongGroupHostView`.
     static let amongGroupHostView = _R.nib._AmongGroupHostView()
+    /// Nib `AmongGroupJoinRequestCellIPad`.
+    static let amongGroupJoinRequestCellIPad = _R.nib._AmongGroupJoinRequestCellIPad()
     /// Nib `AmongGroupJoinRequestCell`.
     static let amongGroupJoinRequestCell = _R.nib._AmongGroupJoinRequestCell()
     /// Nib `AmongGroupTopView`.
@@ -1925,6 +1941,12 @@ struct R: Rswift.Validatable {
     @available(*, deprecated, message: "Use UINib(resource: R.nib.amongGroupJoinRequestCell) instead")
     static func amongGroupJoinRequestCell(_: Void = ()) -> UIKit.UINib {
       return UIKit.UINib(resource: R.nib.amongGroupJoinRequestCell)
+    }
+    
+    /// `UINib(name: "AmongGroupJoinRequestCellIPad", in: bundle)`
+    @available(*, deprecated, message: "Use UINib(resource: R.nib.amongGroupJoinRequestCellIPad) instead")
+    static func amongGroupJoinRequestCellIPad(_: Void = ()) -> UIKit.UINib {
+      return UIKit.UINib(resource: R.nib.amongGroupJoinRequestCellIPad)
     }
     
     /// `UINib(name: "AmongGroupTopView", in: bundle)`
@@ -2137,6 +2159,10 @@ struct R: Rswift.Validatable {
     
     static func amongGroupJoinRequestCell(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> AmongGroupJoinRequestCell? {
       return R.nib.amongGroupJoinRequestCell.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? AmongGroupJoinRequestCell
+    }
+    
+    static func amongGroupJoinRequestCellIPad(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> AmongGroupJoinRequestCellIPad? {
+      return R.nib.amongGroupJoinRequestCellIPad.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? AmongGroupJoinRequestCellIPad
     }
     
     static func amongGroupTopView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
@@ -7625,6 +7651,17 @@ struct _R: Rswift.Validatable {
       
       func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> AmongGroupJoinRequestCell? {
         return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? AmongGroupJoinRequestCell
+      }
+      
+      fileprivate init() {}
+    }
+    
+    struct _AmongGroupJoinRequestCellIPad: Rswift.NibResourceType {
+      let bundle = R.hostingBundle
+      let name = "AmongGroupJoinRequestCellIPad"
+      
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> AmongGroupJoinRequestCellIPad? {
+        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? AmongGroupJoinRequestCellIPad
       }
       
       fileprivate init() {}

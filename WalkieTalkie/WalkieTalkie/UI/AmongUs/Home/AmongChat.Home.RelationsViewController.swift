@@ -26,13 +26,16 @@ extension AmongChat.Home {
             
             let layout = UICollectionViewFlowLayout()
             layout.scrollDirection = .vertical
-            let hInset: CGFloat = 0
+            var hInset: CGFloat = 0
+            adaptToIPad {
+                hInset = 20
+            }
             let cellWidth: CGFloat = UIScreen.main.bounds.width - hInset * 2
             let cellHeight: CGFloat = 69
             layout.itemSize = CGSize(width: cellWidth, height: cellHeight)
             layout.minimumLineSpacing = 0
-            layout.sectionInset = UIEdgeInsets(top: 0, left: hInset, bottom: 0, right: hInset)
             let v = UICollectionView(frame: .zero, collectionViewLayout: layout)
+            v.contentInset = UIEdgeInsets(top: 0, left: hInset, bottom: 0, right: hInset)
             v.register(FansGroupBannerCell.self, forCellWithReuseIdentifier: NSStringFromClass(FansGroupBannerCell.self))
             v.register(FriendCell.self, forCellWithReuseIdentifier: NSStringFromClass(FriendCell.self))
             v.register(SuggestionCell.self, forCellWithReuseIdentifier: NSStringFromClass(SuggestionCell.self))
@@ -359,12 +362,13 @@ extension AmongChat.Home.RelationsViewController: UICollectionViewDataSource {
 extension AmongChat.Home.RelationsViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let padding = collectionView.contentInset.left + collectionView.contentInset.right
         if dataSource.safe(indexPath.section)?.group == .suggestContacts {
-            return CGSize(width: Frame.Screen.width, height: 104)
+            return CGSize(width: Frame.Screen.width - padding, height: 104)
         } else if dataSource.safe(indexPath.section)?.group == .fansGroup {
-            return FansGroupBannerCell.size
+            return FansGroupBannerCell.size(width: Frame.Screen.width - padding)
         }
-        return CGSize(width: Frame.Screen.width, height: 69)
+        return CGSize(width: Frame.Screen.width - padding, height: 69)
 
     }
     

@@ -16,11 +16,12 @@ extension AmongChat.Login {
     
     class SmsCodeViewController: WalkieTalkie.ViewController {
         
-        private lazy var backBtn: UIButton = {
-            let btn = UIButton(type: .custom)
+        private lazy var navView: NavigationBar = {
+            let n = NavigationBar()
+            let btn = n.leftBtn
             btn.addTarget(self, action: #selector(onBackBtn), for: .primaryActionTriggered)
             btn.setImage(R.image.ac_back(), for: .normal)
-            return btn
+            return n
         }()
         
         private lazy var codeIcon: UIImageView = {
@@ -51,12 +52,17 @@ extension AmongChat.Login {
         private lazy var digitCollectionView: UICollectionView = {
             let layout = UICollectionViewFlowLayout()
             layout.scrollDirection = .vertical
-            let hInset: CGFloat = 30
+            var hInset: CGFloat = 30
             let vInset: CGFloat = 0
             let hwRatio: CGFloat = 52.0 / 45.0
             let interSpace: CGFloat = 9
-            let cellWidth = (UIScreen.main.bounds.width - hInset * 2 - interSpace * 5 ) / 6
-            let cellHeight = cellWidth * hwRatio
+            var cellWidth = (UIScreen.main.bounds.width - hInset * 2 - interSpace * 5 ) / 6
+            var cellHeight = cellWidth * hwRatio
+            adaptToIPad {
+                cellWidth = 45
+                cellHeight = 52
+                hInset = (UIScreen.main.bounds.width - cellWidth * 6 - interSpace * 5 ) / 2
+            }
             digitCollectionViewHeight = cellHeight
             layout.itemSize = CGSize(width: cellWidth, height: cellHeight)
             layout.minimumLineSpacing = 0
@@ -174,39 +180,30 @@ extension AmongChat.Login.SmsCodeViewController {
     
     private func setupLayout() {
         
-        view.addSubviews(views: codeInputField, backBtn, codeIcon, codeTitle, smsTip, digitCollectionView, timingTip)
+        view.addSubviews(views: codeInputField, navView, codeIcon, codeTitle, smsTip, digitCollectionView, timingTip)
         
-        let navLayoutGuide = UILayoutGuide()
-        view.addLayoutGuide(navLayoutGuide)
-        navLayoutGuide.snp.makeConstraints { (maker) in
+        navView.snp.makeConstraints { (maker) in
             maker.leading.trailing.equalToSuperview()
             maker.top.equalTo(topLayoutGuide.snp.bottom)
-            maker.height.equalTo(49)
         }
-        
-        backBtn.snp.makeConstraints { (maker) in
-            maker.leading.equalToSuperview().offset(20)
-            maker.centerY.equalTo(navLayoutGuide)
-            maker.width.height.equalTo(24)
-        }
-        
+                
         codeIcon.snp.makeConstraints { (maker) in
-            maker.top.equalTo(navLayoutGuide.snp.bottom).offset(24)
+            maker.top.equalTo(navView.snp.bottom).offset(24)
             maker.centerX.equalToSuperview()
         }
         
         codeTitle.snp.makeConstraints { (maker) in
-            maker.leading.trailing.equalToSuperview().inset(30)
+            maker.leading.trailing.equalToSuperview().inset(Frame.horizontalBleedWidth)
             maker.top.equalTo(codeIcon.snp.bottom).offset(12)
         }
         
         smsTip.snp.makeConstraints { (maker) in
-            maker.leading.trailing.equalToSuperview().inset(30)
+            maker.leading.trailing.equalToSuperview().inset(Frame.horizontalBleedWidth)
             maker.top.equalTo(codeTitle.snp.bottom).offset(8)
         }
         
         timingTip.snp.makeConstraints { (maker) in
-            maker.leading.trailing.equalToSuperview().inset(30)
+            maker.leading.trailing.equalToSuperview().inset(Frame.horizontalBleedWidth)
             maker.top.equalTo(digitCollectionView.snp.bottom).offset(12)
         }
         

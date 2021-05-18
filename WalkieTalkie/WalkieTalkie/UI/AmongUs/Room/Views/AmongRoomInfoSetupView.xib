@@ -63,13 +63,17 @@
             </subviews>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <constraints>
-                <constraint firstAttribute="trailing" secondItem="fis-Om-LQT" secondAttribute="trailing" constant="24" id="8af-lb-V20"/>
+                <constraint firstAttribute="trailing" secondItem="fis-Om-LQT" secondAttribute="trailing" constant="24" id="8af-lb-V20">
+                    <variation key="heightClass=regular-widthClass=regular" constant="40"/>
+                </constraint>
                 <constraint firstItem="mQf-46-A6c" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Uzq-fL-qD9"/>
                 <constraint firstItem="fis-Om-LQT" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="bwE-J6-Mg6"/>
                 <constraint firstAttribute="bottom" secondItem="fis-Om-LQT" secondAttribute="bottom" id="eA8-ay-Hua"/>
                 <constraint firstItem="mQf-46-A6c" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="k3g-9H-XYq"/>
                 <constraint firstItem="fis-Om-LQT" firstAttribute="top" secondItem="mQf-46-A6c" secondAttribute="bottom" constant="8" id="s5l-v8-NUO"/>
-                <constraint firstAttribute="trailing" secondItem="mQf-46-A6c" secondAttribute="trailing" constant="24" id="yac-Mj-X9M"/>
+                <constraint firstAttribute="trailing" secondItem="mQf-46-A6c" secondAttribute="trailing" constant="24" id="yac-Mj-X9M">
+                    <variation key="heightClass=regular-widthClass=regular" constant="40"/>
+                </constraint>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="266.66666666666669" y="-5.3571428571428568"/>

@@ -52,7 +52,11 @@ extension Social {
         var tableHeaderHeight: CGFloat {
             
             var height = 241 + Frame.Screen.width - 16
-                        
+            
+            adaptToIPad {
+                height = 241 + 375 - 16
+            }
+            
             guard isSelfProfile.value,
                   !AmongChat.Login.isLogedin else {
                 return height
@@ -184,6 +188,9 @@ extension Social {
             let layout = UICollectionViewFlowLayout()
             layout.scrollDirection = .vertical
             var hInset: CGFloat = 20
+            adaptToIPad {
+                hInset = 40
+            }
             layout.sectionInset = UIEdgeInsets(top: 16, left: 0, bottom: 44, right: 0)
             layout.minimumLineSpacing = 20
             let v = UICollectionView(frame: .zero, collectionViewLayout: layout)
@@ -283,14 +290,12 @@ private extension Social.ProfileViewController {
         view.addSubviews(views: table, bottomGradientView)
         
         bottomGradientView.snp.makeConstraints { (maker) in
-            maker.leading.trailing.equalToSuperview()
-            maker.bottom.equalTo(bottomLayoutGuide.snp.top)
+            maker.leading.trailing.bottom.equalToSuperview()
             maker.height.equalTo(134)
         }
         
         table.snp.makeConstraints { (maker) in
-            maker.leading.trailing.top.equalToSuperview()
-            maker.bottom.equalTo(bottomLayoutGuide.snp.top)
+            maker.edges.equalToSuperview()
         }
         
         Settings.shared.loginResult.replay()
@@ -1088,8 +1093,12 @@ extension Social.ProfileViewController: UICollectionViewDelegateFlowLayout {
             if let _ = gameSkills.safe(indexPath.row) {
                 
                 let interitemSpacing: CGFloat = 20
-                let hwRatio: CGFloat = 180.0 / 335.0
+                var hwRatio: CGFloat = 180.0 / 335.0
                 var columns: Int = 1
+                adaptToIPad {
+                    columns = 2
+                    hwRatio = 227.0 / 367.0
+                }
                 let cellWidth = ((UIScreen.main.bounds.width - padding - interitemSpacing * CGFloat(columns - 1)) / CGFloat(columns)).rounded(.towardZero)
                 let cellHeight = ceil(cellWidth * hwRatio)
                 
@@ -1105,6 +1114,9 @@ extension Social.ProfileViewController: UICollectionViewDelegateFlowLayout {
         case .groupsCreated:
             
             var columns: Int = 1
+            adaptToIPad {
+                columns = 2
+            }
             let interitemSpacing: CGFloat = 20
             let hwRatio: CGFloat = 129.0 / 335.0
             
@@ -1116,6 +1128,9 @@ extension Social.ProfileViewController: UICollectionViewDelegateFlowLayout {
         case .groupsJoined:
             
             var columns: Int = 3
+            adaptToIPad {
+                columns = 6
+            }
             let interitemSpacing: CGFloat = 16
             let hwRatio: CGFloat = 1
             

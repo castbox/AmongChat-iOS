@@ -826,7 +826,7 @@ extension AmongChat.GroupRoom.ViewController {
         hostView.snp.makeConstraints { (maker) in
             maker.left.right.equalToSuperview()
             maker.top.equalTo(topBar.snp.bottom).offset(hostViewTopEdge)
-            maker.height.equalTo(125.5)
+            maker.height.equalTo(Frame.isPad ? 175.5 : 125.5)
         }
 
         seatView.snp.makeConstraints { (maker) in
@@ -874,7 +874,6 @@ extension AmongChat.GroupRoom.ViewController {
         applyButton.snp.makeConstraints { maker in
             maker.leading.trailing.equalToSuperview()
             maker.bottom.equalToSuperview()
-            maker.height.equalTo(100 + Frame.Height.safeAeraBottomHeight)
         }
 
     }

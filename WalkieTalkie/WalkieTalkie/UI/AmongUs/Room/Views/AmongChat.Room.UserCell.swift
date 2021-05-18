@@ -50,7 +50,7 @@ extension AmongChat.Room {
         
         private lazy var avatarIV: UIButton = {
             let btn = UIButton(type: .custom)
-            btn.layer.cornerRadius = 20
+            btn.layer.cornerRadius = UserCell.avatarWidth / 2
             btn.layer.masksToBounds = true
             btn.imageView?.contentMode = .scaleAspectFill
             btn.backgroundColor = UIColor.white.alpha(0.2)
@@ -60,7 +60,7 @@ extension AmongChat.Room {
         
         private lazy var kickSelectedView: UIImageView = {
             let iv = UIImageView()
-            iv.layer.cornerRadius = 20
+            iv.layer.cornerRadius = UserCell.avatarWidth / 2
             iv.layer.masksToBounds = true
             iv.image = R.image.ac_kick_selected()
             iv.isHidden = true
@@ -86,7 +86,7 @@ extension AmongChat.Room {
             lb.text = R.string.localizable.roomUserListMuted()
             lb.backgroundColor = UIColor.black.alpha(0.7)
             lb.isHidden = true
-            lb.cornerRadius = 20
+            lb.cornerRadius = UserCell.avatarWidth / 2
             return lb
         }()
         
@@ -126,7 +126,7 @@ extension AmongChat.Room {
             return view
         }()
 
-        
+        private static let avatarWidth: CGFloat = Frame.isPad ? 60 : 40
         private var svgaUrl: URL?
         //        private var isPlaySvgaEmoji: Bool = false
         private var svagPlayerStatus: SvagPlayerStatus = .free
@@ -384,7 +384,7 @@ extension AmongChat.Room {
         private func setupLayout() {
             contentView.backgroundColor = .clear
             contentView.addSubviews(views: gameNameButton, haloView, avatarIV, nameLabel, disableMicView, svgaView, mutedLabel, kickSelectedView, loadingView)
-            
+            let itemSize = UserCell.avatarWidth
             if itemStyle == .normal {
                 contentView.addSubviews(views: indexLabel)
                 indexLabel.snp.makeConstraints { (maker) in
@@ -392,20 +392,20 @@ extension AmongChat.Room {
                     maker.height.equalTo(21.5)
                 }
                 avatarIV.snp.makeConstraints { (maker) in
-                    maker.size.equalTo(CGSize(width: 40, height: 40))
+                    maker.size.equalTo(CGSize(width: itemSize, height: itemSize))
                     maker.centerX.equalToSuperview()
                     maker.top.equalTo(indexLabel.snp.bottom).offset(4)
                 }
             } else {
                 avatarIV.snp.makeConstraints { (maker) in
-                    maker.size.equalTo(CGSize(width: 40, height: 40))
+                    maker.size.equalTo(CGSize(width: itemSize, height: itemSize))
                     maker.centerX.top.equalToSuperview()
                 }
             }
             
             haloView.snp.makeConstraints { (maker) in
                 maker.center.equalTo(avatarIV)
-                maker.width.height.equalTo(60)
+                maker.width.height.equalTo(itemSize + 20)
             }
             
             
@@ -430,13 +430,22 @@ extension AmongChat.Room {
             
             nameLabel.snp.makeConstraints { (maker) in
                 maker.top.equalTo(avatarIV.snp.bottom).offset(4)
-                maker.trailing.leading.equalToSuperview().inset(2)
+                if Frame.isPad {
+                    maker.centerX.equalToSuperview()
+                    maker.leading.greaterThanOrEqualToSuperview().offset(2)
+                } else {
+                    maker.trailing.leading.equalToSuperview().inset(2)
+                }
             }
             
             gameNameButton.snp.makeConstraints { maker in
                 maker.top.equalTo(nameLabel.snp.bottom).offset(4)
-                maker.left.equalTo(3)
-                maker.right.equalTo(-3)
+                if Frame.isPad {
+                    maker.leading.trailing.equalTo(nameLabel).inset(-8)
+                } else {
+                    maker.left.equalTo(3)
+                    maker.right.equalTo(-3)
+                }
                 maker.height.equalTo(20)
             }
             

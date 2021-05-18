@@ -29,8 +29,9 @@ extension Social.ProfileViewController {
         
         var headerHandle:((HeaderProfileAction) -> Void)?
         
-        private lazy var backBtn: UIButton = {
-            let btn = UIButton(type: .custom)
+        private lazy var navView: NavigationBar = {
+            let n = NavigationBar()
+            let btn = n.leftBtn
             if isSelf, controller?.navigationController?.viewControllers.count == 1 {
                 btn.setImage(R.image.ac_profile_close_down(), for: .normal)
             } else {
@@ -45,8 +46,9 @@ extension Social.ProfileViewController {
                         self.controller?.navigationController?.popViewController()
                     }
                 }).disposed(by: bag)
-            return btn
+            return n
         }()
+
         
         private lazy var proBtn: UIButton = {
             let btn = UIButton(type: .custom)
@@ -94,15 +96,6 @@ extension Social.ProfileViewController {
                     self.controller?.navigationController?.pushViewController(vc)
                 }).disposed(by: bag)
             return btn
-        }()
-        
-        private lazy var titleLabel: WalkieLabel = {
-            let lb = WalkieLabel()
-            lb.font = R.font.nunitoExtraBold(size: 24)
-            lb.textColor = .white
-            lb.textAlignment = .center
-            lb.text = R.string.localizable.profileProfile()
-            return lb
         }()
         
         private lazy var moreBtn: UIButton = {
@@ -333,55 +326,37 @@ extension Social.ProfileViewController {
         
         private func setupLayout() {
             
-            let navLayoutGuide = UIView()
-            navLayoutGuide.backgroundColor = .clear
-            addSubview(navLayoutGuide)
-            navLayoutGuide.snp.makeConstraints { (maker) in
+            addSubviews(views: infoContainer, skinView, navView, loginButton)
+            
+            navView.snp.makeConstraints { (maker) in
                 maker.leading.trailing.equalToSuperview()
                 maker.top.equalTo(Frame.Height.safeAeraTopHeight)
-                maker.height.equalTo(49)
             }
-            
-            addSubviews(views: infoContainer, skinView, backBtn, titleLabel, loginButton)
             
             skinView.addSubview(customizeBtn)
-                        
-            titleLabel.snp.makeConstraints { (maker) in
-                maker.centerX.equalToSuperview()
-                maker.centerY.equalTo(navLayoutGuide)
-            }
-            
-            backBtn.snp.makeConstraints { (maker) in
-                maker.leading.equalToSuperview().offset(12.5)
-                maker.centerY.equalTo(navLayoutGuide)
-                maker.width.height.equalTo(40)//25
-            }
             
             loginButton.snp.makeConstraints { (maker) in
-                maker.leading.trailing.equalToSuperview().inset(20)
+                maker.leading.trailing.equalToSuperview().inset(Frame.horizontalBleedWidth)
                 maker.bottom.equalToSuperview().offset(-88)
                 maker.height.equalTo(48)
             }
             if !isSelf {
-                addSubview(moreBtn)
+                navView.addSubview(moreBtn)
                 moreBtn.snp.makeConstraints { (make) in
-                    make.right.equalTo(-15)
-                    make.centerY.equalTo(backBtn.snp.centerY)
-                    make.width.height.equalTo(40)//24
+                    make.right.equalTo(Frame.horizontalBleedWidth)
+                    make.centerY.equalToSuperview()
                 }
                 loginButton.isHidden = true
             } else {
-                addSubview(settingsBtn)
+                navView.addSubview(settingsBtn)
                 settingsBtn.snp.makeConstraints { (maker) in
-                    maker.centerY.equalTo(navLayoutGuide)
-                    maker.right.equalToSuperview().inset(20)
+                    maker.centerY.equalToSuperview()
+                    maker.right.equalToSuperview().inset(Frame.horizontalBleedWidth)
                 }
                 
-                titleLabel.isHidden = true
-                
-                addSubview(proBtn)
+                navView.addSubview(proBtn)
                 proBtn.snp.makeConstraints { (maker) in
-                    maker.centerY.equalTo(navLayoutGuide)
+                    maker.centerY.equalToSuperview()
                     maker.right.equalTo(settingsBtn.snp.left).offset(-16)
                     maker.height.equalTo(40)
                 }
@@ -418,7 +393,7 @@ extension Social.ProfileViewController {
             }
             
             customizeBtn.snp.makeConstraints { maker in
-                maker.trailing.equalTo(-20)
+                maker.trailing.equalToSuperview().inset(Frame.horizontalBleedWidth)
                 maker.bottom.equalTo(-20)
                 maker.height.equalTo(38)
             }
@@ -426,6 +401,20 @@ extension Social.ProfileViewController {
             infoContainer.snp.makeConstraints { maker in
                 maker.top.equalTo(skinView.snp.bottom)
                 maker.leading.trailing.bottom.equalToSuperview()
+            }
+            
+            adaptToIPad {
+                
+                skinView.snp.remakeConstraints { (maker) in
+                    maker.top.leading.trailing.equalToSuperview()
+                    maker.height.equalTo(375)
+                }
+
+                infoContainer.snp.remakeConstraints { (maker) in
+                    maker.top.equalTo(skinView.snp.bottom)
+                    maker.bottom.equalToSuperview()
+                    maker.leading.trailing.equalToSuperview().inset(20)
+                }
             }
 
             setCommonLayout()
@@ -468,7 +457,7 @@ extension Social.ProfileViewController {
                 infoContainer.addSubview(editBtn)
                 
                 editBtn.snp.makeConstraints { (maker) in
-                    maker.trailing.equalTo(-20)
+                    maker.trailing.equalToSuperview().inset(Frame.horizontalBleedWidth)
                     maker.centerY.equalTo(nameLabel.snp.centerY)
                     maker.width.equalTo(28)
                     maker.height.equalTo(27)
@@ -715,7 +704,11 @@ extension Social.ProfileViewController {
             container.addLayoutGuide(titleLayout)
             titleLayout.snp.makeConstraints { (maker) in
                 maker.leading.top.trailing.equalToSuperview()
-                maker.height.equalTo(44)
+                var height: CGFloat = 44
+                adaptToIPad {
+                    height = 48
+                }
+                maker.height.equalTo(height)
             }
             
             nameLabel.snp.makeConstraints { (maker) in
