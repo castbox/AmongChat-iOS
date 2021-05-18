@@ -232,7 +232,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 226 images.
+  /// This `R.image` struct is generated, and contains static references to 228 images.
   struct image {
     /// Image `ac_add_stats_add`.
     static let ac_add_stats_add = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_add_stats_add")
@@ -1834,7 +1834,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.nib` struct is generated, and contains static references to 37 nibs.
+  /// This `R.nib` struct is generated, and contains static references to 38 nibs.
   struct nib {
     /// Nib `AddStatsPendingController`.
     static let addStatsPendingController = _R.nib._AddStatsPendingController()
@@ -2404,7 +2404,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
     
-    /// This `R.string.localizable` struct is generated, and contains static references to 465 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 466 localization keys.
     struct localizable {
       /// en translation:  Congratulations!
       /// 
@@ -3126,6 +3126,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let groupRoomIgnore = Rswift.StringResource(key: "group.room.ignore", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Image
+      /// 
+      /// Locales: en
+      static let amongChatProfileImage = Rswift.StringResource(key: "among.chat.profile.image", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: In %@ Channel
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -5525,6 +5529,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func groupRoomIgnore(_: Void = ()) -> String {
         return NSLocalizedString("group.room.ignore", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Image
+      /// 
+      /// Locales: en
+      static func amongChatProfileImage(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.profile.image", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: In %@ Channel
