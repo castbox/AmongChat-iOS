@@ -222,6 +222,8 @@
 		FE6AF85A2457E26C00FD474A /* UIViewFrameExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6AF8592457E26C00FD474A /* UIViewFrameExtension.swift */; };
 		FE6BEAE32631B17700568B9B /* AmongGroupJoinRequestCellIPad.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6BEAE12631B17700568B9B /* AmongGroupJoinRequestCellIPad.swift */; };
 		FE6BEAE42631B17700568B9B /* AmongGroupJoinRequestCellIPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE6BEAE22631B17700568B9B /* AmongGroupJoinRequestCellIPad.xib */; };
+		FE705537265273E200A489F4 /* NewVersionAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE705535265273E200A489F4 /* NewVersionAlertController.swift */; };
+		FE705538265273E200A489F4 /* NewVersionAlertController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE705536265273E200A489F4 /* NewVersionAlertController.xib */; };
 		FE72186F2456D696005274CA /* MJMaterialSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE72186E2456D696005274CA /* MJMaterialSwitch.swift */; };
 		FE7218712456D900005274CA /* FireMessaging.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE7218702456D8FF005274CA /* FireMessaging.swift */; };
 		FE7218752456DA36005274CA /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE7218742456DA36005274CA /* Extension.swift */; };
@@ -687,6 +689,8 @@
 		FE6AF8592457E26C00FD474A /* UIViewFrameExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewFrameExtension.swift; sourceTree = "<group>"; };
 		FE6BEAE12631B17700568B9B /* AmongGroupJoinRequestCellIPad.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongGroupJoinRequestCellIPad.swift; sourceTree = "<group>"; };
 		FE6BEAE22631B17700568B9B /* AmongGroupJoinRequestCellIPad.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AmongGroupJoinRequestCellIPad.xib; sourceTree = "<group>"; };
+		FE705535265273E200A489F4 /* NewVersionAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewVersionAlertController.swift; sourceTree = "<group>"; };
+		FE705536265273E200A489F4 /* NewVersionAlertController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewVersionAlertController.xib; sourceTree = "<group>"; };
 		FE72186E2456D696005274CA /* MJMaterialSwitch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MJMaterialSwitch.swift; sourceTree = "<group>"; };
 		FE7218702456D8FF005274CA /* FireMessaging.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FireMessaging.swift; sourceTree = "<group>"; };
 		FE7218742456DA36005274CA /* Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
@@ -1400,6 +1404,8 @@
 				FEC7855925A8577300E343F7 /* BaseNotificationBannerExtension.swift */,
 				FEA2E93125C139E4007485A8 /* AvatarGuideViewController.swift */,
 				FEA2E93225C139E4007485A8 /* AvatarGuideViewController.xib */,
+				FE705535265273E200A489F4 /* NewVersionAlertController.swift */,
+				FE705536265273E200A489F4 /* NewVersionAlertController.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1878,6 +1884,7 @@
 				FE169E2826134A2000AD7866 /* AmongGroupHostView.xib in Resources */,
 				FE79F394258CE06D00E9BC6C /* AmongSheetIconItemCell.xib in Resources */,
 				FE7ED90325F20292009C608A /* room-emoji-blue.svga in Resources */,
+				FE705538265273E200A489F4 /* NewVersionAlertController.xib in Resources */,
 				FE746BCE24629A9800CAC554 /* Localizable.strings in Resources */,
 				BD9F26C525A5EEBD00FA3616 /* SupportedLanguages.json in Resources */,
 				FE126D24243461EA00BEDD60 /* LaunchScreen.storyboard in Resources */,
@@ -2302,6 +2309,7 @@
 				26259F56260D8D0F00636E50 /* SmallSizeButton.swift in Sources */,
 				263F8ACB2613271500282F8F /* FansGroup.TopicViewModel.swift in Sources */,
 				FE8DEA67243DB09A0059C252 /* Codable.Extension.swift in Sources */,
+				FE705537265273E200A489F4 /* NewVersionAlertController.swift in Sources */,
 				FE125F5F25B7D92800609D81 /* Social.InviteFirendsViewController.swift in Sources */,
 				FE80A59325ADA605009914A7 /* AmongChat.Login.StarsOverlay.swift in Sources */,
 				FE9BCA44258A5344002F82AF /* IntExtension.swift in Sources */,

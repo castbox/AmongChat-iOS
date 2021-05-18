@@ -105,6 +105,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         IQKeyboardManager.shared.enableAutoToolbar = false
         IQKeyboardManager.shared.shouldResignOnTouchOutside = true
         IQKeyboardManager.shared.enable = false
+        cdPrint("compareAppVersions: \(compareAppVersions(v1: "1.2.0", v2: "1.10.0"))")
+        cdPrint("compareAppVersions: \(compareAppVersions(v1: "1.12.0", v2: "1.10.0"))")
+        cdPrint("compareAppVersions: \(compareAppVersions(v1: "1.20.0", v2: "1.10.2"))")
 //        // end
 //        TikTokOpenSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
         
@@ -199,10 +202,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     return
                 }
                 UIApplication.topViewController()?.showAmongAlert(title: nil, message: R.string.localizable.forceUpgradeTip(), confirmTitle: R.string.localizable.alertOk(), confirmAction: {
-                    let appID = Constants.appId
-                    let urlStr = "https://itunes.apple.com/app/id\(appID)?mt=8" // (Option 2) Open App Review Page
                     
-                    guard let url = URL(string: urlStr), UIApplication.shared.canOpenURL(url) else { return }
+                    guard let url = URL(string: Constants.appStoreUrl), UIApplication.shared.canOpenURL(url) else { return }
                     
                     UIApplication.shared.open(url, options: [:], completionHandler: nil)
                 })

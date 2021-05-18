@@ -65,6 +65,7 @@ class DMManager {
                         item.message = message
                         item.unreadCount += 1
                     }
+                    item.message.ms = message.ms
                     item.lastMsgMs = Date().timeIntervalSince1970
                     return item
                 }

@@ -229,7 +229,7 @@ extension AmongChat.Home.MainTabController {
             .observeOn(MainScheduler.asyncInstance)
             .subscribe(onNext: { unread, icon in
                 if unread {
-                    icon.badgeOn()
+                    icon.badgeOn(topInset: 4)
                 } else {
                     icon.badgeOff()
                 }

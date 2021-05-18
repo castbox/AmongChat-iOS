@@ -468,7 +468,7 @@
 
 //1.18
 "report.user" = "Report user";
-"report.success" = "Reported successfully";
+"report.success" = "You have successfully reported \nthis person";
 "report.failed" = "Report failed. Please try again";
 "report.comments" = "Comments";
 "report.comments.placeholder" = "Please describe the report";
@@ -525,7 +525,10 @@
 "dm.text.placeholder" = "Start typing";
 "profile.user.in.channel" = "In %@ Channel";
 "profile.user.in.group" = "In %@ Group";
-"dm.send.message.error" = "Send failed, Please try again.";
+"dm.send.message.error" = "Send failed. Please try again.";
 "dm.send.message.beblocked.error" = "You can no longer send Direct Messages to this person.";
 "dm.delete.conversation.alert.title" = "Are you sure you want to delete this chat?";
 "group.online" = "Live";
+"app.new.version.alert.title" = "New Update Available!";
+"app.new.version.alert.content" = "Update to the latest version and help spread the word.";
+"app.new.version.alert.update" = "Update";
