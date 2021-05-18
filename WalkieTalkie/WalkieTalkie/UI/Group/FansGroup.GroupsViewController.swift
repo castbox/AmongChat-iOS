@@ -169,7 +169,6 @@ extension FansGroup.GroupsViewController {
         navView.snp.makeConstraints { (maker) in
             maker.leading.trailing.equalToSuperview()
             maker.top.equalTo(topLayoutGuide.snp.bottom)
-            maker.height.equalTo(49)
         }
         
         segmentedButton.snp.makeConstraints { (maker) in
@@ -241,7 +240,7 @@ extension FansGroup.GroupsViewController {
     
     private func getVerified() {
         
-        guard AmongChat.Login.canDoLoginEvent(style: .applyVerify) else {
+        guard AmongChat.Login.canDoLoginEvent(style: .authNeeded(source: .applyVerified)) else {
             return
         }
         self.open(urlSting: "https://docs.google.com/forms/d/e/1FAIpQLSeTzpMgWikmqajPHbEBAstCdFVB4Xo1CjYDc29wj4zSJq99Kg/viewform")

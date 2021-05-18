@@ -27,7 +27,7 @@ extension FansGroup {
             
             n.addSubview(settingBtn)
             settingBtn.snp.makeConstraints { (maker) in
-                maker.trailing.equalToSuperview().offset(-20)
+                maker.trailing.equalToSuperview().inset(Frame.horizontalBleedWidth)
                 maker.centerY.equalToSuperview()
             }
             return n
@@ -137,7 +137,6 @@ extension FansGroup.GroupInfoViewController {
         navView.snp.makeConstraints { (maker) in
             maker.leading.trailing.equalToSuperview()
             maker.top.equalTo(topLayoutGuide.snp.bottom)
-            maker.height.equalTo(49)
         }
         
         bottomGradientView.snp.makeConstraints { (maker) in
@@ -179,8 +178,8 @@ extension FansGroup.GroupInfoViewController {
             .do(onDispose: {
                 hudRemoval()
             })
-            .subscribe(onSuccess: { (info) in
-                self.updateContent(info)
+            .subscribe(onSuccess: { [weak self] (info) in
+                self?.updateContent(info)
             })
             .disposed(by: bag)
     }

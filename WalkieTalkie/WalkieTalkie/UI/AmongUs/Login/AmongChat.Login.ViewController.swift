@@ -19,9 +19,42 @@ extension AmongChat.Login {
     enum LoginStyle: Equatable {
         case tutorial
         case inAppLogin
-        case authNeeded(source: String)
-        case unlockPro
-        case applyVerify //Please sign in first to apply
+        case authNeeded(source: AuthNeededSource)
+        
+        enum AuthNeededSource {
+            case createChannel
+            case editProfile
+            case upgradedToPro
+            case applyVerified
+            case chat
+        }
+        
+        var loggerSource: String? {
+            switch self {
+            case .tutorial:
+                return "login"
+            case .inAppLogin:
+                return "profile"
+            case .authNeeded(let source):
+                
+                switch source {
+                case .createChannel:
+                    return "create_channel"
+                    
+                case .editProfile:
+                    return "profile_edit"
+                    
+                case .upgradedToPro:
+                    return nil
+                    
+                case .applyVerified:
+                    return "apply_verify"
+                    
+                case .chat:
+                    return "chat"
+                }
+            }
+        }
     }
     
     static var isLogedin: Bool {
@@ -325,11 +358,7 @@ extension AmongChat.Login.ViewController {
     
     private func finish() {
         
-//        #if DEBUG
-//        let newUser = true
-//        #else
         let newUser = Settings.shared.loginResult.value?.is_new_user ?? false
-//        #endif
         
         if newUser {
             let birthdayVC = Social.BirthdaySetViewController()

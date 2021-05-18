@@ -11,6 +11,7 @@ import RxSwift
 import RxCocoa
 import AgoraRtmKit
 import CastboxDebuger
+import AudioToolbox
 
 fileprivate func cdPrint(_ message: Any) {
     Debug.info("[IMManager]-\(message)")
@@ -18,9 +19,15 @@ fileprivate func cdPrint(_ message: Any) {
 
 class IMManager: NSObject {
     private static let systemAgoraUid = Int(99999)
+
+    enum LoginStatus {
+        case online, offline
+    }
+    
     static let shared = IMManager()
+    let onlineRelay = BehaviorRelay<LoginStatus>(value: .offline)
+    
     private var rtmKit: AgoraRtmKit?
-    private let onlineRelay = BehaviorRelay<LoginStatus>(value: .offline)
     private var rtmChannel: AgoraRtmChannel?
     private let joinedSubject = BehaviorRelay<Bool>(value: false)
     private let newChannelMessageSubject = PublishSubject<(AgoraRtmMessage, AgoraRtmMember)>()
@@ -112,16 +119,32 @@ class IMManager: NSObject {
                         }
                     case .unreadNotice, .unreadGroupApply:
                         item = try JSONDecoder().decodeAnyData(Peer.UnreadNotice.self, from: json) as PeerMessage
+                    case .dm:
+                        var dmMessage = try JSONDecoder().decodeAnyData(Entity.DMMessage.self, from: json)
+                        dmMessage.ms = Double(message.serverReceivedTs)
+                        dmMessage.isFromMe = dmMessage.fromUid == Settings.loginUserId?.string
                         
-                    default:
-                        assert(true, "message type not handler")
-                        item = nil
+                        if dmMessage.isNeedDownloadSource {
+                            dmMessage.status = .downloading
+                        } else {
+                            dmMessage.status = .success
+                        }
+                        if dmMessage.body.msgType == .voice {
+                            dmMessage.unread = true
+                        }
+                        item = dmMessage
                     }
                 }
                 return item
             }
             .filterNil()
-
+            .do(onNext: { [weak self] item in
+                guard item.msgType == .dm else {
+                    return
+                }
+                self?.triggerImpactIfCould()
+            })
+        
     }
     
     var joinedChannelSignal: Observable<Bool> {
@@ -199,15 +222,69 @@ class IMManager: NSObject {
                 
             }
         }
-        
+    }
+    
+    func getMediaId(with filePath: String) -> Single<String?> {
+        let fileManager = FileManager.default
+        guard fileManager.fileExists(atPath: filePath) else {
+            return .just(nil)
+        }
+        return Single.create { [weak self] observer in
+            var requestId: Int64 = 0
+            self?.rtmKit?.createFileMessage(byUploading: filePath, withRequest: &requestId, completion: { rId, message, error in
+                observer(.success(message?.mediaId))
+                cdPrint("filePath: \(filePath) rid: \(rId) message: \(message?.mediaId) error: \(error.rawValue)")
+            })
+            return Disposables.create()
+        }
+    }
+    
+    //file path
+    func downloadFile(with body: Entity.DMMessageBody) -> Single<URL?> {
+        guard let mediaId = body.url,
+              let fileName = body.localFileName else {
+            return .just(nil)
+        }
+        let filePath: URL
+        if body.isVoiceMsg {
+            guard let path = FileManager.voiceFilePath(with: fileName) else {
+                return .just(nil)
+            }
+            filePath = URL(fileURLWithPath: path)
+        } else {
+            guard let path = FileManager.voiceFilePath(with: fileName) else {
+                return .just(nil)
+            }
+            filePath = URL(fileURLWithPath: path)
+        }
+        guard !FileManager.default.fileExists(atPath: filePath.path) else {
+            return .just(filePath)
+        }
+        return Single.create { [weak self] observer in
+            var requestId: Int64 = 0
+            self?.rtmKit?.downloadMedia(mediaId, toFile: filePath.path, withRequest: &requestId, completion: { rId, error in
+                if error == .ok {
+                    observer(.success(filePath))
+                }
+                cdPrint("downloadMedia filePath: \(filePath) rid: \(rId) error: \(error.rawValue)")
+            })
+            return Disposables.create {
+                self?.rtmKit?.cancelMediaDownload(requestId, completion: { rId, error in
+                    if error == .ok {
+                        observer(.success(filePath))
+                    }
+                    cdPrint("cancelMediaDownload filePath: \(filePath) rid: \(rId) error: \(error.rawValue)")
+                })
+            }
+        }
     }
     
 }
 
 private extension IMManager {
     
-    enum LoginStatus {
-        case online, offline
+    func triggerImpactIfCould() {
+        AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
     }
     
     func bindEvents() {

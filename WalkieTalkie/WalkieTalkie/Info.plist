@@ -138,6 +138,38 @@
 		<string>fb165073083517174</string>
 		<string>fb775355975878266</string>
 		<string>fb200926970514161</string>
+		<string>fb126932034661742</string>
+		<string>fb226681500790782</string>
+		<string>fb1662455200680363</string>
+		<string>npf6557cf629b753d86</string>
+		<string>fb132426687177126</string>
+		<string>fb1789655757943334</string>
+		<string>vainglory</string>
+		<string>fb573320556091057</string>
+		<string>fb1598320380208251wowsb</string>
+		<string>fb1067191693314092</string>
+		<string>hearthstone</string>
+		<string>fb523631134360162</string>
+		<string>fb1628087097518022</string>
+		<string>doodlearmy2</string>
+		<string>fb209252576430910</string>
+		<string>fb528157434056869</string>
+		<string>fb337540763102929</string>
+		<string>fb321549981551150</string>
+		<string>fb571236316289363</string>
+		<string>fb125434931488903</string>
+		<string>fb216001735624718</string>
+		<string>fb116129639069273</string>
+		<string>fb272124996722604</string>
+		<string>fb988201081231135</string>
+		<string>dodreams</string>
+		<string>fb333917559972367</string>
+		<string>fb168378113211268wordswithfriends3</string>
+		<string>fb293746044767069</string>
+		<string>ssg3</string>
+		<string>ootbdotsandboxes</string>
+		<string>fb408324359791912</string>
+		<string>fb481621545372239</string>
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
@@ -331,6 +363,10 @@
 		</dict>
 		<dict>
 			<key>SKAdNetworkIdentifier</key>
+			<string>44n7hlldy6.skadnetwork</string>
+		</dict>
+		<dict>
+			<key>SKAdNetworkIdentifier</key>
 			<string>523jb4fst2.skadnetwork</string>
 		</dict>
 		<dict>
@@ -355,7 +391,19 @@
 		</dict>
 		<dict>
 			<key>SKAdNetworkIdentifier</key>
+			<string>5mv394q32t.skadnetwork</string>
+		</dict>
+		<dict>
+			<key>SKAdNetworkIdentifier</key>
 			<string>6g9af3uyq4.skadnetwork</string>
+		</dict>
+		<dict>
+			<key>SKAdNetworkIdentifier</key>
+			<string>6p4ks3rnbw.skadnetwork</string>
+		</dict>
+		<dict>
+			<key>SKAdNetworkIdentifier</key>
+			<string>6v7lgmsu45.skadnetwork</string>
 		</dict>
 		<dict>
 			<key>SKAdNetworkIdentifier</key>
@@ -407,6 +455,10 @@
 		</dict>
 		<dict>
 			<key>SKAdNetworkIdentifier</key>
+			<string>g2y4y55b64.skadnetwork</string>
+		</dict>
+		<dict>
+			<key>SKAdNetworkIdentifier</key>
 			<string>ggvn48r87g.skadnetwork</string>
 		</dict>
 		<dict>
@@ -452,6 +504,10 @@
 		<dict>
 			<key>SKAdNetworkIdentifier</key>
 			<string>pu4na253f3.skadnetwork</string>
+		</dict>
+		<dict>
+			<key>SKAdNetworkIdentifier</key>
+			<string>pwa73g5rt2.skadnetwork</string>
 		</dict>
 		<dict>
 			<key>SKAdNetworkIdentifier</key>
@@ -535,10 +591,6 @@
 		</dict>
 		<dict>
 			<key>SKAdNetworkIdentifier</key>
-			<string>pwa73g5rt2.skadnetwork</string>
-		</dict>
-		<dict>
-			<key>SKAdNetworkIdentifier</key>
 			<string>tl55sbb4fm.skadnetwork</string>
 		</dict>
 		<dict>
@@ -548,10 +600,6 @@
 		<dict>
 			<key>SKAdNetworkIdentifier</key>
 			<string>zmvfpc5aq8.skadnetwork</string>
-		</dict>
-		<dict>
-			<key>SKAdNetworkIdentifier</key>
-			<string>f7s53z58qe.skadnetwork</string>
 		</dict>
 		<dict>
 			<key>SKAdNetworkIdentifier</key>
@@ -576,6 +624,10 @@
 		<dict>
 			<key>SKAdNetworkIdentifier</key>
 			<string>lr83yxwka7.skadnetwork</string>
+		</dict>
+		<dict>
+			<key>SKAdNetworkIdentifier</key>
+			<string>f7s53z58qe.skadnetwork</string>
 		</dict>
 		<dict>
 			<key>SKAdNetworkIdentifier</key>
@@ -616,6 +668,30 @@
 		<dict>
 			<key>SKAdNetworkIdentifier</key>
 			<string>rvh3l7un93.skadnetwork</string>
+		</dict>
+		<dict>
+			<key>SKAdNetworkIdentifier</key>
+			<string>qqp299437r.skadnetwork</string>
+		</dict>
+		<dict>
+			<key>SKAdNetworkIdentifier</key>
+			<string>b9bk5wbcq9.skadnetwork</string>
+		</dict>
+		<dict>
+			<key>SKAdNetworkIdentifier</key>
+			<string>bxvub5ada5.skadnetwork</string>
+		</dict>
+		<dict>
+			<key>SKAdNetworkIdentifier</key>
+			<string>kbmxgpxpgc.skadnetwork</string>
+		</dict>
+		<dict>
+			<key>SKAdNetworkIdentifier</key>
+			<string>m297p6643m.skadnetwork</string>
+		</dict>
+		<dict>
+			<key>SKAdNetworkIdentifier</key>
+			<string>294l99pt4k.skadnetwork</string>
 		</dict>
 		<dict>
 			<key>SKAdNetworkIdentifier</key>

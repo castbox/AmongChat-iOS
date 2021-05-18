@@ -375,7 +375,6 @@
 "group.room.members.title" = "채널 회원";
 "group.item.edit" = "편집하다";
 "group.item.start.live" = "스타트";
-"group.online" = "온라인";
 "group.owner" = "소유자";
 "group.room.join.request" = "가입 요청";
 "group.room.host.request" = "제기 손";
@@ -507,3 +506,29 @@
 
 "group.dismissed.tips" = "죄송합니다. 관리자가 그룹을 닫았습니다.";
 
+//1.20
+"among.chat.login.auth.source.chat" = "메세지를 보내다";
+"among.chat.profile.chat" = "메시지";
+"among.chat.audio.recording.time.limit" = "최대 60 초까지 녹음 할 수 있습니다.";
+"among.chat.audio.recording.slide.cancel" = "위로 밀어서 취소";
+"among.chat.audio.recording.release.cancel" = "놓아서 취소하기";
+"among.chat.audio.recording.end" = "보낼 릴리스";
+"among.chat.audio.recording.too.short" = "너무 짧아";
+"among.chat.audio.recording.canceled" = "취소 된";
+"dm.hold.to.talk" = "누르고 말하기";
+"dm.voice.message.text" = "[음성 메시지]";
+"dm.gif.text" = "[GIF]";
+"dm.conversation.delete.history" = "기록 삭제";
+"dm.delete.history.alert.title" = "채팅 기록을 삭제 하시겠습니까?";
+"dm.gif.search.placeholder" = "GIF 검색";
+//update
+"dm.text.placeholder" = "입력 시작";
+"profile.user.in.channel" = "%@ 채널에서";
+"profile.user.in.group" = "%@ 그룹에서";
+"dm.send.message.error" = "전송에 실패했습니다. 다시 시도하십시오.";
+"dm.send.message.beblocked.error" = "더 이상이 사람에게 쪽지를 보낼 수 없습니다.";
+"dm.delete.conversation.alert.title" = "이 채팅을 삭제 하시겠습니까?";
+"group.online" = "라이브";
+"app.new.version.alert.title" = "새로운 업데이트가 있습니다!";
+"app.new.version.alert.content" = "최신 버전으로 업데이트하고 소식을 전하세요.";
+"app.new.version.alert.update" = "최신 정보";

@@ -89,6 +89,9 @@ extension FireRemote {
         
         let age_prompt_enable: Bool
         
+        //
+        let showDmGifEntrance: Bool
+        
         //展示直播间快速切换房间
         let showQuickChangeRoomButton: Bool
         
@@ -138,6 +141,8 @@ extension FireRemote {
             age_prompt_enable = config["age_prompt_enable"].boolValue
             //
             showQuickChangeRoomButton = config["show_quick_change_button"].boolValue
+            
+            showDmGifEntrance = config["show_dm_gif_entrance"].boolValue
         }
     }
 }

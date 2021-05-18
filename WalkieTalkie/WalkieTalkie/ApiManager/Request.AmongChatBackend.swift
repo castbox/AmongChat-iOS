@@ -33,6 +33,9 @@ struct MsgError: Error {
         case needUpgrade = 3005 //need upgrade app
         case cannotFindMatchRoom = 3007 //No channel match your language and age.
         case roomNotFound = 202 //'can not find this room'
+        
+        case beBlocked = 1003 //You are on this user\'s blacklist. You can not message this user any more.
+        case sendDmError = 100000
     }
     
     static let `default` = MsgError(code: 202, msg: "Please try again.", data: nil)
@@ -58,7 +61,15 @@ struct MsgError: Error {
         self.msg = msg
         self.data = data
     }
-    //
+    
+    init(_ code: CodeType,
+         msg: String? = nil,
+         data: [String: Any]? = nil) {
+        self.code = code.rawValue
+        self.msg = msg
+        self.data = data
+    }
+    
     var codeType: CodeType? {
         return CodeType(rawValue: code)
     }
@@ -81,6 +92,8 @@ extension MsgError.CodeType {
             return R.string.localizable.enterKickedRoomTips()
         case .cannotFindMatchRoom:
             return R.string.localizable.adminCannotMatchedRoomTips()
+        case .beBlocked:
+            return R.string.localizable.dmSendMessageBeblockedError()
         default:
             return nil
         }
@@ -147,6 +160,12 @@ extension Request {
             .mapToDataKeyJsonValue()
             .mapTo(Entity.UserProfile.self)
             .observeOn(MainScheduler.asyncInstance)
+            .do(onNext: { item in
+                guard let profile = item else {
+                    return
+                }
+                DMManager.shared.update(profile: profile.dmProfile)
+            })
     }
     
     @available(*, deprecated, message: "use the one parameter type is Entity.ProfileProto instead")
@@ -418,6 +437,12 @@ extension Request {
                     } onError: { (_) in
                         
                     }
+            })
+            .do(onNext: { item in
+                guard let profile = item?.profile else {
+                    return
+                }
+                DMManager.shared.update(profile: profile.dmProfile)
             })
 
     }
@@ -1613,5 +1638,40 @@ extension Request {
             .mapJSON()
             .mapToDataKeyJsonValue()
             .mapToProcessedValue()
+    }
+    
+
+    static func sendDm(message: Entity.DMMessageBody, to uid: String) -> Single<Bool> {
+        let request: APIService.AmongChatBackend
+        switch message.msgType {
+        case .text:
+            request = .sendDM(["uid": uid, "type": message.type, "text": message.text ?? ""])
+        case .gif:
+            guard let url = message.img, let imageWidth = message.imageWidth, let imageHeight = message.imageHeight else {
+                return .error(MsgError(.sendDmError))
+            }
+            request = .sendDM(["uid": uid, "type": message.type, "img": url, "img_width": imageWidth, "img_height": imageHeight])
+        case .voice:
+            guard let url = message.url, let duration = message.duration else {
+                return .error(MsgError(.sendDmError))
+            }
+            request = .sendDM(["uid": uid, "type": message.type, "url": url, "duration": duration])
+        default:
+            return .error(MsgError(.sendDmError))
+        }
+        return amongchatProvider.rx.request(request)
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .mapToProcessedValue()
+            .observeOn(MainScheduler.asyncInstance)
+    }
+    
+    static func userStatus(_ uid: Int) -> Single<Entity.UserStatus?> {
+        let paras: [String: Any] = ["uid": uid]
+        return amongchatProvider.rx.request(.userStatus(paras))
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .mapTo(Entity.UserStatus.self)
+            .observeOn(MainScheduler.asyncInstance)
     }
 }

@@ -63,8 +63,8 @@ func attribuated(with name: String?, isVerified: Bool?, isVip: Bool?, fontSize: 
 
 extension Verifiedable {
     
-    func nameWithVerified(fontSize: CGFloat = 16) -> NSAttributedString {
-        return attribuated(with: name ?? "", isVerified: isVerified, isVip: isVip, fontSize: fontSize)
+    func nameWithVerified(fontSize: CGFloat = 16, isShowVerify: Bool = true) -> NSAttributedString {
+        return attribuated(with: name, isVerified: isShowVerify ? isVerified : false, isVip: isVip, fontSize: fontSize)
     }
 }
 
@@ -106,7 +106,8 @@ extension Entity {
         var decoPetId: Int?
         var inGroup: Bool?
         var followersCount: Int?
-
+        var isAnonymous: Bool?
+        
         var role: Int?
         
         var roleType: Role {
@@ -178,6 +179,7 @@ extension Entity {
             case inGroup = "in_group"
             case followersCount = "followers_count"
             case role
+            case isAnonymous = "is_anonymous"
         }
     }
     
@@ -228,6 +230,10 @@ extension Entity {
 }
 
 extension Entity.UserProfile {
+    var dmProfile: Entity.DMProfile {
+        Entity.DMProfile(uid: uid.int64, name: name, pictureUrl: pictureUrl, isVerified: isVerified, isVip: isVip)
+    }
+    
     var nameWithAge: String {
         if let b = birthday, !b.isEmpty {
             let dateFormatter = DateFormatter()
@@ -269,4 +275,42 @@ extension Entity {
         var startTimeStamp: Double?
         
     }
+}
+
+extension Entity {
+    
+    struct UserStatus: Codable {
+        
+        var uid: Int
+        var room: Room?
+        var group: Group?
+        var isOnline: Bool?
+        
+        private enum CodingKeys: String, CodingKey {
+            case uid
+            case room
+            case group
+            case isOnline = "is_online"
+        }
+        
+        struct Room: Codable {
+            let roomId: String
+            let state: String
+            let topicId: String
+            let playerCount: Int?
+            let topicName: String
+            let coverUrl: URL?
+        }
+        
+        struct Group: Codable {
+            var gid: String
+            var topicId: String
+            var status: Int
+            var name: String
+            var cover: String
+            var uid: Int
+            var topicName: String
+        }
+    }
+    
 }

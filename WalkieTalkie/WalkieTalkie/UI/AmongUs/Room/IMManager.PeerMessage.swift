@@ -32,6 +32,7 @@ extension Peer {
         case roomInvitationInviteStranger = "AC:PEER:InviteStranger"
         case unreadNotice = "AC:PEER:UnreadNotice"
         case unreadGroupApply = "AC:PEER:UnreadGroupApply"
+        case dm = "AC:PEER:Dm"
     }
     
     struct UnreadNotice: PeerMessage {
@@ -212,57 +213,6 @@ extension Peer.SystemMessage {
     }
 }
 
-//extension Peer.TextMessage: MessageListable {
-//    var rawContent: String? {
-//        content
-//    }
-//
-//    var attrString: NSAttributedString {
-//        let pargraph = NSMutableParagraphStyle()
-//        pargraph.lineBreakMode = .byTruncatingTail
-//        pargraph.lineHeightMultiple = 0
-//
-//        let nameAttr: [NSAttributedString.Key: Any] = [
-//            .foregroundColor: "ABABAB".color(),
-//            .font: R.font.nunitoExtraBold(size: 12) ?? Font.caption1.value,
-//            .paragraphStyle: pargraph
-////            .kern: 0.5
-//        ]
-//
-//        let contentAttr: [NSAttributedString.Key: Any] = [
-//            .foregroundColor: UIColor.white,
-//            .font: R.font.nunitoSemiBold(size: 12) ?? Font.caption1.value,
-//            .paragraphStyle: pargraph
-////            .kern: 0.5
-//        ]
-//        let mutableNormalString = NSMutableAttributedString()
-//        mutableNormalString.append(NSAttributedString(string: "#\(user.seatNo) \(user.name ?? "")", attributes: nameAttr))
-//        if user.isVerified == true {
-//            let font = R.font.nunitoExtraBold(size: 12)!
-//            let image = R.image.icon_verified_13()!
-//            let imageAttachment = NSTextAttachment()
-//            imageAttachment.image = image
-//            imageAttachment.bounds = CGRect(x: 0, y: (font.capHeight - image.size.height)/2, width: image.size.width, height: image.size.height)
-//            let imageString = NSAttributedString(attachment: imageAttachment)
-//            mutableNormalString.yy_appendString(" ")
-//            mutableNormalString.append(imageString)
-//        }
-//        if user.isVip == true {
-//            let font = R.font.nunitoExtraBold(size: 12)!
-//            let image = R.image.icon_vip_13()!
-//            let imageAttachment = NSTextAttachment()
-//            imageAttachment.image = image
-//            imageAttachment.bounds = CGRect(x: 0, y: (font.capHeight - image.size.height)/2, width: image.size.width, height: image.size.height)
-//            let imageString = NSAttributedString(attachment: imageAttachment)
-//            mutableNormalString.yy_appendString(" ")
-//            mutableNormalString.append(imageString)
-//        }
-//
-//        mutableNormalString.append(NSAttributedString(string: "  \(content)", attributes: contentAttr))
-//        return mutableNormalString
-//    }
-//}
-
 extension Peer.SystemMessage.ContentType {
     var text: String {
         switch self {
@@ -274,7 +224,3 @@ extension Peer.SystemMessage.ContentType {
     }
     
 }
-
-
-
-

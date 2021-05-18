@@ -339,25 +339,30 @@ extension Social.InviteFirendsViewController {
             return lb
         }()
         
-        private lazy var smsBtn: LinkButton = {
-            let btn = LinkButton(with: R.image.ac_room_share(), title: R.string.localizable.socialSms())
-            return btn
+        private lazy var shareView: FansGroup.Views.ShareBar = {
+            let v = FansGroup.Views.ShareBar()
+            return v
         }()
         
-        private lazy var snapchatBtn: LinkButton = {
-            let btn = LinkButton(with: R.image.ac_room_share_sn(), title: "Snapchat")
-            return btn
-        }()
-        
-        private lazy var copyLinkBtn: LinkButton = {
-            let btn = LinkButton(with: R.image.ac_room_copylink(), title: R.string.localizable.socialCopyLink())
-            return btn
-        }()
-        
-        private lazy var shareLinkBtn: LinkButton = {
-            let btn = LinkButton(with: R.image.icon_social_share_link(), title: R.string.localizable.socialShareLink())
-            return btn
-        }()
+//        private lazy var smsBtn: LinkButton = {
+//            let btn = LinkButton(with: R.image.ac_room_share(), title: R.string.localizable.socialSms())
+//            return btn
+//        }()
+//
+//        private lazy var snapchatBtn: LinkButton = {
+//            let btn = LinkButton(with: R.image.ac_room_share_sn(), title: "Snapchat")
+//            return btn
+//        }()
+//
+//        private lazy var copyLinkBtn: LinkButton = {
+//            let btn = LinkButton(with: R.image.ac_room_copylink(), title: R.string.localizable.socialCopyLink())
+//            return btn
+//        }()
+//
+//        private lazy var shareLinkBtn: LinkButton = {
+//            let btn = LinkButton(with: R.image.icon_social_share_link(), title: R.string.localizable.socialShareLink())
+//            return btn
+//        }()
         
         //        private lazy var inviteLabel: WalkieLabel = {
         //            let lb = WalkieLabel()
@@ -375,87 +380,117 @@ extension Social.InviteFirendsViewController {
                 make.top.equalTo(30.5)
                 make.centerX.equalToSuperview()
             }
-
-                        
-            if MFMessageComposeViewController.canSendText() {
-                addSubviews(views: smsBtn, snapchatBtn, copyLinkBtn)
-
-                smsBtn.snp.makeConstraints { (make) in
-                    make.left.equalTo(14.5)
-                    make.top.equalTo(72)
-                    make.width.equalTo(40)
-                    make.height.equalTo(68)
-                }
-                
-                snapchatBtn.snp.makeConstraints { (make) in
-                    make.left.equalTo(smsBtn.snp.right).offset(27)
-                    make.top.equalTo(72)
-                    make.width.equalTo(70)
-                    make.height.equalTo(68)
-                }
-
-                copyLinkBtn.snp.makeConstraints { (make) in
-                    make.left.equalTo(snapchatBtn.snp.right).offset(15)
-                    make.top.equalTo(72)
-                    make.width.equalTo(68)
-                    make.height.equalTo(68)
-                }
-            } else {
-                addSubviews(views: snapchatBtn, copyLinkBtn)
-                snapchatBtn.snp.makeConstraints { (make) in
-                    make.left.equalTo(14.5)
-                    make.top.equalTo(72)
-                    make.width.equalTo(40)
-                    make.height.equalTo(68)
-                }
-
-                copyLinkBtn.snp.makeConstraints { (make) in
-                    make.left.equalTo(snapchatBtn.snp.right).offset(15)
-                    make.top.equalTo(72)
-                    make.width.equalTo(40)
-                    make.height.equalTo(68)
-                }
+            
+            addSubview(shareView)
+            shareView.snp.makeConstraints { (maker) in
+                maker.leading.trailing.equalToSuperview()
+                maker.top.equalToSuperview().offset(72)
             }
+                        
+//            if MFMessageComposeViewController.canSendText() {
+//                addSubviews(views: smsBtn, snapchatBtn, copyLinkBtn)
+//
+//                smsBtn.snp.makeConstraints { (make) in
+//                    make.left.equalTo(14.5)
+//                    make.top.equalTo(72)
+//                    make.width.equalTo(40)
+//                    make.height.equalTo(68)
+//                }
+//
+//                snapchatBtn.snp.makeConstraints { (make) in
+//                    make.left.equalTo(smsBtn.snp.right).offset(27)
+//                    make.top.equalTo(72)
+//                    make.width.equalTo(70)
+//                    make.height.equalTo(68)
+//                }
+//
+//                copyLinkBtn.snp.makeConstraints { (make) in
+//                    make.left.equalTo(snapchatBtn.snp.right).offset(15)
+//                    make.top.equalTo(72)
+//                    make.width.equalTo(68)
+//                    make.height.equalTo(68)
+//                }
+//            } else {
+//                addSubviews(views: snapchatBtn, copyLinkBtn)
+//                snapchatBtn.snp.makeConstraints { (make) in
+//                    make.left.equalTo(14.5)
+//                    make.top.equalTo(72)
+//                    make.width.equalTo(40)
+//                    make.height.equalTo(68)
+//                }
+//
+//                copyLinkBtn.snp.makeConstraints { (make) in
+//                    make.left.equalTo(snapchatBtn.snp.right).offset(15)
+//                    make.top.equalTo(72)
+//                    make.width.equalTo(40)
+//                    make.height.equalTo(68)
+//                }
+//            }
             
             let lineView = UIView()
             lineView.backgroundColor = UIColor.white.alpha(0.08)
-            addSubviews(views: lineView, shareLinkBtn)
-           
-            shareLinkBtn.snp.makeConstraints { (make) in
-                make.left.equalTo(copyLinkBtn.snp.right).offset(13)
-                make.centerY.equalTo(copyLinkBtn)
-                make.width.equalTo(70)
-                make.height.equalTo(68)
-            }
+//            addSubviews(views: lineView, shareLinkBtn)
+//
+//            shareLinkBtn.snp.makeConstraints { (make) in
+//                make.left.equalTo(copyLinkBtn.snp.right).offset(13)
+//                make.centerY.equalTo(copyLinkBtn)
+//                make.width.equalTo(70)
+//                make.height.equalTo(68)
+//            }
+            
+            addSubviews(views: lineView)
             
             lineView.snp.makeConstraints { maker in
                 maker.left.right.bottom.equalToSuperview()
                 maker.height.equalTo(1)
             }
             
-            smsBtn.rx.tap
-                .observeOn(MainScheduler.instance)
-                .subscribe(onNext: { [weak self]() in
-                    self?.itemHandle?(.sms)
-                }).disposed(by: bag)
+//            smsBtn.rx.tap
+//                .observeOn(MainScheduler.instance)
+//                .subscribe(onNext: { [weak self]() in
+//                    self?.itemHandle?(.sms)
+//                }).disposed(by: bag)
+//
+//            copyLinkBtn.rx.tap
+//                .observeOn(MainScheduler.instance)
+//                .subscribe(onNext: { [weak self]() in
+//                    self?.itemHandle?(.copylink)
+//                }).disposed(by: bag)
+//
+//            snapchatBtn.rx.tap
+//                .observeOn(MainScheduler.instance)
+//                .subscribe(onNext: { [weak self]() in
+//                    self?.itemHandle?(.snapchat)
+//                }).disposed(by: bag)
+//
+//            shareLinkBtn.rx.tap
+//                .observeOn(MainScheduler.instance)
+//                .subscribe(onNext: { [weak self]() in
+//                    self?.itemHandle?(.sharelink)
+//                }).disposed(by: bag)
             
-            copyLinkBtn.rx.tap
-                .observeOn(MainScheduler.instance)
-                .subscribe(onNext: { [weak self]() in
-                    self?.itemHandle?(.copylink)
-                }).disposed(by: bag)
-            
-            snapchatBtn.rx.tap
-                .observeOn(MainScheduler.instance)
-                .subscribe(onNext: { [weak self]() in
-                    self?.itemHandle?(.snapchat)
-                }).disposed(by: bag)
-            
-            shareLinkBtn.rx.tap
-                .observeOn(MainScheduler.instance)
-                .subscribe(onNext: { [weak self]() in
-                    self?.itemHandle?(.sharelink)
-                }).disposed(by: bag)
+            shareView.selectedSourceObservable
+                .subscribe(onNext: { [weak self] (source) in
+                                        
+                    guard let `self` = self else { return }
+                    
+                    switch source {
+                    case .sms:
+                        self.itemHandle?(.sms)
+                        
+                    case .snapchat:
+                        self.itemHandle?(.snapchat)
+                        
+                    case .copyLink:
+                        self.itemHandle?(.copylink)
+                        
+                    case .shareLink:
+                        self.itemHandle?(.sharelink)
+                        
+                    }
+                })
+                .disposed(by: bag)
+
         }
         
         required init?(coder: NSCoder) {

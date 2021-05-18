@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Nunito-Bold.ttf">
+            <string>Nunito-Bold</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ConversationBottomBar" customModule="WalkieTalkie" customModuleProvider="target">
+            <connections>
+                <outlet property="gifButton" destination="CoN-C0-YAy" id="yt6-1J-OyH"/>
+                <outlet property="leftButton" destination="Et7-5C-X1J" id="Jxj-oy-cOQ"/>
+                <outlet property="textField" destination="lEm-K6-rwg" id="G0Y-sw-TqG"/>
+                <outlet property="voiceButton" destination="Pgp-2Z-QjQ" id="eVb-dX-Wsw"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="64"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Et7-5C-X1J" userLabel="voice">
+                    <rect key="frame" x="12" y="10" width="44" height="44"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="44" id="T0C-Q6-uHr"/>
+                        <constraint firstAttribute="height" constant="44" id="Xi7-JJ-VZ5"/>
+                    </constraints>
+                    <state key="normal" image="iconDmVoice"/>
+                    <connections>
+                        <action selector="leftButtonAction:" destination="-1" eventType="touchUpInside" id="Z5F-Ue-DIR"/>
+                    </connections>
+                </button>
+                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CoN-C0-YAy">
+                    <rect key="frame" x="356" y="10" width="44" height="44"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="44" id="Vzp-E4-m39"/>
+                        <constraint firstAttribute="width" constant="44" id="Wxv-r0-oFl"/>
+                    </constraints>
+                    <state key="normal" image="iconDmGif"/>
+                    <connections>
+                        <action selector="gifButtonAction:" destination="-1" eventType="touchUpInside" id="hZ9-Id-IJB"/>
+                    </connections>
+                </button>
+                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Type a message…" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lEm-K6-rwg" customClass="PaddingTextField" customModule="WalkieTalkie" customModuleProvider="target">
+                    <rect key="frame" x="62" y="12" width="288" height="40"/>
+                    <color key="backgroundColor" red="0.16862745098039217" green="0.16862745098039217" blue="0.16862745098039217" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="cY3-YY-rWJ"/>
+                    </constraints>
+                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <fontDescription key="fontDescription" name="Nunito-Bold" family="Nunito" pointSize="16"/>
+                    <textInputTraits key="textInputTraits" keyboardAppearance="alert" returnKeyType="send"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <real key="value" value="18"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="string" keyPath="placeholderXibLocKey" value="dm.text.placeholder"/>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <outlet property="delegate" destination="-1" id="SEz-EA-Fdp"/>
+                    </connections>
+                </textField>
+                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pgp-2Z-QjQ" customClass="HoldToTalkButton" customModule="WalkieTalkie" customModuleProvider="target">
+                    <rect key="frame" x="62" y="12" width="288" height="40"/>
+                    <color key="backgroundColor" red="0.16862745098039217" green="0.16862745098039217" blue="0.16862745098039217" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <fontDescription key="fontDescription" name="Nunito-Bold" family="Nunito" pointSize="16"/>
+                    <state key="normal" title="Button">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="xibLocKey" value="dm.hold.to.talk"/>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <real key="value" value="20"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </button>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dBK-00-tlf">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="1"/>
+                    <color key="backgroundColor" white="1" alpha="0.059999999999999998" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="VnB-bV-qEk"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <color key="backgroundColor" red="0.098039215686274508" green="0.098039215686274508" blue="0.098039215686274508" alpha="1" colorSpace="deviceRGB"/>
+            <constraints>
+                <constraint firstItem="Et7-5C-X1J" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="10" id="5Ae-x7-3Lf"/>
+                <constraint firstItem="Pgp-2Z-QjQ" firstAttribute="trailing" secondItem="lEm-K6-rwg" secondAttribute="trailing" id="68J-gl-nS6"/>
+                <constraint firstItem="dBK-00-tlf" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="7Ln-4d-fwA"/>
+                <constraint firstItem="Pgp-2Z-QjQ" firstAttribute="bottom" secondItem="lEm-K6-rwg" secondAttribute="bottom" id="8zL-vO-hHt"/>
+                <constraint firstItem="lEm-K6-rwg" firstAttribute="leading" secondItem="Et7-5C-X1J" secondAttribute="trailing" constant="6" id="CVm-5X-DiS"/>
+                <constraint firstItem="Et7-5C-X1J" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="12" id="HAc-hu-0U9"/>
+                <constraint firstItem="CoN-C0-YAy" firstAttribute="centerY" secondItem="Pgp-2Z-QjQ" secondAttribute="centerY" id="JQU-Zo-dd2"/>
+                <constraint firstAttribute="trailing" secondItem="CoN-C0-YAy" secondAttribute="trailing" constant="14" id="NjU-yo-jOM"/>
+                <constraint firstItem="lEm-K6-rwg" firstAttribute="centerY" secondItem="Et7-5C-X1J" secondAttribute="centerY" id="Qic-ak-gYR"/>
+                <constraint firstItem="dBK-00-tlf" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="ZXH-2m-ebE"/>
+                <constraint firstItem="CoN-C0-YAy" firstAttribute="leading" secondItem="lEm-K6-rwg" secondAttribute="trailing" constant="6" id="iCE-W3-Ttn"/>
+                <constraint firstItem="Pgp-2Z-QjQ" firstAttribute="leading" secondItem="lEm-K6-rwg" secondAttribute="leading" id="jQU-Us-9C1"/>
+                <constraint firstAttribute="trailing" secondItem="dBK-00-tlf" secondAttribute="trailing" id="wK1-mA-lEc"/>
+                <constraint firstItem="Pgp-2Z-QjQ" firstAttribute="top" secondItem="lEm-K6-rwg" secondAttribute="top" id="zVF-MW-UQB"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="140.57971014492756" y="136.60714285714286"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="iconDmGif" width="32" height="32"/>
+        <image name="iconDmVoice" width="32" height="32"/>
+    </resources>
+</document>

@@ -375,7 +375,6 @@
 "group.room.members.title" = "In membri del canale";
 "group.item.edit" = "modificare";
 "group.item.start.live" = "Inizio";
-"group.online" = "in linea";
 "group.owner" = "Proprietario";
 "group.room.join.request" = "Richieste di partecipazione";
 "group.room.host.request" = "Mani alzate";
@@ -507,3 +506,29 @@
 
 "group.dismissed.tips" = "Spiacenti, l'amministratore ha chiuso il gruppo.";
 
+//1.20
+"among.chat.login.auth.source.chat" = "inviare un messaggio";
+"among.chat.profile.chat" = "Chiacchierare";
+"among.chat.audio.recording.time.limit" = "Puoi registrare fino a 60 secondi";
+"among.chat.audio.recording.slide.cancel" = "Scorri verso l'alto per annullare";
+"among.chat.audio.recording.release.cancel" = "Rilascia per annullare";
+"among.chat.audio.recording.end" = "Rilascia per inviare";
+"among.chat.audio.recording.too.short" = "Troppo corto";
+"among.chat.audio.recording.canceled" = "Annullato";
+"dm.hold.to.talk" = "Tieni premuto per parlare";
+"dm.voice.message.text" = "[Messaggio vocale]";
+"dm.gif.text" = "[GIF]";
+"dm.conversation.delete.history" = "Elimina cronologia";
+"dm.delete.history.alert.title" = "Sei sicuro di voler eliminare la cronologia chat?";
+"dm.gif.search.placeholder" = "Cerca GIF";
+//update
+"dm.text.placeholder" = "Iniziare a digitare";
+"profile.user.in.channel" = "Nel canale %@";
+"profile.user.in.group" = "Nel gruppo %@";
+"dm.send.message.error" = "Invio fallito. Per favore riprova.";
+"dm.send.message.beblocked.error" = "Non puoi più inviare messaggi diretti a questa persona.";
+"dm.delete.conversation.alert.title" = "Sei sicuro di voler eliminare questa chat?";
+"group.online" = "Dal vivo";
+"app.new.version.alert.title" = "Nuovo aggiornamento disponibile!";
+"app.new.version.alert.content" = "Esegui l'aggiornamento all'ultima versione e aiutaci a spargere la voce.";
+"app.new.version.alert.update" = "Aggiornare";

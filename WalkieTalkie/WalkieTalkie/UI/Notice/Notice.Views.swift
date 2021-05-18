@@ -24,8 +24,8 @@ protocol NoticeCellGeometory {
 extension NoticeCellGeometory {
     
     static var cellWidth: CGFloat {
-        var hInset: CGFloat = 20
-        var columns: Int = 1
+        let hInset: CGFloat = 20
+        let columns: Int = 1
         let interitemSpacing: CGFloat = 20
         let cellWidth = ((UIScreen.main.bounds.width - hInset * 2 - interitemSpacing * CGFloat(columns - 1)) / CGFloat(columns)).rounded(.towardZero)
         return cellWidth
@@ -185,7 +185,7 @@ extension Notice.Views {
                 ()
                 
             case .ImgMsg, .ImgTxtMsg:
-                if let imgWidth = message.imgWidth?.cgFloat, let imgHeight = message.imgHeight?.cgFloat {
+                if let imgWidth = message.imgWidth?.cgFloat, let imgHeight = message.imgHeight?.cgFloat, imgWidth * imgHeight > 0 {
                     //height
                     containerHeight = containerHeight + imgHeight * cellWidth / imgWidth
                 } else {
@@ -382,7 +382,7 @@ extension Notice.Views {
                 belowTextImageView.isHidden = true
                 
                 var imageHeight: CGFloat {
-                    if let imgWidth = notice.message.imgWidth?.cgFloat, let imgHeight = notice.message.imgHeight?.cgFloat {
+                    if let imgWidth = notice.message.imgWidth?.cgFloat, let imgHeight = notice.message.imgHeight?.cgFloat, imgWidth * imgHeight > 0 {
                         //height
                         return imgHeight * Notice.Views.SystemMessageCell.cellWidth / imgWidth
                     } else {

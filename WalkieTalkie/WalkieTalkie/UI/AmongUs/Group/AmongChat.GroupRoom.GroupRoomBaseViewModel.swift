@@ -425,7 +425,7 @@ extension AmongChat.GroupRoom {
                 } else {
                     otherMutedUser.remove(userId)
                 }
-                soundAnimationIndex.accept(-1)
+//                soundAnimationIndex.accept(-1)
             } else {
                 super.onUserStatusChanged(userId: userId, muted: muted)
             }

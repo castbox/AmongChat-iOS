@@ -105,11 +105,15 @@ extension APIService {
         case adminUnmuteIm([String: Any])
         case roomMuteInfo([String: Any])
         
+        //dm
+        case sendDM([String: Any])
+        
         case noticeCheck([String : Any])
         case peerMessage([String : Any])
         case globalMessage([String : Any])
         case myGroupApplyStat
         case updateInstalledGames([String: Any])
+        case userStatus([String: Any])
     }
 }
 
@@ -313,8 +317,12 @@ extension APIService.AmongChatBackend: TargetType {
             return "/api/v1/global/message/list"
         case .myGroupApplyStat:
             return "/api/v1/my/group/apply/stat"
+        case .sendDM:
+            return "/api/v1/direct/message"
         case .updateInstalledGames:
             return "/account/games"
+        case .userStatus:
+            return "/api/v1/user/status"
         }
     }
     
@@ -350,6 +358,7 @@ extension APIService.AmongChatBackend: TargetType {
              .adminMuteIm,
              .adminUnmuteIm,
              .updateInstalledGames,
+             .sendDM,
              .logout:
             return .post
             
@@ -409,6 +418,7 @@ extension APIService.AmongChatBackend: TargetType {
              .peerMessage,
              .globalMessage,
              .myGroupApplyStat,
+             .userStatus,
              .shareUserSign:
             return .get
         case .follow:
@@ -528,6 +538,8 @@ extension APIService.AmongChatBackend: TargetType {
              .noticeCheck(let params),
              .peerMessage(let params),
              .globalMessage(let params),
+             .sendDM(let params),
+             .userStatus(let params),
              .unFollow(let params):
             return .requestParameters(parameters: params, encoding: URLEncoding.queryString)
             

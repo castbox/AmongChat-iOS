@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Nunito-Bold.ttf">
+            <string>Nunito-Bold</string>
+        </array>
+        <array key="Nunito-ExtraBold.ttf">
+            <string>Nunito-ExtraBold</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="ConversationListCell" customModule="WalkieTalkie" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="84"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="375" height="84"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="AiK-vF-KhU">
+                        <rect key="frame" x="20" y="18" width="48" height="48"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="48" id="ofd-jR-7EO"/>
+                            <constraint firstAttribute="height" constant="48" id="vYX-QX-cII"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                <real key="value" value="24"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7DP-07-Q06">
+                        <rect key="frame" x="80" y="18" width="204" height="27.5"/>
+                        <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito" pointSize="20"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="253" verticalHuggingPriority="251" text="Monday" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8ph-f9-DcN">
+                        <rect key="frame" x="304" y="22" width="51" height="19.5"/>
+                        <fontDescription key="fontDescription" name="Nunito-Bold" family="Nunito" pointSize="14"/>
+                        <color key="textColor" red="0.34901960784313724" green="0.34901960784313724" blue="0.34901960784313724" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Monday" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xcl-vA-lo8">
+                        <rect key="frame" x="80" y="44" width="247" height="22"/>
+                        <fontDescription key="fontDescription" name="Nunito-Bold" family="Nunito" pointSize="16"/>
+                        <color key="textColor" red="0.53725490196078429" green="0.53725490196078429" blue="0.53725490196078429" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <view contentMode="scaleToFill" horizontalHuggingPriority="253" horizontalCompressionResistancePriority="752" translatesAutoresizingMaskIntoConstraints="NO" id="OAA-r1-7vJ">
+                        <rect key="frame" x="339" y="47" width="16" height="16"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="253" verticalHuggingPriority="251" text="3" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ur6-KB-Sce">
+                                <rect key="frame" x="4" y="0.0" width="8" height="16.5"/>
+                                <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito" pointSize="12"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="0.98431372549019602" green="0.34509803921568627" blue="0.34509803921568627" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="Ur6-KB-Sce" firstAttribute="leading" secondItem="OAA-r1-7vJ" secondAttribute="leading" constant="4" id="La5-b5-Ftt"/>
+                            <constraint firstAttribute="height" constant="16" id="O4B-Fk-yZR"/>
+                            <constraint firstItem="Ur6-KB-Sce" firstAttribute="centerY" secondItem="OAA-r1-7vJ" secondAttribute="centerY" id="POe-XT-mLF"/>
+                            <constraint firstAttribute="trailing" secondItem="Ur6-KB-Sce" secondAttribute="trailing" constant="4" id="ao8-Wv-T4d"/>
+                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="16" id="bHZ-WZ-d0L"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                <real key="value" value="8"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                </subviews>
+            </view>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <constraints>
+                <constraint firstItem="AiK-vF-KhU" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" id="1B6-Oz-dfi"/>
+                <constraint firstItem="8ph-f9-DcN" firstAttribute="trailing" secondItem="OAA-r1-7vJ" secondAttribute="trailing" id="4Ek-ox-T4U"/>
+                <constraint firstItem="xcl-vA-lo8" firstAttribute="bottom" secondItem="AiK-vF-KhU" secondAttribute="bottom" id="65e-2b-vID"/>
+                <constraint firstItem="7DP-07-Q06" firstAttribute="top" secondItem="AiK-vF-KhU" secondAttribute="top" id="87G-zY-3M7"/>
+                <constraint firstItem="8ph-f9-DcN" firstAttribute="centerY" secondItem="7DP-07-Q06" secondAttribute="centerY" id="EZr-8W-6hI"/>
+                <constraint firstItem="xcl-vA-lo8" firstAttribute="leading" secondItem="7DP-07-Q06" secondAttribute="leading" id="MP7-AA-xix"/>
+                <constraint firstAttribute="trailing" secondItem="8ph-f9-DcN" secondAttribute="trailing" constant="20" id="Mzi-O2-Xov"/>
+                <constraint firstItem="7DP-07-Q06" firstAttribute="leading" secondItem="AiK-vF-KhU" secondAttribute="trailing" constant="12" id="OCF-bk-HPy"/>
+                <constraint firstItem="AiK-vF-KhU" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="20" id="PIH-Kz-NfI"/>
+                <constraint firstItem="8ph-f9-DcN" firstAttribute="leading" secondItem="7DP-07-Q06" secondAttribute="trailing" constant="20" id="Zr3-Ld-qQG"/>
+                <constraint firstItem="OAA-r1-7vJ" firstAttribute="leading" secondItem="xcl-vA-lo8" secondAttribute="trailing" constant="12" id="mkj-vm-juM"/>
+                <constraint firstItem="OAA-r1-7vJ" firstAttribute="centerY" secondItem="xcl-vA-lo8" secondAttribute="centerY" id="pQn-lo-hZi"/>
+            </constraints>
+            <connections>
+                <outlet property="avatarView" destination="AiK-vF-KhU" id="u9I-l0-k08"/>
+                <outlet property="contentLabel" destination="xcl-vA-lo8" id="KgU-dT-f6l"/>
+                <outlet property="countLabel" destination="Ur6-KB-Sce" id="uCi-ng-Qh4"/>
+                <outlet property="countView" destination="OAA-r1-7vJ" id="RAF-Nw-eEv"/>
+                <outlet property="nameLabel" destination="7DP-07-Q06" id="s18-Od-rWQ"/>
+                <outlet property="timeLabel" destination="8ph-f9-DcN" id="6bU-Dq-8Qb"/>
+            </connections>
+            <point key="canvasLocation" x="139" y="113"/>
+        </collectionViewCell>
+    </objects>
+</document>

@@ -375,7 +375,6 @@
 "group.room.members.title" = "In Channel Members";
 "group.item.edit" = "Edit";
 "group.item.start.live" = "Start";
-"group.online" = "Online";
 "group.owner" = "Owner";
 "group.room.join.request" = "Join Requests";
 "group.room.host.request" = "Raised Hands";
@@ -469,7 +468,7 @@
 
 //1.18
 "report.user" = "Report user";
-"report.success" = "Reported successfully";
+"report.success" = "You have successfully reported \nthis person";
 "report.failed" = "Report failed. Please try again";
 "report.comments" = "Comments";
 "report.comments.placeholder" = "Please describe the report";
@@ -506,3 +505,30 @@
 "among.chat.notice.empty.tip" = "Oops, nothing here yet.";
 
 "group.dismissed.tips" = "Sorry, the admin has dismissed the group.";
+
+//1.20
+"among.chat.login.auth.source.chat" = "send a message";
+"among.chat.profile.chat" = "Chat";
+"among.chat.audio.recording.time.limit" = "You can record up to 60 seconds";
+"among.chat.audio.recording.slide.cancel" = "Swipe up to cancel";
+"among.chat.audio.recording.release.cancel" = "Release to cancel";
+"among.chat.audio.recording.end" = "Release to send";
+"among.chat.audio.recording.too.short" = "Too short";
+"among.chat.audio.recording.canceled" = "Canceled";
+"dm.hold.to.talk" = "Hold to talk";
+"dm.voice.message.text" = "[Voice Message]";
+"dm.gif.text" = "[GIF]";
+"dm.conversation.delete.history" = "Delete History";
+"dm.delete.history.alert.title" = "Are you sure you want to delete the chat history?";
+"dm.gif.search.placeholder" = "Search for GIFs";
+//update
+"dm.text.placeholder" = "Start typing";
+"profile.user.in.channel" = "In %@ Channel";
+"profile.user.in.group" = "In %@ Group";
+"dm.send.message.error" = "Send failed. Please try again.";
+"dm.send.message.beblocked.error" = "You can no longer send Direct Messages to this person.";
+"dm.delete.conversation.alert.title" = "Are you sure you want to delete this chat?";
+"group.online" = "Live";
+"app.new.version.alert.title" = "New Update Available!";
+"app.new.version.alert.content" = "Update to the latest version and help spread the word.";
+"app.new.version.alert.update" = "Update";

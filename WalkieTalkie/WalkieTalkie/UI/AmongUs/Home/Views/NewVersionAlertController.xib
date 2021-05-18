@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Nunito-ExtraBold.ttf">
+            <string>Nunito-ExtraBold</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="NewVersionAlertController" customModule="WalkieTalkie" customModuleProvider="target">
+            <connections>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mga-Gu-ZPV">
+                    <rect key="frame" x="47.5" y="276.5" width="319" height="343"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New Update Available!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1hl-Jb-62x">
+                            <rect key="frame" x="20" y="180" width="279" height="27.5"/>
+                            <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito" pointSize="20"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <color key="highlightedColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="xibLocKey" value="app.new.version.alert.title"/>
+                            </userDefinedRuntimeAttributes>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Update to the latest version and help spread the word." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aCh-py-sfn">
+                            <rect key="frame" x="20" y="215.5" width="279" height="38.5"/>
+                            <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito" pointSize="14"/>
+                            <color key="textColor" red="0.6705882353" green="0.6705882353" blue="0.6705882353" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="highlightedColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="xibLocKey" value="app.new.version.alert.content"/>
+                            </userDefinedRuntimeAttributes>
+                        </label>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="iconNewVersion" translatesAutoresizingMaskIntoConstraints="NO" id="Xso-Vo-MEk">
+                            <rect key="frame" x="0.0" y="0.0" width="319" height="160"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="160" id="Uq1-zb-Ra0"/>
+                            </constraints>
+                        </imageView>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wFk-dF-npQ">
+                            <rect key="frame" x="0.0" y="294" width="319" height="49"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l9T-XF-UKp">
+                                    <rect key="frame" x="0.0" y="0.0" width="159.5" height="49"/>
+                                    <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito" pointSize="16"/>
+                                    <state key="normal" title="Cancel">
+                                        <color key="titleColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                                    </state>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                            <real key="value" value="24"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="xibLocKey" value="toast.cancel"/>
+                                    </userDefinedRuntimeAttributes>
+                                    <connections>
+                                        <action selector="cancelButtonAction:" destination="-1" eventType="touchUpInside" id="vGd-N8-vBj"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9uO-T0-bGX">
+                                    <rect key="frame" x="159.5" y="0.0" width="159.5" height="49"/>
+                                    <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito" pointSize="16"/>
+                                    <state key="normal" title="Update">
+                                        <color key="titleColor" red="1" green="0.94117647058823528" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    </state>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                            <real key="value" value="24"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="xibLocKey" value="app.new.version.alert.update"/>
+                                    </userDefinedRuntimeAttributes>
+                                    <connections>
+                                        <action selector="confirmButtonAction:" destination="-1" eventType="touchUpInside" id="NDJ-LI-QYd"/>
+                                    </connections>
+                                </button>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OYr-fN-szC">
+                                    <rect key="frame" x="0.0" y="0.0" width="319" height="0.5"/>
+                                    <color key="backgroundColor" white="1" alpha="0.059999999999999998" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="0.5" id="UAf-X7-1rY"/>
+                                    </constraints>
+                                </view>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="y24-w0-fR0">
+                                    <rect key="frame" x="159.5" y="0.0" width="0.5" height="49"/>
+                                    <viewLayoutGuide key="safeArea" id="Kyk-Wf-504"/>
+                                    <color key="backgroundColor" white="1" alpha="0.059999999999999998" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="0.5" id="dv3-4M-8RF"/>
+                                    </constraints>
+                                </view>
+                            </subviews>
+                            <constraints>
+                                <constraint firstItem="y24-w0-fR0" firstAttribute="top" secondItem="wFk-dF-npQ" secondAttribute="top" id="4vE-Ea-WAx"/>
+                                <constraint firstItem="9uO-T0-bGX" firstAttribute="width" secondItem="l9T-XF-UKp" secondAttribute="width" id="7QQ-Qn-9Cz"/>
+                                <constraint firstItem="OYr-fN-szC" firstAttribute="leading" secondItem="wFk-dF-npQ" secondAttribute="leading" id="ARN-9I-bPi"/>
+                                <constraint firstItem="OYr-fN-szC" firstAttribute="top" secondItem="wFk-dF-npQ" secondAttribute="top" id="AZu-1a-3eg"/>
+                                <constraint firstAttribute="trailing" secondItem="OYr-fN-szC" secondAttribute="trailing" id="DJu-Ve-4JZ"/>
+                                <constraint firstItem="l9T-XF-UKp" firstAttribute="top" secondItem="wFk-dF-npQ" secondAttribute="top" id="PUw-em-Z14"/>
+                                <constraint firstAttribute="bottom" secondItem="y24-w0-fR0" secondAttribute="bottom" id="Q0J-uo-tri"/>
+                                <constraint firstAttribute="bottom" secondItem="9uO-T0-bGX" secondAttribute="bottom" id="UNY-yO-tSU"/>
+                                <constraint firstItem="y24-w0-fR0" firstAttribute="leading" secondItem="l9T-XF-UKp" secondAttribute="trailing" id="j29-pB-zAf"/>
+                                <constraint firstAttribute="height" constant="49" id="nEr-AH-FZp"/>
+                                <constraint firstAttribute="trailing" secondItem="9uO-T0-bGX" secondAttribute="trailing" id="nSi-ed-ROl"/>
+                                <constraint firstItem="9uO-T0-bGX" firstAttribute="top" secondItem="wFk-dF-npQ" secondAttribute="top" id="o4K-Yr-Ta0"/>
+                                <constraint firstAttribute="bottom" secondItem="l9T-XF-UKp" secondAttribute="bottom" id="qyK-tW-loT"/>
+                                <constraint firstItem="l9T-XF-UKp" firstAttribute="leading" secondItem="wFk-dF-npQ" secondAttribute="leading" id="vKx-SS-u0n"/>
+                                <constraint firstItem="9uO-T0-bGX" firstAttribute="leading" secondItem="l9T-XF-UKp" secondAttribute="trailing" id="y6E-qa-8BX"/>
+                            </constraints>
+                        </view>
+                    </subviews>
+                    <color key="backgroundColor" red="0.1333333333" green="0.1333333333" blue="0.1333333333" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="Xso-Vo-MEk" secondAttribute="trailing" id="45c-ma-Vip"/>
+                        <constraint firstAttribute="trailing" secondItem="wFk-dF-npQ" secondAttribute="trailing" id="AuN-kM-rUd"/>
+                        <constraint firstItem="wFk-dF-npQ" firstAttribute="leading" secondItem="mga-Gu-ZPV" secondAttribute="leading" id="DNr-rh-1Vo"/>
+                        <constraint firstItem="aCh-py-sfn" firstAttribute="leading" secondItem="mga-Gu-ZPV" secondAttribute="leading" constant="20" id="Dc4-V8-eVx"/>
+                        <constraint firstItem="Xso-Vo-MEk" firstAttribute="leading" secondItem="mga-Gu-ZPV" secondAttribute="leading" id="DvZ-Fa-d8M"/>
+                        <constraint firstAttribute="trailing" secondItem="aCh-py-sfn" secondAttribute="trailing" constant="20" id="Hqg-Kc-dNe"/>
+                        <constraint firstItem="1hl-Jb-62x" firstAttribute="centerX" secondItem="Xso-Vo-MEk" secondAttribute="centerX" id="Kn6-EI-sFh"/>
+                        <constraint firstItem="1hl-Jb-62x" firstAttribute="leading" secondItem="mga-Gu-ZPV" secondAttribute="leading" constant="20" id="MPF-8j-WOE"/>
+                        <constraint firstItem="aCh-py-sfn" firstAttribute="top" secondItem="1hl-Jb-62x" secondAttribute="bottom" constant="8" id="SnS-WW-cSH"/>
+                        <constraint firstAttribute="bottom" secondItem="wFk-dF-npQ" secondAttribute="bottom" id="iNv-AF-4mw"/>
+                        <constraint firstItem="1hl-Jb-62x" firstAttribute="top" secondItem="Xso-Vo-MEk" secondAttribute="bottom" constant="20" id="lAs-gP-Cmo"/>
+                        <constraint firstItem="wFk-dF-npQ" firstAttribute="top" secondItem="aCh-py-sfn" secondAttribute="bottom" constant="40" id="lQH-9l-mvO"/>
+                        <constraint firstAttribute="width" constant="319" id="rX3-Rs-3bV"/>
+                        <constraint firstItem="Xso-Vo-MEk" firstAttribute="top" secondItem="mga-Gu-ZPV" secondAttribute="top" id="zap-7z-BQE"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <real key="value" value="12"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </view>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="mga-Gu-ZPV" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="Zdz-Jh-B1z"/>
+                <constraint firstItem="mga-Gu-ZPV" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="x6O-k9-G9e"/>
+            </constraints>
+            <point key="canvasLocation" x="137.68115942028987" y="153.34821428571428"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="iconNewVersion" width="319" height="160"/>
+    </resources>
+</document>

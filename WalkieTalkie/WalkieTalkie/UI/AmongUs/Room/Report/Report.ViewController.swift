@@ -74,7 +74,6 @@ extension Report {
         override func viewDidAppear(_ animated: Bool) {
             super.viewDidAppear(animated)
             IQKeyboardManager.shared.enable = true
-            IQKeyboardManager.shared.enableAutoToolbar = false
         }
         
         override func viewDidDisappear(_ animated: Bool) {
@@ -94,7 +93,6 @@ extension Report {
             
             configureSubview()
             bindSubviewEvent()
-            IQKeyboardManager.shared.shouldResignOnTouchOutside = true
         }
         
 //        override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -240,7 +238,6 @@ extension Report.ViewController {
         navView.snp.makeConstraints { (maker) in
             maker.leading.trailing.equalToSuperview()
             maker.top.equalTo(topLayoutGuide.snp.bottom)
-            maker.height.equalTo(49)
         }
         
         footerView = ReportFooterView(frame: CGRect(x: 0, y: 0, width: Frame.Screen.width, height: 364 + ReportFooterView.collectionItemWidth))

@@ -11,50 +11,14 @@ import WCDBSwift
 import RxSwift
 import RxCocoa
 
-private let noticeTableName = "notices"
-private let messageBodyTableName = "messges"
+private let noticeTableName = Database.TableName.notice.rawValue
+private let messageBodyTableName = Database.TableName.messageBody.rawValue
 
 class NoticeManager {
     
     static let shared = NoticeManager()
-    
-    private let dbIOQueue = DispatchQueue.init(label: "among.chat.notice.db.io", qos: .userInitiated)
-        
-    private var database: Database? = nil {
-        didSet {
-            oldValue?.close()
-        }
-    }
-    
-    private init() {
-        
-        let _ = Settings.shared.loginResult.replay()
-            .filterNil()
-            .subscribe(onNext: { [weak self] (loginUser) in
-                
-                guard let `self` = self else { return }
-                                
-                let database = Database(withFileURL: self.dbURL(of: loginUser.uid))
-                database.setTokenizes([.WCDB])
-                
-                do {
-                    try database.create(table: noticeTableName, of: Entity.Notice.self)
-                    try database.create(table: messageBodyTableName, of: Entity.NoticeMessage.self)
-                    self.database = database
-                } catch let error {
-                    cdPrint("create table error \(error.localizedDescription)")
-                }
-                
-            })
-        
-    }
-    
-    private func dbURL(of user: Int) -> URL {
-        let dbPath = NSSearchPathForDirectoriesInDomains(.documentDirectory,
-                                                         .userDomainMask,
-                                                         true).last! + "/Notice/\(user)/Notice.db"
-        return URL(fileURLWithPath: dbPath)
-    }
+            
+    private let database = Database.shared
     
     func addNoticeList(_ noticeList: [Entity.Notice]) -> Single<Void> {
         
@@ -62,7 +26,7 @@ class NoticeManager {
             return Single<Void>.just(())
         }
         
-        return mapTransactionToSingle { (db) in
+        return database.mapTransactionToSingle { (db) in
             try db.insertOrReplace(objects: noticeList, intoTable: noticeTableName)
         }
         .flatMap { [weak self] in
@@ -89,7 +53,7 @@ class NoticeManager {
             return Single<Void>.just(())
         }
         
-        return mapTransactionToSingle { (db) in
+        return database.mapTransactionToSingle { (db) in
             try db.insertOrReplace(objects: messages,
                                    on: [Entity.NoticeMessage.Properties.img, Entity.NoticeMessage.Properties.title],
                                    intoTable: messageBodyTableName)
@@ -97,7 +61,7 @@ class NoticeManager {
     }
     
     func queryMessageBody(objType: String, objId: String) -> Single<Entity.NoticeMessage?> {
-        return mapTransactionToSingle { (db) in
+        return database.mapTransactionToSingle { (db) in
             let ex = Entity.NoticeMessage.Properties.objType == objType && Entity.NoticeMessage.Properties.objId == objId
             return try db.getObject(fromTable: messageBodyTableName,
                                     where: ex)
@@ -105,7 +69,7 @@ class NoticeManager {
     }
     
     func updateMessageBody(_ message: Entity.NoticeMessage) -> Single<Void> {
-        return mapTransactionToSingle { (db) in
+        return database.mapTransactionToSingle { (db) in
             guard let objId = message.objId, let objType = message.objType else {
                 return
             }
@@ -146,7 +110,7 @@ class NoticeManager {
     
     func noticeList(limit: Int? = nil, offset: Int? = nil) -> Single<[Entity.Notice]> {
         
-        return mapTransactionToSingle { (db) in
+        return database.mapTransactionToSingle { (db) in
             try db.getObjects(fromTable: noticeTableName,
                               orderBy: [Entity.Notice.Properties.ms.asOrder(by: .descending)],
                               limit: limit,
@@ -156,34 +120,10 @@ class NoticeManager {
     }
     
     func latestNotice() -> Single<Entity.Notice?> {
-        return mapTransactionToSingle { (db) in
+        return database.mapTransactionToSingle { (db) in
             try db.getObject(fromTable: noticeTableName,
                              orderBy: [Entity.Notice.Properties.ms.asOrder(by: .descending)])
         }
-    }
-    
-    private func mapTransactionToSingle<T>(_ transaction: @escaping ((Database) throws -> T) ) -> Single<T> {
-        
-        return Single<T>.create { [weak self] (subscriber) -> Disposable in
-            
-            guard let `self` = self,
-                  let db = self.database else { return Disposables.create() }
-            
-            self.dbIOQueue.async {
-                
-                do {
-                    let data = try transaction(db)
-                    subscriber(.success(data))
-                } catch let err {
-                    cdPrint("db error: \(err.localizedDescription)")
-                    subscriber(.error(err))
-                }
-            }
-            
-            return Disposables.create()
-        }
-        .observeOn(MainScheduler.asyncInstance)
-        
     }
     
 }

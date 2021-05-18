@@ -14,7 +14,7 @@ import RxSwift
 import RxCocoa
 import SwiftyUserDefaults
 #if DEBUG
-import DoraemonKit
+import DoraemonKit.DoraemonManager
 //import CocoaDebug
 #endif
 import FirebaseInAppMessaging
@@ -97,13 +97,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //设置内存缓存失效时间为12h,修复直播间内“闪“的问题
         KingfisherManager.shared.cache.memoryStorage.config.expiration = .seconds(60 * 60 * 24) //12 h
 
-//        IQKeyboardManager.shared.keyboardDistanceFromTextField = 20
+        #if DEBUG
+        DoraemonManager.shareInstance().showDoraemon()
+        DoraemonManager.shareInstance().install()
+        #endif
+        
+        IQKeyboardManager.shared.enableAutoToolbar = false
+        IQKeyboardManager.shared.shouldResignOnTouchOutside = true
+        IQKeyboardManager.shared.enable = false
+        cdPrint("compareAppVersions: \(compareAppVersions(v1: "1.2.0", v2: "1.10.0"))")
+        cdPrint("compareAppVersions: \(compareAppVersions(v1: "1.12.0", v2: "1.10.0"))")
+        cdPrint("compareAppVersions: \(compareAppVersions(v1: "1.20.0", v2: "1.10.2"))")
 //        // end
 //        TikTokOpenSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
         
-        UIApplication.shared.applicationIconBadgeNumber = 0
+        removeAllDeliveredNotifications()
         
         ApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
+        observeMopubILRD()
         return true
     }
     
@@ -172,7 +183,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func applicationWillEnterForeground(_ application: UIApplication) {
-        UIApplication.shared.applicationIconBadgeNumber = 0
+        removeAllDeliveredNotifications()
     }
     
     func applicationDidEnterBackground(_ application: UIApplication) {
@@ -191,10 +202,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     return
                 }
                 UIApplication.topViewController()?.showAmongAlert(title: nil, message: R.string.localizable.forceUpgradeTip(), confirmTitle: R.string.localizable.alertOk(), confirmAction: {
-                    let appID = Constants.appId
-                    let urlStr = "https://itunes.apple.com/app/id\(appID)?mt=8" // (Option 2) Open App Review Page
                     
-                    guard let url = URL(string: urlStr), UIApplication.shared.canOpenURL(url) else { return }
+                    guard let url = URL(string: Constants.appStoreUrl), UIApplication.shared.canOpenURL(url) else { return }
                     
                     UIApplication.shared.open(url, options: [:], completionHandler: nil)
                 })
@@ -240,6 +249,11 @@ extension AppDelegate {
 //        }
 //        self.window = window
 //    }
+    
+    func removeAllDeliveredNotifications() {
+        UIApplication.shared.applicationIconBadgeNumber = 0
+        UNUserNotificationCenter.current().removeAllDeliveredNotifications()
+    }
     
     func setupInitialView() {
         
@@ -345,3 +359,35 @@ extension Data {
     }
 }
 
+extension AppDelegate {
+    
+    private func observeMopubILRD() {
+        
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(onImpressionFiredNotification(notification:)),
+                                               name: NSNotification.Name.mpImpressionTracked,
+                                               object: nil)
+
+    }
+    
+    @objc
+    private func onImpressionFiredNotification(notification: NSNotification) {
+        guard let userInfo = notification.userInfo as? [String: Any] else {
+            return
+        }
+        
+        let impressionData = userInfo[kMPImpressionTrackedInfoImpressionDataKey] as? MPImpressionData // the impression's impression data, or nil if ILRD is not enabled
+                
+        Logger.AdRevenue()
+            .addData(key: .ad_platform, value: "MoPub")
+            .addData(key: .ad_source, value: impressionData?.networkName)
+            .addData(key: .ad_format, value: impressionData?.adUnitFormat)
+            .addData(key: .ad_unit_name, value: impressionData?.adUnitName)
+            .addData(key: .value, value: impressionData?.publisherRevenue)
+            .addData(key: .currency, value: impressionData?.currency)
+            .addData(key: .precision, value: impressionData?.precision)
+            .addData(key: .country, value: impressionData?.country)
+            .log()
+    }
+
+}
