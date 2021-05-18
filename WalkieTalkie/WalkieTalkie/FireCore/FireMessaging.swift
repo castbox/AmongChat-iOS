@@ -290,6 +290,7 @@
     struct APNSMessage {
         let uri: String
         let userInfo: [AnyHashable: Any]
+        
         init?(_ userInfo: [AnyHashable: Any]) {
             guard let uri = userInfo["uri"] as? String else { return nil }
             self.userInfo = userInfo
@@ -300,6 +301,12 @@
             let queries: [String : Any] = uri.url?.queryParameters ?? [:]
             let sourceType = queries["push_source_type"] as? String ?? ""
             return sourceType
+        }
+        
+        //消息得最小支持版本，小余此版本则提示升级
+        var version: String? {
+            let queries: [String : Any] = uri.url?.queryParameters ?? [:]
+            return queries["version"] as? String
         }
         
         var canShowWhenActive: Bool {

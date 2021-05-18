@@ -28,6 +28,10 @@ struct Constants {
     
     static let appId = "1539641263"
     
+    static var appStoreUrl: String {
+        "https://itunes.apple.com/app/id\(appId)"
+    }
+    
     static let giphyApiKey = "7QHAiZsbbDQEczlOLPM2173dYaMBbGYb"
     
     static let abGroup: ABGroup = {

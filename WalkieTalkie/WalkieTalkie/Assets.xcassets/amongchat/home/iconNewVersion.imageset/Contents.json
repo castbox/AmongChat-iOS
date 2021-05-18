@@ -5,12 +5,11 @@
       "scale" : "1x"
     },
     {
-      "filename" : "dm_selected@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "dm_selected@3x.png",
+      "filename" : "iconNewVersion@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

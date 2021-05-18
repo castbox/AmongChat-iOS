@@ -375,7 +375,6 @@
 "group.room.members.title" = "В участниках канала";
 "group.item.edit" = "Редактировать";
 "group.item.start.live" = "Начинать";
-"group.online" = "В сети";
 "group.owner" = "Владелец";
 "group.room.join.request" = "Запросы на присоединение";
 "group.room.host.request" = "Поднятые руки";
@@ -507,3 +506,29 @@
 
 "group.dismissed.tips" = "Извините, администратор закрыл группу.";
 
+//1.20
+"among.chat.login.auth.source.chat" = "послать сообщение";
+"among.chat.profile.chat" = "Болтать";
+"among.chat.audio.recording.time.limit" = "Вы можете записывать до 60 секунд";
+"among.chat.audio.recording.slide.cancel" = "Проведите вверх, чтобы отменить";
+"among.chat.audio.recording.release.cancel" = "Отпустите, чтобы отменить";
+"among.chat.audio.recording.end" = "Отпустите, чтобы отправить";
+"among.chat.audio.recording.too.short" = "Слишком короткий";
+"among.chat.audio.recording.canceled" = "Отменено";
+"dm.hold.to.talk" = "Удерживайте, чтобы говорить";
+"dm.voice.message.text" = "[Голосовое сообщение]";
+"dm.gif.text" = "[GIF]";
+"dm.conversation.delete.history" = "Удалить историю";
+"dm.delete.history.alert.title" = "Вы уверены, что хотите удалить историю чата?";
+"dm.gif.search.placeholder" = "Искать GIF";
+//update
+"dm.text.placeholder" = "Начать печатать";
+"profile.user.in.channel" = "В канале %@";
+"profile.user.in.group" = "В группе %@";
+"dm.send.message.error" = "Отправить не удалось. Пожалуйста, попробуйте еще раз.";
+"dm.send.message.beblocked.error" = "Вы больше не можете отправлять личные сообщения этому человеку.";
+"dm.delete.conversation.alert.title" = "Вы уверены, что хотите удалить этот чат?";
+"group.online" = "Прямой эфир";
+"app.new.version.alert.title" = "Доступно новое обновление!";
+"app.new.version.alert.content" = "Обновите до последней версии и помогите распространить информацию.";
+"app.new.version.alert.update" = "Обновлять";
