@@ -176,6 +176,47 @@ extension Social.ProfileLookViewController {
             
         }
         
+        func saveLookAsAvatar() -> UIImage? {
+                        
+            let innerContainerSize = CGSize(width: 210, height: 210)
+            let containerSize = CGSize(width: 140, height: 140)
+            
+            let innerContainer = UIView(frame: CGRect(origin: .zero, size: innerContainerSize))
+            
+            let bgView = UIImageView(image: profileBgIV.image)
+            bgView.contentMode = .scaleAspectFill
+            
+            let skinView = UIImageView(image: skinIV.image)
+            
+            let hatView = UIImageView(image: hatIV.image)
+            
+            innerContainer.addSubviews(views: bgView, skinView, hatView)
+            bgView.snp.makeConstraints { (maker) in
+                maker.edges.equalToSuperview()
+                maker.size.equalTo(innerContainerSize)
+            }
+            
+            skinView.snp.makeConstraints { (maker) in
+                maker.centerX.equalToSuperview().offset(5)
+                maker.size.equalTo(innerContainerSize)
+                maker.top.equalTo(12)
+            }
+            
+            hatView.snp.makeConstraints { (maker) in
+                maker.edges.equalTo(skinView)
+            }
+            
+            let container = UIView(frame: CGRect(origin: .zero, size: containerSize))
+            container.addSubview(innerContainer)
+            innerContainer.snp.makeConstraints { (maker) in
+                maker.top.centerX.equalToSuperview()
+            }
+            
+            container.layoutIfNeeded()
+            
+            return container.screenshot
+        }
+        
     }
     
 }
