@@ -232,7 +232,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 224 images.
+  /// This `R.image` struct is generated, and contains static references to 226 images.
   struct image {
     /// Image `ac_add_stats_add`.
     static let ac_add_stats_add = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_add_stats_add")
@@ -270,6 +270,10 @@ struct R: Rswift.Validatable {
     static let ac_chat_speak = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_chat_speak")
     /// Image `ac_choose_game_added`.
     static let ac_choose_game_added = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_choose_game_added")
+    /// Image `ac_choose_game_inreview_process`.
+    static let ac_choose_game_inreview_process = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_choose_game_inreview_process")
+    /// Image `ac_choose_game_inreview`.
+    static let ac_choose_game_inreview = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_choose_game_inreview")
     /// Image `ac_create_room_bar_top_shadow`.
     static let ac_create_room_bar_top_shadow = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_create_room_bar_top_shadow")
     /// Image `ac_group_Leave`.
@@ -771,6 +775,16 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "ac_choose_game_added", bundle: ..., traitCollection: ...)`
     static func ac_choose_game_added(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ac_choose_game_added, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_choose_game_inreview", bundle: ..., traitCollection: ...)`
+    static func ac_choose_game_inreview(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_choose_game_inreview, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_choose_game_inreview_process", bundle: ..., traitCollection: ...)`
+    static func ac_choose_game_inreview_process(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_choose_game_inreview_process, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "ac_create_room_bar_top_shadow", bundle: ..., traitCollection: ...)`
@@ -1806,8 +1820,10 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.nib` struct is generated, and contains static references to 36 nibs.
+  /// This `R.nib` struct is generated, and contains static references to 37 nibs.
   struct nib {
+    /// Nib `AddStatsPendingController`.
+    static let addStatsPendingController = _R.nib._AddStatsPendingController()
     /// Nib `AmongChatRoomConfigView`.
     static let amongChatRoomConfigView = _R.nib._AmongChatRoomConfigView()
     /// Nib `AmongChatRoomTopBar`.
@@ -1880,6 +1896,12 @@ struct R: Rswift.Validatable {
     static let snapChatSharePhotoView = _R.nib._SnapChatSharePhotoView()
     /// Nib `TikTokShareView`.
     static let tikTokShareView = _R.nib._TikTokShareView()
+    
+    /// `UINib(name: "AddStatsPendingController", in: bundle)`
+    @available(*, deprecated, message: "Use UINib(resource: R.nib.addStatsPendingController) instead")
+    static func addStatsPendingController(_: Void = ()) -> UIKit.UINib {
+      return UIKit.UINib(resource: R.nib.addStatsPendingController)
+    }
     
     /// `UINib(name: "AmongChatRoomConfigView", in: bundle)`
     @available(*, deprecated, message: "Use UINib(resource: R.nib.amongChatRoomConfigView) instead")
@@ -2095,6 +2117,10 @@ struct R: Rswift.Validatable {
     @available(*, deprecated, message: "Use UINib(resource: R.nib.tikTokShareView) instead")
     static func tikTokShareView(_: Void = ()) -> UIKit.UINib {
       return UIKit.UINib(resource: R.nib.tikTokShareView)
+    }
+    
+    static func addStatsPendingController(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+      return R.nib.addStatsPendingController.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
     }
     
     static func amongChatRoomConfigView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
@@ -2352,7 +2378,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
     
-    /// This `R.string.localizable` struct is generated, and contains static references to 462 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 465 localization keys.
     struct localizable {
       /// en translation:  Congratulations!
       /// 
@@ -3450,6 +3476,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let premiumSubscriptionDetailLifetime = Rswift.StringResource(key: "premium.subscription.detail.lifetime", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Pending Review
+      /// 
+      /// Locales: en
+      static let statsPendingReview = Rswift.StringResource(key: "stats.pending.review", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: People you may like to play with
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3614,6 +3644,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let groupRoomResumeTitle = Rswift.StringResource(key: "group.room.resume.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Review in Process…
+      /// 
+      /// Locales: en
+      static let statsReviewInProcess = Rswift.StringResource(key: "stats.review.in.process", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Roblox Username
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -4094,6 +4128,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let errorNoFollowing = Rswift.StringResource(key: "error.no.following", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Your %@ Gaming Stats have been uploaded successfully and are pending review. Valid Gaming Stats will be approved within 24 hours and become publicly viewable.
+      /// 
+      /// Locales: en
+      static let statsReviewGameState = Rswift.StringResource(key: "stats.review.game.state", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Your account has been logged in on another device
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -6121,6 +6159,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("premium.subscription.detail.lifetime", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Pending Review
+      /// 
+      /// Locales: en
+      static func statsPendingReview(_: Void = ()) -> String {
+        return NSLocalizedString("stats.pending.review", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: People you may like to play with
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -6406,6 +6451,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func groupRoomResumeTitle(_: Void = ()) -> String {
         return NSLocalizedString("group.room.resume.title", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Review in Process…
+      /// 
+      /// Locales: en
+      static func statsReviewInProcess(_: Void = ()) -> String {
+        return NSLocalizedString("stats.review.in.process", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Roblox Username
@@ -7248,6 +7300,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("error.no.following", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Your %@ Gaming Stats have been uploaded successfully and are pending review. Valid Gaming Stats will be approved within 24 hours and become publicly viewable.
+      /// 
+      /// Locales: en
+      static func statsReviewGameState(_ value1: String) -> String {
+        return String(format: NSLocalizedString("stats.review.game.state", bundle: R.hostingBundle, comment: ""), locale: R.applicationLocale, value1)
+      }
+      
       /// en translation: Your account has been logged in on another device
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -7464,6 +7523,7 @@ struct _R: Rswift.Validatable {
   
   struct nib: Rswift.Validatable {
     static func validate() throws {
+      try _AddStatsPendingController.validate()
       try _AmongChatRoomTopBar.validate()
       try _AmongGroupHostView.validate()
       try _AmongGroupTopView.validate()
@@ -7480,6 +7540,23 @@ struct _R: Rswift.Validatable {
       try _SnapChatCreativeShareView.validate()
       try _SnapChatSharePhotoView.validate()
       try _TikTokShareView.validate()
+    }
+    
+    struct _AddStatsPendingController: Rswift.NibResourceType, Rswift.Validatable {
+      let bundle = R.hostingBundle
+      let name = "AddStatsPendingController"
+      
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+      }
+      
+      static func validate() throws {
+        if UIKit.UIImage(named: "ac_choose_game_inreview_process", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ac_choose_game_inreview_process' is used in nib 'AddStatsPendingController', but couldn't be loaded.") }
+        if #available(iOS 11.0, *) {
+        }
+      }
+      
+      fileprivate init() {}
     }
     
     struct _AmongChatRoomConfigView: Rswift.NibResourceType {

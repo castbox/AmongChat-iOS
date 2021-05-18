@@ -222,6 +222,8 @@
 		FE6AF85A2457E26C00FD474A /* UIViewFrameExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6AF8592457E26C00FD474A /* UIViewFrameExtension.swift */; };
 		FE705537265273E200A489F4 /* NewVersionAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE705535265273E200A489F4 /* NewVersionAlertController.swift */; };
 		FE705538265273E200A489F4 /* NewVersionAlertController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE705536265273E200A489F4 /* NewVersionAlertController.xib */; };
+		FE70553B265398FD00A489F4 /* Social.AddStatsPendingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE705539265398FD00A489F4 /* Social.AddStatsPendingController.swift */; };
+		FE70553C265398FD00A489F4 /* AddStatsPendingController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE70553A265398FD00A489F4 /* AddStatsPendingController.xib */; };
 		FE72186F2456D696005274CA /* MJMaterialSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE72186E2456D696005274CA /* MJMaterialSwitch.swift */; };
 		FE7218712456D900005274CA /* FireMessaging.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE7218702456D8FF005274CA /* FireMessaging.swift */; };
 		FE7218752456DA36005274CA /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE7218742456DA36005274CA /* Extension.swift */; };
@@ -687,6 +689,8 @@
 		FE6AF8592457E26C00FD474A /* UIViewFrameExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewFrameExtension.swift; sourceTree = "<group>"; };
 		FE705535265273E200A489F4 /* NewVersionAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewVersionAlertController.swift; sourceTree = "<group>"; };
 		FE705536265273E200A489F4 /* NewVersionAlertController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewVersionAlertController.xib; sourceTree = "<group>"; };
+		FE705539265398FD00A489F4 /* Social.AddStatsPendingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Social.AddStatsPendingController.swift; sourceTree = "<group>"; };
+		FE70553A265398FD00A489F4 /* AddStatsPendingController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddStatsPendingController.xib; sourceTree = "<group>"; };
 		FE72186E2456D696005274CA /* MJMaterialSwitch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MJMaterialSwitch.swift; sourceTree = "<group>"; };
 		FE7218702456D8FF005274CA /* FireMessaging.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FireMessaging.swift; sourceTree = "<group>"; };
 		FE7218742456DA36005274CA /* Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
@@ -935,6 +939,8 @@
 				26259B6A260B3E7400636E50 /* Social.ChooseGame.ViewModel.swift */,
 				26259B5C260A1A6400636E50 /* Social.AddStatsViewController.swift */,
 				26259B60260B11B800636E50 /* Social.AddStatsViewController+Views.swift */,
+				FE705539265398FD00A489F4 /* Social.AddStatsPendingController.swift */,
+				FE70553A265398FD00A489F4 /* AddStatsPendingController.xib */,
 			);
 			path = GameSkill;
 			sourceTree = "<group>";
@@ -1894,6 +1900,7 @@
 				FE746BCD24629A9800CAC554 /* Nunito-SemiBold.ttf in Resources */,
 				FEFF935E258B33480011A274 /* AmongInputNotesView.xib in Resources */,
 				FE9F69E025CD338600C0F118 /* AppTrackingGuideView.xib in Resources */,
+				FE70553C265398FD00A489F4 /* AddStatsPendingController.xib in Resources */,
 				FE7E227326455DFB00DAD431 /* ConversationCollectionCell.xib in Resources */,
 				FE7ED90725F20292009C608A /* room-emoji-purple.svga in Resources */,
 				FE7ED90625F20292009C608A /* room-emoji-bluegreen.svga in Resources */,
@@ -2330,6 +2337,7 @@
 				FE914B0C2614663A00C755FF /* AmongChat.Room.BackgroundView.swift in Sources */,
 				26057F8925C1712900718D3E /* AvatarImageView.swift in Sources */,
 				BDD692772536DE2900260F1F /* Ad.InterstitialManager.swift in Sources */,
+				FE70553B265398FD00A489F4 /* Social.AddStatsPendingController.swift in Sources */,
 				FE730E4F24ADCC4C00680062 /* TikTokShareView.swift in Sources */,
 				FE6738B22611F5270044C0D2 /* AmongChat.Room.MessageListView.swift in Sources */,
 				FE126D3E243481BD00BEDD60 /* AgoraRtcManager.swift in Sources */,

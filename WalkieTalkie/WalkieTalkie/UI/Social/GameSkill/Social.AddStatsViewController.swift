@@ -153,9 +153,12 @@ extension Social.AddStatsViewController {
                 hudRemoval?()
             })
             .subscribe( onSuccess: { [weak self] (_) in
-                self?.navigationController?.popToRootViewController(animated: true)
-                self?.gameUpdatedHandler?()
-                Logger.Action.log(.gameskill_add_state_done, categoryValue: self?.game.skill.topicId, nil, 0)
+//                self?.navigationController?.popToRootViewController(animated: true)
+                guard let `self` = self else { return }
+                let vc = AddStatsPendingController(with: self.game.skill)
+                self.navigationController?.pushViewController(vc)
+                self.gameUpdatedHandler?()
+                Logger.Action.log(.gameskill_add_state_done, categoryValue: self.game.skill.topicId, nil, 0)
             }, onError: { [weak self] (error) in
                 Logger.Action.log(.gameskill_add_state_done, categoryValue: self?.game.skill.topicId, nil, 1)
                 self?.view.raft.autoShow(.text(error.localizedDescription))

@@ -321,15 +321,7 @@ private extension Social.ProfileViewController {
                     self?.options = [.gameStats]
                     self?.bottomGradientView.isHidden = false
                 } else {
-                    if let v = Settings.shared.amongChatUserProfile.value?.isVerified, v {
-                        self?.options = [.gameStats, .tiktok]
-                    } else {
-                        #if DEBUG
-                        self?.options = [.gameStats, .tiktok]
-                        #else
-                        self?.options = [.tiktok]
-                        #endif
-                    }
+                    self?.options = [.gameStats, .tiktok]
                 }
                 
                 if joinedGroups.count > 0 {

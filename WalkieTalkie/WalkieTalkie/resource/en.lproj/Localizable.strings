@@ -521,7 +521,7 @@
 "dm.conversation.delete.history" = "Delete History";
 "dm.delete.history.alert.title" = "Are you sure you want to delete the chat history?";
 "dm.gif.search.placeholder" = "Search for GIFs";
-//update
+
 "dm.text.placeholder" = "Start typing";
 "profile.user.in.channel" = "In %@ Channel";
 "profile.user.in.group" = "In %@ Group";
@@ -532,3 +532,8 @@
 "app.new.version.alert.title" = "New Update Available!";
 "app.new.version.alert.content" = "Update to the latest version and help spread the word.";
 "app.new.version.alert.update" = "Update";
+
+//5.18
+"stats.pending.review" = "Pending Review";
+"stats.review.in.process" = "Review in Process…";
+"stats.review.game.state" = "Your %@ Gaming Stats have been uploaded successfully and are pending review. Valid Gaming Stats will be approved within 24 hours and become publicly viewable.";
