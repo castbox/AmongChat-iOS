@@ -26,6 +26,13 @@ class NavigationBar: UIView {
         return btn
     }()
     
+    private(set) lazy var backgroundView: UIView = {
+        let v = UIView()
+        v.backgroundColor = UIColor(hex6: 0x121212)
+        v.isHidden = true
+        return v
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setUpLayout()
@@ -36,13 +43,18 @@ class NavigationBar: UIView {
     }
     
     private func setUpLayout() {
-        addSubviews(views: titleLabel, leftBtn)
+        addSubviews(views: backgroundView, titleLabel, leftBtn)
         
         let layoutGuide = UILayoutGuide()
         addLayoutGuide(layoutGuide)
         layoutGuide.snp.makeConstraints { (maker) in
             maker.edges.equalToSuperview()
             maker.height.equalTo(Self.barHeight)
+        }
+        
+        backgroundView.snp.makeConstraints { (maker) in
+            maker.leading.bottom.trailing.equalToSuperview()
+            maker.top.equalToSuperview().offset(-Frame.Height.safeAeraTopHeight)
         }
         
         leftBtn.snp.makeConstraints { (maker) in

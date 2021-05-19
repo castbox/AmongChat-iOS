@@ -49,6 +49,131 @@ extension Social {
         }
         var followedHandle:((Bool) -> Void)?
         
+        private lazy var navView: NavigationBar = {
+            let n = NavigationBar()
+            let btn = n.leftBtn
+            if isSelfProfile.value, navigationController?.viewControllers.count == 1 {
+                btn.setImage(R.image.ac_profile_close_down(), for: .normal)
+            } else {
+                btn.setImage(R.image.ac_profile_close(), for: .normal)
+            }
+            btn.rx.tap.observeOn(MainScheduler.instance)
+                .subscribe(onNext: { [weak self]() in
+                    guard let `self` = self else { return }
+                    if self.navigationController?.viewControllers.count == 1 {
+                        self.dismiss(animated: true, completion: nil)
+                    } else {
+                        self.navigationController?.popViewController()
+                    }
+                }).disposed(by: bag)
+            
+            if isSelfProfile.value {
+                n.addSubview(settingsBtn)
+                settingsBtn.snp.makeConstraints { (maker) in
+                    maker.centerY.equalToSuperview()
+                    maker.trailing.equalToSuperview().inset(Frame.horizontalBleedWidth)
+                }
+                
+                n.addSubview(proBtn)
+                proBtn.snp.makeConstraints { (maker) in
+                    maker.top.bottom.equalToSuperview()
+                    maker.trailing.equalTo(settingsBtn.snp.leading).offset(-20)
+                }
+
+            } else {
+                n.addSubview(moreBtn)
+                moreBtn.snp.makeConstraints { (make) in
+                    make.trailing.equalToSuperview().inset(Frame.horizontalBleedWidth)
+                    make.centerY.equalToSuperview()
+                }
+            }
+            return n
+        }()
+        
+        private lazy var settingsBtn: UIButton = {
+            let btn = UIButton(type: .custom)
+            btn.setImage(R.image.ac_profile_setting(), for: .normal)
+            btn.rx.tap.observeOn(MainScheduler.instance)
+                .subscribe(onNext: { [weak self]() in
+                    let vc = SettingViewController()
+                    self?.navigationController?.pushViewController(vc)
+                }).disposed(by: bag)
+            return btn
+        }()
+        
+        private lazy var moreBtn: UIButton = {
+            let btn = UIButton(type: .custom)
+            btn.setImage( R.image.ac_profile_more_icon(), for: .normal)
+            btn.rx.tap.observeOn(MainScheduler.instance)
+                .subscribe(onNext: { [weak self]() in
+                    self?.moreAction()
+                }).disposed(by: bag)
+            return btn
+        }()
+        
+        private lazy var proBtn: UIView = {
+            let btn: UIView = {
+                let v = UIView()
+                
+                let leftIcon: UIImageView = {
+                    let i = UIImageView(image: R.image.ac_pro_icon_27())
+                    return i
+                }()
+                
+                let titleLabel: UILabel = {
+                    let l = UILabel()
+                    l.font = R.font.nunitoExtraBold(size: 16)
+                    l.textColor = UIColor(hex6: 0xFFEC96)
+                    l.text = R.string.localizable.profileUnlockPro()
+                    return l
+                }()
+                
+                let rightIcon: UIImageView = {
+                    let i = UIImageView(image: R.image.ac_profile_pro_next())
+                    return i
+                }()
+                v.addSubviews(views: leftIcon)
+                
+                Settings.shared.isProValue.replay()
+                    .observeOn(MainScheduler.asyncInstance)
+                    .subscribe(onNext: { (isPro) in
+                        
+                        if isPro {
+                            titleLabel.removeFromSuperview()
+                            rightIcon.removeFromSuperview()
+                            leftIcon.snp.remakeConstraints { (maker) in
+                                maker.leading.trailing.centerY.equalToSuperview()
+                            }
+                        } else {
+                            v.addSubviews(views: titleLabel, rightIcon)
+                            leftIcon.snp.remakeConstraints { (maker) in
+                                maker.leading.centerY.equalToSuperview()
+                            }
+                            titleLabel.snp.remakeConstraints { (maker) in
+                                maker.leading.equalTo(leftIcon.snp.trailing).offset(6)
+                                maker.centerY.equalToSuperview()
+                            }
+                            rightIcon.snp.remakeConstraints { (maker) in
+                                maker.leading.equalTo(titleLabel.snp.trailing).offset(2)
+                                maker.centerY.trailing.equalToSuperview()
+                            }
+                        }
+                        
+                    })
+                    .disposed(by: bag)
+                return v
+            }()
+            
+            let tap = UITapGestureRecognizer()
+            btn.addGestureRecognizer(tap)
+            tap.rx.event
+                .subscribe(onNext: { [weak self] (_) in
+                    self?.presentPremiumView(source: .setting)
+                    Logger.UserAction.log(.update_pro, "settings")
+                }).disposed(by: bag)
+            return btn
+        }()
+        
         private lazy var followButton: UIButton = {
             let btn = UIButton()
             btn.backgroundColor = UIColor(hex6: 0xFFF000)
@@ -155,9 +280,6 @@ extension Social {
                     self.followerAction()
                 case .following:
                     self.followingAction()
-                case .more:
-                    self.moreAction()
-                    
                 case .expandDescription:
                     self.table.reloadData()
                 }
@@ -268,10 +390,12 @@ extension Social {
 
 private extension Social.ProfileViewController {
     func setupLayout() {
-        statusBarStyle = .lightContent
-        view.backgroundColor = UIColor.theme(.backgroundBlack)
+        view.addSubviews(views: table, navView, bottomGradientView)
         
-        view.addSubviews(views: table, bottomGradientView)
+        navView.snp.makeConstraints { (maker) in
+            maker.leading.trailing.equalToSuperview()
+            maker.top.equalTo(Frame.Height.safeAeraTopHeight)
+        }
         
         bottomGradientView.snp.makeConstraints { (maker) in
             maker.leading.trailing.bottom.equalToSuperview()
@@ -367,12 +491,8 @@ private extension Social.ProfileViewController {
                 
                 self.headerView.enlargeTopGbHeight(extraHeight: -distance)
                 
-//                self.navView.snp.updateConstraints { (maker) in
-//                    maker.top.equalTo(self.topLayoutGuide.snp.bottom).offset(min(0, -distance / 3))
-//                }
-//                
-//                self.navView.alpha = 1 - distance / 49
-                
+                self.navView.backgroundView.alpha = distance / 49
+                self.navView.backgroundView.isHidden = distance <= 0
             })
             .disposed(by: bag)
 
