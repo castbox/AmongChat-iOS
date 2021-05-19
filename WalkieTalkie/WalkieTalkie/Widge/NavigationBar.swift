@@ -10,6 +10,8 @@ import UIKit
 
 class NavigationBar: UIView {
     
+    static let barHeight: CGFloat = 49
+    
     private(set) lazy var titleLabel: UILabel = {
         let lb = UILabel()
         lb.font = R.font.nunitoExtraBold(size: 24)
@@ -36,6 +38,13 @@ class NavigationBar: UIView {
     private func setUpLayout() {
         addSubviews(views: titleLabel, leftBtn)
         
+        let layoutGuide = UILayoutGuide()
+        addLayoutGuide(layoutGuide)
+        layoutGuide.snp.makeConstraints { (maker) in
+            maker.edges.equalToSuperview()
+            maker.height.equalTo(Self.barHeight)
+        }
+        
         leftBtn.snp.makeConstraints { (maker) in
             maker.leading.equalToSuperview().inset(Frame.horizontalBleedWidth)
             maker.centerY.equalToSuperview()
@@ -45,7 +54,6 @@ class NavigationBar: UIView {
             maker.center.equalToSuperview()
             maker.leading.greaterThanOrEqualTo(leftBtn.snp.trailing).offset(20)
             maker.height.equalTo(33)
-            maker.top.equalTo(8)
         }
         
     }

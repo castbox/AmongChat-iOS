@@ -8,6 +8,9 @@
 
 import UIKit
 import SnapKit
+import RxSwift
+import RxCocoa
+import Kingfisher
 
 class AvatarImageView: UIView {
     
@@ -51,6 +54,17 @@ class AvatarImageView: UIView {
         }
     }
     
+    private let avatarUrlRelay = BehaviorRelay<String?>(value: nil)
+        
+    var imageOb: Observable<UIImage> {
+        return avatarUrlRelay.flatMap { (url) -> Observable<UIImage> in
+            guard let url = url?.url else {
+                return Observable.empty()
+            }
+            return KingfisherManager.shared.retrieveImageObservable(with: url)
+        }
+    }
+    
     init(_ verifyStyle: VerifyIconStyle = .black) {
         self.verifyStyle = verifyStyle
         super.init(frame: .zero)
@@ -80,10 +94,12 @@ class AvatarImageView: UIView {
         }
         
         avatarIV.setImage(with: profile.pictureUrl, placeholder: placeholder)
+        avatarUrlRelay.accept(profile.pictureUrl)
     }
  
     func setAvatarImage(with urlString: String?) {
         avatarIV.setImage(with: urlString, placeholder: R.image.ac_profile_avatar())
+        avatarUrlRelay.accept(urlString)
     }
     
     func setVerifyIcon(style: VerifyIconStyle) {

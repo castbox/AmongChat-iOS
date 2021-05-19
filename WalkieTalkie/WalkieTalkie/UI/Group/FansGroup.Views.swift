@@ -403,14 +403,14 @@ extension FansGroup.Views {
         
         private let bag = DisposeBag()
         
-        private lazy var coverIV: UIImageView = {
+        private(set) lazy var coverIV: UIImageView = {
             let iv = UIImageView()
             iv.contentMode = .scaleAspectFill
             iv.clipsToBounds = true
             return iv
         }()
         
-        private lazy var blurView: UIVisualEffectView = {
+        private(set) lazy var blurView: UIVisualEffectView = {
             let b = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
             return b
         }()

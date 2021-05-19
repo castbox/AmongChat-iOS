@@ -49,22 +49,6 @@ extension Social {
         }
         var followedHandle:((Bool) -> Void)?
         
-        var tableHeaderHeight: CGFloat {
-            
-            var height = 241 + Frame.Screen.width - 16
-            
-            adaptToIPad {
-                height = 241 + 375 - 16
-            }
-            
-            guard isSelfProfile.value,
-                  !AmongChat.Login.isLogedin else {
-                return height
-            }
-            
-            return height + 140
-        }
-        
         private lazy var followButton: UIButton = {
             let btn = UIButton()
             btn.backgroundColor = UIColor(hex6: 0xFFF000)
@@ -149,7 +133,7 @@ extension Social {
         
         private lazy var headerView: ProfileView = {
             let v = ProfileView(with: isSelfProfile.value, viewController: self)
-            v.frame = CGRect(x: 0, y: 0, width: Frame.Screen.width, height: tableHeaderHeight)//298  413
+            v.frame = CGRect(x: 0, y: 0, width: Frame.Screen.width, height: v.viewHeight)
             v.headerHandle = { [weak self] type in
                 guard let `self` = self else { return }
                 switch type {
@@ -173,9 +157,9 @@ extension Social {
                     self.followingAction()
                 case .more:
                     self.moreAction()
-                case .customize:
-                    let vc = Social.ProfileLookViewController()
-                    self.navigationController?.pushViewController(vc)
+                    
+                case .expandDescription:
+                    self.table.reloadData()
                 }
             }
             return v
@@ -373,6 +357,25 @@ private extension Social.ProfileViewController {
                 }
             })
             .disposed(by: bag)
+        
+        table.rx.contentOffset
+            .subscribe(onNext: { [weak self] (point) in
+                
+                guard let `self` = self else { return }
+                
+                let distance = point.y
+                
+                self.headerView.enlargeTopGbHeight(extraHeight: -distance)
+                
+//                self.navView.snp.updateConstraints { (maker) in
+//                    maker.top.equalTo(self.topLayoutGuide.snp.bottom).offset(min(0, -distance / 3))
+//                }
+//                
+//                self.navView.alpha = 1 - distance / 49
+                
+            })
+            .disposed(by: bag)
+
     }
     
     func loadData() {
@@ -1141,7 +1144,7 @@ extension Social.ProfileViewController: UICollectionViewDelegateFlowLayout {
             
         case .profile:
             
-            return CGSize(width: Frame.Screen.width, height: tableHeaderHeight)
+            return CGSize(width: Frame.Screen.width, height: headerView.viewHeight)
             
         }
         
@@ -1153,7 +1156,7 @@ extension Social.ProfileViewController: UICollectionViewDelegateFlowLayout {
         
         switch op {
         case .profile:
-            return .zero
+            return UIEdgeInsets(top: 0, left: 0, bottom: 56, right: 0)
         case .live:
             return UIEdgeInsets(top: 13, left: 0, bottom: 56, right: 0)
         default:

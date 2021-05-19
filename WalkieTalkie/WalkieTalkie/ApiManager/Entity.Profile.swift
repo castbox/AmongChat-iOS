@@ -46,7 +46,7 @@ func attribuated(with name: String?, isVerified: Bool?, isVip: Bool?, fontSize: 
         var image: UIImage {
             if fontSize == 12 {
                 return R.image.icon_verified_13()!
-            } else if fontSize > 24  {
+            } else if fontSize >= 24  {
                 extraTopPadding = -2
                 return R.image.icon_verified_20()!
             }
@@ -67,7 +67,7 @@ func attribuated(with name: String?, isVerified: Bool?, isVip: Bool?, fontSize: 
         var image: UIImage {
             if fontSize == 12 {
                 return R.image.icon_vip_13()!
-            } else if fontSize > 24  {
+            } else if fontSize >= 24  {
                 extraTopPadding = -2
                 return R.image.icon_vip_20()!
             }
@@ -319,21 +319,36 @@ extension Entity.UserProfile {
         Entity.DMProfile(uid: uid.int64, name: name, pictureUrl: pictureUrl, isVerified: isVerified, isVip: isVip)
     }
     
+    var age: String? {
+        
+        guard let b = birthday,
+              !b.isEmpty else {
+            return nil
+        }
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyyMMdd"
+
+        guard let startDate = dateFormatter.date(from: b) else {
+            return nil
+        }
+
+        let endDate = Date()
+        let calendar = Calendar.current
+        
+        let calcAge = calendar.dateComponents([.year], from: startDate, to: endDate)
+        
+        guard let age = calcAge.year?.string,
+              !age.isEmpty else {
+            return nil
+        }
+        
+        return age
+    }
+    
     var nameWithAge: String {
-        if let b = birthday, !b.isEmpty {
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "yyyyMMdd"
-            
-            if let startDate = dateFormatter.date(from: b)  {
-                let endDate = Date()
-                
-                let calendar = Calendar.current
-                let calcAge = calendar.dateComponents([.year], from: startDate, to: endDate)
-                
-                if let age = calcAge.year?.string, !age.isEmpty {
-                    return "\(name ?? ""), \(age)"
-                }
-            }
+        if let age = age, !age.isEmpty {
+            return "\(name ?? ""), \(age)"
         }
         return name ?? ""
     }
@@ -341,6 +356,16 @@ extension Entity.UserProfile {
     func nameWithVerified(fontSize: CGFloat = 16, withAge: Bool = false, isShowVerify: Bool = true) -> NSAttributedString {
         let nameString = withAge ? nameWithAge : (name ?? "")
         return attribuated(with: nameString, isVerified: isShowVerify ? isVerified : false, isVip: isVip, fontSize: fontSize)
+    }
+    
+    var locale: String? {
+        
+        guard !(hideLocation ?? false),
+            let code = countryCode else {
+            return nil
+        }
+        
+        return Locale(identifier: code).localizedString(forRegionCode: code)
     }
 }
 
