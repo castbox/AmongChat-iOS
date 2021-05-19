@@ -142,15 +142,52 @@ extension Entity {
 extension Entity {
     
     struct ProfileProto: Codable {
-        var birthday: String? = nil
-        var name: String? = nil
-        var pictureUrl: String? = nil
-        var chatLanguage: String? = nil
+        var birthday: String?
+        var name: String?
+        var pictureUrl: String?
+        var chatLanguage: String?
+        var countryCode: String? // 国家，如cn，us
+        var hideLocation: Bool? // true/false
+        var gender: Int? //   0-保密，1-男，2-女, 3-中性
+        var constellation: Entity.UserProfile.Constellation? // 星座，字符串，如Aries
+        var description: String? // 个人介绍
+        
+        var pronoun: Entity.UserProfile.Pronoun {
+            Entity.UserProfile.Pronoun(rawValue: gender ?? 0) ?? .pronounNotShare
+        }
+        
+        init(birthday: String? = nil,
+             name: String? = nil,
+             pictureUrl: String? = nil,
+             chatLanguage: String? = nil,
+             countryCode: String? = nil,
+             hideLocation: Bool? = nil,
+             gender: Int? = nil,
+             constellation: Entity.UserProfile.Constellation? = nil,
+             description: String? = nil) {
+            
+            self.birthday = birthday
+            self.name = name
+            self.pictureUrl = pictureUrl
+            self.chatLanguage = chatLanguage
+            self.countryCode = countryCode
+            self.hideLocation = hideLocation
+            self.gender = gender
+            self.constellation = constellation
+            self.description = description
+        }
+        
+        
         private enum CodingKeys: String, CodingKey {
             case birthday
             case name
             case pictureUrl = "picture_url"
             case chatLanguage = "language_u"
+            case countryCode = "country_code"
+            case hideLocation = "hide_location"
+            case gender
+            case constellation
+            case description
         }
     }
     

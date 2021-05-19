@@ -93,8 +93,6 @@ extension Report {
             
             configureSubview()
             bindSubviewEvent()
-            IQKeyboardManager.shared.shouldResignOnTouchOutside = true
-            IQKeyboardManager.shared.enableAutoToolbar = false
             
         }
         

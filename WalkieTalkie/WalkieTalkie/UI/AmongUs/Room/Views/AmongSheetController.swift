@@ -28,6 +28,13 @@ class AmongSheetController: ViewController {
         case adminUnmuteMic
         case adminKick
         case dmDeleteHistory
+        
+        case pronounNotShare = "0"
+        case pronounHe = "1"
+        case pronounShe = "2"
+        case pronounThey = "3"
+        case pronounOther = "4"
+        
     }
     
     enum UIStyleType {
@@ -170,7 +177,8 @@ extension AmongSheetController: Modalable {
 extension AmongSheetController.ItemType {
     var titleColor: UIColor {
         switch self {
-        case .profile, .follow, .drop, .dmDeleteHistory:
+        case .profile, .follow, .drop, .dmDeleteHistory,
+             .pronounShe, .pronounHe, .pronounThey, .pronounOther, .pronounNotShare:
             return .white
         case .block, .unblock, .mute, .unmute, .report, .kick, .adminKick, .adminMuteIm, .adminMuteMic, .adminUnmuteMic, .adminUnmuteIm:
             return "FB5858".color()
@@ -222,6 +230,16 @@ extension AmongSheetController.ItemType {
             return R.string.localizable.alertAdminUnmuteIm()
         case .dmDeleteHistory:
             return R.string.localizable.dmConversationDeleteHistory()
+        case .pronounShe:
+            return R.string.localizable.profilePronounSheHer()
+        case .pronounHe:
+            return R.string.localizable.profilePronounHeHim()
+        case .pronounThey:
+            return R.string.localizable.profilePronounTheyThem()
+        case .pronounOther:
+            return R.string.localizable.profilePronounOther()
+        case .pronounNotShare:
+            return R.string.localizable.profilePronounNotShare()
         default:
             return ""
         }

@@ -226,6 +226,8 @@
 		FE705538265273E200A489F4 /* NewVersionAlertController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE705536265273E200A489F4 /* NewVersionAlertController.xib */; };
 		FE70553B265398FD00A489F4 /* Social.AddStatsPendingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE705539265398FD00A489F4 /* Social.AddStatsPendingController.swift */; };
 		FE70553C265398FD00A489F4 /* AddStatsPendingController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE70553A265398FD00A489F4 /* AddStatsPendingController.xib */; };
+		FE70553E2654E77000A489F4 /* Social.BirthdaySelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE70553D2654E77000A489F4 /* Social.BirthdaySelectViewController.swift */; };
+		FE7055402654F96300A489F4 /* Constellation.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE70553F2654F96300A489F4 /* Constellation.swift */; };
 		FE72186F2456D696005274CA /* MJMaterialSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE72186E2456D696005274CA /* MJMaterialSwitch.swift */; };
 		FE7218712456D900005274CA /* FireMessaging.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE7218702456D8FF005274CA /* FireMessaging.swift */; };
 		FE7218752456DA36005274CA /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE7218742456DA36005274CA /* Extension.swift */; };
@@ -695,6 +697,8 @@
 		FE705536265273E200A489F4 /* NewVersionAlertController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewVersionAlertController.xib; sourceTree = "<group>"; };
 		FE705539265398FD00A489F4 /* Social.AddStatsPendingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Social.AddStatsPendingController.swift; sourceTree = "<group>"; };
 		FE70553A265398FD00A489F4 /* AddStatsPendingController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddStatsPendingController.xib; sourceTree = "<group>"; };
+		FE70553D2654E77000A489F4 /* Social.BirthdaySelectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Social.BirthdaySelectViewController.swift; sourceTree = "<group>"; };
+		FE70553F2654F96300A489F4 /* Constellation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constellation.swift; sourceTree = "<group>"; };
 		FE72186E2456D696005274CA /* MJMaterialSwitch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MJMaterialSwitch.swift; sourceTree = "<group>"; };
 		FE7218702456D8FF005274CA /* FireMessaging.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FireMessaging.swift; sourceTree = "<group>"; };
 		FE7218742456DA36005274CA /* Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
@@ -1112,6 +1116,7 @@
 			children = (
 				BDB8F58624F7D925000027F8 /* Social.swift */,
 				BDC06EEE24F51E780016770D /* Social.EditProfileViewController.swift */,
+				FE70553D2654E77000A489F4 /* Social.BirthdaySelectViewController.swift */,
 				2B51C881258B8ED700BAE937 /* Social.DatePickerView.swift */,
 				BDB8F58824F7DA46000027F8 /* Social.ProfileViewController.swift */,
 				2B956765259B3262001C7B91 /* Social.ProfileViewcontrollerExtension.swift */,
@@ -1344,6 +1349,7 @@
 				FE684878244BD45F00F87AF9 /* DateUtil.swift */,
 				FE68487F244BD72A00F87AF9 /* Settings.swift */,
 				FE2AF9EB244DC24300763747 /* AppConfig.swift */,
+				FE70553F2654F96300A489F4 /* Constellation.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -2274,6 +2280,7 @@
 				FE79F387258CDE6B00E9BC6C /* AmongSheetController.swift in Sources */,
 				26259B5D260A1A6400636E50 /* Social.AddStatsViewController.swift in Sources */,
 				FEA298CB25E63714001D5F3C /* SnapChatSharePhotoView.swift in Sources */,
+				FE7055402654F96300A489F4 /* Constellation.swift in Sources */,
 				26DBBF7626008C1B00A1B9BA /* Social.AgePromptModal.swift in Sources */,
 				2BA2DB462594AB320050BF8E /* Social.FollowerViewController.swift in Sources */,
 				FE8DEA66243DB09A0059C252 /* APIService.swift in Sources */,
@@ -2390,6 +2397,7 @@
 				FEC2A94925CAB637001B9556 /* StringSizeExtension.swift in Sources */,
 				FE2AF9E6244DB0F500763747 /* WebViewController.swift in Sources */,
 				26A3D2BA26366DDB00DD4F53 /* Notice.GroupRequestsListViewController.swift in Sources */,
+				FE70553E2654E77000A489F4 /* Social.BirthdaySelectViewController.swift in Sources */,
 				FEAD54DD2449C74F006454F6 /* Modal.Container.swift in Sources */,
 				26259B6B260B3E7400636E50 /* Social.ChooseGame.ViewModel.swift in Sources */,
 				26A3D2B626366D8500DD4F53 /* Notice.AllNoticeViewController.swift in Sources */,

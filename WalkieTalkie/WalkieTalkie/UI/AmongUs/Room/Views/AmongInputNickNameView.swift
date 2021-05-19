@@ -60,6 +60,10 @@ class AmongInputNickNameView: XibLoadableView {
         return textField.becomeFirstResponder()
     }
     
+    override var isFirstResponder: Bool {
+        textField.isFirstResponder
+    }
+    
     override func resignFirstResponder() -> Bool {
         return textField.resignFirstResponder()
     }

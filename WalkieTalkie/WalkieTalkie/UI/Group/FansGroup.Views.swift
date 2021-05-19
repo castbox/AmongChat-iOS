@@ -388,8 +388,8 @@ extension FansGroup.Views {
         }
         
         func textViewDidEndEditing(_ textView: UITextView) {
-            isEdtingRelay.accept(false)
             textView.text = textView.text.trim()
+            isEdtingRelay.accept(false)
         }
     }
     

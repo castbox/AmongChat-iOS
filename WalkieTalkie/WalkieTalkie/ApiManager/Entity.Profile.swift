@@ -76,6 +76,29 @@ extension Entity {
             case monitor
         }
         
+        enum Pronoun: Int {
+            case pronounNotShare = 0
+            case pronounHe
+            case pronounShe
+            case pronounThey
+            case pronounOther
+        }
+        
+        enum Constellation: String, Codable {
+            case aquarius = "Aquarius"
+            case pisces = "Pisces"
+            case aries = "Aries"
+            case taurus = "Taurus"
+            case gemini = "Gemini"
+            case cancer = "Cancer"
+            case leo = "Leo"
+            case virgo = "Virgo"
+            case libra = "Libra"
+            case scorpio = "Scorpio"
+            case sagittarius = "Sagittarius"
+            case capricorn = "Capricorn"
+        }
+        
         var uid: Int
         var googleAuthData: ThirdPartyAuthData?
         var appleAuthData: ThirdPartyAuthData?
@@ -85,6 +108,11 @@ extension Entity {
         var newGuide: Bool?
         var pictureUrlRaw: String?
         var birthday: String?
+        var countryCode: String? // 国家，如cn，us
+        var hideLocation: Bool? // true/false
+        var gender: Int? //   0-保密，1-男，2-女, 3-中性
+        var constellation: Constellation? // 星座，字符串，如Aries
+        var description: String? // 个人介绍
         var nameRoblox: String?
         var nameFortnite: String?
         var nameFreefire: String?
@@ -122,6 +150,10 @@ extension Entity {
             roleType == .monitor
         }
         
+        var pronoun: Pronoun {
+            Pronoun(rawValue: gender ?? 0) ?? .pronounNotShare
+        }
+        
         func hostNickname(for topicType: AmongChat.Topic) -> String? {
             switch topicType {
             case .fortnite:
@@ -157,6 +189,11 @@ extension Entity {
             case pictureUrlRaw = "picture_url_raw"
             case uid
             case birthday
+            case countryCode = "country_code"
+            case hideLocation = "hide_location"
+            case gender
+            case constellation
+            case description
             case isFollowed = "is_followed"
             case opTime = "op_time"
             case invited = "invited"
@@ -225,6 +262,54 @@ extension Entity {
         private enum CodingKeys: String, CodingKey {
             case list
             case more
+        }
+    }
+}
+
+extension Entity.UserProfile.Pronoun {
+    var title: String {
+        switch self {
+        case .pronounNotShare:
+            return R.string.localizable.profilePronounNotShare()
+        case .pronounHe:
+            return R.string.localizable.profilePronounHeHim()
+        case .pronounShe:
+            return R.string.localizable.profilePronounSheHer()
+        case .pronounThey:
+            return R.string.localizable.profilePronounTheyThem()
+        case .pronounOther:
+            return R.string.localizable.profilePronounOther()
+        }
+    }
+}
+
+extension Entity.UserProfile.Constellation {
+    var title: String {
+        switch self {
+        case .aquarius:
+            return R.string.localizable.profileConstellationAquarius()
+        case .pisces:
+            return R.string.localizable.profileConstellationPisces()
+        case .aries:
+            return R.string.localizable.profileConstellationAries()
+        case .taurus:
+            return R.string.localizable.profileConstellationTaurus()
+        case .gemini:
+            return R.string.localizable.profileConstellationGemini()
+        case .cancer:
+            return R.string.localizable.profileConstellationCancer()
+        case .leo:
+            return R.string.localizable.profileConstellationLeo()
+        case .virgo:
+            return R.string.localizable.profileConstellationVirgo()
+        case .libra:
+            return R.string.localizable.profileConstellationLibra()
+        case .scorpio:
+            return R.string.localizable.profileConstellationScorpio()
+        case .sagittarius:
+            return R.string.localizable.profileConstellationSagittarius()
+        case .capricorn:
+            return R.string.localizable.profileConstellationCapricorn()
         }
     }
 }
