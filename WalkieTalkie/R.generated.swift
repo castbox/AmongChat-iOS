@@ -232,7 +232,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 228 images.
+  /// This `R.image` struct is generated, and contains static references to 231 images.
   struct image {
     /// Image `ac_add_stats_add`.
     static let ac_add_stats_add = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_add_stats_add")
@@ -442,6 +442,8 @@ struct R: Rswift.Validatable {
     static let ac_pro_icon_22 = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_pro_icon_22")
     /// Image `ac_pro_icon_24`.
     static let ac_pro_icon_24 = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_pro_icon_24")
+    /// Image `ac_pro_icon_27`.
+    static let ac_pro_icon_27 = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_pro_icon_27")
     /// Image `ac_pro_icon_bg_40`.
     static let ac_pro_icon_bg_40 = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_pro_icon_bg_40")
     /// Image `ac_pro_privilege_badge`.
@@ -470,20 +472,22 @@ struct R: Rswift.Validatable {
     static let ac_profile_birthday = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_profile_birthday")
     /// Image `ac_profile_block`.
     static let ac_profile_block = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_profile_block")
-    /// Image `ac_profile_close_circle`.
-    static let ac_profile_close_circle = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_profile_close_circle")
     /// Image `ac_profile_close_down`.
     static let ac_profile_close_down = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_profile_close_down")
     /// Image `ac_profile_close`.
     static let ac_profile_close = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_profile_close")
     /// Image `ac_profile_communtiy`.
     static let ac_profile_communtiy = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_profile_communtiy")
+    /// Image `ac_profile_constellation_24`.
+    static let ac_profile_constellation_24 = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_profile_constellation_24")
     /// Image `ac_profile_delete_game_stats`.
     static let ac_profile_delete_game_stats = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_profile_delete_game_stats")
-    /// Image `ac_profile_edit`.
-    static let ac_profile_edit = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_profile_edit")
     /// Image `ac_profile_game`.
     static let ac_profile_game = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_profile_game")
+    /// Image `ac_profile_geo`.
+    static let ac_profile_geo = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_profile_geo")
+    /// Image `ac_profile_id`.
+    static let ac_profile_id = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_profile_id")
     /// Image `ac_profile_look_bg_defalut`.
     static let ac_profile_look_bg_defalut = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_profile_look_bg_defalut")
     /// Image `ac_profile_look_pet_shadow`.
@@ -494,6 +498,8 @@ struct R: Rswift.Validatable {
     static let ac_profile_look_skin_default = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_profile_look_skin_default")
     /// Image `ac_profile_more_icon`.
     static let ac_profile_more_icon = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_profile_more_icon")
+    /// Image `ac_profile_pro_next`.
+    static let ac_profile_pro_next = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_profile_pro_next")
     /// Image `ac_profile_pro`.
     static let ac_profile_pro = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_profile_pro")
     /// Image `ac_profile_setting`.
@@ -1211,6 +1217,11 @@ struct R: Rswift.Validatable {
       return UIKit.UIImage(resource: R.image.ac_pro_icon_24, compatibleWith: traitCollection)
     }
     
+    /// `UIImage(named: "ac_pro_icon_27", bundle: ..., traitCollection: ...)`
+    static func ac_pro_icon_27(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_pro_icon_27, compatibleWith: traitCollection)
+    }
+    
     /// `UIImage(named: "ac_pro_icon_bg_40", bundle: ..., traitCollection: ...)`
     static func ac_pro_icon_bg_40(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ac_pro_icon_bg_40, compatibleWith: traitCollection)
@@ -1286,11 +1297,6 @@ struct R: Rswift.Validatable {
       return UIKit.UIImage(resource: R.image.ac_profile_close, compatibleWith: traitCollection)
     }
     
-    /// `UIImage(named: "ac_profile_close_circle", bundle: ..., traitCollection: ...)`
-    static func ac_profile_close_circle(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.ac_profile_close_circle, compatibleWith: traitCollection)
-    }
-    
     /// `UIImage(named: "ac_profile_close_down", bundle: ..., traitCollection: ...)`
     static func ac_profile_close_down(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ac_profile_close_down, compatibleWith: traitCollection)
@@ -1301,19 +1307,29 @@ struct R: Rswift.Validatable {
       return UIKit.UIImage(resource: R.image.ac_profile_communtiy, compatibleWith: traitCollection)
     }
     
+    /// `UIImage(named: "ac_profile_constellation_24", bundle: ..., traitCollection: ...)`
+    static func ac_profile_constellation_24(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_profile_constellation_24, compatibleWith: traitCollection)
+    }
+    
     /// `UIImage(named: "ac_profile_delete_game_stats", bundle: ..., traitCollection: ...)`
     static func ac_profile_delete_game_stats(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ac_profile_delete_game_stats, compatibleWith: traitCollection)
     }
     
-    /// `UIImage(named: "ac_profile_edit", bundle: ..., traitCollection: ...)`
-    static func ac_profile_edit(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.ac_profile_edit, compatibleWith: traitCollection)
-    }
-    
     /// `UIImage(named: "ac_profile_game", bundle: ..., traitCollection: ...)`
     static func ac_profile_game(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ac_profile_game, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_profile_geo", bundle: ..., traitCollection: ...)`
+    static func ac_profile_geo(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_profile_geo, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_profile_id", bundle: ..., traitCollection: ...)`
+    static func ac_profile_id(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_profile_id, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "ac_profile_look_bg_defalut", bundle: ..., traitCollection: ...)`
@@ -1344,6 +1360,11 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "ac_profile_pro", bundle: ..., traitCollection: ...)`
     static func ac_profile_pro(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ac_profile_pro, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_profile_pro_next", bundle: ..., traitCollection: ...)`
+    static func ac_profile_pro_next(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_profile_pro_next, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "ac_profile_setting", bundle: ..., traitCollection: ...)`
