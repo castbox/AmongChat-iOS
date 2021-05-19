@@ -14,6 +14,29 @@ protocol Verifiedable {
     var isVip: Bool? { get set }
 }
 
+enum Constellation: String, Codable {
+    case aquarius = "Aquarius"
+    case pisces = "Pisces"
+    case aries = "Aries"
+    case taurus = "Taurus"
+    case gemini = "Gemini"
+    case cancer = "Cancer"
+    case leo = "Leo"
+    case virgo = "Virgo"
+    case libra = "Libra"
+    case scorpio = "Scorpio"
+    case sagittarius = "Sagittarius"
+    case capricorn = "Capricorn"
+}
+
+enum Pronoun: Int {
+    case pronounNotShare = 0
+    case pronounHe
+    case pronounShe
+    case pronounThey
+    case pronounOther
+}
+
 func attribuated(with name: String?, isVerified: Bool?, isVip: Bool?, fontSize: CGFloat = 16) -> NSAttributedString {
     let nameString = name ?? ""
     let fullString = NSMutableAttributedString(string: nameString)
@@ -74,29 +97,6 @@ extension Entity {
             case none = 0
             case admin
             case monitor
-        }
-        
-        enum Pronoun: Int {
-            case pronounNotShare = 0
-            case pronounHe
-            case pronounShe
-            case pronounThey
-            case pronounOther
-        }
-        
-        enum Constellation: String, Codable {
-            case aquarius = "Aquarius"
-            case pisces = "Pisces"
-            case aries = "Aries"
-            case taurus = "Taurus"
-            case gemini = "Gemini"
-            case cancer = "Cancer"
-            case leo = "Leo"
-            case virgo = "Virgo"
-            case libra = "Libra"
-            case scorpio = "Scorpio"
-            case sagittarius = "Sagittarius"
-            case capricorn = "Capricorn"
         }
         
         var uid: Int
@@ -266,7 +266,7 @@ extension Entity {
     }
 }
 
-extension Entity.UserProfile.Pronoun {
+extension Pronoun {
     var title: String {
         switch self {
         case .pronounNotShare:
@@ -283,7 +283,7 @@ extension Entity.UserProfile.Pronoun {
     }
 }
 
-extension Entity.UserProfile.Constellation {
+extension Constellation {
     var title: String {
         switch self {
         case .aquarius:

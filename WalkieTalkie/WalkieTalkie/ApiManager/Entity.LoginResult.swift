@@ -149,11 +149,11 @@ extension Entity {
         var countryCode: String? // 国家，如cn，us
         var hideLocation: Bool? // true/false
         var gender: Int? //   0-保密，1-男，2-女, 3-中性
-        var constellation: Entity.UserProfile.Constellation? // 星座，字符串，如Aries
+        var constellation: Constellation? // 星座，字符串，如Aries
         var description: String? // 个人介绍
         
-        var pronoun: Entity.UserProfile.Pronoun {
-            Entity.UserProfile.Pronoun(rawValue: gender ?? 0) ?? .pronounNotShare
+        var pronoun: Pronoun {
+            Pronoun(rawValue: gender ?? 0) ?? .pronounNotShare
         }
         
         init(birthday: String? = nil,
@@ -163,7 +163,7 @@ extension Entity {
              countryCode: String? = nil,
              hideLocation: Bool? = nil,
              gender: Int? = nil,
-             constellation: Entity.UserProfile.Constellation? = nil,
+             constellation: Constellation? = nil,
              description: String? = nil) {
             
             self.birthday = birthday
