@@ -94,15 +94,10 @@ extension AmongInputNickNameView: UITextFieldDelegate {
     // MARK: - UITextFieldDelegate
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-//        inputContainerView.isHidden = true
-//        isHidden = true
         fadeOut(duration: 0.25, completion: nil)
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
-//        inputContainerView.isHidden = false
-//        isHidden = false
-//        alpha = 1
         fadeIn(duration: 0.25, completion: nil)
     }
         

@@ -190,7 +190,7 @@ extension Social.EditProfileViewController {
             return profileProto.pronoun.title
         }
         
-        var options: [Option] = [
+        let options: [Option] = [
             Option(type: .nickname, rightText: profileProto.name ?? profile.name, selectionHandler: { [weak self] in
                 Logger.Action.log(.profile_nikename_clk, category: nil)
                 _ = self?.userInputView.becomeFirstResponder(with: nil)
@@ -202,7 +202,7 @@ extension Social.EditProfileViewController {
             Option(type: .pronoun, rightText: pronounString, selectionHandler: { [weak self] in
                 self?.showPronounSheet()
             }),
-            Option(type: .location, rightText: (profileProto.hideLocation ?? profile.hideLocation)?.int.string,  selectionHandler: { [weak self] in
+            Option(type: .location, rightText: (profileProto.hideLocation ?? profile.hideLocation)?.int.string,  selectionHandler: { 
 //                self?.shareApp()
             }),
         ]
