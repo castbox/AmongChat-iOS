@@ -17,9 +17,7 @@ extension FansGroup.GroupInfoViewController {
     class GroupHeaderView: UIView {
         
         private let bag = DisposeBag()
-        
-        private let descriptionLength = 130
-        
+                
         private let coverTop: CGFloat = Frame.Height.safeAeraTopHeight + 49 + 24
         private let coverSize = CGSize(width: 97, height: 97)
         private let nameTop = CGFloat(12)
@@ -48,22 +46,14 @@ extension FansGroup.GroupInfoViewController {
             return l
         }()
         
-        private lazy var descriptionLabel: YYLabel = {
-            let l = YYLabel()
+        private lazy var descriptionLabel: ExpandableLabel = {
+            let l = ExpandableLabel()
             l.font = R.font.nunitoBold(size: 14)
             l.textColor = UIColor(hex6: 0xFFFFFF, alpha: 0.65)
             l.numberOfLines = 0
             return l
         }()
-        
-        private lazy var expandBtn: UIButton = {
-            let btn = SmallSizeButton(type: .custom)
-            btn.setTitle(R.string.localizable.amongChatGroupInfoExpand(), for: .normal)
-            btn.setTitleColor(.white, for: .normal)
-            btn.titleLabel?.font = R.font.nunitoBold(size: 14)
-            return btn
-        }()
-        
+                
         private lazy var leaveView: UIView = {
             let v = UIView()
             
@@ -94,13 +84,15 @@ extension FansGroup.GroupInfoViewController {
             v.isHidden = true
             return v
         }()
-        
-        private var expanded = false
-        
+                
         private var groupInfo: FansGroup.GroupInfoViewController.GroupViewModel? = nil
         
         var leaveHandler: (() -> Void)? = nil
-        var expandedHandler: (() -> Void)? = nil
+        var expandedHandler: (() -> Void)? = nil {
+            didSet {
+                descriptionLabel.expandedHandler = expandedHandler
+            }
+        }
         var editHandler: (() -> Void)? = nil
         
         override init(frame: CGRect) {
@@ -117,7 +109,7 @@ extension FansGroup.GroupInfoViewController {
             
             backgroundColor = .clear
             
-            addSubviews(views: topBg, leaveView, coverView, nameLabel, descriptionLabel, expandBtn)
+            addSubviews(views: topBg, leaveView, coverView, nameLabel, descriptionLabel)
             
             topBg.snp.makeConstraints { (maker) in
                 maker.leading.trailing.equalToSuperview()
@@ -156,16 +148,6 @@ extension FansGroup.GroupInfoViewController {
             coverView.coverRelay.bind(to: topBg.coverRelay)
                 .disposed(by: bag)
             
-            descriptionLabel.rx.observe(String.self, "text")
-                .subscribe(onNext: { [weak self] (image) in
-                    
-                    guard let `self` = self,
-                          self.expanded else { return }
-                    
-                    
-                })
-                .disposed(by: bag)
-            
         }
         
         func enlargeTopGbHeight(extraHeight: CGFloat) {
@@ -191,7 +173,7 @@ extension FansGroup.GroupInfoViewController {
             }
             
             nameLabel.text = viewModel.name
-            updateDescriptionText()
+            descriptionLabel.wholeString = groupInfo?.description
             
             switch groupInfo?.userStatus {
             case .memeber:
@@ -209,11 +191,7 @@ extension FansGroup.GroupInfoViewController {
         
         var viewSize: CGSize {
             
-            var descHeight: CGFloat = 0
-            if let text = descriptionLabel.attributedText,
-               let textSize = YYTextLayout(containerSize: CGSize(width: bounds.width - namePadding * 2, height: .greatestFiniteMagnitude), text: text)?.textBoundingSize {
-                descHeight = textSize.height.ceil
-            }
+            let descHeight: CGFloat = descriptionLabel.textHeight
             
             var height = coverTop + coverSize.height + nameTop + nameHeight + descTop + descHeight + descBottom + leaveViewBottomSpace
             
@@ -227,35 +205,64 @@ extension FansGroup.GroupInfoViewController {
             return CGSize(width: bounds.width, height: height)
         }
         
-        private func updateDescriptionText() {
+    }
+    
+}
+
+extension FansGroup.GroupInfoViewController {
+    
+    class ExpandableLabel: YYLabel {
+        
+        private var expanded = false
+        private let shortenLength = 130
+        var expandedHandler: (() -> Void)? = nil
+        
+        var wholeString: String? = nil {
+            didSet {
+                updateText()
+            }
+        }
+        
+        var textHeight: CGFloat {
+            
+            var textHeight: CGFloat = 0
+            if let text = attributedText,
+               let textSize = YYTextLayout(containerSize: CGSize(width: bounds.width, height: .greatestFiniteMagnitude), text: text)?.textBoundingSize {
+                textHeight = textSize.height.ceil
+            }
+            
+            return textHeight
+        }
+        
+        private func updateText() {
             
             guard !expanded,
-                  groupInfo?.description?.count ?? 0 > descriptionLength else {
-                descriptionLabel.attributedText = NSMutableAttributedString(string: String(groupInfo?.description ?? ""),
-                                                                            attributes: [
-                                                                                .font : descriptionLabel.font,
-                                                                                .foregroundColor: descriptionLabel.textColor
-                                                                            ])
+                  wholeString?.count ?? 0 > shortenLength else {
+                attributedText = NSMutableAttributedString(string: String(wholeString ?? ""),
+                                                           attributes: [
+                                                            .font : font,
+                                                            .foregroundColor: textColor
+                                                           ])
                 return
             }
             
             let moreAtt = NSAttributedString(string: " " + R.string.localizable.amongChatGroupInfoExpand(),
                                              attributes: [
-                                                .font : descriptionLabel.font,
+                                                .font : font,
                                                 .foregroundColor : UIColor.white
                                              ])
             
-            let descAtt = NSMutableAttributedString(string: String(groupInfo?.description?.prefix(descriptionLength) ?? ""),
+            let descAtt = NSMutableAttributedString(string: String(wholeString?.prefix(shortenLength) ?? ""),
                                                     attributes: [
-                                                        .font : descriptionLabel.font,
-                                                        .foregroundColor: descriptionLabel.textColor
-            ])
+                                                        .font : font,
+                                                        .foregroundColor: textColor
+                                                    ])
             
             descAtt.append(moreAtt)
             
-            descriptionLabel.attributedText = descAtt
-                        
-            descriptionLabel.textTapAction = { [weak self] (containerView: UIView, text: NSAttributedString, range: NSRange, rect: CGRect) -> Void in
+            attributedText = descAtt
+            
+            textTapAction = { [weak self] (containerView: UIView, text: NSAttributedString, range: NSRange, rect: CGRect) -> Void in
                 
                 guard let moreAttRange = descAtt.string.nsRange(of: moreAtt.string) else {
                     return
@@ -263,13 +270,13 @@ extension FansGroup.GroupInfoViewController {
                 
                 if NSIntersectionRange(range, moreAttRange).length > 0 {
                     self?.expanded = true
-                    self?.updateDescriptionText()
+                    self?.updateText()
                     self?.expandedHandler?()
                 }
             }
-
             
         }
+        
         
     }
     
