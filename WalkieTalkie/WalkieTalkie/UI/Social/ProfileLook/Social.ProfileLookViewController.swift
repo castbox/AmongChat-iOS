@@ -18,13 +18,36 @@ extension Social {
             return .customize
         }
         
+        private lazy var saveButton: UIButton = {
+            let btn = UIButton(type: .custom)
+            btn.backgroundColor = UIColor(hex6: 0xFFF000)
+            btn.layer.cornerRadius = 16
+            btn.clipsToBounds = true
+            btn.setTitleColor(.black, for: .normal)
+            btn.titleLabel?.font = R.font.nunitoExtraBold(size: 16)
+            btn.setTitle(R.string.localizable.profileEditSaveBtn(), for: .normal)
+            btn.contentEdgeInsets = UIEdgeInsets(top: 0, left: 17, bottom: 0, right: 17)
+            btn.rx.controlEvent(.primaryActionTriggered)
+                .subscribe(onNext: { [weak self] (_) in
+                    self?.saveAsAvatar()
+                })
+                .disposed(by: bag)
+            return btn
+        }()
+        
         private lazy var navView: NavigationBar = {
             let n = NavigationBar()
             let btn = n.leftBtn
             btn.addTarget(self, action: #selector(onBackBtn), for: .primaryActionTriggered)
             btn.setImage(R.image.ac_profile_back(), for: .normal)
             let lb = n.titleLabel
-            lb.text = R.string.localizable.amongChatProfileCustomize()
+            lb.text = R.string.localizable.amongChatProfileAvatar()
+            n.addSubview(saveButton)
+            saveButton.snp.makeConstraints { (maker) in
+                maker.trailing.equalToSuperview().inset(Frame.horizontalBleedWidth)
+                maker.centerY.equalToSuperview()
+                maker.height.equalTo(32)
+            }
             return n
         }()
         
@@ -421,6 +444,44 @@ private extension Social.ProfileLookViewController {
         
     }
     
+    func saveAsAvatar() {
+        guard let image = profileLookView.saveLookAsAvatar() else {
+            return
+        }
+        
+        let hudRemoval = self.view.raft.show(.loading)
+        
+        uploadImage(image: image)
+            .flatMap { self.useAvatar($0) }
+            .subscribe(onSuccess: { (_) in
+                hudRemoval()
+            }, onError: { (error) in
+                hudRemoval()
+            })
+            .disposed(by: bag)
+        
+    }
+    
+    private func uploadImage(image: UIImage) -> Single<(String, UIImage)> {
+        return Request.uploadPng(image: image)
+            .map { ($0, image) }
+    }
+    
+    private func useAvatar(_ avatarTuple: (String, UIImage)) -> Single<Entity.UserProfile> {
+        let profileProto = Entity.ProfileProto(birthday: nil, name: nil, pictureUrl: avatarTuple.0)
+        return Request.updateProfile(profileProto)
+            .map({ (p) -> Entity.UserProfile in
+                guard let profile = p else {
+                    throw MsgError.default
+                }
+                
+                return profile
+            })
+            .do(onSuccess: { (_) in
+                AvatarImageView.placeholder = avatarTuple.1
+            })
+    }
+
 }
 
 extension Social.ProfileLookViewController: UIScrollViewDelegate {

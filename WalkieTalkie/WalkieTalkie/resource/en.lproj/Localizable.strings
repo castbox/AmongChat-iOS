@@ -304,6 +304,8 @@
 
 //1.13
 "among.chat.profile.customize" = "Customize";
+"among.chat.profile.avatar" = "Avatar";
+"among.chat.profile.image" = "Image";
 "among.chat.profile.skin" = "Skin";
 "among.chat.profile.bg" = "BG";
 "among.chat.profile.Hat" = "Hat";

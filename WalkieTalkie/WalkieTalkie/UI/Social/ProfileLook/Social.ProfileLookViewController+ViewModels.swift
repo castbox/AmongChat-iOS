@@ -18,6 +18,14 @@ extension Social.ProfileLookViewController {
         init(dataModel: Entity.DecorationEntity, decorationType: Entity.DecorationCategory.DecorationType) {
             self.decoration = dataModel
             self.decorationType = decorationType
+            self.suit = decoration.decoList?.compactMap({
+                guard let decorationType = Entity.DecorationCategory.DecorationType.init(rawValue: $0.decoType) else {
+                    return nil
+                }
+                let decoVM = DecorationViewModel(dataModel: $0, decorationType: decorationType)
+                decoVM.selected = true
+                return decoVM
+            }) ?? []
         }
         
         var thumbUrl: String? {
@@ -26,15 +34,17 @@ extension Social.ProfileLookViewController {
                 return decoration.url
             case .hat:
                 return decoration.listUrl
+            case .suit:
+                return nil
             }
         }
         
-        var lookUrl: String {
+        var lookUrl: String? {
             return decoration.url
         }
         
         var locked: Bool {
-            return decoration.lock
+            return decoration.lock ?? false
         }
         
         var iapProduct: IAP.Product? {
@@ -55,9 +65,11 @@ extension Social.ProfileLookViewController {
             }
             
             get {
-                return decoration.selected
+                return decoration.selected ?? false
             }
         }
+        
+        var suit: [DecorationViewModel]
         
         func unlock() {
             decoration.lock = false
@@ -85,6 +97,8 @@ extension Social.ProfileLookViewController {
         
         var name: String {
             switch decorationType {
+            case .suit:
+                return R.string.localizable.amongChatProfileImage()
             case .skin:
                 return R.string.localizable.amongChatProfileSkin()
             case .bg:

@@ -394,16 +394,17 @@ extension Entity {
     struct DecorationEntity : Codable {
         
         var id: Int
-        var url: String
+        var url: String?
         var listUrl: String?
         var sayUrl: String?
-        var lock: Bool
+        var lock: Bool?
         var unlockType: Entity.DefaultAvatar.UnlockType?
         var iapKey: String?
         var decoType: String
         var product: DecorationProduct?
-        var selected: Bool
-                
+        var selected: Bool?
+        var decoList: [DecorationEntity]?
+        
         private enum CodingKeys: String, CodingKey {
             case id
             case url
@@ -415,6 +416,7 @@ extension Entity {
             case decoType = "deco_type"
             case product
             case selected
+            case decoList = "deco_list"
         }
         
     }
@@ -455,7 +457,7 @@ extension Entity {
 extension Entity.DecorationCategory {
     
     enum DecorationType: String, Codable {
-        case skin, bg, pet, hat        
+        case skin, bg, pet, hat, suit
     }
     
 }
