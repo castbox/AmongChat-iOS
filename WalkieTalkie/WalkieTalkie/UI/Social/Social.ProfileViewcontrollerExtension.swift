@@ -343,7 +343,7 @@ extension Social.ProfileViewController {
             if !isSelf {
                 navView.addSubview(moreBtn)
                 moreBtn.snp.makeConstraints { (make) in
-                    make.right.equalTo(Frame.horizontalBleedWidth)
+                    make.right.equalTo(-Frame.horizontalBleedWidth)
                     make.centerY.equalToSuperview()
                 }
                 loginButton.isHidden = true

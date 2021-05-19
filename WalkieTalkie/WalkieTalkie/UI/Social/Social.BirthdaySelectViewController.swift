@@ -50,8 +50,8 @@ extension Social {
             btn.contentEdgeInsets = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
             return btn
         }()
-        
-        var onCompletion: ((String) -> Void)? = nil
+                
+        var onCompletion: ((String, Constellation?) -> Void)? = nil
         
         override func viewDidAppear(_ animated: Bool) {
             super.viewDidAppear(animated)
@@ -112,8 +112,9 @@ extension Social {
             } else {
                 birthdayStr = "20050101"
             }
+            let constellation = df.date(from: birthdayStr)?.constellation()
             dismissModal(animated: true) { [weak self] in
-                self?.onCompletion?(birthdayStr)
+                self?.onCompletion?(birthdayStr, constellation)
             }
         }
         
@@ -125,6 +126,7 @@ extension Social {
             let age = ageComponents.year!
             //
             titleLabel.text = R.string.localizable.changeOldTitle(age.string)
+            constellationLabel.text = "⭐️ " + (birthday.constellation()?.title ?? "")
         }
     }
 }

@@ -87,6 +87,7 @@ extension Social {
             super.viewDidLoad()
             setupLayout()
             setupData()
+            
         }
         
         override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -265,7 +266,17 @@ extension Social.EditProfileViewController {
         userInputView.inputResultHandler = { [weak self](text) in
             guard let `self` = self else { return }
             self.profileProto.name = text
+            IQKeyboardManager.shared.enable = true
         }
+        
+        Observable.merge([
+            userInputView.textField.rx.controlEvent(.editingDidBegin).map { false },
+            userInputView.textField.rx.controlEvent(.editingDidEnd).map { true }
+        ])
+        .subscribe(onNext: { enable in
+            IQKeyboardManager.shared.enable = enable
+        })
+        .disposed(by: bag)
         
         RxKeyboard.instance.visibleHeight
             .drive(onNext: { [weak self] (height) in
@@ -317,11 +328,12 @@ extension Social.EditProfileViewController {
     
     func selectBirthday() {
         let vc = Social.BirthdaySelectViewController()
-        vc.onCompletion = { [weak self] (birthdayStr) in
+        vc.onCompletion = { [weak self] (birthdayStr, constellation) in
             guard let `self` = self else {
                 return
             }
             self.profileProto.birthday = birthdayStr
+            self.profileProto.constellation = constellation
         }
         vc.showModal(in: self)
         
