@@ -187,6 +187,7 @@ private extension Social.ProfileLookViewController {
         rx.viewDidAppear
             .take(1)
             .subscribe(onNext: { () in
+                Settings.shared.amongChatAvatarListShown.value = Date().timeIntervalSince1970
                 Logger.Action.log(.profile_customize_imp)
             })
             .disposed(by: bag)

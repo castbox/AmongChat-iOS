@@ -121,7 +121,7 @@ extension Entity {
 extension Entity.GlobalSetting.KeyValue {
     
     enum KeyType: String {
-        case avatar
+        case avatar = "decoration"
     }
     
 }
