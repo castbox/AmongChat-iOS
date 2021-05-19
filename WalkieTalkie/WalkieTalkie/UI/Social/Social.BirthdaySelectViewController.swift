@@ -42,7 +42,7 @@ extension Social {
             let btn = UIButton(type: .custom)
             btn.titleLabel?.font = R.font.nunitoExtraBold(size: 16)
             btn.addTarget(self, action: #selector(onConfirmBtn), for: .primaryActionTriggered)
-            btn.setTitle(R.string.localizable.profileEditSaveBtn(), for: .normal)
+            btn.setTitle(R.string.localizable.profileDone(), for: .normal)
             btn.setTitleColor(.black, for: .normal)
             btn.backgroundColor = UIColor(hex6: 0xFFF000)
             btn.layer.masksToBounds = true
