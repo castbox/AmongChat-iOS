@@ -182,11 +182,12 @@ class PremiumViewController: ViewController {
                 R.string.localizable.amongChatProPrivilegeAvatars(),
                 R.string.localizable.amongChatProPrivilegeAvatarsSub()
             ),
-            (
-                R.image.ac_pro_privilege_upload_avatar(),
-                R.string.localizable.amongChatProPrivilegeCustomAvatars(),
-                R.string.localizable.amongChatProPrivilegeCustomAvatarsSub()
-            )]
+//            (
+//                R.image.ac_pro_privilege_upload_avatar(),
+//                R.string.localizable.amongChatProPrivilegeCustomAvatars(),
+//                R.string.localizable.amongChatProPrivilegeCustomAvatarsSub()
+//            )
+            ]
         ]
         
         let viewSections: [[PrivilegeView]] = viewModelSections.map({ (viewModels) in

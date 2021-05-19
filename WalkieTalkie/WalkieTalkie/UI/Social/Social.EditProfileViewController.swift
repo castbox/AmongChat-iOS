@@ -269,6 +269,13 @@ extension Social.EditProfileViewController {
             IQKeyboardManager.shared.enable = true
         }
         
+        headerView.avatarIV.rx.tapGesture()
+            .when(.recognized)
+            .subscribe(onNext: { [weak self] _ in
+                self?.onAvatarTapped()
+            })
+            .disposed(by: bag)
+        
         Observable.merge([
             userInputView.textField.rx.controlEvent(.editingDidBegin).map { false },
             userInputView.textField.rx.controlEvent(.editingDidEnd).map { true }
@@ -405,13 +412,7 @@ extension Social.EditProfileViewController {
     class TableHeaderView: UIView {
         lazy var avatarIV: AvatarImageView = {
             let iv = AvatarImageView()
-            let tapGR = UITapGestureRecognizer()
-            tapGR.addTarget(self, action: #selector(onAvatarTapped))
             iv.isUserInteractionEnabled = true
-            iv.addGestureRecognizer(tapGR)
-//            if Config.environment == .debug {
-//                iv.backgroundColor = UIColor(hex6: 0x0EC099, alpha: 1.0)
-//            }
             return iv
         }()
         
