@@ -408,7 +408,7 @@ extension Social.ProfileViewController {
                 addSubview(changeIcon)
                 changeIcon.snp.makeConstraints { (maker) in
                     maker.bottom.equalTo(avatarIV)
-                    maker.trailing.equalTo(avatarIV).offset(4)
+                    maker.trailing.equalTo(avatarIV).offset(-4)
                     maker.width.height.equalTo(24)
                 }
                 
