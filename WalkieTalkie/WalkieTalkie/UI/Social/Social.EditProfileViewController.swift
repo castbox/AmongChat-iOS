@@ -193,7 +193,7 @@ extension Social.EditProfileViewController {
         let options: [Option] = [
             Option(type: .nickname, rightText: profileProto.name ?? profile.name, selectionHandler: { [weak self] in
                 Logger.Action.log(.profile_nikename_clk, category: nil)
-                _ = self?.userInputView.becomeFirstResponder(with: nil)
+                _ = self?.userInputView.becomeFirstResponder(with: self?.profileProto.name ?? self?.profile.name)
             }),
             Option(type: .birthday, rightText: birthday, selectionHandler: { [weak self] in
                 Logger.Action.log(.profile_birthday_clk, category: nil)
@@ -238,7 +238,6 @@ extension Social.EditProfileViewController {
         tableView.reloadData()
         
         view.addSubview(userInputView)
-        userInputView.usedInRoom = false
         userInputView.alpha = 0
         userInputView.snp.makeConstraints { (make) in
             make.left.right.top.bottom.equalToSuperview()
@@ -384,6 +383,10 @@ extension Social.EditProfileViewController {
     
     func updateProfileIfNeeded() {
         view.endEditing(true)
+        //
+        guard !footerView.descriptionView.inputTextView.isFirstResponder else {
+            return
+        }
         let profileProto = self.profileProto
         let hudRemoval = view.raft.show(.loading, userInteractionEnabled: false)
         Request.updateProfile(profileProto)
@@ -391,14 +394,11 @@ extension Social.EditProfileViewController {
                 hudRemoval()
             })
             .subscribe(onSuccess: { [weak self] (profile) in
-                guard let p = profile else {
-                    //show save error
-                    self?.view.raft.autoShow(.text(R.string.localizable.contentContainSensitiveWords()))
-                    return
-                }
-                Settings.shared.amongChatUserProfile.value = p
-                if let birthdayStr = profileProto.birthday {
-                    Logger.Action.log(.profile_birthday_update_success, category: nil, birthdayStr)
+                if let p = profile {
+                    Settings.shared.amongChatUserProfile.value = p
+                    if let birthdayStr = profileProto.birthday {
+                        Logger.Action.log(.profile_birthday_update_success, category: nil, birthdayStr)
+                    }
                 }
                 self?.navigationController?.popViewController()
             }, onError: { (error) in
@@ -441,7 +441,8 @@ extension Social.EditProfileViewController {
             }
 
             randomIconIV.snp.makeConstraints { (maker) in
-                maker.right.bottom.equalTo(avatarIV)
+                maker.bottom.equalTo(avatarIV)
+                maker.trailing.equalTo(avatarIV.snp.trailing).offset(-4)
                 maker.width.height.equalTo(24)
             }
         }
@@ -539,6 +540,7 @@ extension Social.EditProfileViewController {
         override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
             super.init(style: style, reuseIdentifier: reuseIdentifier)
             setupLayout()
+            bindSubviewEvent()
         }
         
         required init?(coder: NSCoder) {
@@ -570,6 +572,7 @@ extension Social.EditProfileViewController {
             
             rightLabel.snp.makeConstraints { (maker) in
                 maker.centerY.equalToSuperview()
+                maker.leading.greaterThanOrEqualTo(leftLabel.snp.trailing).offset(16)
                 maker.trailing.equalTo(rightIcon.snp.leading).offset(-8)
             }
             

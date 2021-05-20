@@ -270,7 +270,8 @@ extension Pronoun {
     var title: String {
         switch self {
         case .pronounNotShare:
-            return R.string.localizable.profilePronounNotShare()
+//            return R.string.localizable.profilePronounNotShare()
+            return ""
         case .pronounHe:
             return R.string.localizable.profilePronounHeHim()
         case .pronounShe:

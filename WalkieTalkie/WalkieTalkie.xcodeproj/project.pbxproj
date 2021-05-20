@@ -1117,12 +1117,12 @@
 			isa = PBXGroup;
 			children = (
 				BDB8F58624F7D925000027F8 /* Social.swift */,
-				BDC06EEE24F51E780016770D /* Social.EditProfileViewController.swift */,
-				FE70553D2654E77000A489F4 /* Social.BirthdaySelectViewController.swift */,
-				2B51C881258B8ED700BAE937 /* Social.DatePickerView.swift */,
 				BDB8F58824F7DA46000027F8 /* Social.ProfileViewController.swift */,
 				2B956765259B3262001C7B91 /* Social.ProfileViewcontrollerExtension.swift */,
 				26EE8AC72654C2F900B75D8A /* Social.ProfileViewController.ProfileView.swift */,
+				BDC06EEE24F51E780016770D /* Social.EditProfileViewController.swift */,
+				FE70553D2654E77000A489F4 /* Social.BirthdaySelectViewController.swift */,
+				2B51C881258B8ED700BAE937 /* Social.DatePickerView.swift */,
 				BD95F2DB2591C73B003BE2FE /* Social.SelectAvatarViewController.swift */,
 				2B51C893258C6EC700BAE937 /* Social.BirthdaySetViewController.swift */,
 				FEC10DCD25C0340A0014F8DD /* Social.ContactListViewController.swift */,
