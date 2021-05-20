@@ -98,8 +98,8 @@ class AdsManager: NSObject {
                 RewardedVideoPosition.allCases.forEach {
                     self?.requestRewardVideoIfNeed(adUnitId: Self.rewardedVideoAdUnitId(of: $0))
                 }
-                self?.requestRewardVideoIfNeed(adUnitId: Self.rewardedVideoAdUnitId(of: .unlockAvatar))
-//                Ad.InterstitialManager.shared.loadAd()
+//                self?.requestRewardVideoIfNeed(adUnitId: Self.rewardedVideoAdUnitId(of: .unlockAvatar))
+                //                Ad.InterstitialManager.shared.loadAd()
             }
         }
         
