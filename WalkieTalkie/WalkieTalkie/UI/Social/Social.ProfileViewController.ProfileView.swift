@@ -698,7 +698,7 @@ extension Social.ProfileViewController.ProfileView {
         
         private func setUpLayout() {
             
-            backgroundColor = UIColor(hex6: 0x222222)
+            backgroundColor = UIColor(hex6: 0xFFFFFF, alpha: 0.12)
             clipsToBounds = true
             
             addSubviews(views: icon, label)
