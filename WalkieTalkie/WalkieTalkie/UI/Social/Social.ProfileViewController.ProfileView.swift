@@ -155,9 +155,9 @@ extension Social.ProfileViewController {
         
         private typealias ExpandableLabel = FansGroup.GroupInfoViewController.ExpandableLabel
         private lazy var descriptionLabel: ExpandableLabel = {
-            let l = ExpandableLabel()
-            l.font = R.font.nunitoBold(size: 14)
-            l.textColor = UIColor(hex6: 0xFFFFFF, alpha: 0.65)
+            let l = ExpandableLabel(contentTextFont: R.font.nunitoBold(size: 16) ?? UIFont.systemFont(ofSize: 16, weight: .bold),
+                                    contentTextColor: UIColor(hex6: 0xFFFFFF, alpha: 0.6),
+                                    expandTextFont: R.font.nunitoBold(size: 16) ?? UIFont.systemFont(ofSize: 16, weight: .bold))
             l.numberOfLines = 0
             l.expandedHandler = { [weak self] in
                 self?.headerHandle?(.heightUpdated)
