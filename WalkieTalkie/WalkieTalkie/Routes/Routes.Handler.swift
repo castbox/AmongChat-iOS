@@ -126,7 +126,7 @@ extension Routes {
         }
         
         func handleAvatars() {
-            let vc = Social.SelectAvatarViewController()
+            let vc = Social.ProfileLookViewController()
             UIApplication.navigationController?.pushViewController(vc)
         }
         

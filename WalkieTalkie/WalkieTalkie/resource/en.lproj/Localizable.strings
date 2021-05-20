@@ -535,7 +535,7 @@
 "app.new.version.alert.content" = "Update to the latest version and help spread the word.";
 "app.new.version.alert.update" = "Update";
 
-//5.18
+//1.21
 "stats.pending.review" = "Pending Review";
 "stats.review.in.process" = "Review in Process…";
 "stats.review.game.state" = "Your %@ Gaming Stats have been uploaded successfully and are pending review. Valid Gaming Stats will be approved within 24 hours and become publicly viewable.";
