@@ -2553,8 +2553,8 @@ struct R: Rswift.Validatable {
       static let monthApr = Rswift.StringResource(key: "month.apr", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Aquarius
       /// 
-      /// Locales: en
-      static let profileConstellationAquarius = Rswift.StringResource(key: "profile.constellation.aquarius", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let profileConstellationAquarius = Rswift.StringResource(key: "profile.constellation.aquarius", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Are you sure to  unblock this person
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2589,8 +2589,8 @@ struct R: Rswift.Validatable {
       static let dmDeleteConversationAlertTitle = Rswift.StringResource(key: "dm.delete.conversation.alert.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Aries
       /// 
-      /// Locales: en
-      static let profileConstellationAries = Rswift.StringResource(key: "profile.constellation.aries", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let profileConstellationAries = Rswift.StringResource(key: "profile.constellation.aries", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Asia
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2601,8 +2601,8 @@ struct R: Rswift.Validatable {
       static let monthAug = Rswift.StringResource(key: "month.aug", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Avatar
       /// 
-      /// Locales: en
-      static let amongChatProfileAvatar = Rswift.StringResource(key: "among.chat.profile.avatar", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let amongChatProfileAvatar = Rswift.StringResource(key: "among.chat.profile.avatar", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: BG
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2625,8 +2625,8 @@ struct R: Rswift.Validatable {
       static let amongChatGroupGetVerfied = Rswift.StringResource(key: "among.chat.group.get.verfied", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Bio
       /// 
-      /// Locales: en
-      static let profileBio = Rswift.StringResource(key: "profile.bio", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let profileBio = Rswift.StringResource(key: "profile.bio", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Birthday
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2673,12 +2673,12 @@ struct R: Rswift.Validatable {
       static let amongChatAudioRecordingCanceled = Rswift.StringResource(key: "among.chat.audio.recording.canceled", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Cancer
       /// 
-      /// Locales: en
-      static let profileConstellationCancer = Rswift.StringResource(key: "profile.constellation.cancer", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let profileConstellationCancer = Rswift.StringResource(key: "profile.constellation.cancer", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Capricorn
       /// 
-      /// Locales: en
-      static let profileConstellationCapricorn = Rswift.StringResource(key: "profile.constellation.capricorn", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let profileConstellationCapricorn = Rswift.StringResource(key: "profile.constellation.capricorn", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Channel ID
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2897,8 +2897,8 @@ struct R: Rswift.Validatable {
       static let groupItemEdit = Rswift.StringResource(key: "group.item.edit", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Edit Profile
       /// 
-      /// Locales: en
-      static let profileEditTitle = Rswift.StringResource(key: "profile.edit.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let profileEditTitle = Rswift.StringResource(key: "profile.edit.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Enable
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3041,8 +3041,8 @@ struct R: Rswift.Validatable {
       static let amongChatProfileGameStats = Rswift.StringResource(key: "among.chat.profile.game.stats", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Gemini
       /// 
-      /// Locales: en
-      static let profileConstellationGemini = Rswift.StringResource(key: "profile.constellation.gemini", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let profileConstellationGemini = Rswift.StringResource(key: "profile.constellation.gemini", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Get Verified
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3133,8 +3133,8 @@ struct R: Rswift.Validatable {
       static let socialShareUrl = Rswift.StringResource(key: "social.share.url", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Hide My Location
       /// 
-      /// Locales: en
-      static let profileHideLocation = Rswift.StringResource(key: "profile.hide.location", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let profileHideLocation = Rswift.StringResource(key: "profile.hide.location", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Hold to talk
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3185,8 +3185,8 @@ struct R: Rswift.Validatable {
       static let groupRoomIgnore = Rswift.StringResource(key: "group.room.ignore", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Image
       /// 
-      /// Locales: en
-      static let amongChatProfileImage = Rswift.StringResource(key: "among.chat.profile.image", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let amongChatProfileImage = Rswift.StringResource(key: "among.chat.profile.image", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: In %@ Channel
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3277,12 +3277,12 @@ struct R: Rswift.Validatable {
       static let amongChatGroupLeaveGroup = Rswift.StringResource(key: "among.chat.group.leave.group", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Leo
       /// 
-      /// Locales: en
-      static let profileConstellationLeo = Rswift.StringResource(key: "profile.constellation.leo", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let profileConstellationLeo = Rswift.StringResource(key: "profile.constellation.leo", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Libra
       /// 
-      /// Locales: en
-      static let profileConstellationLibra = Rswift.StringResource(key: "profile.constellation.libra", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let profileConstellationLibra = Rswift.StringResource(key: "profile.constellation.libra", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Live
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3541,8 +3541,8 @@ struct R: Rswift.Validatable {
       static let roomTagOpenGame = Rswift.StringResource(key: "room.tag.open.game", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Other
       /// 
-      /// Locales: en
-      static let profilePronounOther = Rswift.StringResource(key: "profile.pronoun.other", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let profilePronounOther = Rswift.StringResource(key: "profile.pronoun.other", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Owner
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3577,8 +3577,8 @@ struct R: Rswift.Validatable {
       static let premiumSubscriptionDetailLifetime = Rswift.StringResource(key: "premium.subscription.detail.lifetime", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Pending Review
       /// 
-      /// Locales: en
-      static let statsPendingReview = Rswift.StringResource(key: "stats.pending.review", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let statsPendingReview = Rswift.StringResource(key: "stats.pending.review", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: People you may like to play with
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3593,8 +3593,8 @@ struct R: Rswift.Validatable {
       static let amongChatProfilePet = Rswift.StringResource(key: "among.chat.profile.pet", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Pisces
       /// 
-      /// Locales: en
-      static let profileConstellationPisces = Rswift.StringResource(key: "profile.constellation.pisces", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let profileConstellationPisces = Rswift.StringResource(key: "profile.constellation.pisces", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Play Now
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3633,8 +3633,8 @@ struct R: Rswift.Validatable {
       static let forceUpgradeTip = Rswift.StringResource(key: "force.upgrade.tip", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Prefer not to share
       /// 
-      /// Locales: en
-      static let profilePronounNotShare = Rswift.StringResource(key: "profile.pronoun.not.share", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let profilePronounNotShare = Rswift.StringResource(key: "profile.pronoun.not.share", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Privacy
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3657,8 +3657,8 @@ struct R: Rswift.Validatable {
       static let profileProfile = Rswift.StringResource(key: "profile.profile", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Pronouns
       /// 
-      /// Locales: en
-      static let profilePronoun = Rswift.StringResource(key: "profile.pronoun", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let profilePronoun = Rswift.StringResource(key: "profile.pronoun", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Public
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3757,8 +3757,8 @@ struct R: Rswift.Validatable {
       static let groupRoomResumeTitle = Rswift.StringResource(key: "group.room.resume.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Review in Process…
       /// 
-      /// Locales: en
-      static let statsReviewInProcess = Rswift.StringResource(key: "stats.review.in.process", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let statsReviewInProcess = Rswift.StringResource(key: "stats.review.in.process", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Roblox Username
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3769,8 +3769,8 @@ struct R: Rswift.Validatable {
       static let socialSms = Rswift.StringResource(key: "social.sms", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Sagittarius
       /// 
-      /// Locales: en
-      static let profileConstellationSagittarius = Rswift.StringResource(key: "profile.constellation.sagittarius", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let profileConstellationSagittarius = Rswift.StringResource(key: "profile.constellation.sagittarius", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Save
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3781,8 +3781,8 @@ struct R: Rswift.Validatable {
       static let amongChatRoomMessagePlaceholder = Rswift.StringResource(key: "among.chat.room.message.placeholder", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Scorpio
       /// 
-      /// Locales: en
-      static let profileConstellationScorpio = Rswift.StringResource(key: "profile.constellation.scorpio", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let profileConstellationScorpio = Rswift.StringResource(key: "profile.constellation.scorpio", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Screenshot the statistics page in the game and upload it here.
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3873,8 +3873,8 @@ struct R: Rswift.Validatable {
       static let amongChatRoomJustChatSetUpNotes = Rswift.StringResource(key: "among.chat.room.just.chat.set.up.notes", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Set your bio
       /// 
-      /// Locales: en
-      static let profileSetBio = Rswift.StringResource(key: "profile.set.bio", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let profileSetBio = Rswift.StringResource(key: "profile.set.bio", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Set your own %1$@ or click to copy others' to play together
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -4013,8 +4013,8 @@ struct R: Rswift.Validatable {
       static let amongChatCustomAvatarTakePhoto = Rswift.StringResource(key: "among.chat.custom.avatar.take.photo", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Taurus
       /// 
-      /// Locales: en
-      static let profileConstellationTaurus = Rswift.StringResource(key: "profile.constellation.taurus", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let profileConstellationTaurus = Rswift.StringResource(key: "profile.constellation.taurus", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Team Code/ID: %1$@
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -4169,8 +4169,8 @@ struct R: Rswift.Validatable {
       static let amongChatRoomRobloxUserNamePrefix = Rswift.StringResource(key: "among.chat.room.roblox.user.name.prefix", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Virgo
       /// 
-      /// Locales: en
-      static let profileConstellationVirgo = Rswift.StringResource(key: "profile.constellation.virgo", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let profileConstellationVirgo = Rswift.StringResource(key: "profile.constellation.virgo", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Wanna be more attractive and make more friends? Cool avatars are ready for you!
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -4261,8 +4261,8 @@ struct R: Rswift.Validatable {
       static let errorNoFollowing = Rswift.StringResource(key: "error.no.following", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Your %@ Gaming Stats have been uploaded successfully and are pending review. Valid Gaming Stats will be approved within 24 hours and become publicly viewable.
       /// 
-      /// Locales: en
-      static let statsReviewGameState = Rswift.StringResource(key: "stats.review.game.state", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let statsReviewGameState = Rswift.StringResource(key: "stats.review.game.state", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Your account has been logged in on another device
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -4313,8 +4313,8 @@ struct R: Rswift.Validatable {
       static let profileLittleFollowing = Rswift.StringResource(key: "profile.little.following", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: he/him
       /// 
-      /// Locales: en
-      static let profilePronounHeHim = Rswift.StringResource(key: "profile.pronoun.he.him", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let profilePronounHeHim = Rswift.StringResource(key: "profile.pronoun.he.him", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: host could setup notes so everyone could see it when they join the channel
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -4361,16 +4361,16 @@ struct R: Rswift.Validatable {
       static let socialInvited = Rswift.StringResource(key: "social.invited", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: she/her
       /// 
-      /// Locales: en
-      static let profilePronounSheHer = Rswift.StringResource(key: "profile.pronoun.she.her", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let profilePronounSheHer = Rswift.StringResource(key: "profile.pronoun.she.her", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: the next screen
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let trackingGuideTitleSuffix = Rswift.StringResource(key: "tracking.guide.title.suffix", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: they/them
       /// 
-      /// Locales: en
-      static let profilePronounTheyThem = Rswift.StringResource(key: "profile.pronoun.they.them", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let profilePronounTheyThem = Rswift.StringResource(key: "profile.pronoun.they.them", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: your purchase was successful
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -4603,7 +4603,7 @@ struct R: Rswift.Validatable {
       
       /// en translation: Aquarius
       /// 
-      /// Locales: en
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func profileConstellationAquarius(_: Void = ()) -> String {
         return NSLocalizedString("profile.constellation.aquarius", bundle: R.hostingBundle, comment: "")
       }
@@ -4666,7 +4666,7 @@ struct R: Rswift.Validatable {
       
       /// en translation: Aries
       /// 
-      /// Locales: en
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func profileConstellationAries(_: Void = ()) -> String {
         return NSLocalizedString("profile.constellation.aries", bundle: R.hostingBundle, comment: "")
       }
@@ -4687,7 +4687,7 @@ struct R: Rswift.Validatable {
       
       /// en translation: Avatar
       /// 
-      /// Locales: en
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func amongChatProfileAvatar(_: Void = ()) -> String {
         return NSLocalizedString("among.chat.profile.avatar", bundle: R.hostingBundle, comment: "")
       }
@@ -4729,7 +4729,7 @@ struct R: Rswift.Validatable {
       
       /// en translation: Bio
       /// 
-      /// Locales: en
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func profileBio(_: Void = ()) -> String {
         return NSLocalizedString("profile.bio", bundle: R.hostingBundle, comment: "")
       }
@@ -4813,14 +4813,14 @@ struct R: Rswift.Validatable {
       
       /// en translation: Cancer
       /// 
-      /// Locales: en
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func profileConstellationCancer(_: Void = ()) -> String {
         return NSLocalizedString("profile.constellation.cancer", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Capricorn
       /// 
-      /// Locales: en
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func profileConstellationCapricorn(_: Void = ()) -> String {
         return NSLocalizedString("profile.constellation.capricorn", bundle: R.hostingBundle, comment: "")
       }
@@ -5205,7 +5205,7 @@ struct R: Rswift.Validatable {
       
       /// en translation: Edit Profile
       /// 
-      /// Locales: en
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func profileEditTitle(_: Void = ()) -> String {
         return NSLocalizedString("profile.edit.title", bundle: R.hostingBundle, comment: "")
       }
@@ -5457,7 +5457,7 @@ struct R: Rswift.Validatable {
       
       /// en translation: Gemini
       /// 
-      /// Locales: en
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func profileConstellationGemini(_: Void = ()) -> String {
         return NSLocalizedString("profile.constellation.gemini", bundle: R.hostingBundle, comment: "")
       }
@@ -5618,7 +5618,7 @@ struct R: Rswift.Validatable {
       
       /// en translation: Hide My Location
       /// 
-      /// Locales: en
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func profileHideLocation(_: Void = ()) -> String {
         return NSLocalizedString("profile.hide.location", bundle: R.hostingBundle, comment: "")
       }
@@ -5709,7 +5709,7 @@ struct R: Rswift.Validatable {
       
       /// en translation: Image
       /// 
-      /// Locales: en
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func amongChatProfileImage(_: Void = ()) -> String {
         return NSLocalizedString("among.chat.profile.image", bundle: R.hostingBundle, comment: "")
       }
@@ -5870,14 +5870,14 @@ struct R: Rswift.Validatable {
       
       /// en translation: Leo
       /// 
-      /// Locales: en
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func profileConstellationLeo(_: Void = ()) -> String {
         return NSLocalizedString("profile.constellation.leo", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Libra
       /// 
-      /// Locales: en
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func profileConstellationLibra(_: Void = ()) -> String {
         return NSLocalizedString("profile.constellation.libra", bundle: R.hostingBundle, comment: "")
       }
@@ -6332,7 +6332,7 @@ struct R: Rswift.Validatable {
       
       /// en translation: Other
       /// 
-      /// Locales: en
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func profilePronounOther(_: Void = ()) -> String {
         return NSLocalizedString("profile.pronoun.other", bundle: R.hostingBundle, comment: "")
       }
@@ -6395,7 +6395,7 @@ struct R: Rswift.Validatable {
       
       /// en translation: Pending Review
       /// 
-      /// Locales: en
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func statsPendingReview(_: Void = ()) -> String {
         return NSLocalizedString("stats.pending.review", bundle: R.hostingBundle, comment: "")
       }
@@ -6423,7 +6423,7 @@ struct R: Rswift.Validatable {
       
       /// en translation: Pisces
       /// 
-      /// Locales: en
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func profileConstellationPisces(_: Void = ()) -> String {
         return NSLocalizedString("profile.constellation.pisces", bundle: R.hostingBundle, comment: "")
       }
@@ -6493,7 +6493,7 @@ struct R: Rswift.Validatable {
       
       /// en translation: Prefer not to share
       /// 
-      /// Locales: en
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func profilePronounNotShare(_: Void = ()) -> String {
         return NSLocalizedString("profile.pronoun.not.share", bundle: R.hostingBundle, comment: "")
       }
@@ -6535,7 +6535,7 @@ struct R: Rswift.Validatable {
       
       /// en translation: Pronouns
       /// 
-      /// Locales: en
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func profilePronoun(_: Void = ()) -> String {
         return NSLocalizedString("profile.pronoun", bundle: R.hostingBundle, comment: "")
       }
@@ -6710,7 +6710,7 @@ struct R: Rswift.Validatable {
       
       /// en translation: Review in Process…
       /// 
-      /// Locales: en
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func statsReviewInProcess(_: Void = ()) -> String {
         return NSLocalizedString("stats.review.in.process", bundle: R.hostingBundle, comment: "")
       }
@@ -6731,7 +6731,7 @@ struct R: Rswift.Validatable {
       
       /// en translation: Sagittarius
       /// 
-      /// Locales: en
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func profileConstellationSagittarius(_: Void = ()) -> String {
         return NSLocalizedString("profile.constellation.sagittarius", bundle: R.hostingBundle, comment: "")
       }
@@ -6752,7 +6752,7 @@ struct R: Rswift.Validatable {
       
       /// en translation: Scorpio
       /// 
-      /// Locales: en
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func profileConstellationScorpio(_: Void = ()) -> String {
         return NSLocalizedString("profile.constellation.scorpio", bundle: R.hostingBundle, comment: "")
       }
@@ -6913,7 +6913,7 @@ struct R: Rswift.Validatable {
       
       /// en translation: Set your bio
       /// 
-      /// Locales: en
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func profileSetBio(_: Void = ()) -> String {
         return NSLocalizedString("profile.set.bio", bundle: R.hostingBundle, comment: "")
       }
@@ -7158,7 +7158,7 @@ struct R: Rswift.Validatable {
       
       /// en translation: Taurus
       /// 
-      /// Locales: en
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func profileConstellationTaurus(_: Void = ()) -> String {
         return NSLocalizedString("profile.constellation.taurus", bundle: R.hostingBundle, comment: "")
       }
@@ -7431,7 +7431,7 @@ struct R: Rswift.Validatable {
       
       /// en translation: Virgo
       /// 
-      /// Locales: en
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func profileConstellationVirgo(_: Void = ()) -> String {
         return NSLocalizedString("profile.constellation.virgo", bundle: R.hostingBundle, comment: "")
       }
@@ -7592,7 +7592,7 @@ struct R: Rswift.Validatable {
       
       /// en translation: Your %@ Gaming Stats have been uploaded successfully and are pending review. Valid Gaming Stats will be approved within 24 hours and become publicly viewable.
       /// 
-      /// Locales: en
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func statsReviewGameState(_ value1: String) -> String {
         return String(format: NSLocalizedString("stats.review.game.state", bundle: R.hostingBundle, comment: ""), locale: R.applicationLocale, value1)
       }
@@ -7683,7 +7683,7 @@ struct R: Rswift.Validatable {
       
       /// en translation: he/him
       /// 
-      /// Locales: en
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func profilePronounHeHim(_: Void = ()) -> String {
         return NSLocalizedString("profile.pronoun.he.him", bundle: R.hostingBundle, comment: "")
       }
@@ -7767,7 +7767,7 @@ struct R: Rswift.Validatable {
       
       /// en translation: she/her
       /// 
-      /// Locales: en
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func profilePronounSheHer(_: Void = ()) -> String {
         return NSLocalizedString("profile.pronoun.she.her", bundle: R.hostingBundle, comment: "")
       }
@@ -7781,7 +7781,7 @@ struct R: Rswift.Validatable {
       
       /// en translation: they/them
       /// 
-      /// Locales: en
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func profilePronounTheyThem(_: Void = ()) -> String {
         return NSLocalizedString("profile.pronoun.they.them", bundle: R.hostingBundle, comment: "")
       }

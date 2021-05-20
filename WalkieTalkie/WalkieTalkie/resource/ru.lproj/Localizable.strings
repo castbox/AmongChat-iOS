@@ -304,6 +304,8 @@
 
 //1.13
 "among.chat.profile.customize" = "Настроить";
+"among.chat.profile.avatar" = "Аватар";
+"among.chat.profile.image" = "Изображение";
 "among.chat.profile.skin" = "Скин";
 "among.chat.profile.bg" = "Фон";
 "among.chat.profile.Hat" = "Шапка";
@@ -521,7 +523,7 @@
 "dm.conversation.delete.history" = "Удалить историю";
 "dm.delete.history.alert.title" = "Вы уверены, что хотите удалить историю чата?";
 "dm.gif.search.placeholder" = "Искать GIF";
-//update
+
 "dm.text.placeholder" = "Начать печатать";
 "profile.user.in.channel" = "В канале %@";
 "profile.user.in.group" = "В группе %@";
@@ -532,3 +534,30 @@
 "app.new.version.alert.title" = "Доступно новое обновление!";
 "app.new.version.alert.content" = "Обновите до последней версии и помогите распространить информацию.";
 "app.new.version.alert.update" = "Обновлять";
+
+//1.21
+"stats.pending.review" = "Ожидает оценки";
+"stats.review.in.process" = "Оценки в процессе…";
+"stats.review.game.state" = "Ваша игровая статистика %@ была успешно загружена и ожидает оценки. Действительная игровая статистика будет утверждена в течение 24 часов и станет общедоступной.";
+"profile.edit.title" = "Редактировать профиль";
+"profile.pronoun" = "Местоимения";
+"profile.hide.location" = "Скрыть мое местоположение";
+"profile.bio" = "Биография";
+"profile.set.bio" = "Установите свою биографию";
+"profile.pronoun.she.her" = "она";
+"profile.pronoun.he.him" = "он";
+"profile.pronoun.they.them" = "они";
+"profile.pronoun.other" = "Другой";
+"profile.pronoun.not.share" = "Предпочитаю не делиться";
+"profile.constellation.aries" = "Овен";
+"profile.constellation.taurus" = "Телец";
+"profile.constellation.gemini" = "Близнецы";
+"profile.constellation.cancer" = "Рак";
+"profile.constellation.leo" = "Лео";
+"profile.constellation.virgo" = "Дева";
+"profile.constellation.libra" = "Весы";
+"profile.constellation.scorpio" = "Скорпион";
+"profile.constellation.sagittarius" = "Стрелец";
+"profile.constellation.capricorn" = "Козерог";
+"profile.constellation.aquarius" = "Водолей";
+"profile.constellation.pisces" = "Рыбы";
