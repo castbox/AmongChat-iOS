@@ -65,7 +65,7 @@ extension Social {
         
         private lazy var bottomGradientView: FansGroup.Views.BottomGradientButton = {
             let v = FansGroup.Views.BottomGradientButton()
-            v.button.setTitle(R.string.localizable.profileDone(), for: .normal)
+            v.button.setTitle(R.string.localizable.amongChatLoginNext(), for: .normal)
             v.button.isEnabled = false
             v.button.addTarget(self, action: #selector(onDoneBtn), for: .primaryActionTriggered)
             return v
