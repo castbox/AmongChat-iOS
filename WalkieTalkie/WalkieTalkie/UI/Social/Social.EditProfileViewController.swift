@@ -265,7 +265,6 @@ extension Social.EditProfileViewController {
         userInputView.inputResultHandler = { [weak self](text) in
             guard let `self` = self else { return }
             self.profileProto.name = text
-            IQKeyboardManager.shared.enable = true
         }
         
         headerView.avatarIV.rx.tapGesture()
@@ -317,6 +316,13 @@ extension Social.EditProfileViewController {
                 self.profileProto.description = self.footerView.descriptionView.inputTextView.text
             })
             .disposed(by: bag)
+        
+        footerView.heightChangedHandler = { [weak self] in
+            self?.tableView.beginUpdates()
+            self?.tableView.tableFooterView = self?.footerView
+            self?.tableView.endUpdates()
+            self?.tableView.layoutIfNeeded()
+        }
     }
     
     func showPronounSheet() {
@@ -470,6 +476,9 @@ extension Social.EditProfileViewController {
             get { descriptionView.inputTextView.text }
         }
         
+        private let bag = DisposeBag()
+        var heightChangedHandler: CallBack?
+        
         override init(frame: CGRect) {
             super.init(frame: CGRect(x: 0, y: 0, width: Frame.Screen.width, height: 200))
             configureSubview()
@@ -481,7 +490,23 @@ extension Social.EditProfileViewController {
         }
         
         private func bindSubviewEvent() {
-            
+            descriptionView.inputTextView.rx.text
+                .subscribe(onNext: { [weak self] text in
+                    guard let `self` = self else { return }
+                    //calculate size
+                    let width = Frame.Screen.width - 36 * 2
+                    let textSize = text?.boundingRect(with: CGSize(width: width, height: 1000), font: R.font.nunitoExtraBold(size: 18)!) ?? .zero
+                    let textHeight = max(textSize.height, 73)
+                    let viewHeight = textHeight + 130
+//                    guard self.height != viewHeight else {
+//                        return
+//                    }
+                    self.height = viewHeight
+                    self.layoutIfNeeded()
+                    self.heightChangedHandler?()
+                    IQKeyboardManager.shared.reloadLayoutIfNeeded()
+                })
+                .disposed(by: bag)
         }
         
         private func configureSubview() {
@@ -496,7 +521,8 @@ extension Social.EditProfileViewController {
             descriptionView.snp.makeConstraints { (maker) in
                 maker.leading.trailing.equalToSuperview().inset(Frame.horizontalBleedWidth)
                 maker.top.equalTo(descriptionTitleLabel.snp.bottom).offset(16)
-                maker.height.equalTo(124.5)
+//                maker.height.greaterThanOrEqualTo(124.5)
+                maker.bottom.equalTo(-10)
             }
         }
     }
