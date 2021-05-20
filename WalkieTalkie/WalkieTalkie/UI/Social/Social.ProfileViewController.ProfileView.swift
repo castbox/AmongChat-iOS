@@ -147,6 +147,7 @@ extension Social.ProfileViewController {
         private var infoItems = [InfoItem]() {
             didSet {
                 infoCollectionView.reloadData()
+                infoCollectionView.layoutIfNeeded()
                 infoCollectionView.snp.updateConstraints { (maker) in
                     maker.height.equalTo(infoCollectionView.collectionViewLayout.collectionViewContentSize.height)
                 }
