@@ -124,7 +124,6 @@ extension Social {
                     let l = UILabel()
                     l.font = R.font.nunitoExtraBold(size: 16)
                     l.textColor = UIColor(hex6: 0xFFEC96)
-                    l.text = R.string.localizable.profileUnlockPro()
                     return l
                 }()
                 
@@ -132,31 +131,31 @@ extension Social {
                     let i = UIImageView(image: R.image.ac_profile_pro_next())
                     return i
                 }()
-                v.addSubviews(views: leftIcon)
+
+                v.addSubviews(views: leftIcon, titleLabel, rightIcon)
+                
+                leftIcon.snp.makeConstraints { (maker) in
+                    maker.leading.centerY.equalToSuperview()
+                }
+                
+                titleLabel.snp.makeConstraints { (maker) in
+                    maker.leading.equalTo(leftIcon.snp.trailing).offset(6)
+                    maker.centerY.equalToSuperview()
+                }
+                
+                rightIcon.snp.makeConstraints { (maker) in
+                    maker.leading.equalTo(titleLabel.snp.trailing).offset(2)
+                    maker.centerY.trailing.equalToSuperview()
+                }
                 
                 Settings.shared.isProValue.replay()
                     .observeOn(MainScheduler.asyncInstance)
                     .subscribe(onNext: { (isPro) in
                         
                         if isPro {
-                            titleLabel.removeFromSuperview()
-                            rightIcon.removeFromSuperview()
-                            leftIcon.snp.remakeConstraints { (maker) in
-                                maker.leading.trailing.centerY.equalToSuperview()
-                            }
+                            titleLabel.text = R.string.localizable.amongChatProfileProCenter()
                         } else {
-                            v.addSubviews(views: titleLabel, rightIcon)
-                            leftIcon.snp.remakeConstraints { (maker) in
-                                maker.leading.centerY.equalToSuperview()
-                            }
-                            titleLabel.snp.remakeConstraints { (maker) in
-                                maker.leading.equalTo(leftIcon.snp.trailing).offset(6)
-                                maker.centerY.equalToSuperview()
-                            }
-                            rightIcon.snp.remakeConstraints { (maker) in
-                                maker.leading.equalTo(titleLabel.snp.trailing).offset(2)
-                                maker.centerY.trailing.equalToSuperview()
-                            }
+                            titleLabel.text = R.string.localizable.profileUnlockPro()
                         }
                         
                     })
