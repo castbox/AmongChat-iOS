@@ -3655,7 +3655,7 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let profileProfile = Rswift.StringResource(key: "profile.profile", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
-      /// en translation: Pronoun
+      /// en translation: Pronouns
       /// 
       /// Locales: en
       static let profilePronoun = Rswift.StringResource(key: "profile.pronoun", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
@@ -6533,7 +6533,7 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("profile.profile", bundle: R.hostingBundle, comment: "")
       }
       
-      /// en translation: Pronoun
+      /// en translation: Pronouns
       /// 
       /// Locales: en
       static func profilePronoun(_: Void = ()) -> String {
