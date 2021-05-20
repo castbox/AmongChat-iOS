@@ -454,8 +454,9 @@ private extension Social.ProfileLookViewController {
         
         uploadImage(image: image)
             .flatMap { self.useAvatar($0) }
-            .subscribe(onSuccess: { (_) in
+            .subscribe(onSuccess: { [weak self] (_) in
                 hudRemoval()
+                self?.navigationController?.popViewController()
             }, onError: { (error) in
                 hudRemoval()
             })

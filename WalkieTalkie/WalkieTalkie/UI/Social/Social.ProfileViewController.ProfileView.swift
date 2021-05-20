@@ -40,6 +40,7 @@ extension Social.ProfileViewController {
         private let loginButtonTopSpace: CGFloat = 24
         private let loginButtonHeight: CGFloat = 48
         private let bottomSpace: CGFloat = 44
+        private let petSize = CGSize(width: 70, height: 70)
         
         var estimatedViewHeight: CGFloat = 440
         
@@ -154,9 +155,9 @@ extension Social.ProfileViewController {
         
         private typealias ExpandableLabel = FansGroup.GroupInfoViewController.ExpandableLabel
         private lazy var descriptionLabel: ExpandableLabel = {
-            let l = ExpandableLabel()
-            l.font = R.font.nunitoBold(size: 14)
-            l.textColor = UIColor(hex6: 0xFFFFFF, alpha: 0.65)
+            let l = ExpandableLabel(contentTextFont: R.font.nunitoBold(size: 16) ?? UIFont.systemFont(ofSize: 16, weight: .bold),
+                                    contentTextColor: UIColor(hex6: 0xFFFFFF, alpha: 0.6),
+                                    expandTextFont: R.font.nunitoBold(size: 16) ?? UIFont.systemFont(ofSize: 16, weight: .bold))
             l.numberOfLines = 0
             l.expandedHandler = { [weak self] in
                 self?.headerHandle?(.heightUpdated)
@@ -330,6 +331,18 @@ extension Social.ProfileViewController {
             
             currentName = nameLabel.text ?? ""
             avatarIV.updateAvatar(with: profile)
+            
+            if let pet = profile.decorations.first(where: { $0.decorationType == .pet }) {
+                playSvga(pet.lookUrl?.url)
+                petView.snp.updateConstraints { (maker) in
+                    maker.size.equalTo(petSize)
+                }
+            } else {
+                petView.snp.updateConstraints { (maker) in
+                    maker.size.equalTo(CGSize.zero)
+                }
+            }
+            
             headerHandle?(.heightUpdated)
         }
         
@@ -376,7 +389,7 @@ extension Social.ProfileViewController {
             
             petView.snp.makeConstraints { (maker) in
                 maker.leading.equalTo(avatarIV.snp.trailing).offset(16)
-                maker.width.height.equalTo(70)
+                maker.size.equalTo(petSize)
                 maker.bottom.equalTo(avatarIV)
             }
             
@@ -408,7 +421,7 @@ extension Social.ProfileViewController {
                 addSubview(changeIcon)
                 changeIcon.snp.makeConstraints { (maker) in
                     maker.bottom.equalTo(avatarIV)
-                    maker.trailing.equalTo(avatarIV).offset(4)
+                    maker.trailing.equalTo(avatarIV).offset(-4)
                     maker.width.height.equalTo(24)
                 }
                 

@@ -48,8 +48,6 @@ extension FansGroup.GroupInfoViewController {
         
         private lazy var descriptionLabel: ExpandableLabel = {
             let l = ExpandableLabel()
-            l.font = R.font.nunitoBold(size: 14)
-            l.textColor = UIColor(hex6: 0xFFFFFF, alpha: 0.65)
             l.numberOfLines = 0
             return l
         }()
@@ -234,28 +232,48 @@ extension FansGroup.GroupInfoViewController {
             return textHeight
         }
         
+        private let contentTextFont: UIFont
+        private let contentTextColor: UIColor
+        private let expandTextFont: UIFont
+        private let expandTextColor: UIColor
+        
+        init(contentTextFont: UIFont = R.font.nunitoBold(size: 14) ?? UIFont.systemFont(ofSize: 14, weight: .bold),
+             contentTextColor: UIColor = UIColor(hex6: 0xFFFFFF, alpha: 0.65),
+             expandTextFont: UIFont = R.font.nunitoBold(size: 14) ?? UIFont.systemFont(ofSize: 14, weight: .bold),
+             expandTextColor: UIColor = .white) {
+            self.contentTextFont = contentTextFont
+            self.contentTextColor = contentTextColor
+            self.expandTextFont = expandTextFont
+            self.expandTextColor = expandTextColor
+            super.init(frame: .zero)
+        }
+        
+        required init?(coder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
+        }
+        
         private func updateText() {
             
             guard !expanded,
                   wholeString?.count ?? 0 > shortenLength else {
                 attributedText = NSMutableAttributedString(string: String(wholeString ?? ""),
                                                            attributes: [
-                                                            .font : font,
-                                                            .foregroundColor: textColor
+                                                            .font : contentTextFont,
+                                                            .foregroundColor: contentTextColor
                                                            ])
                 return
             }
             
             let moreAtt = NSAttributedString(string: " " + R.string.localizable.amongChatGroupInfoExpand(),
                                              attributes: [
-                                                .font : font,
-                                                .foregroundColor : UIColor.white
+                                                .font : expandTextFont,
+                                                .foregroundColor : expandTextColor
                                              ])
             
             let descAtt = NSMutableAttributedString(string: String(wholeString?.prefix(shortenLength) ?? ""),
                                                     attributes: [
-                                                        .font : font,
-                                                        .foregroundColor: textColor
+                                                        .font : contentTextFont,
+                                                        .foregroundColor: contentTextColor
                                                     ])
             
             descAtt.append(moreAtt)
