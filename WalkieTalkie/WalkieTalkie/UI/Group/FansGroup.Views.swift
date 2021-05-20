@@ -391,6 +391,27 @@ extension FansGroup.Views {
             textView.text = textView.text.trim()
             isEdtingRelay.accept(false)
         }
+        
+        func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
+            guard let content = textView.text?.trimmed else {
+                return true
+            }
+            if let text = SensitiveWordChecker.firstSensitiveWord(in: content) {
+                //show
+                textView.attributedText = redAttributesString(text: content, redText: text)
+                raft.autoShow(.text(R.string.localizable.contentContainSensitiveWords()))
+                return false
+            }
+            return true
+        }
+        
+        func redAttributesString(text: String, redText: String) -> NSAttributedString {
+            let attributes = NSMutableAttributedString(string: text, attributes: [NSAttributedString.Key.foregroundColor: UIColor.white, NSAttributedString.Key.font: inputTextView.font ?? R.font.nunitoExtraBold(size: 18)])
+            if let range = text.nsRange(of: redText) {
+                attributes.addAttributes([NSAttributedString.Key.foregroundColor: UIColor.red], range: range)
+            }
+            return attributes
+        }
     }
     
 }
