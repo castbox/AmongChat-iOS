@@ -23,7 +23,7 @@ extension Social.ProfileViewController {
             case follower
             case avater
             case follow
-            case expandDescription
+            case heightUpdated
         }
         
         let bag = DisposeBag()
@@ -40,6 +40,8 @@ extension Social.ProfileViewController {
         private let loginButtonTopSpace: CGFloat = 24
         private let loginButtonHeight: CGFloat = 48
         private let bottomSpace: CGFloat = 44
+        
+        var estimatedViewHeight: CGFloat = 440
         
         var viewHeight: CGFloat {
             
@@ -157,7 +159,7 @@ extension Social.ProfileViewController {
             l.textColor = UIColor(hex6: 0xFFFFFF, alpha: 0.65)
             l.numberOfLines = 0
             l.expandedHandler = { [weak self] in
-                self?.headerHandle?(.expandDescription)
+                self?.headerHandle?(.heightUpdated)
                 l.snp.updateConstraints { (maker) in
                     maker.height.equalTo(l.textHeight)
                 }
@@ -328,6 +330,7 @@ extension Social.ProfileViewController {
             
             currentName = nameLabel.text ?? ""
             avatarIV.updateAvatar(with: profile)
+            headerHandle?(.heightUpdated)
         }
         
         func setProfileData(_ model: Entity.RoomUser) {
