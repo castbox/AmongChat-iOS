@@ -184,13 +184,13 @@ extension Social.ProfileViewController {
             
             followingBtn.snp.makeConstraints { (maker) in
                 maker.leading.top.bottom.equalToSuperview()
-                maker.width.lessThanOrEqualTo(view.snp.width).multipliedBy(0.5)
+                maker.width.lessThanOrEqualTo(view.snp.width).multipliedBy(0.5).offset(20)
             }
             
             followerBtn.snp.makeConstraints { (maker) in
                 maker.leading.equalTo(followingBtn.snp.trailing).offset(40)
                 maker.top.bottom.equalToSuperview()
-                maker.width.lessThanOrEqualTo(view.snp.width).multipliedBy(0.5)
+                maker.width.lessThanOrEqualTo(view.snp.width).multipliedBy(0.5).offset(20)
             }
             
             return view
@@ -511,6 +511,7 @@ extension Social.ProfileViewController {
             let lb = UILabel()
             lb.font = R.font.nunitoExtraBold(size: 22)
             lb.textColor = .white
+            lb.adjustsFontSizeToFitWidth = true
             return lb
         }()
         
@@ -526,13 +527,13 @@ extension Social.ProfileViewController {
             addSubviews(views: titleLabel, subtitleLabel)
             titleLabel.snp.makeConstraints { (maker) in
                 maker.leading.top.equalToSuperview()
-                maker.trailing.lessThanOrEqualToSuperview()
+                maker.trailing.equalToSuperview()
                 maker.height.equalTo(30)
             }
             
             subtitleLabel.snp.makeConstraints { (maker) in
                 maker.leading.bottom.equalToSuperview()
-                maker.trailing.lessThanOrEqualToSuperview()
+                maker.trailing.equalToSuperview()
                 maker.height.equalTo(21)
             }
         }
