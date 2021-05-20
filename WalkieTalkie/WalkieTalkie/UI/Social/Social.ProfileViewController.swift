@@ -258,7 +258,7 @@ extension Social {
         
         private lazy var headerView: ProfileView = {
             let v = ProfileView(with: isSelfProfile.value, viewController: self)
-            v.frame = CGRect(x: 0, y: 0, width: Frame.Screen.width, height: v.viewHeight)
+            v.frame = CGRect(x: 0, y: 0, width: Frame.Screen.width, height: v.estimatedViewHeight)
             v.headerHandle = { [weak self] type in
                 guard let `self` = self else { return }
                 switch type {
@@ -280,7 +280,7 @@ extension Social {
                     self.followerAction()
                 case .following:
                     self.followingAction()
-                case .expandDescription:
+                case .heightUpdated:
                     self.table.reloadData()
                 }
             }
