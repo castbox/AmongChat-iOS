@@ -383,6 +383,7 @@ extension Social.EditProfileViewController {
     }
     
     func updateProfileIfNeeded() {
+        view.endEditing(true)
         let profileProto = self.profileProto
         let hudRemoval = view.raft.show(.loading, userInteractionEnabled: false)
         Request.updateProfile(profileProto)
