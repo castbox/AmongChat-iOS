@@ -304,6 +304,8 @@
 
 //1.13
 "among.chat.profile.customize" = "يعدل أو يكيف";
+"among.chat.profile.avatar" = "الصورة الرمزية";
+"among.chat.profile.image" = "صورة";
 "among.chat.profile.skin" = "سطح ";
 "among.chat.profile.bg" = "خلفية";
 "among.chat.profile.Hat" = "قبعة";
@@ -521,7 +523,7 @@
 "dm.conversation.delete.history" = "حذف التاريخ";
 "dm.delete.history.alert.title" = "هل أنت متأكد أنك تريد حذف محفوظات الدردشة؟";
 "dm.gif.search.placeholder" = "ابحث عن صور GIF";
-//update
+
 "dm.text.placeholder" = "ابدأ الطباعة";
 "profile.user.in.channel" = "في قناة %@";
 "profile.user.in.group" = "في مجموعة %@";
@@ -532,3 +534,30 @@
 "app.new.version.alert.title" = "تحديث جديد متاح!";
 "app.new.version.alert.content" = "قم بالتحديث إلى أحدث إصدار وساعد في نشر الكلمة.";
 "app.new.version.alert.update" = "تحديث";
+
+//1.21
+"stats.pending.review" = "في انتظار المراجعة";
+"stats.review.in.process" = "المراجعة قيد المعالجة ...";
+"stats.review.game.state" = "تم تحميل إحصائيات الألعاب الخاصة بك %@ بنجاح وهي في انتظار المراجعة. ستتم الموافقة على إحصائيات الألعاب الصالحة في غضون 24 ساعة وتصبح قابلة للعرض بشكل عام.";
+"profile.edit.title" = "تعديل الملف الشخصي";
+"profile.pronoun" = "الضمائر";
+"profile.hide.location" = "إخفاء موقعي";
+"profile.bio" = "السيرة الذاتية";
+"profile.set.bio" = "اضبط سيرتك الذاتية";
+"profile.pronoun.she.her" = "هي/لها";
+"profile.pronoun.he.him" = "انه/له";
+"profile.pronoun.they.them" = "هم/لهم";
+"profile.pronoun.other" = "آخر";
+"profile.pronoun.not.share" = "تفضل عدم المشاركة";
+"profile.constellation.aries" = "برج الحمل";
+"profile.constellation.taurus" = "الثور";
+"profile.constellation.gemini" = "الجوزاء";
+"profile.constellation.cancer" = "سرطان";
+"profile.constellation.leo" = "ليو";
+"profile.constellation.virgo" = "برج العذراء";
+"profile.constellation.libra" = "الميزان";
+"profile.constellation.scorpio" = "العقرب";
+"profile.constellation.sagittarius" = "برج القوس";
+"profile.constellation.capricorn" = "برج الجدي";
+"profile.constellation.aquarius" = "الدلو";
+"profile.constellation.pisces" = "برج الحوت";

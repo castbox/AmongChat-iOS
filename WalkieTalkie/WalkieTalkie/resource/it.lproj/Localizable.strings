@@ -304,6 +304,8 @@
 
 //1.13
 "among.chat.profile.customize" = "Personalizzare";
+"among.chat.profile.avatar" = "Avatar";
+"among.chat.profile.image" = "Immagine";
 "among.chat.profile.skin" = "Pelle";
 "among.chat.profile.bg" = "Sfondo";
 "among.chat.profile.Hat" = "Cappello";
@@ -521,7 +523,7 @@
 "dm.conversation.delete.history" = "Elimina cronologia";
 "dm.delete.history.alert.title" = "Sei sicuro di voler eliminare la cronologia chat?";
 "dm.gif.search.placeholder" = "Cerca GIF";
-//update
+
 "dm.text.placeholder" = "Iniziare a digitare";
 "profile.user.in.channel" = "Nel canale %@";
 "profile.user.in.group" = "Nel gruppo %@";
@@ -532,3 +534,30 @@
 "app.new.version.alert.title" = "Nuovo aggiornamento disponibile!";
 "app.new.version.alert.content" = "Esegui l'aggiornamento all'ultima versione e aiutaci a spargere la voce.";
 "app.new.version.alert.update" = "Aggiornare";
+
+//1.21
+"stats.pending.review" = "In attesa di revisione";
+"stats.review.in.process" = "Revisione in corso...";
+"stats.review.game.state" = "Le tue statistiche di gioco %@ sono state caricate correttamente e sono in attesa di revisione. Statistiche di gioco valide saranno approvate entro 24 ore e diventeranno visibili pubblicamente.";
+"profile.edit.title" = "Modifica Profilo";
+"profile.pronoun" = "Pronomi";
+"profile.hide.location" = "Nascondi la mia posizione";
+"profile.bio" = "Biografia";
+"profile.set.bio" = "Imposta la tua biografia";
+"profile.pronoun.she.her" = "lei";
+"profile.pronoun.he.him" = "lui";
+"profile.pronoun.they.them" = "loro";
+"profile.pronoun.other" = "Altro";
+"profile.pronoun.not.share" = "Preferisco non condividere";
+"profile.constellation.aries" = "Ariete";
+"profile.constellation.taurus" = "Toro";
+"profile.constellation.gemini" = "Gemelli";
+"profile.constellation.cancer" = "Cancro";
+"profile.constellation.leo" = "Leo";
+"profile.constellation.virgo" = "Vergine";
+"profile.constellation.libra" = "Libra";
+"profile.constellation.scorpio" = "Scorpione";
+"profile.constellation.sagittarius" = "Sagittario";
+"profile.constellation.capricorn" = "Capricorno";
+"profile.constellation.aquarius" = "Acquario";
+"profile.constellation.pisces" = "Pesci";
