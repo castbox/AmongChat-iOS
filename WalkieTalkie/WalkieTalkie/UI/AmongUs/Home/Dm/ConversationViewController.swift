@@ -210,6 +210,7 @@ private extension ConversationViewController {
                 if let room = status.room {
                     self.liveView.coverIV.setImage(with: room.coverUrl)
                     self.liveView.label.text = R.string.localizable.profileUserInChannel(room.topicName)
+                    self.liveView.joinBtn.isEnabled = (room.state != "private")
                     self.liveView.joinHandler = { [weak self] in
                         self?.enterRoom(roomId: room.roomId, topicId: room.topicId)
                         Logger.Action.log(.dm_detail_clk, categoryValue: "join_channel")
@@ -217,6 +218,7 @@ private extension ConversationViewController {
                 } else if let group = status.group {
                     self.liveView.coverIV.setImage(with: group.cover)
                     self.liveView.label.text = R.string.localizable.profileUserInGroup(group.name)
+                    self.liveView.joinBtn.isEnabled = true
                     self.liveView.joinHandler = { [weak self] in
                         self?.enter(group: group.gid)
                         Logger.Action.log(.dm_detail_clk, categoryValue: "join_group")
