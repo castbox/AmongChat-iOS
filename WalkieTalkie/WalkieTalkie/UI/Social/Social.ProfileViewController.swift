@@ -296,7 +296,7 @@ extension Social {
             adaptToIPad {
                 hInset = 40
             }
-            layout.sectionInset = UIEdgeInsets(top: 16, left: 0, bottom: 44, right: 0)
+            layout.sectionInset = UIEdgeInsets(top: 16, left: 0, bottom: 56, right: 0)
             layout.minimumLineSpacing = 20
             let v = UICollectionView(frame: .zero, collectionViewLayout: layout)
             v.contentInset = UIEdgeInsets(top: 0, left: hInset, bottom: isSelfProfile.value ? 0 : 48, right: hInset)
@@ -1274,10 +1274,8 @@ extension Social.ProfileViewController: UICollectionViewDelegateFlowLayout {
         let op = options[section]
         
         switch op {
-        case .profile:
+        case .profile, .live:
             return UIEdgeInsets(top: 0, left: 0, bottom: 56, right: 0)
-        case .live:
-            return UIEdgeInsets(top: 13, left: 0, bottom: 56, right: 0)
         default:
             return (collectionViewLayout as? UICollectionViewFlowLayout)?.sectionInset ?? .zero
         }
