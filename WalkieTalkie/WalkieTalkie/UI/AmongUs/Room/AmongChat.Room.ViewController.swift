@@ -527,7 +527,7 @@ extension AmongChat.Room.ViewController {
         }
         
         topBar.reportHandler = { [weak self] in
-            self?.showReportSheet()
+//            self?.showReportSheet()
         }
         
         topBar.nextRoomHandler = { [weak self] in

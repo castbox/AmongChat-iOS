@@ -82,7 +82,7 @@ class ConversationViewController: ViewController {
         bindSubviewEvent()
     }
     
-    override func showReportSheet() {
+    func showReportSheet() {
         Report.ViewController.showReport(on: self, uid: viewModel.targetUid, type: .user, roomId: "", operate: nil) { [weak self] in
             self?.view.raft.autoShow(.text(R.string.localizable.reportSuccess()))
         }
