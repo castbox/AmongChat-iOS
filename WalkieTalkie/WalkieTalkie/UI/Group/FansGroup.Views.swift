@@ -356,7 +356,7 @@ extension FansGroup.Views {
             
             inputTextView.snp.makeConstraints { (maker) in
                 maker.edges.equalToSuperview().inset(UIEdgeInsets(top: 12, left: 16, bottom: 39, right: 16))
-                maker.height.equalTo(textViewMinHeight)
+                maker.height.greaterThanOrEqualTo(textViewMinHeight)
             }
             
             placeholderLabel.snp.makeConstraints { (maker) in

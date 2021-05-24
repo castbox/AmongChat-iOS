@@ -516,7 +516,7 @@ extension AmongChat.GroupRoom.ViewController {
         }
         
         topBar.reportHandler = { [weak self] in
-            self?.showReportSheet()
+//            self?.showReportSheet()
         }
         
         hostView.actionHandler = { [weak self] type in
@@ -731,13 +731,19 @@ extension AmongChat.GroupRoom.ViewController {
         case .unmute:
             viewModel.unmuteUser(user)
         case .report:
-            self.showReportSheet()
+            showReport(for: user, operate: nil)
         case .kick:
             requestKick([user.uid])
         case .drop:
             requestSeats(remove: user.uid)
         default:
             ()
+        }
+    }
+    
+    func showReport(for user: Entity.RoomUser, operate: Report.ReportOperate?) {
+        Report.ViewController.showReport(on: self, uid: user.uid.string, type: .user, roomId: room.roomId, operate: operate) { [weak self] in
+            self?.view.raft.autoShow(.text(operate?.title ?? R.string.localizable.reportSuccess()))
         }
     }
     

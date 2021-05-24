@@ -367,12 +367,16 @@ extension Social.ProfileViewController {
             return lb
         }()
         
-        private lazy var joinBtn: UIButton = {
+        private(set) lazy var joinBtn: UIButton = {
             let btn = UIButton(type: .custom)
             btn.titleLabel?.font = R.font.nunitoExtraBold(size: 14)
             btn.setTitleColor(UIColor.black, for: .normal)
-            btn.backgroundColor = UIColor(hex6: 0xFFF000)
+            btn.setBackgroundImage(UIColor(hex6: 0xFFF000).image, for: .normal)
+            btn.setBackgroundImage(UIColor.clear.image, for: .disabled)
             btn.setTitle(R.string.localizable.socialJoinAction().uppercased(), for: .normal)
+            btn.setTitle("", for: .disabled)
+            btn.setImage(nil, for: .normal)
+            btn.setImage(R.image.ac_home_friends_locked(), for: .disabled)
             btn.layer.masksToBounds = true
             btn.layer.cornerRadius = 16
             btn.contentEdgeInsets = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)

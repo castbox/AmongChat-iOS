@@ -147,6 +147,7 @@ extension Social.ProfileViewController {
         private var infoItems = [InfoItem]() {
             didSet {
                 infoCollectionView.reloadData()
+                infoCollectionView.layoutIfNeeded()
                 infoCollectionView.snp.updateConstraints { (maker) in
                     maker.height.equalTo(infoCollectionView.collectionViewLayout.collectionViewContentSize.height)
                 }
@@ -200,6 +201,11 @@ extension Social.ProfileViewController {
         private lazy var followerBtn: VerticalTitleButton = {
             let v = VerticalTitleButton()
             v.setTitle("0")
+            v.titleLabel.snp.remakeConstraints { (maker) in
+                maker.leading.top.equalToSuperview()
+                maker.trailing.lessThanOrEqualTo(0)
+                maker.height.equalTo(30)
+            }
             v.setSubtitle(R.string.localizable.profileLittleFollower())
             let tapGR = UITapGestureRecognizer()
             tapGR.addTarget(self, action: #selector(onFollowerBtn))

@@ -379,7 +379,7 @@ extension Social {
             fetchRealation()
         }
         
-        override func showReportSheet() {
+        func showReportSheet() {
             Report.ViewController.showReport(on: self, uid: uid.string, type: .user, roomId: "", operate: nil) { [weak self] in
                 self?.view.raft.autoShow(.text(R.string.localizable.reportSuccess()))
             }
@@ -1029,15 +1029,15 @@ extension Social.ProfileViewController: UICollectionViewDataSource, UICollection
                 if let room = liveRoom as? Entity.UserStatus.Room {
                     
                     cell.coverIV.setImage(with: room.coverUrl)
-                    cell.label.text = room.topicName
                     cell.label.text = R.string.localizable.profileUserInChannel(room.topicName)
-                    
+                    cell.joinBtn.isEnabled = (room.state != "private")
                     cell.joinHandler = { [weak self] in
                         self?.enterRoom(roomId: room.roomId, topicId: room.topicId)
                     }
                 } else if let group = liveRoom as? Entity.UserStatus.Group {
                     cell.coverIV.setImage(with: group.cover)
                     cell.label.text = R.string.localizable.profileUserInGroup(group.name)
+                    cell.joinBtn.isEnabled = true
                     cell.joinHandler = { [weak self] in
                         self?.enter(group: group.gid)
                     }

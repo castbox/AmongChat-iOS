@@ -73,8 +73,9 @@ extension AmongChat.Login {
             v.showsVerticalScrollIndicator = false
             v.showsHorizontalScrollIndicator = false
             v.dataSource = self
+            v.delegate = self
             v.backgroundColor = .clear
-            v.allowsSelection = false
+//            v.allowsSelection = true
             return v
         }()
         
@@ -378,6 +379,13 @@ extension AmongChat.Login.SmsCodeViewController: UICollectionViewDataSource {
         let digit = digits.safe(indexPath.item)
         cell.configCell(digit: digit, showCursor: indexPath.item == digits.count)
         return cell
+    }
+    
+}
+
+extension AmongChat.Login.SmsCodeViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        _ = codeInputField.becomeFirstResponder()
     }
 }
 
