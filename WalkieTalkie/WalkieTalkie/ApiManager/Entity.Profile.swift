@@ -14,6 +14,29 @@ protocol Verifiedable {
     var isVip: Bool? { get set }
 }
 
+enum Constellation: String, Codable {
+    case aquarius = "Aquarius"
+    case pisces = "Pisces"
+    case aries = "Aries"
+    case taurus = "Taurus"
+    case gemini = "Gemini"
+    case cancer = "Cancer"
+    case leo = "Leo"
+    case virgo = "Virgo"
+    case libra = "Libra"
+    case scorpio = "Scorpio"
+    case sagittarius = "Sagittarius"
+    case capricorn = "Capricorn"
+}
+
+enum Pronoun: Int {
+    case pronounNotShare = 0
+    case pronounHe
+    case pronounShe
+    case pronounThey
+    case pronounOther
+}
+
 func attribuated(with name: String?, isVerified: Bool?, isVip: Bool?, fontSize: CGFloat = 16) -> NSAttributedString {
     let nameString = name ?? ""
     let fullString = NSMutableAttributedString(string: nameString)
@@ -23,7 +46,7 @@ func attribuated(with name: String?, isVerified: Bool?, isVip: Bool?, fontSize: 
         var image: UIImage {
             if fontSize == 12 {
                 return R.image.icon_verified_13()!
-            } else if fontSize > 24  {
+            } else if fontSize >= 24  {
                 extraTopPadding = -2
                 return R.image.icon_verified_20()!
             }
@@ -44,7 +67,7 @@ func attribuated(with name: String?, isVerified: Bool?, isVip: Bool?, fontSize: 
         var image: UIImage {
             if fontSize == 12 {
                 return R.image.icon_vip_13()!
-            } else if fontSize > 24  {
+            } else if fontSize >= 24  {
                 extraTopPadding = -2
                 return R.image.icon_vip_20()!
             }
@@ -85,6 +108,11 @@ extension Entity {
         var newGuide: Bool?
         var pictureUrlRaw: String?
         var birthday: String?
+        var countryCode: String? // 国家，如cn，us
+        var hideLocation: Bool? // true/false
+        var gender: Int? //   0-保密，1-男，2-女, 3-中性
+        var constellation: Constellation? // 星座，字符串，如Aries
+        var description: String? // 个人介绍
         var nameRoblox: String?
         var nameFortnite: String?
         var nameFreefire: String?
@@ -122,6 +150,10 @@ extension Entity {
             roleType == .monitor
         }
         
+        var pronoun: Pronoun {
+            Pronoun(rawValue: gender ?? 0) ?? .pronounNotShare
+        }
+        
         func hostNickname(for topicType: AmongChat.Topic) -> String? {
             switch topicType {
             case .fortnite:
@@ -157,6 +189,11 @@ extension Entity {
             case pictureUrlRaw = "picture_url_raw"
             case uid
             case birthday
+            case countryCode = "country_code"
+            case hideLocation = "hide_location"
+            case gender
+            case constellation
+            case description
             case isFollowed = "is_followed"
             case opTime = "op_time"
             case invited = "invited"
@@ -229,26 +266,90 @@ extension Entity {
     }
 }
 
+extension Pronoun {
+    var title: String {
+        switch self {
+        case .pronounNotShare:
+//            return R.string.localizable.profilePronounNotShare()
+            return ""
+        case .pronounHe:
+            return R.string.localizable.profilePronounHeHim()
+        case .pronounShe:
+            return R.string.localizable.profilePronounSheHer()
+        case .pronounThey:
+            return R.string.localizable.profilePronounTheyThem()
+        case .pronounOther:
+            return R.string.localizable.profilePronounOther()
+        }
+    }
+}
+
+extension Constellation {
+    var title: String {
+        switch self {
+        case .aquarius:
+            return R.string.localizable.profileConstellationAquarius()
+        case .pisces:
+            return R.string.localizable.profileConstellationPisces()
+        case .aries:
+            return R.string.localizable.profileConstellationAries()
+        case .taurus:
+            return R.string.localizable.profileConstellationTaurus()
+        case .gemini:
+            return R.string.localizable.profileConstellationGemini()
+        case .cancer:
+            return R.string.localizable.profileConstellationCancer()
+        case .leo:
+            return R.string.localizable.profileConstellationLeo()
+        case .virgo:
+            return R.string.localizable.profileConstellationVirgo()
+        case .libra:
+            return R.string.localizable.profileConstellationLibra()
+        case .scorpio:
+            return R.string.localizable.profileConstellationScorpio()
+        case .sagittarius:
+            return R.string.localizable.profileConstellationSagittarius()
+        case .capricorn:
+            return R.string.localizable.profileConstellationCapricorn()
+        }
+    }
+}
+
 extension Entity.UserProfile {
     var dmProfile: Entity.DMProfile {
         Entity.DMProfile(uid: uid.int64, name: name, pictureUrl: pictureUrl, isVerified: isVerified, isVip: isVip)
     }
     
+    var age: String? {
+        
+        guard let b = birthday,
+              !b.isEmpty else {
+            return nil
+        }
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyyMMdd"
+
+        guard let startDate = dateFormatter.date(from: b) else {
+            return nil
+        }
+
+        let endDate = Date()
+        let calendar = Calendar.current
+        
+        let calcAge = calendar.dateComponents([.year], from: startDate, to: endDate)
+        
+        guard let age = calcAge.year?.string,
+              !age.isEmpty else {
+            return nil
+        }
+        
+        return age
+    }
+    
     var nameWithAge: String {
-        if let b = birthday, !b.isEmpty {
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "yyyyMMdd"
-            
-            if let startDate = dateFormatter.date(from: b)  {
-                let endDate = Date()
-                
-                let calendar = Calendar.current
-                let calcAge = calendar.dateComponents([.year], from: startDate, to: endDate)
-                
-                if let age = calcAge.year?.string, !age.isEmpty {
-                    return "\(name ?? ""), \(age)"
-                }
-            }
+        if let age = age, !age.isEmpty {
+            return "\(name ?? ""), \(age)"
         }
         return name ?? ""
     }
@@ -256,6 +357,16 @@ extension Entity.UserProfile {
     func nameWithVerified(fontSize: CGFloat = 16, withAge: Bool = false, isShowVerify: Bool = true) -> NSAttributedString {
         let nameString = withAge ? nameWithAge : (name ?? "")
         return attribuated(with: nameString, isVerified: isShowVerify ? isVerified : false, isVip: isVip, fontSize: fontSize)
+    }
+    
+    var locale: String? {
+        
+        guard !(hideLocation ?? false),
+            let code = countryCode else {
+            return nil
+        }
+        
+        return Locale(identifier: code).localizedString(forRegionCode: code)
     }
 }
 

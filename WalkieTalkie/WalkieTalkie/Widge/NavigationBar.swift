@@ -10,6 +10,8 @@ import UIKit
 
 class NavigationBar: UIView {
     
+    static let barHeight: CGFloat = 49
+    
     private(set) lazy var titleLabel: UILabel = {
         let lb = UILabel()
         lb.font = R.font.nunitoExtraBold(size: 24)
@@ -24,6 +26,13 @@ class NavigationBar: UIView {
         return btn
     }()
     
+    private(set) lazy var backgroundView: UIView = {
+        let v = UIView()
+        v.backgroundColor = UIColor(hex6: 0x121212)
+        v.isHidden = true
+        return v
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setUpLayout()
@@ -34,7 +43,19 @@ class NavigationBar: UIView {
     }
     
     private func setUpLayout() {
-        addSubviews(views: titleLabel, leftBtn)
+        addSubviews(views: backgroundView, titleLabel, leftBtn)
+        
+        let layoutGuide = UILayoutGuide()
+        addLayoutGuide(layoutGuide)
+        layoutGuide.snp.makeConstraints { (maker) in
+            maker.edges.equalToSuperview()
+            maker.height.equalTo(Self.barHeight)
+        }
+        
+        backgroundView.snp.makeConstraints { (maker) in
+            maker.leading.bottom.trailing.equalToSuperview()
+            maker.top.equalToSuperview().offset(-Frame.Height.safeAeraTopHeight)
+        }
         
         leftBtn.snp.makeConstraints { (maker) in
             maker.leading.equalToSuperview().inset(Frame.horizontalBleedWidth)
@@ -45,7 +66,6 @@ class NavigationBar: UIView {
             maker.center.equalToSuperview()
             maker.leading.greaterThanOrEqualTo(leftBtn.snp.trailing).offset(20)
             maker.height.equalTo(33)
-            maker.top.equalTo(8)
         }
         
     }

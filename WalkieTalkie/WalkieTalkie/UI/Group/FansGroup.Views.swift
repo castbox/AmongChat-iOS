@@ -356,7 +356,7 @@ extension FansGroup.Views {
             
             inputTextView.snp.makeConstraints { (maker) in
                 maker.edges.equalToSuperview().inset(UIEdgeInsets(top: 12, left: 16, bottom: 39, right: 16))
-                maker.height.equalTo(textViewMinHeight)
+                maker.height.greaterThanOrEqualTo(textViewMinHeight)
             }
             
             placeholderLabel.snp.makeConstraints { (maker) in
@@ -388,8 +388,29 @@ extension FansGroup.Views {
         }
         
         func textViewDidEndEditing(_ textView: UITextView) {
-            isEdtingRelay.accept(false)
             textView.text = textView.text.trim()
+            isEdtingRelay.accept(false)
+        }
+        
+        func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
+            guard let content = textView.text?.trimmed else {
+                return true
+            }
+            if let text = SensitiveWordChecker.firstSensitiveWord(in: content) {
+                //show
+                textView.attributedText = redAttributesString(text: content, redText: text)
+                raft.autoShow(.text(R.string.localizable.contentContainSensitiveWords()))
+                return false
+            }
+            return true
+        }
+        
+        func redAttributesString(text: String, redText: String) -> NSAttributedString {
+            let attributes = NSMutableAttributedString(string: text, attributes: [NSAttributedString.Key.foregroundColor: UIColor.white, NSAttributedString.Key.font: inputTextView.font ?? R.font.nunitoExtraBold(size: 18)])
+            if let range = text.nsRange(of: redText) {
+                attributes.addAttributes([NSAttributedString.Key.foregroundColor: UIColor.red], range: range)
+            }
+            return attributes
         }
     }
     
@@ -403,14 +424,14 @@ extension FansGroup.Views {
         
         private let bag = DisposeBag()
         
-        private lazy var coverIV: UIImageView = {
+        private(set) lazy var coverIV: UIImageView = {
             let iv = UIImageView()
             iv.contentMode = .scaleAspectFill
             iv.clipsToBounds = true
             return iv
         }()
         
-        private lazy var blurView: UIVisualEffectView = {
+        private(set) lazy var blurView: UIVisualEffectView = {
             let b = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
             return b
         }()
@@ -710,8 +731,18 @@ extension FansGroup.Views {
             button.snp.makeConstraints { (maker) in
                 maker.centerX.equalToSuperview()
                 maker.top.equalTo(40)
+                maker.bottom.equalTo(-46)
                 maker.height.equalTo(48)
                 maker.leading.equalTo(20)
+            }
+            adaptToIPad {
+                button.snp.remakeConstraints { (maker) in
+                    maker.centerX.equalToSuperview()
+                    maker.top.equalTo(40)
+                    maker.bottom.equalTo(-32)
+                    maker.height.equalTo(48)
+                    maker.leading.equalTo(40)
+                }
             }
             return v
         }()

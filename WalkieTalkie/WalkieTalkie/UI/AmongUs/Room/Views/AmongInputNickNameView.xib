@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -28,12 +28,12 @@
                     <rect key="frame" x="0.0" y="774" width="414" height="88"/>
                     <subviews>
                         <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" placeholder="ROBLOX USERNAME" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="g0S-qs-9HB" customClass="PaddingTextField" customModule="WalkieTalkie" customModuleProvider="target">
-                            <rect key="frame" x="12" y="20" width="307" height="48"/>
+                            <rect key="frame" x="12" y="20" width="308" height="48"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="48" id="jPq-gV-saB"/>
                             </constraints>
-                            <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito" pointSize="16"/>
+                            <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito" pointSize="20"/>
                             <textInputTraits key="textInputTraits" spellCheckingType="no" keyboardAppearance="alert" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -52,7 +52,7 @@
                             </connections>
                         </textField>
                         <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="252" horizontalCompressionResistancePriority="752" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BfB-Aa-jd8">
-                            <rect key="frame" x="327" y="20" width="75" height="48"/>
+                            <rect key="frame" x="328" y="20" width="74" height="48"/>
                             <color key="backgroundColor" red="1" green="0.94117647059999998" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="48" id="Ntt-MC-8Rx"/>
@@ -77,10 +77,14 @@
                     <constraints>
                         <constraint firstItem="g0S-qs-9HB" firstAttribute="top" secondItem="MQ1-yU-WC6" secondAttribute="top" constant="20" id="6fC-Ho-i8f"/>
                         <constraint firstItem="BfB-Aa-jd8" firstAttribute="leading" secondItem="g0S-qs-9HB" secondAttribute="trailing" constant="8" id="iUc-32-tPa"/>
-                        <constraint firstItem="g0S-qs-9HB" firstAttribute="leading" secondItem="MQ1-yU-WC6" secondAttribute="leading" constant="12" id="l6O-Ob-sTn"/>
+                        <constraint firstItem="g0S-qs-9HB" firstAttribute="leading" secondItem="MQ1-yU-WC6" secondAttribute="leading" constant="12" id="l6O-Ob-sTn">
+                            <variation key="heightClass=regular-widthClass=regular" constant="40"/>
+                        </constraint>
                         <constraint firstItem="BfB-Aa-jd8" firstAttribute="centerY" secondItem="g0S-qs-9HB" secondAttribute="centerY" id="llB-LU-GyF"/>
                         <constraint firstAttribute="bottom" secondItem="g0S-qs-9HB" secondAttribute="bottom" constant="20" id="uDS-Rz-Xjv"/>
-                        <constraint firstAttribute="trailing" secondItem="BfB-Aa-jd8" secondAttribute="trailing" constant="12" id="xL4-VV-TTz"/>
+                        <constraint firstAttribute="trailing" secondItem="BfB-Aa-jd8" secondAttribute="trailing" constant="12" id="xL4-VV-TTz">
+                            <variation key="heightClass=regular-widthClass=regular" constant="40"/>
+                        </constraint>
                     </constraints>
                 </view>
             </subviews>

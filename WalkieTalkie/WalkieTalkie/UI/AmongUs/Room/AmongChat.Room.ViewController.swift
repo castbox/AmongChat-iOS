@@ -289,15 +289,23 @@ extension AmongChat.Room.ViewController {
             maker.edges.equalToSuperview()
         }
 
-        let seatViewTopEdge = Frame.Height.deviceDiagonalIsMinThan4_7 ? 0 : 40
+        var seatViewTopEdge = Frame.Height.deviceDiagonalIsMinThan4_7 ? 0 : 40
         seatView.snp.makeConstraints { (maker) in
             maker.leading.trailing.equalToSuperview()
+            if Frame.isPad {
+                seatViewTopEdge = 60
+            }
             maker.top.equalTo(configView.snp.bottom).offset(seatViewTopEdge)
-            maker.height.equalTo(251)
+            if !Frame.isPad {
+                maker.height.equalTo(251)
+            }
         }
         
-        let messageViewTopEdge = Frame.Height.deviceDiagonalIsMinThan4_7 ? 0 : 17
+        var messageViewTopEdge = Frame.Height.deviceDiagonalIsMinThan4_7 ? 0 : 17
         messageView.snp.makeConstraints { (maker) in
+            if Frame.isPad {
+                messageViewTopEdge = 80
+            }
             maker.top.equalTo(seatView.snp.bottom).offset(messageViewTopEdge)
             if viewModel.isSilentUser {
                 maker.bottom.equalToSuperview()
@@ -519,7 +527,7 @@ extension AmongChat.Room.ViewController {
         }
         
         topBar.reportHandler = { [weak self] in
-            self?.showReportSheet()
+//            self?.showReportSheet()
         }
         
         topBar.nextRoomHandler = { [weak self] in

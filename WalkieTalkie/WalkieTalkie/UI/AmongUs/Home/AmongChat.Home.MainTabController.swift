@@ -117,7 +117,11 @@ extension AmongChat.Home.MainTabController {
                     return 8 + (Frame.Height.isXStyle ? 0 : 12)
                 }
             }
-            banner.show(on: self, edgeInsets: UIEdgeInsets(top: topSpace, left: 20, bottom: 8, right: 20), cornerRadius: 12)
+            var hInset: CGFloat = 20
+            adaptToIPad {
+                hInset = 40
+            }
+            banner.show(on: self, edgeInsets: UIEdgeInsets(top: topSpace, left: hInset, bottom: 8, right: hInset), cornerRadius: 12)
             notificationBanner = banner
         }
         

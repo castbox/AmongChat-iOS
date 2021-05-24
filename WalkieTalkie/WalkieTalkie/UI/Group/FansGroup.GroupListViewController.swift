@@ -56,6 +56,10 @@ extension FansGroup {
             layout.scrollDirection = .vertical
             var hInset: CGFloat = 20
             var columns: Int = 1
+            adaptToIPad {
+                hInset = 40
+                columns = 2
+            }
             let interitemSpacing: CGFloat = 20
             let hwRatio: CGFloat = 129.0 / 335.0
             let cellWidth = (UIScreen.main.bounds.width - hInset * 2 - interitemSpacing * CGFloat(columns - 1)) / CGFloat(columns)

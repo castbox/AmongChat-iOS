@@ -15,19 +15,9 @@ extension AmongChat.Login {
     
     class MobileViewController: WalkieTalkie.ViewController {
         
-        private lazy var navLayoutGuide: UILayoutGuide = {
-            let l = UILayoutGuide()
-            view.addLayoutGuide(l)
-            l.snp.makeConstraints { (maker) in
-                maker.leading.trailing.equalToSuperview()
-                maker.top.equalTo(topLayoutGuide.snp.bottom)
-                maker.height.equalTo(49)
-            }
-            return l
-        }()
-        
-        private lazy var backBtn: UIButton = {
-            let btn = UIButton(type: .custom)
+        private lazy var navView: NavigationBar = {
+            let n = NavigationBar()
+            let btn = n.leftBtn
             switch style {
             case .tutorial:
                 btn.addTarget(self, action: #selector(onBackBtn), for: .primaryActionTriggered)
@@ -41,11 +31,14 @@ extension AmongChat.Login {
                 btn.setImage(R.image.ac_profile_close()?.withRenderingMode(.alwaysTemplate), for: .normal)
                 btn.tintColor = .black
             }
-            return btn
+            return n
         }()
         
         private lazy var topBg: UIImageView = {
             let i = UIImageView(image: R.image.ac_login_top_bg())
+            adaptToIPad {
+                i.image = R.image.ac_login_top_bg_pad()
+            }
             i.contentMode = .scaleAspectFill
             return i
         }()
@@ -98,7 +91,11 @@ extension AmongChat.Login {
         private lazy var mobileTitle: UILabel = {
             let lb = UILabel()
             lb.textAlignment = .center
-            lb.font = R.font.nunitoExtraBold(size: 28.scalHValue)
+            var fontSize = 28.scalHValue
+            adaptToIPad {
+                fontSize = 28
+            }
+            lb.font = R.font.nunitoExtraBold(size: 28)
             lb.textColor = .white
             lb.numberOfLines = 2
             lb.adjustsFontSizeToFitWidth = true
@@ -547,8 +544,14 @@ extension AmongChat.Login.MobileViewController {
                                    spacing: 40,
                                    distribution: .equalSpacing)
         
-        view.addSubviews(views: backBtn, mobileTitle, mobileInputContainer, smsTip, nextBtn,
+        view.addSubviews(views: navView, mobileTitle, mobileInputContainer, smsTip, nextBtn,
                          moreLabel, leftSeperator, rightSeperator, btnStack, policyLabel)
+        
+        navView.snp.makeConstraints { (maker) in
+            maker.leading.trailing.equalToSuperview()
+            maker.top.equalTo(topLayoutGuide.snp.bottom)
+        }
+        
         setupBackBtnLayout()
         setupTopTipLayout()
         setupTitleLayout()
@@ -558,24 +561,24 @@ extension AmongChat.Login.MobileViewController {
         }}
         
         mobileInputContainer.snp.makeConstraints { (maker) in
-            maker.leading.trailing.equalToSuperview().inset(30)
+            maker.leading.trailing.equalToSuperview().inset(Frame.horizontalBleedWidth)
             maker.height.equalTo(48)
-            maker.top.equalTo(navLayoutGuide.snp.bottom).offset(Frame.Scale.height(221))
+            maker.top.equalTo(navView.snp.bottom).offset(Frame.Scale.height(221))
         }
         
         smsTip.snp.makeConstraints { (maker) in
-            maker.leading.trailing.equalToSuperview().inset(30)
+            maker.leading.trailing.equalToSuperview().inset(Frame.horizontalBleedWidth)
             maker.top.equalTo(mobileInputContainer.snp.bottom).offset(12)
         }
         
         nextBtn.snp.makeConstraints { (maker) in
-            maker.leading.trailing.equalToSuperview().inset(30)
+            maker.leading.trailing.equalToSuperview().inset(Frame.horizontalBleedWidth)
             maker.height.equalTo(48)
             maker.top.equalTo(smsTip.snp.bottom).offset(Frame.Scale.height(60))
         }
         
         policyLabel.snp.makeConstraints { (maker) in
-            maker.leading.trailing.equalToSuperview().inset(Frame.Scale.width(30))
+            maker.leading.trailing.equalToSuperview().inset(Frame.horizontalBleedWidth)
             maker.bottom.equalTo(bottomLayoutGuide.snp.top).offset(-Frame.Scale.height(12))
         }
         
@@ -592,14 +595,14 @@ extension AmongChat.Login.MobileViewController {
         leftSeperator.snp.makeConstraints { (maker) in
             maker.height.equalTo(1)
             maker.centerY.equalTo(moreLabel)
-            maker.leading.equalToSuperview().inset(30)
+            maker.leading.equalToSuperview().inset(Frame.horizontalBleedWidth)
             maker.trailing.equalTo(moreLabel.snp.leading).offset(-12)
         }
         
         rightSeperator.snp.makeConstraints { (maker) in
             maker.height.equalTo(1)
             maker.centerY.equalTo(moreLabel)
-            maker.trailing.equalToSuperview().inset(30)
+            maker.trailing.equalToSuperview().inset(Frame.horizontalBleedWidth)
             maker.leading.equalTo(moreLabel.snp.trailing).offset(12)
         }
     }
@@ -608,7 +611,7 @@ extension AmongChat.Login.MobileViewController {
         
         switch style {
         case .authNeeded(let source):
-            view.insertSubview(topBg, belowSubview: backBtn)
+            view.insertSubview(topBg, belowSubview: navView)
             view.addSubviews(views: topTipLabel)
             
             let spaceLayoutGuide = UILayoutGuide()
@@ -620,8 +623,8 @@ extension AmongChat.Login.MobileViewController {
             }
             
             topTipLabel.snp.makeConstraints { (maker) in
-                maker.leading.trailing.equalToSuperview().inset(30)
-                maker.top.equalTo(navLayoutGuide.snp.bottom).offset(source == .upgradedToPro ? 0 : (Frame.Screen.height < 812 ? 0 : 8))
+                maker.leading.trailing.equalToSuperview().inset(Frame.horizontalBleedWidth)
+                maker.top.equalTo(navView.snp.bottom).offset(source == .upgradedToPro ? 0 : (Frame.Screen.height < 812 ? 0 : 8))
             }
             
             topBg.snp.makeConstraints { (maker) in
@@ -643,16 +646,16 @@ extension AmongChat.Login.MobileViewController {
         
         switch style {
         case .tutorial:
-            backBtn.snp.makeConstraints { (maker) in
-                maker.leading.equalToSuperview().inset(20)
-                maker.centerY.equalTo(navLayoutGuide)
+            navView.leftBtn.snp.remakeConstraints { (maker) in
+                maker.leading.equalToSuperview().inset(Frame.horizontalBleedWidth)
+                maker.centerY.equalToSuperview()
                 maker.width.height.equalTo(24)
             }
             
         case .inAppLogin, .authNeeded:
-            backBtn.snp.makeConstraints { (maker) in
-                maker.trailing.equalToSuperview().inset(20)
-                maker.centerY.equalTo(navLayoutGuide)
+            navView.leftBtn.snp.remakeConstraints { (maker) in
+                maker.trailing.equalToSuperview().inset(Frame.horizontalBleedWidth)
+                maker.centerY.equalToSuperview()
                 maker.width.height.equalTo(24)
             }
             
@@ -666,17 +669,17 @@ extension AmongChat.Login.MobileViewController {
             view.addSubviews(views: mobileIcon)
             mobileIcon.snp.makeConstraints { (maker) in
                 maker.centerX.equalToSuperview()
-                maker.top.equalTo(navLayoutGuide.snp.bottom).offset(24.scalHValue)
+                maker.top.equalTo(navView.snp.bottom).offset(24.scalHValue)
             }
             
             mobileTitle.snp.makeConstraints { (maker) in
-                maker.leading.trailing.equalToSuperview().inset(30)
+                maker.leading.trailing.equalToSuperview().inset(Frame.horizontalBleedWidth)
                 maker.top.equalTo(mobileIcon.snp.bottom).offset(8)
             }
             
         case .authNeeded:
             mobileTitle.snp.makeConstraints { (maker) in
-                maker.leading.trailing.equalToSuperview().inset(30)
+                maker.leading.trailing.equalToSuperview().inset(Frame.horizontalBleedWidth)
                 maker.bottom.equalTo(mobileInputContainer.snp.top).offset(-12)
             }
         }

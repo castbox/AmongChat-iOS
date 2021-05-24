@@ -15,11 +15,12 @@ extension Social {
     
     class SelectAvatarViewController: WalkieTalkie.ViewController {
         
-        private lazy var backBtn: UIButton = {
-            let btn = UIButton(type: .custom)
+        private lazy var navView: NavigationBar = {
+            let n = NavigationBar()
+            let btn = n.leftBtn
             btn.addTarget(self, action: #selector(onBackBtn), for: .primaryActionTriggered)
             btn.setImage(R.image.ac_profile_close(), for: .normal)
-            return btn
+            return n
         }()
         
         private lazy var avatarIV: UIImageView = {
@@ -41,10 +42,15 @@ extension Social {
         private lazy var avatarCollectionView: UICollectionView = {
             let layout = UICollectionViewFlowLayout()
             layout.scrollDirection = .vertical
-            let hInset: CGFloat = 20
+            var hInset: CGFloat = 20
             let interSpace: CGFloat = 20
             let hwRatio: CGFloat = 1
-            let cellWidth = (UIScreen.main.bounds.width - hInset * 2 - interSpace) / 2
+            var columns: Int = 2
+            adaptToIPad {
+                hInset = 40
+                columns = 4
+            }
+            let cellWidth = ((UIScreen.main.bounds.width - hInset * 2 - interSpace * CGFloat(columns - 1)) / CGFloat(columns)).rounded(.towardZero)
             let cellHeight = cellWidth * hwRatio
             layout.itemSize = CGSize(width: cellWidth, height: cellHeight)
             layout.minimumInteritemSpacing = interSpace
@@ -97,27 +103,18 @@ extension Social.SelectAvatarViewController {
     
     // MARK: - convinient
     private func setupLayout() {
+                
+        view.addSubviews(views: navView, avatarIV, nameLabel, avatarCollectionView)
         
-        let navLayoutGuide = UILayoutGuide()
-        view.addLayoutGuide(navLayoutGuide)
-        navLayoutGuide.snp.makeConstraints { (maker) in
+        navView.snp.makeConstraints { (maker) in
             maker.leading.trailing.equalToSuperview()
             maker.top.equalTo(topLayoutGuide.snp.bottom)
-            maker.height.equalTo(49)
-        }
-        
-        view.addSubviews(views: backBtn, avatarIV, nameLabel, avatarCollectionView)
-        
-        backBtn.snp.makeConstraints { (maker) in
-            maker.leading.equalToSuperview().offset(20)
-            maker.centerY.equalTo(navLayoutGuide)
-            maker.width.height.equalTo(24)
         }
         
         avatarIV.snp.makeConstraints { (maker) in
             maker.centerX.equalToSuperview()
             maker.width.height.equalTo(100)
-            maker.top.equalTo(navLayoutGuide.snp.bottom).offset(40)
+            maker.top.equalTo(navView.snp.bottom).offset(40)
         }
         
         nameLabel.snp.makeConstraints { (maker) in

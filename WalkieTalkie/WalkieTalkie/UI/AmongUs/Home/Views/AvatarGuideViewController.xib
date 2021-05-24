@@ -134,8 +134,12 @@
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <constraints>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="4jP-PY-n1W" secondAttribute="trailing" constant="28" id="NGv-GM-e69"/>
-                <constraint firstItem="4jP-PY-n1W" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="28" id="OAD-In-iOI"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="4jP-PY-n1W" secondAttribute="trailing" constant="28" id="NGv-GM-e69">
+                    <variation key="heightClass=regular-widthClass=regular" constant="190"/>
+                </constraint>
+                <constraint firstItem="4jP-PY-n1W" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="28" id="OAD-In-iOI">
+                    <variation key="heightClass=regular-widthClass=regular" constant="190"/>
+                </constraint>
                 <constraint firstItem="4jP-PY-n1W" firstAttribute="centerY" secondItem="fnl-2z-Ty3" secondAttribute="centerY" id="yYA-N3-w7d"/>
             </constraints>
             <point key="canvasLocation" x="141" y="106"/>

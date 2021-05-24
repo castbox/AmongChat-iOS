@@ -18,20 +18,37 @@ extension Social {
             return .customize
         }
         
-        private lazy var backBtn: UIButton = {
+        private lazy var saveButton: UIButton = {
             let btn = UIButton(type: .custom)
-            btn.addTarget(self, action: #selector(onBackBtn), for: .primaryActionTriggered)
-            btn.setImage(R.image.ac_profile_back(), for: .normal)
+            btn.backgroundColor = UIColor(hex6: 0xFFF000)
+            btn.layer.cornerRadius = 16
+            btn.clipsToBounds = true
+            btn.setTitleColor(.black, for: .normal)
+            btn.titleLabel?.font = R.font.nunitoExtraBold(size: 16)
+            btn.setTitle(R.string.localizable.profileEditSaveBtn(), for: .normal)
+            btn.contentEdgeInsets = UIEdgeInsets(top: 0, left: 17, bottom: 0, right: 17)
+            btn.rx.controlEvent(.primaryActionTriggered)
+                .subscribe(onNext: { [weak self] (_) in
+                    self?.saveAsAvatar()
+                })
+                .disposed(by: bag)
             return btn
         }()
         
-        private lazy var titleLabel: UILabel = {
-            let lb = UILabel()
-            lb.font = R.font.nunitoExtraBold(size: 24)
-            lb.textColor = .white
-            lb.textAlignment = .center
-            lb.text = R.string.localizable.amongChatProfileCustomize()
-            return lb
+        private lazy var navView: NavigationBar = {
+            let n = NavigationBar()
+            let btn = n.leftBtn
+            btn.addTarget(self, action: #selector(onBackBtn), for: .primaryActionTriggered)
+            btn.setImage(R.image.ac_profile_back(), for: .normal)
+            let lb = n.titleLabel
+            lb.text = R.string.localizable.amongChatProfileAvatar()
+            n.addSubview(saveButton)
+            saveButton.snp.makeConstraints { (maker) in
+                maker.trailing.equalToSuperview().inset(Frame.horizontalBleedWidth)
+                maker.centerY.equalToSuperview()
+                maker.height.equalTo(32)
+            }
+            return n
         }()
         
         private lazy var profileLookView: ProfileLookView = {
@@ -100,28 +117,23 @@ private extension Social.ProfileLookViewController {
     func setupLayout() {
         
         
-        view.addSubviews(views: profileLookView, backBtn, titleLabel, segmentedButton, scrollView)
+        view.addSubviews(views: profileLookView, navView, segmentedButton, scrollView)
         
         profileLookView.snp.makeConstraints { (maker) in
             maker.top.leading.trailing.equalToSuperview()
             maker.height.equalTo(profileLookView.snp.width).multipliedBy(1)
         }
         
-        let navLayoutGuide = UILayoutGuide()
-        view.addLayoutGuide(navLayoutGuide)
-        navLayoutGuide.snp.makeConstraints { (maker) in
+        adaptToIPad {
+            profileLookView.snp.makeConstraints { (maker) in
+                maker.top.leading.trailing.equalToSuperview()
+                maker.height.equalTo(375)
+            }
+        }
+        
+        navView.snp.makeConstraints { (maker) in
             maker.leading.trailing.equalToSuperview()
             maker.top.equalTo(topLayoutGuide.snp.bottom)
-            maker.height.equalTo(49)
-        }
-        
-        backBtn.snp.makeConstraints { (maker) in
-            maker.leading.equalToSuperview().offset(12)
-            maker.centerY.equalTo(navLayoutGuide)
-        }
-        
-        titleLabel.snp.makeConstraints { (maker) in
-            maker.center.equalTo(navLayoutGuide)
         }
         
         segmentedButton.snp.makeConstraints { (maker) in
@@ -175,6 +187,7 @@ private extension Social.ProfileLookViewController {
         rx.viewDidAppear
             .take(1)
             .subscribe(onNext: { () in
+                Settings.shared.amongChatAvatarListShown.value = Date().timeIntervalSince1970
                 Logger.Action.log(.profile_customize_imp)
             })
             .disposed(by: bag)
@@ -432,6 +445,45 @@ private extension Social.ProfileLookViewController {
         
     }
     
+    func saveAsAvatar() {
+        guard let image = profileLookView.saveLookAsAvatar() else {
+            return
+        }
+        
+        let hudRemoval = self.view.raft.show(.loading)
+        
+        uploadImage(image: image)
+            .flatMap { self.useAvatar($0) }
+            .subscribe(onSuccess: { [weak self] (_) in
+                hudRemoval()
+                self?.navigationController?.popViewController()
+            }, onError: { (error) in
+                hudRemoval()
+            })
+            .disposed(by: bag)
+        
+    }
+    
+    private func uploadImage(image: UIImage) -> Single<(String, UIImage)> {
+        return Request.uploadPng(image: image)
+            .map { ($0, image) }
+    }
+    
+    private func useAvatar(_ avatarTuple: (String, UIImage)) -> Single<Entity.UserProfile> {
+        let profileProto = Entity.ProfileProto(birthday: nil, name: nil, pictureUrl: avatarTuple.0)
+        return Request.updateProfile(profileProto)
+            .map({ (p) -> Entity.UserProfile in
+                guard let profile = p else {
+                    throw MsgError.default
+                }
+                
+                return profile
+            })
+            .do(onSuccess: { (_) in
+                AvatarImageView.placeholder = avatarTuple.1
+            })
+    }
+
 }
 
 extension Social.ProfileLookViewController: UIScrollViewDelegate {

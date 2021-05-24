@@ -6,7 +6,7 @@
 //  Copyright © 2021 Guru Rain. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 extension Social.ChooseGame {
     
@@ -17,7 +17,7 @@ extension Social.ChooseGame {
         init(with skill: Entity.GameSkill) {
             self.skill = skill
         }
-                
+        
         var name: String? {
             return skill.topicName
         }
@@ -27,4 +27,29 @@ extension Social.ChooseGame {
         }
     }
     
+}
+
+
+extension Entity.GameSkill.Status {
+    var title: String? {
+        switch self {
+        case .added:
+            return R.string.localizable.amongChatAdded()
+        case .inreview:
+            return R.string.localizable.statsPendingReview()
+        case .none:
+            return nil
+        }
+    }
+    
+    var image: UIImage? {
+        switch self {
+        case .added:
+            return R.image.ac_choose_game_added()
+        case .inreview:
+            return R.image.ac_choose_game_inreview()
+        case .none:
+            return nil
+        }
+    }
 }

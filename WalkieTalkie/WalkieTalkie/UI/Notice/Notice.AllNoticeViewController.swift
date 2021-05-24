@@ -14,24 +14,18 @@ extension Notice {
     
     class AllNoticeViewController: WalkieTalkie.ViewController {
         
-        private lazy var backBtn: UIButton = {
-            let btn = UIButton(type: .custom)
-            btn.setImage(R.image.ac_profile_back(), for: .normal)
+        private lazy var navView: NavigationBar = {
+            let n = NavigationBar()
+            let btn = n.leftBtn
+            btn.setImage(R.image.ac_back(), for: .normal)
             btn.rx.controlEvent(.primaryActionTriggered)
                 .subscribe(onNext: { [weak self] () in
                     self?.navigationController?.popViewController()
                 })
                 .disposed(by: bag)
-            return btn
-        }()
-        
-        private lazy var titleLabel: UILabel = {
-            let lb = UILabel()
-            lb.font = R.font.nunitoExtraBold(size: 24)
-            lb.textColor = .white
-            lb.textAlignment = .center
+            let lb = n.titleLabel
             lb.text = R.string.localizable.amongChatNoticeAllNoticeTitle()
-            return lb
+            return n
         }()
         
         private typealias SegmentedButton = Social.ProfileLookViewController.SegmentedButton
@@ -107,29 +101,17 @@ extension Notice.AllNoticeViewController {
     
     private func setupLayout() {
         
-        view.addSubviews(views: backBtn, titleLabel, segmentedButton, scrollView)
+        view.addSubviews(views: navView, segmentedButton, scrollView)
         
-        let navLayoutGuide = UILayoutGuide()
-        view.addLayoutGuide(navLayoutGuide)
-        navLayoutGuide.snp.makeConstraints { (maker) in
+        navView.snp.makeConstraints { (maker) in
             maker.leading.trailing.equalToSuperview()
             maker.top.equalTo(topLayoutGuide.snp.bottom)
-            maker.height.equalTo(49)
-        }
-        
-        backBtn.snp.makeConstraints { (maker) in
-            maker.leading.equalToSuperview().offset(12)
-            maker.centerY.equalTo(navLayoutGuide)
-        }
-        
-        titleLabel.snp.makeConstraints { (maker) in
-            maker.center.equalTo(navLayoutGuide)
         }
         
         segmentedButton.snp.makeConstraints { (maker) in
             maker.leading.trailing.equalToSuperview()
             maker.height.equalTo(60)
-            maker.top.equalTo(navLayoutGuide.snp.bottom)
+            maker.top.equalTo(navView.snp.bottom)
         }
         
         scrollView.snp.makeConstraints { (maker) in

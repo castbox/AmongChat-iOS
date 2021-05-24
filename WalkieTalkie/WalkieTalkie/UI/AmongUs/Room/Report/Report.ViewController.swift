@@ -93,6 +93,7 @@ extension Report {
             
             configureSubview()
             bindSubviewEvent()
+            
         }
         
 //        override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

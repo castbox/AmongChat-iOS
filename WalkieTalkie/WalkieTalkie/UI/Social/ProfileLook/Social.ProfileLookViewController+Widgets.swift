@@ -17,6 +17,8 @@ extension Social.ProfileLookViewController {
         
         private lazy var profileBgIV: UIImageView = {
             let i = UIImageView(image: R.image.ac_profile_look_bg_defalut())
+            i.contentMode = .scaleAspectFill
+            i.clipsToBounds = true
             return i
         }()
         
@@ -48,7 +50,15 @@ extension Social.ProfileLookViewController {
             return player
         }()
         
-        init() {
+        enum Style {
+            case header
+            case cell
+        }
+        
+        private let style: Style
+        
+        init(_ style: Style = .header) {
+            self.style = style
             super.init(frame: .zero)
             setupLayout()
         }
@@ -58,34 +68,63 @@ extension Social.ProfileLookViewController {
         }
         
         private func setupLayout() {
-            addSubviews(views: profileBgIV, skinShadowIV, skinIV, hatIV, petShadowIV, svgaView)
-            
-            profileBgIV.snp.makeConstraints { (maker) in
-                maker.edges.equalToSuperview()
-            }
-            
-            skinShadowIV.snp.makeConstraints { (maker) in
-                maker.edges.equalTo(skinIV)
-            }
-            
-            skinIV.snp.makeConstraints { (maker) in
-                maker.centerX.equalToSuperview()
-                maker.width.height.equalTo(210.scalValue)
-                maker.centerY.equalToSuperview().multipliedBy(1.2)
-            }
-            
-            hatIV.snp.makeConstraints { (maker) in
-                maker.edges.equalTo(skinIV)
-            }
-            
-            petShadowIV.snp.makeConstraints { (maker) in
-                maker.edges.equalTo(svgaView)
-            }
-            
-            svgaView.snp.makeConstraints { (maker) in
-                maker.width.height.equalTo(70)
-                maker.trailing.equalTo(skinIV.snp.trailing).offset(28)
-                maker.bottom.equalTo(skinIV.snp.bottom).offset(-17)
+            switch style {
+            case .header:
+                addSubviews(views: profileBgIV, skinShadowIV, skinIV, hatIV, petShadowIV, svgaView)
+                
+                profileBgIV.snp.makeConstraints { (maker) in
+                    maker.edges.equalToSuperview()
+                }
+                
+                skinShadowIV.snp.makeConstraints { (maker) in
+                    maker.edges.equalTo(skinIV)
+                }
+                
+                skinIV.snp.makeConstraints { (maker) in
+                    maker.centerX.equalToSuperview()
+                    maker.width.height.equalTo(210.scalValue)
+                    maker.centerY.equalToSuperview().multipliedBy(1.2)
+                }
+                
+                adaptToIPad {
+                    skinIV.snp.remakeConstraints { (maker) in
+                        maker.centerX.equalToSuperview()
+                        maker.width.height.equalTo(210)
+                        maker.centerY.equalToSuperview().multipliedBy(1.2)
+                    }
+                }
+                
+                hatIV.snp.makeConstraints { (maker) in
+                    maker.edges.equalTo(skinIV)
+                }
+                
+                petShadowIV.snp.makeConstraints { (maker) in
+                    maker.edges.equalTo(svgaView)
+                }
+                
+                svgaView.snp.makeConstraints { (maker) in
+                    maker.width.height.equalTo(70)
+                    maker.trailing.equalTo(skinIV.snp.trailing).offset(28)
+                    maker.bottom.equalTo(skinIV.snp.bottom).offset(-17)
+                }
+                
+            case .cell:
+                
+                addSubviews(views: profileBgIV, skinIV, hatIV)
+                
+                profileBgIV.snp.makeConstraints { (maker) in
+                    maker.edges.equalToSuperview()
+                }
+                
+                skinIV.snp.makeConstraints { (maker) in
+                    maker.center.equalToSuperview()
+                    maker.width.height.equalTo(120)
+                }
+                
+                hatIV.snp.makeConstraints { (maker) in
+                    maker.edges.equalTo(skinIV)
+                }
+                
             }
             
         }
@@ -126,9 +165,56 @@ extension Social.ProfileLookViewController {
             case .pet:
                 
                 petShadowIV.isHidden = !decoration.selected
-                playSvga(decoration.selected ? decoration.lookUrl.url : nil)
+                playSvga(decoration.selected ? decoration.lookUrl?.url : nil)
+                
+            case .suit:
+                decoration.suit.forEach({ (deco) in
+                    guard deco.decorationType != .suit else { return }
+                    updateLook(deco)
+                })
             }
             
+        }
+        
+        func saveLookAsAvatar() -> UIImage? {
+                        
+            let innerContainerSize = CGSize(width: 210, height: 210)
+            let containerSize = CGSize(width: 140, height: 140)
+            
+            let innerContainer = UIView(frame: CGRect(origin: .zero, size: innerContainerSize))
+            
+            let bgView = UIImageView(image: profileBgIV.image)
+            bgView.contentMode = .scaleAspectFill
+            
+            let skinView = UIImageView(image: skinIV.image)
+            
+            let hatView = UIImageView(image: hatIV.image)
+            
+            innerContainer.addSubviews(views: bgView, skinView, hatView)
+            bgView.snp.makeConstraints { (maker) in
+                maker.edges.equalToSuperview()
+                maker.size.equalTo(innerContainerSize)
+            }
+            
+            skinView.snp.makeConstraints { (maker) in
+                maker.centerX.equalToSuperview().offset(5)
+                maker.size.equalTo(innerContainerSize)
+                maker.top.equalTo(12)
+            }
+            
+            hatView.snp.makeConstraints { (maker) in
+                maker.edges.equalTo(skinView)
+            }
+            
+            let container = UIView(frame: CGRect(origin: .zero, size: containerSize))
+            container.addSubview(innerContainer)
+            innerContainer.snp.makeConstraints { (maker) in
+                maker.top.centerX.equalToSuperview()
+            }
+            
+            container.layoutIfNeeded()
+            
+            return container.screenshot
         }
         
     }
@@ -238,9 +324,9 @@ extension Social.ProfileLookViewController {
                 btn.snp.makeConstraints { (maker) in
                     maker.centerY.equalToSuperview().offset(-2)
                     if idx == 0 {
-                        maker.leading.equalToSuperview().inset(20)
+                        maker.leading.equalToSuperview().inset(Frame.horizontalBleedWidth)
                     } else if idx == buttons.count - 1 {
-                        maker.trailing.equalToSuperview().inset(20)
+                        maker.trailing.equalToSuperview().inset(Frame.horizontalBleedWidth)
                     }
                     
                     if idx > 0,
@@ -287,11 +373,11 @@ extension Social.ProfileLookViewController {
                 button.transform = CGAffineTransform(scaleX: enlargeFractor, y: enlargeFractor)
                 if button == self.buttons.last {
                     button.snp.updateConstraints { (maker) in
-                        maker.trailing.equalToSuperview().inset(20 + ceil((enlargeFractor - 1) * button.frame.width) / 2)
+                        maker.trailing.equalToSuperview().inset(Frame.horizontalBleedWidth + ceil((enlargeFractor - 1) * button.frame.width) / 2)
                     }
                 } else if button == self.buttons.first {
                     button.snp.updateConstraints { (maker) in
-                        maker.leading.equalToSuperview().inset(20 + ceil((enlargeFractor - 1) * button.frame.width) / 2)
+                        maker.leading.equalToSuperview().inset(Frame.horizontalBleedWidth + ceil((enlargeFractor - 1) * button.frame.width) / 2)
                     }
                 }
                 
@@ -300,11 +386,11 @@ extension Social.ProfileLookViewController {
                 self.selectedBtn?.transform = .identity
                 if self.selectedBtn == self.buttons.last {
                     self.selectedBtn?.snp.updateConstraints { (maker) in
-                        maker.trailing.equalToSuperview().inset(20)
+                        maker.trailing.equalToSuperview().inset(Frame.horizontalBleedWidth)
                     }
                 } else if self.selectedBtn == self.buttons.first {
                     self.selectedBtn?.snp.updateConstraints { (maker) in
-                        maker.leading.equalToSuperview().inset(20)
+                        maker.leading.equalToSuperview().inset(Frame.horizontalBleedWidth)
                     }
                 }
 
@@ -343,10 +429,15 @@ extension Social.ProfileLookViewController {
         private lazy var decorationCollectionView: UICollectionView = {
             let layout = UICollectionViewFlowLayout()
             layout.scrollDirection = .vertical
-            let hInset: CGFloat = 20
+            var hInset: CGFloat = 20
             let interSpace: CGFloat = 20
             let hwRatio: CGFloat = viewModel.decorationType == .pet ? (196.0 / 157.5) : 1
-            let cellWidth = (UIScreen.main.bounds.width - hInset * 2 - interSpace) / 2
+            var columns: Int = 2
+            adaptToIPad {
+                hInset = 40
+                columns = 4
+            }
+            let cellWidth = ((UIScreen.main.bounds.width - hInset * 2 - interSpace * CGFloat(columns - 1)) / CGFloat(columns)).rounded(.towardZero)
             let cellHeight = (cellWidth * hwRatio).rounded()
             layout.itemSize = CGSize(width: cellWidth, height: cellHeight)
             layout.minimumInteritemSpacing = interSpace
@@ -464,6 +555,12 @@ extension Social.ProfileLookViewController {
             return iv
         }()
         
+        private lazy var suitView: ProfileLookView = {
+            let s = ProfileLookView(.cell)
+            s.isHidden = true
+            return s
+        }()
+        
         private lazy var selectedIcon: UIImageView = {
             let iv = UIImageView()
             iv.contentMode = .scaleToFill
@@ -509,7 +606,7 @@ extension Social.ProfileLookViewController {
             contentView.layer.cornerRadius = 12
             contentView.clipsToBounds = true
             
-            contentView.addSubviews(views: decorationIV, svgaView, selectedIcon, adBadge, statusLabel)
+            contentView.addSubviews(views: decorationIV, suitView, svgaView, selectedIcon, adBadge, statusLabel)
             
             selectedIcon.snp.makeConstraints { (maker) in
                 maker.top.right.equalToSuperview().inset(-0.5)
@@ -521,6 +618,10 @@ extension Social.ProfileLookViewController {
                 maker.top.right.equalToSuperview().inset(-0.5)
                 maker.width.equalTo(44)
                 maker.height.equalTo(32)
+            }
+            
+            suitView.snp.makeConstraints { (maker) in
+                maker.edges.equalToSuperview()
             }
         }
         
@@ -550,6 +651,8 @@ extension Social.ProfileLookViewController {
                     
                 }
                 
+            case .suit:
+                suitView.updateLook(decoration)
             }
             
             selectedIcon.isHidden = decoration.locked
@@ -578,6 +681,13 @@ extension Social.ProfileLookViewController {
                     maker.leading.equalToSuperview().inset(19.scalValue.rounded())
                 }
                 
+                adaptToIPad {
+                    decorationIV.snp.remakeConstraints { (maker) in
+                        maker.center.equalToSuperview()
+                        maker.width.height.equalTo(120)
+                    }
+                }
+                
             case .bg:
                 decorationIV.snp.remakeConstraints { (maker) in
                     maker.edges.equalToSuperview()
@@ -598,8 +708,26 @@ extension Social.ProfileLookViewController {
                     maker.bottom.equalToSuperview().inset(20.scalValue.rounded())
                 }
                 
+                adaptToIPad {
+                    svgaView.snp.remakeConstraints { (maker) in
+                        maker.centerX.equalToSuperview()
+                        maker.width.equalTo(svgaView.snp.height)
+                        maker.leading.equalToSuperview().inset(39)
+                        maker.centerY.equalToSuperview().multipliedBy(0.8)
+                    }
+                    
+                    statusLabel.snp.remakeConstraints { (maker) in
+                        maker.leading.trailing.equalToSuperview().inset(20)
+                        maker.height.equalTo(40)
+                        maker.bottom.equalToSuperview().inset(20)
+                    }
+                }
+                
                 statusLabel.layer.cornerRadius = 20
                 statusLabel.layer.masksToBounds = true
+                
+            case .suit:
+                suitView.isHidden = false
             }
             
         }

@@ -59,6 +59,7 @@
 		26DC82752609C891000A9111 /* Social.ChooseGame.ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26DC82742609C891000A9111 /* Social.ChooseGame.ViewController.swift */; };
 		26DC82792609C8F1000A9111 /* Social.ChooseGame+Views.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26DC82782609C8F1000A9111 /* Social.ChooseGame+Views.swift */; };
 		26DCEEF6264BD63F00B874FB /* NavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26DCEEF5264BD63F00B874FB /* NavigationBar.swift */; };
+		26EE8AC82654C2F900B75D8A /* Social.ProfileViewController.ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26EE8AC72654C2F900B75D8A /* Social.ProfileViewController.ProfileView.swift */; };
 		26F4149C2611C4EA003ED5BE /* FansGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26F4149B2611C4EA003ED5BE /* FansGroup.swift */; };
 		26F414A42611C548003ED5BE /* FansGroup.CreateGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26F414A32611C548003ED5BE /* FansGroup.CreateGroupViewController.swift */; };
 		26F414AA2611DB1D003ED5BE /* FansGroup.Views.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26F414A92611DB1D003ED5BE /* FansGroup.Views.swift */; };
@@ -220,8 +221,14 @@
 		FE68488C244BDD0400F87AF9 /* UserProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE68488B244BDD0300F87AF9 /* UserProperty.swift */; };
 		FE6AF8582457E03500FD474A /* RxKeyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6AF8572457E03500FD474A /* RxKeyboard.swift */; };
 		FE6AF85A2457E26C00FD474A /* UIViewFrameExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6AF8592457E26C00FD474A /* UIViewFrameExtension.swift */; };
+		FE6BEAE32631B17700568B9B /* AmongGroupJoinRequestCellIPad.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6BEAE12631B17700568B9B /* AmongGroupJoinRequestCellIPad.swift */; };
+		FE6BEAE42631B17700568B9B /* AmongGroupJoinRequestCellIPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE6BEAE22631B17700568B9B /* AmongGroupJoinRequestCellIPad.xib */; };
 		FE705537265273E200A489F4 /* NewVersionAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE705535265273E200A489F4 /* NewVersionAlertController.swift */; };
 		FE705538265273E200A489F4 /* NewVersionAlertController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE705536265273E200A489F4 /* NewVersionAlertController.xib */; };
+		FE70553B265398FD00A489F4 /* Social.AddStatsPendingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE705539265398FD00A489F4 /* Social.AddStatsPendingController.swift */; };
+		FE70553C265398FD00A489F4 /* AddStatsPendingController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE70553A265398FD00A489F4 /* AddStatsPendingController.xib */; };
+		FE70553E2654E77000A489F4 /* Social.BirthdaySelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE70553D2654E77000A489F4 /* Social.BirthdaySelectViewController.swift */; };
+		FE7055402654F96300A489F4 /* Constellation.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE70553F2654F96300A489F4 /* Constellation.swift */; };
 		FE72186F2456D696005274CA /* MJMaterialSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE72186E2456D696005274CA /* MJMaterialSwitch.swift */; };
 		FE7218712456D900005274CA /* FireMessaging.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE7218702456D8FF005274CA /* FireMessaging.swift */; };
 		FE7218752456DA36005274CA /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE7218742456DA36005274CA /* Extension.swift */; };
@@ -499,6 +506,7 @@
 		26DC82742609C891000A9111 /* Social.ChooseGame.ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Social.ChooseGame.ViewController.swift; sourceTree = "<group>"; };
 		26DC82782609C8F1000A9111 /* Social.ChooseGame+Views.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Social.ChooseGame+Views.swift"; sourceTree = "<group>"; };
 		26DCEEF5264BD63F00B874FB /* NavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBar.swift; sourceTree = "<group>"; };
+		26EE8AC72654C2F900B75D8A /* Social.ProfileViewController.ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Social.ProfileViewController.ProfileView.swift; sourceTree = "<group>"; };
 		26F4149B2611C4EA003ED5BE /* FansGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FansGroup.swift; sourceTree = "<group>"; };
 		26F414A32611C548003ED5BE /* FansGroup.CreateGroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FansGroup.CreateGroupViewController.swift; sourceTree = "<group>"; };
 		26F414A92611DB1D003ED5BE /* FansGroup.Views.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FansGroup.Views.swift; sourceTree = "<group>"; };
@@ -685,8 +693,14 @@
 		FE68488B244BDD0300F87AF9 /* UserProperty.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProperty.swift; sourceTree = "<group>"; };
 		FE6AF8572457E03500FD474A /* RxKeyboard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RxKeyboard.swift; sourceTree = "<group>"; };
 		FE6AF8592457E26C00FD474A /* UIViewFrameExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewFrameExtension.swift; sourceTree = "<group>"; };
+		FE6BEAE12631B17700568B9B /* AmongGroupJoinRequestCellIPad.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongGroupJoinRequestCellIPad.swift; sourceTree = "<group>"; };
+		FE6BEAE22631B17700568B9B /* AmongGroupJoinRequestCellIPad.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AmongGroupJoinRequestCellIPad.xib; sourceTree = "<group>"; };
 		FE705535265273E200A489F4 /* NewVersionAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewVersionAlertController.swift; sourceTree = "<group>"; };
 		FE705536265273E200A489F4 /* NewVersionAlertController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewVersionAlertController.xib; sourceTree = "<group>"; };
+		FE705539265398FD00A489F4 /* Social.AddStatsPendingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Social.AddStatsPendingController.swift; sourceTree = "<group>"; };
+		FE70553A265398FD00A489F4 /* AddStatsPendingController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddStatsPendingController.xib; sourceTree = "<group>"; };
+		FE70553D2654E77000A489F4 /* Social.BirthdaySelectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Social.BirthdaySelectViewController.swift; sourceTree = "<group>"; };
+		FE70553F2654F96300A489F4 /* Constellation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constellation.swift; sourceTree = "<group>"; };
 		FE72186E2456D696005274CA /* MJMaterialSwitch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MJMaterialSwitch.swift; sourceTree = "<group>"; };
 		FE7218702456D8FF005274CA /* FireMessaging.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FireMessaging.swift; sourceTree = "<group>"; };
 		FE7218742456DA36005274CA /* Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
@@ -935,6 +949,8 @@
 				26259B6A260B3E7400636E50 /* Social.ChooseGame.ViewModel.swift */,
 				26259B5C260A1A6400636E50 /* Social.AddStatsViewController.swift */,
 				26259B60260B11B800636E50 /* Social.AddStatsViewController+Views.swift */,
+				FE705539265398FD00A489F4 /* Social.AddStatsPendingController.swift */,
+				FE70553A265398FD00A489F4 /* AddStatsPendingController.xib */,
 			);
 			path = GameSkill;
 			sourceTree = "<group>";
@@ -1101,10 +1117,12 @@
 			isa = PBXGroup;
 			children = (
 				BDB8F58624F7D925000027F8 /* Social.swift */,
-				BDC06EEE24F51E780016770D /* Social.EditProfileViewController.swift */,
-				2B51C881258B8ED700BAE937 /* Social.DatePickerView.swift */,
 				BDB8F58824F7DA46000027F8 /* Social.ProfileViewController.swift */,
 				2B956765259B3262001C7B91 /* Social.ProfileViewcontrollerExtension.swift */,
+				26EE8AC72654C2F900B75D8A /* Social.ProfileViewController.ProfileView.swift */,
+				BDC06EEE24F51E780016770D /* Social.EditProfileViewController.swift */,
+				FE70553D2654E77000A489F4 /* Social.BirthdaySelectViewController.swift */,
+				2B51C881258B8ED700BAE937 /* Social.DatePickerView.swift */,
 				BD95F2DB2591C73B003BE2FE /* Social.SelectAvatarViewController.swift */,
 				2B51C893258C6EC700BAE937 /* Social.BirthdaySetViewController.swift */,
 				FEC10DCD25C0340A0014F8DD /* Social.ContactListViewController.swift */,
@@ -1334,6 +1352,7 @@
 				FE684878244BD45F00F87AF9 /* DateUtil.swift */,
 				FE68487F244BD72A00F87AF9 /* Settings.swift */,
 				FE2AF9EB244DC24300763747 /* AppConfig.swift */,
+				FE70553F2654F96300A489F4 /* Constellation.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -1662,6 +1681,8 @@
 				FE80677C261C90C900207992 /* AmongGroupRoomTipsView.swift */,
 				FE169E2326134A1500AD7866 /* AmongGroupHostView.swift */,
 				FE169E2726134A2000AD7866 /* AmongGroupHostView.xib */,
+				FE6BEAE12631B17700568B9B /* AmongGroupJoinRequestCellIPad.swift */,
+				FE6BEAE22631B17700568B9B /* AmongGroupJoinRequestCellIPad.xib */,
 				FE169E31261351C400AD7866 /* AmongGroupJoinRequestCell.swift */,
 				FE169E2C2613516500AD7866 /* AmongGroupJoinRequestCell.xib */,
 				FE078C882615B64B004C38C5 /* AmongChat.GroupRoom.MembersController.swift */,
@@ -1869,6 +1890,7 @@
 				FE7CE9CF2589BEC70067952C /* AmongChatRoomTopBar.xib in Resources */,
 				FE045FC926451CB20032FE67 /* ConversationListCell.xib in Resources */,
 				FE79F388258CDE6B00E9BC6C /* AmongSheetController.xib in Resources */,
+				FE6BEAE42631B17700568B9B /* AmongGroupJoinRequestCellIPad.xib in Resources */,
 				FE79F38E258CDFA500E9BC6C /* AmongSheetUserCell.xib in Resources */,
 				FEBE521E262D2DF500E49EC4 /* ReportTableHeader.xib in Resources */,
 				FE9EF52C258B23BC008C0BAD /* AmongRoomToolView.xib in Resources */,
@@ -1894,6 +1916,7 @@
 				FE746BCD24629A9800CAC554 /* Nunito-SemiBold.ttf in Resources */,
 				FEFF935E258B33480011A274 /* AmongInputNotesView.xib in Resources */,
 				FE9F69E025CD338600C0F118 /* AppTrackingGuideView.xib in Resources */,
+				FE70553C265398FD00A489F4 /* AddStatsPendingController.xib in Resources */,
 				FE7E227326455DFB00DAD431 /* ConversationCollectionCell.xib in Resources */,
 				FE7ED90725F20292009C608A /* room-emoji-purple.svga in Resources */,
 				FE7ED90625F20292009C608A /* room-emoji-bluegreen.svga in Resources */,
@@ -2149,6 +2172,7 @@
 				FEF61725264BCD5E007CC97E /* WaterfallLayout.swift in Sources */,
 				FE6738AE2611F1840044C0D2 /* AmongChat.Room.MessageInputView.swift in Sources */,
 				2B956766259B3262001C7B91 /* Social.ProfileViewcontrollerExtension.swift in Sources */,
+				26EE8AC82654C2F900B75D8A /* Social.ProfileViewController.ProfileView.swift in Sources */,
 				FE4FDADB2435D70A00CD5E97 /* FireLink.swift in Sources */,
 				BD754CB9258B9CC300ECC177 /* AmongChat.CreateRoom.TopicCell.swift in Sources */,
 				FE8067A8261ED69C00207992 /* AmongChat.GroupRoom.BroadcasterViewModel.swift in Sources */,
@@ -2255,10 +2279,12 @@
 				BDE20C67258DE4B800245CBA /* AmongChat.Home.LoadErrorView.swift in Sources */,
 				FECBD85125E3D456000A3DB5 /* ZegoRtcManager.swift in Sources */,
 				FE68488C244BDD0400F87AF9 /* UserProperty.swift in Sources */,
+				FE6BEAE32631B17700568B9B /* AmongGroupJoinRequestCellIPad.swift in Sources */,
 				FED7B601244EC9FB00D94F97 /* LoggerPath.swift in Sources */,
 				FE79F387258CDE6B00E9BC6C /* AmongSheetController.swift in Sources */,
 				26259B5D260A1A6400636E50 /* Social.AddStatsViewController.swift in Sources */,
 				FEA298CB25E63714001D5F3C /* SnapChatSharePhotoView.swift in Sources */,
+				FE7055402654F96300A489F4 /* Constellation.swift in Sources */,
 				26DBBF7626008C1B00A1B9BA /* Social.AgePromptModal.swift in Sources */,
 				2BA2DB462594AB320050BF8E /* Social.FollowerViewController.swift in Sources */,
 				FE8DEA66243DB09A0059C252 /* APIService.swift in Sources */,
@@ -2330,6 +2356,7 @@
 				FE914B0C2614663A00C755FF /* AmongChat.Room.BackgroundView.swift in Sources */,
 				26057F8925C1712900718D3E /* AvatarImageView.swift in Sources */,
 				BDD692772536DE2900260F1F /* Ad.InterstitialManager.swift in Sources */,
+				FE70553B265398FD00A489F4 /* Social.AddStatsPendingController.swift in Sources */,
 				FE730E4F24ADCC4C00680062 /* TikTokShareView.swift in Sources */,
 				FE6738B22611F5270044C0D2 /* AmongChat.Room.MessageListView.swift in Sources */,
 				FE126D3E243481BD00BEDD60 /* AgoraRtcManager.swift in Sources */,
@@ -2374,6 +2401,7 @@
 				FEC2A94925CAB637001B9556 /* StringSizeExtension.swift in Sources */,
 				FE2AF9E6244DB0F500763747 /* WebViewController.swift in Sources */,
 				26A3D2BA26366DDB00DD4F53 /* Notice.GroupRequestsListViewController.swift in Sources */,
+				FE70553E2654E77000A489F4 /* Social.BirthdaySelectViewController.swift in Sources */,
 				FEAD54DD2449C74F006454F6 /* Modal.Container.swift in Sources */,
 				26259B6B260B3E7400636E50 /* Social.ChooseGame.ViewModel.swift in Sources */,
 				26A3D2B626366D8500DD4F53 /* Notice.AllNoticeViewController.swift in Sources */,
@@ -2580,7 +2608,7 @@
 				CODE_SIGN_ENTITLEMENTS = WalkieTalkie/WalkieTalkie.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 69MW7VVKA9;
 				"EXCLUDED_ARCHS[sdk=iphoneos*]" = i386;
@@ -2590,7 +2618,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.20.0;
+				MARKETING_VERSION = 1.21.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.talkie.walkie.chat.among;
 				PRODUCT_MODULE_NAME = WalkieTalkie;
 				PRODUCT_NAME = AmongChat;
@@ -2609,7 +2637,7 @@
 				CODE_SIGN_ENTITLEMENTS = WalkieTalkie/WalkieTalkie.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = 69MW7VVKA9;
 				"EXCLUDED_ARCHS[sdk=iphoneos*]" = i386;
 				INFOPLIST_FILE = WalkieTalkie/Info.plist;
@@ -2618,7 +2646,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.20.0;
+				MARKETING_VERSION = 1.21.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.talkie.walkie.chat.among;
 				PRODUCT_MODULE_NAME = WalkieTalkie;
 				PRODUCT_NAME = AmongChat;

@@ -34,7 +34,7 @@ extension Social {
             btn.layer.cornerRadius = 24
             btn.rx.controlEvent(.primaryActionTriggered)
                 .subscribe(onNext: { [weak self] () in
-                    let vc = Social.SelectAvatarViewController()
+                    let vc = Social.ProfileLookViewController()
                     self?.dismiss(animated: false)
                     if let nav = self?.presentingViewController as? UINavigationController {
                         nav.pushViewController(vc)
@@ -53,10 +53,6 @@ extension Social {
             btn.setTitle(R.string.localizable.amongChatCustomAvatarTakePhoto(), for: .normal)
             btn.backgroundColor = UIColor(hex6: 0x3D3D3D)
             btn.layer.cornerRadius = 24
-            btn.setImage(R.image.ac_pro_icon_24(), for: .normal)
-            btn.adjustsImageWhenHighlighted = false
-            btn.imageEdgeInsets = UIEdgeInsets(top: 0, left: -4, bottom: 0, right: 4)
-            btn.titleEdgeInsets = UIEdgeInsets(top: 0, left: 4, bottom: 0, right: -4)
             btn.addTarget(self, action: #selector(onUploadButtonTouched(_:)), for: .primaryActionTriggered)
             return btn
         }()
@@ -68,10 +64,6 @@ extension Social {
             btn.setTitle(R.string.localizable.amongChatCustomAvatarSelectImage(), for: .normal)
             btn.backgroundColor = UIColor(hex6: 0x3D3D3D)
             btn.layer.cornerRadius = 24
-            btn.setImage(R.image.ac_pro_icon_24(), for: .normal)
-            btn.adjustsImageWhenHighlighted = false
-            btn.imageEdgeInsets = UIEdgeInsets(top: 0, left: -4, bottom: 0, right: 4)
-            btn.titleEdgeInsets = UIEdgeInsets(top: 0, left: 4, bottom: 0, right: -4)
             btn.addTarget(self, action: #selector(onUploadButtonTouched(_:)), for: .primaryActionTriggered)
             return btn
         }()
@@ -225,8 +217,7 @@ extension Social.CustomAvatarViewController {
             return Single.just(false)
         }
         
-        return upgradeProIfNeeded(source: .upload_avatar)
-            .flatMap({ _ in self.selectImage(via: source) })
+        return selectImage(via: source)
             .flatMap({ self.uploadImage(image: $0) })
             .flatMap({ self.useAvatar($0) })
             .map ({ _ in true })

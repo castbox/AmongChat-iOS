@@ -217,14 +217,6 @@ class ViewController: UIViewController, ScreenLifeLogable, JoinRoomable {
             .first { $0 is NoDataView }?
             .removeFromSuperview()
     }
-    
-    func showReportSheet() {
-        let vc = Social.ReportViewController()
-        vc.showModal(in: self)
-        vc.selectedReason = {[weak self] (reason) in
-            self?.view.raft.autoShow(.text(R.string.localizable.reportSuccess()))
-        }
-    }
 }
 
 extension ViewController {
@@ -308,4 +300,12 @@ class ActivityViewCustomActivity: UIActivity {
         customActionWhenTapped?()
         activityDidFinish(true)
     }
+}
+    
+func adaptToIPad(_ adaption:(() -> Void)) {
+    
+    if UIDevice.current.userInterfaceIdiom == .pad {
+        adaption()
+    }
+    
 }

@@ -70,7 +70,7 @@
                             </connections>
                         </textView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Host's notes" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sQi-nv-Qh1">
-                            <rect key="frame" x="32" y="40" width="94.5" height="22"/>
+                            <rect key="frame" x="32" y="40" width="93.5" height="22"/>
                             <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito" pointSize="16"/>
                             <color key="textColor" red="0.84705882352941175" green="0.84705882352941175" blue="0.84705882352941175" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
@@ -84,13 +84,21 @@
                         <constraint firstItem="sQi-nv-Qh1" firstAttribute="leading" secondItem="SM9-T1-bpH" secondAttribute="leading" constant="20" id="9lj-hi-fNW"/>
                         <constraint firstItem="sQi-nv-Qh1" firstAttribute="top" secondItem="SM9-T1-bpH" secondAttribute="top" constant="20" id="Ads-2U-yBe"/>
                         <constraint firstItem="SM9-T1-bpH" firstAttribute="top" secondItem="8PJ-kg-P8j" secondAttribute="top" constant="20" id="DvR-On-tAo"/>
-                        <constraint firstAttribute="trailing" secondItem="m7Q-Oc-Ezf" secondAttribute="trailing" constant="12" id="FAz-hd-0Vm"/>
-                        <constraint firstItem="SM9-T1-bpH" firstAttribute="leading" secondItem="8PJ-kg-P8j" secondAttribute="leading" constant="12" id="H8j-5S-JH8"/>
+                        <constraint firstAttribute="trailing" secondItem="m7Q-Oc-Ezf" secondAttribute="trailing" constant="12" id="FAz-hd-0Vm">
+                            <variation key="heightClass=regular-widthClass=regular" constant="40"/>
+                        </constraint>
+                        <constraint firstItem="SM9-T1-bpH" firstAttribute="leading" secondItem="8PJ-kg-P8j" secondAttribute="leading" constant="12" id="H8j-5S-JH8">
+                            <variation key="heightClass=regular-widthClass=regular" constant="40"/>
+                        </constraint>
                         <constraint firstItem="m7Q-Oc-Ezf" firstAttribute="top" secondItem="SM9-T1-bpH" secondAttribute="bottom" constant="20" id="I46-bI-Y9U"/>
                         <constraint firstItem="SM9-T1-bpH" firstAttribute="centerX" secondItem="8PJ-kg-P8j" secondAttribute="centerX" id="Put-w3-AI9"/>
-                        <constraint firstAttribute="trailing" secondItem="SM9-T1-bpH" secondAttribute="trailing" constant="12" id="W3f-Y4-j6U"/>
+                        <constraint firstAttribute="trailing" secondItem="SM9-T1-bpH" secondAttribute="trailing" constant="12" id="W3f-Y4-j6U">
+                            <variation key="heightClass=regular-widthClass=regular" constant="40"/>
+                        </constraint>
                         <constraint firstAttribute="bottom" secondItem="m7Q-Oc-Ezf" secondAttribute="bottom" constant="20" id="Wcm-Bi-d7K"/>
-                        <constraint firstItem="m7Q-Oc-Ezf" firstAttribute="leading" secondItem="8PJ-kg-P8j" secondAttribute="leading" constant="12" id="vAh-7h-DMg"/>
+                        <constraint firstItem="m7Q-Oc-Ezf" firstAttribute="leading" secondItem="8PJ-kg-P8j" secondAttribute="leading" constant="12" id="vAh-7h-DMg">
+                            <variation key="heightClass=regular-widthClass=regular" constant="40"/>
+                        </constraint>
                     </constraints>
                 </view>
             </subviews>

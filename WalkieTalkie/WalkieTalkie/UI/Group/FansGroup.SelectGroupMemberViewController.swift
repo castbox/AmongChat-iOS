@@ -83,44 +83,23 @@ extension FansGroup {
             return v
         }()
         
-        private lazy var kickButton: UIButton = {
-            let btn = UIButton(type: .custom)
-            btn.layer.cornerRadius = 24
-            btn.clipsToBounds = true
-            btn.titleLabel?.font = R.font.nunitoExtraBold(size: 20)
-            btn.setTitleColor(UIColor(hex6: 0xFB5858), for: .normal)
-            btn.setTitleColor(UIColor(hex6: 0x757575), for: .disabled)
-            btn.setBackgroundImage("#2B2B2B".color().image, for: .normal)
-            btn.setBackgroundImage("#2B2B2B".color().image, for: .disabled)
-
+        private lazy var bottomGradientView: FansGroup.Views.BottomGradientButton = {
+            let v = FansGroup.Views.BottomGradientButton()
             selectedMembersRelay.map { $0.count }
                 .subscribe(onNext: { (count) in
-                    btn.setTitle(R.string.localizable.amongChatGroupKickMemberButtonTitle("\(count)"), for: .normal)
+                    v.button.setTitle(R.string.localizable.amongChatGroupKickMemberButtonTitle("\(count)"), for: .normal)
                 })
                 .disposed(by: bag)
             
             selectedMembersRelay.map { $0.count > 0 }
-                .bind(to: btn.rx.isEnabled)
+                .bind(to: v.button.rx.isEnabled)
                 .disposed(by: bag)
             
-            btn.rx.controlEvent(.primaryActionTriggered)
+            v.button.rx.controlEvent(.primaryActionTriggered)
                 .subscribe(onNext: { [weak self] (_) in
                     self?.kickOutSelected()
                 })
                 .disposed(by: bag)
-            
-            return btn
-        }()
-        
-        private lazy var bottomGradientView: GradientView = {
-            let v = Social.ChooseGame.bottomGradientView()
-            v.addSubviews(views: kickButton)
-            kickButton.snp.makeConstraints { (maker) in
-                maker.centerX.equalToSuperview()
-                maker.bottom.equalTo(-33)
-                maker.height.equalTo(48)
-                maker.leading.equalTo(20)
-            }
             return v
         }()
         
@@ -213,15 +192,12 @@ extension FansGroup.SelectGroupMemberViewController {
         }
         
         tableView.snp.makeConstraints { (maker) in
-            maker.leading.trailing.equalToSuperview()
+            maker.leading.trailing.bottom.equalToSuperview()
             maker.top.equalTo(navView.snp.bottom)
-            maker.bottom.equalTo(bottomLayoutGuide.snp.top)
         }
         
         bottomGradientView.snp.makeConstraints { (maker) in
-            maker.leading.trailing.equalToSuperview()
-            maker.bottom.equalTo(bottomLayoutGuide.snp.top)
-            maker.height.equalTo(134)
+            maker.leading.trailing.bottom.equalToSuperview()
         }
         
         tableView.pullToRefresh { [weak self] in

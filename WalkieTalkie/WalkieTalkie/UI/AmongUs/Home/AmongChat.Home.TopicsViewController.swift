@@ -25,11 +25,18 @@ extension AmongChat.Home {
         private lazy var topicCollectionView: UICollectionView = {
             let layout = UICollectionViewFlowLayout()
             layout.scrollDirection = .vertical
-            let hInset: CGFloat = 20
+            var hInset: CGFloat = 20
+            let interitemSpacing: CGFloat = 20
             let hwRatio: CGFloat = 156.0 / 335.0
-            let cellWidth = UIScreen.main.bounds.width - hInset * 2
-            let cellHeight = cellWidth * hwRatio
+            var columns: Int = 1
+            adaptToIPad {
+                hInset = 40
+                columns = 2
+            }
+            let cellWidth = ((UIScreen.main.bounds.width - hInset * 2 - interitemSpacing * CGFloat(columns - 1)) / CGFloat(columns)).rounded(.towardZero)
+            let cellHeight = ceil(cellWidth * hwRatio)
             layout.itemSize = CGSize(width: cellWidth, height: cellHeight)
+            layout.minimumInteritemSpacing = interitemSpacing
             layout.minimumLineSpacing = 27
             layout.sectionInset = UIEdgeInsets(top: 27, left: hInset, bottom: Frame.Height.safeAeraBottomHeight, right: hInset)
             let v = UICollectionView(frame: .zero, collectionViewLayout: layout)

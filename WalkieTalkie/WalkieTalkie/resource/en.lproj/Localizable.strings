@@ -304,6 +304,8 @@
 
 //1.13
 "among.chat.profile.customize" = "Customize";
+"among.chat.profile.avatar" = "Avatar";
+"among.chat.profile.image" = "Image";
 "among.chat.profile.skin" = "Skin";
 "among.chat.profile.bg" = "BG";
 "among.chat.profile.Hat" = "Hat";
@@ -521,7 +523,7 @@
 "dm.conversation.delete.history" = "Delete History";
 "dm.delete.history.alert.title" = "Are you sure you want to delete the chat history?";
 "dm.gif.search.placeholder" = "Search for GIFs";
-//update
+
 "dm.text.placeholder" = "Start typing";
 "profile.user.in.channel" = "In %@ Channel";
 "profile.user.in.group" = "In %@ Group";
@@ -532,3 +534,30 @@
 "app.new.version.alert.title" = "New Update Available!";
 "app.new.version.alert.content" = "Update to the latest version and help spread the word.";
 "app.new.version.alert.update" = "Update";
+
+//1.21
+"stats.pending.review" = "Pending Review";
+"stats.review.in.process" = "Review in Process…";
+"stats.review.game.state" = "Your %@ Gaming Stats have been uploaded successfully and are pending review. Valid Gaming Stats will be approved within 24 hours and become publicly viewable.";
+"profile.edit.title" = "Edit Profile";
+"profile.pronoun" = "Pronouns";
+"profile.hide.location" = "Hide My Location";
+"profile.bio" = "Bio";
+"profile.set.bio" = "Set your bio";
+"profile.pronoun.she.her" = "she/her";
+"profile.pronoun.he.him" = "he/him";
+"profile.pronoun.they.them" = "they/them";
+"profile.pronoun.other" = "Other";
+"profile.pronoun.not.share" = "Prefer not to share";
+"profile.constellation.aries" = "Aries";
+"profile.constellation.taurus" = "Taurus";
+"profile.constellation.gemini" = "Gemini";
+"profile.constellation.cancer" = "Cancer";
+"profile.constellation.leo" = "Leo";
+"profile.constellation.virgo" = "Virgo";
+"profile.constellation.libra" = "Libra";
+"profile.constellation.scorpio" = "Scorpio";
+"profile.constellation.sagittarius" = "Sagittarius";
+"profile.constellation.capricorn" = "Capricorn";
+"profile.constellation.aquarius" = "Aquarius";
+"profile.constellation.pisces" = "Pisces";

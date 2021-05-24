@@ -239,7 +239,7 @@ extension AmongChat.GroupRoom.MembersController {
             btn.titleLabel?.font = R.font.nunitoExtraBold(size: 14)
             btn.setTitle(R.string.localizable.channelUserListFollow(), for: .normal)
             btn.setTitleColor(UIColor(hex6: 0xFFF000), for: .normal)
-            btn.contentEdgeInsets = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
+            btn.contentEdgeInsets = UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 12)
             btn.layer.masksToBounds = true
             btn.layer.cornerRadius = 16
             btn.layer.borderWidth = 2
@@ -287,6 +287,7 @@ extension AmongChat.GroupRoom.MembersController {
 //                maker.edges.equalTo(buttonLayout)
                 maker.centerY.equalToSuperview()
                 maker.trailing.equalToSuperview().inset(20)
+                maker.width.greaterThanOrEqualTo(91)
                 maker.height.equalTo(32)
             }
             

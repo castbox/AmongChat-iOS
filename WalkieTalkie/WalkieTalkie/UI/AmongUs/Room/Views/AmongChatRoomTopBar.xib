@@ -110,10 +110,14 @@
             </subviews>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <constraints>
-                <constraint firstItem="nnL-fi-G2g" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="20" id="6dW-0H-78X"/>
+                <constraint firstItem="nnL-fi-G2g" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="20" id="6dW-0H-78X">
+                    <variation key="heightClass=regular-widthClass=regular" constant="40"/>
+                </constraint>
                 <constraint firstItem="nnL-fi-G2g" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="13" id="8xl-nf-yx6"/>
                 <constraint firstItem="NIv-N4-bFM" firstAttribute="centerY" secondItem="nnL-fi-G2g" secondAttribute="centerY" id="984-MS-e14"/>
-                <constraint firstAttribute="trailing" secondItem="ibe-fD-Q1S" secondAttribute="trailing" constant="10" id="fMj-Y3-oJ1"/>
+                <constraint firstAttribute="trailing" secondItem="ibe-fD-Q1S" secondAttribute="trailing" constant="10" id="fMj-Y3-oJ1">
+                    <variation key="heightClass=regular-widthClass=regular" constant="40"/>
+                </constraint>
                 <constraint firstItem="ibe-fD-Q1S" firstAttribute="centerY" secondItem="nnL-fi-G2g" secondAttribute="centerY" id="mCx-GY-3cZ"/>
                 <constraint firstItem="NIv-N4-bFM" firstAttribute="leading" secondItem="nnL-fi-G2g" secondAttribute="trailing" constant="10" id="sbK-EW-cwW"/>
             </constraints>

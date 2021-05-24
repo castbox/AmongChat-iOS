@@ -65,7 +65,6 @@ class ConversationBottomBar: XibLoadableView {
         textField.attributedPlaceholder = NSAttributedString(string: R.string.localizable.dmTextPlaceholder(), attributes: [NSAttributedString.Key.foregroundColor : "#646464".color()])
         textField.paddingLeft = 12
         textField.paddingRight = 12
-        gifButton.isHidden = !FireRemote.shared.value.showDmGifEntrance
     }
 
     @IBAction func leftButtonAction(_ sender: Any) {

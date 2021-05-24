@@ -49,17 +49,129 @@ extension Social {
         }
         var followedHandle:((Bool) -> Void)?
         
-        var tableHeaderHeight: CGFloat {
-            
-            var height = 241 + Frame.Screen.width - 16
-                        
-            guard isSelfProfile.value,
-                  !AmongChat.Login.isLogedin else {
-                return height
+        private lazy var navView: NavigationBar = {
+            let n = NavigationBar()
+            let btn = n.leftBtn
+            if isSelfProfile.value, navigationController?.viewControllers.count == 1 {
+                btn.setImage(R.image.ac_profile_close_down(), for: .normal)
+            } else {
+                btn.setImage(R.image.ac_profile_close(), for: .normal)
             }
+            btn.rx.tap.observeOn(MainScheduler.instance)
+                .subscribe(onNext: { [weak self]() in
+                    guard let `self` = self else { return }
+                    if self.navigationController?.viewControllers.count == 1 {
+                        self.dismiss(animated: true, completion: nil)
+                    } else {
+                        self.navigationController?.popViewController()
+                    }
+                }).disposed(by: bag)
             
-            return height + 140
-        }
+            if isSelfProfile.value {
+                n.addSubview(settingsBtn)
+                settingsBtn.snp.makeConstraints { (maker) in
+                    maker.centerY.equalToSuperview()
+                    maker.trailing.equalToSuperview().inset(Frame.horizontalBleedWidth)
+                }
+                
+                n.addSubview(proBtn)
+                proBtn.snp.makeConstraints { (maker) in
+                    maker.top.bottom.equalToSuperview()
+                    maker.trailing.equalTo(settingsBtn.snp.leading).offset(-20)
+                }
+
+            } else {
+                n.addSubview(moreBtn)
+                moreBtn.snp.makeConstraints { (make) in
+                    make.trailing.equalToSuperview().inset(Frame.horizontalBleedWidth)
+                    make.centerY.equalToSuperview()
+                }
+            }
+            return n
+        }()
+        
+        private lazy var settingsBtn: UIButton = {
+            let btn = UIButton(type: .custom)
+            btn.setImage(R.image.ac_profile_setting(), for: .normal)
+            btn.rx.tap.observeOn(MainScheduler.instance)
+                .subscribe(onNext: { [weak self]() in
+                    let vc = SettingViewController()
+                    self?.navigationController?.pushViewController(vc)
+                }).disposed(by: bag)
+            return btn
+        }()
+        
+        private lazy var moreBtn: UIButton = {
+            let btn = UIButton(type: .custom)
+            btn.setImage( R.image.ac_profile_more_icon(), for: .normal)
+            btn.rx.tap.observeOn(MainScheduler.instance)
+                .subscribe(onNext: { [weak self]() in
+                    self?.moreAction()
+                }).disposed(by: bag)
+            return btn
+        }()
+        
+        private lazy var proBtn: UIView = {
+            let btn: UIView = {
+                let v = UIView()
+                
+                let leftIcon: UIImageView = {
+                    let i = UIImageView(image: R.image.ac_pro_icon_27())
+                    return i
+                }()
+                
+                let titleLabel: UILabel = {
+                    let l = UILabel()
+                    l.font = R.font.nunitoExtraBold(size: 16)
+                    l.textColor = UIColor(hex6: 0xFFEC96)
+                    return l
+                }()
+                
+                let rightIcon: UIImageView = {
+                    let i = UIImageView(image: R.image.ac_profile_pro_next())
+                    return i
+                }()
+
+                v.addSubviews(views: leftIcon, titleLabel, rightIcon)
+                
+                leftIcon.snp.makeConstraints { (maker) in
+                    maker.leading.centerY.equalToSuperview()
+                }
+                
+                titleLabel.snp.makeConstraints { (maker) in
+                    maker.leading.equalTo(leftIcon.snp.trailing).offset(6)
+                    maker.centerY.equalToSuperview()
+                }
+                
+                rightIcon.snp.makeConstraints { (maker) in
+                    maker.leading.equalTo(titleLabel.snp.trailing).offset(2)
+                    maker.centerY.trailing.equalToSuperview()
+                }
+                
+                Settings.shared.isProValue.replay()
+                    .observeOn(MainScheduler.asyncInstance)
+                    .subscribe(onNext: { (isPro) in
+                        
+                        if isPro {
+                            titleLabel.text = R.string.localizable.amongChatProfileProCenter()
+                        } else {
+                            titleLabel.text = R.string.localizable.profileUnlockPro()
+                        }
+                        
+                    })
+                    .disposed(by: bag)
+                return v
+            }()
+            
+            let tap = UITapGestureRecognizer()
+            btn.addGestureRecognizer(tap)
+            tap.rx.event
+                .subscribe(onNext: { [weak self] (_) in
+                    self?.presentPremiumView(source: .setting)
+                    Logger.UserAction.log(.update_pro, "settings")
+                }).disposed(by: bag)
+            return btn
+        }()
         
         private lazy var followButton: UIButton = {
             let btn = UIButton()
@@ -145,7 +257,7 @@ extension Social {
         
         private lazy var headerView: ProfileView = {
             let v = ProfileView(with: isSelfProfile.value, viewController: self)
-            v.frame = CGRect(x: 0, y: 0, width: Frame.Screen.width, height: tableHeaderHeight)//298  413
+            v.frame = CGRect(x: 0, y: 0, width: Frame.Screen.width, height: v.estimatedViewHeight)
             v.headerHandle = { [weak self] type in
                 guard let `self` = self else { return }
                 switch type {
@@ -167,11 +279,8 @@ extension Social {
                     self.followerAction()
                 case .following:
                     self.followingAction()
-                case .more:
-                    self.moreAction()
-                case .customize:
-                    let vc = Social.ProfileLookViewController()
-                    self.navigationController?.pushViewController(vc)
+                case .heightUpdated:
+                    self.table.reloadData()
                 }
             }
             return v
@@ -184,7 +293,10 @@ extension Social {
             let layout = UICollectionViewFlowLayout()
             layout.scrollDirection = .vertical
             var hInset: CGFloat = 20
-            layout.sectionInset = UIEdgeInsets(top: 16, left: 0, bottom: 44, right: 0)
+            adaptToIPad {
+                hInset = 40
+            }
+            layout.sectionInset = UIEdgeInsets(top: 16, left: 0, bottom: 56, right: 0)
             layout.minimumLineSpacing = 20
             let v = UICollectionView(frame: .zero, collectionViewLayout: layout)
             v.contentInset = UIEdgeInsets(top: 0, left: hInset, bottom: isSelfProfile.value ? 0 : 48, right: hInset)
@@ -267,7 +379,7 @@ extension Social {
             fetchRealation()
         }
         
-        override func showReportSheet() {
+        func showReportSheet() {
             Report.ViewController.showReport(on: self, uid: uid.string, type: .user, roomId: "", operate: nil) { [weak self] in
                 self?.view.raft.autoShow(.text(R.string.localizable.reportSuccess()))
             }
@@ -277,20 +389,20 @@ extension Social {
 
 private extension Social.ProfileViewController {
     func setupLayout() {
-        statusBarStyle = .lightContent
-        view.backgroundColor = UIColor.theme(.backgroundBlack)
+        view.addSubviews(views: table, navView, bottomGradientView)
         
-        view.addSubviews(views: table, bottomGradientView)
+        navView.snp.makeConstraints { (maker) in
+            maker.leading.trailing.equalToSuperview()
+            maker.top.equalTo(Frame.Height.safeAeraTopHeight)
+        }
         
         bottomGradientView.snp.makeConstraints { (maker) in
-            maker.leading.trailing.equalToSuperview()
-            maker.bottom.equalTo(bottomLayoutGuide.snp.top)
+            maker.leading.trailing.bottom.equalToSuperview()
             maker.height.equalTo(134)
         }
         
         table.snp.makeConstraints { (maker) in
-            maker.leading.trailing.top.equalToSuperview()
-            maker.bottom.equalTo(bottomLayoutGuide.snp.top)
+            maker.edges.equalToSuperview()
         }
         
         Settings.shared.loginResult.replay()
@@ -321,15 +433,7 @@ private extension Social.ProfileViewController {
                     self?.options = [.gameStats]
                     self?.bottomGradientView.isHidden = false
                 } else {
-                    if let v = Settings.shared.amongChatUserProfile.value?.isVerified, v {
-                        self?.options = [.gameStats, .tiktok]
-                    } else {
-                        #if DEBUG
-                        self?.options = [.gameStats, .tiktok]
-                        #else
-                        self?.options = [.tiktok]
-                        #endif
-                    }
+                    self?.options = [.gameStats, .tiktok]
                 }
                 
                 if joinedGroups.count > 0 {
@@ -376,6 +480,21 @@ private extension Social.ProfileViewController {
                 }
             })
             .disposed(by: bag)
+        
+        table.rx.contentOffset
+            .subscribe(onNext: { [weak self] (point) in
+                
+                guard let `self` = self else { return }
+                
+                let distance = point.y
+                
+                self.headerView.enlargeTopGbHeight(extraHeight: -distance)
+                
+                self.navView.backgroundView.alpha = distance / 49
+                self.navView.backgroundView.isHidden = distance <= 0
+            })
+            .disposed(by: bag)
+
     }
     
     func loadData() {
@@ -910,15 +1029,15 @@ extension Social.ProfileViewController: UICollectionViewDataSource, UICollection
                 if let room = liveRoom as? Entity.UserStatus.Room {
                     
                     cell.coverIV.setImage(with: room.coverUrl)
-                    cell.label.text = room.topicName
                     cell.label.text = R.string.localizable.profileUserInChannel(room.topicName)
-                    
+                    cell.joinBtn.isEnabled = (room.state != "private")
                     cell.joinHandler = { [weak self] in
                         self?.enterRoom(roomId: room.roomId, topicId: room.topicId)
                     }
                 } else if let group = liveRoom as? Entity.UserStatus.Group {
                     cell.coverIV.setImage(with: group.cover)
                     cell.label.text = R.string.localizable.profileUserInGroup(group.name)
+                    cell.joinBtn.isEnabled = true
                     cell.joinHandler = { [weak self] in
                         self?.enter(group: group.gid)
                     }
@@ -1096,8 +1215,12 @@ extension Social.ProfileViewController: UICollectionViewDelegateFlowLayout {
             if let _ = gameSkills.safe(indexPath.row) {
                 
                 let interitemSpacing: CGFloat = 20
-                let hwRatio: CGFloat = 180.0 / 335.0
+                var hwRatio: CGFloat = 180.0 / 335.0
                 var columns: Int = 1
+                adaptToIPad {
+                    columns = 2
+                    hwRatio = 227.0 / 367.0
+                }
                 let cellWidth = ((UIScreen.main.bounds.width - padding - interitemSpacing * CGFloat(columns - 1)) / CGFloat(columns)).rounded(.towardZero)
                 let cellHeight = ceil(cellWidth * hwRatio)
                 
@@ -1113,6 +1236,9 @@ extension Social.ProfileViewController: UICollectionViewDelegateFlowLayout {
         case .groupsCreated:
             
             var columns: Int = 1
+            adaptToIPad {
+                columns = 2
+            }
             let interitemSpacing: CGFloat = 20
             let hwRatio: CGFloat = 129.0 / 335.0
             
@@ -1124,6 +1250,9 @@ extension Social.ProfileViewController: UICollectionViewDelegateFlowLayout {
         case .groupsJoined:
             
             var columns: Int = 3
+            adaptToIPad {
+                columns = 6
+            }
             let interitemSpacing: CGFloat = 16
             let hwRatio: CGFloat = 1
             
@@ -1134,7 +1263,7 @@ extension Social.ProfileViewController: UICollectionViewDelegateFlowLayout {
             
         case .profile:
             
-            return CGSize(width: Frame.Screen.width, height: tableHeaderHeight)
+            return CGSize(width: Frame.Screen.width, height: headerView.viewHeight)
             
         }
         
@@ -1145,10 +1274,8 @@ extension Social.ProfileViewController: UICollectionViewDelegateFlowLayout {
         let op = options[section]
         
         switch op {
-        case .profile:
-            return .zero
-        case .live:
-            return UIEdgeInsets(top: 13, left: 0, bottom: 56, right: 0)
+        case .profile, .live:
+            return UIEdgeInsets(top: 0, left: 0, bottom: 56, right: 0)
         default:
             return (collectionViewLayout as? UICollectionViewFlowLayout)?.sectionInset ?? .zero
         }

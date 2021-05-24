@@ -142,15 +142,52 @@ extension Entity {
 extension Entity {
     
     struct ProfileProto: Codable {
-        var birthday: String? = nil
-        var name: String? = nil
-        var pictureUrl: String? = nil
-        var chatLanguage: String? = nil
+        var birthday: String?
+        var name: String?
+        var pictureUrl: String?
+        var chatLanguage: String?
+        var countryCode: String? // 国家，如cn，us
+        var hideLocation: Bool? // true/false
+        var gender: Int? //   0-保密，1-男，2-女, 3-中性
+        var constellation: Constellation? // 星座，字符串，如Aries
+        var description: String? // 个人介绍
+        
+        var pronoun: Pronoun {
+            Pronoun(rawValue: gender ?? 0) ?? .pronounNotShare
+        }
+        
+        init(birthday: String? = nil,
+             name: String? = nil,
+             pictureUrl: String? = nil,
+             chatLanguage: String? = nil,
+             countryCode: String? = nil,
+             hideLocation: Bool? = nil,
+             gender: Int? = nil,
+             constellation: Constellation? = nil,
+             description: String? = nil) {
+            
+            self.birthday = birthday
+            self.name = name
+            self.pictureUrl = pictureUrl
+            self.chatLanguage = chatLanguage
+            self.countryCode = countryCode
+            self.hideLocation = hideLocation
+            self.gender = gender
+            self.constellation = constellation
+            self.description = description
+        }
+        
+        
         private enum CodingKeys: String, CodingKey {
             case birthday
             case name
             case pictureUrl = "picture_url"
             case chatLanguage = "language_u"
+            case countryCode = "country_code"
+            case hideLocation = "hide_location"
+            case gender
+            case constellation
+            case description
         }
     }
     
@@ -357,16 +394,17 @@ extension Entity {
     struct DecorationEntity : Codable {
         
         var id: Int
-        var url: String
+        var url: String?
         var listUrl: String?
         var sayUrl: String?
-        var lock: Bool
+        var lock: Bool?
         var unlockType: Entity.DefaultAvatar.UnlockType?
         var iapKey: String?
         var decoType: String
         var product: DecorationProduct?
-        var selected: Bool
-                
+        var selected: Bool?
+        var decoList: [DecorationEntity]?
+        
         private enum CodingKeys: String, CodingKey {
             case id
             case url
@@ -378,6 +416,7 @@ extension Entity {
             case decoType = "deco_type"
             case product
             case selected
+            case decoList = "deco_list"
         }
         
     }
@@ -418,7 +457,7 @@ extension Entity {
 extension Entity.DecorationCategory {
     
     enum DecorationType: String, Codable {
-        case skin, bg, pet, hat        
+        case skin, bg, pet, hat, suit
     }
     
 }
@@ -456,17 +495,33 @@ extension Entity.UserProfile {
 extension Entity {
     
     struct GameSkill: Codable {
+        enum Status: Int, Codable {
+            case inreview
+            case added
+            case none
+        }
+        
         let topicId: String
         let topicName: String
         let coverUrl: String
         let example: String
         let isAdd: Bool
+        //
+        let status: Int?//，0审核中，1已添加，2或者没有该字段，可添加状态
+        var statusType: Status {
+            guard let value = status else {
+                return .none
+            }
+            return Status(rawValue: value) ?? .none
+        }
+
         private enum CodingKeys: String, CodingKey {
             case topicId
             case topicName
             case coverUrl = "cover_url"
             case example
             case isAdd = "is_add"
+            case status = "status"
         }
     }
     

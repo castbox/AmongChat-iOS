@@ -304,6 +304,8 @@
 
 //1.13
 "among.chat.profile.customize" = "커스터마이즈";
+"among.chat.profile.avatar" = "화신";
+"among.chat.profile.image" = "그림";
 "among.chat.profile.skin" = "스킨";
 "among.chat.profile.bg" = "배경";
 "among.chat.profile.Hat" = "모자";
@@ -521,7 +523,7 @@
 "dm.conversation.delete.history" = "기록 삭제";
 "dm.delete.history.alert.title" = "채팅 기록을 삭제 하시겠습니까?";
 "dm.gif.search.placeholder" = "GIF 검색";
-//update
+
 "dm.text.placeholder" = "입력 시작";
 "profile.user.in.channel" = "%@ 채널에서";
 "profile.user.in.group" = "%@ 그룹에서";
@@ -532,3 +534,30 @@
 "app.new.version.alert.title" = "새로운 업데이트가 있습니다!";
 "app.new.version.alert.content" = "최신 버전으로 업데이트하고 소식을 전하세요.";
 "app.new.version.alert.update" = "최신 정보";
+
+//1.21
+"stats.pending.review" = "검토 대기";
+"stats.review.in.process" = "검토 중…";
+"stats.review.game.state" = "%@ 게임 통계가 성공적으로 업로드되었으며 검토 대기 중입니다. 유효한 게임 통계는 24 시간 이내에 승인되고 공개됩니다.";
+"profile.edit.title" = "프로필 편집";
+"profile.pronoun" = "대명사";
+"profile.hide.location" = "내 위치 숨기기";
+"profile.bio" = "소개";
+"profile.set.bio" = "소개 설정";
+"profile.pronoun.she.her" = "그녀";
+"profile.pronoun.he.him" = "그";
+"profile.pronoun.they.them" = "그들";
+"profile.pronoun.other" = "다른";
+"profile.pronoun.not.share" = "공유 안함";
+"profile.constellation.aries" = "양 자리";
+"profile.constellation.taurus" = "황소 자리";
+"profile.constellation.gemini" = "쌍둥이 자리";
+"profile.constellation.cancer" = "게 자리";
+"profile.constellation.leo" = "사자 자리";
+"profile.constellation.virgo" = "처녀 자리";
+"profile.constellation.libra" = "천칭 자리";
+"profile.constellation.scorpio" = "전갈 자리";
+"profile.constellation.sagittarius" = "사수 자리";
+"profile.constellation.capricorn" = "염소 자리";
+"profile.constellation.aquarius" = "물병 자리";
+"profile.constellation.pisces" = "물고기 자리";

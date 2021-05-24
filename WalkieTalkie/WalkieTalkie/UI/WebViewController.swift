@@ -354,7 +354,7 @@ private extension WebViewController {
                                                                               topicName: skill.topicName,
                                                                               coverUrl: "",
                                                                               example: skill.example,
-                                                                              isAdd: false))
+                                                                              isAdd: false, status: 2))
             let addStatsVC = Social.AddStatsViewController(game)
             navigationController?.pushViewController(addStatsVC, animated: true)
             addStatsVC.gameUpdatedHandler = { [weak self] in

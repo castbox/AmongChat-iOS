@@ -43,39 +43,11 @@ extension FansGroup {
             return l
         }()
         
-        private lazy var nextButton: UIButton = {
-            let btn = UIButton(type: .custom)
-            btn.layer.cornerRadius = 24
-            btn.setTitle(R.string.localizable.amongChatLoginNext(), for: .normal)
-            btn.setTitleColor(.black, for: .normal)
-            btn.setTitleColor(UIColor(hex6: 0x757575), for: .disabled)
-            btn.titleLabel?.font = R.font.nunitoExtraBold(size: 20)
-            btn.addTarget(self, action: #selector(onNextBtn), for: .primaryActionTriggered)
-            btn.rx.isEnable
-                .subscribe(onNext: { [weak btn] (_) in
-                    
-                    guard let `btn` = btn else { return }
-                    
-                    if btn.isEnabled {
-                        btn.backgroundColor = UIColor(hexString: "#FFF000")
-                    } else {
-                        btn.backgroundColor = UIColor(hexString: "#2B2B2B")
-                    }
-                })
-                .disposed(by: bag)
-            btn.isEnabled = false
-            return btn
-        }()
-
-        private lazy var bottomGradientView: GradientView = {
-            let v = Social.ChooseGame.bottomGradientView()
-            v.addSubviews(views: nextButton)
-            nextButton.snp.makeConstraints { (maker) in
-                maker.centerX.equalToSuperview()
-                maker.bottom.equalTo(-33)
-                maker.height.equalTo(48)
-                maker.leading.equalTo(20)
-            }
+        private lazy var bottomGradientView: FansGroup.Views.BottomGradientButton = {
+            let v = FansGroup.Views.BottomGradientButton()
+            v.button.setTitle(R.string.localizable.amongChatLoginNext(), for: .normal)
+            v.button.addTarget(self, action: #selector(onNextBtn), for: .primaryActionTriggered)
+            v.button.isEnabled = false
             return v
         }()
         
@@ -142,9 +114,7 @@ extension FansGroup.CreateGroupViewController {
         }
         
         bottomGradientView.snp.makeConstraints { (maker) in
-            maker.leading.trailing.equalToSuperview()
-            maker.bottom.equalTo(bottomLayoutGuide.snp.top)
-            maker.height.equalTo(134)
+            maker.leading.trailing.bottom.equalToSuperview()
         }
         
         setUpInfoView.appendViewContainer.addSubviews(views: bottomTipLabel)
@@ -194,7 +164,7 @@ extension FansGroup.CreateGroupViewController {
             .disposed(by: bag)
         
         viewModel.isValid
-            .bind(to: nextButton.rx.isEnabled)
+            .bind(to: bottomGradientView.button.rx.isEnabled)
             .disposed(by: bag)
         
         setUpInfoView.layoutScrollView.rx.contentOffset

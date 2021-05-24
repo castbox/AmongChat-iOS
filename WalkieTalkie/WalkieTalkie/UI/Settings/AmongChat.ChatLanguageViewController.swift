@@ -14,19 +14,16 @@ extension AmongChat {
     
     class ChatLanguageViewController: WalkieTalkie.ViewController {
         
-        private lazy var titleLabel: UILabel = {
-            let lb = UILabel()
+        private lazy var navView: NavigationBar = {
+            let n = NavigationBar()
+            let lb = n.titleLabel
             lb.font = R.font.nunitoExtraBold(size: 24)
             lb.textColor = UIColor.white
             lb.text = R.string.localizable.settingChatLanguage()
-            return lb
-        }()
-        
-        private lazy var backBtn: UIButton = {
-            let btn = UIButton(type: .custom)
+            let btn = n.leftBtn
             btn.setImage(R.image.ac_back(), for: .normal)
             btn.addTarget(self, action: #selector(onBackBtn), for: .primaryActionTriggered)
-            return btn
+            return n
         }()
         
         private lazy var languagesTable: UITableView = {
@@ -80,29 +77,17 @@ extension AmongChat {
         
         private func setupLayout() {
             
-            view.addSubviews(views: backBtn, titleLabel, languagesTable)
+            view.addSubviews(views: navView, languagesTable)
             
-            let navLayoutGuide = UILayoutGuide()
-            view.addLayoutGuide(navLayoutGuide)
-            navLayoutGuide.snp.makeConstraints { (maker) in
-                maker.left.right.equalToSuperview()
+            navView.snp.makeConstraints { (maker) in
+                maker.leading.trailing.equalToSuperview()
                 maker.top.equalTo(topLayoutGuide.snp.bottom)
-                maker.height.equalTo(49)
-            }
-            
-            backBtn.snp.makeConstraints { (maker) in
-                maker.left.equalToSuperview().offset(20)
-                maker.centerY.equalTo(navLayoutGuide)
-            }
-            
-            titleLabel.snp.makeConstraints { (maker) in
-                maker.center.equalTo(navLayoutGuide)
             }
             
             languagesTable.snp.makeConstraints { (maker) in
                 maker.left.right.equalToSuperview()
                 maker.bottom.equalTo(bottomLayoutGuide.snp.top)
-                maker.top.equalTo(navLayoutGuide.snp.bottom)
+                maker.top.equalTo(navView.snp.bottom)
             }
         }
         

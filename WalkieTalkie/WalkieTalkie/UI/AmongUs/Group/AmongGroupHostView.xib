@@ -17,6 +17,7 @@
             <connections>
                 <outlet property="applyGroupButton" destination="GwP-Kq-ajX" id="hGX-eR-pJQ"/>
                 <outlet property="applyGroupContainer" destination="tHz-Fp-JjA" id="d0L-ut-aAa"/>
+                <outlet property="avatarWidthConstraint" destination="Qf0-ag-VWs" id="DYb-fe-XTd"/>
                 <outlet property="gameNameButton" destination="vg2-8c-Z9C" id="n98-zo-dC0"/>
                 <outlet property="hostAvatarView" destination="S3g-46-o4q" id="lXM-8F-DMt"/>
                 <outlet property="hostView" destination="HBc-V3-NcN" id="pL6-dh-uxE"/>
@@ -84,8 +85,8 @@
                             <rect key="frame" x="14.5" y="25" width="38" height="38"/>
                             <gestureRecognizers/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="38" id="Jj1-ax-ZB4"/>
                                 <constraint firstAttribute="width" constant="38" id="Qf0-ag-VWs"/>
+                                <constraint firstAttribute="width" secondItem="S3g-46-o4q" secondAttribute="height" multiplier="1:1" id="oah-j9-kcA"/>
                             </constraints>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
