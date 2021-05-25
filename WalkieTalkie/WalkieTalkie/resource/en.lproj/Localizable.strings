@@ -561,3 +561,6 @@
 "profile.constellation.capricorn" = "Capricorn";
 "profile.constellation.aquarius" = "Aquarius";
 "profile.constellation.pisces" = "Pisces";
+
+//feed
+"feed.library.video.unsupported" = "Not Supported";
