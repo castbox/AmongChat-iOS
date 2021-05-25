@@ -232,7 +232,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 231 images.
+  /// This `R.image` struct is generated, and contains static references to 240 images.
   struct image {
     /// Image `ac_add_stats_add`.
     static let ac_add_stats_add = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_add_stats_add")
@@ -344,6 +344,10 @@ struct R: Rswift.Validatable {
     static let ac_home_topic_tab_normal = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_home_topic_tab_normal")
     /// Image `ac_home_topic_tab_selected`.
     static let ac_home_topic_tab_selected = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_home_topic_tab_selected")
+    /// Image `ac_home_video_tab_normal`.
+    static let ac_home_video_tab_normal = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_home_video_tab_normal")
+    /// Image `ac_home_video_tab_selected`.
+    static let ac_home_video_tab_selected = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_home_video_tab_selected")
     /// Image `ac_icon_game_edit`.
     static let ac_icon_game_edit = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_icon_game_edit")
     /// Image `ac_icon_kick_user`.
@@ -580,12 +584,18 @@ struct R: Rswift.Validatable {
     static let dmSendFailed = Rswift.ImageResource(bundle: R.hostingBundle, name: "dmSendFailed")
     /// Image `home_name_edit`.
     static let home_name_edit = Rswift.ImageResource(bundle: R.hostingBundle, name: "home_name_edit")
+    /// Image `iconAddEmotes`.
+    static let iconAddEmotes = Rswift.ImageResource(bundle: R.hostingBundle, name: "iconAddEmotes")
     /// Image `iconDmConversationDelete`.
     static let iconDmConversationDelete = Rswift.ImageResource(bundle: R.hostingBundle, name: "iconDmConversationDelete")
     /// Image `iconDmGifLoadFailed`.
     static let iconDmGifLoadFailed = Rswift.ImageResource(bundle: R.hostingBundle, name: "iconDmGifLoadFailed")
     /// Image `iconDmGif`.
     static let iconDmGif = Rswift.ImageResource(bundle: R.hostingBundle, name: "iconDmGif")
+    /// Image `iconDmInteractiveMsg`.
+    static let iconDmInteractiveMsg = Rswift.ImageResource(bundle: R.hostingBundle, name: "iconDmInteractiveMsg")
+    /// Image `iconDmInteractiveSelect`.
+    static let iconDmInteractiveSelect = Rswift.ImageResource(bundle: R.hostingBundle, name: "iconDmInteractiveSelect")
     /// Image `iconDmKeyboard`.
     static let iconDmKeyboard = Rswift.ImageResource(bundle: R.hostingBundle, name: "iconDmKeyboard")
     /// Image `iconDmMore`.
@@ -614,6 +624,14 @@ struct R: Rswift.Validatable {
     static let iconVerifyBlackBorder = Rswift.ImageResource(bundle: R.hostingBundle, name: "iconVerifyBlackBorder")
     /// Image `iconVerifyGrayBorder`.
     static let iconVerifyGrayBorder = Rswift.ImageResource(bundle: R.hostingBundle, name: "iconVerifyGrayBorder")
+    /// Image `iconVideoComment`.
+    static let iconVideoComment = Rswift.ImageResource(bundle: R.hostingBundle, name: "iconVideoComment")
+    /// Image `iconVideoCreate`.
+    static let iconVideoCreate = Rswift.ImageResource(bundle: R.hostingBundle, name: "iconVideoCreate")
+    /// Image `iconVideoMore`.
+    static let iconVideoMore = Rswift.ImageResource(bundle: R.hostingBundle, name: "iconVideoMore")
+    /// Image `iconVideoShare`.
+    static let iconVideoShare = Rswift.ImageResource(bundle: R.hostingBundle, name: "iconVideoShare")
     /// Image `icon_close_gray`.
     static let icon_close_gray = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_close_gray")
     /// Image `icon_close`.
@@ -970,6 +988,16 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "ac_home_topic_tab_selected", bundle: ..., traitCollection: ...)`
     static func ac_home_topic_tab_selected(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ac_home_topic_tab_selected, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_home_video_tab_normal", bundle: ..., traitCollection: ...)`
+    static func ac_home_video_tab_normal(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_home_video_tab_normal, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_home_video_tab_selected", bundle: ..., traitCollection: ...)`
+    static func ac_home_video_tab_selected(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_home_video_tab_selected, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "ac_icon_game_edit", bundle: ..., traitCollection: ...)`
@@ -1562,6 +1590,11 @@ struct R: Rswift.Validatable {
       return UIKit.UIImage(resource: R.image.home_name_edit, compatibleWith: traitCollection)
     }
     
+    /// `UIImage(named: "iconAddEmotes", bundle: ..., traitCollection: ...)`
+    static func iconAddEmotes(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.iconAddEmotes, compatibleWith: traitCollection)
+    }
+    
     /// `UIImage(named: "iconDmConversationDelete", bundle: ..., traitCollection: ...)`
     static func iconDmConversationDelete(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.iconDmConversationDelete, compatibleWith: traitCollection)
@@ -1575,6 +1608,16 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "iconDmGifLoadFailed", bundle: ..., traitCollection: ...)`
     static func iconDmGifLoadFailed(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.iconDmGifLoadFailed, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "iconDmInteractiveMsg", bundle: ..., traitCollection: ...)`
+    static func iconDmInteractiveMsg(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.iconDmInteractiveMsg, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "iconDmInteractiveSelect", bundle: ..., traitCollection: ...)`
+    static func iconDmInteractiveSelect(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.iconDmInteractiveSelect, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "iconDmKeyboard", bundle: ..., traitCollection: ...)`
@@ -1645,6 +1688,26 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "iconVerifyGrayBorder", bundle: ..., traitCollection: ...)`
     static func iconVerifyGrayBorder(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.iconVerifyGrayBorder, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "iconVideoComment", bundle: ..., traitCollection: ...)`
+    static func iconVideoComment(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.iconVideoComment, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "iconVideoCreate", bundle: ..., traitCollection: ...)`
+    static func iconVideoCreate(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.iconVideoCreate, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "iconVideoMore", bundle: ..., traitCollection: ...)`
+    static func iconVideoMore(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.iconVideoMore, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "iconVideoShare", bundle: ..., traitCollection: ...)`
+    static func iconVideoShare(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.iconVideoShare, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "icon_close", bundle: ..., traitCollection: ...)`

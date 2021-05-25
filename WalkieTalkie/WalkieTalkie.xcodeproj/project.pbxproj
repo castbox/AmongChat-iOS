@@ -169,6 +169,7 @@
 		FE169E33261351C400AD7866 /* AmongGroupJoinRequestCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE169E31261351C400AD7866 /* AmongGroupJoinRequestCell.swift */; };
 		FE1A2DF3248A3BDC00F9A44D /* Data+Crypto.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE1A2DF2248A3BDC00F9A44D /* Data+Crypto.swift */; };
 		FE1A2DF5248A4BAD00F9A44D /* emojis.json in Resources */ = {isa = PBXBuildFile; fileRef = FE1A2DF4248A4BAD00F9A44D /* emojis.json */; };
+		FE27B92C265CE30300D1AD1F /* AmongChat.Home.VideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE27B92B265CE30300D1AD1F /* AmongChat.Home.VideoViewController.swift */; };
 		FE2AF9E6244DB0F500763747 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE2AF9E5244DB0F400763747 /* WebViewController.swift */; };
 		FE2AF9E8244DB16F00763747 /* UIViewController+Safari.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE2AF9E7244DB16F00763747 /* UIViewController+Safari.swift */; };
 		FE2AF9EC244DC24300763747 /* AppConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE2AF9EB244DC24300763747 /* AppConfig.swift */; };
@@ -639,6 +640,7 @@
 		FE169E31261351C400AD7866 /* AmongGroupJoinRequestCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongGroupJoinRequestCell.swift; sourceTree = "<group>"; };
 		FE1A2DF2248A3BDC00F9A44D /* Data+Crypto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Crypto.swift"; sourceTree = "<group>"; };
 		FE1A2DF4248A4BAD00F9A44D /* emojis.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = emojis.json; sourceTree = "<group>"; };
+		FE27B92B265CE30300D1AD1F /* AmongChat.Home.VideoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChat.Home.VideoViewController.swift; sourceTree = "<group>"; };
 		FE2AF9E5244DB0F400763747 /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		FE2AF9E7244DB16F00763747 /* UIViewController+Safari.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Safari.swift"; sourceTree = "<group>"; };
 		FE2AF9EB244DC24300763747 /* AppConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfig.swift; sourceTree = "<group>"; };
@@ -1059,11 +1061,11 @@
 				2B6B5F5125A33FC0009D028D /* AmongChat.Home.RoomJoinViewController.swift */,
 				BD6C36F9256E530100D1E708 /* AmongChat.Home.TopicsViewController.swift */,
 				BDFCA56E25959427000ABB39 /* AmongChat.Home.RelationsViewController.swift */,
+				FE27B92B265CE30300D1AD1F /* AmongChat.Home.VideoViewController.swift */,
+				FEEB70642648D72700D7EB82 /* Dm */,
 				FE7E227B26468EB900DAD431 /* Views */,
 				FEE8502E259B31DF00CF9A74 /* JoinRoomable.swift */,
 				FE80A58325AD96BB009914A7 /* Search.ViewController.swift */,
-				FE857C4D2646B9EC008C4ADC /* Conversation.swift */,
-				FEEB70642648D72700D7EB82 /* Dm */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -1720,6 +1722,7 @@
 		FEEB70642648D72700D7EB82 /* Dm */ = {
 			isa = PBXGroup;
 			children = (
+				FE857C4D2646B9EC008C4ADC /* Conversation.swift */,
 				2656752C2645029A004D77D6 /* AmongChat.Home.ConversationListController.swift */,
 				FEF61714264A9810007CC97E /* ConversationTableCell.swift */,
 				FEF61715264A9810007CC97E /* ConversationTableCell.xib */,
@@ -2194,6 +2197,7 @@
 				2BAB4F872596031600A1C8DC /* Entity.Profile.swift in Sources */,
 				263F8ACF26132B3100282F8F /* FansGroup.GroupsViewController.swift in Sources */,
 				FE1A2DF3248A3BDC00F9A44D /* Data+Crypto.swift in Sources */,
+				FE27B92C265CE30300D1AD1F /* AmongChat.Home.VideoViewController.swift in Sources */,
 				FE684877244BD3D200F87AF9 /* AdsDebugger.swift in Sources */,
 				FEBE521F262D2DF500E49EC4 /* ReportFooterView.swift in Sources */,
 				26AFD8B525C976D900B652E8 /* Social.ProfileLookViewController+Widgets.swift in Sources */,
