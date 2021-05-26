@@ -105,6 +105,142 @@ extension Feed.VideoMediaManager {
     
 }
 
+extension Feed.VideoMediaManager {
+    
+    func exportVideo(for videoAsset: PHAsset) -> Observable<URL> {
+        
+        return Observable<URL>.create { [weak self] (subscriber) -> Disposable in
+            
+            guard let `self` = self else {
+                return Disposables.create()
+            }
+            
+            var exportSession: AVAssetExportSession?
+            
+            let videosOptions = PHVideoRequestOptions()
+            videosOptions.isNetworkAccessAllowed = true
+            videosOptions.deliveryMode = .highQualityFormat
+            
+            self.imageManager.requestAVAsset(forVideo: videoAsset, options: videosOptions) { asset, _, _ in
+                guard let asset = asset else {
+                    cdPrint("⚠️ PHCachingImageManager >>> Don't have the asset")
+                    subscriber.onError(MsgError(code: -1, msg: "⚠️ PHCachingImageManager >>> Don't have the asset"))
+                    return
+                }
+                
+                let composition = AVMutableComposition()
+                
+                guard let compositionTrack = composition.addMutableTrack(withMediaType: .video, preferredTrackID: kCMPersistentTrackID_Invalid),
+                      let assetTrack = asset.tracks(withMediaType: .video).first else {
+                    cdPrint("Something is wrong with the asset.")
+                    subscriber.onError(MsgError(code: -1, msg: "⚠️ Something is wrong with the asset."))
+                    return
+                }
+                
+                do {
+                    let timeRange = CMTimeRange(start: .zero, duration: asset.duration)
+                    try compositionTrack.insertTimeRange(timeRange, of: assetTrack, at: .zero)
+                    
+                    if let audioAssetTrack = asset.tracks(withMediaType: .audio).first,
+                       let compositionAudioTrack = composition.addMutableTrack(withMediaType: .audio,
+                                                                               preferredTrackID: kCMPersistentTrackID_Invalid) {
+                        try compositionAudioTrack.insertTimeRange(timeRange,
+                                                                  of: audioAssetTrack,
+                                                                  at: .zero)
+                    }
+                } catch let error {
+                    cdPrint(error)
+                    subscriber.onError(error)
+                    return
+                }
+                
+                compositionTrack.preferredTransform = assetTrack.preferredTransform
+                let videoInfo = self.orientation(from: assetTrack.preferredTransform)
+                
+                let videoSize: CGSize
+                if videoInfo.isPortrait {
+                    videoSize = CGSize(width: assetTrack.naturalSize.height, height: assetTrack.naturalSize.width)
+                } else {
+                    videoSize = assetTrack.naturalSize
+                }
+                
+                let videoComposition = AVMutableVideoComposition()
+                videoComposition.renderSize = videoSize
+                videoComposition.frameDuration = CMTime(value: 1, timescale: 30)
+                
+                let instruction = AVMutableVideoCompositionInstruction()
+                instruction.timeRange = CMTimeRange(start: .zero, duration: composition.duration)
+                videoComposition.instructions = [instruction]
+                let layerInstruction = self.compositionLayerInstruction(for: compositionTrack, assetTrack: assetTrack)
+                instruction.layerInstructions = [layerInstruction]
+                
+                guard let export = AVAssetExportSession(asset: composition,
+                                                        presetName: AVAssetExportPresetMediumQuality) else {
+                    cdPrint("Cannot create export session.")
+                    subscriber.onError(MsgError(code: -1, msg: "Cannot create export session."))
+                    return
+                }
+                
+                let videoName = UUID().uuidString
+                let exportURL = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(videoName).appendingPathExtension("mp4")
+                
+                export.videoComposition = videoComposition
+                export.outputFileType = .mp4
+                export.outputURL = exportURL
+                
+                export.exportAsynchronously {
+                    switch export.status {
+                    case .completed:
+                        subscriber.onNext(exportURL)
+                        subscriber.onCompleted()
+                    default:
+                        cdPrint("Something went wrong during export.")
+                        cdPrint(export.error ?? "unknown error")
+                        subscriber.onError(export.error ?? MsgError(code: -1, msg: "unknown error"))
+                        break
+                    }
+                }
+                
+                exportSession = export
+            }
+            
+            return Disposables.create {
+                exportSession?.cancelExport()
+            }
+        }
+        .observeOn(MainScheduler.asyncInstance)
+        
+    }
+    
+    private func compositionLayerInstruction(for track: AVCompositionTrack, assetTrack: AVAssetTrack) -> AVMutableVideoCompositionLayerInstruction {
+        let instruction = AVMutableVideoCompositionLayerInstruction(assetTrack: track)
+        let transform = assetTrack.preferredTransform
+        
+        instruction.setTransform(transform, at: .zero)
+        
+        return instruction
+    }
+    
+    private func orientation(from transform: CGAffineTransform) -> (orientation: UIImage.Orientation, isPortrait: Bool) {
+        var assetOrientation = UIImage.Orientation.up
+        var isPortrait = false
+        if transform.a == 0 && transform.b == 1.0 && transform.c == -1.0 && transform.d == 0 {
+            assetOrientation = .right
+            isPortrait = true
+        } else if transform.a == 0 && transform.b == -1.0 && transform.c == 1.0 && transform.d == 0 {
+            assetOrientation = .left
+            isPortrait = true
+        } else if transform.a == 1.0 && transform.b == 0 && transform.c == 0 && transform.d == 1.0 {
+            assetOrientation = .up
+        } else if transform.a == -1.0 && transform.b == 0 && transform.c == 0 && transform.d == -1.0 {
+            assetOrientation = .down
+        }
+        
+        return (assetOrientation, isPortrait)
+    }
+    
+}
+
 private extension UICollectionView {
     func indexPathsForElements(in rect: CGRect) -> [IndexPath] {
         let allLayoutAttributes = collectionViewLayout.layoutAttributesForElements(in: rect)!
@@ -126,7 +262,7 @@ extension Reactive where Base: PHImageManager {
                 let options = PHImageRequestOptions()
                 options.deliveryMode = .highQualityFormat
                 options.isNetworkAccessAllowed = true
-                options.resizeMode = .exact
+                options.resizeMode = .none
                 options.isSynchronous = true
                 
                 requestId = base.requestImage(for: asset,

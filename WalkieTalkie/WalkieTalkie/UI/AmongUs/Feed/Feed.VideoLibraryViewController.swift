@@ -103,6 +103,32 @@ extension Feed.VideoLibraryViewController: UICollectionViewDelegate {
     }
 }
 
+extension Feed.VideoLibraryViewController: FeedVideoSelective {
+    
+    var hasSelected: Observable<Void> {
+        return videoCollectionView.rx.itemSelected.map({ _ in }).asObservable()
+    }
+    
+    func clearSelection() {
+        
+        videoCollectionView.indexPathsForSelectedItems?.forEach({ (indexPath) in
+            videoCollectionView.deselectItem(at: indexPath, animated: false)
+        })
+        
+    }
+    
+    func getVideo() -> Observable<URL> {
+        
+        guard let selectedIndex = videoCollectionView.indexPathsForSelectedItems?.first?.item else {
+            return Observable.empty()
+        }
+        
+        let asset = mediaManager.fetchResult.object(at: selectedIndex)
+        
+        return mediaManager.exportVideo(for: asset)
+    }
+}
+
 // MARK: PHPhotoLibraryChangeObserver
 extension Feed.VideoLibraryViewController: PHPhotoLibraryChangeObserver {
     
