@@ -124,6 +124,7 @@
 		BDFCA56F25959428000ABB39 /* AmongChat.Home.RelationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDFCA56E25959427000ABB39 /* AmongChat.Home.RelationsViewController.swift */; };
 		BDFCA5732595E239000ABB39 /* AmongChat.Home+RelationsViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDFCA5722595E237000ABB39 /* AmongChat.Home+RelationsViews.swift */; };
 		BDFEFEF125864517007F40FC /* AmongChat.CreateRoom.ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDFEFEF025864517007F40FC /* AmongChat.CreateRoom.ViewController.swift */; };
+		DAD6D54B857E3653B61F645B /* Pods_WalkieTalkie.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31109F4888D86C5A3066D8F2 /* Pods_WalkieTalkie.framework */; };
 		FE045FC826451CB20032FE67 /* ConversationListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE045FC626451CB20032FE67 /* ConversationListCell.swift */; };
 		FE045FC926451CB20032FE67 /* ConversationListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE045FC726451CB20032FE67 /* ConversationListCell.xib */; };
 		FE045FCC2645219E0032FE67 /* ConversationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE045FCA2645219E0032FE67 /* ConversationViewController.swift */; };
@@ -134,8 +135,11 @@
 		FE0A0C30265CECCA00AC9FF7 /* FeedListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE0A0C2E265CECCA00AC9FF7 /* FeedListCell.swift */; };
 		FE0A0C31265CECCA00AC9FF7 /* FeedListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE0A0C2F265CECCA00AC9FF7 /* FeedListCell.xib */; };
 		FE0A0C33265D278000AC9FF7 /* VideoPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE0A0C32265D278000AC9FF7 /* VideoPlayerView.swift */; };
-		FE0A0C35265D27BB00AC9FF7 /* VideoPlayerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE0A0C34265D27BB00AC9FF7 /* VideoPlayerManager.swift */; };
 		FE0A0DAD265D296A00AC9FF7 /* VideoCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE0A0DAC265D296A00AC9FF7 /* VideoCacheManager.swift */; };
+		FE0A0F26265E0C8600AC9FF7 /* FeedEmojiCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE0A0F24265E0C8600AC9FF7 /* FeedEmojiCollectionCell.swift */; };
+		FE0A0F27265E0C8600AC9FF7 /* FeedEmojiCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE0A0F25265E0C8600AC9FF7 /* FeedEmojiCollectionCell.xib */; };
+		FE0A0F29265E217200AC9FF7 /* Feed.EmotePickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE0A0F28265E217200AC9FF7 /* Feed.EmotePickerController.swift */; };
+		FE0A0F2B265E21CD00AC9FF7 /* Feed.EmotePickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE0A0F2A265E21CD00AC9FF7 /* Feed.EmotePickerViewModel.swift */; };
 		FE0D1A2124489BB700518793 /* FrozenButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE0D1A2024489BB700518793 /* FrozenButton.swift */; };
 		FE0D1A2724489FE300518793 /* UIBezierPathExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE0D1A2624489FE300518793 /* UIBezierPathExtension.swift */; };
 		FE0D1A292448A06200518793 /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE0D1A282448A06200518793 /* UIViewExtension.swift */; };
@@ -531,6 +535,8 @@
 		2BAB4F862596031600A1C8DC /* Entity.Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entity.Profile.swift; sourceTree = "<group>"; };
 		2BAC1458258E5D690064F55D /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.generated.swift; sourceTree = SOURCE_ROOT; };
 		2BBBFD2C259CAA1100A3AB2C /* Social.ReportViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Social.ReportViewController.swift; sourceTree = "<group>"; };
+		31109F4888D86C5A3066D8F2 /* Pods_WalkieTalkie.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WalkieTalkie.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		548E35F6B26D9AD5923084F7 /* Pods-WalkieTalkie.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WalkieTalkie.release.xcconfig"; path = "Target Support Files/Pods-WalkieTalkie/Pods-WalkieTalkie.release.xcconfig"; sourceTree = "<group>"; };
 		BD4DEE132507A2E4006476E0 /* Social.Widgets.AvatarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Social.Widgets.AvatarView.swift; sourceTree = "<group>"; };
 		BD6739BC2595EEAD00B3305B /* AmongChat.Home+RelationViewModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AmongChat.Home+RelationViewModels.swift"; sourceTree = "<group>"; };
 		BD67FF0D2571276400144477 /* AmongChat.Room.UserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChat.Room.UserCell.swift; sourceTree = "<group>"; };
@@ -594,6 +600,7 @@
 		BDFCA56E25959427000ABB39 /* AmongChat.Home.RelationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChat.Home.RelationsViewController.swift; sourceTree = "<group>"; };
 		BDFCA5722595E237000ABB39 /* AmongChat.Home+RelationsViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AmongChat.Home+RelationsViews.swift"; sourceTree = "<group>"; };
 		BDFEFEF025864517007F40FC /* AmongChat.CreateRoom.ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChat.CreateRoom.ViewController.swift; sourceTree = "<group>"; };
+		E401122B4D5D7ADA04280B14 /* Pods-WalkieTalkie.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WalkieTalkie.debug.xcconfig"; path = "Target Support Files/Pods-WalkieTalkie/Pods-WalkieTalkie.debug.xcconfig"; sourceTree = "<group>"; };
 		FE045FC626451CB20032FE67 /* ConversationListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationListCell.swift; sourceTree = "<group>"; };
 		FE045FC726451CB20032FE67 /* ConversationListCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ConversationListCell.xib; sourceTree = "<group>"; };
 		FE045FCA2645219E0032FE67 /* ConversationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationViewController.swift; sourceTree = "<group>"; };
@@ -604,8 +611,11 @@
 		FE0A0C2E265CECCA00AC9FF7 /* FeedListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedListCell.swift; sourceTree = "<group>"; };
 		FE0A0C2F265CECCA00AC9FF7 /* FeedListCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FeedListCell.xib; sourceTree = "<group>"; };
 		FE0A0C32265D278000AC9FF7 /* VideoPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerView.swift; sourceTree = "<group>"; };
-		FE0A0C34265D27BB00AC9FF7 /* VideoPlayerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerManager.swift; sourceTree = "<group>"; };
 		FE0A0DAC265D296A00AC9FF7 /* VideoCacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCacheManager.swift; sourceTree = "<group>"; };
+		FE0A0F24265E0C8600AC9FF7 /* FeedEmojiCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedEmojiCollectionCell.swift; sourceTree = "<group>"; };
+		FE0A0F25265E0C8600AC9FF7 /* FeedEmojiCollectionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FeedEmojiCollectionCell.xib; sourceTree = "<group>"; };
+		FE0A0F28265E217200AC9FF7 /* Feed.EmotePickerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Feed.EmotePickerController.swift; sourceTree = "<group>"; };
+		FE0A0F2A265E21CD00AC9FF7 /* Feed.EmotePickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Feed.EmotePickerViewModel.swift; sourceTree = "<group>"; };
 		FE0D1A2024489BB700518793 /* FrozenButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrozenButton.swift; sourceTree = "<group>"; };
 		FE0D1A2624489FE300518793 /* UIBezierPathExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIBezierPathExtension.swift; sourceTree = "<group>"; };
 		FE0D1A282448A06200518793 /* UIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
@@ -915,6 +925,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DAD6D54B857E3653B61F645B /* Pods_WalkieTalkie.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -931,6 +942,8 @@
 		21322B40449618314E604481 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
+				E401122B4D5D7ADA04280B14 /* Pods-WalkieTalkie.debug.xcconfig */,
+				548E35F6B26D9AD5923084F7 /* Pods-WalkieTalkie.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -1166,6 +1179,7 @@
 			children = (
 				269456582519DFE2003AA34A /* WidgetKit.framework */,
 				2694565A2519DFE2003AA34A /* SwiftUI.framework */,
+				31109F4888D86C5A3066D8F2 /* Pods_WalkieTalkie.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1175,11 +1189,14 @@
 			children = (
 				FE27B92B265CE30300D1AD1F /* AmongChat.Home.FeedViewController.swift */,
 				FE27B92D265CE89A00D1AD1F /* Feed.swift */,
+				FE0A0F28265E217200AC9FF7 /* Feed.EmotePickerController.swift */,
+				FE0A0F2A265E21CD00AC9FF7 /* Feed.EmotePickerViewModel.swift */,
 				FE0A0C32265D278000AC9FF7 /* VideoPlayerView.swift */,
-				FE0A0C34265D27BB00AC9FF7 /* VideoPlayerManager.swift */,
 				FE0A0DAC265D296A00AC9FF7 /* VideoCacheManager.swift */,
 				FE0A0C2E265CECCA00AC9FF7 /* FeedListCell.swift */,
 				FE0A0C2F265CECCA00AC9FF7 /* FeedListCell.xib */,
+				FE0A0F24265E0C8600AC9FF7 /* FeedEmojiCollectionCell.swift */,
+				FE0A0F25265E0C8600AC9FF7 /* FeedEmojiCollectionCell.xib */,
 			);
 			path = Feed;
 			sourceTree = "<group>";
@@ -1815,12 +1832,15 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = FE126D33243461EB00BEDD60 /* Build configuration list for PBXNativeTarget "WalkieTalkie" */;
 			buildPhases = (
+				D0D2082187AF4691B95EB3AD /* [CP] Check Pods Manifest.lock */,
 				FE4FDADC2435E32600CD5E97 /* R.swift */,
 				FE126D10243461E800BEDD60 /* Sources */,
 				FE126D11243461E800BEDD60 /* Frameworks */,
 				FE126D12243461E800BEDD60 /* Resources */,
 				FE8DEA56243CA1130059C252 /* Fabric */,
 				269456652519DFE6003AA34A /* Embed App Extensions */,
+				9170A9645CDE219C8A624644 /* [CP] Embed Pods Frameworks */,
+				9F527D7E11C3CB7798CD4DDA /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1950,6 +1970,7 @@
 				BDB21A52250A20DA000ADC20 /* Nunito-BoldItalic.ttf in Resources */,
 				FEE6F213264E53E800F4C0C5 /* dmWaveWhite.svga in Resources */,
 				FE7CE9D72589C1C60067952C /* AmongRoomInfoView.xib in Resources */,
+				FE0A0F27265E0C8600AC9FF7 /* FeedEmojiCollectionCell.xib in Resources */,
 				FEF170FF25C95BE0004C3FD3 /* RoomTopEntranceContentView.xib in Resources */,
 				FEF61717264A9810007CC97E /* ConversationTableCell.xib in Resources */,
 				FE7CEB73258A0FA10067952C /* AmongInputCodeView.xib in Resources */,
@@ -1982,6 +2003,58 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		9170A9645CDE219C8A624644 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-WalkieTalkie/Pods-WalkieTalkie-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9F527D7E11C3CB7798CD4DDA /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-WalkieTalkie/Pods-WalkieTalkie-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D0D2082187AF4691B95EB3AD /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-WalkieTalkie-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 		FE4FDADC2435E32600CD5E97 /* R.swift */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1996,7 +2069,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$SRCROOT/R.generated.swift",
+				$SRCROOT/R.generated.swift,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -2130,6 +2203,7 @@
 				FE684871244B4B5600F87AF9 /* PasswordGenerator.swift in Sources */,
 				FE0A0C30265CECCA00AC9FF7 /* FeedListCell.swift in Sources */,
 				FE860D5B2446D2A800087B73 /* Castbox+Rx.swift in Sources */,
+				FE0A0F29265E217200AC9FF7 /* Feed.EmotePickerController.swift in Sources */,
 				269A6E0E26203E3300A07C7D /* FansGroup.GroupJoinRequestListViewController.swift in Sources */,
 				FEC17A4924A99BF0003719BC /* Entity.swift in Sources */,
 				FE87C2C4259C29F000799883 /* ConnectState.swift in Sources */,
@@ -2151,6 +2225,7 @@
 				FE684879244BD45F00F87AF9 /* DateUtil.swift in Sources */,
 				26DC82792609C8F1000A9111 /* Social.ChooseGame+Views.swift in Sources */,
 				FE7CE9D32589C1BE0067952C /* AmongRoomInfoView.swift in Sources */,
+				FE0A0F26265E0C8600AC9FF7 /* FeedEmojiCollectionCell.swift in Sources */,
 				FE806792261DBBE800207992 /* SeatLoadingView.swift in Sources */,
 				FEF170FB25C9598C004C3FD3 /* AmongChat.Room.TopEntranceView.swift in Sources */,
 				FE79F393258CE06D00E9BC6C /* AmongSheetIconItemCell.swift in Sources */,
@@ -2161,6 +2236,7 @@
 				FECA43AD24597B570075D139 /* Automator.Device.swift in Sources */,
 				FE9BD2AB26380B3300C30012 /* MarqueueLabel.swift in Sources */,
 				2BAB4F872596031600A1C8DC /* Entity.Profile.swift in Sources */,
+				FE0A0F2B265E21CD00AC9FF7 /* Feed.EmotePickerViewModel.swift in Sources */,
 				263F8ACF26132B3100282F8F /* FansGroup.GroupsViewController.swift in Sources */,
 				FE1A2DF3248A3BDC00F9A44D /* Data+Crypto.swift in Sources */,
 				FE27B92C265CE30300D1AD1F /* AmongChat.Home.FeedViewController.swift in Sources */,
@@ -2215,7 +2291,6 @@
 				FE860D482446D1D700087B73 /* UIView+Theme.swift in Sources */,
 				FE169E2426134A1500AD7866 /* AmongGroupHostView.swift in Sources */,
 				FE8DEA6D243DB09A0059C252 /* JSONDecoder.Extension.swift in Sources */,
-				FE0A0C35265D27BB00AC9FF7 /* VideoPlayerManager.swift in Sources */,
 				FEBE5220262D2DF500E49EC4 /* Report.ViewModel.swift in Sources */,
 				FE9EF528258B23B5008C0BAD /* AmongRoomToolView.swift in Sources */,
 				FE401E39244D9C450081F793 /* IAP.swift in Sources */,
@@ -2574,6 +2649,7 @@
 		};
 		FE126D34243461EB00BEDD60 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E401122B4D5D7ADA04280B14 /* Pods-WalkieTalkie.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -2602,6 +2678,7 @@
 		};
 		FE126D35243461EB00BEDD60 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 548E35F6B26D9AD5923084F7 /* Pods-WalkieTalkie.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;

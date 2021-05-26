@@ -1918,7 +1918,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.nib` struct is generated, and contains static references to 39 nibs.
+  /// This `R.nib` struct is generated, and contains static references to 40 nibs.
   struct nib {
     /// Nib `AddStatsPendingController`.
     static let addStatsPendingController = _R.nib._AddStatsPendingController()
@@ -1972,6 +1972,8 @@ struct R: Rswift.Validatable {
     static let conversationViewController = _R.nib._ConversationViewController()
     /// Nib `EndUserLicenseController`.
     static let endUserLicenseController = _R.nib._EndUserLicenseController()
+    /// Nib `FeedEmojiCollectionCell`.
+    static let feedEmojiCollectionCell = _R.nib._FeedEmojiCollectionCell()
     /// Nib `FeedListCell`.
     static let feedListCell = _R.nib._FeedListCell()
     /// Nib `InfoWithNicknameView`.
@@ -2155,6 +2157,12 @@ struct R: Rswift.Validatable {
       return UIKit.UINib(resource: R.nib.endUserLicenseController)
     }
     
+    /// `UINib(name: "FeedEmojiCollectionCell", in: bundle)`
+    @available(*, deprecated, message: "Use UINib(resource: R.nib.feedEmojiCollectionCell) instead")
+    static func feedEmojiCollectionCell(_: Void = ()) -> UIKit.UINib {
+      return UIKit.UINib(resource: R.nib.feedEmojiCollectionCell)
+    }
+    
     /// `UINib(name: "FeedListCell", in: bundle)`
     @available(*, deprecated, message: "Use UINib(resource: R.nib.feedListCell) instead")
     static func feedListCell(_: Void = ()) -> UIKit.UINib {
@@ -2335,6 +2343,10 @@ struct R: Rswift.Validatable {
     
     static func endUserLicenseController(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
       return R.nib.endUserLicenseController.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+    }
+    
+    static func feedEmojiCollectionCell(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> FeedEmojiCollectionCell? {
+      return R.nib.feedEmojiCollectionCell.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? FeedEmojiCollectionCell
     }
     
     static func feedListCell(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> FeedListCell? {
@@ -8318,6 +8330,17 @@ struct _R: Rswift.Validatable {
       
       func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
         return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+      }
+      
+      fileprivate init() {}
+    }
+    
+    struct _FeedEmojiCollectionCell: Rswift.NibResourceType {
+      let bundle = R.hostingBundle
+      let name = "FeedEmojiCollectionCell"
+      
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> FeedEmojiCollectionCell? {
+        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? FeedEmojiCollectionCell
       }
       
       fileprivate init() {}

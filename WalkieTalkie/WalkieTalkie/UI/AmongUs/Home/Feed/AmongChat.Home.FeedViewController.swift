@@ -97,6 +97,10 @@ extension AmongChat.Home {
         let disposeBag = DisposeBag()
         var data = [Post]()
         
+        override var isHidesBottomBarWhenPushed: Bool {
+            return false
+        }
+        
         // MARK: - Lifecycles
         override func viewDidLoad() {
             super.viewDidLoad()
