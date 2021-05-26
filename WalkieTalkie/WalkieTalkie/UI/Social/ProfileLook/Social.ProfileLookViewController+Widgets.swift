@@ -325,7 +325,9 @@ extension Social.ProfileLookViewController {
                     maker.centerY.equalToSuperview().offset(-2)
                     if idx == 0 {
                         maker.leading.equalToSuperview().inset(Frame.horizontalBleedWidth)
-                    } else if idx == buttons.count - 1 {
+                    }
+                    
+                    if idx == buttons.count - 1 {
                         maker.trailing.equalToSuperview().inset(Frame.horizontalBleedWidth)
                     }
                     
@@ -375,7 +377,9 @@ extension Social.ProfileLookViewController {
                     button.snp.updateConstraints { (maker) in
                         maker.trailing.equalToSuperview().inset(Frame.horizontalBleedWidth + ceil((enlargeFractor - 1) * button.frame.width) / 2)
                     }
-                } else if button == self.buttons.first {
+                }
+                
+                if button == self.buttons.first {
                     button.snp.updateConstraints { (maker) in
                         maker.leading.equalToSuperview().inset(Frame.horizontalBleedWidth + ceil((enlargeFractor - 1) * button.frame.width) / 2)
                     }
