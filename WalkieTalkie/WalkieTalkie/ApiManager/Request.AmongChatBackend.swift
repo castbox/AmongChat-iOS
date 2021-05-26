@@ -614,6 +614,10 @@ extension Request {
             .mapToDataKeyJsonValue()
             .mapTo(Entity.Summary.self)
             .observeOn(MainScheduler.asyncInstance)
+            .do(onSuccess: { (summary) in
+                guard let summary = summary else { return }
+                Settings.shared.supportedTopics.value = summary
+            })
         
     }
     
