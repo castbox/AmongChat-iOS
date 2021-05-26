@@ -284,7 +284,7 @@ extension AmongChat.Home.MainTabController {
             case .topics:
                 return AmongChat.Home.TopicsViewController()
             case .video:
-                return AmongChat.Home.VideoViewController()
+                return AmongChat.Home.FeedViewController()
             case .friends:
                 return AmongChat.Home.RelationsViewController()
                 

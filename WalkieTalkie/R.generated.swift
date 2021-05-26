@@ -1918,7 +1918,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.nib` struct is generated, and contains static references to 38 nibs.
+  /// This `R.nib` struct is generated, and contains static references to 39 nibs.
   struct nib {
     /// Nib `AddStatsPendingController`.
     static let addStatsPendingController = _R.nib._AddStatsPendingController()
@@ -1972,6 +1972,8 @@ struct R: Rswift.Validatable {
     static let conversationViewController = _R.nib._ConversationViewController()
     /// Nib `EndUserLicenseController`.
     static let endUserLicenseController = _R.nib._EndUserLicenseController()
+    /// Nib `FeedListCell`.
+    static let feedListCell = _R.nib._FeedListCell()
     /// Nib `InfoWithNicknameView`.
     static let infoWithNicknameView = _R.nib._InfoWithNicknameView()
     /// Nib `JustChillingInfoView`.
@@ -2153,6 +2155,12 @@ struct R: Rswift.Validatable {
       return UIKit.UINib(resource: R.nib.endUserLicenseController)
     }
     
+    /// `UINib(name: "FeedListCell", in: bundle)`
+    @available(*, deprecated, message: "Use UINib(resource: R.nib.feedListCell) instead")
+    static func feedListCell(_: Void = ()) -> UIKit.UINib {
+      return UIKit.UINib(resource: R.nib.feedListCell)
+    }
+    
     /// `UINib(name: "InfoWithNicknameView", in: bundle)`
     @available(*, deprecated, message: "Use UINib(resource: R.nib.infoWithNicknameView) instead")
     static func infoWithNicknameView(_: Void = ()) -> UIKit.UINib {
@@ -2327,6 +2335,10 @@ struct R: Rswift.Validatable {
     
     static func endUserLicenseController(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
       return R.nib.endUserLicenseController.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+    }
+    
+    static func feedListCell(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> FeedListCell? {
+      return R.nib.feedListCell.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? FeedListCell
     }
     
     static func infoWithNicknameView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
@@ -7907,6 +7919,7 @@ struct _R: Rswift.Validatable {
       try _AvatarGuideViewController.validate()
       try _ConversationBottomBar.validate()
       try _ConversationViewController.validate()
+      try _FeedListCell.validate()
       try _NewVersionAlertController.validate()
       try _ReportCell.validate()
       try _ReportImageCell.validate()
@@ -8305,6 +8318,25 @@ struct _R: Rswift.Validatable {
       
       func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
         return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+      }
+      
+      fileprivate init() {}
+    }
+    
+    struct _FeedListCell: Rswift.NibResourceType, Rswift.Validatable {
+      let bundle = R.hostingBundle
+      let name = "FeedListCell"
+      
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> FeedListCell? {
+        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? FeedListCell
+      }
+      
+      static func validate() throws {
+        if UIKit.UIImage(named: "iconVideoComment", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'iconVideoComment' is used in nib 'FeedListCell', but couldn't be loaded.") }
+        if UIKit.UIImage(named: "iconVideoMore", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'iconVideoMore' is used in nib 'FeedListCell', but couldn't be loaded.") }
+        if UIKit.UIImage(named: "iconVideoShare", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'iconVideoShare' is used in nib 'FeedListCell', but couldn't be loaded.") }
+        if #available(iOS 11.0, *) {
+        }
       }
       
       fileprivate init() {}

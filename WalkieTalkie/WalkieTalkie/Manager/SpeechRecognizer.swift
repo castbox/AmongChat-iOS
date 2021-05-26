@@ -8,7 +8,7 @@
 
 import Foundation
 import Speech
-import Path
+//import Path
 import SwiftyUserDefaults
 
 fileprivate struct EmojiModel: Codable {
@@ -147,9 +147,8 @@ private extension SpeechRecognizer {
             self.emojiMaps = cachedMaps
             return
         }
-
         guard let emojiFile = Bundle.main.path(forResource: "emojis", ofType: "json"),
-            let data = try? Data(contentsOf: URL(fileURLWithPath: emojiFile.string), options: .mappedIfSafe),
+            let data = try? Data(contentsOf: URL(fileURLWithPath: emojiFile), options: .mappedIfSafe),
             let dict = try? data.jsonObject() as? [String: Any] else {
             return
         }
