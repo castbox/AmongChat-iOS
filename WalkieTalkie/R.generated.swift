@@ -232,7 +232,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 237 images.
+  /// This `R.image` struct is generated, and contains static references to 238 images.
   struct image {
     /// Image `ac_add_stats_add`.
     static let ac_add_stats_add = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_add_stats_add")
@@ -284,6 +284,8 @@ struct R: Rswift.Validatable {
     static let ac_feed_library_unselected = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_feed_library_unselected")
     /// Image `ac_feed_library_unsupported`.
     static let ac_feed_library_unsupported = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_feed_library_unsupported")
+    /// Image `ac_feed_post_tip`.
+    static let ac_feed_post_tip = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_feed_post_tip")
     /// Image `ac_group_Leave`.
     static let ac_group_Leave = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_group_Leave")
     /// Image `ac_group_add`.
@@ -832,6 +834,11 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "ac_feed_library_unsupported", bundle: ..., traitCollection: ...)`
     static func ac_feed_library_unsupported(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ac_feed_library_unsupported, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_feed_post_tip", bundle: ..., traitCollection: ...)`
+    static func ac_feed_post_tip(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_feed_post_tip, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "ac_group_Leave", bundle: ..., traitCollection: ...)`
@@ -2467,7 +2474,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
     
-    /// This `R.string.localizable` struct is generated, and contains static references to 490 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 493 localization keys.
     struct localizable {
       /// en translation:  Congratulations!
       /// 
@@ -3325,6 +3332,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let profileConstellationLibra = Rswift.StringResource(key: "profile.constellation.libra", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Library
+      /// 
+      /// Locales: en
+      static let feedLibraryTitle = Rswift.StringResource(key: "feed.library.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Live
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3677,6 +3688,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let forceUpgradeTip = Rswift.StringResource(key: "force.upgrade.tip", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Post
+      /// 
+      /// Locales: en
+      static let feedPostTitle = Rswift.StringResource(key: "feed.post.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Prefer not to share
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -4213,6 +4228,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatRoomRobloxUserNamePrefix = Rswift.StringResource(key: "among.chat.room.roblox.user.name.prefix", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Videos should be under 60 seconds
+      /// 
+      /// Locales: en
+      static let feedPostTip = Rswift.StringResource(key: "feed.post.tip", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Virgo
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -5928,6 +5947,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("profile.constellation.libra", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Library
+      /// 
+      /// Locales: en
+      static func feedLibraryTitle(_: Void = ()) -> String {
+        return NSLocalizedString("feed.library.title", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Live
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -6542,6 +6568,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func forceUpgradeTip(_: Void = ()) -> String {
         return NSLocalizedString("force.upgrade.tip", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Post
+      /// 
+      /// Locales: en
+      static func feedPostTitle(_: Void = ()) -> String {
+        return NSLocalizedString("feed.post.title", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Prefer not to share
@@ -7480,6 +7513,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func amongChatRoomRobloxUserNamePrefix(_ value1: String) -> String {
         return String(format: NSLocalizedString("among.chat.room.roblox.user.name.prefix", bundle: R.hostingBundle, comment: ""), locale: R.applicationLocale, value1)
+      }
+      
+      /// en translation: Videos should be under 60 seconds
+      /// 
+      /// Locales: en
+      static func feedPostTip(_: Void = ()) -> String {
+        return NSLocalizedString("feed.post.tip", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Virgo
