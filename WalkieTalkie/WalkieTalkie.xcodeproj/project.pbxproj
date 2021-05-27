@@ -34,6 +34,7 @@
 		265FB7CF25B6C402004987AB /* AmongChat.Login.RegionModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 265FB7CE25B6C402004987AB /* AmongChat.Login.RegionModal.swift */; };
 		266A42F625F10C5A003B583B /* InfoWithNicknameView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 266A42F525F10C5A003B583B /* InfoWithNicknameView.xib */; };
 		266A42FA25F10CC4003B583B /* InfoWithNicknameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 266A42F925F10CC4003B583B /* InfoWithNicknameView.swift */; };
+		2686A6FB265E8B0900931A03 /* Entity+Feed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2686A6FA265E8B0900931A03 /* Entity+Feed.swift */; };
 		2696D42325B8082200C38C09 /* UITextFieldExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2696D42225B8082200C38C09 /* UITextFieldExtension.swift */; };
 		269A6DCE261C4A8C00A07C7D /* FansGroup.GroupListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 269A6DCD261C4A8C00A07C7D /* FansGroup.GroupListViewController.swift */; };
 		269A6DE0261D589700A07C7D /* FansGroup.GroupInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 269A6DDF261D589700A07C7D /* FansGroup.GroupInfoViewController.swift */; };
@@ -50,11 +51,19 @@
 		26A3D2BA26366DDB00DD4F53 /* Notice.GroupRequestsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26A3D2B926366DDB00DD4F53 /* Notice.GroupRequestsListViewController.swift */; };
 		26A3D2C22636B1BA00DD4F53 /* Notice.NoticeListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26A3D2C12636B1BA00DD4F53 /* Notice.NoticeListViewController.swift */; };
 		26A3D4B02636C57200DD4F53 /* NoticeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26A3D4AF2636C57200DD4F53 /* NoticeManager.swift */; };
+		26A8DEE0265F54AB00C585A7 /* Feed.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE27B92D265CE89A00D1AD1F /* Feed.swift */; };
 		26AFD8B125C9742800B652E8 /* Social.ProfileLookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26AFD8B025C9742800B652E8 /* Social.ProfileLookViewController.swift */; };
 		26AFD8B525C976D900B652E8 /* Social.ProfileLookViewController+Widgets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26AFD8B425C976D900B652E8 /* Social.ProfileLookViewController+Widgets.swift */; };
 		26AFD8B925CA7E6600B652E8 /* Social.ProfileLookViewController+ViewModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26AFD8B825CA7E6500B652E8 /* Social.ProfileLookViewController+ViewModels.swift */; };
 		26AFD90725CAB81300B652E8 /* IAP.ConsumableProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26AFD90625CAB81200B652E8 /* IAP.ConsumableProduct.swift */; };
 		26BA22AA26491C8C00F4554B /* AudioRecorderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26BA22A926491C8C00F4554B /* AudioRecorderViewController.swift */; };
+		26CC0F70265CCB850058E39E /* Feed.VideoLibraryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26CC0F6F265CCB850058E39E /* Feed.VideoLibraryViewController.swift */; };
+		26CC0F74265CCC5C0058E39E /* Feed.VideoLibraryViewController+Views.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26CC0F73265CCC5C0058E39E /* Feed.VideoLibraryViewController+Views.swift */; };
+		26CC0F78265CD7110058E39E /* UICollectionViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26CC0F77265CD7110058E39E /* UICollectionViewExtension.swift */; };
+		26CC0F86265D22560058E39E /* Feed.SelectVideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26CC0F85265D22560058E39E /* Feed.SelectVideoViewController.swift */; };
+		26CC0F98265D2B260058E39E /* Feed.VideoMediaManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26CC0F97265D2B260058E39E /* Feed.VideoMediaManager.swift */; };
+		26CC0FA1265E4C640058E39E /* Feed.SelectTopicViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26CC0FA0265E4C640058E39E /* Feed.SelectTopicViewController.swift */; };
+		26CC0FA5265E4E0F0058E39E /* Feed.SelectTopicViewController+Views.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26CC0FA4265E4E0F0058E39E /* Feed.SelectTopicViewController+Views.swift */; };
 		26DBBF7626008C1B00A1B9BA /* Social.AgePromptModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26DBBF7526008C1B00A1B9BA /* Social.AgePromptModal.swift */; };
 		26DC82752609C891000A9111 /* Social.ChooseGame.ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26DC82742609C891000A9111 /* Social.ChooseGame.ViewController.swift */; };
 		26DC82792609C8F1000A9111 /* Social.ChooseGame+Views.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26DC82782609C8F1000A9111 /* Social.ChooseGame+Views.swift */; };
@@ -77,6 +86,7 @@
 		2BAB4F832595E25600A1C8DC /* Social.ShareRoomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BAB4F822595E25600A1C8DC /* Social.ShareRoomViewController.swift */; };
 		2BAB4F872596031600A1C8DC /* Entity.Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BAB4F862596031600A1C8DC /* Entity.Profile.swift */; };
 		2BBBFD2D259CAA1100A3AB2C /* Social.ReportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBBFD2C259CAA1100A3AB2C /* Social.ReportViewController.swift */; };
+		B7EC7B539109162223AA018D /* Pods_WalkieTalkie.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61942BBF0F240C1AFD32C1B6 /* Pods_WalkieTalkie.framework */; };
 		BD4DEE142507A2E5006476E0 /* Social.Widgets.AvatarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD4DEE132507A2E4006476E0 /* Social.Widgets.AvatarView.swift */; };
 		BD6739BD2595EEAD00B3305B /* AmongChat.Home+RelationViewModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD6739BC2595EEAD00B3305B /* AmongChat.Home+RelationViewModels.swift */; };
 		BD67FF0E2571276400144477 /* AmongChat.Room.UserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD67FF0D2571276400144477 /* AmongChat.Room.UserCell.swift */; };
@@ -185,7 +195,6 @@
 		FE1A2DF3248A3BDC00F9A44D /* Data+Crypto.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE1A2DF2248A3BDC00F9A44D /* Data+Crypto.swift */; };
 		FE1A2DF5248A4BAD00F9A44D /* emojis.json in Resources */ = {isa = PBXBuildFile; fileRef = FE1A2DF4248A4BAD00F9A44D /* emojis.json */; };
 		FE27B92C265CE30300D1AD1F /* AmongChat.Home.FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE27B92B265CE30300D1AD1F /* AmongChat.Home.FeedViewController.swift */; };
-		FE27B92E265CE89A00D1AD1F /* Feed.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE27B92D265CE89A00D1AD1F /* Feed.swift */; };
 		FE2AF9E6244DB0F500763747 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE2AF9E5244DB0F400763747 /* WebViewController.swift */; };
 		FE2AF9E8244DB16F00763747 /* UIViewController+Safari.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE2AF9E7244DB16F00763747 /* UIViewController+Safari.swift */; };
 		FE2AF9EC244DC24300763747 /* AppConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE2AF9EB244DC24300763747 /* AppConfig.swift */; };
@@ -496,6 +505,7 @@
 		265FB7CE25B6C402004987AB /* AmongChat.Login.RegionModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChat.Login.RegionModal.swift; sourceTree = "<group>"; };
 		266A42F525F10C5A003B583B /* InfoWithNicknameView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InfoWithNicknameView.xib; sourceTree = "<group>"; };
 		266A42F925F10CC4003B583B /* InfoWithNicknameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoWithNicknameView.swift; sourceTree = "<group>"; };
+		2686A6FA265E8B0900931A03 /* Entity+Feed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Entity+Feed.swift"; sourceTree = "<group>"; };
 		269456582519DFE2003AA34A /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		2694565A2519DFE2003AA34A /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		2696D42225B8082200C38C09 /* UITextFieldExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextFieldExtension.swift; sourceTree = "<group>"; };
@@ -519,6 +529,13 @@
 		26AFD8B825CA7E6500B652E8 /* Social.ProfileLookViewController+ViewModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Social.ProfileLookViewController+ViewModels.swift"; sourceTree = "<group>"; };
 		26AFD90625CAB81200B652E8 /* IAP.ConsumableProduct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAP.ConsumableProduct.swift; sourceTree = "<group>"; };
 		26BA22A926491C8C00F4554B /* AudioRecorderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioRecorderViewController.swift; sourceTree = "<group>"; };
+		26CC0F6F265CCB850058E39E /* Feed.VideoLibraryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Feed.VideoLibraryViewController.swift; sourceTree = "<group>"; };
+		26CC0F73265CCC5C0058E39E /* Feed.VideoLibraryViewController+Views.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Feed.VideoLibraryViewController+Views.swift"; sourceTree = "<group>"; };
+		26CC0F77265CD7110058E39E /* UICollectionViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICollectionViewExtension.swift; sourceTree = "<group>"; };
+		26CC0F85265D22560058E39E /* Feed.SelectVideoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Feed.SelectVideoViewController.swift; sourceTree = "<group>"; };
+		26CC0F97265D2B260058E39E /* Feed.VideoMediaManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Feed.VideoMediaManager.swift; sourceTree = "<group>"; };
+		26CC0FA0265E4C640058E39E /* Feed.SelectTopicViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Feed.SelectTopicViewController.swift; sourceTree = "<group>"; };
+		26CC0FA4265E4E0F0058E39E /* Feed.SelectTopicViewController+Views.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Feed.SelectTopicViewController+Views.swift"; sourceTree = "<group>"; };
 		26DBBF7526008C1B00A1B9BA /* Social.AgePromptModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Social.AgePromptModal.swift; sourceTree = "<group>"; };
 		26DC82742609C891000A9111 /* Social.ChooseGame.ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Social.ChooseGame.ViewController.swift; sourceTree = "<group>"; };
 		26DC82782609C8F1000A9111 /* Social.ChooseGame+Views.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Social.ChooseGame+Views.swift"; sourceTree = "<group>"; };
@@ -542,8 +559,8 @@
 		2BAB4F862596031600A1C8DC /* Entity.Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entity.Profile.swift; sourceTree = "<group>"; };
 		2BAC1458258E5D690064F55D /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.generated.swift; sourceTree = SOURCE_ROOT; };
 		2BBBFD2C259CAA1100A3AB2C /* Social.ReportViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Social.ReportViewController.swift; sourceTree = "<group>"; };
-		31109F4888D86C5A3066D8F2 /* Pods_WalkieTalkie.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WalkieTalkie.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		548E35F6B26D9AD5923084F7 /* Pods-WalkieTalkie.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WalkieTalkie.release.xcconfig"; path = "Target Support Files/Pods-WalkieTalkie/Pods-WalkieTalkie.release.xcconfig"; sourceTree = "<group>"; };
+		613E2AA587EFAB5772520E60 /* Pods-WalkieTalkie.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WalkieTalkie.release.xcconfig"; path = "Target Support Files/Pods-WalkieTalkie/Pods-WalkieTalkie.release.xcconfig"; sourceTree = "<group>"; };
+		61942BBF0F240C1AFD32C1B6 /* Pods_WalkieTalkie.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WalkieTalkie.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD4DEE132507A2E4006476E0 /* Social.Widgets.AvatarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Social.Widgets.AvatarView.swift; sourceTree = "<group>"; };
 		BD6739BC2595EEAD00B3305B /* AmongChat.Home+RelationViewModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AmongChat.Home+RelationViewModels.swift"; sourceTree = "<group>"; };
 		BD67FF0D2571276400144477 /* AmongChat.Room.UserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChat.Room.UserCell.swift; sourceTree = "<group>"; };
@@ -962,6 +979,19 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		26728198265CAEB400749D7D /* PostFeed */ = {
+			isa = PBXGroup;
+			children = (
+				26CC0F85265D22560058E39E /* Feed.SelectVideoViewController.swift */,
+				26CC0FA0265E4C640058E39E /* Feed.SelectTopicViewController.swift */,
+				26CC0FA4265E4E0F0058E39E /* Feed.SelectTopicViewController+Views.swift */,
+				26CC0F6F265CCB850058E39E /* Feed.VideoLibraryViewController.swift */,
+				26CC0F97265D2B260058E39E /* Feed.VideoMediaManager.swift */,
+				26CC0F73265CCC5C0058E39E /* Feed.VideoLibraryViewController+Views.swift */,
+			);
+			path = PostFeed;
+			sourceTree = "<group>";
+		};
 		26A3D0E126366AFD00DD4F53 /* Notice */ = {
 			isa = PBXGroup;
 			children = (
@@ -1201,6 +1231,7 @@
 		FE0A0C2D265CEB2700AC9FF7 /* Feed */ = {
 			isa = PBXGroup;
 			children = (
+				26728198265CAEB400749D7D /* PostFeed */,
 				FE27B92B265CE30300D1AD1F /* AmongChat.Home.FeedViewController.swift */,
 				FE27B92D265CE89A00D1AD1F /* Feed.swift */,
 				FE0A0F28265E217200AC9FF7 /* Feed.EmotePickerController.swift */,
@@ -1290,6 +1321,7 @@
 				FEC2A94825CAB637001B9556 /* StringSizeExtension.swift */,
 				FEA93599264A641900CEC89A /* NSFileManagerExtension.swift */,
 				FEF61727264C00C3007CC97E /* DateExtension.swift */,
+				26CC0F77265CD7110058E39E /* UICollectionViewExtension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -1614,6 +1646,7 @@
 				FE9EF523258B0C07008C0BAD /* Entity.Room.swift */,
 				FE7F2005262FD09E00852A91 /* Entity.Report.swift */,
 				FE7E227426456AE600DAD431 /* Entity.Conversation.swift */,
+				2686A6FA265E8B0900931A03 /* Entity+Feed.swift */,
 			);
 			path = ApiManager;
 			sourceTree = "<group>";
@@ -1877,7 +1910,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = FE126D33243461EB00BEDD60 /* Build configuration list for PBXNativeTarget "WalkieTalkie" */;
 			buildPhases = (
-				D0D2082187AF4691B95EB3AD /* [CP] Check Pods Manifest.lock */,
+				B46FF3754AA03F029D7A8CE9 /* [CP] Check Pods Manifest.lock */,
 				FE4FDADC2435E32600CD5E97 /* R.swift */,
 				FE126D10243461E800BEDD60 /* Sources */,
 				FE126D11243461E800BEDD60 /* Frameworks */,
@@ -2206,6 +2239,7 @@
 				FE4FDAD92435D0AB00CD5E97 /* Logger.swift in Sources */,
 				FE9B29F22488CD4B009A4969 /* SpeechRecognizer.swift in Sources */,
 				FE169E33261351C400AD7866 /* AmongGroupJoinRequestCell.swift in Sources */,
+				2686A6FB265E8B0900931A03 /* Entity+Feed.swift in Sources */,
 				FE68487C244BD65B00F87AF9 /* NativeAdView.swift in Sources */,
 				FECA43AE24597B570075D139 /* Automator.Analytics.swift in Sources */,
 				FE126D50243481FF00BEDD60 /* VoiceChanger.swift in Sources */,
@@ -2297,6 +2331,7 @@
 				FEA2E93E25C166E6007485A8 /* UserTagView.swift in Sources */,
 				FED38C8A26132976003C3F7D /* AmongGroupTopicConfigView.swift in Sources */,
 				FE97371524AB3D050015ECE6 /* DebugViewController.swift in Sources */,
+				26CC0F98265D2B260058E39E /* Feed.VideoMediaManager.swift in Sources */,
 				FE860D492446D1D700087B73 /* Countable.swift in Sources */,
 				FE9EF524258B0C07008C0BAD /* Entity.Room.swift in Sources */,
 				BDC9D1422589C92800412BDC /* PolicyLabel.swift in Sources */,
@@ -2305,6 +2340,7 @@
 				FE8DEA68243DB09A0059C252 /* ApiManager.Observable.swift in Sources */,
 				FE9F69E425CD3E3200C0F118 /* PermissionManager.swift in Sources */,
 				FE64007224C7014200DEE336 /* EndUserLicenseController.swift in Sources */,
+				26A8DEE0265F54AB00C585A7 /* Feed.swift in Sources */,
 				FE7CEB79258A0FBA0067952C /* AmongInputCodeView.swift in Sources */,
 				FEBE5223262D2DF500E49EC4 /* ReportCell.swift in Sources */,
 				BD91A399258C9153008931AD /* AmongChat.Home.TopicCell.swift in Sources */,
@@ -2348,8 +2384,10 @@
 				FE8DEA6C243DB09A0059C252 /* KeyedDecodingContainer.Extension.swift in Sources */,
 				FE9EF530258B2DB7008C0BAD /* AmongInputNickNameView.swift in Sources */,
 				26126058251C7B5800CD1A98 /* UserDefaults+Extension.swift in Sources */,
+				26CC0F86265D22560058E39E /* Feed.SelectVideoViewController.swift in Sources */,
 				FE126D4B243481FF00BEDD60 /* Constants.swift in Sources */,
 				2BAB4F832595E25600A1C8DC /* Social.ShareRoomViewController.swift in Sources */,
+				26CC0FA5265E4E0F0058E39E /* Feed.SelectTopicViewController+Views.swift in Sources */,
 				26BA22AA26491C8C00F4554B /* AudioRecorderViewController.swift in Sources */,
 				BDFCA5732595E239000ABB39 /* AmongChat.Home+RelationsViews.swift in Sources */,
 				FE80677D261C90C900207992 /* AmongGroupRoomTipsView.swift in Sources */,
@@ -2418,6 +2456,7 @@
 				BD6C36FA256E530100D1E708 /* AmongChat.Home.TopicsViewController.swift in Sources */,
 				BD8B4E5F257F1C9B00BE6520 /* AmongChat.Room.IMViewModel.swift in Sources */,
 				26F4149C2611C4EA003ED5BE /* FansGroup.swift in Sources */,
+				26CC0F74265CCC5C0058E39E /* Feed.VideoLibraryViewController+Views.swift in Sources */,
 				BD6C36F5256E526B00D1E708 /* AmongChat.Home.swift in Sources */,
 				FE860D5D2446D2A800087B73 /* DynamicProperty.swift in Sources */,
 				BDB8F58924F7DA46000027F8 /* Social.ProfileViewController.swift in Sources */,
@@ -2429,6 +2468,7 @@
 				FE80A59325ADA605009914A7 /* AmongChat.Login.StarsOverlay.swift in Sources */,
 				FE9BCA44258A5344002F82AF /* IntExtension.swift in Sources */,
 				FE045FCC2645219E0032FE67 /* ConversationViewController.swift in Sources */,
+				26CC0F78265CD7110058E39E /* UICollectionViewExtension.swift in Sources */,
 				FED7B605244ED1B900D94F97 /* Logger+UserAction.swift in Sources */,
 				FE8DEA64243DB09A0059C252 /* ApiManager.swift in Sources */,
 				FEFF935A258B33420011A274 /* AmongInputNotesView.swift in Sources */,
@@ -2451,6 +2491,7 @@
 				FE857C4C2646B9C2008C4ADC /* Conversation.ViewModel.swift in Sources */,
 				FE684887244BDBEC00F87AF9 /* FireRemote.swift in Sources */,
 				FE7218752456DA36005274CA /* Extension.swift in Sources */,
+				26CC0F70265CCB850058E39E /* Feed.VideoLibraryViewController.swift in Sources */,
 				FE914B0C2614663A00C755FF /* AmongChat.Room.BackgroundView.swift in Sources */,
 				26057F8925C1712900718D3E /* AvatarImageView.swift in Sources */,
 				BDD692772536DE2900260F1F /* Ad.InterstitialManager.swift in Sources */,
@@ -2469,6 +2510,7 @@
 				FE6306A92450061500CEA651 /* XibLoadableView.swift in Sources */,
 				FE684875244BD2E700F87AF9 /* AdsManager.swift in Sources */,
 				FE8338F32601EAA7009DF361 /* AmongChat.Room.EmojiPickerController.swift in Sources */,
+				26CC0FA1265E4C640058E39E /* Feed.SelectTopicViewController.swift in Sources */,
 				FE8DEA63243DB09A0059C252 /* ApiManager.Config.swift in Sources */,
 				FE9EE3F92621CA350053B020 /* AmongChat.GroupRoom.JoinRequestViewModel.swift in Sources */,
 				FEBE5226262D2DF500E49EC4 /* Report.ViewController.swift in Sources */,
@@ -2503,7 +2545,6 @@
 				FE70553E2654E77000A489F4 /* Social.BirthdaySelectViewController.swift in Sources */,
 				FEAD54DD2449C74F006454F6 /* Modal.Container.swift in Sources */,
 				26259B6B260B3E7400636E50 /* Social.ChooseGame.ViewModel.swift in Sources */,
-				FE27B92E265CE89A00D1AD1F /* Feed.swift in Sources */,
 				26A3D2B626366D8500DD4F53 /* Notice.AllNoticeViewController.swift in Sources */,
 				FE126D5C2434922E00BEDD60 /* ObservableOptionalExtension.swift in Sources */,
 				269A6DE0261D589700A07C7D /* FansGroup.GroupInfoViewController.swift in Sources */,

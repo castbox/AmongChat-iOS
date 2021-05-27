@@ -211,7 +211,7 @@ extension Social.ProfileViewController {
             return i
         }()
         
-        lazy var gradientMusk: CAGradientLayer = {
+        private lazy var gradientMusk: CAGradientLayer = {
             let l = CAGradientLayer()
             l.colors = [UIColor(hex6: 0x000000, alpha: 0).cgColor, UIColor(hex6: 0x000000, alpha: 0.16).cgColor, UIColor(hex6: 0x000000, alpha: 1).cgColor]
             l.startPoint = CGPoint(x: 0.5, y: 0.5)
