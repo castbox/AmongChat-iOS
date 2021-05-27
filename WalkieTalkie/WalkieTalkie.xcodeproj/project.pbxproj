@@ -34,7 +34,6 @@
 		265FB7CF25B6C402004987AB /* AmongChat.Login.RegionModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 265FB7CE25B6C402004987AB /* AmongChat.Login.RegionModal.swift */; };
 		266A42F625F10C5A003B583B /* InfoWithNicknameView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 266A42F525F10C5A003B583B /* InfoWithNicknameView.xib */; };
 		266A42FA25F10CC4003B583B /* InfoWithNicknameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 266A42F925F10CC4003B583B /* InfoWithNicknameView.swift */; };
-		2672819A265CAEC100749D7D /* Feed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26728199265CAEC100749D7D /* Feed.swift */; };
 		2686A6FB265E8B0900931A03 /* Entity+Feed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2686A6FA265E8B0900931A03 /* Entity+Feed.swift */; };
 		2696D42325B8082200C38C09 /* UITextFieldExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2696D42225B8082200C38C09 /* UITextFieldExtension.swift */; };
 		269A6DCE261C4A8C00A07C7D /* FansGroup.GroupListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 269A6DCD261C4A8C00A07C7D /* FansGroup.GroupListViewController.swift */; };
@@ -52,6 +51,7 @@
 		26A3D2BA26366DDB00DD4F53 /* Notice.GroupRequestsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26A3D2B926366DDB00DD4F53 /* Notice.GroupRequestsListViewController.swift */; };
 		26A3D2C22636B1BA00DD4F53 /* Notice.NoticeListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26A3D2C12636B1BA00DD4F53 /* Notice.NoticeListViewController.swift */; };
 		26A3D4B02636C57200DD4F53 /* NoticeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26A3D4AF2636C57200DD4F53 /* NoticeManager.swift */; };
+		26A8DEE0265F54AB00C585A7 /* Feed.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE27B92D265CE89A00D1AD1F /* Feed.swift */; };
 		26AFD8B125C9742800B652E8 /* Social.ProfileLookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26AFD8B025C9742800B652E8 /* Social.ProfileLookViewController.swift */; };
 		26AFD8B525C976D900B652E8 /* Social.ProfileLookViewController+Widgets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26AFD8B425C976D900B652E8 /* Social.ProfileLookViewController+Widgets.swift */; };
 		26AFD8B925CA7E6600B652E8 /* Social.ProfileLookViewController+ViewModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26AFD8B825CA7E6500B652E8 /* Social.ProfileLookViewController+ViewModels.swift */; };
@@ -494,7 +494,6 @@
 		265FB7CE25B6C402004987AB /* AmongChat.Login.RegionModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChat.Login.RegionModal.swift; sourceTree = "<group>"; };
 		266A42F525F10C5A003B583B /* InfoWithNicknameView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InfoWithNicknameView.xib; sourceTree = "<group>"; };
 		266A42F925F10CC4003B583B /* InfoWithNicknameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoWithNicknameView.swift; sourceTree = "<group>"; };
-		26728199265CAEC100749D7D /* Feed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Feed.swift; sourceTree = "<group>"; };
 		2686A6FA265E8B0900931A03 /* Entity+Feed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Entity+Feed.swift"; sourceTree = "<group>"; };
 		269456582519DFE2003AA34A /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		2694565A2519DFE2003AA34A /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
@@ -959,10 +958,9 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
-		26728198265CAEB400749D7D /* Feed */ = {
+		26728198265CAEB400749D7D /* PostFeed */ = {
 			isa = PBXGroup;
 			children = (
-				26728199265CAEC100749D7D /* Feed.swift */,
 				26CC0F85265D22560058E39E /* Feed.SelectVideoViewController.swift */,
 				26CC0FA0265E4C640058E39E /* Feed.SelectTopicViewController.swift */,
 				26CC0FA4265E4E0F0058E39E /* Feed.SelectTopicViewController+Views.swift */,
@@ -970,7 +968,7 @@
 				26CC0F97265D2B260058E39E /* Feed.VideoMediaManager.swift */,
 				26CC0F73265CCC5C0058E39E /* Feed.VideoLibraryViewController+Views.swift */,
 			);
-			path = Feed;
+			path = PostFeed;
 			sourceTree = "<group>";
 		};
 		26A3D0E126366AFD00DD4F53 /* Notice */ = {
@@ -1084,7 +1082,6 @@
 		BD6C36EA256E516900D1E708 /* AmongUs */ = {
 			isa = PBXGroup;
 			children = (
-				26728198265CAEB400749D7D /* Feed */,
 				BD6C36EC256E525000D1E708 /* AmongChat.swift */,
 				FED38C7E261317BD003C3F7D /* Group */,
 				BD6C36FE256E7CAD00D1E708 /* Room */,
@@ -1213,6 +1210,7 @@
 		FE0A0C2D265CEB2700AC9FF7 /* Feed */ = {
 			isa = PBXGroup;
 			children = (
+				26728198265CAEB400749D7D /* PostFeed */,
 				FE27B92B265CE30300D1AD1F /* AmongChat.Home.FeedViewController.swift */,
 				FE27B92D265CE89A00D1AD1F /* Feed.swift */,
 				FE0A0C32265D278000AC9FF7 /* VideoPlayerView.swift */,
@@ -2093,7 +2091,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$SRCROOT/R.generated.swift",
+				$SRCROOT/R.generated.swift,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -2281,6 +2279,7 @@
 				FE8DEA68243DB09A0059C252 /* ApiManager.Observable.swift in Sources */,
 				FE9F69E425CD3E3200C0F118 /* PermissionManager.swift in Sources */,
 				FE64007224C7014200DEE336 /* EndUserLicenseController.swift in Sources */,
+				26A8DEE0265F54AB00C585A7 /* Feed.swift in Sources */,
 				FE7CEB79258A0FBA0067952C /* AmongInputCodeView.swift in Sources */,
 				FEBE5223262D2DF500E49EC4 /* ReportCell.swift in Sources */,
 				BD91A399258C9153008931AD /* AmongChat.Home.TopicCell.swift in Sources */,
@@ -2481,7 +2480,6 @@
 				FE70553E2654E77000A489F4 /* Social.BirthdaySelectViewController.swift in Sources */,
 				FEAD54DD2449C74F006454F6 /* Modal.Container.swift in Sources */,
 				26259B6B260B3E7400636E50 /* Social.ChooseGame.ViewModel.swift in Sources */,
-				2672819A265CAEC100749D7D /* Feed.swift in Sources */,
 				26A3D2B626366D8500DD4F53 /* Notice.AllNoticeViewController.swift in Sources */,
 				FE126D5C2434922E00BEDD60 /* ObservableOptionalExtension.swift in Sources */,
 				269A6DE0261D589700A07C7D /* FansGroup.GroupInfoViewController.swift in Sources */,
