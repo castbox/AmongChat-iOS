@@ -8,6 +8,11 @@
 
 import UIKit
 import AVFoundation
+import CastboxDebuger
+
+fileprivate func cdPrint(_ message: Any) {
+    Debug.info("[VideoPlayerView]-\(message)")
+}
 
 class VideoPlayerView: UIView {
     
@@ -36,7 +41,8 @@ class VideoPlayerView: UIView {
     }
     
     required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: aDecoder)
+        setupView()
     }
     
     deinit {
@@ -57,7 +63,7 @@ class VideoPlayerView: UIView {
         cancelLoadingQueue = DispatchQueue.init(label: "com.cancelLoadingQueue")
         videoData = Data()
         avPlayerLayer = AVPlayerLayer(player: queuePlayer)
-        avPlayerLayer.videoGravity = .resizeAspect
+        avPlayerLayer.videoGravity = .resizeAspectFill
         self.layer.addSublayer(self.avPlayerLayer)
     }
     
@@ -67,10 +73,10 @@ class VideoPlayerView: UIView {
         self.layer.addSublayer(self.avPlayerLayer)
         
         guard let url = url else {
-            print("URL Error from Tableview Cell")
+            cdPrint("URL Error from Tableview Cell")
             return
         }
-        debugPrint("url: \(url)")
+        cdPrint("configure url: \(url)")
         self.fileExtension = fileExtension
         VideoCacheManager.shared.queryURLFromCache(key: url.absoluteString, fileExtension: self.fileExtension, completion: {[weak self] (data) in
             DispatchQueue.main.async { [weak self] in
@@ -80,7 +86,7 @@ class VideoPlayerView: UIView {
                 } else {
                     // Adding Redirect URL(customized prefix schema) to trigger AVAssetResourceLoaderDelegate
                     guard let redirectUrl = url.convertToRedirectURL(scheme: "streaming") else {
-                        print("\(url)\nCould not convert the url to a redirect url.")
+                        cdPrint("\(url)\nCould not convert the url to a redirect url.")
                         return
                     }
                     self.videoURL = redirectUrl
@@ -99,8 +105,8 @@ class VideoPlayerView: UIView {
                 } else {
                     self.queuePlayer = AVQueuePlayer(playerItem: self.playerItem)
                 }
-                
                 self.playerLooper = AVPlayerLooper(player: self.queuePlayer!, templateItem: self.queuePlayer!.currentItem!)
+                
                 self.avPlayerLayer.player = self.queuePlayer
             }
         })
@@ -164,13 +170,13 @@ extension VideoPlayerView {
             switch status {
             case .readyToPlay:
                 // Player item is ready to play.
-                print("Status: readyToPlay")
+                cdPrint("Status: readyToPlay")
             case .failed:
                 // Player item failed. See error.
-                print("Status: failed Error: " + item.error!.localizedDescription )
+                cdPrint("Status: failed Error: " + item.error!.localizedDescription )
             case .unknown:
                 // Player item is not yet ready.bn m
-                print("Status: unknown")
+                cdPrint("Status: unknown")
             @unknown default:
                 fatalError("Status is not yet ready to present")
             }
@@ -196,9 +202,9 @@ extension VideoPlayerView: URLSessionTaskDelegate, URLSessionDataDelegate {
     // Responses Download Completed
     func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
         if let error = error {
-            print("AVURLAsset Download Data Error: " + error.localizedDescription)
+            cdPrint("AVURLAsset Download Data Error: " + error.localizedDescription)
         } else {
-            print("AVURLAsset Downloaded: " + self.originalURL!.absoluteString + "fileExtension: \(fileExtension)")
+            cdPrint("AVURLAsset Downloaded: " + self.originalURL!.absoluteString + " fileExtension: \(fileExtension)")
             VideoCacheManager.shared.storeDataToCache(data: self.videoData, key: self.originalURL!.absoluteString, fileExtension: self.fileExtension)
         }
     }

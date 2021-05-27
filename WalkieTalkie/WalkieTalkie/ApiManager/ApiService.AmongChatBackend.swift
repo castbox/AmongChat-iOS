@@ -114,7 +114,9 @@ extension APIService {
         case myGroupApplyStat
         case updateInstalledGames([String: Any])
         case userStatus([String: Any])
+        //
         case interactiveMsgs([String: Any])
+        case userFeeds([String: Any])
         case feedCreate([String : Any])
     }
 }
@@ -327,6 +329,8 @@ extension APIService.AmongChatBackend: TargetType {
             return "/account/games"
         case .userStatus:
             return "/api/v1/user/status"
+        case .userFeeds:
+            return "/post/user/posts"
         case .feedCreate:
             return "/post/create"
         }
@@ -426,6 +430,7 @@ extension APIService.AmongChatBackend: TargetType {
              .globalMessage,
              .myGroupApplyStat,
              .interactiveMsgs,
+             .userFeeds,
              .userStatus,
              .shareUserSign:
             return .get
@@ -549,6 +554,7 @@ extension APIService.AmongChatBackend: TargetType {
              .globalMessage(let params),
              .sendDM(let params),
              .interactiveMsgs(let params),
+             .userFeeds(let params),
              .userStatus(let params),
              .unFollow(let params):
             return .requestParameters(parameters: params, encoding: URLEncoding.queryString)

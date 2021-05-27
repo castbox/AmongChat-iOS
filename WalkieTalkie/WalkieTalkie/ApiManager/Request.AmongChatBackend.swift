@@ -1670,32 +1670,6 @@ extension Request {
             .observeOn(MainScheduler.asyncInstance)
     }
     
-    static func interactiveMsgs(_ opType: Entity.DMInteractiveMessage.OpType?,
-                               limit: Int = 20,
-                               skipMs: Double) -> Single<Entity.DMInteractiveMessages> {
-        
-        let params: [String : Any] = [
-            "op_type" : opType?.rawValue ?? "",
-            "limit" : limit,
-            "skip_ms" : skipMs
-        ]
-        
-        return amongchatProvider.rx.request(.interactiveMsgs(params))
-            .mapJSON()
-            .mapToDataKeyJsonValue()
-            .mapTo(Entity.DMInteractiveMessages.self)
-            .map({
-                
-                guard let r = $0 else {
-                    throw MsgError.default
-                }
-                
-                return r
-            })
-            .observeOn(MainScheduler.asyncInstance)
-        
-    }
-    
     static func userStatus(_ uid: Int) -> Single<Entity.UserStatus?> {
         let paras: [String: Any] = ["uid": uid]
         return amongchatProvider.rx.request(.userStatus(paras))

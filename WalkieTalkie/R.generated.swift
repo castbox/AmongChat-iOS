@@ -232,7 +232,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 248 images.
+  /// This `R.image` struct is generated, and contains static references to 249 images.
   struct image {
     /// Image `ac_add_stats_add`.
     static let ac_add_stats_add = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_add_stats_add")
@@ -646,6 +646,8 @@ struct R: Rswift.Validatable {
     static let iconVideoCreate = Rswift.ImageResource(bundle: R.hostingBundle, name: "iconVideoCreate")
     /// Image `iconVideoMore`.
     static let iconVideoMore = Rswift.ImageResource(bundle: R.hostingBundle, name: "iconVideoMore")
+    /// Image `iconVideoPause`.
+    static let iconVideoPause = Rswift.ImageResource(bundle: R.hostingBundle, name: "iconVideoPause")
     /// Image `iconVideoShare`.
     static let iconVideoShare = Rswift.ImageResource(bundle: R.hostingBundle, name: "iconVideoShare")
     /// Image `icon_close_gray`.
@@ -1759,6 +1761,11 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "iconVideoMore", bundle: ..., traitCollection: ...)`
     static func iconVideoMore(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.iconVideoMore, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "iconVideoPause", bundle: ..., traitCollection: ...)`
+    static func iconVideoPause(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.iconVideoPause, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "iconVideoShare", bundle: ..., traitCollection: ...)`
@@ -8588,6 +8595,7 @@ struct _R: Rswift.Validatable {
       static func validate() throws {
         if UIKit.UIImage(named: "iconVideoComment", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'iconVideoComment' is used in nib 'FeedListCell', but couldn't be loaded.") }
         if UIKit.UIImage(named: "iconVideoMore", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'iconVideoMore' is used in nib 'FeedListCell', but couldn't be loaded.") }
+        if UIKit.UIImage(named: "iconVideoPause", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'iconVideoPause' is used in nib 'FeedListCell', but couldn't be loaded.") }
         if UIKit.UIImage(named: "iconVideoShare", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'iconVideoShare' is used in nib 'FeedListCell', but couldn't be loaded.") }
         if #available(iOS 11.0, *) {
         }
