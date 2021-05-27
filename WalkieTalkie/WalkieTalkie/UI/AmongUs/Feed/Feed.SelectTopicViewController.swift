@@ -97,7 +97,7 @@ extension Feed {
             v.button.setTitle(R.string.localizable.feedPostTitle(), for: .normal)
             v.button.rx.controlEvent(.primaryActionTriggered)
                 .subscribe(onNext: { [weak self] (_) in
-                    
+                    self?.post()
                 })
                 .disposed(by: bag)
             v.button.isEnabled = false
@@ -199,15 +199,21 @@ extension Feed.SelectTopicViewController {
     
     private func post() {
         
+        let hudRemoval: (() -> Void) = view.raft.show(.loading, userInteractionEnabled: false)
+
         Observable.combineLatest(uploadThumbnail().asObservable(), uploadVideo().asObservable())
-            .flatMap { (thumbnailUrl, videoUrl) -> Observable<Bool> in
-                //TODO: create feed
-                return Observable.just(true)
+            .flatMap { [weak self] (thumbnailUrl, videoUrl) -> Observable<Void> in
+                guard let `self` = self else {
+                    return Observable.empty()
+                }
+                return self.createFeed(thumbnailUrl: thumbnailUrl, videoUrl: videoUrl).asObservable()
             }
-            .subscribe(onNext: { (_) in
-                
-            }, onError: { (error) in
-                
+            .observeOn(MainScheduler.asyncInstance)
+            .subscribe(onNext: { [weak self] (_) in
+                hudRemoval()
+                self?.navigationController?.popToRootViewController(animated: true)
+            }, onError: { [weak self] (error) in
+                hudRemoval()
             })
             .disposed(by: bag)
     }
@@ -230,6 +236,21 @@ extension Feed.SelectTopicViewController {
         }
     }
     
+    private func createFeed(thumbnailUrl: String, videoUrl: String) -> Single<Void> {
+        
+        guard let selectedIdx = topicCollectionView.indexPathsForSelectedItems?.first?.item,
+              let topic = topicDataSource.safe(selectedIdx) else {
+            
+            return Single.error(MsgError.default)
+        }
+        
+        let duration = videoAsset.duration.value / Int64(videoAsset.duration.timescale)
+        
+        let proto = Entity.FeedProto(img: thumbnailUrl, url: videoUrl, duration: duration, topic: topic.topicId)
+        
+        return Request.createFeed(proto: proto)
+        
+    }
 }
 
 extension Feed.SelectTopicViewController: UICollectionViewDataSource {

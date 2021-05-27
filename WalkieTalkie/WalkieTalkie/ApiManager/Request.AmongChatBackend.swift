@@ -1678,4 +1678,22 @@ extension Request {
             .mapTo(Entity.UserStatus.self)
             .observeOn(MainScheduler.asyncInstance)
     }
+    
+    static func createFeed(proto: Entity.FeedProto) -> Single<Void> {
+        
+        guard let params = proto.dictionary else {
+            return Single.error(MsgError.default)
+        }
+        
+        return amongchatProvider.rx.request(.feedCreate(params))
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .map { (data) in
+                guard let _ = data["pid"] else {
+                    throw MsgError.default
+                }
+                
+                return
+            }
+    }
 }

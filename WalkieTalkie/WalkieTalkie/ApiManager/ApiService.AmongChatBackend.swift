@@ -114,6 +114,8 @@ extension APIService {
         case myGroupApplyStat
         case updateInstalledGames([String: Any])
         case userStatus([String: Any])
+        
+        case feedCreate([String : Any])
     }
 }
 
@@ -323,6 +325,8 @@ extension APIService.AmongChatBackend: TargetType {
             return "/account/games"
         case .userStatus:
             return "/api/v1/user/status"
+        case .feedCreate:
+            return "/post/create"
         }
     }
     
@@ -359,6 +363,7 @@ extension APIService.AmongChatBackend: TargetType {
              .adminUnmuteIm,
              .updateInstalledGames,
              .sendDM,
+             .feedCreate,
              .logout:
             return .post
             
@@ -475,6 +480,7 @@ extension APIService.AmongChatBackend: TargetType {
              .adminMuteIm(let params),
              .adminUnmuteIm(let params),
              .updateInstalledGames(let params),
+             .feedCreate(let params),
              .updateDevice(let params):
             return .requestParameters(parameters: params, encoding: JSONEncoding.default)
             

@@ -29,6 +29,13 @@ extension Feed {
         
         private var thumbnailSize: CGSize = .zero
         
+        private var exportedVideoURLs = [URL]()
+        
+        deinit {
+            cdPrint("")
+            clearExportedVideoFiles()
+        }
+        
     }
     
 }
@@ -183,6 +190,7 @@ extension Feed.VideoMediaManager {
                 
                 let videoName = UUID().uuidString
                 let exportURL = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(videoName).appendingPathExtension("mp4")
+                self.exportedVideoURLs.append(exportURL)
                 
                 export.videoComposition = videoComposition
                 export.outputFileType = .mp4
@@ -239,6 +247,20 @@ extension Feed.VideoMediaManager {
         return (assetOrientation, isPortrait)
     }
     
+    func clearExportedVideoFiles() {
+        
+        let urls = exportedVideoURLs
+        
+        DispatchQueue.global().async {
+            urls.forEach { (url) in
+                do {
+                    try FileManager.default.removeItem(at: url)
+                } catch {
+                    cdPrint("\(Self.self) -> Can't remove the file for some reason.")
+                }
+            }
+        }
+    }
 }
 
 private extension UICollectionView {

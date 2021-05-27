@@ -35,6 +35,7 @@
 		266A42F625F10C5A003B583B /* InfoWithNicknameView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 266A42F525F10C5A003B583B /* InfoWithNicknameView.xib */; };
 		266A42FA25F10CC4003B583B /* InfoWithNicknameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 266A42F925F10CC4003B583B /* InfoWithNicknameView.swift */; };
 		2672819A265CAEC100749D7D /* Feed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26728199265CAEC100749D7D /* Feed.swift */; };
+		2686A6FB265E8B0900931A03 /* Entity+Feed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2686A6FA265E8B0900931A03 /* Entity+Feed.swift */; };
 		2696D42325B8082200C38C09 /* UITextFieldExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2696D42225B8082200C38C09 /* UITextFieldExtension.swift */; };
 		269A6DCE261C4A8C00A07C7D /* FansGroup.GroupListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 269A6DCD261C4A8C00A07C7D /* FansGroup.GroupListViewController.swift */; };
 		269A6DE0261D589700A07C7D /* FansGroup.GroupInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 269A6DDF261D589700A07C7D /* FansGroup.GroupInfoViewController.swift */; };
@@ -488,6 +489,7 @@
 		266A42F525F10C5A003B583B /* InfoWithNicknameView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InfoWithNicknameView.xib; sourceTree = "<group>"; };
 		266A42F925F10CC4003B583B /* InfoWithNicknameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoWithNicknameView.swift; sourceTree = "<group>"; };
 		26728199265CAEC100749D7D /* Feed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Feed.swift; sourceTree = "<group>"; };
+		2686A6FA265E8B0900931A03 /* Entity+Feed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Entity+Feed.swift"; sourceTree = "<group>"; };
 		269456582519DFE2003AA34A /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		2694565A2519DFE2003AA34A /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		2696D42225B8082200C38C09 /* UITextFieldExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextFieldExtension.swift; sourceTree = "<group>"; };
@@ -1550,6 +1552,7 @@
 				FE9EF523258B0C07008C0BAD /* Entity.Room.swift */,
 				FE7F2005262FD09E00852A91 /* Entity.Report.swift */,
 				FE7E227426456AE600DAD431 /* Entity.Conversation.swift */,
+				2686A6FA265E8B0900931A03 /* Entity+Feed.swift */,
 			);
 			path = ApiManager;
 			sourceTree = "<group>";
@@ -2151,6 +2154,7 @@
 				FE4FDAD92435D0AB00CD5E97 /* Logger.swift in Sources */,
 				FE9B29F22488CD4B009A4969 /* SpeechRecognizer.swift in Sources */,
 				FE169E33261351C400AD7866 /* AmongGroupJoinRequestCell.swift in Sources */,
+				2686A6FB265E8B0900931A03 /* Entity+Feed.swift in Sources */,
 				FE68487C244BD65B00F87AF9 /* NativeAdView.swift in Sources */,
 				FECA43AE24597B570075D139 /* Automator.Analytics.swift in Sources */,
 				FE126D50243481FF00BEDD60 /* VoiceChanger.swift in Sources */,
