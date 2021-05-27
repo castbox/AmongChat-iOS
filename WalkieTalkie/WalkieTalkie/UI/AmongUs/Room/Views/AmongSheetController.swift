@@ -28,6 +28,8 @@ class AmongSheetController: ViewController {
         case adminUnmuteMic
         case adminKick
         case dmDeleteHistory
+        case share
+        case notInterested
         
         case pronounNotShare = "0"
         case pronounHe = "1"
@@ -178,7 +180,7 @@ extension AmongSheetController.ItemType {
     var titleColor: UIColor {
         switch self {
         case .profile, .follow, .drop, .dmDeleteHistory,
-             .pronounShe, .pronounHe, .pronounThey, .pronounOther, .pronounNotShare:
+             .pronounShe, .pronounHe, .pronounThey, .pronounOther, .pronounNotShare, .share, .notInterested:
             return .white
         case .block, .unblock, .mute, .unmute, .report, .kick, .adminKick, .adminMuteIm, .adminMuteMic, .adminUnmuteMic, .adminUnmuteIm:
             return "FB5858".color()
@@ -240,6 +242,10 @@ extension AmongSheetController.ItemType {
             return R.string.localizable.profilePronounOther()
         case .pronounNotShare:
             return R.string.localizable.profilePronounNotShare()
+        case .share:
+            return R.string.localizable.feedShare()
+        case .notInterested:
+            return R.string.localizable.feedSheetNotInterested()
         default:
             return ""
         }

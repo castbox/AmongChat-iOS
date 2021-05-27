@@ -11,27 +11,6 @@ import RxSwift
 import RxCocoa
 
 extension AmongChat.Home {
-    class ConversationViewModel {
-        let bag = DisposeBag()
-        private var dataSource: [Entity.DMConversation] = []
-        let dataSourceReplay = BehaviorRelay<[Entity.DMConversation]>(value: [])
-        
-        init() {
-            DMManager.shared.conversactionUpdateReplay
-                .startWith(nil)
-                .flatMap { item -> Single<[Entity.DMConversation]> in
-                    return DMManager.shared.conversations()
-                }
-                .do(onNext: { items in
-                    let unreadCount = items.reduce(0, { $0 + $1.unreadCount })
-                    Settings.shared.hasUnreadMessageRelay.accept(unreadCount > 0)
-                })
-                .observeOn(MainScheduler.asyncInstance)
-                .bind(to: dataSourceReplay)
-                .disposed(by: bag)
-        }
-    }
-    
     class ConversationListController: WalkieTalkie.ViewController {
         
         private let viewModel = ConversationViewModel()
@@ -45,6 +24,7 @@ extension AmongChat.Home {
         private lazy var listView: UITableView = {
             let v = UITableView(frame: .zero, style: .plain)
             v.register(nibWithCellClass: ConversationTableCell.self)
+            v.register(nibWithCellClass: ConversationSystemMsgCell.self)
             v.showsVerticalScrollIndicator = false
             v.showsHorizontalScrollIndicator = false
             v.dataSource = self
@@ -55,20 +35,11 @@ extension AmongChat.Home {
             return v
         }()
         
-        private lazy var emptyView: FansGroup.Views.EmptyDataView = {
-            let v = FansGroup.Views.EmptyDataView()
-            v.titleLabel.text = R.string.localizable.amongChatNoticeEmptyTip()
-            v.isHidden = true
-            return v
-        }()
-        
         private let hasUnreadNotice = BehaviorRelay(value: false)
                         
-        private var dataSource: [Entity.DMConversation] = [] {
+        private var dataSource: [Any] = [] {
             didSet {
                 listView.reloadData()
-                emptyView.isHidden = dataSource.count > 0
-//                collectionView.endRefresh()
             }
         }
         
@@ -91,10 +62,21 @@ extension AmongChat.Home.ConversationListController: UITableViewDataSource, UITa
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withClass: ConversationTableCell.self, for: indexPath)
-        if let item = dataSource.safe(indexPath.row) {
-            cell.bind(item)
+        guard let item = dataSource.safe(indexPath.row) else {
+            return tableView.dequeueReusableCell(withClass: ConversationTableCell.self, for: indexPath)
         }
+        var cell: UITableViewCell
+        if let system = item as? Entity.DMSystemConversation {
+            let systemCell = tableView.dequeueReusableCell(withClass: ConversationSystemMsgCell.self, for: indexPath)
+            systemCell.bind(system)
+            cell = systemCell
+        } else {
+            let userCell = tableView.dequeueReusableCell(withClass: ConversationTableCell.self, for: indexPath)
+            if let conversation = item as? Entity.DMConversation  {
+                userCell.bind(conversation)
+            }
+            cell = userCell
+        } 
         return cell
     }
     
@@ -115,12 +97,15 @@ extension AmongChat.Home.ConversationListController: UITableViewDataSource, UITa
     }
     
     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        guard dataSource.safe(indexPath.item) is Entity.DMConversation else {
+            return .none
+        }
         return .delete
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         guard editingStyle == .delete,
-              let item = dataSource.safe(indexPath.item) else {
+              let item = dataSource.safe(indexPath.item) as? Entity.DMConversation else {
             return
         }
         deleteAllHistory(for: item.fromUid)
@@ -129,7 +114,7 @@ extension AmongChat.Home.ConversationListController: UITableViewDataSource, UITa
     
     @available(iOS 11.0, *)
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        guard let item = dataSource.safe(indexPath.item) else {
+        guard let item = dataSource.safe(indexPath.item) as? Entity.DMConversation else {
             return nil
         }
         let action = UIContextualAction(style: .destructive, title: R.string.localizable.amongChatDelete()) { [weak self] action, view, handler in
@@ -153,9 +138,14 @@ extension AmongChat.Home.ConversationListController: UITableViewDataSource, UITa
         guard let item = dataSource.safe(indexPath.item) else {
             return
         }
-        let vc = ConversationViewController(item)
-        navigationController?.pushViewController(vc)
-        Logger.Action.log(.dm_list_item_click, categoryValue: "chat", item.fromUid)
+        if let system = item as? Entity.DMSystemConversation {
+            let vc = Conversation.InteractiveMessageController()
+            navigationController?.pushViewController(vc)
+        } else if let conversation = item as? Entity.DMConversation {
+            let vc = ConversationViewController(conversation)
+            navigationController?.pushViewController(vc)
+            Logger.Action.log(.dm_list_item_click, categoryValue: "chat", conversation.fromUid)
+        }
     }
 }
 
@@ -183,17 +173,12 @@ extension AmongChat.Home.ConversationListController {
     }
     
     private func setUpLayout() {
-        view.addSubviews(views: navigationView, emptyView, listView)
+        view.addSubviews(views: navigationView, listView)
         
         navigationView.snp.makeConstraints { (maker) in
             maker.leading.trailing.equalToSuperview()
             maker.top.equalTo(topLayoutGuide.snp.bottom)
             maker.height.equalTo(49)
-        }
-        
-        emptyView.snp.makeConstraints { (maker) in
-            maker.centerX.equalToSuperview()
-            maker.centerY.equalToSuperview().multipliedBy(0.7)
         }
         
         listView.snp.makeConstraints { (maker) in

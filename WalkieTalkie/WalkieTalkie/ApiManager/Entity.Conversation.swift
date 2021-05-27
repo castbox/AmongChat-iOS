@@ -351,6 +351,84 @@ extension Entity {
         
         
     }
+    
+    struct DMSystemConversation {
+        enum Style {
+            case user
+            case interactive //Interactive message
+        }
+        
+        let style: Style
+        let isRead: Bool
+        
+        init(style: Style = .user, isRead: Bool = true) {
+            self.style = style
+            self.isRead = isRead
+        }
+    }
+    
+    /**
+     uid, name, picture_url, is_verified, is_vip 发送人信息
+     create_time创建时间，分页加载skip_ms传最后一条的
+     img: feed的首帧图，右侧显示
+     text: 评论或回复的文字，底部展示
+     emote_ids：发表情，的id列表，展示表情图
+     op_type：like, vote, reply，目前这3种，与下拉筛选的3种一致，点赞，表情，评论回复
+     url_type, url_id: 跳转的对象和id, 现在全部跳post，url_type=post
+     obj_type: 操作的对象，表情post, 点赞comment，评论回复三种都有
+     pos_type， pos_id：跳转feed页，定位到某个具体的评论或回复，comment和reply两种；不需要定位的时候是空值；跳转时参数一致 http://dev.api.among.chat/post/post/page?pid=PhdCyNL8m&pos_type=comment&pos_id=ChdCyv6j2
+     */
+    struct DMInteractiveMessage: Codable, Verifiedable {
+        
+        //op_type：like, vote, reply
+        enum OpType: String, Codable {
+            case like //评论中点击喜欢
+            case emotes = "vote" //emotes
+            case comment = "reply"
+        }
+        
+        let uid: Int
+        let createTime: Date
+        let text: String
+        let img: URL
+        let opType: OpType?
+        let objType: String //
+        let urlType: String
+        let urlId: String
+        let posType: String //
+        let posId: String
+        let emoteIds: [String]
+        var name: String?
+        let pictureUrl: String
+        var isVerified: Bool?
+        var isVip: Bool?
+        
+        var opTime: Double {
+            createTime.timeIntervalSince1970
+        }
+        
+        private enum CodingKeys: String, CodingKey {
+            case uid
+            case createTime = "create_time"
+            case text
+            case img
+            case opType = "op_type"
+            case objType = "obj_type"
+            case urlType = "url_type"
+            case urlId = "url_id"
+            case posType = "pos_type"
+            case posId = "pos_id"
+            case emoteIds = "emote_ids"
+            case name
+            case pictureUrl = "picture_url"
+        }
+    }
+    
+    struct DMInteractiveMessages: Codable {
+        var list: [DMInteractiveMessage]
+        var more: Bool
+        var count: Int?
+    }
 }
 
 extension Peer.MessageType: ColumnCodable {

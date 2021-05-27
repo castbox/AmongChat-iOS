@@ -114,6 +114,7 @@ extension APIService {
         case myGroupApplyStat
         case updateInstalledGames([String: Any])
         case userStatus([String: Any])
+        case interactiveMsgs([String: Any])
     }
 }
 
@@ -319,6 +320,8 @@ extension APIService.AmongChatBackend: TargetType {
             return "/api/v1/my/group/apply/stat"
         case .sendDM:
             return "/api/v1/direct/message"
+        case .interactiveMsgs:
+            return "/post/my/interactive/msg/list"
         case .updateInstalledGames:
             return "/account/games"
         case .userStatus:
@@ -418,6 +421,7 @@ extension APIService.AmongChatBackend: TargetType {
              .peerMessage,
              .globalMessage,
              .myGroupApplyStat,
+             .interactiveMsgs,
              .userStatus,
              .shareUserSign:
             return .get
@@ -539,6 +543,7 @@ extension APIService.AmongChatBackend: TargetType {
              .peerMessage(let params),
              .globalMessage(let params),
              .sendDM(let params),
+             .interactiveMsgs(let params),
              .userStatus(let params),
              .unFollow(let params):
             return .requestParameters(parameters: params, encoding: URLEncoding.queryString)

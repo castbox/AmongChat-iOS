@@ -232,7 +232,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 240 images.
+  /// This `R.image` struct is generated, and contains static references to 241 images.
   struct image {
     /// Image `ac_add_stats_add`.
     static let ac_add_stats_add = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_add_stats_add")
@@ -586,6 +586,8 @@ struct R: Rswift.Validatable {
     static let home_name_edit = Rswift.ImageResource(bundle: R.hostingBundle, name: "home_name_edit")
     /// Image `iconAddEmotes`.
     static let iconAddEmotes = Rswift.ImageResource(bundle: R.hostingBundle, name: "iconAddEmotes")
+    /// Image `iconDmArrowDown`.
+    static let iconDmArrowDown = Rswift.ImageResource(bundle: R.hostingBundle, name: "iconDmArrowDown")
     /// Image `iconDmConversationDelete`.
     static let iconDmConversationDelete = Rswift.ImageResource(bundle: R.hostingBundle, name: "iconDmConversationDelete")
     /// Image `iconDmGifLoadFailed`.
@@ -1595,6 +1597,11 @@ struct R: Rswift.Validatable {
       return UIKit.UIImage(resource: R.image.iconAddEmotes, compatibleWith: traitCollection)
     }
     
+    /// `UIImage(named: "iconDmArrowDown", bundle: ..., traitCollection: ...)`
+    static func iconDmArrowDown(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.iconDmArrowDown, compatibleWith: traitCollection)
+    }
+    
     /// `UIImage(named: "iconDmConversationDelete", bundle: ..., traitCollection: ...)`
     static func iconDmConversationDelete(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.iconDmConversationDelete, compatibleWith: traitCollection)
@@ -1918,7 +1925,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.nib` struct is generated, and contains static references to 40 nibs.
+  /// This `R.nib` struct is generated, and contains static references to 42 nibs.
   struct nib {
     /// Nib `AddStatsPendingController`.
     static let addStatsPendingController = _R.nib._AddStatsPendingController()
@@ -1966,6 +1973,8 @@ struct R: Rswift.Validatable {
     static let conversationCollectionCell = _R.nib._ConversationCollectionCell()
     /// Nib `ConversationListCell`.
     static let conversationListCell = _R.nib._ConversationListCell()
+    /// Nib `ConversationSystemMsgCell`.
+    static let conversationSystemMsgCell = _R.nib._ConversationSystemMsgCell()
     /// Nib `ConversationTableCell`.
     static let conversationTableCell = _R.nib._ConversationTableCell()
     /// Nib `ConversationViewController`.
@@ -1978,6 +1987,8 @@ struct R: Rswift.Validatable {
     static let feedListCell = _R.nib._FeedListCell()
     /// Nib `InfoWithNicknameView`.
     static let infoWithNicknameView = _R.nib._InfoWithNicknameView()
+    /// Nib `InteractiveMsgTableCell`.
+    static let interactiveMsgTableCell = _R.nib._InteractiveMsgTableCell()
     /// Nib `JustChillingInfoView`.
     static let justChillingInfoView = _R.nib._JustChillingInfoView()
     /// Nib `NewVersionAlertController`.
@@ -2139,6 +2150,12 @@ struct R: Rswift.Validatable {
       return UIKit.UINib(resource: R.nib.conversationListCell)
     }
     
+    /// `UINib(name: "ConversationSystemMsgCell", in: bundle)`
+    @available(*, deprecated, message: "Use UINib(resource: R.nib.conversationSystemMsgCell) instead")
+    static func conversationSystemMsgCell(_: Void = ()) -> UIKit.UINib {
+      return UIKit.UINib(resource: R.nib.conversationSystemMsgCell)
+    }
+    
     /// `UINib(name: "ConversationTableCell", in: bundle)`
     @available(*, deprecated, message: "Use UINib(resource: R.nib.conversationTableCell) instead")
     static func conversationTableCell(_: Void = ()) -> UIKit.UINib {
@@ -2173,6 +2190,12 @@ struct R: Rswift.Validatable {
     @available(*, deprecated, message: "Use UINib(resource: R.nib.infoWithNicknameView) instead")
     static func infoWithNicknameView(_: Void = ()) -> UIKit.UINib {
       return UIKit.UINib(resource: R.nib.infoWithNicknameView)
+    }
+    
+    /// `UINib(name: "InteractiveMsgTableCell", in: bundle)`
+    @available(*, deprecated, message: "Use UINib(resource: R.nib.interactiveMsgTableCell) instead")
+    static func interactiveMsgTableCell(_: Void = ()) -> UIKit.UINib {
+      return UIKit.UINib(resource: R.nib.interactiveMsgTableCell)
     }
     
     /// `UINib(name: "JustChillingInfoView", in: bundle)`
@@ -2333,6 +2356,10 @@ struct R: Rswift.Validatable {
       return R.nib.conversationListCell.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? ConversationListCell
     }
     
+    static func conversationSystemMsgCell(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> ConversationSystemMsgCell? {
+      return R.nib.conversationSystemMsgCell.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? ConversationSystemMsgCell
+    }
+    
     static func conversationTableCell(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> ConversationTableCell? {
       return R.nib.conversationTableCell.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? ConversationTableCell
     }
@@ -2355,6 +2382,10 @@ struct R: Rswift.Validatable {
     
     static func infoWithNicknameView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
       return R.nib.infoWithNicknameView.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+    }
+    
+    static func interactiveMsgTableCell(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> InteractiveMsgTableCell? {
+      return R.nib.interactiveMsgTableCell.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? InteractiveMsgTableCell
     }
     
     static func justChillingInfoView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
@@ -2512,7 +2543,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
     
-    /// This `R.string.localizable` struct is generated, and contains static references to 489 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 496 localization keys.
     struct localizable {
       /// en translation:  Congratulations!
       /// 
@@ -2614,6 +2645,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let premiumSubscriptionDetailFree = Rswift.StringResource(key: "premium.subscription.detail.free", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: All Messages
+      /// 
+      /// Locales: en
+      static let dmInteractiveAllMessage = Rswift.StringResource(key: "dm.interactive.all.message", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Allow Tracking
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2876,6 +2911,10 @@ struct R: Rswift.Validatable {
       static let amongChatCustomAvatarClose = Rswift.StringResource(key: "among.chat.custom.avatar.close", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Comments
       /// 
+      /// Locales: en
+      static let dmInteractiveComments = Rswift.StringResource(key: "dm.interactive.comments", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Comments
+      /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let reportComments = Rswift.StringResource(key: "report.comments", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Community guidelines
@@ -2986,6 +3025,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let profileEditTitle = Rswift.StringResource(key: "profile.edit.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Emotes
+      /// 
+      /// Locales: en
+      static let dmInteractiveEmotes = Rswift.StringResource(key: "dm.interactive.emotes", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Enable
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3298,6 +3341,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatCreateRoomCardInsufficientTitle = Rswift.StringResource(key: "among.chat.create.room.card.insufficient.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Interactive messages
+      /// 
+      /// Locales: en
+      static let dmInteractiveMessages = Rswift.StringResource(key: "dm.interactive.messages", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Invite
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3370,6 +3417,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let profileConstellationLibra = Rswift.StringResource(key: "profile.constellation.libra", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Likes
+      /// 
+      /// Locales: en
+      static let dmInteractiveLikes = Rswift.StringResource(key: "dm.interactive.likes", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Live
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3526,6 +3577,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let premiumNotActivated = Rswift.StringResource(key: "premium.not.activated", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Not interested
+      /// 
+      /// Locales: en
+      static let feedSheetNotInterested = Rswift.StringResource(key: "feed.sheet.not.interested", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Notice
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3978,6 +4033,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let reportIncorrectSexual = Rswift.StringResource(key: "report.incorrect.sexual", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Share
+      /// 
+      /// Locales: en
+      static let feedShare = Rswift.StringResource(key: "feed.share", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Share App
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -4646,6 +4705,13 @@ struct R: Rswift.Validatable {
         return String(format: NSLocalizedString("premium.subscription.detail.free", bundle: R.hostingBundle, comment: ""), locale: R.applicationLocale, value1, value2)
       }
       
+      /// en translation: All Messages
+      /// 
+      /// Locales: en
+      static func dmInteractiveAllMessage(_: Void = ()) -> String {
+        return NSLocalizedString("dm.interactive.all.message", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Allow Tracking
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -5103,6 +5169,13 @@ struct R: Rswift.Validatable {
       
       /// en translation: Comments
       /// 
+      /// Locales: en
+      static func dmInteractiveComments(_: Void = ()) -> String {
+        return NSLocalizedString("dm.interactive.comments", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Comments
+      /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func reportComments(_: Void = ()) -> String {
         return NSLocalizedString("report.comments", bundle: R.hostingBundle, comment: "")
@@ -5295,6 +5368,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func profileEditTitle(_: Void = ()) -> String {
         return NSLocalizedString("profile.edit.title", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Emotes
+      /// 
+      /// Locales: en
+      static func dmInteractiveEmotes(_: Void = ()) -> String {
+        return NSLocalizedString("dm.interactive.emotes", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Enable
@@ -5843,6 +5923,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("among.chat.create.room.card.insufficient.title", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Interactive messages
+      /// 
+      /// Locales: en
+      static func dmInteractiveMessages(_: Void = ()) -> String {
+        return NSLocalizedString("dm.interactive.messages", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Invite
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -5967,6 +6054,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func profileConstellationLibra(_: Void = ()) -> String {
         return NSLocalizedString("profile.constellation.libra", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Likes
+      /// 
+      /// Locales: en
+      static func dmInteractiveLikes(_: Void = ()) -> String {
+        return NSLocalizedString("dm.interactive.likes", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Live
@@ -6240,6 +6334,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func premiumNotActivated(_: Void = ()) -> String {
         return NSLocalizedString("premium.not.activated", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Not interested
+      /// 
+      /// Locales: en
+      static func feedSheetNotInterested(_: Void = ()) -> String {
+        return NSLocalizedString("feed.sheet.not.interested", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Notice
@@ -7031,6 +7132,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func reportIncorrectSexual(_: Void = ()) -> String {
         return NSLocalizedString("report.incorrect.sexual", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Share
+      /// 
+      /// Locales: en
+      static func feedShare(_: Void = ()) -> String {
+        return NSLocalizedString("feed.share", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Share App
@@ -7930,6 +8038,7 @@ struct _R: Rswift.Validatable {
       try _AppTrackingGuideView.validate()
       try _AvatarGuideViewController.validate()
       try _ConversationBottomBar.validate()
+      try _ConversationSystemMsgCell.validate()
       try _ConversationViewController.validate()
       try _FeedListCell.validate()
       try _NewVersionAlertController.validate()
@@ -8294,6 +8403,24 @@ struct _R: Rswift.Validatable {
       fileprivate init() {}
     }
     
+    struct _ConversationSystemMsgCell: Rswift.NibResourceType, Rswift.Validatable {
+      let bundle = R.hostingBundle
+      let name = "ConversationSystemMsgCell"
+      
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> ConversationSystemMsgCell? {
+        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? ConversationSystemMsgCell
+      }
+      
+      static func validate() throws {
+        if UIKit.UIImage(named: "ac_right_arrow", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ac_right_arrow' is used in nib 'ConversationSystemMsgCell', but couldn't be loaded.") }
+        if UIKit.UIImage(named: "iconDmInteractiveMsg", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'iconDmInteractiveMsg' is used in nib 'ConversationSystemMsgCell', but couldn't be loaded.") }
+        if #available(iOS 11.0, *) {
+        }
+      }
+      
+      fileprivate init() {}
+    }
+    
     struct _ConversationTableCell: Rswift.NibResourceType {
       let bundle = R.hostingBundle
       let name = "ConversationTableCell"
@@ -8371,6 +8498,21 @@ struct _R: Rswift.Validatable {
       
       func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
         return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+      }
+      
+      func secondView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[1] as? UIKit.UIView
+      }
+      
+      fileprivate init() {}
+    }
+    
+    struct _InteractiveMsgTableCell: Rswift.NibResourceType {
+      let bundle = R.hostingBundle
+      let name = "InteractiveMsgTableCell"
+      
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> InteractiveMsgTableCell? {
+        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? InteractiveMsgTableCell
       }
       
       func secondView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {

@@ -140,6 +140,13 @@
 		FE0A0F27265E0C8600AC9FF7 /* FeedEmojiCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE0A0F25265E0C8600AC9FF7 /* FeedEmojiCollectionCell.xib */; };
 		FE0A0F29265E217200AC9FF7 /* Feed.EmotePickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE0A0F28265E217200AC9FF7 /* Feed.EmotePickerController.swift */; };
 		FE0A0F2B265E21CD00AC9FF7 /* Feed.EmotePickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE0A0F2A265E21CD00AC9FF7 /* Feed.EmotePickerViewModel.swift */; };
+		FE0A0F30265E256B00AC9FF7 /* ConversationSystemMsgCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE0A0F2E265E256B00AC9FF7 /* ConversationSystemMsgCell.swift */; };
+		FE0A0F31265E256B00AC9FF7 /* ConversationSystemMsgCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE0A0F2F265E256B00AC9FF7 /* ConversationSystemMsgCell.xib */; };
+		FE0A0F33265E27FD00AC9FF7 /* AmongChat.Home.ConversationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE0A0F32265E27FD00AC9FF7 /* AmongChat.Home.ConversationViewModel.swift */; };
+		FE0A0F38265E401800AC9FF7 /* Conversation.InteractiveMessageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE0A0F37265E401800AC9FF7 /* Conversation.InteractiveMessageController.swift */; };
+		FE0A0F3B265E433B00AC9FF7 /* InteractiveMsgTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE0A0F39265E433B00AC9FF7 /* InteractiveMsgTableCell.swift */; };
+		FE0A0F3C265E433B00AC9FF7 /* InteractiveMsgTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE0A0F3A265E433B00AC9FF7 /* InteractiveMsgTableCell.xib */; };
+		FE0A0F3E265F7C3C00AC9FF7 /* Conversation.InteractiveMessage.Views.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE0A0F3D265F7C3C00AC9FF7 /* Conversation.InteractiveMessage.Views.swift */; };
 		FE0D1A2124489BB700518793 /* FrozenButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE0D1A2024489BB700518793 /* FrozenButton.swift */; };
 		FE0D1A2724489FE300518793 /* UIBezierPathExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE0D1A2624489FE300518793 /* UIBezierPathExtension.swift */; };
 		FE0D1A292448A06200518793 /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE0D1A282448A06200518793 /* UIViewExtension.swift */; };
@@ -616,6 +623,13 @@
 		FE0A0F25265E0C8600AC9FF7 /* FeedEmojiCollectionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FeedEmojiCollectionCell.xib; sourceTree = "<group>"; };
 		FE0A0F28265E217200AC9FF7 /* Feed.EmotePickerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Feed.EmotePickerController.swift; sourceTree = "<group>"; };
 		FE0A0F2A265E21CD00AC9FF7 /* Feed.EmotePickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Feed.EmotePickerViewModel.swift; sourceTree = "<group>"; };
+		FE0A0F2E265E256B00AC9FF7 /* ConversationSystemMsgCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationSystemMsgCell.swift; sourceTree = "<group>"; };
+		FE0A0F2F265E256B00AC9FF7 /* ConversationSystemMsgCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ConversationSystemMsgCell.xib; sourceTree = "<group>"; };
+		FE0A0F32265E27FD00AC9FF7 /* AmongChat.Home.ConversationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChat.Home.ConversationViewModel.swift; sourceTree = "<group>"; };
+		FE0A0F37265E401800AC9FF7 /* Conversation.InteractiveMessageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Conversation.InteractiveMessageController.swift; sourceTree = "<group>"; };
+		FE0A0F39265E433B00AC9FF7 /* InteractiveMsgTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InteractiveMsgTableCell.swift; sourceTree = "<group>"; };
+		FE0A0F3A265E433B00AC9FF7 /* InteractiveMsgTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InteractiveMsgTableCell.xib; sourceTree = "<group>"; };
+		FE0A0F3D265F7C3C00AC9FF7 /* Conversation.InteractiveMessage.Views.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Conversation.InteractiveMessage.Views.swift; sourceTree = "<group>"; };
 		FE0D1A2024489BB700518793 /* FrozenButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrozenButton.swift; sourceTree = "<group>"; };
 		FE0D1A2624489FE300518793 /* UIBezierPathExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIBezierPathExtension.swift; sourceTree = "<group>"; };
 		FE0D1A282448A06200518793 /* UIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
@@ -1201,6 +1215,50 @@
 			path = Feed;
 			sourceTree = "<group>";
 		};
+		FE0A0F34265E3F1E00AC9FF7 /* ConversationList */ = {
+			isa = PBXGroup;
+			children = (
+				2656752C2645029A004D77D6 /* AmongChat.Home.ConversationListController.swift */,
+				FE0A0F32265E27FD00AC9FF7 /* AmongChat.Home.ConversationViewModel.swift */,
+				FEF61714264A9810007CC97E /* ConversationTableCell.swift */,
+				FEF61715264A9810007CC97E /* ConversationTableCell.xib */,
+				FE0A0F2E265E256B00AC9FF7 /* ConversationSystemMsgCell.swift */,
+				FE0A0F2F265E256B00AC9FF7 /* ConversationSystemMsgCell.xib */,
+				FE045FC626451CB20032FE67 /* ConversationListCell.swift */,
+				FE045FC726451CB20032FE67 /* ConversationListCell.xib */,
+			);
+			path = ConversationList;
+			sourceTree = "<group>";
+		};
+		FE0A0F35265E3F4700AC9FF7 /* Conversation */ = {
+			isa = PBXGroup;
+			children = (
+				FE045FCA2645219E0032FE67 /* ConversationViewController.swift */,
+				FE045FCB2645219E0032FE67 /* ConversationViewController.xib */,
+				FE857C4B2646B9C2008C4ADC /* Conversation.ViewModel.swift */,
+				FE0DFDBF265133BB00A194A7 /* Conversation.MessageCellViewModel.swift */,
+				FE0DFDBB265132FE00A194A7 /* Conversation.HeaderLoadingView.swift */,
+				FEEB70602648CCA800D7EB82 /* ConversationBottomBar.swift */,
+				FEEB70622648CCB000D7EB82 /* ConversationBottomBar.xib */,
+				FE7E227026455DFB00DAD431 /* ConversationCollectionCell.swift */,
+				FE7E227126455DFB00DAD431 /* ConversationCollectionCell.xib */,
+				FE0DFDBD2651338200A194A7 /* FileManagerExtension.swift */,
+				FE0A0F36265E3F6000AC9FF7 /* Gifs */,
+			);
+			path = Conversation;
+			sourceTree = "<group>";
+		};
+		FE0A0F36265E3F6000AC9FF7 /* Gifs */ = {
+			isa = PBXGroup;
+			children = (
+				FEF61718264AB2A7007CC97E /* Giphy.GifsViewController.swift */,
+				FEF6171E264AB62C007CC97E /* Giphy.Entity.swift */,
+				FEF6171C264AB46E007CC97E /* Giphy.GifViewLayout.swift */,
+				FEF61724264BCD5D007CC97E /* WaterfallLayout.swift */,
+			);
+			path = Gifs;
+			sourceTree = "<group>";
+		};
 		FE0D1A1E24488F9B00518793 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
@@ -1412,6 +1470,7 @@
 				FE914B1526146DC900C755FF /* BottomTitleButton.swift */,
 				FE806791261DBBE800207992 /* SeatLoadingView.swift */,
 				26DCEEF5264BD63F00B874FB /* NavigationBar.swift */,
+				FE402A3B264A42480060486D /* AudioPlayer.swift */,
 			);
 			path = Widge;
 			sourceTree = "<group>";
@@ -1758,26 +1817,12 @@
 			isa = PBXGroup;
 			children = (
 				FE857C4D2646B9EC008C4ADC /* Conversation.swift */,
-				2656752C2645029A004D77D6 /* AmongChat.Home.ConversationListController.swift */,
-				FEF61714264A9810007CC97E /* ConversationTableCell.swift */,
-				FEF61715264A9810007CC97E /* ConversationTableCell.xib */,
-				FE045FC626451CB20032FE67 /* ConversationListCell.swift */,
-				FE045FC726451CB20032FE67 /* ConversationListCell.xib */,
-				FE045FCA2645219E0032FE67 /* ConversationViewController.swift */,
-				FE045FCB2645219E0032FE67 /* ConversationViewController.xib */,
-				FE857C4B2646B9C2008C4ADC /* Conversation.ViewModel.swift */,
-				FE0DFDBF265133BB00A194A7 /* Conversation.MessageCellViewModel.swift */,
-				FE0DFDBD2651338200A194A7 /* FileManagerExtension.swift */,
-				FE0DFDBB265132FE00A194A7 /* Conversation.HeaderLoadingView.swift */,
-				FEEB70602648CCA800D7EB82 /* ConversationBottomBar.swift */,
-				FEEB70622648CCB000D7EB82 /* ConversationBottomBar.xib */,
-				FE7E227026455DFB00DAD431 /* ConversationCollectionCell.swift */,
-				FE7E227126455DFB00DAD431 /* ConversationCollectionCell.xib */,
-				FE402A3B264A42480060486D /* AudioPlayer.swift */,
-				FEF61718264AB2A7007CC97E /* Giphy.GifsViewController.swift */,
-				FEF6171E264AB62C007CC97E /* Giphy.Entity.swift */,
-				FEF6171C264AB46E007CC97E /* Giphy.GifViewLayout.swift */,
-				FEF61724264BCD5D007CC97E /* WaterfallLayout.swift */,
+				FE0A0F37265E401800AC9FF7 /* Conversation.InteractiveMessageController.swift */,
+				FE0A0F3D265F7C3C00AC9FF7 /* Conversation.InteractiveMessage.Views.swift */,
+				FE0A0F39265E433B00AC9FF7 /* InteractiveMsgTableCell.swift */,
+				FE0A0F3A265E433B00AC9FF7 /* InteractiveMsgTableCell.xib */,
+				FE0A0F34265E3F1E00AC9FF7 /* ConversationList */,
+				FE0A0F35265E3F4700AC9FF7 /* Conversation */,
 			);
 			path = Dm;
 			sourceTree = "<group>";
@@ -1926,6 +1971,7 @@
 				FE746BD124629A9800CAC554 /* Nunito-Bold.ttf in Resources */,
 				FE7CEB58258A029F0067952C /* AmongChatRoomConfigView.xib in Resources */,
 				FE7CE9CF2589BEC70067952C /* AmongChatRoomTopBar.xib in Resources */,
+				FE0A0F31265E256B00AC9FF7 /* ConversationSystemMsgCell.xib in Resources */,
 				FE045FC926451CB20032FE67 /* ConversationListCell.xib in Resources */,
 				FE79F388258CDE6B00E9BC6C /* AmongSheetController.xib in Resources */,
 				FE6BEAE42631B17700568B9B /* AmongGroupJoinRequestCellIPad.xib in Resources */,
@@ -1936,6 +1982,7 @@
 				FE7CEB6B258A060B0067952C /* JustChillingInfoView.xib in Resources */,
 				FE169E2826134A2000AD7866 /* AmongGroupHostView.xib in Resources */,
 				FE79F394258CE06D00E9BC6C /* AmongSheetIconItemCell.xib in Resources */,
+				FE0A0F3C265E433B00AC9FF7 /* InteractiveMsgTableCell.xib in Resources */,
 				FE7ED90325F20292009C608A /* room-emoji-blue.svga in Resources */,
 				FE705538265273E200A489F4 /* NewVersionAlertController.xib in Resources */,
 				FE746BCE24629A9800CAC554 /* Localizable.strings in Resources */,
@@ -2286,6 +2333,7 @@
 				FEBE522E262D345B00E49EC4 /* UIImageExtension.swift in Sources */,
 				FE125F6325B841F900609D81 /* Social.InviteFirendsViewModel.swift in Sources */,
 				FE8089CE2449EE65006A1644 /* SettingViewController.swift in Sources */,
+				FE0A0F30265E256B00AC9FF7 /* ConversationSystemMsgCell.swift in Sources */,
 				BD754CBE258B9D0E00ECC177 /* AmongChat.CreateRoom.swift in Sources */,
 				FE9EF520258AFF88008C0BAD /* UIImageViewNetwork.swift in Sources */,
 				FE860D482446D1D700087B73 /* UIView+Theme.swift in Sources */,
@@ -2326,6 +2374,7 @@
 				FECBD85125E3D456000A3DB5 /* ZegoRtcManager.swift in Sources */,
 				FE68488C244BDD0400F87AF9 /* UserProperty.swift in Sources */,
 				FE6BEAE32631B17700568B9B /* AmongGroupJoinRequestCellIPad.swift in Sources */,
+				FE0A0F33265E27FD00AC9FF7 /* AmongChat.Home.ConversationViewModel.swift in Sources */,
 				FED7B601244EC9FB00D94F97 /* LoggerPath.swift in Sources */,
 				FE79F387258CDE6B00E9BC6C /* AmongSheetController.swift in Sources */,
 				26259B5D260A1A6400636E50 /* Social.AddStatsViewController.swift in Sources */,
@@ -2337,6 +2386,7 @@
 				FE8DEA66243DB09A0059C252 /* APIService.swift in Sources */,
 				FEFF9356258B30980011A274 /* AmongChat.Room.ViewModel.swift in Sources */,
 				FEA9359A264A641900CEC89A /* NSFileManagerExtension.swift in Sources */,
+				FE0A0F3B265E433B00AC9FF7 /* InteractiveMsgTableCell.swift in Sources */,
 				FE7E227526456AE600DAD431 /* Entity.Conversation.swift in Sources */,
 				FE7CE9CB2589BEBD0067952C /* AmongChatRoomTopBar.swift in Sources */,
 				FE8089CC2449E7FD006A1644 /* PremiumViewController.swift in Sources */,
@@ -2384,6 +2434,7 @@
 				FEFF935A258B33420011A274 /* AmongInputNotesView.swift in Sources */,
 				FEC10DCE25C0340A0014F8DD /* Social.ContactListViewController.swift in Sources */,
 				FE078C8D2615B74A004C38C5 /* AmongChat.GroupRoom.MembersViewModel.swift in Sources */,
+				FE0A0F3E265F7C3C00AC9FF7 /* Conversation.InteractiveMessage.Views.swift in Sources */,
 				FE914B1226146AD700C755FF /* AmongChat.GroupRoom.swift in Sources */,
 				FEF61721264AC62E007CC97E /* APIService.Giphy.swift in Sources */,
 				FE8DEA6E243DB09A0059C252 /* ApiManager.ErrorHandle.swift in Sources */,
@@ -2423,6 +2474,7 @@
 				FEBE5226262D2DF500E49EC4 /* Report.ViewController.swift in Sources */,
 				FE2AF9FB244DDDC700763747 /* URLUnit.swift in Sources */,
 				FE79F38D258CDFA500E9BC6C /* AmongSheetUserCell.swift in Sources */,
+				FE0A0F38265E401800AC9FF7 /* Conversation.InteractiveMessageController.swift in Sources */,
 				FE0DFDBE2651338200A194A7 /* FileManagerExtension.swift in Sources */,
 				FE126D4D243481FF00BEDD60 /* Member.swift in Sources */,
 				FE860D3C2446D13D00087B73 /* UIView.Raft.swift in Sources */,

@@ -561,3 +561,12 @@
 "profile.constellation.capricorn" = "Capricorn";
 "profile.constellation.aquarius" = "Aquarius";
 "profile.constellation.pisces" = "Pisces";
+
+"dm.interactive.messages" = "Interactive messages";
+"dm.interactive.all.message" = "All Messages";
+"dm.interactive.comments" = "Comments";
+"dm.interactive.emotes" = "Emotes";
+"dm.interactive.likes" = "Likes";
+
+"feed.share" = "Share";
+"feed.sheet.not.interested" = "Not interested";
