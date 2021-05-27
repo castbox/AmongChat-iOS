@@ -120,7 +120,7 @@ target 'WalkieTalkie' do
     pod 'BetterSegmentedControl'
     
     #https://github.com/mxcl/Path.swift
-    pod 'Path.swift', '~> 1.0.0'
+#    pod 'Path.swift', '~> 1.0.0'
     
 #     pod 'CocoaDebug', :configurations => ['Debug'] #Required
 #    pod 'DoraemonKit/Core', '~> 3.0.2'

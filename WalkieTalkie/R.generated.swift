@@ -232,7 +232,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 240 images.
+  /// This `R.image` struct is generated, and contains static references to 249 images.
   struct image {
     /// Image `ac_add_stats_add`.
     static let ac_add_stats_add = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_add_stats_add")
@@ -362,6 +362,10 @@ struct R: Rswift.Validatable {
     static let ac_home_topic_tab_normal = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_home_topic_tab_normal")
     /// Image `ac_home_topic_tab_selected`.
     static let ac_home_topic_tab_selected = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_home_topic_tab_selected")
+    /// Image `ac_home_video_tab_normal`.
+    static let ac_home_video_tab_normal = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_home_video_tab_normal")
+    /// Image `ac_home_video_tab_selected`.
+    static let ac_home_video_tab_selected = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_home_video_tab_selected")
     /// Image `ac_icon_game_edit`.
     static let ac_icon_game_edit = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_icon_game_edit")
     /// Image `ac_icon_kick_user`.
@@ -598,12 +602,18 @@ struct R: Rswift.Validatable {
     static let dmSendFailed = Rswift.ImageResource(bundle: R.hostingBundle, name: "dmSendFailed")
     /// Image `home_name_edit`.
     static let home_name_edit = Rswift.ImageResource(bundle: R.hostingBundle, name: "home_name_edit")
+    /// Image `iconAddEmotes`.
+    static let iconAddEmotes = Rswift.ImageResource(bundle: R.hostingBundle, name: "iconAddEmotes")
     /// Image `iconDmConversationDelete`.
     static let iconDmConversationDelete = Rswift.ImageResource(bundle: R.hostingBundle, name: "iconDmConversationDelete")
     /// Image `iconDmGifLoadFailed`.
     static let iconDmGifLoadFailed = Rswift.ImageResource(bundle: R.hostingBundle, name: "iconDmGifLoadFailed")
     /// Image `iconDmGif`.
     static let iconDmGif = Rswift.ImageResource(bundle: R.hostingBundle, name: "iconDmGif")
+    /// Image `iconDmInteractiveMsg`.
+    static let iconDmInteractiveMsg = Rswift.ImageResource(bundle: R.hostingBundle, name: "iconDmInteractiveMsg")
+    /// Image `iconDmInteractiveSelect`.
+    static let iconDmInteractiveSelect = Rswift.ImageResource(bundle: R.hostingBundle, name: "iconDmInteractiveSelect")
     /// Image `iconDmKeyboard`.
     static let iconDmKeyboard = Rswift.ImageResource(bundle: R.hostingBundle, name: "iconDmKeyboard")
     /// Image `iconDmMore`.
@@ -632,6 +642,14 @@ struct R: Rswift.Validatable {
     static let iconVerifyBlackBorder = Rswift.ImageResource(bundle: R.hostingBundle, name: "iconVerifyBlackBorder")
     /// Image `iconVerifyGrayBorder`.
     static let iconVerifyGrayBorder = Rswift.ImageResource(bundle: R.hostingBundle, name: "iconVerifyGrayBorder")
+    /// Image `iconVideoComment`.
+    static let iconVideoComment = Rswift.ImageResource(bundle: R.hostingBundle, name: "iconVideoComment")
+    /// Image `iconVideoCreate`.
+    static let iconVideoCreate = Rswift.ImageResource(bundle: R.hostingBundle, name: "iconVideoCreate")
+    /// Image `iconVideoMore`.
+    static let iconVideoMore = Rswift.ImageResource(bundle: R.hostingBundle, name: "iconVideoMore")
+    /// Image `iconVideoShare`.
+    static let iconVideoShare = Rswift.ImageResource(bundle: R.hostingBundle, name: "iconVideoShare")
     /// Image `icon_close_gray`.
     static let icon_close_gray = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_close_gray")
     /// Image `icon_close`.
@@ -1033,6 +1051,16 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "ac_home_topic_tab_selected", bundle: ..., traitCollection: ...)`
     static func ac_home_topic_tab_selected(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ac_home_topic_tab_selected, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_home_video_tab_normal", bundle: ..., traitCollection: ...)`
+    static func ac_home_video_tab_normal(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_home_video_tab_normal, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_home_video_tab_selected", bundle: ..., traitCollection: ...)`
+    static func ac_home_video_tab_selected(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_home_video_tab_selected, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "ac_icon_game_edit", bundle: ..., traitCollection: ...)`
@@ -1625,6 +1653,11 @@ struct R: Rswift.Validatable {
       return UIKit.UIImage(resource: R.image.home_name_edit, compatibleWith: traitCollection)
     }
     
+    /// `UIImage(named: "iconAddEmotes", bundle: ..., traitCollection: ...)`
+    static func iconAddEmotes(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.iconAddEmotes, compatibleWith: traitCollection)
+    }
+    
     /// `UIImage(named: "iconDmConversationDelete", bundle: ..., traitCollection: ...)`
     static func iconDmConversationDelete(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.iconDmConversationDelete, compatibleWith: traitCollection)
@@ -1638,6 +1671,16 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "iconDmGifLoadFailed", bundle: ..., traitCollection: ...)`
     static func iconDmGifLoadFailed(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.iconDmGifLoadFailed, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "iconDmInteractiveMsg", bundle: ..., traitCollection: ...)`
+    static func iconDmInteractiveMsg(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.iconDmInteractiveMsg, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "iconDmInteractiveSelect", bundle: ..., traitCollection: ...)`
+    static func iconDmInteractiveSelect(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.iconDmInteractiveSelect, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "iconDmKeyboard", bundle: ..., traitCollection: ...)`
@@ -1708,6 +1751,26 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "iconVerifyGrayBorder", bundle: ..., traitCollection: ...)`
     static func iconVerifyGrayBorder(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.iconVerifyGrayBorder, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "iconVideoComment", bundle: ..., traitCollection: ...)`
+    static func iconVideoComment(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.iconVideoComment, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "iconVideoCreate", bundle: ..., traitCollection: ...)`
+    static func iconVideoCreate(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.iconVideoCreate, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "iconVideoMore", bundle: ..., traitCollection: ...)`
+    static func iconVideoMore(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.iconVideoMore, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "iconVideoShare", bundle: ..., traitCollection: ...)`
+    static func iconVideoShare(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.iconVideoShare, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "icon_close", bundle: ..., traitCollection: ...)`
@@ -1918,7 +1981,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.nib` struct is generated, and contains static references to 38 nibs.
+  /// This `R.nib` struct is generated, and contains static references to 39 nibs.
   struct nib {
     /// Nib `AddStatsPendingController`.
     static let addStatsPendingController = _R.nib._AddStatsPendingController()
@@ -1972,6 +2035,8 @@ struct R: Rswift.Validatable {
     static let conversationViewController = _R.nib._ConversationViewController()
     /// Nib `EndUserLicenseController`.
     static let endUserLicenseController = _R.nib._EndUserLicenseController()
+    /// Nib `FeedListCell`.
+    static let feedListCell = _R.nib._FeedListCell()
     /// Nib `InfoWithNicknameView`.
     static let infoWithNicknameView = _R.nib._InfoWithNicknameView()
     /// Nib `JustChillingInfoView`.
@@ -2153,6 +2218,12 @@ struct R: Rswift.Validatable {
       return UIKit.UINib(resource: R.nib.endUserLicenseController)
     }
     
+    /// `UINib(name: "FeedListCell", in: bundle)`
+    @available(*, deprecated, message: "Use UINib(resource: R.nib.feedListCell) instead")
+    static func feedListCell(_: Void = ()) -> UIKit.UINib {
+      return UIKit.UINib(resource: R.nib.feedListCell)
+    }
+    
     /// `UINib(name: "InfoWithNicknameView", in: bundle)`
     @available(*, deprecated, message: "Use UINib(resource: R.nib.infoWithNicknameView) instead")
     static func infoWithNicknameView(_: Void = ()) -> UIKit.UINib {
@@ -2327,6 +2398,10 @@ struct R: Rswift.Validatable {
     
     static func endUserLicenseController(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
       return R.nib.endUserLicenseController.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+    }
+    
+    static func feedListCell(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> FeedListCell? {
+      return R.nib.feedListCell.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? FeedListCell
     }
     
     static func infoWithNicknameView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
@@ -7962,6 +8037,7 @@ struct _R: Rswift.Validatable {
       try _AvatarGuideViewController.validate()
       try _ConversationBottomBar.validate()
       try _ConversationViewController.validate()
+      try _FeedListCell.validate()
       try _NewVersionAlertController.validate()
       try _ReportCell.validate()
       try _ReportImageCell.validate()
@@ -8360,6 +8436,25 @@ struct _R: Rswift.Validatable {
       
       func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
         return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+      }
+      
+      fileprivate init() {}
+    }
+    
+    struct _FeedListCell: Rswift.NibResourceType, Rswift.Validatable {
+      let bundle = R.hostingBundle
+      let name = "FeedListCell"
+      
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> FeedListCell? {
+        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? FeedListCell
+      }
+      
+      static func validate() throws {
+        if UIKit.UIImage(named: "iconVideoComment", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'iconVideoComment' is used in nib 'FeedListCell', but couldn't be loaded.") }
+        if UIKit.UIImage(named: "iconVideoMore", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'iconVideoMore' is used in nib 'FeedListCell', but couldn't be loaded.") }
+        if UIKit.UIImage(named: "iconVideoShare", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'iconVideoShare' is used in nib 'FeedListCell', but couldn't be loaded.") }
+        if #available(iOS 11.0, *) {
+        }
       }
       
       fileprivate init() {}

@@ -258,6 +258,7 @@ extension AmongChat.Home.MainTabController {
     
     enum Tab: CaseIterable {
         case topics
+        case video
         case friends
         case messages
         
@@ -276,14 +277,14 @@ extension AmongChat.Home.MainTabController {
             let nav = NavigationViewController(rootViewController: vc)
             nav.tabBarItem = item
             return (nav, anim.iconRelay.asObservable(), self)
-            
         }
         
         private var rootViewController: UIViewController {
             switch self {
             case .topics:
                 return AmongChat.Home.TopicsViewController()
-                
+            case .video:
+                return AmongChat.Home.FeedViewController()
             case .friends:
                 return AmongChat.Home.RelationsViewController()
                 
@@ -297,7 +298,8 @@ extension AmongChat.Home.MainTabController {
             switch self {
             case .topics:
                 return R.image.ac_home_topic_tab_normal()
-                
+            case .video:
+                return R.image.ac_home_video_tab_normal()
             case .friends:
                 return R.image.ac_home_friends_tab_normal()
                 
@@ -311,7 +313,8 @@ extension AmongChat.Home.MainTabController {
             switch self {
             case .topics:
                 return R.image.ac_home_topic_tab_selected()
-                
+            case .video:
+                return R.image.ac_home_video_tab_selected()
             case .friends:
                 return R.image.ac_home_friends_tab_selected()
                 
@@ -325,6 +328,8 @@ extension AmongChat.Home.MainTabController {
             switch self {
             case .friends:
                 return "friends"
+            case .video:
+                return "video"
             case .topics:
                 return "game"
             case .messages:

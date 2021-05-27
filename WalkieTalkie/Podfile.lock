@@ -217,7 +217,6 @@ PODS:
   - NotificationBannerSwift (3.0.6):
     - MarqueeLabel (~> 4.0.5)
     - SnapKit (~> 5.0.1)
-  - Path.swift (1.0.1)
   - PINCache (2.3)
   - PINOperation (1.1.2)
   - pop (1.0.12)
@@ -343,7 +342,6 @@ DEPENDENCIES:
   - MoPub-UnityAds-Adapters (= 3.4.8.1)
   - Moya/RxSwift
   - NotificationBannerSwift (~> 3.0.0)
-  - Path.swift (~> 1.0.0)
   - PullToDismiss (~> 2.2)
   - R.swift (~> 5.0.2)
   - RAMAnimatedTabBarController
@@ -423,7 +421,6 @@ SPEC REPOS:
     - Moya
     - nanopb
     - NotificationBannerSwift
-    - Path.swift
     - PINCache
     - PINOperation
     - pop
@@ -532,7 +529,6 @@ SPEC CHECKSUMS:
   Moya: 5b45dacb75adb009f97fde91c204c1e565d31916
   nanopb: c43f40fadfe79e8b8db116583945847910cbabc9
   NotificationBannerSwift: 7021be2338f8f29cf424b0aca43da462bf9e2a1a
-  Path.swift: 14eb9ac8a78a8135f440d9c5548ddae4f96def68
   PINCache: ce36ed282031b92fc7733ffe831f474ff80fddc2
   PINOperation: 24b774353ca248fcf87d67b2d61eef42087c125a
   pop: d582054913807fd11fd50bfe6a539d91c7e1a55a
@@ -573,6 +569,6 @@ SPEC CHECKSUMS:
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
   ZegoExpressEngine: 9d40a73953c000b9a511a58706a37bb14c18948e
 
-PODFILE CHECKSUM: 2ad14a8ad4fe7460a3f16770e1aa593bb6617109
+PODFILE CHECKSUM: 5a8ec719a2e1b30286b0cac9a25c26d3722d1064
 
 COCOAPODS: 1.10.0
