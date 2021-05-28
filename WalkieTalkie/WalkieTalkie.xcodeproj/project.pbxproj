@@ -1231,14 +1231,14 @@
 				26728198265CAEB400749D7D /* PostFeed */,
 				FE27B92D265CE89A00D1AD1F /* Feed.swift */,
 				FE27B92B265CE30300D1AD1F /* AmongChat.Home.FeedViewController.swift */,
-				FE0A0F28265E217200AC9FF7 /* Feed.EmotePickerController.swift */,
-				FE0A0F2A265E21CD00AC9FF7 /* Feed.EmotePickerViewModel.swift */,
 				FE0A0C32265D278000AC9FF7 /* VideoPlayerView.swift */,
 				FE0A0DAC265D296A00AC9FF7 /* VideoCacheManager.swift */,
 				FE0A0C2E265CECCA00AC9FF7 /* FeedListCell.swift */,
 				FE0A0C2F265CECCA00AC9FF7 /* FeedListCell.xib */,
 				FE0A0F24265E0C8600AC9FF7 /* FeedEmojiCollectionCell.swift */,
 				FE0A0F25265E0C8600AC9FF7 /* FeedEmojiCollectionCell.xib */,
+				FE0A0F28265E217200AC9FF7 /* Feed.EmotePickerController.swift */,
+				FE0A0F2A265E21CD00AC9FF7 /* Feed.EmotePickerViewModel.swift */,
 			);
 			path = Feed;
 			sourceTree = "<group>";

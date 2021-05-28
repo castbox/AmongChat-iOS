@@ -117,6 +117,11 @@ extension APIService {
         //
         case interactiveMsgs([String: Any])
         case userFeeds([String: Any])
+        case feedReportPlay([String: Any])
+        case feedReportShare([String: Any])
+        case feedReportPlayFinish([String: Any])
+        case feedSelectEmote([String: Any])
+        case feedUnselectEmote([String: Any])
         case feedCreate([String : Any])
     }
 }
@@ -331,6 +336,16 @@ extension APIService.AmongChatBackend: TargetType {
             return "/api/v1/user/status"
         case .userFeeds:
             return "/post/user/posts"
+        case .feedReportPlay:
+            return "/post/play"
+        case .feedReportShare:
+            return "/post/share"
+        case .feedReportPlayFinish:
+            return "/post/play/finish"
+        case .feedSelectEmote:
+            return "/post/vote"
+        case .feedUnselectEmote:
+            return "post/unvote"
         case .feedCreate:
             return "/post/create"
         }
@@ -431,6 +446,11 @@ extension APIService.AmongChatBackend: TargetType {
              .myGroupApplyStat,
              .interactiveMsgs,
              .userFeeds,
+             .feedReportPlay,
+             .feedReportShare,
+             .feedReportPlayFinish,
+             .feedSelectEmote,
+             .feedUnselectEmote,
              .userStatus,
              .shareUserSign:
             return .get
@@ -555,6 +575,11 @@ extension APIService.AmongChatBackend: TargetType {
              .sendDM(let params),
              .interactiveMsgs(let params),
              .userFeeds(let params),
+             .feedReportPlay(let params),
+             .feedReportShare(let params),
+             .feedReportPlayFinish(let params),
+             .feedSelectEmote(let params),
+             .feedUnselectEmote(let params),
              .userStatus(let params),
              .unFollow(let params):
             return .requestParameters(parameters: params, encoding: URLEncoding.queryString)

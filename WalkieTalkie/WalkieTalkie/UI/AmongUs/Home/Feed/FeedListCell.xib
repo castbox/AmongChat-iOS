@@ -38,15 +38,15 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="32" id="HqL-3O-5ea"/>
                                 </constraints>
-                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="p3i-kN-R25">
+                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="12" id="p3i-kN-R25">
                                     <size key="itemSize" width="128" height="128"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="20" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <connections>
-                                    <outlet property="dataSource" destination="-1" id="d2X-kl-bPF"/>
-                                    <outlet property="delegate" destination="-1" id="lhq-nS-u7w"/>
+                                    <outlet property="dataSource" destination="KGk-i7-Jjw" id="rDM-NJ-3wl"/>
+                                    <outlet property="delegate" destination="KGk-i7-Jjw" id="oTU-eP-DLA"/>
                                 </connections>
                             </collectionView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U62-1J-LHH">
@@ -92,12 +92,15 @@
                         </constraints>
                     </view>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oM0-lk-uGK" customClass="BottomTitleButton" customModule="WalkieTalkie" customModuleProvider="target">
-                        <rect key="frame" x="262" y="242" width="44" height="44"/>
+                        <rect key="frame" x="262" y="254" width="44" height="32"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="44" id="3LC-jX-bvF"/>
-                            <constraint firstAttribute="height" constant="44" id="aYc-TH-nkg"/>
                         </constraints>
-                        <state key="normal" image="iconVideoShare"/>
+                        <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito" pointSize="14"/>
+                        <state key="normal" title="30" image="iconVideoShare"/>
+                        <connections>
+                            <action selector="shareButtonAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="KEp-Y2-5vn"/>
+                        </connections>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6oi-es-PqU" customClass="BottomTitleButton" customModule="WalkieTalkie" customModuleProvider="target">
                         <rect key="frame" x="262" y="314" width="44" height="44"/>
@@ -106,14 +109,20 @@
                             <constraint firstAttribute="height" constant="44" id="tTU-lQ-evD"/>
                         </constraints>
                         <state key="normal" image="iconVideoMore"/>
+                        <connections>
+                            <action selector="moreButtonAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="BTg-ZD-w3Z"/>
+                        </connections>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uQ0-uo-4L1" customClass="BottomTitleButton" customModule="WalkieTalkie" customModuleProvider="target">
-                        <rect key="frame" x="262" y="165" width="44" height="44"/>
+                        <rect key="frame" x="262" y="189" width="44" height="32"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="44" id="Db0-A4-Dun"/>
                             <constraint firstAttribute="width" constant="44" id="Dwp-ZN-4ZJ"/>
                         </constraints>
-                        <state key="normal" image="iconVideoComment"/>
+                        <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito" pointSize="14"/>
+                        <state key="normal" title="20" image="iconVideoComment"/>
+                        <connections>
+                            <action selector="commentButtonAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="ZlP-jI-1ia"/>
+                        </connections>
                     </button>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

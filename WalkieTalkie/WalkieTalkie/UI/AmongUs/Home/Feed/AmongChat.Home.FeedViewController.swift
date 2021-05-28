@@ -11,6 +11,71 @@ import SnapKit
 import AVFoundation
 import RxSwift
 
+extension Feed {
+    class CellViewModel { //: Equatable
+//        static func == (lhs: Feed.CellViewModel, rhs: Feed.CellViewModel) -> Bool {
+//            lhs.feed.pid == rhs.feed.pid
+//        }
+        
+        var feed: Entity.Feed {
+            didSet {
+                updateEmotes()
+            }
+        }
+        
+        var emotes: [Entity.FeedEmote] = []
+        
+        init(feed: Entity.Feed) {
+            self.feed = feed
+            updateEmotes()
+        }
+        
+        func updateEmoteState(emoteId: String, isSelect: Bool) {
+            if isSelect {
+                //当前列表有
+                if let emote = feed.emotes.first(where: { $0.id == emoteId }) {
+                    emote.count += 1
+                } else {
+                    //无，则添加
+                    feed.emotes.append(Entity.FeedEmote(id: emoteId, count: 1, isVoted: true))
+                }
+            } else {
+                //unselected
+                if let emote = feed.emotes.first(where: { $0.id == emoteId }) {
+                    emote.count -= 1
+                    feed.emotes = feed.emotes.filter { $0.count > 0 }
+                }
+            }
+            updateEmotes()
+        }
+        
+        func updateEmotes() {
+            let feedEmotes = Settings.shared.globalSetting.value?.feedEmotes ?? []
+            var emotes = feed.emotes.map { item -> Entity.FeedEmote in
+                let emote = item
+                //calculate width
+                let countWidth = item.count.string.boundingRect(with: CGSize(width: 100, height: 20), font: R.font.nunitoExtraBold(size: 14)!).width
+                emote.width = countWidth + 60
+                guard let feedEmote = feedEmotes.first(where: { $0.id == item.id }) else {
+                    return emote
+                }
+                emote.url = feedEmote.resource
+                emote.img = feedEmote.img
+                return emote
+            }
+            emotes.insert(Entity.FeedEmote(id: "", count: 0, isVoted: false, width: 60), at: 0)
+            self.emotes = emotes
+
+        }
+    }
+}
+
+extension Feed {
+    class ViewModel {
+        
+    }
+}
+
 extension AmongChat.Home {
     
     class FeedViewController: WalkieTalkie.ViewController {
@@ -22,7 +87,7 @@ extension AmongChat.Home {
 //        private var previousIndex = 0
         
         private let disposeBag = DisposeBag()
-        private var dataSource: [Entity.Feed] = [] {
+        private var dataSource: [Feed.CellViewModel] = [] {
             didSet {
                 tableView.reloadData()
             }
@@ -112,6 +177,9 @@ extension AmongChat.Home.FeedViewController: UITableViewDelegate, UITableViewDat
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withClass: FeedListCell.self, for: indexPath)
         cell.config(with: dataSource.safe(indexPath.row))
+        cell.actionHandler = { [weak self] action in
+            self?.onCell(action: action, indexPath: indexPath)
+        }
         return cell
     }
     
@@ -161,6 +229,61 @@ extension AmongChat.Home.FeedViewController: UIScrollViewDelegate {
 
 
 extension AmongChat.Home.FeedViewController {
+    func updateEmoteState(with pid: String, emoteId: String, isSelect: Bool, index: Int)  {
+        let resultSingle: Single<Bool>
+        if isSelect {
+            resultSingle = Request.feedSelectEmote(pid, emoteId: emoteId)
+        } else {
+            resultSingle = Request.feedUnselectEmote(pid, emoteId: emoteId)
+        }
+        resultSingle
+            .subscribe(onSuccess: { [weak self] result in
+                guard let `self` = self, let viewModel = self.dataSource.safe(index) else { return }
+                viewModel.updateEmoteState(emoteId: emoteId, isSelect: isSelect)
+                let cell = self.tableView.cellForRow(at: IndexPath(row: index, section: 0)) as? FeedListCell
+                cell?.update(emotes: viewModel.emotes)
+            })
+            .disposed(by: bag)
+    }
+    
+    func onCell(action: FeedListCell.Action, indexPath: IndexPath) {
+        guard let viewModel = dataSource.safe(indexPath.row) else {
+            return
+        }
+        
+        switch action {
+        case .selectEmote(let emote):
+            if emote.id.isEmpty {
+                let vc = Feed.EmotePickerController(Feed.EmotePickerViewModel())
+                vc.didSelectItemHandler = { [weak self] emote in
+                    self?.updateEmoteState(with: viewModel.feed.pid, emoteId: emote.id, isSelect: true, index: indexPath.row)
+                }
+                vc.showModal(in: tabBarController)
+            } else {
+                updateEmoteState(with: viewModel.feed.pid, emoteId: emote.id, isSelect: !emote.isVoted, index: indexPath.row)
+            }
+        case .comment:
+            ()
+        case .share:
+            ()
+        case .more:
+            AmongSheetController.show(items: [.share, .notInterested, .report, .cancel], in: self.tabBarController ?? self) { [weak self] item in
+                guard let `self` = self else { return }
+                switch item {
+                case .share:
+                    ()
+                case .notInterested:
+                    ()
+                case .report:
+                    Report.ViewController.showReport(on: self, uid: viewModel.feed.pid, type: .post, roomId: "") { [weak self] in
+                        self?.view.raft.autoShow(.text(R.string.localizable.reportSuccess()))
+                    }
+                default:
+                    ()
+                }
+            }
+        }
+    }
     
     func replayVisibleItem() {
         guard isVisible else {
@@ -176,7 +299,7 @@ extension AmongChat.Home.FeedViewController {
             .do(onSuccess: { [weak self] data in
                 removeBlock()
                 guard let `self` = self else { return }
-                self.dataSource = data.list
+                self.dataSource = data.list.map { Feed.CellViewModel(feed: $0) }
             }, onDispose: {
                 removeBlock()
             })

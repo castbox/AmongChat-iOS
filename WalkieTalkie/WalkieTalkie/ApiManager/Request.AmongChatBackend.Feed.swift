@@ -59,11 +59,67 @@ extension Request {
                 guard let r = $0 else {
                     throw MsgError.default
                 }
-                
                 return r
             })
             .observeOn(MainScheduler.asyncInstance)
         
     }
     
+    static func feedReportPlay(_ pid: String) -> Single<Bool> {
+        let params: [String : Any] = [
+            "pid": pid
+        ]
+        return amongchatProvider.rx.request(.feedReportPlay(params))
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .mapToProcessedValue()
+            .observeOn(MainScheduler.asyncInstance)
+    }
+    
+    static func feedReportShare(_ pid: String) -> Single<Bool> {
+        let params: [String : Any] = [
+            "pid": pid
+        ]
+        return amongchatProvider.rx.request(.feedReportShare(params))
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .mapToProcessedValue()
+            .observeOn(MainScheduler.asyncInstance)
+    }
+    
+    static func feedReportPlayFinish(_ pid: String) -> Single<Bool> {
+        let params: [String : Any] = [
+            "pid": pid
+        ]
+        return amongchatProvider.rx.request(.feedReportPlayFinish(params))
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .mapToProcessedValue()
+            .observeOn(MainScheduler.asyncInstance)
+    }
+    
+ 
+    static func feedSelectEmote(_ pid: String, emoteId: String) -> Single<Bool> {
+        let params: [String : Any] = [
+            "pid": pid,
+            "emote_id": emoteId
+        ]
+        return amongchatProvider.rx.request(.feedSelectEmote(params))
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .mapToProcessedValue()
+            .observeOn(MainScheduler.asyncInstance)
+    }
+    
+    static func feedUnselectEmote(_ pid: String, emoteId: String) -> Single<Bool> {
+        let params: [String : Any] = [
+            "pid": pid,
+            "emote_id": emoteId
+        ]
+        return amongchatProvider.rx.request(.feedUnselectEmote(params))
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .mapToProcessedValue()
+            .observeOn(MainScheduler.asyncInstance)
+    }
 }

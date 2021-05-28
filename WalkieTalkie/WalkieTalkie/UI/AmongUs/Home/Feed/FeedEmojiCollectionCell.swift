@@ -10,11 +10,26 @@ import UIKit
 
 class FeedEmojiCollectionCell: UICollectionViewCell {
     
+    @IBOutlet weak var blurBackgroundView: UIVisualEffectView!
     @IBOutlet weak var button: UIButton!
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
+    func config(with emote: Entity.FeedEmote) {
+        
+        if emote.id.isEmpty {
+            button.setImage(R.image.iconAddEmotes(), for: .normal)
+            button.setTitle(nil, for: .normal)
+        } else {
+            button.kf.setImage(with: emote.img, for: .normal)
+//            button.setImage(R.image.iconAddEmotes(), for: .normal)
+            button.setTitle(emote.count.string, for: .normal)
+        }
+        
+        blurBackgroundView.isHidden = emote.isVoted
+        
+        if emote.isVoted {
+            button.backgroundColor = "#866EEF".color()
+        } else {
+            button.backgroundColor = .clear
+        }
     }
-
 }

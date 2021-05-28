@@ -53,6 +53,7 @@ extension Entity {
 }
 
 extension Entity {
+    
     struct GlobalSetting: Codable {
         
         struct RoomBg: Codable {
@@ -71,6 +72,12 @@ extension Entity {
             var topicType: AmongChat.Topic {
                 return AmongChat.Topic(rawValue: topicId) ?? .chilling
             }
+        }
+        
+        struct Emotes: Codable {
+            let id: String
+            let img: URL?
+            let resource: URL?
         }
         
         struct KeyValue: Codable {
@@ -92,6 +99,7 @@ extension Entity {
         let roomEmoji: [RoomEmoji]
         let changeTip: [KeyValue]
         let chatLanguage: [KeyValue]
+        let feedEmotes: [Emotes]
         let iosCheckVersion: String
         //emoji like cuddle
         let emoji: [EmojiItem]
@@ -103,6 +111,7 @@ extension Entity {
             case chatLanguage = "chat_language"
             case iosCheckVersion = "ios_check_version"
             case emoji = "emoji"
+            case feedEmotes = "post_emotes"
         }
         
         init(from decoder: Decoder) throws {
@@ -113,6 +122,7 @@ extension Entity {
             chatLanguage = (try? container.decode([KeyValue].self, forKey: .chatLanguage)) ?? []
             iosCheckVersion = (try? container.decode(String.self, forKey: .iosCheckVersion)) ?? ""
             emoji = (try? container.decode([EmojiItem].self, forKey: .emoji)) ?? []
+            feedEmotes = (try? container.decode([Emotes].self, forKey: .feedEmotes)) ?? []
         }
     }
     

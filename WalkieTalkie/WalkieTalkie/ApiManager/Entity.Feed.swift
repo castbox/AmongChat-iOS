@@ -6,11 +6,42 @@
 //  Copyright © 2021 Guru Rain. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 extension Entity {
     
+    class FeedEmote: Codable {
+        let id: String
+        var count: Int
+        let isVoted: Bool
+        var img: URL?
+        var url: URL?
+        
+        var width: CGFloat = 0
+        
+        init(id: String,
+             count: Int,
+             isVoted: Bool,
+             img: URL? = nil,
+             url: URL? = nil,
+             width: CGFloat = 0) {
+            self.id = id
+            self.count = count
+            self.isVoted = isVoted
+            self.img = img
+            self.url = url
+            self.width = width
+        }
+        
+        private enum CodingKeys: String, CodingKey {
+            case id
+            case count
+            case isVoted = "is_voted"
+        }
+    }
+    
     struct Feed: Codable {
+        
         let pid: String
         let uid: Int
         let topic: String
@@ -20,12 +51,24 @@ extension Entity {
         let width: Int?
         let height: Int?
         let status: Int
+        //comment count
         let cmtCount: Int
         let createTime: Date
         let user: UserProfile
         let topicName: String
+        //播放数
         let playCount: Int?
+        //分享数
         let shareCount: Int?
+        var emotes: [FeedEmote]
+        
+        var playCountValue: Int {
+            playCount ?? 0
+        }
+        
+        var shareCountValue: Int {
+            shareCount ?? 0
+        }
         
         private enum CodingKeys: String, CodingKey {
             case pid
@@ -43,6 +86,7 @@ extension Entity {
             case topicName = "topic_name"
             case playCount = "play_count"
             case shareCount = "share_count"
+            case emotes
         }
     }
     

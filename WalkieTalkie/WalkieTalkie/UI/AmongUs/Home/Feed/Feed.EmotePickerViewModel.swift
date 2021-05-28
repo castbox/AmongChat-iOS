@@ -19,21 +19,21 @@ extension Feed {
         var sheetHeight: CGFloat {
             return SHEER_ITEM_HEIGHT * 2
         }
-        private var allSourceObservable = BehaviorSubject<[Entity.EmojiItem]>(value: [])
+        private var allSourceObservable = BehaviorSubject<[Entity.GlobalSetting.Emotes]>(value: [])
         
-        var dataSourceSubject = BehaviorSubject<[[Entity.EmojiItem]]>(value: [[]])
-        var dataSource: [[Entity.EmojiItem]] = []
+        var dataSourceSubject = BehaviorSubject<[[Entity.GlobalSetting.Emotes]]>(value: [[]])
+        var dataSource: [[Entity.GlobalSetting.Emotes]] = []
         var itemIsSelectable: Bool = true {
             didSet {
                 guard let source = try? allSourceObservable.value() else {
                     return
                 }
-                let newSource = source.map { item -> Entity.EmojiItem in
-                    var item = item
-                    item.isEnable = itemIsSelectable
-                    return item
-                }
-                allSourceObservable.onNext(newSource)
+//                let newSource = source.map { item -> Entity.EmojiItem in
+//                    var item = item
+//                    item.isEnable = itemIsSelectable
+//                    return item
+//                }
+                allSourceObservable.onNext(source)
             }
         }
         
@@ -41,18 +41,18 @@ extension Feed {
         
         init() {
             Settings.shared.globalSetting.replay()
-                .map { $0?.emoji }
+                .map { $0?.feedEmotes }
                 .filterNilAndEmpty()
                 .bind(to: allSourceObservable)
                 .disposed(by: bag)
             
             allSourceObservable
-                .map { $0.filter { $0.price == 0 }.chunked(into: 10) }
-                .map { items -> [[Entity.EmojiItem]] in
+                .map { $0.chunked(into: 10) }
+                .map { items -> [[Entity.GlobalSetting.Emotes]] in
                     var items = items
                     //补齐
                     if var last = items.last, last.count < 10 {
-                        last.append(contentsOf: Array(repeating: Entity.EmojiItem.empty(), count: 10 - last.count))
+                        last.append(contentsOf: Array(repeating: Entity.GlobalSetting.Emotes(id: "", img: nil, resource: nil), count: 10 - last.count))
                         _ = items.removeLast()
                         items.append(last)
                     }

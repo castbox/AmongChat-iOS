@@ -15,7 +15,7 @@ extension Social {
     class ReportViewController: WalkieTalkie.ViewController {
         
         var selectedReason: ((String) -> Void)?
-                
+        
         private lazy var tableView: UITableView = {
             let tb = UITableView(frame: .zero, style: .plain)
             tb.dataSource = self
@@ -31,21 +31,21 @@ extension Social {
             R.string.localizable.reportIncorrectSexual(),
             R.string.localizable.reportIncorrectHarassment(),
             R.string.localizable.reportIncorrectUnreasonable(),
-            ]
+        ]
         
         private var userList: [Entity.UserProfile] = [] {
             didSet {
                 tableView.reloadData()
             }
         }
-    
+        
         override func viewDidLoad() {
             super.viewDidLoad()
             setupLayout()
         }
         
         private func setupLayout() {
-
+            
             view.backgroundColor = UIColor(hex6: 0x222222)
             
             view.addSubview(tableView)

@@ -13,6 +13,8 @@ import RxCocoa
 //import Adjust
 
 extension Feed {
+    typealias FeedEmotes = Entity.GlobalSetting.Emotes
+    
     class EmotePickerController: WalkieTalkie.ViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
         
         var collectionView: UICollectionView!
@@ -20,7 +22,7 @@ extension Feed {
         
         let viewModel: EmotePickerViewModel
         
-        var didSelectItemHandler: (Entity.EmojiItem) -> Void = { _  in }
+        var didSelectItemHandler: (FeedEmotes) -> Void = { _  in }
         
         init(_ viewModel: EmotePickerViewModel) {
             self.viewModel = viewModel
@@ -45,7 +47,7 @@ extension Feed {
             collectionView.delegate = self
             collectionView.showsVerticalScrollIndicator = false
             collectionView.showsHorizontalScrollIndicator = false
-            collectionView.register(EmojiCell.self, forCellWithReuseIdentifier: NSStringFromClass(EmojiCell.self))
+            collectionView.register(EmoteCell.self, forCellWithReuseIdentifier: NSStringFromClass(EmoteCell.self))
             collectionView.register(EmojiHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: EmojiHeaderView.className)
             collectionView.register(EmojiHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: EmojiHeaderView.className)
             collectionView.isPagingEnabled = true
@@ -91,16 +93,16 @@ extension Feed {
         }
         
         func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NSStringFromClass(EmojiCell.self), for: indexPath) as! EmojiCell
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NSStringFromClass(EmoteCell.self), for: indexPath) as! EmoteCell
             cell.item = viewModel.dataSource[indexPath.section][indexPath.item]
             return cell
         }
         
         func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
             let item = self.viewModel.dataSource[indexPath.section][indexPath.item]
-            guard item.isEnable else {
-                return
-            }
+//            guard item.isEnable else {
+//                return
+//            }
             hideModal(animated: true) { [weak self] in
                 self?.didSelectItemHandler(item)
             }
@@ -123,21 +125,21 @@ extension Feed {
         }
     }
     
-    class EmojiCell: UICollectionViewCell {
+    class EmoteCell: UICollectionViewCell {
         
         var iconView = UIImageView()
         var titleLabel = UILabel()
-        var item: Entity.EmojiItem? {
+        var item: FeedEmotes? {
             didSet {
                 guard let item = item else {
                     return
                 }
-                if item.img.isEmpty {
+                if item.id.isEmpty {
                     iconView.image = nil
                 } else {
                     iconView.setImage(with: item.img)
                 }
-                iconView.alpha = item.isEnable ? 1 : 0.5
+//                iconView.alpha = item.isEnable ? 1 : 0.5
             }
         }
         
