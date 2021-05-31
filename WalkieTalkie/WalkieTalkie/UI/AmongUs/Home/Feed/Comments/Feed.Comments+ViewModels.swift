@@ -115,7 +115,7 @@ extension Feed.Comments {
         init(with comment: Entity.FeedComment) {
             self.comment = comment
             
-            if let replies = comment.replyList?.map({ ReplyViewModel(with: $0) }) {
+            if let replies = comment.replyList?.map({ ReplyViewModel(with: $0, comment: comment) }) {
                 repliesRelay.accept(replies)
             }
             hasMoreReplies = (comment.replyList?.count ?? 0) < comment.replyCount
@@ -137,7 +137,7 @@ extension Feed.Comments {
                     guard let `self` = self else { return }
                     
                     var cached = self.repliesRelay.value
-                    cached.append(contentsOf: replyList.list.map({ ReplyViewModel(with: $0) }))
+                    cached.append(contentsOf: replyList.list.map({ ReplyViewModel(with: $0, comment: self.comment) }))
                     self.repliesRelay.accept(cached)
                     self.hasMoreReplies = replyList.more
                     self.comment.replyList?.append(contentsOf: replyList.list)
@@ -153,7 +153,7 @@ extension Feed.Comments {
                     
                     guard let `self` = self else { return }
                     
-                    let replyVM = ReplyViewModel(with: reply)
+                    let replyVM = ReplyViewModel(with: reply, comment: self.comment)
                     
                     var cached = self.repliesRelay.value
                     cached.insert(replyVM, at: 0)
@@ -170,7 +170,7 @@ extension Feed.Comments {
                     
                     guard let `self` = self else { return }
                     
-                    let replyVM = ReplyViewModel(with: reply)
+                    let replyVM = ReplyViewModel(with: reply, comment: self.comment)
                     
                     var cached = self.repliesRelay.value
                     cached.insert(replyVM, at: 0)
@@ -235,25 +235,22 @@ extension Feed.Comments {
         
         private(set) var reply: Entity.FeedCommentReply
         private(set) lazy var viewSize: CGSize = ReplyCell.cellSize(for: self)
+        private var comment: Entity.FeedComment
         
         var content: String {
-            
-            guard let prefix = atPrefix else {
-                return reply.text
-            }
-            
-            return prefix + " " + reply.text
+            return atPrefix + " " + reply.text
         }
         
-        var atPrefix: String? {
-            guard let toUser = reply.toUser else {
-                return nil
-            }
+        var atPrefix: String {
+            
+            let toUser = reply.toUser ?? comment.user
+            
             return "@" + (toUser.name ?? "\(toUser.uid)") + ":"
         }
         
-        init(with reply: Entity.FeedCommentReply) {
+        init(with reply: Entity.FeedCommentReply, comment: Entity.FeedComment) {
             self.reply = reply
+            self.comment = comment
         }
     }
     

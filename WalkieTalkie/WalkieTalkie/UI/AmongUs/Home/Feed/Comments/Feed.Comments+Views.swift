@@ -229,8 +229,21 @@ extension Feed.Comments {
             return l
         }()
         
+        private lazy var atButton: UIButton = {
+            let b = UIButton(type: .custom)
+            b.titleLabel?.font = R.font.nunitoExtraBold(size: 14)
+            b.setTitleColor(.clear, for: .normal)
+            b.rx.controlEvent(.primaryActionTriggered)
+                .subscribe(onNext: { [weak self] (_) in
+                    self?.tapAtHandler?()
+                })
+                .disposed(by: bag)
+            return b
+        }()
+        
         private var replyHandler: (() -> Void)? = nil
         private var moreActionHandler: (() -> Void)? = nil
+        private var tapAtHandler: (() -> Void)? = nil
         
         override init(frame: CGRect) {
             super.init(frame: frame)
@@ -246,7 +259,7 @@ extension Feed.Comments {
             backgroundColor = .clear
             contentView.backgroundColor = .clear
             
-            contentView.addSubviews(views: avatarView, nameLabel, commentLabel)
+            contentView.addSubviews(views: avatarView, nameLabel, commentLabel, atButton)
             
             avatarView.snp.makeConstraints { (maker) in
                 maker.leading.equalToSuperview().inset(Frame.horizontalBleedWidth + 52)
@@ -267,6 +280,10 @@ extension Feed.Comments {
                 maker.top.equalTo(Self.commentTop)
             }
             
+            atButton.snp.makeConstraints { (maker) in
+                maker.top.leading.equalTo(commentLabel)
+            }
+            
             let tap = UITapGestureRecognizer()
             contentView.addGestureRecognizer(tap)
             tap.rx.event
@@ -285,13 +302,19 @@ extension Feed.Comments {
         }
         
         func bindData(reply: ReplyViewModel,
+                      tapAtHandler: @escaping (() -> Void),
                       replyHandler: @escaping (() -> Void),
                       moreActionHandler: @escaping (() -> Void)) {
             avatarView.updateAvatar(with: reply.reply.user)
             nameLabel.text = reply.reply.user.name
-            commentLabel.text = reply.content
+            let attComment = NSMutableAttributedString(string: reply.content)
+            let atRange = (reply.content as NSString).range(of: reply.atPrefix)
+            attComment.addAttributes([.foregroundColor : UIColor(hex6: 0x866EEF)], range: atRange)
+            commentLabel.attributedText = attComment
+            atButton.setTitle(reply.atPrefix, for: .normal)
             self.replyHandler = replyHandler
             self.moreActionHandler = moreActionHandler
+            self.tapAtHandler = tapAtHandler
         }
         
     }

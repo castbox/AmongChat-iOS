@@ -338,7 +338,11 @@ extension Feed.Comments.CommentsListViewController: UICollectionViewDataSource {
             if let reply = comment.replies.safe(indexPath.item - 1),
                !comment.repliesCollapsed {
                 let cell = collectionView.dequeueReusableCell(withClazz: Feed.Comments.ReplyCell.self, for: indexPath)
-                cell.bindData(reply: reply, replyHandler: { [weak self] in
+                cell.bindData(reply: reply,
+                              tapAtHandler: {
+                                Routes.handle("/profile/\(reply.reply.toUid)")
+                              },
+                              replyHandler: { [weak self] in
                     guard let `self` = self else { return }
                     self.commentInputView.inputTextView.becomeFirstResponder()
                     self.commentInputView.placeholderLabel.text = R.string.localizable.amongChatReply() + " @\(reply.reply.user.name ?? "")"
