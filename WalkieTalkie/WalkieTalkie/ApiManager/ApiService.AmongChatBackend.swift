@@ -130,7 +130,8 @@ extension APIService {
         case cancelLikingComment([String : Any])
         case deleteReply([String : Any])
         case createComment([String : Any])
-        
+        case deleteComment([String : Any])
+
     }
 }
 
@@ -370,6 +371,8 @@ extension APIService.AmongChatBackend: TargetType {
             return "/post/reply/delete"
         case .createComment:
             return "/post/comment/create"
+        case .deleteComment:
+            return "post/comment/delete"
         }
     }
     
@@ -488,6 +491,7 @@ extension APIService.AmongChatBackend: TargetType {
              .deleteGroup,
              .kickMemberFromGroup,
              .deleteReply,
+             .deleteComment,
              .unFollow:
             return .delete
             
@@ -617,6 +621,7 @@ extension APIService.AmongChatBackend: TargetType {
              .cancelLikingComment(let params),
              .deleteReply(let params),
              .createComment(let params),
+             .deleteComment(let params),
              .unFollow(let params):
             return .requestParameters(parameters: params, encoding: URLEncoding.queryString)
             

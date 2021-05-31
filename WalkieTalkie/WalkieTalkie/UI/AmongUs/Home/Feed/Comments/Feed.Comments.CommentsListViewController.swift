@@ -74,7 +74,7 @@ extension Feed.Comments {
             let v = CommentInputView()
             return v
         }()
-                
+        
         private lazy var bottomBar: UIView = {
             let v = UIView()
             v.backgroundColor = UIColor(hex6: 0x1C1C1C)
@@ -252,6 +252,23 @@ extension Feed.Comments.CommentsListViewController {
         .disposed(by: bag)
         
     }
+    
+    private func deleteCommentAlert(deleteAction: @escaping () -> Void) {
+        
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        let delete = UIAlertAction(title: R.string.localizable.amongChatDelete(), style: .destructive) { (_) in
+            deleteAction()
+        }
+        
+        let cancel = UIAlertAction(title: R.string.localizable.toastCancel(), style: .cancel) { (_) in
+            
+        }
+        
+        alert.addAction(cancel)
+        alert.addAction(delete)
+        
+        present(alert, animated: true)
+    }
 }
 
 extension Feed.Comments.CommentsListViewController: UICollectionViewDataSource {
@@ -300,6 +317,18 @@ extension Feed.Comments.CommentsListViewController: UICollectionViewDataSource {
                 self.commentInputView.inputTextView.becomeFirstResponder()
                 self.commentInputView.placeholderLabel.text = R.string.localizable.amongChatReply() + " @\(comment.comment.user.name ?? "")"
                 self.replyComment = comment
+            }, moreActionHandler: { [weak self] in
+                guard let `self` = self,
+                      comment.comment.user.uid.isSelfUid else { return }
+                self.deleteCommentAlert(deleteAction: {
+                    self.commentListVM.deleteComment(comment)
+                        .subscribe(onSuccess: { (_) in
+                            
+                        }, onError: { (error) in
+                            
+                        })
+                        .disposed(by: self.bag)
+                })
             })
             
             return cell
@@ -309,13 +338,25 @@ extension Feed.Comments.CommentsListViewController: UICollectionViewDataSource {
             if let reply = comment.replies.safe(indexPath.item - 1),
                !comment.repliesCollapsed {
                 let cell = collectionView.dequeueReusableCell(withClazz: Feed.Comments.ReplyCell.self, for: indexPath)
-                cell.bindData(reply: reply) { [weak self] in
+                cell.bindData(reply: reply, replyHandler: { [weak self] in
                     guard let `self` = self else { return }
                     self.commentInputView.inputTextView.becomeFirstResponder()
                     self.commentInputView.placeholderLabel.text = R.string.localizable.amongChatReply() + " @\(reply.reply.user.name ?? "")"
                     self.replyReply = reply
                     self.replyComment = comment
-                }
+                }, moreActionHandler: { [weak self] in
+                    guard let `self` = self,
+                          reply.reply.user.uid.isSelfUid else { return }
+                    self.deleteCommentAlert(deleteAction: {
+                        comment.deleteReply(reply)
+                            .subscribe(onSuccess: { (_) in
+                                
+                            }, onError: { (error) in
+                                
+                            })
+                            .disposed(by: self.bag)
+                    })
+                })
                 return cell
             } else {
                 let cell = collectionView.dequeueReusableCell(withClazz: Feed.Comments.ExpandReplyCell.self, for: indexPath)

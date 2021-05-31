@@ -1829,5 +1829,18 @@ extension Request {
             .observeOn(MainScheduler.asyncInstance)
         
     }
-
+    
+    static func deleteComment(_ cid: String) -> Single<Bool> {
+        
+        let params: [String : Any]  = [
+            "cid" : cid
+        ]
+                
+        return amongchatProvider.rx.request(.deleteComment(params))
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .mapToProcessedValue()
+            .observeOn(MainScheduler.asyncInstance)
+    }
+    
 }

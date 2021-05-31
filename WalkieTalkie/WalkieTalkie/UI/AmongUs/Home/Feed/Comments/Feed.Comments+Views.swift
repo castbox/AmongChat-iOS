@@ -92,6 +92,7 @@ extension Feed.Comments {
         
         private var likeHandler: ((_ liked: Bool) -> Void)? = nil
         private var replyHandler: (() -> Void)? = nil
+        private var moreActionHandler: (() -> Void)? = nil
         
         override init(frame: CGRect) {
             super.init(frame: frame)
@@ -152,11 +153,20 @@ extension Feed.Comments {
                     self?.replyHandler?()
                 })
                 .disposed(by: bag)
+            
+            let longPress = UILongPressGestureRecognizer()
+            contentView.addGestureRecognizer(longPress)
+            longPress.rx.event
+                .subscribe(onNext: { [weak self] (_) in
+                    self?.moreActionHandler?()
+                })
+                .disposed(by: bag)
         }
         
         func bindData(comment: CommentViewModel,
                       likeHandler: @escaping ((_ liked: Bool) -> Void),
-                      replyHandler: @escaping (() -> Void)) {
+                      replyHandler: @escaping (() -> Void),
+                      moreActionHandler: @escaping (() -> Void)) {
             avatarView.updateAvatar(with: comment.comment.user)
             nameLabel.text = comment.comment.user.name
             commentLabel.text = comment.comment.text
@@ -174,6 +184,7 @@ extension Feed.Comments {
                 self.likeButton.setTitle("\(max(0, count))", for: .normal)
             }
             self.replyHandler = replyHandler
+            self.moreActionHandler = moreActionHandler
         }
     }
     
@@ -219,6 +230,7 @@ extension Feed.Comments {
         }()
         
         private var replyHandler: (() -> Void)? = nil
+        private var moreActionHandler: (() -> Void)? = nil
         
         override init(frame: CGRect) {
             super.init(frame: frame)
@@ -262,14 +274,24 @@ extension Feed.Comments {
                     self?.replyHandler?()
                 })
                 .disposed(by: bag)
-
+            
+            let longPress = UILongPressGestureRecognizer()
+            contentView.addGestureRecognizer(longPress)
+            longPress.rx.event
+                .subscribe(onNext: { [weak self] (_) in
+                    self?.moreActionHandler?()
+                })
+                .disposed(by: bag)
         }
         
-        func bindData(reply: ReplyViewModel, replyHandler: @escaping (() -> Void)) {
+        func bindData(reply: ReplyViewModel,
+                      replyHandler: @escaping (() -> Void),
+                      moreActionHandler: @escaping (() -> Void)) {
             avatarView.updateAvatar(with: reply.reply.user)
             nameLabel.text = reply.reply.user.name
             commentLabel.text = reply.content
             self.replyHandler = replyHandler
+            self.moreActionHandler = moreActionHandler
         }
         
     }

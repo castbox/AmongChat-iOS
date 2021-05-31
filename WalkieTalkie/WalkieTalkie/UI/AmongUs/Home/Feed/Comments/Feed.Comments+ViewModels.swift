@@ -62,6 +62,16 @@ extension Feed.Comments {
                     self.commentsRelay.accept(cached)
                 }).map { _ in }
         }
+        
+        func deleteComment(_ comment: CommentViewModel) -> Single<Void> {
+            return Request.deleteComment(comment.comment.cid)
+                .do(onSuccess: { [weak self] (success) in
+                    guard let `self` = self, success else { return }
+                    var comments = self.commentsRelay.value
+                    comments.removeFirst { $0 === comment }
+                    self.commentsRelay.accept(comments)
+                }).map { _ in }
+        }
     }
     
     class CommentViewModel {
