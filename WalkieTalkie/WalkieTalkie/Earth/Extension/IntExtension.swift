@@ -66,6 +66,14 @@ extension Int {
     }
 }
 
+extension Double {
+
+    /// Int64.
+    var int64: Int64 {
+        return Int64(self)
+    }
+}
+
 extension UInt {
     var string: String {
         return String(self)

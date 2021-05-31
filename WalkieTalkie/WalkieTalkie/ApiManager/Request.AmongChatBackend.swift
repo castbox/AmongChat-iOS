@@ -1562,10 +1562,11 @@ extension Request {
             .observeOn(MainScheduler.asyncInstance)
     }
     
-    static func noticeCheck(lastCheckMs: Int64) -> Single<Bool> {
+    static func noticeCheck(lastCheckMs: Int64, interactiveMsgReadMs: Int64) -> Single<(Bool, Bool)> {
         
         let params: [String : Any] = [
-            "read_ms" : lastCheckMs
+            "read_ms" : lastCheckMs,
+            "i_read_ms": interactiveMsgReadMs,
         ]
         
         return amongchatProvider.rx.request(.noticeCheck(params))
@@ -1575,7 +1576,8 @@ extension Request {
                 let unread_g = data["unread_g"] as? Bool ?? false
                 let unread_p = data["unread_p"] as? Bool ?? false
                 let unread_ga = data["unread_ga"] as? Bool ?? false
-                return unread_g || unread_p || unread_ga
+                let unread_i = data["unread_i"] as? Bool ?? false
+                return ((unread_g || unread_p || unread_ga), unread_i)
             }
             .observeOn(MainScheduler.asyncInstance)
         

@@ -38,6 +38,7 @@ class InteractiveMsgTableCell: UITableViewCell {
         commentLabel.text = msg.text
         emoteView.setImage(with: viewModel.emote, placeholder: nil)
         emoteView.isHidden = msg.opType != .emotes
+        redDotView.isHidden = viewModel.isRead
     }
     
     override func awakeFromNib() {

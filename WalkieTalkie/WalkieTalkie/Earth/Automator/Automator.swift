@@ -8,15 +8,14 @@
 
 import Foundation
 import RxSwift
+import SwiftyUserDefaults
 
 class Automator {
 
     static let shared = Automator()
     private let device = Automator.Device()
-//    private let analytics = Automator.Analytics()
-
     private let bag = DisposeBag()
-
+    private let unreadNoticeTrigger = BehaviorSubject(value: ())
     private init() {
         // FireMessage -> Routes
         // 监听通知，启动路由
@@ -113,16 +112,19 @@ class Automator {
             })
             .disposed(by: bag)
         
-        Settings.shared.loginResult.replay()
-            .filterNil()
+        Observable.combineLatest(Settings.shared.loginResult.replay(), unreadNoticeTrigger)
+            .filter { $0.0 != nil }
             .flatMap { _ in
                 NoticeManager.shared.latestNotice()
             }
             .flatMap {
-                Request.noticeCheck(lastCheckMs: $0?.ms ?? 0)
+                Request.noticeCheck(lastCheckMs: $0?.ms ?? 0, interactiveMsgReadMs: Int64(Defaults[\.dmInteractiveMsgUpdateTime].int64))
             }
-            .catchErrorJustReturn(false)
-            .bind(to: Settings.shared.hasUnreadNoticeRelay)
+            .catchErrorJustReturn((false, false))
+            .subscribe(onNext: { hasUnreadNotice, hasUnreadInteractiveMsg in
+                Settings.shared.hasUnreadNoticeRelay.accept(hasUnreadNotice)
+                Settings.shared.hasUnreadInteractiveMsgRelay.accept(hasUnreadInteractiveMsg)
+            })
             .disposed(by: bag)
         
         //
@@ -139,5 +141,9 @@ class Automator {
             })
             .disposed(by: bag)
 
+    }
+    
+    func triggerRefreshUnreadNotice() {
+        unreadNoticeTrigger.onNext(())
     }
 }

@@ -439,6 +439,8 @@ class Settings {
     
     let hasUnreadMessageRelay = BehaviorRelay<Bool>(value: false)
     
+    let hasUnreadInteractiveMsgRelay = BehaviorRelay<Bool>(value: false)
+    
     //设置默认值
     func updateDefaultConfig() {
         if Defaults[\.showQuickChangeRoomButton] == nil {
@@ -753,6 +755,10 @@ extension DefaultsKeys {
         .init("group.room.can.show.game.name.tips.\(topic.rawValue)", defaultValue: true)
     }
     
+    //读取交互消息时间，用来判断是否有红点
+    var dmInteractiveMsgUpdateTime: DefaultsKey<Double> {
+        .init("dm.interactive.msg.update.time", defaultValue: 0)
+    }
 }
 
 //extension DefaultsAdapter {

@@ -38,7 +38,6 @@ extension Request {
         
     }
     
-    
     static func userFeeds(_ uid: Int?,
                           topicName: String? = nil,
                           limit: Int = 20,

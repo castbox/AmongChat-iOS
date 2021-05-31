@@ -16,7 +16,7 @@ extension AmongChat.Home {
         let bag = DisposeBag()
 //        private var dataSource: [Any] = []
         let dataSourceReplay = BehaviorRelay<[Any]>(value: [])
-        let haveNewInteractiveMsgReplay = BehaviorRelay<Bool>(value: false)
+//        let haveNewInteractiveMsgReplay = BehaviorRelay<Bool>(value: false)
         
         init() {
             let conversationListObservable = DMManager.shared.conversactionUpdateReplay
@@ -29,8 +29,8 @@ extension AmongChat.Home {
                     Settings.shared.hasUnreadMessageRelay.accept(unreadCount > 0)
                 })
             
-            let interactiveMsgObservable = haveNewInteractiveMsgReplay
-                .map { Entity.DMSystemConversation(style: .interactive, isRead: $0) }
+            let interactiveMsgObservable = Settings.shared.hasUnreadInteractiveMsgRelay
+                .map { Entity.DMSystemConversation(style: .interactive, isUnread: $0) }
                 .map { [$0] }
             
             Observable.combineLatest(conversationListObservable, interactiveMsgObservable)

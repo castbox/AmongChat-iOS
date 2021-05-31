@@ -43,6 +43,12 @@ extension AmongChat.Home {
             }
         }
         
+        override func viewWillAppear(_ animated: Bool) {
+            super.viewWillAppear(animated)
+            
+            Automator.shared.triggerRefreshUnreadNotice()
+        }
+        
         override func viewDidLoad() {
             super.viewDidLoad()
             

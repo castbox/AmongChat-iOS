@@ -19,12 +19,11 @@ extension Conversation {
         let emote: URL?
         let timeString: String?
         let height: CGFloat
+        let isRead: Bool
         
-        
-        init(msg: Entity.DMInteractiveMessage) {
+        init(msg: Entity.DMInteractiveMessage, updateTime: Double) {
             self.msg = msg
-            //            var height: CGFloat = 0
-            //
+            
             self.timeString = msg.createTime.timeFormattedForConversationList()
             
             let contentHeight: CGFloat
@@ -38,6 +37,7 @@ extension Conversation {
                 contentHeight = 0
             }
             emote = Settings.shared.globalSetting.value?.feedEmotes.first(where: { $0.id == (msg.emoteIds.first ?? "") })?.img
+            isRead = updateTime >= msg.opTime
             self.height = 111 + contentHeight
         }
         
@@ -73,10 +73,20 @@ extension Conversation {
             }
         }
         
+        private var updateTime: Double {
+            get { Defaults[\.dmInteractiveMsgUpdateTime] }
+            set { Defaults[\.dmInteractiveMsgUpdateTime] = newValue }
+        }
+        
         var opType: Entity.DMInteractiveMessage.OpType? {
             didSet {
-                self.loadData()
+                loadData()
             }
+        }
+        
+        override func viewDidDisappear(_ animated: Bool) {
+            super.viewDidDisappear(animated)
+            updateTime = dataSource.first?.msg.opTime ?? 0
         }
         
         override func viewDidLoad() {
@@ -117,9 +127,9 @@ extension Conversation {
                 .subscribe(onSuccess: { [weak self](data) in
                     removeBlock()
                     guard let `self` = self else { return }
-                    self.dataSource = data.list.map { InteractiveMessageCellViewModel(msg: $0) }
+                    self.dataSource = data.list.map { InteractiveMessageCellViewModel(msg: $0, updateTime: self.updateTime) }
                     if self.dataSource.isEmpty {
-                        self.addNoDataView(R.string.localizable.errorNoTeammates(), image: R.image.ac_among_apply_empty())
+                        self.addNoDataView(R.string.localizable.amongChatNoticeEmptyTip(), image: R.image.ac_among_apply_empty())
                     } else {
                         self.removeNoDataView()
                     }
@@ -139,11 +149,11 @@ extension Conversation {
                 .subscribe(onSuccess: { [weak self](data) in
                     removeBlock()
                     guard let `self` = self else { return }
-                    let list = data.list.map { InteractiveMessageCellViewModel(msg: $0) }
+                    let list = data.list.map { InteractiveMessageCellViewModel(msg: $0, updateTime: self.updateTime) }
                     var origenList = self.dataSource
                     list.forEach({ origenList.append($0)})
                     self.dataSource = origenList
-                    self.tableView.endLoadMore(data.more ?? false)
+                    self.tableView.endLoadMore(data.more)
                 }, onError: { (error) in
                     removeBlock()
                 }).disposed(by: bag)
@@ -164,9 +174,6 @@ extension Conversation.InteractiveMessageController: UITableViewDataSource, UITa
         
         if let item = dataSource.safe(indexPath.row) {
             cell.configView(with: item)
-            //            cell.unlockHandle = { [weak self] in
-            //                self?.unblockUser(index: indexPath.row)
-            //            }
         }
         return cell
     }

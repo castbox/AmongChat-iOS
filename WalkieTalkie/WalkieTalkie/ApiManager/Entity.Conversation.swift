@@ -359,11 +359,11 @@ extension Entity {
         }
         
         let style: Style
-        let isRead: Bool
+        let isUnread: Bool
         
-        init(style: Style = .user, isRead: Bool = true) {
+        init(style: Style = .user, isUnread: Bool = true) {
             self.style = style
-            self.isRead = isRead
+            self.isUnread = isUnread
         }
     }
     

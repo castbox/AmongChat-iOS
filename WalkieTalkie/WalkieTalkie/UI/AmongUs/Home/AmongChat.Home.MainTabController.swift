@@ -220,8 +220,8 @@ extension AmongChat.Home.MainTabController {
         //TODO: combine unread messages and unread notices
         let messageTabHasUnreadReply =
             Observable.combineLatest(Settings.shared.hasUnreadNoticeRelay,
-                          Settings.shared.hasUnreadMessageRelay)
-            .map { $0 || $1 }
+                                     Settings.shared.hasUnreadMessageRelay, Settings.shared.hasUnreadInteractiveMsgRelay)
+            .map { $0 || $1 || $2 }
         Observable.combineLatest(messageTabHasUnreadReply,
                                  tabs.safe(2)?.1
                                     .filterNil()

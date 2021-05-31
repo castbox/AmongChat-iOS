@@ -117,7 +117,7 @@ class IMManager: NSObject {
                         if sender.int == IMManager.systemAgoraUid {
                             item = try JSONDecoder().decodeAnyData(Peer.FriendUpdatingInfo.self, from: json) as PeerMessage
                         }
-                    case .unreadNotice, .unreadGroupApply:
+                    case .unreadNotice, .unreadGroupApply, .unreadInteractiveMsg:
                         item = try JSONDecoder().decodeAnyData(Peer.UnreadNotice.self, from: json) as PeerMessage
                     case .dm:
                         var dmMessage = try JSONDecoder().decodeAnyData(Entity.DMMessage.self, from: json)

@@ -16,7 +16,7 @@ class ConversationSystemMsgCell: UITableViewCell {
     
     
     func bind(_ msg: Entity.DMSystemConversation) {
-        redDotView.isHidden = msg.isRead
+        redDotView.isHidden = !msg.isUnread
     }
     
     override func awakeFromNib() {
