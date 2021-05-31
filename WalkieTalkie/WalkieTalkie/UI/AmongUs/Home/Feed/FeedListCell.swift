@@ -35,6 +35,7 @@ class FeedListCell: UITableViewCell {
         case more
     }
     
+    @IBOutlet weak var userInfoContainer: UIView!
     @IBOutlet weak var avatarView: AvatarImageView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var tagLabel: UILabel!
@@ -42,10 +43,25 @@ class FeedListCell: UITableViewCell {
     @IBOutlet weak var commentButton: BottomTitleButton!
     @IBOutlet weak var moreButton: BottomTitleButton!
     @IBOutlet weak var collectionView: UICollectionView!
-    @IBOutlet weak var playerView: VideoPlayerView!
+    @IBOutlet weak var playerView: PlayerView!
+    @IBOutlet weak var sliderBar: UISlider!
     @IBOutlet weak var pauseView: UIImageView!
+    @IBOutlet weak var activityView: UIActivityIndicatorView!
+    @IBOutlet weak var progressLabel: UILabel!
+    
+    private lazy var backgroundLayer = CAGradientLayer()
+    private lazy var gradientBackgroundView: UIView = {
+        let view = UIView()
+        view.isUserInteractionEnabled = false
+        view.backgroundColor = .clear
+        view.layer.insertSublayer(backgroundLayer, at: 0)
+        return view
+    }()
+
+    
     private(set) var isPlaying = false
     private(set) var liked = false
+    
     
     private let bag = DisposeBag()
     
@@ -67,7 +83,11 @@ class FeedListCell: UITableViewCell {
         avatarView.isVerify = feed.user.isVerified
         nameLabel.attributedText = feed.user.nameWithVerified(isShowVerify: false)
         tagLabel.text = "# " + feed.topic
-        playerView.configure(url: feed.url, fileExtension: "mp4", size: (feed.width ?? 100, feed.height ?? 120))
+        
+        activityView.startAnimating()
+        playerView.configure(url: feed.url, size: (feed.width ?? 100, feed.height ?? 120)) { [weak self] in
+            self?.activityView.stopAnimating()
+        }
         update(emotes: viewModel.emotes)
     }
     
@@ -81,6 +101,12 @@ class FeedListCell: UITableViewCell {
         resetViewsForReuse()
     }
     
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        backgroundLayer.frame = gradientBackgroundView.bounds
+    }
+    
     @IBAction func commentButtonAction(_ sender: Any) {
         actionHandler?(.comment)
     }
@@ -91,6 +117,45 @@ class FeedListCell: UITableViewCell {
     
     @IBAction func moreButtonAction(_ sender: Any) {
         actionHandler?(.more)
+    }
+    
+    @IBAction func sliderEndDragAction(_ sender: Any) {
+        avatarView.isHidden = false
+    }
+    
+    func show(emote: Emote?) {
+        guard let emote = emote else {
+            return
+        }
+        
+        let view = UIImageView()
+        view.setImage(with: emote.img)
+        contentView.addSubview(view)
+        //widht
+        let emoteSize: CGFloat = 100
+        let leftEdge: CGFloat = 20
+        let maxX = width - 100 - leftEdge
+        let xOffset = Int(arc4random()) % maxX.int
+        let y = height / 4 + (Int(arc4random()) % (width - emoteSize).int).cgFloat
+        view.frame = CGRect(x: 20 + xOffset.cgFloat, y: y, width: emoteSize, height: emoteSize)
+        view.alpha = 0
+        view.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
+        UIView.animate(withDuration: 0.2, delay: 0.1, options: [.beginFromCurrentState, .curveEaseIn]) {
+            view.alpha = 1
+            view.transform = CGAffineTransform(scaleX: 2, y: 2)
+        } completion: { finish in
+            UIView.animate(withDuration: 0.2, delay: 0, options: [.beginFromCurrentState, .curveEaseIn]) {
+                view.alpha = 1
+                view.transform = .identity
+            } completion: { finish in
+                UIView.animate(withDuration: 0.2, delay: 1.5, options: [.beginFromCurrentState, .curveEaseIn]) {
+                    view.alpha = 0
+                    view.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
+                } completion: { finish in
+                    view.removeFromSuperview()
+                }
+            }
+        }
     }
     
     func replay(){
@@ -143,11 +208,64 @@ class FeedListCell: UITableViewCell {
         pauseView.alpha = 0
     }
     
+    @objc func onSliderValChanged(slider: UISlider, event: UIEvent) {
+        if let touchEvent = event.allTouches?.first {
+            switch touchEvent.phase {
+            case .began:
+                ()
+            case .moved:
+                userInfoContainer.isHidden = true
+                pause()
+                playerView.set(progress: slider.value.cgFloat)
+                
+            case .ended:
+                userInfoContainer.isHidden = false
+                play()
+            default:
+                break
+            }
+        }
+        progressLabel.isHidden = !userInfoContainer.isHidden
+        //calculate progress
+    }
+
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        configureSubview()
+    }
+    
+
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+
+        // Configure the view for the selected state
+    }
+}
+
+private extension FeedListCell {
+    func updateTimeString(with progress: Double) {
+        let time = playerView.duration.double * progress
+        let currentTimeAttrString = NSAttributedString(string: time.timeFormat, attributes: [
+            NSAttributedString.Key.foregroundColor : UIColor.white
+         ])
+        let durationAttrString = NSAttributedString(string: " / \(playerView.duration.double.timeFormat)", attributes: [
+            NSAttributedString.Key.foregroundColor : UIColor.white.alpha(0.5)
+         ])
+        let multiAttrString = NSMutableAttributedString()
+        multiAttrString.append(currentTimeAttrString)
+        multiAttrString.append(durationAttrString)
         
+        progressLabel.attributedText = multiAttrString
+    }
+    
+    func configureSubview() {
         collectionView.register(nibWithCellClass: FeedEmojiCollectionCell.self)
+        
+        sliderBar.addTarget(self, action: #selector(onSliderValChanged(slider:event:)), for: .valueChanged)
+        sliderBar.setThumbImage(R.image.iconFeedSliderThumb(), for: .normal)
+//        sliderBar.setThumbImage(R.image.iconFeedSliderThumb(), for: .)
         
         playerView.rx.tapGesture()
             .when(.recognized)
@@ -155,16 +273,26 @@ class FeedListCell: UITableViewCell {
                 self?.handlePause()
             })
             .disposed(by: bag)
-    }
+        
+        playerView.playingProgressHandler = { [weak self] value in
+//            cdPrint("progress: \(value)")
+            self?.sliderBar.setValue(value, animated: true)
+            self?.updateTimeString(with: value.double)
+        }
 
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
+        contentView.insertSubview(gradientBackgroundView, aboveSubview: playerView)
+        
+        backgroundLayer.startPoint = CGPoint(x: 0, y: 0)
+        backgroundLayer.endPoint = CGPoint(x: 0, y: 1)
+        backgroundLayer.locations = [0, 0.2, 0.8, 1]
+        backgroundLayer.colors = [UIColor.black.alpha(0.3).cgColor, UIColor.black.alpha(0).cgColor, UIColor.black.alpha(0).cgColor, UIColor.black.alpha(0.3).cgColor]
 
-        // Configure the view for the selected state
+        gradientBackgroundView.snp.makeConstraints { (maker) in
+            maker.edges.equalToSuperview()
+        }
+
     }
-    
 }
-
 
 extension FeedListCell: UICollectionViewDataSource {
     

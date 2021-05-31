@@ -22,7 +22,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="500"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rqh-Vf-hwl" customClass="VideoPlayerView" customModule="WalkieTalkie" customModuleProvider="target">
+                    <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rqh-Vf-hwl" customClass="PlayerView" customModule="WalkieTalkie" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="500"/>
                         <gestureRecognizers/>
                     </view>
@@ -32,7 +32,7 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VtH-gr-9m2">
                         <rect key="frame" x="0.0" y="376" width="320" height="124"/>
                         <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="0Vq-Q9-oJP">
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="0Vq-Q9-oJP">
                                 <rect key="frame" x="0.0" y="68" width="320" height="32"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -124,20 +124,46 @@
                             <action selector="commentButtonAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="ZlP-jI-1ia"/>
                         </connections>
                     </button>
+                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="Rch-gs-sFL">
+                        <rect key="frame" x="-3" y="470" width="326" height="31"/>
+                        <color key="minimumTrackTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="maximumTrackTintColor" white="1" alpha="0.10000000000000001" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <connections>
+                            <action selector="sliderBeginDragAction:" destination="KGk-i7-Jjw" eventType="touchDragEnter" id="iey-ws-jzp"/>
+                            <action selector="sliderEndDragAction:" destination="KGk-i7-Jjw" eventType="touchDragExit" id="PZ4-Cz-T5A"/>
+                        </connections>
+                    </slider>
+                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="Ztd-Vz-93s">
+                        <rect key="frame" x="150" y="240" width="20" height="20"/>
+                    </activityIndicatorView>
+                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ffj-Zk-aDm">
+                        <rect key="frame" x="36" y="427.5" width="248" height="27.5"/>
+                        <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito" pointSize="20"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
+                    <constraint firstAttribute="trailing" secondItem="Rch-gs-sFL" secondAttribute="trailing" constant="-1" id="0iv-YC-35e"/>
                     <constraint firstAttribute="trailing" secondItem="VtH-gr-9m2" secondAttribute="trailing" id="1Fy-WS-Mf4"/>
                     <constraint firstItem="6oi-es-PqU" firstAttribute="top" secondItem="oM0-lk-uGK" secondAttribute="bottom" constant="28" id="2Wk-9m-JB3"/>
                     <constraint firstItem="uQ0-uo-4L1" firstAttribute="centerX" secondItem="oM0-lk-uGK" secondAttribute="centerX" id="352-PD-NQe"/>
                     <constraint firstAttribute="bottom" secondItem="rqh-Vf-hwl" secondAttribute="bottom" id="3Hd-L5-MKG"/>
                     <constraint firstItem="1c1-et-f5z" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="5Ew-o1-8MG"/>
+                    <constraint firstAttribute="bottom" secondItem="Rch-gs-sFL" secondAttribute="bottom" id="5Zv-L4-Cf7"/>
                     <constraint firstItem="VtH-gr-9m2" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="9AV-Hz-jeg"/>
+                    <constraint firstItem="Ztd-Vz-93s" firstAttribute="centerX" secondItem="rqh-Vf-hwl" secondAttribute="centerX" id="JFv-Xb-0dD"/>
                     <constraint firstItem="oM0-lk-uGK" firstAttribute="centerX" secondItem="6oi-es-PqU" secondAttribute="centerX" id="KMR-mZ-dhN"/>
                     <constraint firstItem="1c1-et-f5z" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="MGl-Ow-jKC"/>
+                    <constraint firstItem="Ffj-Zk-aDm" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="20" id="N6d-9c-YVe"/>
+                    <constraint firstItem="Rch-gs-sFL" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="-1" id="P5Y-FZ-8uY"/>
+                    <constraint firstItem="Ztd-Vz-93s" firstAttribute="centerY" secondItem="rqh-Vf-hwl" secondAttribute="centerY" id="Q8b-Ka-ixI"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="Ffj-Zk-aDm" secondAttribute="trailing" constant="20" id="U5j-c3-FSW"/>
                     <constraint firstItem="oM0-lk-uGK" firstAttribute="top" secondItem="uQ0-uo-4L1" secondAttribute="bottom" constant="33" id="Vkf-Lz-1Fz"/>
                     <constraint firstAttribute="bottom" secondItem="VtH-gr-9m2" secondAttribute="bottom" id="WNb-mN-smA"/>
                     <constraint firstAttribute="trailing" secondItem="rqh-Vf-hwl" secondAttribute="trailing" id="WXy-fH-aHU"/>
+                    <constraint firstAttribute="bottom" secondItem="Ffj-Zk-aDm" secondAttribute="bottom" constant="45" id="ahp-Vp-A2s"/>
                     <constraint firstItem="rqh-Vf-hwl" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="dl4-jc-rPe"/>
                     <constraint firstItem="rqh-Vf-hwl" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="lWm-BK-dwO"/>
                     <constraint firstAttribute="trailing" secondItem="6oi-es-PqU" secondAttribute="trailing" constant="14" id="nWy-Vz-3y9"/>
@@ -147,15 +173,19 @@
             <color key="backgroundColor" white="1" alpha="0.059999999999999998" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <gestureRecognizers/>
             <connections>
+                <outlet property="activityView" destination="Ztd-Vz-93s" id="A30-Yz-3at"/>
                 <outlet property="avatarView" destination="2Z7-Lj-Kc6" id="0fY-En-0DC"/>
                 <outlet property="collectionView" destination="0Vq-Q9-oJP" id="TkJ-Ho-2ak"/>
                 <outlet property="commentButton" destination="uQ0-uo-4L1" id="oOp-Yt-ccg"/>
                 <outlet property="moreButton" destination="6oi-es-PqU" id="bXl-Xe-02B"/>
                 <outlet property="nameLabel" destination="U62-1J-LHH" id="hfU-MA-3Br"/>
                 <outlet property="pauseView" destination="1c1-et-f5z" id="cMs-pE-4IP"/>
-                <outlet property="playerView" destination="rqh-Vf-hwl" id="Wno-Ou-hDL"/>
+                <outlet property="playerView" destination="rqh-Vf-hwl" id="amU-EP-hgV"/>
+                <outlet property="progressLabel" destination="Ffj-Zk-aDm" id="aGn-lx-ocB"/>
                 <outlet property="shareButton" destination="oM0-lk-uGK" id="CcY-BA-Iw1"/>
+                <outlet property="sliderBar" destination="Rch-gs-sFL" id="Ufs-iN-lE6"/>
                 <outlet property="tagLabel" destination="YoT-EB-VOj" id="6lQ-v4-ZAU"/>
+                <outlet property="userInfoContainer" destination="VtH-gr-9m2" id="JoT-Nn-XuQ"/>
             </connections>
             <point key="canvasLocation" x="137.68115942028987" y="153.34821428571428"/>
         </tableViewCell>

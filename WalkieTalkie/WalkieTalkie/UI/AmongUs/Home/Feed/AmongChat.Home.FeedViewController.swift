@@ -10,6 +10,7 @@ import UIKit
 import SnapKit
 import AVFoundation
 import RxSwift
+import VIMediaCache
 
 extension Feed {
     class CellViewModel { //: Equatable
@@ -53,6 +54,7 @@ extension Feed {
         
         func updateEmotes() {
             let feedEmotes = Settings.shared.globalSetting.value?.feedEmotes ?? []
+            
             var emotes = feed.emotes.map { item -> Entity.FeedEmote in
                 let emote = item
                 //calculate width
@@ -64,10 +66,11 @@ extension Feed {
                 emote.url = feedEmote.resource
                 emote.img = feedEmote.img
                 return emote
-            }
+            }.sorted { $0.count > $1.count }
+            
             emotes.insert(Entity.FeedEmote(id: "", count: 0, isVoted: false, width: 60), at: 0)
+            
             self.emotes = emotes
-
         }
     }
 }
@@ -105,6 +108,9 @@ extension AmongChat.Home {
 
             configureSubview()
             bindSubviewEvent()
+            
+//            var error: NSError?
+//            VICacheManager.cleanAllCacheWithError(&error)
         }
         
         override func viewWillAppear(_ animated: Bool) {
@@ -119,51 +125,6 @@ extension AmongChat.Home {
             if let cell = tableView.visibleCells.first as? FeedListCell {
                 cell.pause()
             }
-        }
-
-        /// Set up Binding
-        func setupBinding() {
-            // Posts
-//            viewModel.posts
-//                .asObserver()
-//                .observeOn(MainScheduler.instance)
-//                .subscribe(onNext: { posts in
-//                    self.data = posts
-//                    self.tableView.reloadData()
-//                }).disposed(by: disposeBag)
-//
-//            viewModel.isLoading
-//                .asObserver()
-//                .observeOn(MainScheduler.instance)
-//                .subscribe(onNext: { isLoading in
-//                    if isLoading {
-//                        self.loadingAnimation.alpha = 1
-//                        self.loadingAnimation.play()
-//                    } else {
-//                        self.loadingAnimation.alpha = 0
-//                        self.loadingAnimation.stop()
-//                    }
-//                }).disposed(by: disposeBag)
-//
-//            viewModel.error
-//                .asObserver()
-//                .observeOn(MainScheduler.instance)
-//                .subscribe(onNext: { err in
-//                    self.showAlert(err.localizedDescription)
-//                }).disposed(by: disposeBag)
-//
-//            ProfileViewModel.shared.cleardCache
-//                .asObserver()
-//                .observeOn(MainScheduler.instance)
-//                .subscribe(onNext: { cleard in
-//                    if cleard {
-//                        //self.tableView.reloadData()
-//                    }
-//                }).disposed(by: disposeBag)
-        }
-        
-        func setupObservers(){
-            
         }
 
     }
@@ -244,6 +205,9 @@ extension AmongChat.Home.FeedViewController {
                 viewModel.updateEmoteState(emoteId: emoteId, isSelect: isSelect)
                 let cell = self.tableView.cellForRow(at: IndexPath(row: index, section: 0)) as? FeedListCell
                 cell?.update(emotes: viewModel.emotes)
+                if isSelect {
+                    cell?.show(emote: viewModel.emotes.first(where: { $0.id == emoteId }))
+                }
             })
             .disposed(by: bag)
     }
@@ -258,7 +222,16 @@ extension AmongChat.Home.FeedViewController {
             if emote.id.isEmpty {
                 let vc = Feed.EmotePickerController(Feed.EmotePickerViewModel())
                 vc.didSelectItemHandler = { [weak self] emote in
-                    self?.updateEmoteState(with: viewModel.feed.pid, emoteId: emote.id, isSelect: true, index: indexPath.row)
+                    //didn't contains voted
+                    guard let `self` = self else {
+                        return
+                    }
+                    if !viewModel.emotes.contains(where: { $0.id == emote.id && $0.isVoted == true }) {
+                        self.updateEmoteState(with: viewModel.feed.pid, emoteId: emote.id, isSelect: true, index: indexPath.row)
+                    } else {
+                        let cell = self.tableView.cellForRow(at: indexPath) as? FeedListCell
+                        cell?.show(emote: viewModel.emotes.first(where: { $0.id == emote.id }))
+                    }
                 }
                 vc.showModal(in: tabBarController)
             } else {
@@ -291,8 +264,13 @@ extension AmongChat.Home.FeedViewController {
         guard isVisible else {
             return
         }
-        let cell = tableView.cellForRow(at: IndexPath(row: currentIndex, section: 0)) as? FeedListCell
-        cell?.replay()
+        if let cell = tableView.cellForRow(at: IndexPath(row: currentIndex, section: 0)) as? FeedListCell {
+            cell.replay()
+        } else {
+            if let cell = tableView.visibleCells.first as? FeedListCell {
+                cell.replay()
+            }
+        }
     }
     
     private func loadData() {
@@ -372,6 +350,7 @@ extension AmongChat.Home.FeedViewController {
         createButton.snp.makeConstraints { maker in
             maker.top.equalTo(Frame.Height.safeAeraTopHeight + 4.5)
             maker.trailing.equalTo(-20)
+            maker.width.height.equalTo(42)
         }
     }
     

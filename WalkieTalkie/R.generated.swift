@@ -232,7 +232,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 249 images.
+  /// This `R.image` struct is generated, and contains static references to 250 images.
   struct image {
     /// Image `ac_add_stats_add`.
     static let ac_add_stats_add = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_add_stats_add")
@@ -620,6 +620,8 @@ struct R: Rswift.Validatable {
     static let iconDmVoiceTag = Rswift.ImageResource(bundle: R.hostingBundle, name: "iconDmVoiceTag")
     /// Image `iconDmVoice`.
     static let iconDmVoice = Rswift.ImageResource(bundle: R.hostingBundle, name: "iconDmVoice")
+    /// Image `iconFeedSliderThumb`.
+    static let iconFeedSliderThumb = Rswift.ImageResource(bundle: R.hostingBundle, name: "iconFeedSliderThumb")
     /// Image `iconMutedTips`.
     static let iconMutedTips = Rswift.ImageResource(bundle: R.hostingBundle, name: "iconMutedTips")
     /// Image `iconNewVersion`.
@@ -1696,6 +1698,11 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "iconDmVoiceTag", bundle: ..., traitCollection: ...)`
     static func iconDmVoiceTag(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.iconDmVoiceTag, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "iconFeedSliderThumb", bundle: ..., traitCollection: ...)`
+    static func iconFeedSliderThumb(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.iconFeedSliderThumb, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "iconMutedTips", bundle: ..., traitCollection: ...)`

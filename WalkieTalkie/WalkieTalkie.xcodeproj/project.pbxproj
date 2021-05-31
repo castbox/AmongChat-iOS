@@ -86,6 +86,7 @@
 		2BAB4F832595E25600A1C8DC /* Social.ShareRoomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BAB4F822595E25600A1C8DC /* Social.ShareRoomViewController.swift */; };
 		2BAB4F872596031600A1C8DC /* Entity.Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BAB4F862596031600A1C8DC /* Entity.Profile.swift */; };
 		2BBBFD2D259CAA1100A3AB2C /* Social.ReportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBBFD2C259CAA1100A3AB2C /* Social.ReportViewController.swift */; };
+		A6CFC014C6150B70B04EA4AC /* Pods_WalkieTalkie.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AD5209EBE168C4308A6299C /* Pods_WalkieTalkie.framework */; };
 		BD4DEE142507A2E5006476E0 /* Social.Widgets.AvatarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD4DEE132507A2E4006476E0 /* Social.Widgets.AvatarView.swift */; };
 		BD6739BD2595EEAD00B3305B /* AmongChat.Home+RelationViewModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD6739BC2595EEAD00B3305B /* AmongChat.Home+RelationViewModels.swift */; };
 		BD67FF0E2571276400144477 /* AmongChat.Room.UserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD67FF0D2571276400144477 /* AmongChat.Room.UserCell.swift */; };
@@ -143,8 +144,7 @@
 		FE078C912615C028004C38C5 /* AmongChat.GroupRoom.JoinRequestListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE078C902615C028004C38C5 /* AmongChat.GroupRoom.JoinRequestListController.swift */; };
 		FE0A0C30265CECCA00AC9FF7 /* FeedListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE0A0C2E265CECCA00AC9FF7 /* FeedListCell.swift */; };
 		FE0A0C31265CECCA00AC9FF7 /* FeedListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE0A0C2F265CECCA00AC9FF7 /* FeedListCell.xib */; };
-		FE0A0C33265D278000AC9FF7 /* VideoPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE0A0C32265D278000AC9FF7 /* VideoPlayerView.swift */; };
-		FE0A0DAD265D296A00AC9FF7 /* VideoCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE0A0DAC265D296A00AC9FF7 /* VideoCacheManager.swift */; };
+		FE0A0C33265D278000AC9FF7 /* PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE0A0C32265D278000AC9FF7 /* PlayerView.swift */; };
 		FE0A0F26265E0C8600AC9FF7 /* FeedEmojiCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE0A0F24265E0C8600AC9FF7 /* FeedEmojiCollectionCell.swift */; };
 		FE0A0F27265E0C8600AC9FF7 /* FeedEmojiCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE0A0F25265E0C8600AC9FF7 /* FeedEmojiCollectionCell.xib */; };
 		FE0A0F29265E217200AC9FF7 /* Feed.EmotePickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE0A0F28265E217200AC9FF7 /* Feed.EmotePickerController.swift */; };
@@ -559,6 +559,7 @@
 		2BAB4F862596031600A1C8DC /* Entity.Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entity.Profile.swift; sourceTree = "<group>"; };
 		2BAC1458258E5D690064F55D /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.generated.swift; sourceTree = SOURCE_ROOT; };
 		2BBBFD2C259CAA1100A3AB2C /* Social.ReportViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Social.ReportViewController.swift; sourceTree = "<group>"; };
+		6AD5209EBE168C4308A6299C /* Pods_WalkieTalkie.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WalkieTalkie.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD4DEE132507A2E4006476E0 /* Social.Widgets.AvatarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Social.Widgets.AvatarView.swift; sourceTree = "<group>"; };
 		BD6739BC2595EEAD00B3305B /* AmongChat.Home+RelationViewModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AmongChat.Home+RelationViewModels.swift"; sourceTree = "<group>"; };
 		BD67FF0D2571276400144477 /* AmongChat.Room.UserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChat.Room.UserCell.swift; sourceTree = "<group>"; };
@@ -622,6 +623,7 @@
 		BDFCA56E25959427000ABB39 /* AmongChat.Home.RelationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChat.Home.RelationsViewController.swift; sourceTree = "<group>"; };
 		BDFCA5722595E237000ABB39 /* AmongChat.Home+RelationsViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AmongChat.Home+RelationsViews.swift"; sourceTree = "<group>"; };
 		BDFEFEF025864517007F40FC /* AmongChat.CreateRoom.ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChat.CreateRoom.ViewController.swift; sourceTree = "<group>"; };
+		CE9227F72092C878F715A51F /* Pods-WalkieTalkie.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WalkieTalkie.release.xcconfig"; path = "Target Support Files/Pods-WalkieTalkie/Pods-WalkieTalkie.release.xcconfig"; sourceTree = "<group>"; };
 		E401122B4D5D7ADA04280B14 /* Pods-WalkieTalkie.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WalkieTalkie.debug.xcconfig"; path = "Target Support Files/Pods-WalkieTalkie/Pods-WalkieTalkie.debug.xcconfig"; sourceTree = "<group>"; };
 		FE045FC626451CB20032FE67 /* ConversationListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationListCell.swift; sourceTree = "<group>"; };
 		FE045FC726451CB20032FE67 /* ConversationListCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ConversationListCell.xib; sourceTree = "<group>"; };
@@ -632,8 +634,7 @@
 		FE078C902615C028004C38C5 /* AmongChat.GroupRoom.JoinRequestListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChat.GroupRoom.JoinRequestListController.swift; sourceTree = "<group>"; };
 		FE0A0C2E265CECCA00AC9FF7 /* FeedListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedListCell.swift; sourceTree = "<group>"; };
 		FE0A0C2F265CECCA00AC9FF7 /* FeedListCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FeedListCell.xib; sourceTree = "<group>"; };
-		FE0A0C32265D278000AC9FF7 /* VideoPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerView.swift; sourceTree = "<group>"; };
-		FE0A0DAC265D296A00AC9FF7 /* VideoCacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCacheManager.swift; sourceTree = "<group>"; };
+		FE0A0C32265D278000AC9FF7 /* PlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
 		FE0A0F24265E0C8600AC9FF7 /* FeedEmojiCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedEmojiCollectionCell.swift; sourceTree = "<group>"; };
 		FE0A0F25265E0C8600AC9FF7 /* FeedEmojiCollectionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FeedEmojiCollectionCell.xib; sourceTree = "<group>"; };
 		FE0A0F28265E217200AC9FF7 /* Feed.EmotePickerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Feed.EmotePickerController.swift; sourceTree = "<group>"; };
@@ -956,6 +957,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DAD6D54B857E3653B61F645B /* (null) in Frameworks */,
+				A6CFC014C6150B70B04EA4AC /* Pods_WalkieTalkie.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -973,6 +975,7 @@
 			isa = PBXGroup;
 			children = (
 				E401122B4D5D7ADA04280B14 /* Pods-WalkieTalkie.debug.xcconfig */,
+				CE9227F72092C878F715A51F /* Pods-WalkieTalkie.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -1221,6 +1224,7 @@
 			children = (
 				269456582519DFE2003AA34A /* WidgetKit.framework */,
 				2694565A2519DFE2003AA34A /* SwiftUI.framework */,
+				6AD5209EBE168C4308A6299C /* Pods_WalkieTalkie.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1231,8 +1235,7 @@
 				26728198265CAEB400749D7D /* PostFeed */,
 				FE27B92D265CE89A00D1AD1F /* Feed.swift */,
 				FE27B92B265CE30300D1AD1F /* AmongChat.Home.FeedViewController.swift */,
-				FE0A0C32265D278000AC9FF7 /* VideoPlayerView.swift */,
-				FE0A0DAC265D296A00AC9FF7 /* VideoCacheManager.swift */,
+				FE0A0C32265D278000AC9FF7 /* PlayerView.swift */,
 				FE0A0C2E265CECCA00AC9FF7 /* FeedListCell.swift */,
 				FE0A0C2F265CECCA00AC9FF7 /* FeedListCell.xib */,
 				FE0A0F24265E0C8600AC9FF7 /* FeedEmojiCollectionCell.swift */,
@@ -1908,6 +1911,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = FE126D33243461EB00BEDD60 /* Build configuration list for PBXNativeTarget "WalkieTalkie" */;
 			buildPhases = (
+				47AA76986C1FF525363F3AE1 /* [CP] Check Pods Manifest.lock */,
 				FE4FDADC2435E32600CD5E97 /* R.swift */,
 				FE126D10243461E800BEDD60 /* Sources */,
 				FE126D11243461E800BEDD60 /* Frameworks */,
@@ -2080,6 +2084,28 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		47AA76986C1FF525363F3AE1 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-WalkieTalkie-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 		9170A9645CDE219C8A624644 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -2224,7 +2250,6 @@
 				263F872B26130EE500282F8F /* FansGroup.AddTopicViewController.swift in Sources */,
 				BDA05E9E250B22D50087933F /* Social.BlockedUserList.Widgets.swift in Sources */,
 				26F7023A25E670CC008F992C /* Social.CustomAvatarViewController.swift in Sources */,
-				FE0A0DAD265D296A00AC9FF7 /* VideoCacheManager.swift in Sources */,
 				FEE0E7A025A44C3200DC67B8 /* UIViewLocalizableExtension.swift in Sources */,
 				FE914B1626146DC900C755FF /* BottomTitleButton.swift in Sources */,
 				FE0DFDC0265133BB00A194A7 /* Conversation.MessageCellViewModel.swift in Sources */,
@@ -2394,7 +2419,7 @@
 				26259B5D260A1A6400636E50 /* Social.AddStatsViewController.swift in Sources */,
 				FEA298CB25E63714001D5F3C /* SnapChatSharePhotoView.swift in Sources */,
 				FE7055402654F96300A489F4 /* Constellation.swift in Sources */,
-				FE0A0C33265D278000AC9FF7 /* VideoPlayerView.swift in Sources */,
+				FE0A0C33265D278000AC9FF7 /* PlayerView.swift in Sources */,
 				26DBBF7626008C1B00A1B9BA /* Social.AgePromptModal.swift in Sources */,
 				2BA2DB462594AB320050BF8E /* Social.FollowerViewController.swift in Sources */,
 				FE8DEA66243DB09A0059C252 /* APIService.swift in Sources */,
@@ -2747,6 +2772,7 @@
 		};
 		FE126D35243461EB00BEDD60 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CE9227F72092C878F715A51F /* Pods-WalkieTalkie.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;

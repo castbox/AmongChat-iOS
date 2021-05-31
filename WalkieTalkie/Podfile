@@ -161,7 +161,8 @@ target 'WalkieTalkie' do
     pod 'EasyTipView', '~> 2.1'
     pod 'UICollectionViewLeftAlignedLayout'
     pod 'WCDB.swift'
-#    pod 'NVActivityIndicatorView'
+    pod 'VIMediaCache'
+
 end
 
 post_install do |installer|
