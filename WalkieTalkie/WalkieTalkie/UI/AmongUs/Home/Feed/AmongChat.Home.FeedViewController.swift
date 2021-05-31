@@ -35,6 +35,7 @@ extension Feed {
                 //当前列表有
                 if let emote = feed.emotes.first(where: { $0.id == emoteId }) {
                     emote.count += 1
+                    emote.isVoted = true
                 } else {
                     //无，则添加
                     feed.emotes.append(Entity.FeedEmote(id: emoteId, count: 1, isVoted: true))
@@ -43,6 +44,7 @@ extension Feed {
                 //unselected
                 if let emote = feed.emotes.first(where: { $0.id == emoteId }) {
                     emote.count -= 1
+                    emote.isVoted = false
                     feed.emotes = feed.emotes.filter { $0.count > 0 }
                 }
             }
