@@ -51,6 +51,7 @@
 		26A3D2BA26366DDB00DD4F53 /* Notice.GroupRequestsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26A3D2B926366DDB00DD4F53 /* Notice.GroupRequestsListViewController.swift */; };
 		26A3D2C22636B1BA00DD4F53 /* Notice.NoticeListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26A3D2C12636B1BA00DD4F53 /* Notice.NoticeListViewController.swift */; };
 		26A3D4B02636C57200DD4F53 /* NoticeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26A3D4AF2636C57200DD4F53 /* NoticeManager.swift */; };
+		26A4AEE92665E535004782FE /* Entity+Feed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26A4AEE82665E534004782FE /* Entity+Feed.swift */; };
 		26A8DEE0265F54AB00C585A7 /* Feed.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE27B92D265CE89A00D1AD1F /* Feed.swift */; };
 		26AFD8B125C9742800B652E8 /* Social.ProfileLookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26AFD8B025C9742800B652E8 /* Social.ProfileLookViewController.swift */; };
 		26AFD8B525C976D900B652E8 /* Social.ProfileLookViewController+Widgets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26AFD8B425C976D900B652E8 /* Social.ProfileLookViewController+Widgets.swift */; };
@@ -524,6 +525,7 @@
 		26A3D2B926366DDB00DD4F53 /* Notice.GroupRequestsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notice.GroupRequestsListViewController.swift; sourceTree = "<group>"; };
 		26A3D2C12636B1BA00DD4F53 /* Notice.NoticeListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notice.NoticeListViewController.swift; sourceTree = "<group>"; };
 		26A3D4AF2636C57200DD4F53 /* NoticeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeManager.swift; sourceTree = "<group>"; };
+		26A4AEE82665E534004782FE /* Entity+Feed.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Entity+Feed.swift"; sourceTree = "<group>"; };
 		26AFD8B025C9742800B652E8 /* Social.ProfileLookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Social.ProfileLookViewController.swift; sourceTree = "<group>"; };
 		26AFD8B425C976D900B652E8 /* Social.ProfileLookViewController+Widgets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Social.ProfileLookViewController+Widgets.swift"; sourceTree = "<group>"; };
 		26AFD8B825CA7E6500B652E8 /* Social.ProfileLookViewController+ViewModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Social.ProfileLookViewController+ViewModels.swift"; sourceTree = "<group>"; };
@@ -1648,6 +1650,7 @@
 				FE7F2005262FD09E00852A91 /* Entity.Report.swift */,
 				FE7E227426456AE600DAD431 /* Entity.Conversation.swift */,
 				2686A6FA265E8B0900931A03 /* Entity.Feed.swift */,
+				26A4AEE82665E534004782FE /* Entity+Feed.swift */,
 			);
 			path = ApiManager;
 			sourceTree = "<group>";
@@ -2253,6 +2256,7 @@
 				FEE0E7A025A44C3200DC67B8 /* UIViewLocalizableExtension.swift in Sources */,
 				FE914B1626146DC900C755FF /* BottomTitleButton.swift in Sources */,
 				FE0DFDC0265133BB00A194A7 /* Conversation.MessageCellViewModel.swift in Sources */,
+				26A4AEE92665E535004782FE /* Entity+Feed.swift in Sources */,
 				FEBCFEAA260C3B9900DD9B8D /* JSBridge.Links.swift in Sources */,
 				FEAE256726207477001F10A9 /* AmongChat.GroupRoom.GroupRoomBaseViewModel.swift in Sources */,
 				FE7CEB59258A029F0067952C /* AmongChatRoomConfigView.swift in Sources */,
