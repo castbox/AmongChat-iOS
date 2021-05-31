@@ -13,7 +13,7 @@ extension Entity {
     class FeedEmote: Codable {
         let id: String
         var count: Int
-        let isVoted: Bool
+        var isVoted: Bool
         var img: URL?
         var url: URL?
         

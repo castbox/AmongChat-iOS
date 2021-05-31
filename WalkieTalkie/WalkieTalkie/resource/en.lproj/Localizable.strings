@@ -567,6 +567,11 @@
 "dm.interactive.comments" = "Comments";
 "dm.interactive.emotes" = "Emotes";
 "dm.interactive.likes" = "Likes";
+"dm.interactive.emote.title" = "emoted on your post";
+"dm.interactive.reply.comment.title" = "replied to your comment";
+"dm.interactive.comment.title" = "commented on your post";
+"dm.interactive.comment.like.title" = "liked your comment";
+
 
 "feed.share" = "Share";
 "feed.sheet.not.interested" = "Not interested";

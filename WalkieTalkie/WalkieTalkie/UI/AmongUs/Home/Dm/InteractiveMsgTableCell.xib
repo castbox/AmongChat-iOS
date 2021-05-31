@@ -26,7 +26,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="170"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="jv6-E1-dLR">
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="jv6-E1-dLR">
                         <rect key="frame" x="252" y="24" width="48" height="48"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="48" id="Fu3-HJ-kJa"/>
@@ -46,9 +46,6 @@
                                 <real key="value" value="24"/>
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
-                        <connections>
-                            <outletCollection property="gestureRecognizers" destination="KI8-Rk-On5" appends="YES" id="yWi-gz-HyN"/>
-                        </connections>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bsg-y8-vuM">
                         <rect key="frame" x="80" y="24" width="156" height="27.5"/>
@@ -57,12 +54,15 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qQs-uj-44W">
-                        <rect key="frame" x="80" y="52.5" width="35" height="19.5"/>
+                        <rect key="frame" x="80" y="40" width="35" height="32"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="32" id="YQY-7m-LlE"/>
+                        </constraints>
                         <fontDescription key="fontDescription" name="Nunito-Bold" family="Nunito" pointSize="14"/>
                         <color key="textColor" red="0.34901960784313724" green="0.34901960784313724" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="O2o-9M-BgO">
+                    <collectionView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="O2o-9M-BgO">
                         <rect key="frame" x="80" y="80" width="220" height="50.5"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="hzi-0B-W7W">
@@ -85,7 +85,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ej9-Jr-g1m">
-                        <rect key="frame" x="119" y="57.5" width="10" height="10"/>
+                        <rect key="frame" x="119" y="51" width="10" height="10"/>
                         <color key="backgroundColor" red="0.98431372549019602" green="0.34509803921568627" blue="0.34509803921568627" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="10" id="bbM-IW-1VH"/>
@@ -97,6 +97,13 @@
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                     </view>
+                    <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="GW0-JS-imI">
+                        <rect key="frame" x="80" y="80" width="32" height="32"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="32" id="dHI-bd-DbY"/>
+                            <constraint firstAttribute="height" constant="32" id="vBZ-68-MFz"/>
+                        </constraints>
+                    </imageView>
                 </subviews>
                 <constraints>
                     <constraint firstItem="qQs-uj-44W" firstAttribute="bottom" secondItem="IhD-93-0vv" secondAttribute="bottom" id="3Rq-MQ-nfE"/>
@@ -104,6 +111,8 @@
                     <constraint firstItem="bMj-4t-cHy" firstAttribute="top" secondItem="qQs-uj-44W" secondAttribute="bottom" constant="7" id="4zJ-Eo-gv2"/>
                     <constraint firstItem="IhD-93-0vv" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="24" id="7gz-Nv-BfE"/>
                     <constraint firstItem="bMj-4t-cHy" firstAttribute="leading" secondItem="qQs-uj-44W" secondAttribute="leading" id="AAm-Ia-dBW"/>
+                    <constraint firstItem="GW0-JS-imI" firstAttribute="top" secondItem="qQs-uj-44W" secondAttribute="bottom" constant="8" id="G1V-wo-NLs"/>
+                    <constraint firstItem="GW0-JS-imI" firstAttribute="leading" secondItem="qQs-uj-44W" secondAttribute="leading" id="I7Y-oi-Gvf"/>
                     <constraint firstItem="5mR-Jq-jld" firstAttribute="leading" secondItem="qQs-uj-44W" secondAttribute="leading" id="KuE-lZ-Qiz"/>
                     <constraint firstItem="qQs-uj-44W" firstAttribute="leading" secondItem="bsg-y8-vuM" secondAttribute="leading" id="OeR-w8-P2a"/>
                     <constraint firstItem="O2o-9M-BgO" firstAttribute="top" secondItem="jv6-E1-dLR" secondAttribute="bottom" constant="8" id="SPc-eB-1ng"/>
@@ -126,10 +135,11 @@
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <connections>
-                <outlet property="avatarView" destination="IhD-93-0vv" id="qAd-zI-tPS"/>
+                <outlet property="avatarView" destination="IhD-93-0vv" id="Leg-Xu-06U"/>
                 <outlet property="collectionView" destination="O2o-9M-BgO" id="6ZU-xT-EjG"/>
                 <outlet property="commentLabel" destination="bMj-4t-cHy" id="8kV-fa-o22"/>
                 <outlet property="desLabel" destination="qQs-uj-44W" id="fba-jW-pMm"/>
+                <outlet property="emoteView" destination="GW0-JS-imI" id="wAq-is-k9b"/>
                 <outlet property="nameLabel" destination="bsg-y8-vuM" id="tsd-lw-sJA"/>
                 <outlet property="postCoverView" destination="jv6-E1-dLR" id="KOI-NR-TU4"/>
                 <outlet property="redDotView" destination="ej9-Jr-g1m" id="bIO-5e-s0E"/>
@@ -137,11 +147,6 @@
             </connections>
             <point key="canvasLocation" x="-23.188405797101453" y="153.34821428571428"/>
         </tableViewCell>
-        <tapGestureRecognizer id="KI8-Rk-On5" userLabel="avatar Tap Gesture Recognizer">
-            <connections>
-                <action selector="tapAvatarAction:" destination="KGk-i7-Jjw" id="fQJ-nV-cRv"/>
-            </connections>
-        </tapGestureRecognizer>
     </objects>
     <resources>
         <systemColor name="systemBackgroundColor">

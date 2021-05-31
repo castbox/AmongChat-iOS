@@ -2599,7 +2599,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
     
-    /// This `R.string.localizable` struct is generated, and contains static references to 501 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 505 localization keys.
     struct localizable {
       /// en translation:  Congratulations!
       /// 
@@ -4517,6 +4517,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let roomSetupAmongusTitle = Rswift.StringResource(key: "room.setup.amongus.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: commented on your post
+      /// 
+      /// Locales: en
+      static let dmInteractiveCommentTitle = Rswift.StringResource(key: "dm.interactive.comment.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: create a channel
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -4525,6 +4529,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatLoginAuthSourceProfile = Rswift.StringResource(key: "among.chat.login.auth.source.profile", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: emoted on your post
+      /// 
+      /// Locales: en
+      static let dmInteractiveEmoteTitle = Rswift.StringResource(key: "dm.interactive.emote.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: followers
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -4569,6 +4577,14 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let premiumLifetime = Rswift.StringResource(key: "premium.lifetime", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: liked your comment
+      /// 
+      /// Locales: en
+      static let dmInteractiveCommentLikeTitle = Rswift.StringResource(key: "dm.interactive.comment.like.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: replied to your comment
+      /// 
+      /// Locales: en
+      static let dmInteractiveReplyCommentTitle = Rswift.StringResource(key: "dm.interactive.reply.comment.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: save your data
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -7959,6 +7975,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("room.setup.amongus.title", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: commented on your post
+      /// 
+      /// Locales: en
+      static func dmInteractiveCommentTitle(_: Void = ()) -> String {
+        return NSLocalizedString("dm.interactive.comment.title", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: create a channel
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -7971,6 +7994,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func amongChatLoginAuthSourceProfile(_: Void = ()) -> String {
         return NSLocalizedString("among.chat.login.auth.source.profile", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: emoted on your post
+      /// 
+      /// Locales: en
+      static func dmInteractiveEmoteTitle(_: Void = ()) -> String {
+        return NSLocalizedString("dm.interactive.emote.title", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: followers
@@ -8048,6 +8078,20 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func premiumLifetime(_: Void = ()) -> String {
         return NSLocalizedString("premium.lifetime", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: liked your comment
+      /// 
+      /// Locales: en
+      static func dmInteractiveCommentLikeTitle(_: Void = ()) -> String {
+        return NSLocalizedString("dm.interactive.comment.like.title", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: replied to your comment
+      /// 
+      /// Locales: en
+      static func dmInteractiveReplyCommentTitle(_: Void = ()) -> String {
+        return NSLocalizedString("dm.interactive.reply.comment.title", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: save your data
@@ -8625,10 +8669,6 @@ struct _R: Rswift.Validatable {
       
       func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> InteractiveMsgTableCell? {
         return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? InteractiveMsgTableCell
-      }
-      
-      func secondView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
-        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[1] as? UIKit.UIView
       }
       
       fileprivate init() {}

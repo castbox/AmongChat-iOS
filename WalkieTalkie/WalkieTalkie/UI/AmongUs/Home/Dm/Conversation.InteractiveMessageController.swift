@@ -16,6 +16,7 @@ extension Conversation {
     
     struct InteractiveMessageCellViewModel {
         let msg: Entity.DMInteractiveMessage
+        let emote: URL?
         let timeString: String?
         let height: CGFloat
         
@@ -36,6 +37,7 @@ extension Conversation {
             } else {
                 contentHeight = 0
             }
+            emote = Settings.shared.globalSetting.value?.feedEmotes.first(where: { $0.id == (msg.emoteIds.first ?? "") })?.img
             self.height = 111 + contentHeight
         }
         
@@ -59,7 +61,7 @@ extension Conversation {
             let tb = UITableView(frame: .zero, style: .plain)
             tb.dataSource = self
             tb.delegate = self
-            tb.register(cellWithClass: InteractiveMsgTableCell.self)
+            tb.register(nibWithCellClass: InteractiveMsgTableCell.self)
             tb.separatorStyle = .none
             tb.backgroundColor = .clear
             return tb
@@ -98,7 +100,7 @@ extension Conversation {
             view.addSubview(tableView)
             tableView.snp.makeConstraints { (maker) in
                 maker.left.right.equalToSuperview()
-                maker.top.equalTo(navView.snp.bottom).offset(20)
+                maker.top.equalTo(navView.snp.bottom)
                 maker.bottom.equalTo(bottomLayoutGuide.snp.top)
             }
             tableView.pullToRefresh { [weak self] in
@@ -118,8 +120,10 @@ extension Conversation {
                     self.dataSource = data.list.map { InteractiveMessageCellViewModel(msg: $0) }
                     if self.dataSource.isEmpty {
                         self.addNoDataView(R.string.localizable.errorNoTeammates(), image: R.image.ac_among_apply_empty())
+                    } else {
+                        self.removeNoDataView()
                     }
-                    self.tableView.endLoadMore(data.more ?? false)
+                    self.tableView.endLoadMore(data.more)
                 }, onError: { [weak self](error) in
                     removeBlock()
                     self?.addErrorView({ [weak self] in

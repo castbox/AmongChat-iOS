@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import RxCocoa
+import RxSwift
 
 class InteractiveMsgTableCell: UITableViewCell {
 
@@ -19,8 +21,10 @@ class InteractiveMsgTableCell: UITableViewCell {
     @IBOutlet weak var commentLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var redDotView: UIView!
+    @IBOutlet weak var emoteView: UIImageView!
     
     private var viewModel: Conversation.InteractiveMessageCellViewModel?
+    private let bag = DisposeBag()
     
     func configView(with viewModel: Conversation.InteractiveMessageCellViewModel) {
         self.viewModel = viewModel
@@ -28,22 +32,27 @@ class InteractiveMsgTableCell: UITableViewCell {
         avatarView.setAvatarImage(with: msg.pictureUrl)
         avatarView.isVerify = msg.isVerified
         nameLabel.attributedText = msg.nameWithVerified()
-        desLabel.text = msg.opType?.rawValue
+        desLabel.text = msg.opType?.title
         postCoverView.setImage(with: msg.img)
         timeLabel.text = viewModel.timeString
         commentLabel.text = msg.text
-    }
-    
-    @IBAction func tapAvatarAction(_ sender: Any) {
-        guard let uid = viewModel?.msg.uid else {
-            return
-        }
-        Routes.handle("/profile/\(uid)")
+        emoteView.setImage(with: viewModel.emote, placeholder: nil)
+        emoteView.isHidden = msg.opType != .emotes
     }
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        
+        avatarView.rx.tapGesture()
+            .when(.recognized)
+            .subscribe(onNext: { [weak self] _ in
+                guard let uid = self?.viewModel?.msg.uid else {
+                    return
+                }
+                Routes.handle("/profile/\(uid)")
+            })
+            .disposed(by: bag)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

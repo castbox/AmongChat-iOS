@@ -431,6 +431,19 @@ extension Entity {
     }
 }
 
+extension Entity.DMInteractiveMessage.OpType {
+    var title: String {
+        switch self {
+        case .like:
+            return R.string.localizable.dmInteractiveCommentLikeTitle()
+        case .emotes:
+            return R.string.localizable.dmInteractiveEmoteTitle()
+        case .comment:
+            return R.string.localizable.dmInteractiveCommentLikeTitle()
+        }
+    }
+}
+
 extension Peer.MessageType: ColumnCodable {
     init?(with value: FundamentalValue) {
         guard let type = Peer.MessageType(rawValue: value.stringValue) else { return nil }
