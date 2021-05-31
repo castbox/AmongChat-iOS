@@ -66,6 +66,7 @@ extension Feed.Comments {
             l.font = R.font.nunitoExtraBold(size: 14)
             l.textColor = .white
             l.numberOfLines = 0
+            l.isUserInteractionEnabled = true
             return l
         }()
         
@@ -144,6 +145,13 @@ extension Feed.Comments {
                 maker.trailing.lessThanOrEqualToSuperview().offset(-Frame.horizontalBleedWidth)
             }
             
+            let commentTap = UITapGestureRecognizer()
+            commentLabel.addGestureRecognizer(commentTap)
+            commentTap.rx.event
+                .subscribe(onNext: { [weak self] (_) in
+                    self?.replyHandler?()
+                })
+                .disposed(by: bag)
         }
         
         func bindData(comment: CommentViewModel,
@@ -188,6 +196,8 @@ extension Feed.Comments {
             return CGSize(width: UIScreen.main.bounds.width, height: height)
         }
         
+        private let bag = DisposeBag()
+        
         private lazy var avatarView: AvatarImageView = {
             let iv = AvatarImageView()
             return iv
@@ -207,6 +217,8 @@ extension Feed.Comments {
             l.numberOfLines = 0
             return l
         }()
+        
+        private var replyHandler: (() -> Void)? = nil
         
         override init(frame: CGRect) {
             super.init(frame: frame)
@@ -242,12 +254,22 @@ extension Feed.Comments {
                 maker.trailing.equalToSuperview().inset(Self.commentTrailing)
                 maker.top.equalTo(Self.commentTop)
             }
+            
+            let tap = UITapGestureRecognizer()
+            contentView.addGestureRecognizer(tap)
+            tap.rx.event
+                .subscribe(onNext: { [weak self] (_) in
+                    self?.replyHandler?()
+                })
+                .disposed(by: bag)
+
         }
         
-        func bindData(reply: ReplyViewModel) {
+        func bindData(reply: ReplyViewModel, replyHandler: @escaping (() -> Void)) {
             avatarView.updateAvatar(with: reply.reply.user)
             nameLabel.text = reply.reply.user.name
             commentLabel.text = reply.content
+            self.replyHandler = replyHandler
         }
         
     }
@@ -304,6 +326,122 @@ extension Feed.Comments {
             actionButton.setTitle(comment.expandActionTitle, for: .normal)
             actionButton.setImage(comment.expandActionIcon, for: .normal)
             self.tapAction = tapAction
+        }
+        
+    }
+    
+}
+
+extension Feed.Comments {
+    
+    class CommentInputView: UIView, UITextViewDelegate {
+        
+        private let bag = DisposeBag()
+        
+        private let maxInputLength = Int(280)
+        private let textViewMinHeight = CGFloat(40)
+        
+        private let sendSignal = PublishSubject<Void>()
+        
+        var sendObservable: Observable<Void> {
+            return sendSignal.asObservable()
+        }
+        
+        private(set) lazy var inputTextView: UITextView = {
+            let f = UITextView()
+            f.backgroundColor = .clear
+            f.keyboardAppearance = .dark
+            f.returnKeyType = .send
+            f.textContainerInset = UIEdgeInsets(top: 9, left: 16, bottom: 9, right: 16)
+            f.textContainer.lineFragmentPadding = 0
+            f.delegate = self
+            f.font = R.font.nunitoBold(size: 16)
+            f.textColor = .white
+            f.rx.text
+                .subscribe(onNext: { [weak self] (text) in
+                    
+                    guard let `self` = self else { return }
+                    
+                    self.placeholderLabel.isHidden = (text != nil) && text!.count > 0
+                    
+                })
+                .disposed(by: bag)
+            f.showsVerticalScrollIndicator = false
+            f.showsHorizontalScrollIndicator = false
+            return f
+        }()
+        
+        private(set) lazy var placeholderLabel: UILabel = {
+            let l = UILabel()
+            l.numberOfLines = 0
+            l.font = R.font.nunitoExtraBold(size: 18)
+            l.textColor = UIColor(hex6: 0x363636)
+            l.text = R.string.localizable.feedCommentsPlaceholder()
+            return l
+        }()
+        
+        override init(frame: CGRect) {
+            super.init(frame: frame)
+            setUpLayout()
+            setUpEvents()
+        }
+        
+        required init?(coder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
+        }
+        
+        private func setUpLayout() {
+            
+            backgroundColor = UIColor(hex6: 0x2B2B2B)
+            layer.cornerRadius = 20
+            layer.masksToBounds = true
+            
+            addSubviews(views: inputTextView, placeholderLabel)
+            
+            inputTextView.snp.makeConstraints { (maker) in
+                maker.edges.equalToSuperview()
+                maker.height.equalTo(textViewMinHeight)
+            }
+            
+            placeholderLabel.snp.makeConstraints { (maker) in
+                maker.leading.equalToSuperview().offset(16)
+                maker.top.equalToSuperview().offset(9)
+            }
+        }
+        
+        func setUpEvents() {
+            
+            inputTextView.rx.text
+                .subscribe(onNext: { [weak self] (_) in
+                    guard let `self` = self else { return }
+                    
+                    let height = self.inputTextView.contentSize.height
+                    self.inputTextView.snp.updateConstraints { (maker) in
+                        maker.height.equalTo(max(self.textViewMinHeight, height))
+                    }
+                })
+                .disposed(by: bag)
+        }
+        
+        // MARK: - UITextView Delegate
+        
+        func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+            guard let textFieldText = textView.text,
+                  let rangeOfTextToReplace = Range(range, in: textFieldText) else {
+                return false
+            }
+            
+            if text == "\n"{
+                // do your stuff here
+                // return false here, if you want to disable user from adding newline
+                textView.resignFirstResponder()
+                sendSignal.onNext(())
+                return false
+            }
+            
+            let substringToReplace = textFieldText[rangeOfTextToReplace]
+            let count = textFieldText.count - substringToReplace.count + text.count
+            return count <= maxInputLength
         }
         
     }

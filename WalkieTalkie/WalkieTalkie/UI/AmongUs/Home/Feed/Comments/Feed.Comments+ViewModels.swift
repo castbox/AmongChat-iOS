@@ -148,7 +148,7 @@ extension Feed.Comments {
                     var cached = self.repliesRelay.value
                     cached.insert(replyVM, at: 0)
                     self.repliesRelay.accept(cached)
-                    
+                    self.comment.replyCount += 1
                 }).map { _ in }
             
         }
@@ -165,7 +165,8 @@ extension Feed.Comments {
                     var cached = self.repliesRelay.value
                     cached.insert(replyVM, at: 0)
                     self.repliesRelay.accept(cached)
-                    
+                    self.comment.replyCount += 1
+
                 }).map { _ in }
             
         }

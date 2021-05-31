@@ -14,8 +14,6 @@ extension Feed.Comments {
     
     class CommentsListViewController: WalkieTalkie.ViewController {
         
-        //TODO: - comment input
-        
         private lazy var titleLabel: UILabel = {
             let lb = UILabel()
             lb.font = R.font.nunitoExtraBold(size: 16)
@@ -67,6 +65,44 @@ extension Feed.Comments {
             v.delegate = self
             v.backgroundColor = .clear
             v.alwaysBounceVertical = true
+            v.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 98, right: 0)
+            v.keyboardDismissMode = .interactive
+            return v
+        }()
+        
+        private lazy var commentInputView: CommentInputView = {
+            let v = CommentInputView()
+            return v
+        }()
+                
+        private lazy var bottomBar: UIView = {
+            let v = UIView()
+            v.backgroundColor = UIColor(hex6: 0x1C1C1C)
+            let a = AvatarImageView()
+            Settings.shared.amongChatUserProfile.replay().filterNil()
+                .subscribe(onNext: { (profile) in
+                    a.updateAvatar(with: profile)
+                })
+                .disposed(by: bag)
+            let line = UIView()
+            line.backgroundColor = UIColor(hex6: 0xFFFFFF, alpha: 0.06)
+            v.addSubviews(views: line, a, commentInputView)
+            line.snp.makeConstraints { (maker) in
+                maker.leading.top.trailing.equalToSuperview()
+                maker.height.equalTo(1)
+            }
+            a.snp.makeConstraints { (maker) in
+                maker.width.height.equalTo(40)
+                maker.leading.equalToSuperview().offset(Frame.horizontalBleedWidth)
+                maker.top.equalToSuperview().offset(12)
+            }
+            
+            commentInputView.snp.makeConstraints { (maker) in
+                maker.leading.equalTo(a.snp.trailing).offset(16)
+                maker.trailing.equalToSuperview().offset(-Frame.horizontalBleedWidth)
+                maker.top.equalToSuperview().offset(12)
+                maker.bottom.equalToSuperview().offset(-46)
+            }
             return v
         }()
         
@@ -82,6 +118,9 @@ extension Feed.Comments {
                 oldValue.forEach { $0.dispose() }
             }
         }
+        
+        private var replyComment: CommentViewModel? = nil
+        private var replyReply: ReplyViewModel? = nil
         
         init(with feedId: String) {
             self.commentListVM = CommentListViewModel(with: feedId)
@@ -106,7 +145,7 @@ extension Feed.Comments.CommentsListViewController {
     
     private func setUpLayout() {
         
-        view.addSubviews(views: topBar, commentListView)
+        view.addSubviews(views: topBar, commentListView, bottomBar)
         
         topBar.snp.makeConstraints { (maker) in
             maker.leading.top.trailing.equalToSuperview()
@@ -128,6 +167,12 @@ extension Feed.Comments.CommentsListViewController {
                     
                 })
                 .disposed(by: self.bag)
+        }
+        
+        bottomBar.snp.makeConstraints { (maker) in
+            maker.leading.trailing.equalToSuperview()
+            maker.bottom.equalToSuperview().offset(0)
+            maker.top.greaterThanOrEqualTo(topBar.snp.bottom)
         }
         
         commentListVM.loadComments()
@@ -152,6 +197,59 @@ extension Feed.Comments.CommentsListViewController {
                 }
             })
             .disposed(by: bag)
+        
+        RxKeyboard.instance.visibleHeight.asObservable()
+            .subscribe(onNext: { [weak self] keyboardVisibleHeight in
+                
+                guard let `self` = self else { return }
+                
+                guard keyboardVisibleHeight > 0 else {
+                    self.bottomBar.snp.updateConstraints { (maker) in
+                        maker.bottom.equalToSuperview().offset(0)
+                    }
+                    return
+                }
+                
+                self.bottomBar.snp.updateConstraints { (maker) in
+                    maker.bottom.equalToSuperview().offset(-(keyboardVisibleHeight - 34))
+                }
+                
+            })
+            .disposed(by: bag)
+        
+        commentInputView.sendObservable
+            .map({ [weak self] _ in
+                self?.commentInputView.inputTextView.text
+            })
+            .subscribe(onNext: { [weak self] (text) in
+                self?.sendComment()
+            })
+            .disposed(by: bag)
+        
+    }
+    
+    private func sendComment() {
+        
+        let action: Single<Void>
+        
+        if let reply = replyReply,
+           let comment = replyComment {
+            action = comment.replyToReply(reply, text: commentInputView.inputTextView.text)
+        } else if let comment = replyComment {
+            action = comment.replyToComment(comment, text: commentInputView.inputTextView.text)
+        } else {
+            action = commentListVM.addComment(text: commentInputView.inputTextView.text)
+        }
+        
+        action.subscribe(onSuccess: { [weak self] (_) in
+            self?.replyComment = nil
+            self?.replyReply = nil
+            self?.commentInputView.inputTextView.text = ""
+            self?.commentInputView.placeholderLabel.text = R.string.localizable.feedCommentsPlaceholder()
+        }, onError: { [weak self] (error) in
+            self?.view.raft.autoShow(.text(error.msgOfError ?? ""))
+        })
+        .disposed(by: bag)
         
     }
 }
@@ -198,9 +296,10 @@ extension Feed.Comments.CommentsListViewController: UICollectionViewDataSource {
                     .disposed(by: self.bag)
                 
             }, replyHandler: { [weak self] in
-                
                 guard let `self` = self else { return }
-                
+                self.commentInputView.inputTextView.becomeFirstResponder()
+                self.commentInputView.placeholderLabel.text = R.string.localizable.amongChatReply() + " @\(comment.comment.user.name ?? "")"
+                self.replyComment = comment
             })
             
             return cell
@@ -210,7 +309,13 @@ extension Feed.Comments.CommentsListViewController: UICollectionViewDataSource {
             if let reply = comment.replies.safe(indexPath.item - 1),
                !comment.repliesCollapsed {
                 let cell = collectionView.dequeueReusableCell(withClazz: Feed.Comments.ReplyCell.self, for: indexPath)
-                cell.bindData(reply: reply)
+                cell.bindData(reply: reply) { [weak self] in
+                    guard let `self` = self else { return }
+                    self.commentInputView.inputTextView.becomeFirstResponder()
+                    self.commentInputView.placeholderLabel.text = R.string.localizable.amongChatReply() + " @\(reply.reply.user.name ?? "")"
+                    self.replyReply = reply
+                    self.replyComment = comment
+                }
                 return cell
             } else {
                 let cell = collectionView.dequeueReusableCell(withClazz: Feed.Comments.ExpandReplyCell.self, for: indexPath)
