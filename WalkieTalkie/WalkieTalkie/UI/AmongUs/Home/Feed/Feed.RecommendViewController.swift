@@ -25,33 +25,14 @@ extension Feed {
             super.viewDidLoad()
         }
         
-        override func loadData() {
-            let removeBlock = view.raft.show(.loading)
-            Request.userFeeds(Settings.loginUserId, skipMs: 0) //Settings.loginUserId
-                .do(onSuccess: { [weak self] data in
-                    removeBlock()
-                    guard let `self` = self else { return }
-                    self.dataSource = data.list.map { Feed.ListCellViewModel(feed: $0) }
-                }, onDispose: {
-                    removeBlock()
-                })
-                .delay(.fromSeconds(0.2), scheduler: MainScheduler.asyncInstance)
-                .subscribe(onSuccess: { [weak self] data in
-                    //play first
-                    self?.replayVisibleItem()
-                }, onError: { [weak self](error) in
-                    self?.addErrorView({ [weak self] in
-                        self?.loadData()
-                    })
-                }).disposed(by: bag)
-        }
+        override func loadData()
 //        {
 //            let removeBlock = view.raft.show(.loading)
-//            Request.recommendFeeds(excludePids: []) //Settings.loginUserId
+//            Request.userFeeds(Settings.loginUserId, skipMs: 0) //Settings.loginUserId
 //                .do(onSuccess: { [weak self] data in
 //                    removeBlock()
 //                    guard let `self` = self else { return }
-//                    self.dataSource = data?.map { Feed.ListCellViewModel(feed: $0) } ?? []
+//                    self.dataSource = data.list.map { Feed.ListCellViewModel(feed: $0) }
 //                }, onDispose: {
 //                    removeBlock()
 //                })
@@ -65,6 +46,26 @@ extension Feed {
 //                    })
 //                }).disposed(by: bag)
 //        }
+        {
+            let removeBlock = view.raft.show(.loading)
+            Request.recommendFeeds(excludePids: []) //Settings.loginUserId
+                .do(onSuccess: { [weak self] data in
+                    removeBlock()
+                    guard let `self` = self else { return }
+                    self.dataSource = data?.map { Feed.ListCellViewModel(feed: $0) } ?? []
+                }, onDispose: {
+                    removeBlock()
+                })
+                .delay(.fromSeconds(0.2), scheduler: MainScheduler.asyncInstance)
+                .subscribe(onSuccess: { [weak self] data in
+                    //play first
+                    self?.replayVisibleItem()
+                }, onError: { [weak self](error) in
+                    self?.addErrorView({ [weak self] in
+                        self?.loadData()
+                    })
+                }).disposed(by: bag)
+        }
         
         override func bindSubviewEvent() {
             super.bindSubviewEvent()
