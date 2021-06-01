@@ -60,6 +60,8 @@ extension Routes {
                         self.handleAllNotice()
                     case let message as URI.DMMessage:
                         self.handleDmMessage(message.uid)
+                    case let profileFeed as URI.ProfileFeeds:
+                        self.handleProfileFeeds(profileFeed)
                     default:
                         cdAssertFailure("should never enter here")
                     }
@@ -177,6 +179,14 @@ extension Routes {
         
         func handleAllNotice() {
             let vc = Notice.AllNoticeViewController()
+            UIApplication.topViewController()?.navigationController?.pushViewController(vc)
+        }
+        
+        func handleProfileFeeds(_ profileFeeds: URI.ProfileFeeds) {
+            guard let uid = profileFeeds.uid else {
+                return
+            }
+            let vc = Social.ProfileFeedController(with: uid)
             UIApplication.topViewController()?.navigationController?.pushViewController(vc)
         }
         

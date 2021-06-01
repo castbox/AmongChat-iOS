@@ -231,6 +231,25 @@ extension URI {
         }
     }
     
+    struct ProfileFeeds: URIRepresentable {
+        
+        static func patterns() -> [String] {
+            return [
+                "/profile/feeds/:uid",
+                "/profile/feeds"
+            ]
+        }
+        
+        let uid: Int?
+        let index: Int?
+        
+        init?(_ paras: [String: Any]) {
+            self.uid = Int(paras["uid"] as? String ?? "")
+            self.index = Int(paras["index"] as? String ?? "")
+        }
+        
+    }
+    
     struct Undefined: URIRepresentable {
         
         static func patterns() -> [String] {

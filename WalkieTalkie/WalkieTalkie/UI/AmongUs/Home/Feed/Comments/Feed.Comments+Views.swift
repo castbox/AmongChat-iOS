@@ -388,6 +388,8 @@ extension Feed.Comments {
         
         private let sendSignal = PublishSubject<Void>()
         
+        var enableAutoResizeHeight = true
+        
         var sendObservable: Observable<Void> {
             return sendSignal.asObservable()
         }
@@ -458,7 +460,7 @@ extension Feed.Comments {
             
             inputTextView.rx.text
                 .subscribe(onNext: { [weak self] (_) in
-                    guard let `self` = self else { return }
+                    guard let `self` = self, self.enableAutoResizeHeight else { return }
                     
                     let height = self.inputTextView.contentSize.height
                     self.inputTextView.snp.updateConstraints { (maker) in

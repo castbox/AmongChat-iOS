@@ -232,7 +232,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 253 images.
+  /// This `R.image` struct is generated, and contains static references to 254 images.
   struct image {
     /// Image `ac_add_stats_add`.
     static let ac_add_stats_add = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_add_stats_add")
@@ -632,6 +632,8 @@ struct R: Rswift.Validatable {
     static let iconNewVersion = Rswift.ImageResource(bundle: R.hostingBundle, name: "iconNewVersion")
     /// Image `iconPoweredbyBlackVert`.
     static let iconPoweredbyBlackVert = Rswift.ImageResource(bundle: R.hostingBundle, name: "iconPoweredbyBlackVert")
+    /// Image `iconProfileFeedPlayCount`.
+    static let iconProfileFeedPlayCount = Rswift.ImageResource(bundle: R.hostingBundle, name: "iconProfileFeedPlayCount")
     /// Image `iconReportDelete`.
     static let iconReportDelete = Rswift.ImageResource(bundle: R.hostingBundle, name: "iconReportDelete")
     /// Image `iconReportImageAdd`.
@@ -1736,6 +1738,11 @@ struct R: Rswift.Validatable {
       return UIKit.UIImage(resource: R.image.iconPoweredbyBlackVert, compatibleWith: traitCollection)
     }
     
+    /// `UIImage(named: "iconProfileFeedPlayCount", bundle: ..., traitCollection: ...)`
+    static func iconProfileFeedPlayCount(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.iconProfileFeedPlayCount, compatibleWith: traitCollection)
+    }
+    
     /// `UIImage(named: "iconReport", bundle: ..., traitCollection: ...)`
     static func iconReport(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.iconReport, compatibleWith: traitCollection)
@@ -2639,7 +2646,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
     
-    /// This `R.string.localizable` struct is generated, and contains static references to 512 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 513 localization keys.
     struct localizable {
       /// en translation:  Congratulations!
       /// 
@@ -3017,6 +3024,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatCustomAvatarClose = Rswift.StringResource(key: "among.chat.custom.avatar.close", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Comment posted
+      /// 
+      /// Locales: en
+      static let feedCommentsCommentSuccess = Rswift.StringResource(key: "feed.comments.comment.success", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Comments
       /// 
       /// Locales: en
@@ -5346,6 +5357,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func amongChatCustomAvatarClose(_: Void = ()) -> String {
         return NSLocalizedString("among.chat.custom.avatar.close", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Comment posted
+      /// 
+      /// Locales: en
+      static func feedCommentsCommentSuccess(_: Void = ()) -> String {
+        return NSLocalizedString("feed.comments.comment.success", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Comments

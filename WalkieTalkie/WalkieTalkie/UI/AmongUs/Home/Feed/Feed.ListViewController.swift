@@ -1,5 +1,5 @@
 //
-//  AmongChat.Home.FeedViewController.swift
+//  Feed.ListViewController.swift
 //  WalkieTalkie
 //
 //  Created by 袁仕崇 on 25/05/21.
@@ -13,10 +13,7 @@ import RxSwift
 import VIMediaCache
 
 extension Feed {
-    class CellViewModel { //: Equatable
-//        static func == (lhs: Feed.CellViewModel, rhs: Feed.CellViewModel) -> Bool {
-//            lhs.feed.pid == rhs.feed.pid
-//        }
+    class ListCellViewModel { //: Equatable
         
         var feed: Entity.Feed {
             didSet {
@@ -52,7 +49,11 @@ extension Feed {
             updateEmotes()
         }
         
-        func updateEmotes() {
+        func increasementCommentCount() {
+            feed.cmtCount += 1
+        }
+        
+        private func updateEmotes() {
             let feedEmotes = Settings.shared.globalSetting.value?.feedEmotes ?? []
             
             var emotes = feed.emotes.map { item -> Entity.FeedEmote in
@@ -76,25 +77,25 @@ extension Feed {
 }
 
 extension Feed {
-    class ViewModel {
+    class ListViewModel {
         let bag = DisposeBag()
         
         func reportPlay(_ pid: String?) {
             guard let pid = pid else {
                 return
             }
-            Request.feedReportPlay(pid)
-                .subscribe()
-                .disposed(by: bag)
+//            Request.feedReportPlay(pid)
+//                .subscribe()
+//                .disposed(by: bag)
         }
         
         func reportPlayFinish(_ pid: String?) {
             guard let pid = pid else {
                 return
             }
-            Request.feedReportPlayFinish(pid)
-                .subscribe()
-                .disposed(by: bag)
+//            Request.feedReportPlayFinish(pid)
+//                .subscribe()
+//                .disposed(by: bag)
         }
         
         func reportNotIntereasted(_ pid: String?) -> Single<Bool> {
@@ -124,27 +125,25 @@ extension Feed {
     }
 }
 
-extension AmongChat.Home {
+extension Feed {
     
-    class FeedViewController: WalkieTalkie.ViewController {
+    class ListViewController: WalkieTalkie.ViewController {
+                
+        var tableView: UITableView!
         
-        private var createButton: UIButton!
-        private var tableView: UITableView!
+        lazy var viewModel = Feed.ListViewModel()
         
-        private var currentIndex = 0
-        private lazy var viewModel = Feed.ViewModel()
         private let videoEditor = VideoEditor()
-        private let disposeBag = DisposeBag()
-        private var dataSource: [Feed.CellViewModel] = [] {
+        
+        var feedHeight: CGFloat = 0
+        
+        var dataSource: [Feed.ListCellViewModel] = [] {
             didSet {
                 tableView.reloadData()
             }
         }
-        
-        override var isHidesBottomBarWhenPushed: Bool {
-            return false
-        }
-        
+        var currentIndex = 0
+                
         // MARK: - Lifecycles
         override func viewDidLoad() {
             super.viewDidLoad()
@@ -170,11 +169,68 @@ extension AmongChat.Home {
             }
         }
 
+        func loadData() {
+
+        }
+        
+        func loadMore() {
+
+        }
+        
+        func replayVisibleItem() {
+            guard isVisible else {
+                return
+            }
+            if let cell = tableView.cellForRow(at: IndexPath(row: currentIndex, section: 0)) as? FeedListCell {
+                cell.replay()
+                viewModel.reportPlay(cell.viewModel?.feed.pid)
+            } else {
+                if let cell = tableView.visibleCells.first as? FeedListCell {
+                    cell.replay()
+                    viewModel.reportPlay(cell.viewModel?.feed.pid)
+                }
+            }
+        }
+        
+        func configureSubview() {
+                        
+            tableView = UITableView()
+            tableView.backgroundColor = .black
+    //        tableView.translatesAutoresizingMaskIntoConstraints = false  // Enable Auto Layout
+            tableView.tableFooterView = UIView()
+            tableView.isPagingEnabled = true
+            if #available(iOS 11.0, *) {
+                tableView.contentInsetAdjustmentBehavior = .never
+            }
+            tableView.showsVerticalScrollIndicator = false
+            tableView.separatorStyle = .none
+            tableView.register(nibWithCellClass: FeedListCell.self)
+            tableView.delegate = self
+            tableView.dataSource = self
+            tableView.prefetchDataSource = self
+            view.addSubviews(views: tableView)
+            
+            tableView.snp.makeConstraints { maker in
+                maker.top.leading.trailing.equalToSuperview()
+                maker.bottom.equalTo(-Frame.Height.bottomBar)
+            }            
+        }
+        
+        func bindSubviewEvent() {
+            Settings.shared.loginResult.replay()
+                .filterNil()
+                .subscribe(onNext: { [weak self] _ in
+                    self?.loadData()
+                })
+                .disposed(by: bag)
+            
+            setAudioMode()
+        }
     }
 }
 
 // MARK: - Table View Extensions
-extension AmongChat.Home.FeedViewController: UITableViewDelegate, UITableViewDataSource, UITableViewDataSourcePrefetching {
+extension Feed.ListViewController: UITableViewDelegate, UITableViewDataSource, UITableViewDataSourcePrefetching {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return dataSource.count
@@ -190,10 +246,7 @@ extension AmongChat.Home.FeedViewController: UITableViewDelegate, UITableViewDat
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if self.tabBarController != nil {
-            return Frame.Screen.height - Frame.Height.bottomBar
-        }
-        return tableView.frame.height
+        return feedHeight
     }
     
     
@@ -217,16 +270,21 @@ extension AmongChat.Home.FeedViewController: UITableViewDelegate, UITableViewDat
     }
     
     func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
-//        for indexPath in indexPaths {
-//            print(indexPath.row)
-//        }
+        for indexPath in indexPaths {
+            print("prefetchRowsAt: \(indexPath.row)")
+        }
     }
     
     
 }
 
 // MARK: - ScrollView Extension
-extension AmongChat.Home.FeedViewController: UIScrollViewDelegate {
+extension Feed.ListViewController: UIScrollViewDelegate {
+    
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        
+    }
+    
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         replayVisibleItem()
     }
@@ -234,7 +292,7 @@ extension AmongChat.Home.FeedViewController: UIScrollViewDelegate {
 }
 
 
-extension AmongChat.Home.FeedViewController {
+extension Feed.ListViewController {
     func updateEmoteState(with pid: String, emoteId: String, isSelect: Bool, index: Int)  {
         let resultSingle: Single<Bool>
         if isSelect {
@@ -365,59 +423,6 @@ extension AmongChat.Home.FeedViewController {
         }
     }
     
-    func replayVisibleItem() {
-        guard isVisible else {
-            return
-        }
-        if let cell = tableView.cellForRow(at: IndexPath(row: currentIndex, section: 0)) as? FeedListCell {
-            cell.replay()
-            viewModel.reportPlay(cell.viewModel?.feed.pid)
-        } else {
-            if let cell = tableView.visibleCells.first as? FeedListCell {
-                cell.replay()
-                viewModel.reportPlay(cell.viewModel?.feed.pid)
-            }
-        }
-    }
-    
-    private func loadData() {
-        let removeBlock = view.raft.show(.loading)
-        Request.userFeeds(Settings.loginUserId, skipMs: 0)
-            .do(onSuccess: { [weak self] data in
-                removeBlock()
-                guard let `self` = self else { return }
-                self.dataSource = data.list.map { Feed.CellViewModel(feed: $0) }
-            }, onDispose: {
-                removeBlock()
-            })
-            .delay(.fromSeconds(0.2), scheduler: MainScheduler.asyncInstance)
-            .subscribe(onSuccess: { [weak self] data in
-                //play first
-                self?.replayVisibleItem()
-            }, onError: { [weak self](error) in
-                self?.addErrorView({ [weak self] in
-                    self?.loadData()
-                })
-            }).disposed(by: bag)
-    }
-    
-    private func loadMore() {
-//        let removeBlock = view.raft.show(.loading)
-//        let skipMS = dataSource.last?.msg.opTime ?? 0
-//        Request.interactiveMsgs(opType, skipMs: skipMS)
-//            .subscribe(onSuccess: { [weak self](data) in
-//                removeBlock()
-//                guard let `self` = self else { return }
-//                let list = data.list.map { InteractiveMessageCellViewModel(msg: $0) }
-//                var origenList = self.dataSource
-//                list.forEach({ origenList.append($0)})
-//                self.dataSource = origenList
-//                self.tableView.endLoadMore(data.more ?? false)
-//            }, onError: { (error) in
-//                removeBlock()
-//            }).disposed(by: bag)
-    }
-    
     func setAudioMode() {
         do {
             try! AVAudioSession.sharedInstance().setCategory(.playback, mode: .moviePlayback)
@@ -428,48 +433,4 @@ extension AmongChat.Home.FeedViewController {
         
     }
 
-    func configureSubview() {
-        
-        createButton = SmallSizeButton(type: .custom)
-        createButton.setImage(R.image.iconVideoCreate(), for: .normal)
-        
-        tableView = UITableView()
-        tableView.backgroundColor = .black
-//        tableView.translatesAutoresizingMaskIntoConstraints = false  // Enable Auto Layout
-        tableView.tableFooterView = UIView()
-        tableView.isPagingEnabled = true
-        if #available(iOS 11.0, *) {
-            tableView.contentInsetAdjustmentBehavior = .never
-        }
-        tableView.showsVerticalScrollIndicator = false
-        tableView.separatorStyle = .none
-        view.addSubviews(views: tableView, createButton)
-        tableView.register(nibWithCellClass: FeedListCell.self)
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.prefetchDataSource = self
-        
-        tableView.snp.makeConstraints { maker in
-            maker.top.leading.trailing.equalToSuperview()
-            maker.bottom.equalTo(-Frame.Height.bottomBar)
-        }
-        
-        createButton.snp.makeConstraints { maker in
-            maker.top.equalTo(Frame.Height.safeAeraTopHeight + 4.5)
-            maker.trailing.equalTo(-20)
-            maker.width.height.equalTo(42)
-        }
-    }
-    
-    func bindSubviewEvent() {
-        loadData()
-        setAudioMode()
-
-        createButton.rx.tap
-            .subscribe(onNext: { [weak self] in
-                let vc = Feed.SelectVideoViewController()
-                self?.navigationController?.pushViewController(vc)
-            })
-            .disposed(by: bag)
-    }
 }

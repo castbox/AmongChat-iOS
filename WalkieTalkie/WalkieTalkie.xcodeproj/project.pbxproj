@@ -199,7 +199,7 @@
 		FE169E33261351C400AD7866 /* AmongGroupJoinRequestCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE169E31261351C400AD7866 /* AmongGroupJoinRequestCell.swift */; };
 		FE1A2DF3248A3BDC00F9A44D /* Data+Crypto.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE1A2DF2248A3BDC00F9A44D /* Data+Crypto.swift */; };
 		FE1A2DF5248A4BAD00F9A44D /* emojis.json in Resources */ = {isa = PBXBuildFile; fileRef = FE1A2DF4248A4BAD00F9A44D /* emojis.json */; };
-		FE27B92C265CE30300D1AD1F /* AmongChat.Home.FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE27B92B265CE30300D1AD1F /* AmongChat.Home.FeedViewController.swift */; };
+		FE27B92C265CE30300D1AD1F /* Feed.ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE27B92B265CE30300D1AD1F /* Feed.ListViewController.swift */; };
 		FE2AF9E6244DB0F500763747 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE2AF9E5244DB0F400763747 /* WebViewController.swift */; };
 		FE2AF9E8244DB16F00763747 /* UIViewController+Safari.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE2AF9E7244DB16F00763747 /* UIViewController+Safari.swift */; };
 		FE2AF9EC244DC24300763747 /* AppConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE2AF9EB244DC24300763747 /* AppConfig.swift */; };
@@ -397,6 +397,8 @@
 		FEAE2561262045DC001F10A9 /* BadgeHub.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEAE2560262045DC001F10A9 /* BadgeHub.swift */; };
 		FEAE256726207477001F10A9 /* AmongChat.GroupRoom.GroupRoomBaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEAE256626207477001F10A9 /* AmongChat.GroupRoom.GroupRoomBaseViewModel.swift */; };
 		FEAE256B262078D5001F10A9 /* AmongChat.GroupRoom.ViewController.Audience.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEAE256A262078D5001F10A9 /* AmongChat.GroupRoom.ViewController.Audience.swift */; };
+		FEB308F226662841006849CF /* Profile.FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB308F126662841006849CF /* Profile.FeedViewController.swift */; };
+		FEB308F426663C44006849CF /* Feed.RecommendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB308F326663C44006849CF /* Feed.RecommendViewController.swift */; };
 		FEBCFEA8260C3B9900DD9B8D /* JSBridge.Support.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEBCFEA5260C3B9900DD9B8D /* JSBridge.Support.swift */; };
 		FEBCFEA9260C3B9900DD9B8D /* JSBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEBCFEA6260C3B9900DD9B8D /* JSBridge.swift */; };
 		FEBCFEAA260C3B9900DD9B8D /* JSBridge.Links.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEBCFEA7260C3B9900DD9B8D /* JSBridge.Links.swift */; };
@@ -701,7 +703,7 @@
 		FE169E31261351C400AD7866 /* AmongGroupJoinRequestCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongGroupJoinRequestCell.swift; sourceTree = "<group>"; };
 		FE1A2DF2248A3BDC00F9A44D /* Data+Crypto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Crypto.swift"; sourceTree = "<group>"; };
 		FE1A2DF4248A4BAD00F9A44D /* emojis.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = emojis.json; sourceTree = "<group>"; };
-		FE27B92B265CE30300D1AD1F /* AmongChat.Home.FeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChat.Home.FeedViewController.swift; sourceTree = "<group>"; };
+		FE27B92B265CE30300D1AD1F /* Feed.ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Feed.ListViewController.swift; sourceTree = "<group>"; };
 		FE27B92D265CE89A00D1AD1F /* Feed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Feed.swift; sourceTree = "<group>"; };
 		FE2AF9E5244DB0F400763747 /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		FE2AF9E7244DB16F00763747 /* UIViewController+Safari.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Safari.swift"; sourceTree = "<group>"; };
@@ -902,6 +904,8 @@
 		FEAE2560262045DC001F10A9 /* BadgeHub.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BadgeHub.swift; sourceTree = "<group>"; };
 		FEAE256626207477001F10A9 /* AmongChat.GroupRoom.GroupRoomBaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChat.GroupRoom.GroupRoomBaseViewModel.swift; sourceTree = "<group>"; };
 		FEAE256A262078D5001F10A9 /* AmongChat.GroupRoom.ViewController.Audience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChat.GroupRoom.ViewController.Audience.swift; sourceTree = "<group>"; };
+		FEB308F126662841006849CF /* Profile.FeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.FeedViewController.swift; sourceTree = "<group>"; };
+		FEB308F326663C44006849CF /* Feed.RecommendViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Feed.RecommendViewController.swift; sourceTree = "<group>"; };
 		FEBCFEA5260C3B9900DD9B8D /* JSBridge.Support.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSBridge.Support.swift; sourceTree = "<group>"; };
 		FEBCFEA6260C3B9900DD9B8D /* JSBridge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSBridge.swift; sourceTree = "<group>"; };
 		FEBCFEA7260C3B9900DD9B8D /* JSBridge.Links.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSBridge.Links.swift; sourceTree = "<group>"; };
@@ -1262,7 +1266,8 @@
 				269B66AC265F7CA0001C315A /* Comments */,
 				26728198265CAEB400749D7D /* PostFeed */,
 				FE27B92D265CE89A00D1AD1F /* Feed.swift */,
-				FE27B92B265CE30300D1AD1F /* AmongChat.Home.FeedViewController.swift */,
+				FEB308F326663C44006849CF /* Feed.RecommendViewController.swift */,
+				FE27B92B265CE30300D1AD1F /* Feed.ListViewController.swift */,
 				FE0A0C32265D278000AC9FF7 /* PlayerView.swift */,
 				FE0A0C2E265CECCA00AC9FF7 /* FeedListCell.swift */,
 				FE0A0C2F265CECCA00AC9FF7 /* FeedListCell.xib */,
@@ -1271,6 +1276,7 @@
 				FE0A0F28265E217200AC9FF7 /* Feed.EmotePickerController.swift */,
 				FE0A0F2A265E21CD00AC9FF7 /* Feed.EmotePickerViewModel.swift */,
 				FEFDDBE426651F5C004FF134 /* VideoEditor.swift */,
+				FEB308F126662841006849CF /* Profile.FeedViewController.swift */,
 			);
 			path = Feed;
 			sourceTree = "<group>";
@@ -2346,6 +2352,7 @@
 				FEF170FB25C9598C004C3FD3 /* AmongChat.Room.TopEntranceView.swift in Sources */,
 				FE79F393258CE06D00E9BC6C /* AmongSheetIconItemCell.swift in Sources */,
 				FE0D1A2124489BB700518793 /* FrozenButton.swift in Sources */,
+				FEB308F426663C44006849CF /* Feed.RecommendViewController.swift in Sources */,
 				26F414AA2611DB1D003ED5BE /* FansGroup.Views.swift in Sources */,
 				FE87C2D3259C2EC200799883 /* ShareContainerView.swift in Sources */,
 				269A6DF6261EAD9300A07C7D /* FansGroup.GroupMemberListViewController.swift in Sources */,
@@ -2355,7 +2362,7 @@
 				FE0A0F2B265E21CD00AC9FF7 /* Feed.EmotePickerViewModel.swift in Sources */,
 				263F8ACF26132B3100282F8F /* FansGroup.GroupsViewController.swift in Sources */,
 				FE1A2DF3248A3BDC00F9A44D /* Data+Crypto.swift in Sources */,
-				FE27B92C265CE30300D1AD1F /* AmongChat.Home.FeedViewController.swift in Sources */,
+				FE27B92C265CE30300D1AD1F /* Feed.ListViewController.swift in Sources */,
 				261C35262660A2140058C911 /* Feed.Comments+ViewModels.swift in Sources */,
 				FE684877244BD3D200F87AF9 /* AdsDebugger.swift in Sources */,
 				FEBE521F262D2DF500E49EC4 /* ReportFooterView.swift in Sources */,
@@ -2574,6 +2581,7 @@
 				FE126D5A2434825900BEDD60 /* KeyCenter.swift in Sources */,
 				2B6B5F5225A33FC0009D028D /* AmongChat.Home.RoomJoinViewController.swift in Sources */,
 				2B956771259B5781001C7B91 /* NoDataView.swift in Sources */,
+				FEB308F226662841006849CF /* Profile.FeedViewController.swift in Sources */,
 				FE857C4E2646B9EC008C4ADC /* Conversation.swift in Sources */,
 				FE79F371258C6C6100E9BC6C /* UIViewControllerPermissionExtension.swift in Sources */,
 				FE9BC9EB258A3ED5002F82AF /* Request.AmongChatBackend.swift in Sources */,

@@ -19,15 +19,14 @@ class PlayerView: UIView {
     // MARK: - Variables
     private var videoURL: URL?
     private var originalURL: URL?
-    //    private var asset: AVURLAsset?
+    
     private var playerItem: AVPlayerItem?
     private var avPlayerLayer: AVPlayerLayer!
     private var playerLooper: AVPlayerLooper! // should be defined in class
     private var queuePlayer: AVQueuePlayer?
     private var observer: NSKeyValueObservation?
-    private var cancelLoadingQueue: DispatchQueue?
-    
     private var timeObserver: Any?
+    
     private var resourceLoaderManager: VIResourceLoaderManager?
     
     private(set) var duration: Int = 0
@@ -48,10 +47,9 @@ class PlayerView: UIView {
     }
     
     deinit {
-        queuePlayer?.removeTimeObserver(timeObserver)
-        timeObserver = nil
-        playerItem?.removeObserver(self, forKeyPath: "status")
-        queuePlayer?.removeObserver(self, forKeyPath: "timeControlStatus")
+        cdPrint("[PlayerView] - deinit")
+        removeObserver()
+//        queuePlayer?.removeObserver(self, forKeyPath: "timeControlStatus")
     }
     
     override func layoutSubviews() {
@@ -61,7 +59,6 @@ class PlayerView: UIView {
     }
     
     func configureSubview() {
-        cancelLoadingQueue = DispatchQueue.init(label: "com.cancelLoadingQueue")
         avPlayerLayer = AVPlayerLayer(player: queuePlayer)
         avPlayerLayer.videoGravity = .resizeAspectFill
         layer.addSublayer(self.avPlayerLayer)
@@ -73,8 +70,10 @@ class PlayerView: UIView {
         guard let url = url else {
             return
         }
-        self.originalURL = url
+        cancelAllLoadingRequest()
+        
         cdPrint("configure url: \(url)")
+        self.originalURL = url
         self.loadHandler = loadHandler
         
         resourceLoaderManager = VIResourceLoaderManager()
@@ -96,7 +95,7 @@ class PlayerView: UIView {
         
         avPlayerLayer.player = queuePlayer
         
-        queuePlayer?.addPeriodicTimeObserver(forInterval: CMTime(value: 1, timescale: 10), queue: DispatchQueue(label: "chat.among.player.queue"), using: { [weak self] time in
+        timeObserver = queuePlayer?.addPeriodicTimeObserver(forInterval: CMTime(value: 1, timescale: 10), queue: DispatchQueue(label: "chat.among.player.queue"), using: { [weak self] time in
             mainQueueDispatchAsync {
                 guard let `self` = self, let item = self.queuePlayer?.currentItem else { return }
                 self.callLoadedHandler()
@@ -119,19 +118,26 @@ class PlayerView: UIView {
         })
     }
     
-    /// Clear all remote or local request
     func cancelAllLoadingRequest(){
-        //        removeObserver()
+        removeObserver()
         
         videoURL = nil
         originalURL = nil
-        //        asset = nil
         playerItem = nil
         avPlayerLayer.player = nil
         playerLooper = nil
         
     }
     
+    func removeObserver() {
+        if let observer = observer {
+            observer.invalidate()
+        }
+        if let observer = timeObserver {
+            queuePlayer?.removeTimeObserver(observer)
+        }
+        timeObserver = nil
+    }
     
     func replay(){
         self.queuePlayer?.seek(to: .zero)

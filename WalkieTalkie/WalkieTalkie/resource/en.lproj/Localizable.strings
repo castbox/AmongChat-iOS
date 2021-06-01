@@ -589,3 +589,4 @@
 "feed.comments.collapse" = "Hide";
 "feed.comments.placeholder" = "Add a comment";
 "feed.comments.list.title" = "%1$@ Comments";
+"feed.comments.comment.success" = "Comment posted";

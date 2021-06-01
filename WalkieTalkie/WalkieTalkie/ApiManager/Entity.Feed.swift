@@ -52,7 +52,7 @@ extension Entity {
         let height: Int?
         let status: Int
         //comment count
-        let cmtCount: Int
+        var cmtCount: Int
         let createTime: Int64
         let user: UserProfile
         let topicName: String

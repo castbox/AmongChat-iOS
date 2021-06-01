@@ -103,8 +103,8 @@ extension FansGroup {
             return v
         }()
         
-        private let membersRelay = BehaviorRelay<[CellViewModel]>(value: [])
-        private let selectedMembersRelay = BehaviorRelay<[CellViewModel]>(value: [])
+        private let membersRelay = BehaviorRelay<[ListCellViewModel]>(value: [])
+        private let selectedMembersRelay = BehaviorRelay<[ListCellViewModel]>(value: [])
         private var hasMoreData = true
         private var isLoading = false
         
@@ -253,7 +253,7 @@ extension FansGroup.SelectGroupMemberViewController {
                 if refresh {
                     members.removeAll()
                 }
-                members.append(contentsOf: memberList.list.map({ CellViewModel(user: $0) }))
+                members.append(contentsOf: memberList.list.map({ ListCellViewModel(user: $0) }))
                 self.membersRelay.accept(members)
                 self.hasMoreData = memberList.more
                 self.tableView.endLoadMore(memberList.more)
@@ -347,7 +347,7 @@ extension FansGroup.SelectGroupMemberViewController {
             }
         }
         
-        func bind(user: CellViewModel) {
+        func bind(user: ListCellViewModel) {
             userView.bind(profile: user.user)
             selectBtn.isSelected = user.isSelected
         }
@@ -358,7 +358,7 @@ extension FansGroup.SelectGroupMemberViewController {
 
 extension FansGroup.SelectGroupMemberViewController {
     
-    class CellViewModel {
+    class ListCellViewModel {
         
         let user: Entity.UserProfile
         

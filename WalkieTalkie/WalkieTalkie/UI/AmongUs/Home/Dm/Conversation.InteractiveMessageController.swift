@@ -184,8 +184,20 @@ extension Conversation.InteractiveMessageController: UITableViewDataSource, UITa
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        if let msg = dataSource.safe(indexPath.row) {
-            
+        
+        guard let viewModel = dataSource.safe(indexPath.row) else {
+            return
+        }
+        
+        switch viewModel.msg.opType {
+        case .comment:
+            ()
+        case .emotes:
+            ()
+        case .like:
+            ()
+        case .none:
+            ()
         }
     }
 }

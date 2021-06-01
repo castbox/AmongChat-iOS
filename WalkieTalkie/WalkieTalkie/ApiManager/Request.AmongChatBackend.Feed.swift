@@ -73,7 +73,7 @@ extension Request {
         ]
         return amongchatProvider.rx.request(.recommendFeeds(params))
             .mapJSON()
-            .mapToDataKeyJsonValue()
+            .mapToDataKeyListValue()
             .mapTo([Entity.Feed].self)
             .observeOn(MainScheduler.asyncInstance)
         

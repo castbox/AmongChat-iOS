@@ -66,7 +66,7 @@ class FeedListCell: UITableViewCell {
     
     private let bag = DisposeBag()
     
-    private(set) var viewModel: Feed.CellViewModel?
+    private(set) var viewModel: Feed.ListCellViewModel?
     var actionHandler: ((Action) -> Void)?
     
     private var emotes: [Emote] = [] {
@@ -76,7 +76,7 @@ class FeedListCell: UITableViewCell {
         }
     }
     
-    func config(with viewModel: Feed.CellViewModel?) {
+    func config(with viewModel: Feed.ListCellViewModel?) {
         self.viewModel = viewModel
         guard let viewModel = viewModel else {
             return
@@ -103,16 +103,22 @@ class FeedListCell: UITableViewCell {
         } else {
             shareButton.setTitle("", for: .normal)
         }
-        
+        updateCommentCount()
+    }
+    
+    func update(emotes: [Emote]) {
+        self.emotes = emotes
+    }
+    
+    func updateCommentCount() {
+        guard let feed = viewModel?.feed else {
+            return
+        }
         if feed.cmtCount > 0 {
             commentButton.setTitle(feed.cmtCount.string, for: .normal)
         } else {
             commentButton.setTitle("", for: .normal)
         }
-    }
-    
-    func update(emotes: [Emote]) {
-        self.emotes = emotes
     }
 
     override func prepareForReuse() {
@@ -293,7 +299,8 @@ private extension FeedListCell {
                 guard let uid = self?.viewModel?.feed.uid else {
                     return
                 }
-                Routes.handle("/profile/\(uid)")
+//                Routes.handle("/profile/\(uid)")
+                Routes.handle("/profile/feeds/\(uid)")
             })
             .disposed(by: bag)
         
