@@ -94,8 +94,8 @@ class VideoEditor {
         //    backgroundLayer.contents = UIImage(named: "background")?.cgImage
         backgroundLayer.contentsGravity = .resizeAspectFill
         
-//        addConfetti(to: overlayLayer)
-//        addImage(to: overlayLayer, videoSize: videoSize)
+        //        addConfetti(to: overlayLayer)
+        //        addImage(to: overlayLayer, videoSize: videoSize)
         add(tag: image, to: overlayLayer, videoSize: videoSize)
         
         //    add(
@@ -136,15 +136,24 @@ class VideoEditor {
         }
         
         let videoName = UUID().uuidString
-        let exportURL = URL(fileURLWithPath: NSTemporaryDirectory())
+        let exportDirURL = URL(fileURLWithPath: NSTemporaryDirectory())
             .appendingPathComponent("exported", isDirectory: true)
+        
+        let (result, error) = FileManager.createFolder(folderPath: exportDirURL.path)
+        guard result else {
+            cdPrint("error: \(error)")
+            onComplete(nil)
+            return
+        }
+        
+        let exportURL = exportDirURL
             .appendingPathComponent(videoName)
             .appendingPathExtension("mp4")
         
         export.videoComposition = videoComposition
         export.outputFileType = .mp4
         export.outputURL = exportURL
-//        export.progress
+        //        export.progress
         export.exportAsynchronously {
             DispatchQueue.main.async {
                 switch export.status {
@@ -161,7 +170,7 @@ class VideoEditor {
     }
     
     private func add(tag image: UIImage, to layer: CALayer, videoSize: CGSize) {
-//        let image = UIImage(named: "overlay")!
+        //        let image = UIImage(named: "overlay")!
         let imageLayer = CALayer()
         imageLayer.frame = CGRect(
             x: 12,
