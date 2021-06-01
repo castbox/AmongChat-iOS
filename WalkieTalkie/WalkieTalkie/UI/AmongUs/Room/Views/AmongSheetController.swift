@@ -30,6 +30,7 @@ class AmongSheetController: ViewController {
         case dmDeleteHistory
         case share
         case notInterested
+        case deleteVideo
         
         case pronounNotShare = "0"
         case pronounHe = "1"
@@ -182,7 +183,7 @@ extension AmongSheetController.ItemType {
         case .profile, .follow, .drop, .dmDeleteHistory,
              .pronounShe, .pronounHe, .pronounThey, .pronounOther, .pronounNotShare, .share, .notInterested:
             return .white
-        case .block, .unblock, .mute, .unmute, .report, .kick, .adminKick, .adminMuteIm, .adminMuteMic, .adminUnmuteMic, .adminUnmuteIm:
+        case .block, .unblock, .mute, .unmute, .report, .kick, .adminKick, .adminMuteIm, .adminMuteMic, .adminUnmuteMic, .adminUnmuteIm, .deleteVideo:
             return "FB5858".color()
         case .cancel:
             return "898989".color()
@@ -246,6 +247,8 @@ extension AmongSheetController.ItemType {
             return R.string.localizable.feedShare()
         case .notInterested:
             return R.string.localizable.feedSheetNotInterested()
+        case .deleteVideo:
+            return R.string.localizable.feedSheetDeleteVideo()
         default:
             return ""
         }

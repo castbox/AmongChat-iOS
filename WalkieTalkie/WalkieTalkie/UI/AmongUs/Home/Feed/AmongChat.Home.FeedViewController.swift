@@ -77,7 +77,50 @@ extension Feed {
 
 extension Feed {
     class ViewModel {
+        let bag = DisposeBag()
         
+        func reportPlay(_ pid: String?) {
+            guard let pid = pid else {
+                return
+            }
+            Request.feedReportPlay(pid)
+                .subscribe()
+                .disposed(by: bag)
+        }
+        
+        func reportPlayFinish(_ pid: String?) {
+            guard let pid = pid else {
+                return
+            }
+            Request.feedReportPlayFinish(pid)
+                .subscribe()
+                .disposed(by: bag)
+        }
+        
+        func reportNotIntereasted(_ pid: String?) -> Single<Bool> {
+            guard let pid = pid else {
+                return .just(false)
+            }
+            return Request.feedReportNotIntereasted(pid: pid)
+//                .subscribe()
+//                .disposed(by: bag)
+        }
+        
+        func reportShare(_ pid: String?) {
+            guard let pid = pid else {
+                return
+            }
+            Request.feedReportShare(pid)
+                .subscribe()
+                .disposed(by: bag)
+        }
+        
+        func feedDelete(_ pid: String?) -> Single<Bool> {
+            guard let pid = pid else {
+                return .just(false)
+            }
+            return Request.feedDelete(pid)
+        }
     }
 }
 
@@ -89,7 +132,7 @@ extension AmongChat.Home {
         private var tableView: UITableView!
         
         private var currentIndex = 0
-//        private var previousIndex = 0
+        private lazy var viewModel = Feed.ViewModel()
         private let videoEditor = VideoEditor()
         private let disposeBag = DisposeBag()
         private var dataSource: [Feed.CellViewModel] = [] {
@@ -233,7 +276,8 @@ extension AmongChat.Home.FeedViewController {
                 return
             }
             cdPrint("url: \(url)")
-            ShareManager.default.showActivity(items: [url], viewController: self) {
+            ShareManager.default.showActivity(items: [url], viewController: self) { [weak self] in
+                self?.viewModel.reportShare(feed.pid)
                 //cancel or finish, remove
                 do {
                     try FileManager.default.removeItem(at: url)
@@ -271,16 +315,44 @@ extension AmongChat.Home.FeedViewController {
             }
         case .comment:
             ()
+        case .playComplete:
+            self.viewModel.reportPlayFinish(viewModel.feed.pid)
         case .share:
             share(feed: viewModel.feed)
         case .more:
-            AmongSheetController.show(items: [.share, .notInterested, .report, .cancel], in: self.tabBarController ?? self) { [weak self] item in
+            let types: [AmongSheetController.ItemType]
+            if Settings.loginUserId == viewModel.feed.uid {
+                types = [.share, .deleteVideo, .cancel]
+            } else {
+                types = [.share, .notInterested, .report, .cancel]
+            }
+            AmongSheetController.show(items: types, in: self.tabBarController ?? self) { [weak self] item in
                 guard let `self` = self else { return }
                 switch item {
                 case .share:
                     self.share(feed: viewModel.feed)
                 case .notInterested:
-                    ()
+                    self.dataSource = self.dataSource.filter { $0.feed.pid != viewModel.feed.pid }
+                    self.viewModel.reportNotIntereasted(viewModel.feed.pid)
+                        .subscribe(onSuccess: { [weak self] result in
+                            //
+                        }) { error in
+                            
+                        }
+                        .disposed(by: self.bag)
+                case .deleteVideo:
+                    let removeHandler = self.view.raft.show(.loading)
+                    self.viewModel.feedDelete(viewModel.feed.pid)
+                        .do(onDispose: {
+                            removeHandler()
+                        })
+                        .subscribe(onSuccess: { [weak self] result in
+                            guard let `self` = self else { return }
+                            self.dataSource = self.dataSource.filter { $0.feed.pid != viewModel.feed.pid }
+                        }) { error in
+                            
+                        }
+                        .disposed(by: self.bag)
                 case .report:
                     Report.ViewController.showReport(on: self, uid: viewModel.feed.pid, type: .post, roomId: "") { [weak self] in
                         self?.view.raft.autoShow(.text(R.string.localizable.reportSuccess()))
@@ -298,9 +370,11 @@ extension AmongChat.Home.FeedViewController {
         }
         if let cell = tableView.cellForRow(at: IndexPath(row: currentIndex, section: 0)) as? FeedListCell {
             cell.replay()
+            viewModel.reportPlay(cell.viewModel?.feed.pid)
         } else {
             if let cell = tableView.visibleCells.first as? FeedListCell {
                 cell.replay()
+                viewModel.reportPlay(cell.viewModel?.feed.pid)
             }
         }
     }

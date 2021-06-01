@@ -64,6 +64,45 @@ extension Request {
         
     }
     
+    static func recommendFeeds(excludePids: [String],
+                          limit: Int = 20) -> Single<[Entity.Feed]?> {
+        
+        let params: [String : Any] = [
+            "exclude_pids": excludePids.joined(separator: ","),
+            "limit" : limit,
+        ]
+        return amongchatProvider.rx.request(.recommendFeeds(params))
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .mapTo([Entity.Feed].self)
+            .observeOn(MainScheduler.asyncInstance)
+        
+    }
+    
+    static func feedReportNotIntereasted(pid: String) -> Single<Bool> {
+        
+        let params: [String : Any] = [
+            "pid": pid,
+        ]
+        return amongchatProvider.rx.request(.feedReportNotIntereasted(params))
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .mapToProcessedValue()
+            .observeOn(MainScheduler.asyncInstance)
+        
+    }
+    
+    static func feedDelete(_ pid: String) -> Single<Bool> {
+        let params: [String : Any] = [
+            "pid": pid
+        ]
+        return amongchatProvider.rx.request(.feedDelete(params))
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .mapToProcessedValue()
+            .observeOn(MainScheduler.asyncInstance)
+    }
+    
     static func feedReportPlay(_ pid: String) -> Single<Bool> {
         let params: [String : Any] = [
             "pid": pid

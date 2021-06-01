@@ -116,7 +116,10 @@ extension APIService {
         case userStatus([String: Any])
         //
         case interactiveMsgs([String: Any])
+        case recommendFeeds([String: Any])
         case userFeeds([String: Any])
+        case feedDelete([String: Any])
+        case feedReportNotIntereasted([String: Any])
         case feedReportPlay([String: Any])
         case feedReportShare([String: Any])
         case feedReportPlayFinish([String: Any])
@@ -334,6 +337,12 @@ extension APIService.AmongChatBackend: TargetType {
             return "/account/games"
         case .userStatus:
             return "/api/v1/user/status"
+        case .recommendFeeds:
+            return "/post/recommend/posts"
+        case .feedReportNotIntereasted:
+            return "/post/boring"
+        case .feedDelete:
+            return "/post/delete"
         case .userFeeds:
             return "/post/user/posts"
         case .feedReportPlay:
@@ -446,6 +455,8 @@ extension APIService.AmongChatBackend: TargetType {
              .myGroupApplyStat,
              .interactiveMsgs,
              .userFeeds,
+             .recommendFeeds,
+             .feedReportNotIntereasted,
              .feedReportPlay,
              .feedReportShare,
              .feedReportPlayFinish,
@@ -459,6 +470,7 @@ extension APIService.AmongChatBackend: TargetType {
         case .removeGameSkill,
              .deleteGroup,
              .kickMemberFromGroup,
+             .feedDelete,
              .unFollow:
             return .delete
             
@@ -575,6 +587,9 @@ extension APIService.AmongChatBackend: TargetType {
              .sendDM(let params),
              .interactiveMsgs(let params),
              .userFeeds(let params),
+             .recommendFeeds(let params),
+             .feedReportNotIntereasted(let params),
+             .feedDelete(let params),
              .feedReportPlay(let params),
              .feedReportShare(let params),
              .feedReportPlayFinish(let params),

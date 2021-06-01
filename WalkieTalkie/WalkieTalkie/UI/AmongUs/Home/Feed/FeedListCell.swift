@@ -33,6 +33,7 @@ class FeedListCell: UITableViewCell {
         case share
         case comment
         case more
+        case playComplete
     }
     
     @IBOutlet weak var userInfoContainer: UIView!
@@ -65,6 +66,7 @@ class FeedListCell: UITableViewCell {
     
     private let bag = DisposeBag()
     
+    private(set) var viewModel: Feed.CellViewModel?
     var actionHandler: ((Action) -> Void)?
     
     private var emotes: [Emote] = [] {
@@ -75,6 +77,7 @@ class FeedListCell: UITableViewCell {
     }
     
     func config(with viewModel: Feed.CellViewModel?) {
+        self.viewModel = viewModel
         guard let viewModel = viewModel else {
             return
         }
@@ -278,6 +281,9 @@ private extension FeedListCell {
 //            cdPrint("progress: \(value)")
             self?.sliderBar.setValue(value, animated: true)
             self?.updateTimeString(with: value.double)
+            if value > 0.9 {
+                self?.actionHandler?(.playComplete)
+            }
         }
 
         contentView.insertSubview(gradientBackgroundView, aboveSubview: playerView)
