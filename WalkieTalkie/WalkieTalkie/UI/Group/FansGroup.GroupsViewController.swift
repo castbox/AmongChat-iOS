@@ -36,7 +36,9 @@ extension FansGroup {
                     self.layoutScrollView.setContentOffset(offset, animated: true)
                 })
                 .disposed(by: bag)
-            s.setTitles(titles: [R.string.localizable.amongChatMyGroups(), R.string.localizable.amongChatExplore()])
+            s.setButtons(tuples: [(normalIcon: nil, selectedIcon: nil, normalTitle: R.string.localizable.amongChatMyGroups(), selectedTitle: nil),
+                                  (normalIcon: nil, selectedIcon: nil, normalTitle: R.string.localizable.amongChatExplore(), selectedTitle: nil)
+            ])
             return s
         }()
         
@@ -292,18 +294,21 @@ extension FansGroup.GroupsViewController {
             }
         }
         
-        func setTitles(titles: [String]) {
+        func setButtons(tuples: [(normalIcon: UIImage?, selectedIcon: UIImage?, normalTitle: String?, selectedTitle: String?)]) {
             
             buttons.forEach({ (btn) in
                 btn.removeFromSuperview()
             })
             
-            buttons = titles.enumerated().map { (idx, title) -> UIButton in
+            buttons = tuples.enumerated().map { (idx, tuple) -> UIButton in
                 let btn = UIButton(type: .custom)
                 btn.setTitleColor(UIColor(hex6: 0x595959), for: .normal)
                 btn.setTitleColor(UIColor(hex6: 0xFFF000), for: .selected)
                 btn.titleLabel?.font = R.font.nunitoExtraBold(size: 24)
-                btn.setTitle(title, for: .normal)
+                btn.setImage(tuple.normalIcon, for: .normal)
+                btn.setImage(tuple.selectedIcon, for: .selected)
+                btn.setTitle(tuple.normalTitle, for: .normal)
+                btn.setTitle(tuple.selectedTitle, for: .selected)
                 btn.rx.controlEvent(.primaryActionTriggered)
                     .subscribe(onNext: { [weak self] () in
                         self?.updateSelectedIndex(idx)
