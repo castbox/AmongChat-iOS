@@ -388,6 +388,12 @@ extension Entity {
     }
 }
 
+protocol ProfileLiveRoom {
+    var roomCover: String { get }
+    var roomName: String { get }
+    var isPrivate: Bool { get }
+}
+
 extension Entity {
     
     struct UserStatus: Codable {
@@ -404,16 +410,41 @@ extension Entity {
             case isOnline = "is_online"
         }
         
-        struct Room: Codable {
+        struct Room: Codable, ProfileLiveRoom {
+
+            var roomCover: String {
+                return coverUrl ?? ""
+            }
+            
+            var roomName: String {
+                return R.string.localizable.profileUserInChannel(topicName)
+            }
+            
+            var isPrivate: Bool {
+                return state == "private"
+            }
+            
             let roomId: String
             let state: String
             let topicId: String
             let playerCount: Int?
             let topicName: String
-            let coverUrl: URL?
+            let coverUrl: String?
         }
         
-        struct Group: Codable {
+        struct Group: Codable, ProfileLiveRoom {
+            var roomCover: String {
+                return cover
+            }
+            
+            var roomName: String {
+                return R.string.localizable.profileUserInGroup(name)
+            }
+            
+            var isPrivate: Bool {
+                return false
+            }
+
             var gid: String
             var topicId: String
             var status: Int

@@ -39,6 +39,8 @@ extension Social.ProfileViewController {
         private let relationContainerHeight: CGFloat = VerticalTitleButton.height
         private let loginButtonTopSpace: CGFloat = 24
         private let loginButtonHeight: CGFloat = 48
+        private let liveRoomTopSpace: CGFloat = 24
+        private let liveRoomHeight: CGFloat = 56
         private let bottomSpace: CGFloat = 44
         private let petSize = CGSize(width: 70, height: 70)
         
@@ -66,12 +68,54 @@ extension Social.ProfileViewController {
                let isAnonymous = Settings.shared.loginResult.value?.isAnonymousUser,
                isAnonymous {
                 height = height + loginButtonTopSpace + loginButtonHeight
+            } else if !isSelf,
+                      let _ = liveRoom {
+                height = height + liveRoomTopSpace + liveRoomHeight
             }
             
             height = height + bottomSpace
             
             return height
         }
+        
+        private var liveRoom: ProfileLiveRoom? = nil {
+            didSet {
+                
+                if let liveRoom = liveRoom {
+                    
+                    liveRoomView.coverIV.setImage(with: liveRoom.roomCover)
+                    liveRoomView.label.text = liveRoom.roomName
+                    liveRoomView.joinBtn.isEnabled = !liveRoom.isPrivate
+                    addSubview(liveRoomView)
+                    
+                    liveRoomView.snp.makeConstraints { (maker) in
+                        maker.leading.trailing.equalToSuperview().inset(Frame.horizontalBleedWidth)
+                        maker.height.equalTo(liveRoomHeight)
+                        maker.top.equalTo(relationContainer.snp.bottom).offset(liveRoomTopSpace)
+                    }
+                    
+                    if let room = liveRoom as? Entity.UserStatus.Room {
+                        liveRoomView.joinHandler = { [weak self] in
+                            self?.controller?.enterRoom(roomId: room.roomId, topicId: room.topicId)
+                        }
+                    } else if let group = liveRoom as? Entity.UserStatus.Group {
+                        liveRoomView.joinHandler = { [weak self] in
+                            self?.controller?.enter(group: group.gid)
+                        }
+                    }
+                    
+                } else {
+                    liveRoomView.removeFromSuperview()
+                }
+                
+                headerHandle?(.heightUpdated)
+            }
+        }
+        
+        private lazy var liveRoomView: LiveCell = {
+            let cell = LiveCell(frame: .zero)
+            return cell
+        }()
         
         private typealias BigCoverView = FansGroup.Views.GroupBigCoverView
         private lazy var bg: BigCoverView = {
@@ -376,6 +420,10 @@ extension Social.ProfileViewController {
                     redDotView.isHidden = true
                 }
             }
+        }
+        
+        func setLiveStatus(liveRoom: ProfileLiveRoom?) {
+            self.liveRoom = liveRoom
         }
         
         private func setupLayout() {

@@ -24,7 +24,6 @@ extension Social {
             case gameStats
             case groupsCreated
             case groupsJoined
-            case live
             case feed
             
             func image() -> UIImage? {
@@ -369,7 +368,6 @@ extension Social {
         
         private let createdGroupsRelay = BehaviorRelay<[Entity.Group]>(value: [])
         private let joinedGroupsRelay = BehaviorRelay<[Entity.Group]>(value: [])
-        private let liveRoomRelay = BehaviorRelay<[Any]>(value: [])
         private let feedListViewModel: FeedListViewModel
         
         init(with uid: Int) {
@@ -566,17 +564,17 @@ private extension Social.ProfileViewController {
                     
                     self?.headerView.onlineStatusView.isHidden = !(status.isOnline == true && status.room == nil && status.group == nil)
                     
-                    var liveRooms = [Any]()
-                    
+                    var liveRoom: ProfileLiveRoom? = nil
+                                        
                     if let room = status.room {
-                        liveRooms.append(room)
+                        liveRoom = room
                     }
                     
                     if let group = status.group {
-                        liveRooms.append(group)
+                        liveRoom = group
                     }
                     
-                    self?.liveRoomRelay.accept(liveRooms)
+                    self?.headerView.setLiveStatus(liveRoom: liveRoom)
                     
                 }, onError: { (error) in
                     
@@ -997,8 +995,6 @@ extension Social.ProfileViewController: UICollectionViewDataSource, UICollection
             return 1
         case .segmentedButtons:
             return 1
-        case .live:
-            return liveRoomRelay.value.count
         case .feed:
             return feedListViewModel.feeds.count
         }
@@ -1077,33 +1073,9 @@ extension Social.ProfileViewController: UICollectionViewDataSource, UICollection
                 cell.contentView.addSubview(segmentedButton)
                 segmentedButton.snp.makeConstraints { (maker) in
                     maker.edges.equalToSuperview()
-                }                
+                }
             }
             segmentedButtonContainerCell = cell
-            return cell
-            
-        case .live:
-            let cell = collectionView.dequeueReusableCell(withClazz: LiveCell.self, for: indexPath)
-            
-            let liveRoom = liveRoomRelay.value.first
-            
-            if let room = liveRoom as? Entity.UserStatus.Room {
-                
-                cell.coverIV.setImage(with: room.coverUrl)
-                cell.label.text = R.string.localizable.profileUserInChannel(room.topicName)
-                cell.joinBtn.isEnabled = (room.state != "private")
-                cell.joinHandler = { [weak self] in
-                    self?.enterRoom(roomId: room.roomId, topicId: room.topicId)
-                }
-            } else if let group = liveRoom as? Entity.UserStatus.Group {
-                cell.coverIV.setImage(with: group.cover)
-                cell.label.text = R.string.localizable.profileUserInGroup(group.name)
-                cell.joinBtn.isEnabled = true
-                cell.joinHandler = { [weak self] in
-                    self?.enter(group: group.gid)
-                }
-            }
-            
             return cell
             
         case .feed:
@@ -1163,7 +1135,7 @@ extension Social.ProfileViewController: UICollectionViewDataSource, UICollection
                     navigationController?.pushViewController(vc, animated: true)
                 }
                 
-            case .profile, .segmentedButtons, .live:
+            case .profile, .segmentedButtons:
                 ()
                 
             case .feed:
@@ -1250,7 +1222,7 @@ extension Social.ProfileViewController: UICollectionViewDataSource, UICollection
                     self.navigationController?.pushViewController(listVC, animated: true)
                 }
                 
-            case .profile, .live, .feed, .segmentedButtons:
+            case .profile, .feed, .segmentedButtons:
                 ()
                 
             }
@@ -1276,13 +1248,7 @@ extension Social.ProfileViewController: UICollectionViewDelegateFlowLayout {
         let padding: CGFloat = collectionView.contentInset.left + collectionView.contentInset.right
         
         switch op {
-        case .live:
-            
-            let cellWidth = UIScreen.main.bounds.width - padding
-            let cellHeight = CGFloat(56)
-            
-            return CGSize(width: cellWidth, height: cellHeight)
-            
+        
         case .gameStats:
             
             if let _ = gameSkills.safe(indexPath.row) {
@@ -1402,7 +1368,7 @@ extension Social.ProfileViewController: UICollectionViewDelegateFlowLayout {
         let op = options[section]
         
         switch op {
-        case .profile, .live, .feed, .segmentedButtons:
+        case .profile, .feed, .segmentedButtons:
             return .zero
             
         case .groupsCreated:
