@@ -85,7 +85,7 @@ class FeedListCell: UITableViewCell {
         avatarView.setAvatarImage(with: feed.user.pictureUrl)
         avatarView.isVerify = feed.user.isVerified
         nameLabel.attributedText = feed.user.nameWithVerified(isShowVerify: false)
-        tagLabel.text = "# " + feed.topic
+        tagLabel.text = feed.topicName
         
         activityView.startAnimating()
         playerView.configure(url: feed.url, size: (feed.width ?? 100, feed.height ?? 120)) { [weak self] in

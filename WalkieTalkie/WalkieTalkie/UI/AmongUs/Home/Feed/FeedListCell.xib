@@ -56,7 +56,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YoT-EB-VOj">
-                                <rect key="frame" x="80" y="26" width="220" height="22"/>
+                                <rect key="frame" x="100" y="26" width="200" height="22"/>
                                 <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito" pointSize="16"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -74,12 +74,15 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="252" verticalHuggingPriority="251" image="iconFeedTagPrefix" translatesAutoresizingMaskIntoConstraints="NO" id="yvN-Xf-ghr">
+                                <rect key="frame" x="80" y="29" width="16" height="16"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="0Vq-Q9-oJP" firstAttribute="leading" secondItem="VtH-gr-9m2" secondAttribute="leading" id="0Rq-5u-Gc7"/>
                             <constraint firstItem="U62-1J-LHH" firstAttribute="leading" secondItem="2Z7-Lj-Kc6" secondAttribute="trailing" constant="12" id="6VT-8s-jbn"/>
-                            <constraint firstItem="YoT-EB-VOj" firstAttribute="leading" secondItem="U62-1J-LHH" secondAttribute="leading" id="9yZ-AL-l98"/>
+                            <constraint firstItem="yvN-Xf-ghr" firstAttribute="centerY" secondItem="YoT-EB-VOj" secondAttribute="centerY" id="70X-a6-T4L"/>
                             <constraint firstItem="YoT-EB-VOj" firstAttribute="trailing" secondItem="U62-1J-LHH" secondAttribute="trailing" id="Azc-0E-w4R"/>
                             <constraint firstItem="0Vq-Q9-oJP" firstAttribute="top" secondItem="2Z7-Lj-Kc6" secondAttribute="bottom" constant="20" id="DSi-YO-KiT"/>
                             <constraint firstAttribute="trailing" secondItem="0Vq-Q9-oJP" secondAttribute="trailing" id="JBx-EE-g5g"/>
@@ -88,6 +91,8 @@
                             <constraint firstItem="2Z7-Lj-Kc6" firstAttribute="top" secondItem="VtH-gr-9m2" secondAttribute="top" id="aef-ID-e4a"/>
                             <constraint firstItem="U62-1J-LHH" firstAttribute="top" secondItem="2Z7-Lj-Kc6" secondAttribute="top" id="iR2-XA-aeL"/>
                             <constraint firstItem="2Z7-Lj-Kc6" firstAttribute="leading" secondItem="VtH-gr-9m2" secondAttribute="leading" constant="20" id="jY6-DJ-hwz"/>
+                            <constraint firstItem="yvN-Xf-ghr" firstAttribute="leading" secondItem="U62-1J-LHH" secondAttribute="leading" id="rzX-zX-Cm9"/>
+                            <constraint firstItem="YoT-EB-VOj" firstAttribute="leading" secondItem="yvN-Xf-ghr" secondAttribute="trailing" constant="4" id="vl6-9x-92R"/>
                             <constraint firstAttribute="trailing" secondItem="U62-1J-LHH" secondAttribute="trailing" constant="20" id="ykl-mP-gXR"/>
                         </constraints>
                     </view>
@@ -191,6 +196,7 @@
         </tableViewCell>
     </objects>
     <resources>
+        <image name="iconFeedTagPrefix" width="16" height="16"/>
         <image name="iconVideoComment" width="32" height="32"/>
         <image name="iconVideoMore" width="32" height="32"/>
         <image name="iconVideoPause" width="48" height="48"/>
