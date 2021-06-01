@@ -78,6 +78,8 @@
 		26F414A42611C548003ED5BE /* FansGroup.CreateGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26F414A32611C548003ED5BE /* FansGroup.CreateGroupViewController.swift */; };
 		26F414AA2611DB1D003ED5BE /* FansGroup.Views.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26F414A92611DB1D003ED5BE /* FansGroup.Views.swift */; };
 		26F7023A25E670CC008F992C /* Social.CustomAvatarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26F7023925E670CC008F992C /* Social.CustomAvatarViewController.swift */; };
+		26FC5FDC26660C9C005D8F79 /* Social.ProfileViewController.FeedListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26FC5FDB26660C9C005D8F79 /* Social.ProfileViewController.FeedListViewModel.swift */; };
+		26FC5FE22666126F005D8F79 /* Social.ProfileViewController+Feed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26FC5FE12666126F005D8F79 /* Social.ProfileViewController+Feed.swift */; };
 		2B51C882258B8ED700BAE937 /* Social.DatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B51C881258B8ED700BAE937 /* Social.DatePickerView.swift */; };
 		2B51C894258C6EC700BAE937 /* Social.BirthdaySetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B51C893258C6EC700BAE937 /* Social.BirthdaySetViewController.swift */; };
 		2B6B5F4A25A32E9F009D028D /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6B5F4925A32E9F009D028D /* TableViewCell.swift */; };
@@ -560,6 +562,8 @@
 		26F414A32611C548003ED5BE /* FansGroup.CreateGroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FansGroup.CreateGroupViewController.swift; sourceTree = "<group>"; };
 		26F414A92611DB1D003ED5BE /* FansGroup.Views.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FansGroup.Views.swift; sourceTree = "<group>"; };
 		26F7023925E670CC008F992C /* Social.CustomAvatarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Social.CustomAvatarViewController.swift; sourceTree = "<group>"; };
+		26FC5FDB26660C9C005D8F79 /* Social.ProfileViewController.FeedListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Social.ProfileViewController.FeedListViewModel.swift; sourceTree = "<group>"; };
+		26FC5FE12666126F005D8F79 /* Social.ProfileViewController+Feed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Social.ProfileViewController+Feed.swift"; sourceTree = "<group>"; };
 		2B51C881258B8ED700BAE937 /* Social.DatePickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Social.DatePickerView.swift; sourceTree = "<group>"; };
 		2B51C893258C6EC700BAE937 /* Social.BirthdaySetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Social.BirthdaySetViewController.swift; sourceTree = "<group>"; };
 		2B6B5F4925A32E9F009D028D /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
@@ -1214,6 +1218,8 @@
 			children = (
 				BDB8F58624F7D925000027F8 /* Social.swift */,
 				BDB8F58824F7DA46000027F8 /* Social.ProfileViewController.swift */,
+				26FC5FDB26660C9C005D8F79 /* Social.ProfileViewController.FeedListViewModel.swift */,
+				26FC5FE12666126F005D8F79 /* Social.ProfileViewController+Feed.swift */,
 				2B956765259B3262001C7B91 /* Social.ProfileViewcontrollerExtension.swift */,
 				26EE8AC72654C2F900B75D8A /* Social.ProfileViewController.ProfileView.swift */,
 				BDC06EEE24F51E780016770D /* Social.EditProfileViewController.swift */,
@@ -2426,6 +2432,7 @@
 				FE2AF9F6244DCC0400763747 /* Routes.Handler.swift in Sources */,
 				269A6DCE261C4A8C00A07C7D /* FansGroup.GroupListViewController.swift in Sources */,
 				FE8DEA6C243DB09A0059C252 /* KeyedDecodingContainer.Extension.swift in Sources */,
+				26FC5FDC26660C9C005D8F79 /* Social.ProfileViewController.FeedListViewModel.swift in Sources */,
 				FE9EF530258B2DB7008C0BAD /* AmongInputNickNameView.swift in Sources */,
 				26126058251C7B5800CD1A98 /* UserDefaults+Extension.swift in Sources */,
 				26CC0F86265D22560058E39E /* Feed.SelectVideoViewController.swift in Sources */,
@@ -2492,6 +2499,7 @@
 				FE684882244BD80700F87AF9 /* PremiumFreqControl.swift in Sources */,
 				BD6C36ED256E525000D1E708 /* AmongChat.swift in Sources */,
 				FE126D42243481BD00BEDD60 /* SeatManager.swift in Sources */,
+				26FC5FE22666126F005D8F79 /* Social.ProfileViewController+Feed.swift in Sources */,
 				FE2AF9F9244DCC0400763747 /* Routes.swift in Sources */,
 				FEA79E63249B52EF0067C1C1 /* ShareManager.swift in Sources */,
 				BDC9D4AE258A2AB400412BDC /* AdjustAnalytics.swift in Sources */,

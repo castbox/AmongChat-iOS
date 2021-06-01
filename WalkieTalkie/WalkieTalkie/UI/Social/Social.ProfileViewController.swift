@@ -19,11 +19,13 @@ extension Social {
         
         enum Option {
             case profile
+            case segmentedButtons
             case tiktok
             case gameStats
             case groupsCreated
             case groupsJoined
             case live
+            case feed
             
             func image() -> UIImage? {
                 switch self {
@@ -31,7 +33,7 @@ extension Social {
                     return R.image.ac_social_tiktok()
                 case .gameStats:
                     return R.image.ac_profile_game()
-                case .groupsJoined, .groupsCreated, .profile, .live:
+                default:
                     return nil
                 }
             }
@@ -42,7 +44,7 @@ extension Social {
                     return R.string.localizable.profileShareTiktokTitle()
                 case .gameStats:
                     return R.string.localizable.amongChatProfileAddAGame()
-                case .groupsJoined, .groupsCreated, .profile, .live:
+                default:
                     return nil
                 }
             }
@@ -89,6 +91,19 @@ extension Social {
             }
             return n
         }()
+        
+        private lazy var segmentedButton: FansGroup.GroupsViewController.SegmentedButton = {
+            let s = FansGroup.GroupsViewController.SegmentedButton()
+            s.frame = CGRect(x: 0, y: 0, width: Frame.Screen.width, height: 60)
+            s.backgroundColor = UIColor(hex6: 0x121212)
+            s.setButtons(tuples: [(normalIcon: R.image.ac_profile_game_normal(), selectedIcon: R.image.ac_profile_game_selected(), normalTitle: nil, selectedTitle: nil),
+                                  (normalIcon: R.image.ac_profile_video_normal(), selectedIcon: R.image.ac_profile_video_selected(), normalTitle: nil, selectedTitle: nil),
+                                  (normalIcon: R.image.ac_profile_group_normal(), selectedIcon: R.image.ac_profile_group_selected(), normalTitle: nil, selectedTitle: nil)
+            ])
+            return s
+        }()
+        
+        private var segmentedButtonContainerCell: SegmentedContainerCell!
         
         private lazy var settingsBtn: UIButton = {
             let btn = UIButton(type: .custom)
@@ -307,6 +322,8 @@ extension Social {
             v.register(cellWithClazz: JoinedGroupCell.self)
             v.register(cellWithClazz: LiveCell.self)
             v.register(cellWithClazz: UICollectionViewCell.self)
+            v.register(cellWithClazz: FeedCell.self)
+            v.register(cellWithClazz: SegmentedContainerCell.self)
             v.register(supplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withClass: SectionHeader.self)
             v.showsVerticalScrollIndicator = false
             v.showsHorizontalScrollIndicator = false
@@ -353,8 +370,10 @@ extension Social {
         private let createdGroupsRelay = BehaviorRelay<[Entity.Group]>(value: [])
         private let joinedGroupsRelay = BehaviorRelay<[Entity.Group]>(value: [])
         private let liveRoomRelay = BehaviorRelay<[Any]>(value: [])
+        private let feedListViewModel: FeedListViewModel
         
         init(with uid: Int) {
+            self.feedListViewModel = FeedListViewModel(with: uid)
             super.init(nibName: nil, bundle: nil)
             self.isNavigationBarHiddenWhenAppear = true
             self.uid = uid
@@ -426,29 +445,28 @@ private extension Social.ProfileViewController {
             })
             .disposed(by: bag)
         
-        Observable.combineLatest(isSelfProfile, createdGroupsRelay, joinedGroupsRelay, liveRoomRelay)
-            .subscribe(onNext: { [weak self] isSelf, createdGroups, joinedGroups, liveRooms in
+        Observable.combineLatest(isSelfProfile, segmentedButton.selectedIndexObservable)
+            .subscribe(onNext: { [weak self] isSelf, segmentedIdx in
                 
-                if !isSelf {
-                    self?.options = [.gameStats]
-                    self?.bottomGradientView.isHidden = false
-                } else {
-                    self?.options = [.gameStats, .tiktok]
+                guard let `self` = self else { return }
+                
+                self.bottomGradientView.isHidden = isSelf
+                
+                var options: [Option] = [.profile, .segmentedButtons]
+                switch segmentedIdx {
+                case 0:
+                    options.append(.gameStats)
+                case 1:
+                    options.append(.feed)
+                    if isSelf {
+                        options.append(.tiktok)
+                    }
+                case 2:
+                    options.append(contentsOf: [.groupsCreated, .groupsJoined])
+                default:
+                    ()
                 }
-                
-                if joinedGroups.count > 0 {
-                    self?.options.insert(.groupsJoined, at: 0)
-                }
-                
-                if createdGroups.count > 0 {
-                    self?.options.insert(.groupsCreated, at: 0)
-                }
-                
-                if liveRooms.count > 0 {
-                    self?.options.insert(.live, at: 0)
-                }
-                
-                self?.options.insert(.profile, at: 0)
+                self.options = options
             })
             .disposed(by: bag)
         
@@ -495,6 +513,38 @@ private extension Social.ProfileViewController {
             })
             .disposed(by: bag)
 
+        table.rx.contentOffset
+            .subscribe(onNext: { [weak self] (point) in
+                
+                guard let `self` = self else { return }
+                
+                if let container = self.segmentedButtonContainerCell {
+                    
+                    let frame = self.table.convert(container.frame, to: self.view)
+                    if frame.origin.y <= self.navView.bottom {
+                        if self.segmentedButton.superview != self.view {
+                            self.view.addSubview(self.segmentedButton)
+                            self.segmentedButton.snp.makeConstraints { (maker) in
+                                maker.leading.trailing.equalToSuperview()
+                                maker.top.equalTo(self.navView.snp.bottom)
+                                maker.height.equalTo(60)
+                            }
+                        }
+                    } else {
+                        if self.segmentedButton.superview != container.contentView {
+                            container.contentView.addSubview(self.segmentedButton)
+                            self.segmentedButton.snp.makeConstraints { (maker) in
+                                maker.edges.equalToSuperview()
+                            }
+                        }
+                        
+                    }
+                    
+
+                }
+                
+            })
+            .disposed(by: bag)
     }
     
     func loadData() {
@@ -629,6 +679,7 @@ private extension Social.ProfileViewController {
         loadGameSkills()
         fetchCreatedGroups()
         fetchJoinedGroups()
+        feedListViewModel.loadFeeds()
     }
     
     func fetchRealation() {
@@ -944,8 +995,12 @@ extension Social.ProfileViewController: UICollectionViewDataSource, UICollection
             return joinedGroupsRelay.value.count
         case .profile:
             return 1
+        case .segmentedButtons:
+            return 1
         case .live:
             return liveRoomRelay.value.count
+        case .feed:
+            return feedListViewModel.feeds.count
         }
         
     }
@@ -1016,6 +1071,17 @@ extension Social.ProfileViewController: UICollectionViewDataSource, UICollection
             }
             return cell
             
+        case .segmentedButtons:
+            let cell = collectionView.dequeueReusableCell(withClazz: SegmentedContainerCell.self, for: indexPath)
+            if segmentedButton.superview != cell.contentView {
+                cell.contentView.addSubview(segmentedButton)
+                segmentedButton.snp.makeConstraints { (maker) in
+                    maker.edges.equalToSuperview()
+                }                
+            }
+            segmentedButtonContainerCell = cell
+            return cell
+            
         case .live:
             let cell = collectionView.dequeueReusableCell(withClazz: LiveCell.self, for: indexPath)
             
@@ -1039,6 +1105,15 @@ extension Social.ProfileViewController: UICollectionViewDataSource, UICollection
             }
             
             return cell
+            
+        case .feed:
+            
+            let cell = collectionView.dequeueReusableCell(withClazz: FeedCell.self, for: indexPath)
+            if let feed = feedListViewModel.feeds.safe(indexPath.item) {
+                cell.configCell(with: feed)
+            }
+            return cell
+        
         }
         
     }
@@ -1088,7 +1163,11 @@ extension Social.ProfileViewController: UICollectionViewDataSource, UICollection
                     navigationController?.pushViewController(vc, animated: true)
                 }
                 
-            case .profile, .live:
+            case .profile, .segmentedButtons, .live:
+                ()
+                
+            case .feed:
+                //TODO: open feed
                 ()
             }
         }
@@ -1171,7 +1250,7 @@ extension Social.ProfileViewController: UICollectionViewDataSource, UICollection
                     self.navigationController?.pushViewController(listVC, animated: true)
                 }
                 
-            case .profile, .live:
+            case .profile, .live, .feed, .segmentedButtons:
                 ()
                 
             }
@@ -1259,6 +1338,21 @@ extension Social.ProfileViewController: UICollectionViewDelegateFlowLayout {
             
             return CGSize(width: Frame.Screen.width, height: headerView.viewHeight)
             
+        case .segmentedButtons:
+            
+            return CGSize(width: Frame.Screen.width, height: 60)
+            
+        case .feed:
+            
+            let columns: Int = 3
+            let interitemSpacing: CGFloat = 8
+            let hwRatio: CGFloat = 142.0 / 107.0
+            
+            let cellWidth = ((UIScreen.main.bounds.width - padding - interitemSpacing * CGFloat(columns - 1)) / CGFloat(columns)).rounded(.towardZero)
+            let cellHeight = ceil(cellWidth * hwRatio)
+            
+            return CGSize(width: cellWidth, height: cellHeight)
+            
         }
         
     }
@@ -1268,8 +1362,8 @@ extension Social.ProfileViewController: UICollectionViewDelegateFlowLayout {
         let op = options[section]
         
         switch op {
-        case .profile, .live:
-            return UIEdgeInsets(top: 0, left: 0, bottom: 56, right: 0)
+        case .profile:
+            return .zero
         default:
             return (collectionViewLayout as? UICollectionViewFlowLayout)?.sectionInset ?? .zero
         }
@@ -1283,8 +1377,23 @@ extension Social.ProfileViewController: UICollectionViewDelegateFlowLayout {
         switch op {
         case .groupsJoined:
             return 16
+        case .feed:
+            return 8
         default:
             return 20
+        }
+        
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        
+        let op = options[section]
+        
+        switch op {
+        case .feed:
+            return 8
+        default:
+            return (collectionViewLayout as? UICollectionViewFlowLayout)?.minimumLineSpacing ?? .zero
         }
         
     }
@@ -1293,8 +1402,33 @@ extension Social.ProfileViewController: UICollectionViewDelegateFlowLayout {
         let op = options[section]
         
         switch op {
-        case .profile, .live:
+        case .profile, .live, .feed, .segmentedButtons:
             return .zero
+            
+        case .groupsCreated:
+            
+            if createdGroupsRelay.value.count > 0 {
+                return CGSize(width: Frame.Screen.width, height: 27)
+            } else {
+                return .zero
+            }
+            
+        case .groupsJoined:
+            
+            if joinedGroupsRelay.value.count > 0 {
+                return CGSize(width: Frame.Screen.width, height: 27)
+            } else {
+                return .zero
+            }
+            
+        case .gameStats:
+            
+            if gameSkills.count > 0 {
+                return CGSize(width: Frame.Screen.width, height: 27)
+            } else {
+                return .zero
+            }
+            
         default:
             return CGSize(width: Frame.Screen.width, height: 27)
         }
