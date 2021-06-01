@@ -9,6 +9,7 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import HWPanModal
 
 extension Feed.Comments {
     
@@ -63,7 +64,7 @@ extension Feed.Comments {
             v.showsHorizontalScrollIndicator = false
             v.dataSource = self
             v.delegate = self
-            v.backgroundColor = .clear
+            v.backgroundColor = UIColor(hex6: 0x222222)
             v.alwaysBounceVertical = true
             v.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 98, right: 0)
             v.keyboardDismissMode = .interactive
@@ -211,7 +212,7 @@ extension Feed.Comments.CommentsListViewController {
                 }
                 
                 self.bottomBar.snp.updateConstraints { (maker) in
-                    maker.bottom.equalToSuperview().offset(-(keyboardVisibleHeight - 34))
+                    maker.bottom.equalToSuperview().offset(-7)
                 }
                 
             })
@@ -418,6 +419,34 @@ extension Feed.Comments.CommentsListViewController: UICollectionViewDelegateFlow
             return UIEdgeInsets(top: 28, left: 0, bottom: 0, right: 0)
         }
         
+    }
+    
+}
+
+extension Feed.Comments.CommentsListViewController {
+    
+    override func longFormHeight() -> PanModalHeight {
+        return PanModalHeight(type: .topInset, height: 0)
+    }
+    
+    override func shortFormHeight() -> PanModalHeight {
+        return PanModalHeight(type: .content, height: Frame.Scale.height(500))
+    }
+    
+    override func panScrollable() -> UIScrollView? {
+        return commentListView
+    }
+    
+    override func allowsExtendedPanScrolling() -> Bool {
+        return true
+    }
+    
+    override func cornerRadius() -> CGFloat {
+        return 20
+    }
+    
+    override func showDragIndicator() -> Bool {
+        return false
     }
     
 }
