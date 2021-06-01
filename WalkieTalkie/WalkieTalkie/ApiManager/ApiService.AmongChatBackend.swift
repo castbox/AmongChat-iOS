@@ -126,6 +126,15 @@ extension APIService {
         case feedSelectEmote([String: Any])
         case feedUnselectEmote([String: Any])
         case feedCreate([String : Any])
+        case commentList([String : Any])
+        case commentReplyList([String : Any])
+        case createReply([String : Any])
+        case likeComment([String : Any])
+        case cancelLikingComment([String : Any])
+        case deleteReply([String : Any])
+        case createComment([String : Any])
+        case deleteComment([String : Any])
+
     }
 }
 
@@ -357,6 +366,22 @@ extension APIService.AmongChatBackend: TargetType {
             return "post/unvote"
         case .feedCreate:
             return "/post/create"
+        case .commentList:
+            return "/post/comment/list"
+        case .commentReplyList:
+            return "/post/reply/list"
+        case .createReply:
+            return "/post/reply/create"
+        case .likeComment:
+            return "/post/like"
+        case .cancelLikingComment:
+            return "/post/unlike"
+        case .deleteReply:
+            return "/post/reply/delete"
+        case .createComment:
+            return "/post/comment/create"
+        case .deleteComment:
+            return "post/comment/delete"
         }
     }
     
@@ -394,6 +419,8 @@ extension APIService.AmongChatBackend: TargetType {
              .updateInstalledGames,
              .sendDM,
              .feedCreate,
+             .createReply,
+             .createComment,
              .logout:
             return .post
             
@@ -463,6 +490,10 @@ extension APIService.AmongChatBackend: TargetType {
              .feedSelectEmote,
              .feedUnselectEmote,
              .userStatus,
+             .commentList,
+             .commentReplyList,
+             .likeComment,
+             .cancelLikingComment,
              .shareUserSign:
             return .get
         case .follow:
@@ -471,6 +502,8 @@ extension APIService.AmongChatBackend: TargetType {
              .deleteGroup,
              .kickMemberFromGroup,
              .feedDelete,
+             .deleteReply,
+             .deleteComment,
              .unFollow:
             return .delete
             
@@ -596,6 +629,14 @@ extension APIService.AmongChatBackend: TargetType {
              .feedSelectEmote(let params),
              .feedUnselectEmote(let params),
              .userStatus(let params),
+             .commentList(let params),
+             .commentReplyList(let params),
+             .createReply(let params),
+             .likeComment(let params),
+             .cancelLikingComment(let params),
+             .deleteReply(let params),
+             .createComment(let params),
+             .deleteComment(let params),
              .unFollow(let params):
             return .requestParameters(parameters: params, encoding: URLEncoding.queryString)
             

@@ -582,4 +582,10 @@
 "feed.post.title" = "Post";
 "feed.library.title" = "Library";
 "feed.post.tip" = "Videos should be under 60 seconds";
-"feed.choose.topic.title" = "Choose a game topic";
+"feed.choose.topic.title" = "Choose a game topic ";
+"among.chat.reply" = "Reply";
+"feed.comments.expand.count" = "View replies (%1$@)";
+"feed.comments.expand.more" = "View more";
+"feed.comments.collapse" = "Hide";
+"feed.comments.placeholder" = "Add a comment";
+"feed.comments.list.title" = "%1$@ Comments";

@@ -41,7 +41,7 @@ extension Request {
     static func userFeeds(_ uid: Int?,
                           topicName: String? = nil,
                           limit: Int = 20,
-                          skipMs: Double) -> Single<Entity.FeedList> {
+                          skipMs: Int64) -> Single<Entity.FeedList> {
         
         let params: [String : Any] = [
             "uid": uid ?? "",

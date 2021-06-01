@@ -313,10 +313,11 @@ extension AmongChat.Home.FeedViewController {
             } else {
                 updateEmoteState(with: viewModel.feed.pid, emoteId: emote.id, isSelect: !emote.isVoted, index: indexPath.row)
             }
-        case .comment:
-            ()
         case .playComplete:
             self.viewModel.reportPlayFinish(viewModel.feed.pid)
+        case .comment:
+            let commentList = Feed.Comments.CommentsListViewController(with: viewModel.feed.pid)
+            self.presentPanModal(commentList)
         case .share:
             share(feed: viewModel.feed)
         case .more:
