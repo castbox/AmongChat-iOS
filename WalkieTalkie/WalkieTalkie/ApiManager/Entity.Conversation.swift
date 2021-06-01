@@ -388,7 +388,7 @@ extension Entity {
         }
         
         let uid: Int
-        let createTime: Date
+        let createTime: Double
         let text: String
         let img: URL
         let opType: OpType?
@@ -397,14 +397,27 @@ extension Entity {
         let urlId: String
         let posType: String //
         let posId: String
-        let emoteIds: [String]
+        let emoteIds: [String]?
         var name: String?
         let pictureUrl: String
         var isVerified: Bool?
         var isVip: Bool?
         
         var opTime: Double {
-            createTime.timeIntervalSince1970
+            createTime
+        }
+        
+        //seconds
+        var timestamp: Double {
+            return createTime / 1000
+        }
+        
+        var date: Date {
+            Date(timeIntervalSince1970: timestamp)
+        }
+        
+        var wrappedEmoteIds: [String] {
+            emoteIds ?? []
         }
         
         private enum CodingKeys: String, CodingKey {

@@ -32,6 +32,11 @@
                             <constraint firstAttribute="height" constant="48" id="Fu3-HJ-kJa"/>
                             <constraint firstAttribute="width" constant="48" id="ztG-lB-5g2"/>
                         </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                <real key="value" value="8"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
                     </imageView>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IhD-93-0vv" customClass="AvatarImageView" customModule="WalkieTalkie" customModuleProvider="target">
                         <rect key="frame" x="20" y="24" width="48" height="48"/>
@@ -54,12 +59,9 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qQs-uj-44W">
-                        <rect key="frame" x="80" y="40" width="35" height="32"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="32" id="YQY-7m-LlE"/>
-                        </constraints>
-                        <fontDescription key="fontDescription" name="Nunito-Bold" family="Nunito" pointSize="14"/>
-                        <color key="textColor" red="0.34901960784313724" green="0.34901960784313724" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <rect key="frame" x="80" y="52" width="40" height="22"/>
+                        <fontDescription key="fontDescription" name="Nunito-Bold" family="Nunito" pointSize="16"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <collectionView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="O2o-9M-BgO">
@@ -72,10 +74,10 @@
                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         </collectionViewFlowLayout>
                     </collectionView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bMj-4t-cHy">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bMj-4t-cHy">
                         <rect key="frame" x="80" y="79" width="220" height="51.5"/>
                         <fontDescription key="fontDescription" name="Nunito-Bold" family="Nunito" pointSize="14"/>
-                        <color key="textColor" red="0.34901960780000002" green="0.34901960780000002" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="textColor" red="0.53725490196078429" green="0.53725490196078429" blue="0.53725490196078429" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5mR-Jq-jld">
@@ -85,7 +87,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ej9-Jr-g1m">
-                        <rect key="frame" x="119" y="51" width="10" height="10"/>
+                        <rect key="frame" x="124" y="58" width="10" height="10"/>
                         <color key="backgroundColor" red="0.98431372549019602" green="0.34509803921568627" blue="0.34509803921568627" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="10" id="bbM-IW-1VH"/>
@@ -106,12 +108,12 @@
                     </imageView>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="qQs-uj-44W" firstAttribute="bottom" secondItem="IhD-93-0vv" secondAttribute="bottom" id="3Rq-MQ-nfE"/>
+                    <constraint firstItem="qQs-uj-44W" firstAttribute="bottom" secondItem="IhD-93-0vv" secondAttribute="bottom" constant="2" id="3Rq-MQ-nfE"/>
                     <constraint firstItem="5mR-Jq-jld" firstAttribute="bottom" secondItem="H2p-sc-9uM" secondAttribute="bottom" constant="-12" id="4pd-f4-Oco"/>
-                    <constraint firstItem="bMj-4t-cHy" firstAttribute="top" secondItem="qQs-uj-44W" secondAttribute="bottom" constant="7" id="4zJ-Eo-gv2"/>
+                    <constraint firstItem="bMj-4t-cHy" firstAttribute="top" secondItem="qQs-uj-44W" secondAttribute="bottom" constant="5" id="4zJ-Eo-gv2"/>
                     <constraint firstItem="IhD-93-0vv" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="24" id="7gz-Nv-BfE"/>
                     <constraint firstItem="bMj-4t-cHy" firstAttribute="leading" secondItem="qQs-uj-44W" secondAttribute="leading" id="AAm-Ia-dBW"/>
-                    <constraint firstItem="GW0-JS-imI" firstAttribute="top" secondItem="qQs-uj-44W" secondAttribute="bottom" constant="8" id="G1V-wo-NLs"/>
+                    <constraint firstItem="GW0-JS-imI" firstAttribute="top" secondItem="qQs-uj-44W" secondAttribute="bottom" constant="6" id="G1V-wo-NLs"/>
                     <constraint firstItem="GW0-JS-imI" firstAttribute="leading" secondItem="qQs-uj-44W" secondAttribute="leading" id="I7Y-oi-Gvf"/>
                     <constraint firstItem="5mR-Jq-jld" firstAttribute="leading" secondItem="qQs-uj-44W" secondAttribute="leading" id="KuE-lZ-Qiz"/>
                     <constraint firstItem="qQs-uj-44W" firstAttribute="leading" secondItem="bsg-y8-vuM" secondAttribute="leading" id="OeR-w8-P2a"/>

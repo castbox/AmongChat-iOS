@@ -24,19 +24,19 @@ extension Conversation {
         init(msg: Entity.DMInteractiveMessage, updateTime: Double) {
             self.msg = msg
             
-            self.timeString = msg.createTime.timeFormattedForConversationList()
+            self.timeString = msg.date.timeFormattedForConversation()
             
             let contentHeight: CGFloat
             let maxWidth = Frame.Screen.width - 100
             let contentTopEdge: CGFloat = 8
             if !msg.text.isEmpty {
                 contentHeight = msg.text.boundingRect(with: CGSize(width: maxWidth, height: 1000), font: R.font.nunitoBold(size: 14)!).height + contentTopEdge
-            } else if !msg.emoteIds.isEmpty {
+            } else if !msg.wrappedEmoteIds.isEmpty {
                 contentHeight = 32 + contentTopEdge
             } else {
                 contentHeight = 0
             }
-            emote = Settings.shared.globalSetting.value?.feedEmotes.first(where: { $0.id == (msg.emoteIds.first ?? "") })?.img
+            emote = Settings.shared.globalSetting.value?.feedEmotes.first(where: { $0.id == (msg.wrappedEmoteIds.first ?? "") })?.img
             isRead = updateTime >= msg.opTime
             self.height = 111 + contentHeight
         }
@@ -122,10 +122,10 @@ extension Conversation {
         }
         
         private func loadData() {
-            let removeBlock = view.raft.show(.loading)
+//            let removeBlock = view.raft.show(.loading)
             Request.interactiveMsgs(opType, skipMs: 0)
                 .subscribe(onSuccess: { [weak self](data) in
-                    removeBlock()
+//                    removeBlock()
                     guard let `self` = self else { return }
                     self.dataSource = data.list.map { InteractiveMessageCellViewModel(msg: $0, updateTime: self.updateTime) }
                     if self.dataSource.isEmpty {
@@ -135,7 +135,7 @@ extension Conversation {
                     }
                     self.tableView.endLoadMore(data.more)
                 }, onError: { [weak self](error) in
-                    removeBlock()
+//                    removeBlock()
                     self?.addErrorView({ [weak self] in
                         self?.loadData()
                     })
