@@ -53,7 +53,7 @@ extension Entity {
         let status: Int
         //comment count
         let cmtCount: Int
-        let createTime: Date
+        let createTime: Int64
         let user: UserProfile
         let topicName: String
         //播放数
