@@ -92,6 +92,23 @@ class FeedListCell: UITableViewCell {
             self?.activityView.stopAnimating()
         }
         update(emotes: viewModel.emotes)
+        if feed.cmtCount > 0 {
+            commentButton.setTitle(feed.cmtCount.string, for: .normal)
+        } else {
+            commentButton.setTitle("", for: .normal)
+        }
+        
+        if feed.shareCountValue > 0 {
+            shareButton.setTitle(feed.shareCountValue.string, for: .normal)
+        } else {
+            shareButton.setTitle("", for: .normal)
+        }
+        
+        if feed.cmtCount > 0 {
+            commentButton.setTitle(feed.cmtCount.string, for: .normal)
+        } else {
+            commentButton.setTitle("", for: .normal)
+        }
     }
     
     func update(emotes: [Emote]) {
