@@ -300,13 +300,13 @@ extension Social {
             layout.minimumLineSpacing = 20
             let v = UICollectionView(frame: .zero, collectionViewLayout: layout)
             v.contentInset = UIEdgeInsets(top: 0, left: hInset, bottom: isSelfProfile.value ? 0 : 48, right: hInset)
-            v.register(FansGroupItemCell.self, forCellWithReuseIdentifier: NSStringFromClass(FansGroupItemCell.self))
-            v.register(FansGroupSelfItemCell.self, forCellWithReuseIdentifier: NSStringFromClass(FansGroupSelfItemCell.self))
-            v.register(cellWithClass: ProfileTableCell.self)
-            v.register(cellWithClass: GameCell.self)
-            v.register(cellWithClass: JoinedGroupCell.self)
-            v.register(LiveCell.self, forCellWithReuseIdentifier: NSStringFromClass(LiveCell.self))
-            v.register(cellWithClass: UICollectionViewCell.self)
+            v.register(cellWithClazz: FansGroupItemCell.self)
+            v.register(cellWithClazz: FansGroupSelfItemCell.self)
+            v.register(cellWithClazz: ProfileTableCell.self)
+            v.register(cellWithClazz: GameCell.self)
+            v.register(cellWithClazz: JoinedGroupCell.self)
+            v.register(cellWithClazz: LiveCell.self)
+            v.register(cellWithClazz: UICollectionViewCell.self)
             v.register(supplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withClass: SectionHeader.self)
             v.showsVerticalScrollIndicator = false
             v.showsHorizontalScrollIndicator = false
@@ -958,7 +958,7 @@ extension Social.ProfileViewController: UICollectionViewDataSource, UICollection
         case .gameStats:
             
             if let game = gameSkills.safe(indexPath.row) {
-                let cell = collectionView.dequeueReusableCell(withClass: GameCell.self, for: indexPath)
+                let cell = collectionView.dequeueReusableCell(withClazz: GameCell.self, for: indexPath)
                 cell.bind(game)
                 cell.deleteButton.isHidden = !isSelfProfile.value
                 cell.deleteHandler = { [weak self] in
@@ -968,13 +968,13 @@ extension Social.ProfileViewController: UICollectionViewDataSource, UICollection
                 }
                 return cell
             } else {
-                let cell = collectionView.dequeueReusableCell(withClass: ProfileTableCell.self, for: indexPath)
+                let cell = collectionView.dequeueReusableCell(withClazz: ProfileTableCell.self, for: indexPath)
                 cell.configCell(with: op)
                 return cell
             }
             
         case .tiktok:
-            let cell = collectionView.dequeueReusableCell(withClass: ProfileTableCell.self, for: indexPath)
+            let cell = collectionView.dequeueReusableCell(withClazz: ProfileTableCell.self, for: indexPath)
             cell.configCell(with: op)
             return cell
             
@@ -983,36 +983,32 @@ extension Social.ProfileViewController: UICollectionViewDataSource, UICollection
             let group = createdGroupsRelay.value[indexPath.row]
             
             if isSelfProfile.value {
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NSStringFromClass(FansGroupSelfItemCell.self), for: indexPath)
-                if let cell = cell as? FansGroupSelfItemCell {
-                    cell.tagView.isHidden = true
-                    cell.bindData(group)  { [weak self] action in
-                        guard let `self` = self else { return }
-                        switch action {
-                        case .edit:
-                            self.gotoEditGroup(group.gid)
-                            Logger.Action.log(.profile_group_clk, categoryValue: "edit")
-                        case .start:
-                            self.enter(group: group, logSource: .init(.profile), apiSource: nil)
-                            Logger.Action.log(.profile_group_clk, categoryValue: "start")
-                        }
+                let cell = collectionView.dequeueReusableCell(withClazz: FansGroupSelfItemCell.self, for: indexPath)
+                cell.tagView.isHidden = true
+                cell.bindData(group)  { [weak self] action in
+                    guard let `self` = self else { return }
+                    switch action {
+                    case .edit:
+                        self.gotoEditGroup(group.gid)
+                        Logger.Action.log(.profile_group_clk, categoryValue: "edit")
+                    case .start:
+                        self.enter(group: group, logSource: .init(.profile), apiSource: nil)
+                        Logger.Action.log(.profile_group_clk, categoryValue: "start")
                     }
                 }
                 return cell
             } else {
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NSStringFromClass(FansGroupItemCell.self), for: indexPath)
-                if let cell = cell as? FansGroupItemCell {
-                    cell.bindData(group)
-                }
+                let cell = collectionView.dequeueReusableCell(withClazz: FansGroupItemCell.self, for: indexPath)
+                cell.bindData(group)
                 return cell
             }
             
         case .groupsJoined:
-            let cell = collectionView.dequeueReusableCell(withClass: JoinedGroupCell.self, for: indexPath)
+            let cell = collectionView.dequeueReusableCell(withClazz: JoinedGroupCell.self, for: indexPath)
             cell.bindData(joinedGroupsRelay.value[indexPath.item])
             return cell
         case .profile:
-            let cell = collectionView.dequeueReusableCell(withClass: UICollectionViewCell.self, for: indexPath)
+            let cell = collectionView.dequeueReusableCell(withClazz: UICollectionViewCell.self, for: indexPath)
             headerView.removeFromSuperview()
             cell.contentView.addSubview(headerView)
             headerView.snp.makeConstraints { (maker) in
@@ -1021,29 +1017,27 @@ extension Social.ProfileViewController: UICollectionViewDataSource, UICollection
             return cell
             
         case .live:
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NSStringFromClass(LiveCell.self), for: indexPath)
-            if let cell = cell as? LiveCell {
+            let cell = collectionView.dequeueReusableCell(withClazz: LiveCell.self, for: indexPath)
+            
+            let liveRoom = liveRoomRelay.value.first
+            
+            if let room = liveRoom as? Entity.UserStatus.Room {
                 
-                let liveRoom = liveRoomRelay.value.first
-                
-                if let room = liveRoom as? Entity.UserStatus.Room {
-                    
-                    cell.coverIV.setImage(with: room.coverUrl)
-                    cell.label.text = R.string.localizable.profileUserInChannel(room.topicName)
-                    cell.joinBtn.isEnabled = (room.state != "private")
-                    cell.joinHandler = { [weak self] in
-                        self?.enterRoom(roomId: room.roomId, topicId: room.topicId)
-                    }
-                } else if let group = liveRoom as? Entity.UserStatus.Group {
-                    cell.coverIV.setImage(with: group.cover)
-                    cell.label.text = R.string.localizable.profileUserInGroup(group.name)
-                    cell.joinBtn.isEnabled = true
-                    cell.joinHandler = { [weak self] in
-                        self?.enter(group: group.gid)
-                    }
+                cell.coverIV.setImage(with: room.coverUrl)
+                cell.label.text = R.string.localizable.profileUserInChannel(room.topicName)
+                cell.joinBtn.isEnabled = (room.state != "private")
+                cell.joinHandler = { [weak self] in
+                    self?.enterRoom(roomId: room.roomId, topicId: room.topicId)
                 }
-                
+            } else if let group = liveRoom as? Entity.UserStatus.Group {
+                cell.coverIV.setImage(with: group.cover)
+                cell.label.text = R.string.localizable.profileUserInGroup(group.name)
+                cell.joinBtn.isEnabled = true
+                cell.joinHandler = { [weak self] in
+                    self?.enter(group: group.gid)
+                }
             }
+            
             return cell
         }
         
