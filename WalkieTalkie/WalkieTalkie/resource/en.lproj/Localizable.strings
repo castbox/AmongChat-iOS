@@ -572,12 +572,10 @@
 "dm.interactive.comment.title" = "commented on your post";
 "dm.interactive.comment.like.title" = "liked your comment";
 
-
+//1.22
 "feed.share" = "Share";
 "feed.sheet.not.interested" = "Not interested";
 "feed.sheet.delete.video" = "Delete video";
-
-//feed
 "feed.library.video.unsupported" = "Not Supported";
 "feed.post.title" = "Post";
 "feed.library.title" = "Library";
@@ -589,4 +587,16 @@
 "feed.comments.collapse" = "Hide";
 "feed.comments.placeholder" = "Add a comment";
 "feed.comments.list.title" = "%1$@ Comments";
+
+"profile.feed.no.videos" = "Oops, no videos yet!";
+"profile.feed.click.create" = "Click to create your first video";
+"feed.library.access.photo.title" = "Access Your Gallery";
+"feed.library.access.photo.text" = "The permission to access your gallery is needed. Please change it by clicking the button below, to get all your clips here.";
+"among.chat.open.settings" = "Open Settings";
+"feed.comments.deleted" = "Deleted";
+"profile.game.stats.empty" = "Oops, no gaming stats yet!";
+"feed.library.video.empty" = "Oops, no content here!";
+"feed.comment.create.failed" = "Comment failed to post";
+"feed.comment.delete.failed" = "Failed to delete";
+"feed.comment.reply.failed" = "Failed to reply";
 "feed.comments.comment.success" = "Comment posted";
