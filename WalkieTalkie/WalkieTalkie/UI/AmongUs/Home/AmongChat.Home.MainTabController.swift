@@ -223,7 +223,7 @@ extension AmongChat.Home.MainTabController {
                                      Settings.shared.hasUnreadMessageRelay, Settings.shared.hasUnreadInteractiveMsgRelay)
             .map { $0 || $1 || $2 }
         Observable.combineLatest(messageTabHasUnreadReply,
-                                 tabs.safe(2)?.1
+                                 tabs.first(where: { $0.2 == .messages })?.1
                                     .filterNil()
                                     .take(1) ?? Observable.empty())
             .observeOn(MainScheduler.asyncInstance)
