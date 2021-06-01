@@ -238,7 +238,8 @@ extension AmongChat.Home.FeedViewController {
                 updateEmoteState(with: viewModel.feed.pid, emoteId: emote.id, isSelect: !emote.isVoted, index: indexPath.row)
             }
         case .comment:
-            ()
+            let commentList = Feed.Comments.CommentsListViewController(with: viewModel.feed.pid)
+            self.presentPanModal(commentList)
         case .share:
             ()
         case .more:

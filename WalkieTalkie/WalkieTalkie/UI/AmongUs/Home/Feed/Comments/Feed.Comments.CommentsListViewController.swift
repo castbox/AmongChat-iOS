@@ -111,6 +111,7 @@ extension Feed.Comments {
         private lazy var comments: [CommentViewModel] = [] {
             didSet {
                 commentListView.reloadData()
+                titleLabel.text = R.string.localizable.feedCommentsListTitle("\(comments.count)")
             }
         }
         

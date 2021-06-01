@@ -2620,12 +2620,16 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
     
-    /// This `R.string.localizable` struct is generated, and contains static references to 510 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 511 localization keys.
     struct localizable {
       /// en translation:  Congratulations!
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatLoginCongrat = Rswift.StringResource(key: "among.chat.login.congrat", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: %1$@ Comments
+      /// 
+      /// Locales: en
+      static let feedCommentsListTitle = Rswift.StringResource(key: "feed.comments.list.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: %1$@ Free Trial
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -4668,6 +4672,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func amongChatLoginCongrat(_: Void = ()) -> String {
         return NSLocalizedString("among.chat.login.congrat", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: %1$@ Comments
+      /// 
+      /// Locales: en
+      static func feedCommentsListTitle(_ value1: String) -> String {
+        return String(format: NSLocalizedString("feed.comments.list.title", bundle: R.hostingBundle, comment: ""), locale: R.applicationLocale, value1)
       }
       
       /// en translation: %1$@ Free Trial
