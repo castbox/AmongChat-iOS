@@ -232,7 +232,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 255 images.
+  /// This `R.image` struct is generated, and contains static references to 262 images.
   struct image {
     /// Image `ac_add_stats_add`.
     static let ac_add_stats_add = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_add_stats_add")
@@ -504,10 +504,20 @@ struct R: Rswift.Validatable {
     static let ac_profile_constellation_24 = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_profile_constellation_24")
     /// Image `ac_profile_delete_game_stats`.
     static let ac_profile_delete_game_stats = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_profile_delete_game_stats")
+    /// Image `ac_profile_feed_play_count`.
+    static let ac_profile_feed_play_count = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_profile_feed_play_count")
+    /// Image `ac_profile_game_normal`.
+    static let ac_profile_game_normal = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_profile_game_normal")
+    /// Image `ac_profile_game_selected`.
+    static let ac_profile_game_selected = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_profile_game_selected")
     /// Image `ac_profile_game`.
     static let ac_profile_game = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_profile_game")
     /// Image `ac_profile_geo`.
     static let ac_profile_geo = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_profile_geo")
+    /// Image `ac_profile_group_normal`.
+    static let ac_profile_group_normal = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_profile_group_normal")
+    /// Image `ac_profile_group_selected`.
+    static let ac_profile_group_selected = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_profile_group_selected")
     /// Image `ac_profile_id`.
     static let ac_profile_id = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_profile_id")
     /// Image `ac_profile_look_bg_defalut`.
@@ -528,6 +538,10 @@ struct R: Rswift.Validatable {
     static let ac_profile_setting = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_profile_setting")
     /// Image `ac_profile_username`.
     static let ac_profile_username = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_profile_username")
+    /// Image `ac_profile_video_normal`.
+    static let ac_profile_video_normal = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_profile_video_normal")
+    /// Image `ac_profile_video_selected`.
+    static let ac_profile_video_selected = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_profile_video_selected")
     /// Image `ac_rate_us`.
     static let ac_rate_us = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_rate_us")
     /// Image `ac_red_dot`.
@@ -1420,14 +1434,39 @@ struct R: Rswift.Validatable {
       return UIKit.UIImage(resource: R.image.ac_profile_delete_game_stats, compatibleWith: traitCollection)
     }
     
+    /// `UIImage(named: "ac_profile_feed_play_count", bundle: ..., traitCollection: ...)`
+    static func ac_profile_feed_play_count(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_profile_feed_play_count, compatibleWith: traitCollection)
+    }
+    
     /// `UIImage(named: "ac_profile_game", bundle: ..., traitCollection: ...)`
     static func ac_profile_game(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ac_profile_game, compatibleWith: traitCollection)
     }
     
+    /// `UIImage(named: "ac_profile_game_normal", bundle: ..., traitCollection: ...)`
+    static func ac_profile_game_normal(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_profile_game_normal, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_profile_game_selected", bundle: ..., traitCollection: ...)`
+    static func ac_profile_game_selected(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_profile_game_selected, compatibleWith: traitCollection)
+    }
+    
     /// `UIImage(named: "ac_profile_geo", bundle: ..., traitCollection: ...)`
     static func ac_profile_geo(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ac_profile_geo, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_profile_group_normal", bundle: ..., traitCollection: ...)`
+    static func ac_profile_group_normal(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_profile_group_normal, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_profile_group_selected", bundle: ..., traitCollection: ...)`
+    static func ac_profile_group_selected(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_profile_group_selected, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "ac_profile_id", bundle: ..., traitCollection: ...)`
@@ -1478,6 +1517,16 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "ac_profile_username", bundle: ..., traitCollection: ...)`
     static func ac_profile_username(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ac_profile_username, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_profile_video_normal", bundle: ..., traitCollection: ...)`
+    static func ac_profile_video_normal(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_profile_video_normal, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_profile_video_selected", bundle: ..., traitCollection: ...)`
+    static func ac_profile_video_selected(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_profile_video_selected, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "ac_rate_us", bundle: ..., traitCollection: ...)`
