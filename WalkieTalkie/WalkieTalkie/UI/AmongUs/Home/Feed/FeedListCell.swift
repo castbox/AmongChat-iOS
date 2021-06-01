@@ -299,8 +299,8 @@ private extension FeedListCell {
                 guard let uid = self?.viewModel?.feed.uid else {
                     return
                 }
-//                Routes.handle("/profile/\(uid)")
-                Routes.handle("/profile/feeds/\(uid)")
+                Routes.handle("/profile/\(uid)")
+//                Routes.handle("/profile/feeds/\(uid)?index=2")
             })
             .disposed(by: bag)
         

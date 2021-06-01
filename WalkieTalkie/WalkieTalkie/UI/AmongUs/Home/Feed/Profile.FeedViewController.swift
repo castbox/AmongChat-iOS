@@ -69,6 +69,7 @@ extension Social {
                 .do(onSuccess: { [weak self] data in
                     removeBlock()
                     guard let `self` = self else { return }
+                    self.tableView.alpha = 0
                     self.dataSource = data.list.map { Feed.ListCellViewModel(feed: $0) }
                 }, onDispose: {
                     removeBlock()
@@ -76,12 +77,25 @@ extension Social {
                 .delay(.fromSeconds(0.2), scheduler: MainScheduler.asyncInstance)
                 .subscribe(onSuccess: { [weak self] data in
                     //play first
-                    self?.replayVisibleItem()
+//                    self?.replayVisibleItem()
+                    self?.autoScrollToDefaultIndex()
                 }, onError: { [weak self](error) in
                     self?.addErrorView({ [weak self] in
                         self?.loadData()
                     })
                 }).disposed(by: bag)
+        }
+        
+        func autoScrollToDefaultIndex() {
+            if defaultIndex > 0 {
+                tableView.layoutIfNeeded()
+                if defaultIndex < dataSource.count {
+                    let indexPath = IndexPath(row: defaultIndex, section: 0)
+                    tableView.scrollToRow(at: indexPath, at: .none, animated: false)
+                }
+            }
+            replayVisibleItem()
+            tableView.alpha = 1
         }
         
         override func replayVisibleItem() {

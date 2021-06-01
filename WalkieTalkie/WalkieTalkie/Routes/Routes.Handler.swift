@@ -186,7 +186,7 @@ extension Routes {
             guard let uid = profileFeeds.uid else {
                 return
             }
-            let vc = Social.ProfileFeedController(with: uid)
+            let vc = Social.ProfileFeedController(with: uid, index: profileFeeds.index ?? 0)
             UIApplication.topViewController()?.navigationController?.pushViewController(vc)
         }
         

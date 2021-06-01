@@ -195,8 +195,7 @@ extension Feed {
         func configureSubview() {
                         
             tableView = UITableView()
-            tableView.backgroundColor = .black
-    //        tableView.translatesAutoresizingMaskIntoConstraints = false  // Enable Auto Layout
+            tableView.backgroundColor = .clear
             tableView.tableFooterView = UIView()
             tableView.isPagingEnabled = true
             if #available(iOS 11.0, *) {
