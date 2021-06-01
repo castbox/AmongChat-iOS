@@ -90,17 +90,5 @@ extension Feed {
                 maker.width.height.equalTo(42)
             }
         }
-                
-        override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-            
-        }
-        
-        override func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-            
-        }
-        
-        override func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-            
-        }
     }
 }
