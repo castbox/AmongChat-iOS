@@ -90,7 +90,7 @@ extension AmongChat.Home {
         
         private var currentIndex = 0
 //        private var previousIndex = 0
-        
+        private let videoEditor = VideoEditor()
         private let disposeBag = DisposeBag()
         private var dataSource: [Feed.CellViewModel] = [] {
             didSet {
@@ -212,6 +212,38 @@ extension AmongChat.Home.FeedViewController {
             .disposed(by: bag)
     }
     
+    func share(feed: Entity.Feed) {
+        //get tag imge
+        guard let config = VICacheManager.cacheConfiguration(for: feed.url),
+              config.progress == 1 else {
+            return
+        }
+        let tagImageView = VideoShareTagView(with: feed.user.name ?? feed.user.uid.string)
+        view.addSubview(tagImageView)
+        guard let tagImage = tagImageView.screenshot else {
+            tagImageView.removeFromSuperview()
+            return
+        }
+        tagImageView.removeFromSuperview()
+        let url = URL(fileURLWithPath: config.filePath.replacingOccurrences(of: ".mt_cfg", with: ""))
+        let removeHandler = view.raft.show(.loading)
+        videoEditor.addTag(image: tagImage, for: url) { [weak self] url in
+            removeHandler()
+            guard let `self` = self, let url = url else {
+                return
+            }
+            cdPrint("url: \(url)")
+            ShareManager.default.showActivity(items: [url], viewController: self) {
+                //cancel or finish, remove
+                do {
+                    try FileManager.default.removeItem(at: url)
+                } catch {
+                    cdPrint("FileManager.default.removeItem: \(error)")
+                }
+            }
+        }
+    }
+    
     func onCell(action: FeedListCell.Action, indexPath: IndexPath) {
         guard let viewModel = dataSource.safe(indexPath.row) else {
             return
@@ -240,13 +272,13 @@ extension AmongChat.Home.FeedViewController {
         case .comment:
             ()
         case .share:
-            ()
+            share(feed: viewModel.feed)
         case .more:
             AmongSheetController.show(items: [.share, .notInterested, .report, .cancel], in: self.tabBarController ?? self) { [weak self] item in
                 guard let `self` = self else { return }
                 switch item {
                 case .share:
-                    ()
+                    self.share(feed: viewModel.feed)
                 case .notInterested:
                     ()
                 case .report:

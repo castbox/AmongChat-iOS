@@ -449,6 +449,9 @@
 		FEF61723264AC8FB007CC97E /* Request.Giphy.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEF61722264AC8FB007CC97E /* Request.Giphy.swift */; };
 		FEF61725264BCD5E007CC97E /* WaterfallLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEF61724264BCD5D007CC97E /* WaterfallLayout.swift */; };
 		FEF61728264C00C3007CC97E /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEF61727264C00C3007CC97E /* DateExtension.swift */; };
+		FEFDDBE526651F5C004FF134 /* VideoEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEFDDBE426651F5C004FF134 /* VideoEditor.swift */; };
+		FEFDDBE7266520F7004FF134 /* VideoShareTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEFDDBE6266520F7004FF134 /* VideoShareTagView.swift */; };
+		FEFDDBE9266520FE004FF134 /* VideoShareTagView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FEFDDBE8266520FE004FF134 /* VideoShareTagView.xib */; };
 		FEFF9356258B30980011A274 /* AmongChat.Room.ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEFF9355258B30970011A274 /* AmongChat.Room.ViewModel.swift */; };
 		FEFF935A258B33420011A274 /* AmongInputNotesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEFF9359258B33420011A274 /* AmongInputNotesView.swift */; };
 		FEFF935E258B33480011A274 /* AmongInputNotesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FEFF935D258B33480011A274 /* AmongInputNotesView.xib */; };
@@ -946,6 +949,9 @@
 		FEF61722264AC8FB007CC97E /* Request.Giphy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Request.Giphy.swift; sourceTree = "<group>"; };
 		FEF61724264BCD5D007CC97E /* WaterfallLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaterfallLayout.swift; sourceTree = "<group>"; };
 		FEF61727264C00C3007CC97E /* DateExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
+		FEFDDBE426651F5C004FF134 /* VideoEditor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoEditor.swift; sourceTree = "<group>"; };
+		FEFDDBE6266520F7004FF134 /* VideoShareTagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoShareTagView.swift; sourceTree = "<group>"; };
+		FEFDDBE8266520FE004FF134 /* VideoShareTagView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VideoShareTagView.xib; sourceTree = "<group>"; };
 		FEFF9355258B30970011A274 /* AmongChat.Room.ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChat.Room.ViewModel.swift; sourceTree = "<group>"; };
 		FEFF9359258B33420011A274 /* AmongInputNotesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongInputNotesView.swift; sourceTree = "<group>"; };
 		FEFF935D258B33480011A274 /* AmongInputNotesView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AmongInputNotesView.xib; sourceTree = "<group>"; };
@@ -1242,6 +1248,7 @@
 				FE0A0F25265E0C8600AC9FF7 /* FeedEmojiCollectionCell.xib */,
 				FE0A0F28265E217200AC9FF7 /* Feed.EmotePickerController.swift */,
 				FE0A0F2A265E21CD00AC9FF7 /* Feed.EmotePickerViewModel.swift */,
+				FEFDDBE426651F5C004FF134 /* VideoEditor.swift */,
 			);
 			path = Feed;
 			sourceTree = "<group>";
@@ -1612,6 +1619,8 @@
 				FE87C2D0259C2EC200799883 /* SnapChatCreativeShareView.xib */,
 				FEA298CA25E63714001D5F3C /* SnapChatSharePhotoView.swift */,
 				FEA298CE25E63804001D5F3C /* SnapChatSharePhotoView.xib */,
+				FEFDDBE6266520F7004FF134 /* VideoShareTagView.swift */,
+				FEFDDBE8266520FE004FF134 /* VideoShareTagView.xib */,
 			);
 			path = ShareManager;
 			sourceTree = "<group>";
@@ -2025,6 +2034,7 @@
 				FE126D21243461EA00BEDD60 /* Assets.xcassets in Resources */,
 				FE7ED90125F20292009C608A /* room-emoji-pink.svga in Resources */,
 				FE7CEB57258A029F0067952C /* AmongRoomInfoSetupView.xib in Resources */,
+				FEFDDBE9266520FE004FF134 /* VideoShareTagView.xib in Resources */,
 				FE1A2DF5248A4BAD00F9A44D /* emojis.json in Resources */,
 				FECFC4FC24666DD500B10EEE /* Nunito-Black.ttf in Resources */,
 				FE7ED90025F20292009C608A /* room-emoji-brown.svga in Resources */,
@@ -2407,6 +2417,7 @@
 				263F8ADF26156D7F00282F8F /* Entity.Group.swift in Sources */,
 				FE79F375258C731400E9BC6C /* SoundAnimationView.swift in Sources */,
 				BDFCA56F25959428000ABB39 /* AmongChat.Home.RelationsViewController.swift in Sources */,
+				FEFDDBE526651F5C004FF134 /* VideoEditor.swift in Sources */,
 				FE126D18243461E800BEDD60 /* AppDelegate.swift in Sources */,
 				BD680D752554F8220062CEC7 /* Ad.AppOpenAdManager.swift in Sources */,
 				BDE20C67258DE4B800245CBA /* AmongChat.Home.LoadErrorView.swift in Sources */,
@@ -2437,6 +2448,7 @@
 				FE2AF9E8244DB16F00763747 /* UIViewController+Safari.swift in Sources */,
 				FEAD54D62449B6A0006454F6 /* GestureBackable.swift in Sources */,
 				BDE20C0F258DD45B00245CBA /* APIService.Cache.swift in Sources */,
+				FEFDDBE7266520F7004FF134 /* VideoShareTagView.swift in Sources */,
 				269A6DE4261D8F0C00A07C7D /* FansGroup.GroupInfoViewController+Views.swift in Sources */,
 				FE6738AA2611EB870044C0D2 /* AmongChat.GroupRoom.AudienceViewModel.swift in Sources */,
 				FE7720BF258E1521006A2F1B /* UIAlertControllerExtension.swift in Sources */,

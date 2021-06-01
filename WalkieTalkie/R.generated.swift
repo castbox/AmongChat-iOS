@@ -232,7 +232,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 250 images.
+  /// This `R.image` struct is generated, and contains static references to 251 images.
   struct image {
     /// Image `ac_add_stats_add`.
     static let ac_add_stats_add = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_add_stats_add")
@@ -650,6 +650,8 @@ struct R: Rswift.Validatable {
     static let iconVideoMore = Rswift.ImageResource(bundle: R.hostingBundle, name: "iconVideoMore")
     /// Image `iconVideoPause`.
     static let iconVideoPause = Rswift.ImageResource(bundle: R.hostingBundle, name: "iconVideoPause")
+    /// Image `iconVideoShareAmongChat`.
+    static let iconVideoShareAmongChat = Rswift.ImageResource(bundle: R.hostingBundle, name: "iconVideoShareAmongChat")
     /// Image `iconVideoShare`.
     static let iconVideoShare = Rswift.ImageResource(bundle: R.hostingBundle, name: "iconVideoShare")
     /// Image `icon_close_gray`.
@@ -1780,6 +1782,11 @@ struct R: Rswift.Validatable {
       return UIKit.UIImage(resource: R.image.iconVideoShare, compatibleWith: traitCollection)
     }
     
+    /// `UIImage(named: "iconVideoShareAmongChat", bundle: ..., traitCollection: ...)`
+    static func iconVideoShareAmongChat(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.iconVideoShareAmongChat, compatibleWith: traitCollection)
+    }
+    
     /// `UIImage(named: "icon_close", bundle: ..., traitCollection: ...)`
     static func icon_close(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.icon_close, compatibleWith: traitCollection)
@@ -1988,7 +1995,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.nib` struct is generated, and contains static references to 42 nibs.
+  /// This `R.nib` struct is generated, and contains static references to 43 nibs.
   struct nib {
     /// Nib `AddStatsPendingController`.
     static let addStatsPendingController = _R.nib._AddStatsPendingController()
@@ -2074,6 +2081,8 @@ struct R: Rswift.Validatable {
     static let snapChatSharePhotoView = _R.nib._SnapChatSharePhotoView()
     /// Nib `TikTokShareView`.
     static let tikTokShareView = _R.nib._TikTokShareView()
+    /// Nib `VideoShareTagView`.
+    static let videoShareTagView = _R.nib._VideoShareTagView()
     
     /// `UINib(name: "AddStatsPendingController", in: bundle)`
     @available(*, deprecated, message: "Use UINib(resource: R.nib.addStatsPendingController) instead")
@@ -2327,6 +2336,12 @@ struct R: Rswift.Validatable {
       return UIKit.UINib(resource: R.nib.tikTokShareView)
     }
     
+    /// `UINib(name: "VideoShareTagView", in: bundle)`
+    @available(*, deprecated, message: "Use UINib(resource: R.nib.videoShareTagView) instead")
+    static func videoShareTagView(_: Void = ()) -> UIKit.UINib {
+      return UIKit.UINib(resource: R.nib.videoShareTagView)
+    }
+    
     static func addStatsPendingController(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
       return R.nib.addStatsPendingController.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
     }
@@ -2495,6 +2510,10 @@ struct R: Rswift.Validatable {
       return R.nib.tikTokShareView.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
     }
     
+    static func videoShareTagView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+      return R.nib.videoShareTagView.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+    }
+    
     fileprivate init() {}
   }
   
@@ -2606,7 +2625,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
     
-    /// This `R.string.localizable` struct is generated, and contains static references to 505 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 506 localization keys.
     struct localizable {
       /// en translation:  Congratulations!
       /// 
@@ -3056,6 +3075,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatGroupDeleteGroup = Rswift.StringResource(key: "among.chat.group.delete.group", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Delete video
+      /// 
+      /// Locales: en
+      static let feedSheetDeleteVideo = Rswift.StringResource(key: "feed.sheet.delete.video", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Didn't receive the code? %1$@
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -5411,6 +5434,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func amongChatGroupDeleteGroup(_: Void = ()) -> String {
         return NSLocalizedString("among.chat.group.delete.group", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Delete video
+      /// 
+      /// Locales: en
+      static func feedSheetDeleteVideo(_: Void = ()) -> String {
+        return NSLocalizedString("feed.sheet.delete.video", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Didn't receive the code? %1$@
@@ -8210,6 +8240,7 @@ struct _R: Rswift.Validatable {
       try _SnapChatCreativeShareView.validate()
       try _SnapChatSharePhotoView.validate()
       try _TikTokShareView.validate()
+      try _VideoShareTagView.validate()
     }
     
     struct _AddStatsPendingController: Rswift.NibResourceType, Rswift.Validatable {
@@ -8849,6 +8880,24 @@ struct _R: Rswift.Validatable {
       
       static func validate() throws {
         if UIKit.UIImage(named: "public_share_bg_2", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'public_share_bg_2' is used in nib 'TikTokShareView', but couldn't be loaded.") }
+        if #available(iOS 11.0, *) {
+        }
+      }
+      
+      fileprivate init() {}
+    }
+    
+    struct _VideoShareTagView: Rswift.NibResourceType, Rswift.Validatable {
+      let bundle = R.hostingBundle
+      let name = "VideoShareTagView"
+      
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+      }
+      
+      static func validate() throws {
+        if UIKit.UIImage(named: "iconVideoShareAmongChat", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'iconVideoShareAmongChat' is used in nib 'VideoShareTagView', but couldn't be loaded.") }
+        if UIKit.UIImage(named: "launch_logo", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'launch_logo' is used in nib 'VideoShareTagView', but couldn't be loaded.") }
         if #available(iOS 11.0, *) {
         }
       }

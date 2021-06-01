@@ -575,6 +575,8 @@
 
 "feed.share" = "Share";
 "feed.sheet.not.interested" = "Not interested";
+"feed.sheet.delete.video" = "Delete video";
+
 //feed
 "feed.library.video.unsupported" = "Not Supported";
 "feed.post.title" = "Post";
