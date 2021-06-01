@@ -593,3 +593,8 @@
 "feed.library.access.photo.text" = "The permission to access your gallery is needed. Please change it by clicking the button below, to get all your clips here.";
 "among.chat.open.settings" = "Open Settings";
 "feed.comments.deleted" = "Deleted";
+"profile.game.stats.empty" = "Oops, no gaming stats yet!";
+"feed.library.video.empty" = "Oops, no content here!";
+"feed.comment.create.failed" = "Comment failed to post";
+"feed.comment.delete.failed" = "Failed to delete";
+"feed.comment.reply.failed" = "Failed to reply";

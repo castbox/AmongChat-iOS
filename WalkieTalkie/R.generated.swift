@@ -2639,7 +2639,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
     
-    /// This `R.string.localizable` struct is generated, and contains static references to 518 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 523 localization keys.
     struct localizable {
       /// en translation:  Congratulations!
       /// 
@@ -3025,6 +3025,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatCustomAvatarClose = Rswift.StringResource(key: "among.chat.custom.avatar.close", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Comment failed to post
+      /// 
+      /// Locales: en
+      static let feedCommentCreateFailed = Rswift.StringResource(key: "feed.comment.create.failed", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Comments
       /// 
       /// Locales: en
@@ -3209,6 +3213,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let socialBlockFailed = Rswift.StringResource(key: "social.block.failed", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Failed to delete
+      /// 
+      /// Locales: en
+      static let feedCommentDeleteFailed = Rswift.StringResource(key: "feed.comment.delete.failed", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Failed to enter channel
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3221,6 +3229,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatRewardVideoLoadFailed = Rswift.StringResource(key: "among.chat.reward.video.load.failed", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Failed to reply
+      /// 
+      /// Locales: en
+      static let feedCommentReplyFailed = Rswift.StringResource(key: "feed.comment.reply.failed", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Failed to unblock this person,  please try again.
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3773,10 +3785,18 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let contactsEmpty = Rswift.StringResource(key: "contacts.empty", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Oops, no content here!
+      /// 
+      /// Locales: en
+      static let feedLibraryVideoEmpty = Rswift.StringResource(key: "feed.library.video.empty", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Oops, no followers yet!
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let errorNoFollowers = Rswift.StringResource(key: "error.no.followers", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Oops, no gaming stats yet!
+      /// 
+      /// Locales: en
+      static let profileGameStatsEmpty = Rswift.StringResource(key: "profile.game.stats.empty", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Oops, no groups yet!
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -5386,6 +5406,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("among.chat.custom.avatar.close", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Comment failed to post
+      /// 
+      /// Locales: en
+      static func feedCommentCreateFailed(_: Void = ()) -> String {
+        return NSLocalizedString("feed.comment.create.failed", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Comments
       /// 
       /// Locales: en
@@ -5708,6 +5735,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("social.block.failed", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Failed to delete
+      /// 
+      /// Locales: en
+      static func feedCommentDeleteFailed(_: Void = ()) -> String {
+        return NSLocalizedString("feed.comment.delete.failed", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Failed to enter channel
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -5727,6 +5761,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func amongChatRewardVideoLoadFailed(_: Void = ()) -> String {
         return NSLocalizedString("among.chat.reward.video.load.failed", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Failed to reply
+      /// 
+      /// Locales: en
+      static func feedCommentReplyFailed(_: Void = ()) -> String {
+        return NSLocalizedString("feed.comment.reply.failed", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Failed to unblock this person,  please try again.
@@ -6695,11 +6736,25 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("contacts.empty", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Oops, no content here!
+      /// 
+      /// Locales: en
+      static func feedLibraryVideoEmpty(_: Void = ()) -> String {
+        return NSLocalizedString("feed.library.video.empty", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Oops, no followers yet!
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func errorNoFollowers(_: Void = ()) -> String {
         return NSLocalizedString("error.no.followers", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Oops, no gaming stats yet!
+      /// 
+      /// Locales: en
+      static func profileGameStatsEmpty(_: Void = ()) -> String {
+        return NSLocalizedString("profile.game.stats.empty", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Oops, no groups yet!
