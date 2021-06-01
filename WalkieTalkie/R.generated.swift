@@ -2639,7 +2639,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
     
-    /// This `R.string.localizable` struct is generated, and contains static references to 512 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 518 localization keys.
     struct localizable {
       /// en translation:  Congratulations!
       /// 
@@ -2697,6 +2697,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let groupRoomAccept = Rswift.StringResource(key: "group.room.accept", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Access Your Gallery
+      /// 
+      /// Locales: en
+      static let feedLibraryAccessPhotoTitle = Rswift.StringResource(key: "feed.library.access.photo.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Account suspended
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2977,6 +2981,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatRoomRebloxTitle = Rswift.StringResource(key: "among.chat.room.reblox.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Click to create your first video
+      /// 
+      /// Locales: en
+      static let profileFeedClickCreate = Rswift.StringResource(key: "profile.feed.click.create", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Click to set up Animal Crossing ID
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3101,6 +3109,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let feedSheetDeleteVideo = Rswift.StringResource(key: "feed.sheet.delete.video", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Deleted
+      /// 
+      /// Locales: en
+      static let feedCommentsDeleted = Rswift.StringResource(key: "feed.comments.deleted", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Didn't receive the code? %1$@
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3793,6 +3805,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let errorNoTeammates = Rswift.StringResource(key: "error.no.teammates", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Oops, no videos yet!
+      /// 
+      /// Locales: en
+      static let profileFeedNoVideos = Rswift.StringResource(key: "profile.feed.no.videos", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Oops, nothing here yet.
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3805,6 +3821,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let roomTagOpenGame = Rswift.StringResource(key: "room.tag.open.game", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Open Settings
+      /// 
+      /// Locales: en
+      static let amongChatOpenSettings = Rswift.StringResource(key: "among.chat.open.settings", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Other
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -4313,6 +4333,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let groupRoomApplySeatRejectedTips = Rswift.StringResource(key: "group.room.apply.seat.rejected.tips", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: The permission to access your gallery is needed. Please change it by clicking the button below, to get all your clips here.
+      /// 
+      /// Locales: en
+      static let feedLibraryAccessPhotoText = Rswift.StringResource(key: "feed.library.access.photo.text", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Then %1$@
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -4786,6 +4810,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func groupRoomAccept(_: Void = ()) -> String {
         return NSLocalizedString("group.room.accept", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Access Your Gallery
+      /// 
+      /// Locales: en
+      static func feedLibraryAccessPhotoTitle(_: Void = ()) -> String {
+        return NSLocalizedString("feed.library.access.photo.title", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Account suspended
@@ -5278,6 +5309,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("among.chat.room.reblox.title", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Click to create your first video
+      /// 
+      /// Locales: en
+      static func profileFeedClickCreate(_: Void = ()) -> String {
+        return NSLocalizedString("profile.feed.click.create", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Click to set up Animal Crossing ID
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -5493,6 +5531,13 @@ struct R: Rswift.Validatable {
       /// Locales: en
       static func feedSheetDeleteVideo(_: Void = ()) -> String {
         return NSLocalizedString("feed.sheet.delete.video", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Deleted
+      /// 
+      /// Locales: en
+      static func feedCommentsDeleted(_: Void = ()) -> String {
+        return NSLocalizedString("feed.comments.deleted", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Didn't receive the code? %1$@
@@ -6706,6 +6751,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("error.no.teammates", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Oops, no videos yet!
+      /// 
+      /// Locales: en
+      static func profileFeedNoVideos(_: Void = ()) -> String {
+        return NSLocalizedString("profile.feed.no.videos", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Oops, nothing here yet.
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -6725,6 +6777,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func roomTagOpenGame(_: Void = ()) -> String {
         return NSLocalizedString("room.tag.open.game", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Open Settings
+      /// 
+      /// Locales: en
+      static func amongChatOpenSettings(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.open.settings", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Other
@@ -7614,6 +7673,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func groupRoomApplySeatRejectedTips(_: Void = ()) -> String {
         return NSLocalizedString("group.room.apply.seat.rejected.tips", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: The permission to access your gallery is needed. Please change it by clicking the button below, to get all your clips here.
+      /// 
+      /// Locales: en
+      static func feedLibraryAccessPhotoText(_: Void = ()) -> String {
+        return NSLocalizedString("feed.library.access.photo.text", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Then %1$@
