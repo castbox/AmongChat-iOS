@@ -287,6 +287,16 @@ private extension FeedListCell {
         sliderBar.setThumbImage(R.image.iconFeedSliderThumb(), for: .normal)
 //        sliderBar.setThumbImage(R.image.iconFeedSliderThumb(), for: .)
         
+        avatarView.rx.tapGesture()
+            .when(.recognized)
+            .subscribe(onNext: { [weak self] _ in
+                guard let uid = self?.viewModel?.feed.uid else {
+                    return
+                }
+                Routes.handle("/profile/\(uid)")
+            })
+            .disposed(by: bag)
+        
         playerView.rx.tapGesture()
             .when(.recognized)
             .subscribe(onNext: { [weak self] _ in
