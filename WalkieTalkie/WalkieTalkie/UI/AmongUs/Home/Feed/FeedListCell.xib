@@ -4,7 +4,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -63,7 +62,6 @@
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2Z7-Lj-Kc6" customClass="AvatarImageView" customModule="WalkieTalkie" customModuleProvider="target">
                                 <rect key="frame" x="20" y="0.0" width="48" height="48"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="48" id="VxY-nP-9JM"/>
                                     <constraint firstAttribute="width" constant="48" id="l7o-Ml-qEf"/>
@@ -97,9 +95,10 @@
                         </constraints>
                     </view>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oM0-lk-uGK" customClass="BottomTitleButton" customModule="WalkieTalkie" customModuleProvider="target">
-                        <rect key="frame" x="262" y="254" width="44" height="32"/>
+                        <rect key="frame" x="262" y="228" width="44" height="59"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="44" id="3LC-jX-bvF"/>
+                            <constraint firstAttribute="height" constant="59" id="Liu-9L-S0P"/>
                         </constraints>
                         <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito" pointSize="14"/>
                         <state key="normal" title="30" image="iconVideoShare"/>
@@ -119,9 +118,10 @@
                         </connections>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uQ0-uo-4L1" customClass="BottomTitleButton" customModule="WalkieTalkie" customModuleProvider="target">
-                        <rect key="frame" x="262" y="189" width="44" height="32"/>
+                        <rect key="frame" x="262" y="141" width="44" height="59"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="44" id="Dwp-ZN-4ZJ"/>
+                            <constraint firstAttribute="height" constant="59" id="WCs-sI-lMO"/>
                         </constraints>
                         <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito" pointSize="14"/>
                         <state key="normal" title="20" image="iconVideoComment"/>
@@ -129,7 +129,7 @@
                             <action selector="commentButtonAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="ZlP-jI-1ia"/>
                         </connections>
                     </button>
-                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="Rch-gs-sFL">
+                    <slider hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="Rch-gs-sFL">
                         <rect key="frame" x="-3" y="470" width="326" height="31"/>
                         <color key="minimumTrackTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="maximumTrackTintColor" white="1" alpha="0.10000000000000001" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -152,7 +152,7 @@
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="Rch-gs-sFL" secondAttribute="trailing" constant="-1" id="0iv-YC-35e"/>
                     <constraint firstAttribute="trailing" secondItem="VtH-gr-9m2" secondAttribute="trailing" id="1Fy-WS-Mf4"/>
-                    <constraint firstItem="6oi-es-PqU" firstAttribute="top" secondItem="oM0-lk-uGK" secondAttribute="bottom" constant="28" id="2Wk-9m-JB3"/>
+                    <constraint firstItem="6oi-es-PqU" firstAttribute="top" secondItem="oM0-lk-uGK" secondAttribute="bottom" constant="27" id="2Wk-9m-JB3"/>
                     <constraint firstItem="uQ0-uo-4L1" firstAttribute="centerX" secondItem="oM0-lk-uGK" secondAttribute="centerX" id="352-PD-NQe"/>
                     <constraint firstAttribute="bottom" secondItem="rqh-Vf-hwl" secondAttribute="bottom" id="3Hd-L5-MKG"/>
                     <constraint firstItem="1c1-et-f5z" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="5Ew-o1-8MG"/>
@@ -165,7 +165,7 @@
                     <constraint firstItem="Rch-gs-sFL" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="-1" id="P5Y-FZ-8uY"/>
                     <constraint firstItem="Ztd-Vz-93s" firstAttribute="centerY" secondItem="rqh-Vf-hwl" secondAttribute="centerY" id="Q8b-Ka-ixI"/>
                     <constraint firstAttribute="trailingMargin" secondItem="Ffj-Zk-aDm" secondAttribute="trailing" constant="20" id="U5j-c3-FSW"/>
-                    <constraint firstItem="oM0-lk-uGK" firstAttribute="top" secondItem="uQ0-uo-4L1" secondAttribute="bottom" constant="33" id="Vkf-Lz-1Fz"/>
+                    <constraint firstItem="oM0-lk-uGK" firstAttribute="top" secondItem="uQ0-uo-4L1" secondAttribute="bottom" constant="28" id="Vkf-Lz-1Fz"/>
                     <constraint firstAttribute="bottom" secondItem="VtH-gr-9m2" secondAttribute="bottom" id="WNb-mN-smA"/>
                     <constraint firstAttribute="trailing" secondItem="rqh-Vf-hwl" secondAttribute="trailing" id="WXy-fH-aHU"/>
                     <constraint firstAttribute="bottom" secondItem="Ffj-Zk-aDm" secondAttribute="bottom" constant="45" id="ahp-Vp-A2s"/>
@@ -197,12 +197,9 @@
     </objects>
     <resources>
         <image name="iconFeedTagPrefix" width="16" height="16"/>
-        <image name="iconVideoComment" width="32" height="32"/>
-        <image name="iconVideoMore" width="32" height="32"/>
+        <image name="iconVideoComment" width="36" height="36"/>
+        <image name="iconVideoMore" width="36" height="36"/>
         <image name="iconVideoPause" width="48" height="48"/>
-        <image name="iconVideoShare" width="32" height="32"/>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
+        <image name="iconVideoShare" width="36" height="36"/>
     </resources>
 </document>

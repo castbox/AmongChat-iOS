@@ -43,14 +43,16 @@ extension Feed {
             
             if dataSource.isEmpty {
                 loadData()
-            } else if let cell = tableView.visibleCells.first as? FeedListCell {
+            } else if let cell = tableView.visibleCells.first as? FeedListCell,
+                      !cell.isUserPaused {
                 cell.play()
             }
         }
         
         func onViewWillDisappear() {
             if shouldAutoPauseWhenDismiss,
-               let cell = tableView.visibleCells.first as? FeedListCell {
+               let cell = tableView.visibleCells.first as? FeedListCell,
+               !cell.isUserPaused {
                 cell.pause()
             }
         }
@@ -294,14 +296,32 @@ extension Feed.ListViewController {
                     self.share(feed: viewModel.feed)
                 case .notInterested:
                     Logger.Action.log(.feeds_item_clk, category: .not_intereasted, viewModel.feed.pid)
-                    self.dataSource = self.dataSource.filter { $0.feed.pid != viewModel.feed.pid }
-                    self.viewModel.reportNotIntereasted(viewModel.feed.pid)
-                        .subscribe(onSuccess: { [weak self] result in
-                            //
-                        }) { error in
-                            
+                    CATransaction.begin()
+                    //pause
+                    let cell = self.tableView.cellForRow(at: indexPath) as? FeedListCell
+                    cell?.pause()
+                    let nextIndex = IndexPath(row: indexPath.row + 1, section: 0)
+                    if nextIndex.row < self.dataSource.count - 1 {
+                        self.tableView.scrollToRow(at: nextIndex, at: .top, animated: true)
+                        CATransaction.setCompletionBlock { [weak self] in
+                            guard let `self` = self else { return }
+                            //play
+                            let nextCell = self.tableView.cellForRow(at: nextIndex) as? FeedListCell
+                            nextCell?.play()
+                            self.dataSource = self.dataSource.filter { $0.feed.pid != viewModel.feed.pid }
+                            self.tableView.beginUpdates()
+                            self.tableView.deleteRows(at: [indexPath], with: .top)
+                            self.tableView.endUpdates()
                         }
-                        .disposed(by: self.bag)
+                        CATransaction.commit()
+                    } else {
+                        self.tableView.reloadData()
+                        
+                    }
+                    
+//                    self.viewModel.reportNotIntereasted(viewModel.feed.pid)
+//                        .subscribe()
+//                        .disposed(by: self.bag)
                 case .deleteVideo:
                     Logger.Action.log(.feeds_item_clk, category: .delete, viewModel.feed.pid)
                     

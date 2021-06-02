@@ -30,7 +30,7 @@ extension Conversation {
             let maxWidth = Frame.Screen.width - 100
             let contentTopEdge: CGFloat = 8
             if !msg.text.isEmpty {
-                contentHeight = msg.text.boundingRect(with: CGSize(width: maxWidth, height: 1000), font: R.font.nunitoBold(size: 14)!).height + contentTopEdge
+                contentHeight = msg.text.boundingRect(with: CGSize(width: maxWidth, height: 1000), font: R.font.nunitoBold(size: 16)!).height + contentTopEdge
             } else if !msg.wrappedEmoteIds.isEmpty {
                 contentHeight = 32 + contentTopEdge
             } else {

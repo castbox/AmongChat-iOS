@@ -62,7 +62,7 @@ class FeedListCell: UITableViewCell {
     
     private(set) var isPlaying = false
     private(set) var liked = false
-    
+    private(set) var isUserPaused = false
     
     private let bag = DisposeBag()
     
@@ -123,14 +123,16 @@ class FeedListCell: UITableViewCell {
 
     override func prepareForReuse() {
         super.prepareForReuse()
-//        playerView.cancelAllLoadingRequest()
         resetViewsForReuse()
     }
     
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        backgroundLayer.frame = gradientBackgroundView.bounds
+//        if !backgroundLayer.frame.equalTo(gradientBackgroundView.bounds) {
+//            backgroundLayer.frame = gradientBackgroundView.bounds
+//            backgroundLayer.opacity = 1
+//        }
     }
     
     @IBAction func commentButtonAction(_ sender: Any) {
@@ -209,11 +211,15 @@ class FeedListCell: UITableViewCell {
     
     func handlePause() {
         if isPlaying {
-            self.pauseView.alpha = 1
-            self.pause()
+            pauseView.fadeIn(duration: 0.1)
+            sliderBar.fadeIn(duration: 0.1)
+            isUserPaused = true
+            pause()
         } else {
-            self.pauseView.alpha = 0
-            self.play()
+            pauseView.fadeOut(duration: 0.1)
+            sliderBar.fadeOut(duration: 0.1)
+            isUserPaused = false
+            play()
         }
     }
     
@@ -226,15 +232,16 @@ class FeedListCell: UITableViewCell {
             switch touchEvent.phase {
             case .began:
                 ()
+                pause()
             case .moved:
                 userInfoContainer.isHidden = true
-                pause()
                 playerView.set(progress: slider.value.cgFloat)
                 
             case .ended:
                 Logger.Action.log(.feeds_item_clk, category: .slide_play, self.viewModel?.feed.pid)
                 userInfoContainer.isHidden = false
-                play()
+//                play()
+                handlePause()
             default:
                 break
             }
@@ -310,11 +317,14 @@ private extension FeedListCell {
 
         contentView.insertSubview(gradientBackgroundView, aboveSubview: playerView)
         
+        backgroundLayer.frame = CGRect(x: 0, y: 0, width: Frame.Screen.width, height: Frame.Screen.height - Frame.Height.bottomBar)
+
         backgroundLayer.startPoint = CGPoint(x: 0, y: 0)
         backgroundLayer.endPoint = CGPoint(x: 0, y: 1)
         backgroundLayer.locations = [0, 0.2, 0.8, 1]
-        backgroundLayer.colors = [UIColor.black.alpha(0.3).cgColor, UIColor.black.alpha(0).cgColor, UIColor.black.alpha(0).cgColor, UIColor.black.alpha(0.3).cgColor]
-
+        backgroundLayer.colors = [UIColor.black.alpha(0.4).cgColor, UIColor.black.alpha(0).cgColor, UIColor.black.alpha(0).cgColor, UIColor.black.alpha(0.4).cgColor]
+//        backgroundLayer.opacity = 0
+        
         gradientBackgroundView.snp.makeConstraints { (maker) in
             maker.edges.equalToSuperview()
         }

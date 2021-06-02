@@ -40,8 +40,11 @@ extension Feed {
             Request.recommendFeeds(excludePids: []) //Settings.loginUserId
                 .do(onSuccess: { [weak self] data in
                     guard let `self` = self else { return }
+                    self.tableView.alpha = 0
                     self.dataSource = data?.map { Feed.ListCellViewModel(feed: $0) } ?? []
                     self.tableView.reloadData()
+                    self.tableView.layoutIfNeeded()
+                    self.tableView.alpha = 1
                 }, onDispose: {
                     removeBlock()
                 })
