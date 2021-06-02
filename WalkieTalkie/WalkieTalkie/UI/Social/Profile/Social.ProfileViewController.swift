@@ -96,6 +96,12 @@ extension Social {
             s.showsVerticalScrollIndicator = false
             s.showsHorizontalScrollIndicator = false
             s.delegate = self
+            if #available(iOS 11.0, *) {
+                s.contentInsetAdjustmentBehavior = .never
+            } else {
+                // Fallback on earlier versions
+                automaticallyAdjustsScrollViewInsets = false
+            }
             return s
         }()
         
@@ -517,7 +523,8 @@ private extension Social.ProfileViewController {
         
         layoutScrollView.rx.contentOffset
             .subscribe(onNext: { [weak self] (point) in
-                guard let `self` = self else { return }
+                guard let `self` = self,
+                      self.layoutScrollView.contentSize != .zero else { return }
                 
                 let frame = self.layoutScrollView.convert(self.segmentedButtonContainer.frame, to: self.view)
                 if frame.origin.y <= self.navView.bottom {
