@@ -96,6 +96,12 @@ extension Social {
             s.showsVerticalScrollIndicator = false
             s.showsHorizontalScrollIndicator = false
             s.delegate = self
+            if #available(iOS 11.0, *) {
+                s.contentInsetAdjustmentBehavior = .never
+            } else {
+                // Fallback on earlier versions
+                automaticallyAdjustsScrollViewInsets = false
+            }
             return s
         }()
         
