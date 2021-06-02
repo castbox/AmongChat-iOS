@@ -403,6 +403,7 @@
 		FEB308F426663C44006849CF /* Feed.RecommendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB308F326663C44006849CF /* Feed.RecommendViewController.swift */; };
 		FEB308F626673606006849CF /* Feed.ListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB308F526673606006849CF /* Feed.ListViewModel.swift */; };
 		FEB308F82667362D006849CF /* Feed.ListCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB308F72667362C006849CF /* Feed.ListCellViewModel.swift */; };
+		FEB308FA2667579D006849CF /* CopyableLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB308F92667579D006849CF /* CopyableLabel.swift */; };
 		FEBCFEA8260C3B9900DD9B8D /* JSBridge.Support.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEBCFEA5260C3B9900DD9B8D /* JSBridge.Support.swift */; };
 		FEBCFEA9260C3B9900DD9B8D /* JSBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEBCFEA6260C3B9900DD9B8D /* JSBridge.swift */; };
 		FEBCFEAA260C3B9900DD9B8D /* JSBridge.Links.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEBCFEA7260C3B9900DD9B8D /* JSBridge.Links.swift */; };
@@ -914,6 +915,7 @@
 		FEB308F326663C44006849CF /* Feed.RecommendViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Feed.RecommendViewController.swift; sourceTree = "<group>"; };
 		FEB308F526673606006849CF /* Feed.ListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Feed.ListViewModel.swift; sourceTree = "<group>"; };
 		FEB308F72667362C006849CF /* Feed.ListCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Feed.ListCellViewModel.swift; sourceTree = "<group>"; };
+		FEB308F92667579D006849CF /* CopyableLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CopyableLabel.swift; sourceTree = "<group>"; };
 		FEBCFEA5260C3B9900DD9B8D /* JSBridge.Support.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSBridge.Support.swift; sourceTree = "<group>"; };
 		FEBCFEA6260C3B9900DD9B8D /* JSBridge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSBridge.swift; sourceTree = "<group>"; };
 		FEBCFEA7260C3B9900DD9B8D /* JSBridge.Links.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSBridge.Links.swift; sourceTree = "<group>"; };
@@ -1534,6 +1536,7 @@
 		FE684885244BDA0C00F87AF9 /* Widge */ = {
 			isa = PBXGroup;
 			children = (
+				FEB308F92667579D006849CF /* CopyableLabel.swift */,
 				FEAE2560262045DC001F10A9 /* BadgeHub.swift */,
 				FE79F374258C731400E9BC6C /* SoundAnimationView.swift */,
 				BDC9D1412589C92800412BDC /* PolicyLabel.swift */,
@@ -2512,6 +2515,7 @@
 				FEA79E63249B52EF0067C1C1 /* ShareManager.swift in Sources */,
 				BDC9D4AE258A2AB400412BDC /* AdjustAnalytics.swift in Sources */,
 				26A3D2B026366D4300DD4F53 /* Notice.swift in Sources */,
+				FEB308FA2667579D006849CF /* CopyableLabel.swift in Sources */,
 				BD9F26D125A6EBCC00FA3616 /* ChatLanguageHelper.swift in Sources */,
 				FE860D4B2446D1D700087B73 /* UITableView+Theme.swift in Sources */,
 				FE9F69DC25CD337000C0F118 /* AppTrackingGuideView.swift in Sources */,

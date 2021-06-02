@@ -79,8 +79,8 @@ class ConversationCollectionCell: UICollectionViewCell {
         return i
     }()
     
-    private lazy var messageTextLabel: UILabel = {
-        let l = UILabel()
+    private lazy var messageTextLabel: CopyableLabel = {
+        let l = CopyableLabel()
         l.font = R.font.nunitoBold(size: 16)
         l.textColor = UIColor(hex6: 0xFFFFFF)
         l.numberOfLines = 0
