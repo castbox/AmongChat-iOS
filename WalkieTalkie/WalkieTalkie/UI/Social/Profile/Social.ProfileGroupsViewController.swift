@@ -51,9 +51,17 @@ extension Social {
             return v
         }()
         
+        private lazy var emptyView: FansGroup.Views.EmptyDataView = {
+            let v = FansGroup.Views.EmptyDataView()
+            v.titleLabel.text = R.string.localizable.amongChatGroupListEmpty()
+            v.isHidden = true
+            return v
+        }()
+
         private lazy var options = [Option]() {
             didSet {
                 table.reloadData()
+                emptyView.isHidden = (options.count > 0)
             }
         }
         
@@ -83,7 +91,14 @@ extension Social {
 extension Social.ProfileGroupsViewController {
     
     private func setUpLayout() {
-        view.addSubview(table)
+        view.addSubviews(views: emptyView, table)
+        
+        emptyView.snp.makeConstraints { (maker) in
+            maker.centerX.equalToSuperview()
+            maker.leading.greaterThanOrEqualToSuperview().offset(40)
+            maker.top.equalTo(24)
+        }
+        
         table.snp.makeConstraints { (maker) in
             maker.edges.equalToSuperview()
         }
@@ -120,7 +135,7 @@ extension Social.ProfileGroupsViewController {
             })
             .disposed(by: bag)
         
-        Observable.combineLatest(createdGroupsRelay, joinedGroupsRelay)
+        Observable.combineLatest(createdGroupsRelay.skip(1), joinedGroupsRelay.skip(1))
             .observeOn(MainScheduler.asyncInstance)
             .subscribe(onNext: { [weak self] createdGroups, joinedGroups in
                 

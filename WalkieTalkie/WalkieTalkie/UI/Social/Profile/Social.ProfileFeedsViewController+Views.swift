@@ -13,7 +13,7 @@ import RxSwift
 extension Social.ProfileFeedsViewController {
     
     class FeedCell: UICollectionViewCell {
-                
+        
         private lazy var imageView: UIImageView = {
             let i = UIImageView()
             i.contentMode = .scaleAspectFill
@@ -24,7 +24,7 @@ extension Social.ProfileFeedsViewController {
             let i = UIImageView(image: R.image.ac_profile_feed_play_count())
             return i
         }()
-                
+        
         private lazy var playCountLabel: UILabel = {
             let l = UILabel()
             l.font = R.font.nunitoExtraBold(size: 14)
@@ -72,7 +72,7 @@ extension Social.ProfileFeedsViewController {
             l.opacity = 0.5
             return l
         }()
-                        
+        
         override init(frame: CGRect) {
             super.init(frame: frame)
             setUpLayout()
@@ -102,7 +102,7 @@ extension Social.ProfileFeedsViewController {
             imageView.snp.makeConstraints { (maker) in
                 maker.edges.equalToSuperview()
             }
-                        
+            
             playIcon.snp.makeConstraints { (maker) in
                 maker.leading.equalToSuperview().offset(7)
                 maker.bottom.equalToSuperview().offset(-6)
@@ -137,5 +137,87 @@ extension Social.ProfileFeedsViewController {
         }
         
     }
+    
+}
 
+extension Social.ProfileFeedsViewController {
+    
+    class CreateFeedCell: UICollectionViewCell {
+        
+        private let bag = DisposeBag()
+        
+        private lazy var emptyView: FansGroup.Views.EmptyDataView = {
+            let v = FansGroup.Views.EmptyDataView()
+            v.titleLabel.text = R.string.localizable.profileFeedNoVideos()
+            v.titleLabel.textColor = .white
+            v.titleLabel.numberOfLines = 0
+            v.titleLabel.adjustsFontSizeToFitWidth = true
+            return v
+        }()
+        
+        private lazy var titleLabel: UILabel = {
+            let l = UILabel()
+            l.font = R.font.nunitoSemiBold(size: 14)
+            l.textColor = UIColor(hex6: 0xABABAB)
+            l.textAlignment = .center
+            l.text = R.string.localizable.profileFeedClickCreate()
+            l.adjustsFontSizeToFitWidth = true
+            return l
+        }()
+        
+        private lazy var createBtn: UIButton = {
+            let btn = UIButton(type: .custom)
+            btn.rx.controlEvent(.primaryActionTriggered)
+                .subscribe(onNext: { [weak self] (_) in
+                    self?.createAction?()
+                })
+                .disposed(by: bag)
+            btn.setTitleColor(.black, for: .normal)
+            btn.backgroundColor = UIColor(hex6: 0xFFF000)
+            btn.titleLabel?.font = R.font.nunitoExtraBold(size: 16)
+            btn.layer.masksToBounds = true
+            btn.layer.cornerRadius = 18
+            btn.contentEdgeInsets = UIEdgeInsets(top: 0, left: 30, bottom: 0, right: 30)
+            btn.setTitle(R.string.localizable.amongChatCreateRoomCreate(), for: .normal)
+            return btn
+        }()
+        
+        var createAction: (() -> Void)? = nil
+        
+        override init(frame: CGRect) {
+            super.init(frame: frame)
+            setUpLayout()
+        }
+        
+        required init?(coder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
+        }
+        
+        private func setUpLayout() {
+            backgroundColor = .clear
+            contentView.backgroundColor = .clear
+            
+            contentView.addSubviews(views: emptyView, titleLabel, createBtn)
+            
+            emptyView.snp.makeConstraints { (maker) in
+                maker.centerX.equalToSuperview()
+                maker.leading.greaterThanOrEqualToSuperview().offset(40)
+                maker.top.equalTo(24)
+            }
+            
+            titleLabel.snp.makeConstraints { (maker) in
+                maker.top.equalTo(emptyView.snp.bottom)
+                maker.centerX.equalToSuperview()
+                maker.leading.greaterThanOrEqualToSuperview().offset(40)
+            }
+            
+            createBtn.snp.makeConstraints { (maker) in
+                maker.top.equalTo(titleLabel.snp.bottom).offset(20)
+                maker.height.equalTo(36)
+                maker.centerX.equalToSuperview()
+                maker.leading.greaterThanOrEqualToSuperview().offset(40)
+            }
+        }
+        
+    }
 }
