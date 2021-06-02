@@ -198,12 +198,13 @@ extension Feed.Comments {
         private static let commentLeading: CGFloat = Frame.horizontalBleedWidth + 84
         private static let commentTrailing: CGFloat = Frame.horizontalBleedWidth
         private static let commentFont = R.font.nunitoExtraBold(size: 14) ?? UIFont.systemFont(ofSize: 14, weight: .black)
-        
+        private static let commentBottom: CGFloat = 21
+
         static func cellSize(for reply: Feed.Comments.ReplyViewModel) -> CGSize {
             
             let commentHeight = reply.content.height(forConstrainedWidth: UIScreen.main.bounds.width - commentLeading - commentTrailing, font: Self.commentFont)
             
-            let height = ceil(commentTop + commentHeight)
+            let height = ceil(commentTop + commentHeight + commentBottom)
             return CGSize(width: UIScreen.main.bounds.width, height: height)
         }
         
@@ -241,6 +242,26 @@ extension Feed.Comments {
             return b
         }()
         
+        private lazy var timeLabel: UILabel = {
+            let l = UILabel()
+            l.font = R.font.nunitoSemiBold(size: 14)
+            l.textColor = UIColor(hex6: 0x898989)
+            return l
+        }()
+        
+        private lazy var replyButton: UIButton = {
+            let btn = SmallSizeButton(type: .custom)
+            btn.titleLabel?.font = R.font.nunitoExtraBold(size: 14)
+            btn.setTitleColor(UIColor(hex6: 0x898989), for: .normal)
+            btn.setTitle(R.string.localizable.amongChatReply(), for: .normal)
+            btn.rx.controlEvent(.primaryActionTriggered)
+                .subscribe(onNext: { [weak self] (_) in
+                    self?.replyHandler?()
+                })
+                .disposed(by: bag)
+            return btn
+        }()
+        
         private var replyHandler: (() -> Void)? = nil
         private var moreActionHandler: (() -> Void)? = nil
         private var tapAtHandler: (() -> Void)? = nil
@@ -259,7 +280,7 @@ extension Feed.Comments {
             backgroundColor = .clear
             contentView.backgroundColor = .clear
             
-            contentView.addSubviews(views: avatarView, nameLabel, commentLabel, atButton)
+            contentView.addSubviews(views: avatarView, nameLabel, commentLabel, atButton, timeLabel, replyButton)
             
             avatarView.snp.makeConstraints { (maker) in
                 maker.leading.equalToSuperview().inset(Frame.horizontalBleedWidth + 52)
@@ -282,6 +303,18 @@ extension Feed.Comments {
             
             atButton.snp.makeConstraints { (maker) in
                 maker.top.leading.equalTo(commentLabel)
+            }
+            
+            timeLabel.snp.makeConstraints { (maker) in
+                maker.leading.equalTo(nameLabel)
+                maker.top.equalTo(commentLabel.snp.bottom).offset(2)
+                maker.height.equalTo(19)
+            }
+            
+            replyButton.snp.makeConstraints { (maker) in
+                maker.leading.equalTo(timeLabel.snp.trailing).offset(40)
+                maker.centerY.equalTo(timeLabel)
+                maker.trailing.lessThanOrEqualToSuperview().offset(-Frame.horizontalBleedWidth)
             }
             
             let tap = UITapGestureRecognizer()
@@ -312,6 +345,7 @@ extension Feed.Comments {
             attComment.addAttributes([.foregroundColor : UIColor(hex6: 0x866EEF)], range: atRange)
             commentLabel.attributedText = attComment
             atButton.setTitle(reply.atPrefix, for: .normal)
+            timeLabel.text = reply.timeString
             self.replyHandler = replyHandler
             self.moreActionHandler = moreActionHandler
             self.tapAtHandler = tapAtHandler

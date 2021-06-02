@@ -52,6 +52,13 @@ extension Feed.Comments {
             return v
         }()
         
+        private lazy var emptyView: FansGroup.Views.EmptyDataView = {
+            let v = FansGroup.Views.EmptyDataView()
+            v.titleLabel.text = R.string.localizable.amongChatNoticeEmptyTip()
+            v.isHidden = true
+            return v
+        }()
+        
         private lazy var commentListView: UICollectionView = {
             let layout = UICollectionViewFlowLayout()
             layout.scrollDirection = .vertical
@@ -112,6 +119,7 @@ extension Feed.Comments {
             didSet {
                 commentListView.reloadData()
                 titleLabel.text = R.string.localizable.feedCommentsListTitle("\(comments.count)")
+                emptyView.isHidden = (comments.count > 0)
             }
         }
         
@@ -147,7 +155,13 @@ extension Feed.Comments.CommentsListViewController {
     
     private func setUpLayout() {
         
-        view.addSubviews(views: topBar, commentListView, bottomBar)
+        view.addSubviews(views: topBar, commentListView, emptyView, bottomBar)
+        
+        emptyView.snp.makeConstraints { (maker) in
+            maker.centerX.equalToSuperview()
+            maker.leading.greaterThanOrEqualToSuperview().offset(40)
+            maker.top.equalTo(topBar.snp.bottom).offset(40)
+        }
         
         topBar.snp.makeConstraints { (maker) in
             maker.leading.top.trailing.equalToSuperview()

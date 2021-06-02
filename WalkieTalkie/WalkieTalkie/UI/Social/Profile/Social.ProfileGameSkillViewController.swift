@@ -45,9 +45,19 @@ extension Social {
             return v
         }()
         
+        private lazy var emptyView: FansGroup.Views.EmptyDataView = {
+            let v = FansGroup.Views.EmptyDataView()
+            v.titleLabel.text = R.string.localizable.profileGameStatsEmpty()
+            v.isHidden = true
+            return v
+        }()
+        
         private var gameSkills = [Entity.UserGameSkill]() {
             didSet {
                 table.reloadData()
+                if !uid.isSelfUid {
+                    emptyView.isHidden = (gameSkills.count > 0)
+                }
             }
         }
         
@@ -75,15 +85,26 @@ extension Social {
 extension Social.ProfileGameSkillViewController {
     
     private func setUpLayout() {
-        view.addSubview(table)
+        
+        view.addSubviews(views: emptyView, table)
+        
+        emptyView.snp.makeConstraints { (maker) in
+            maker.centerX.equalToSuperview()
+            maker.leading.greaterThanOrEqualToSuperview().offset(40)
+            maker.top.equalTo(24)
+        }
+        
         table.snp.makeConstraints { (maker) in
             maker.edges.equalToSuperview()
         }
     }
     
     private func loadGameSkills() {
-        
+        let hudRemoval = view.raft.show(.loading)
         Request.gameSkills(uid: uid)
+            .do(onDispose: {
+                hudRemoval()
+            })
             .subscribe(onSuccess: { [weak self] (skills) in
                 self?.gameSkills = skills
             }, onError: { (error) in

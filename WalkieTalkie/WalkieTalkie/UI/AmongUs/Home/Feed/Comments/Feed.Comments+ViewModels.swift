@@ -240,6 +240,10 @@ extension Feed.Comments {
         var content: String {
             return atPrefix + " " + reply.text
         }
+                
+        var timeString: String {
+            return Date(timeIntervalSince1970:(Double(reply.createTime) / 1000)).timeFormattedForConversation()
+        }
         
         var atPrefix: String {
             

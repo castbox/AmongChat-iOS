@@ -36,6 +36,7 @@ extension Social {
             v.contentInset = UIEdgeInsets(top: 0, left: hInset, bottom: 0, right: hInset)
             v.register(cellWithClazz: ProfileTableCell.self)
             v.register(cellWithClazz: FeedCell.self)
+            v.register(cellWithClazz: CreateFeedCell.self)
             v.register(supplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withClass: SectionHeader.self)
             v.showsVerticalScrollIndicator = false
             v.showsHorizontalScrollIndicator = false
@@ -51,6 +52,13 @@ extension Social {
             return v
         }()
         
+        private lazy var emptyView: FansGroup.Views.EmptyDataView = {
+            let v = FansGroup.Views.EmptyDataView()
+            v.titleLabel.text = R.string.localizable.profileFeedNoVideos()
+            v.isHidden = true
+            return v
+        }()
+        
         private lazy var options: [Option] = {
             if uid.isSelfUid {
                 return [.feed, .tiktok]
@@ -62,6 +70,9 @@ extension Social {
         private lazy var feeds = [Entity.Feed]() {
             didSet {
                 table.reloadData()
+                if !uid.isSelfUid {
+                    emptyView.isHidden = (feeds.count > 0)
+                }
             }
         }
         
@@ -93,7 +104,15 @@ extension Social.ProfileFeedsViewController {
     
     
     private func setUpLayout() {
-        view.addSubview(table)
+        
+        view.addSubviews(views: emptyView, table)
+        
+        emptyView.snp.makeConstraints { (maker) in
+            maker.centerX.equalToSuperview()
+            maker.leading.greaterThanOrEqualToSuperview().offset(40)
+            maker.top.equalTo(24)
+        }
+        
         table.snp.makeConstraints { (maker) in
             maker.edges.equalToSuperview()
         }
@@ -102,7 +121,7 @@ extension Social.ProfileFeedsViewController {
             self?.loadFeeds()
         }
     }
-        
+    
     private func loadFeeds() {
         
         guard hasMore,
@@ -130,7 +149,7 @@ extension Social.ProfileFeedsViewController {
                 guard let `self` = self else { return }
                 self.feeds.append(contentsOf: feedList.list)
                 self.hasMore = feedList.more
-                self.table.endLoadMore(feedList.more)
+                self.table.endLoadMore(feedList.more)                
             })
             .disposed(by: bag)
     }
@@ -151,12 +170,18 @@ extension Social.ProfileFeedsViewController: UICollectionViewDataSource {
         }
         
         switch op {
-            
+        
         case .tiktok:
             return 1
             
         case .feed:
-            return feeds.count
+            
+            if uid.isSelfUid {
+                return max(1, feeds.count)
+            } else {
+                return feeds.count
+            }
+            
         }
         
     }
@@ -166,21 +191,27 @@ extension Social.ProfileFeedsViewController: UICollectionViewDataSource {
         let op = options[indexPath.section]
         
         switch op {
-            
+        
         case .tiktok:
             let cell = collectionView.dequeueReusableCell(withClazz: ProfileTableCell.self, for: indexPath)
             cell.leftIconIV.image = R.image.ac_social_tiktok()
             cell.titleLabel.text = R.string.localizable.profileShareTiktokTitle()
             return cell
-                        
-        case .feed:
             
-            let cell = collectionView.dequeueReusableCell(withClazz: FeedCell.self, for: indexPath)
+        case .feed:
             if let feed = feeds.safe(indexPath.item) {
+                let cell = collectionView.dequeueReusableCell(withClazz: FeedCell.self, for: indexPath)
                 cell.configCell(with: feed)
+                return cell
+            } else {
+                let cell = collectionView.dequeueReusableCell(withClazz: CreateFeedCell.self, for: indexPath)
+                cell.createAction = { [weak self] in
+                    let vc = Feed.SelectVideoViewController()
+                    self?.navigationController?.pushViewController(vc)
+                }
+                return cell
             }
-            return cell
-        
+            
         }
         
     }
@@ -189,10 +220,10 @@ extension Social.ProfileFeedsViewController: UICollectionViewDataSource {
 extension Social.ProfileFeedsViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-
+        
         if let op = options.safe(indexPath.section) {
             switch op {
-                
+            
             case .tiktok:
                 Logger.Action.log(.profile_tiktok_amongchat_tag_clk)
                 guard let url = URL(string: "https://www.tiktok.com/tag/amongchat") else {
@@ -201,7 +232,7 @@ extension Social.ProfileFeedsViewController: UICollectionViewDelegate {
                 UIApplication.shared.open(url, options: [:]) { _ in
                     
                 }
-                                
+                
             case .feed:
                 //TODO: open feed
                 ()
@@ -219,7 +250,7 @@ extension Social.ProfileFeedsViewController: UICollectionViewDelegate {
             let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withClass: SectionHeader.self, for: indexPath)
             
             switch op {
-                
+            
             case .tiktok:
                 header.titleLabel.text = R.string.localizable.amongChatProfileMakeTiktokVideo()
                 header.actionButton.isHidden = true
@@ -251,32 +282,35 @@ extension Social.ProfileFeedsViewController: UICollectionViewDelegateFlowLayout 
         let padding: CGFloat = collectionView.contentInset.left + collectionView.contentInset.right
         
         switch op {
-                    
+        
         case .tiktok:
             return CGSize(width: Frame.Screen.width - padding, height: 68)
-                        
+            
         case .feed:
-            
-            let columns: Int = 3
-            let interitemSpacing: CGFloat = 8
-            let hwRatio: CGFloat = 142.0 / 107.0
-            
-            let cellWidth = ((UIScreen.main.bounds.width - padding - interitemSpacing * CGFloat(columns - 1)) / CGFloat(columns)).rounded(.towardZero)
-            let cellHeight = ceil(cellWidth * hwRatio)
-            
-            return CGSize(width: cellWidth, height: cellHeight)
+            if let _ = feeds.safe(indexPath.item) {
+                let columns: Int = 3
+                let interitemSpacing: CGFloat = 8
+                let hwRatio: CGFloat = 142.0 / 107.0
+                
+                let cellWidth = ((UIScreen.main.bounds.width - padding - interitemSpacing * CGFloat(columns - 1)) / CGFloat(columns)).rounded(.towardZero)
+                let cellHeight = ceil(cellWidth * hwRatio)
+                
+                return CGSize(width: cellWidth, height: cellHeight)
+            } else {
+                return CGSize(width: UIScreen.main.bounds.width - padding, height: 267)
+            }
             
         }
         
     }
-                
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         let op = options[section]
         
         switch op {
         case .feed:
             return .zero
-                
+            
         case .tiktok:
             return CGSize(width: Frame.Screen.width, height: 27)
         }
@@ -292,5 +326,5 @@ extension Social.ProfileFeedsViewController: ProfileDataView {
     var scrollView: UIScrollView {
         return table
     }
-
+    
 }
