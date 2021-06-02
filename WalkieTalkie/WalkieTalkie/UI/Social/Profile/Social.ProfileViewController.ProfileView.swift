@@ -92,6 +92,7 @@ extension Social.ProfileViewController {
                         maker.leading.trailing.equalToSuperview().inset(Frame.horizontalBleedWidth)
                         maker.height.equalTo(liveRoomHeight)
                         maker.top.equalToSuperview().offset(liveRoomTopSpace)
+                        maker.bottom.equalToSuperview()
                     }
                     
                     if let room = liveRoom as? Entity.UserStatus.Room {
@@ -291,22 +292,9 @@ extension Social.ProfileViewController {
                     _ = AmongChat.Login.canDoLoginEvent(style: .inAppLogin)
                 }
                 .disposed(by: bag)
-            btn.isHidden = true
             return btn
         }()
-        
-        private lazy var loginView: UIView = {
-            let v = UIView()
-            v.addSubview(loginButton)
-            loginButton.snp.makeConstraints { (maker) in
-                maker.leading.trailing.equalToSuperview().inset(Frame.horizontalBleedWidth)
-                maker.height.equalTo(50)
-                maker.top.equalTo(24)
-            }
-            v.isHidden = true
-            return v
-        }()
-        
+                
         private lazy var redCountLabel: UILabel = {
             let lb = WalkieLabel()
             lb.font = R.font.nunitoExtraBold(size: 14)
@@ -518,6 +506,7 @@ extension Social.ProfileViewController {
                                 maker.leading.trailing.equalToSuperview().inset(Frame.horizontalBleedWidth)
                                 maker.top.equalToSuperview().offset(self.loginButtonTopSpace)
                                 maker.height.equalTo(self.loginButtonHeight)
+                                maker.bottom.equalToSuperview()
                             }
                         } else {
                             self.loginButton.removeFromSuperview()
