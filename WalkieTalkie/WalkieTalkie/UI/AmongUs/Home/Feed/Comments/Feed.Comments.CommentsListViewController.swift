@@ -301,7 +301,7 @@ extension Feed.Comments.CommentsListViewController: UICollectionViewDataSource {
         
         let loadedRepliesCount = comment.repliesCollapsed ? 0 : comment.replies.count
         
-        if comment.hasMoreReplies || comment.repliesCollapsed || comment.replies.count > 0 {
+        if comment.showExpandOption && (comment.hasMoreReplies || comment.repliesCollapsed || comment.replies.count > 0) {
             return loadedRepliesCount + 2
         } else {
             return loadedRepliesCount + 1

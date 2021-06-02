@@ -73,8 +73,14 @@ extension Social {
                 if !uid.isSelfUid {
                     emptyView.isHidden = (feeds.count > 0)
                 }
+                liveFeeds = feeds.compactMap({ feed in
+                    guard feed.statusType == .live else { return nil }
+                    return feed
+                })
             }
         }
+        
+        private var liveFeeds = [Entity.Feed]()
         
         private var hasMore: Bool = true
         private var isLoading = false
@@ -234,8 +240,14 @@ extension Social.ProfileFeedsViewController: UICollectionViewDelegate {
                 }
                 
             case .feed:
-                //TODO: open feed
-                ()
+                
+                guard let feed = feeds.safe(indexPath.item),
+                      feed.statusType == .live else {
+                    return
+                }
+                
+                let liveIdx = liveFeeds.firstIndex { $0.pid == feed.pid } ?? 0
+                Routes.handle("/profile/feeds/\(uid)?index=\(liveIdx)")
             }
         }
     }
