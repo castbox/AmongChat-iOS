@@ -83,6 +83,7 @@ extension Feed.Comments {
         private(set) var comment: Entity.FeedComment
         private(set) lazy var viewSize: CGSize = CommentCell.cellSize(for: self)
         private(set) var repliesCollapsed = false
+        private(set) var showExpandOption = true
 
         var repliesObservable: Observable<[ReplyViewModel]> {
             return repliesRelay.asObservable().observeOn(MainScheduler.asyncInstance)
@@ -117,6 +118,7 @@ extension Feed.Comments {
             
             if let replies = comment.replyList?.map({ ReplyViewModel(with: $0, comment: comment) }) {
                 repliesRelay.accept(replies)
+                showExpandOption = !(replies.count > 0)
             }
             hasMoreReplies = (comment.replyList?.count ?? 0) < comment.replyCount
         }
