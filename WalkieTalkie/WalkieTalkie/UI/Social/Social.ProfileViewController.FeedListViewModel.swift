@@ -43,7 +43,15 @@ extension Social.ProfileViewController {
             
             let skipMs = feedsRelay.value.last?.createTime ?? 0
             
-            return Request.userFeeds(userId, skipMs: skipMs)
+            let request: Single<Entity.FeedList>
+            
+            if userId.isSelfUid {
+                request = Request.myFeeds(skipMs: skipMs)
+            } else {
+                request = Request.userFeeds(userId, skipMs: skipMs)
+            }
+            
+            request
                 .do(onDispose: { [weak self] in
                     self?.isLoading = false
                 })

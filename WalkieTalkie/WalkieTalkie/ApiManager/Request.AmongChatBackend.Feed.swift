@@ -160,4 +160,27 @@ extension Request {
             .mapToProcessedValue()
             .observeOn(MainScheduler.asyncInstance)
     }
+    
+    static func myFeeds(limit: Int = 20,
+                        skipMs: Int64) -> Single<Entity.FeedList> {
+        
+        let params: [String : Any] = [
+            "limit" : limit,
+            "skip_ms" : skipMs
+        ]
+        
+        return amongchatProvider.rx.request(.myFeeds(params))
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .mapTo(Entity.FeedList.self)
+            .map({
+                guard let r = $0 else {
+                    throw MsgError.default
+                }
+                return r
+            })
+            .observeOn(MainScheduler.asyncInstance)
+        
+    }
+    
 }

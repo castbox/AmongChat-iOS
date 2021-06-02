@@ -42,6 +42,11 @@ extension Entity {
     
     struct Feed: Codable {
         
+        enum StatusType: Int, Codable {
+            case inreview
+            case live
+        }
+
         let pid: String
         let uid: Int
         let topic: String
@@ -50,7 +55,12 @@ extension Entity {
         let duration: Int
         let width: Int?
         let height: Int?
-        let status: Int
+        let status: Int // 0审核中
+        
+        var statusType: StatusType {
+            return StatusType(rawValue: status) ?? .inreview
+        }
+        
         //comment count
         var cmtCount: Int
         let createTime: Int64
