@@ -10,7 +10,7 @@ import UIKit
 import Photos
 import RxSwift
 
-extension Social.ProfileViewController {
+extension Social.ProfileFeedsViewController {
     
     class FeedCell: UICollectionViewCell {
                 
@@ -138,8 +138,4 @@ extension Social.ProfileViewController {
         
     }
 
-}
-
-extension Social.ProfileViewController {
-    class SegmentedContainerCell: UICollectionViewCell {}
 }
