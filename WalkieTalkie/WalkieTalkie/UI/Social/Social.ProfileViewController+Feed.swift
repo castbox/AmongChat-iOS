@@ -32,6 +32,37 @@ extension Social.ProfileViewController {
             return l
         }()
         
+        private lazy var unsupportedView: UIView = {
+            let v = UIView()
+            v.backgroundColor = UIColor.black.withAlphaComponent(0.6)
+            let icon = UIImageView(image: R.image.ac_choose_game_inreview())
+            let label = UILabel()
+            label.font = R.font.nunitoExtraBold(size: 12)
+            label.textColor = .white
+            label.text = R.string.localizable.statsPendingReview()
+            label.adjustsFontSizeToFitWidth = true
+            
+            let guide = UILayoutGuide()
+            v.addLayoutGuide(guide)
+            guide.snp.makeConstraints { (maker) in
+                maker.center.equalToSuperview()
+                maker.leading.greaterThanOrEqualToSuperview()
+            }
+            
+            v.addSubviews(views: icon, label)
+            
+            icon.snp.makeConstraints { (maker) in
+                maker.top.centerX.equalTo(guide)
+            }
+            
+            label.snp.makeConstraints { (maker) in
+                maker.top.equalTo(icon.snp.bottom).offset(4)
+                maker.leading.trailing.bottom.equalTo(guide)
+            }
+            v.isHidden = true
+            return v
+        }()
+        
         private lazy var gradientMusk: CAGradientLayer = {
             let l = CAGradientLayer()
             l.colors = [UIColor(hex6: 0x000000, alpha: 0).cgColor, UIColor(hex6: 0x000000, alpha: 1).cgColor]
@@ -64,7 +95,7 @@ extension Social.ProfileViewController {
             contentView.clipsToBounds = true
             contentView.layer.cornerRadius = 12
             
-            contentView.addSubviews(views: imageView, playIcon, playCountLabel)
+            contentView.addSubviews(views: imageView, playIcon, playCountLabel, unsupportedView)
             
             contentView.layer.insertSublayer(gradientMusk, above: imageView.layer)
             
@@ -83,11 +114,26 @@ extension Social.ProfileViewController {
                 maker.centerY.equalTo(playIcon)
             }
             
+            unsupportedView.snp.makeConstraints { (maker) in
+                maker.edges.equalToSuperview()
+            }
+            
         }
         
         func configCell(with feed: Entity.Feed) {
             playCountLabel.text = "\(feed.playCountValue)"
             imageView.setImage(with: feed.img)
+            
+            if feed.statusType == .live {
+                playIcon.isHidden = false
+                playCountLabel.isHidden = false
+                unsupportedView.isHidden = true
+            } else {
+                playIcon.isHidden = true
+                playCountLabel.isHidden = true
+                unsupportedView.isHidden = false
+            }
+            
         }
         
     }
