@@ -401,6 +401,8 @@
 		FEAE256B262078D5001F10A9 /* AmongChat.GroupRoom.ViewController.Audience.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEAE256A262078D5001F10A9 /* AmongChat.GroupRoom.ViewController.Audience.swift */; };
 		FEB308F226662841006849CF /* Profile.FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB308F126662841006849CF /* Profile.FeedViewController.swift */; };
 		FEB308F426663C44006849CF /* Feed.RecommendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB308F326663C44006849CF /* Feed.RecommendViewController.swift */; };
+		FEB308F626673606006849CF /* Feed.ListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB308F526673606006849CF /* Feed.ListViewModel.swift */; };
+		FEB308F82667362D006849CF /* Feed.ListCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB308F72667362C006849CF /* Feed.ListCellViewModel.swift */; };
 		FEBCFEA8260C3B9900DD9B8D /* JSBridge.Support.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEBCFEA5260C3B9900DD9B8D /* JSBridge.Support.swift */; };
 		FEBCFEA9260C3B9900DD9B8D /* JSBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEBCFEA6260C3B9900DD9B8D /* JSBridge.swift */; };
 		FEBCFEAA260C3B9900DD9B8D /* JSBridge.Links.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEBCFEA7260C3B9900DD9B8D /* JSBridge.Links.swift */; };
@@ -910,6 +912,8 @@
 		FEAE256A262078D5001F10A9 /* AmongChat.GroupRoom.ViewController.Audience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChat.GroupRoom.ViewController.Audience.swift; sourceTree = "<group>"; };
 		FEB308F126662841006849CF /* Profile.FeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.FeedViewController.swift; sourceTree = "<group>"; };
 		FEB308F326663C44006849CF /* Feed.RecommendViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Feed.RecommendViewController.swift; sourceTree = "<group>"; };
+		FEB308F526673606006849CF /* Feed.ListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Feed.ListViewModel.swift; sourceTree = "<group>"; };
+		FEB308F72667362C006849CF /* Feed.ListCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Feed.ListCellViewModel.swift; sourceTree = "<group>"; };
 		FEBCFEA5260C3B9900DD9B8D /* JSBridge.Support.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSBridge.Support.swift; sourceTree = "<group>"; };
 		FEBCFEA6260C3B9900DD9B8D /* JSBridge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSBridge.swift; sourceTree = "<group>"; };
 		FEBCFEA7260C3B9900DD9B8D /* JSBridge.Links.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSBridge.Links.swift; sourceTree = "<group>"; };
@@ -1274,6 +1278,8 @@
 				FE27B92D265CE89A00D1AD1F /* Feed.swift */,
 				FEB308F326663C44006849CF /* Feed.RecommendViewController.swift */,
 				FE27B92B265CE30300D1AD1F /* Feed.ListViewController.swift */,
+				FEB308F72667362C006849CF /* Feed.ListCellViewModel.swift */,
+				FEB308F526673606006849CF /* Feed.ListViewModel.swift */,
 				FE0A0C32265D278000AC9FF7 /* PlayerView.swift */,
 				FE0A0C2E265CECCA00AC9FF7 /* FeedListCell.swift */,
 				FE0A0C2F265CECCA00AC9FF7 /* FeedListCell.xib */,
@@ -2235,6 +2241,7 @@
 				FE6306AB2450076E00CEA651 /* NSObjectExtension.swift in Sources */,
 				263FC49726218B9A00EC0588 /* FansGroup.Views.ShareBar.swift in Sources */,
 				2B9566FA259ADD2E001C7B91 /* R.generated.swift in Sources */,
+				FEB308F626673606006849CF /* Feed.ListViewModel.swift in Sources */,
 				FE2AF9EC244DC24300763747 /* AppConfig.swift in Sources */,
 				BD6C370B256E7D0C00D1E708 /* AmongChat.Room.ViewController.swift in Sources */,
 				FE401E3C244D9C450081F793 /* IAP.ProductFetcher.swift in Sources */,
@@ -2290,6 +2297,7 @@
 				FE68487C244BD65B00F87AF9 /* NativeAdView.swift in Sources */,
 				FECA43AE24597B570075D139 /* Automator.Analytics.swift in Sources */,
 				FE126D50243481FF00BEDD60 /* VoiceChanger.swift in Sources */,
+				FEB308F82667362D006849CF /* Feed.ListCellViewModel.swift in Sources */,
 				BD680D7A2554F89D0062CEC7 /* Logger+AppOpenAd.swift in Sources */,
 				BD73B10124FE363D009D0AC7 /* Social.BlockedUserList.ViewController.swift in Sources */,
 				FED568D1263AB68C0009F4FF /* InstalledChecker.swift in Sources */,

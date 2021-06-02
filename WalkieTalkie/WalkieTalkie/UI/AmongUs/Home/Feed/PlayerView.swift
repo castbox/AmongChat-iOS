@@ -29,8 +29,8 @@ class PlayerView: UIView {
     
     private var resourceLoaderManager: VIResourceLoaderManager?
     
-    private(set) var duration: Int = 0
-    private(set) var currentTime: Int = 0
+    private(set) var duration: Float = 0
+    private(set) var currentTime: Float = 0
     
     var playingProgressHandler: ((Float) -> Void)?
     var loadHandler: CallBack?
@@ -47,9 +47,7 @@ class PlayerView: UIView {
     }
     
     deinit {
-        cdPrint("[PlayerView] - deinit")
         removeObserver()
-//        queuePlayer?.removeObserver(self, forKeyPath: "timeControlStatus")
     }
     
     override func layoutSubviews() {
@@ -95,13 +93,23 @@ class PlayerView: UIView {
         
         avPlayerLayer.player = queuePlayer
         
-        timeObserver = queuePlayer?.addPeriodicTimeObserver(forInterval: CMTime(value: 1, timescale: 10), queue: DispatchQueue(label: "chat.among.player.queue"), using: { [weak self] time in
+        let interval = CMTime(seconds: 0.05, preferredTimescale: CMTimeScale(NSEC_PER_SEC))
+        timeObserver = queuePlayer?.addPeriodicTimeObserver(forInterval: interval, queue: DispatchQueue(label: "chat.among.player.queue"), using: { [weak self] time in
             mainQueueDispatchAsync {
-                guard let `self` = self, let item = self.queuePlayer?.currentItem else { return }
+                guard let `self` = self, let item = self.playerItem else {
+                    return
+                }
                 self.callLoadedHandler()
-                self.duration = String(format: "%.f", CMTimeGetSeconds(item.duration)).intValue
-                self.currentTime = String(format: "%.f", CMTimeGetSeconds(time)).intValue
-                self.playingProgressHandler?(self.currentTime.float / self.duration.float)
+                self.duration = String(format: "%.f", CMTimeGetSeconds(item.duration)).float() ?? 0
+                let currentTime = time.value.cgFloat / CGFloat(time.timescale)
+                if !currentTime.isNaN {
+                    self.currentTime = currentTime.float
+                } else {
+                    self.currentTime = 0
+                }
+                let progress = self.currentTime / self.duration
+//                cdPrint("currentTime: \(self.currentTime) \(time) duration: \(self.duration) progress: \(progress)")
+                self.playingProgressHandler?(progress)
             }
         })
         
@@ -116,27 +124,6 @@ class PlayerView: UIView {
         queuePlayer?.seek(to: seekTo, completionHandler: { [weak self] result in
 
         })
-    }
-    
-    func cancelAllLoadingRequest(){
-        removeObserver()
-        
-        videoURL = nil
-        originalURL = nil
-        playerItem = nil
-        avPlayerLayer.player = nil
-        playerLooper = nil
-        
-    }
-    
-    func removeObserver() {
-        if let observer = observer {
-            observer.invalidate()
-        }
-        if let observer = timeObserver {
-            queuePlayer?.removeTimeObserver(observer)
-        }
-        timeObserver = nil
     }
     
     func replay(){
@@ -154,7 +141,33 @@ class PlayerView: UIView {
     
 }
 
-extension PlayerView {
+private extension PlayerView {
+    
+    func cancelAllLoadingRequest(){
+        removeObserver()
+        
+        videoURL = nil
+        originalURL = nil
+        playerItem = nil
+        avPlayerLayer.player = nil
+        playerLooper = nil
+        
+    }
+    
+    func removeObserver() {
+        if let observer = observer {
+            observer.invalidate()
+        }
+        removePlayerTimeObserver()
+    }
+    
+    func removePlayerTimeObserver() {
+        if let observer = timeObserver {
+            queuePlayer?.removeTimeObserver(observer)
+        }
+        timeObserver = nil
+    }
+    
     func addObserverToPlayerItem() {
         // Register as an observer of the player item's status property
         self.observer = self.playerItem!.observe(\.status, options: [.initial, .new], changeHandler: { [weak self] item, _ in
@@ -169,7 +182,7 @@ extension PlayerView {
                     guard let item = self.playerItem else {
                         return
                     }
-                    self.duration = CMTimeGetSeconds(item.duration).int
+                    self.duration = CMTimeGetSeconds(item.duration).float ?? 0
                     self.callLoadedHandler()
                 case .failed:
                     // Player item failed. See error.

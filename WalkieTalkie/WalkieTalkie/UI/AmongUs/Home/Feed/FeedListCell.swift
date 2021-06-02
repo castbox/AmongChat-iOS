@@ -123,7 +123,7 @@ class FeedListCell: UITableViewCell {
 
     override func prepareForReuse() {
         super.prepareForReuse()
-        playerView.cancelAllLoadingRequest()
+//        playerView.cancelAllLoadingRequest()
         resetViewsForReuse()
     }
     
