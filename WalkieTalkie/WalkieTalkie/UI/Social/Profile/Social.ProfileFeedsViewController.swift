@@ -149,11 +149,7 @@ extension Social.ProfileFeedsViewController {
                 guard let `self` = self else { return }
                 self.feeds.append(contentsOf: feedList.list)
                 self.hasMore = feedList.more
-                self.table.endLoadMore(feedList.more)
-                
-                #if DEBUG
-                self.feeds = []
-                #endif
+                self.table.endLoadMore(feedList.more)                
             })
             .disposed(by: bag)
     }
