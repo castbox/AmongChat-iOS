@@ -36,28 +36,21 @@ extension Feed {
 
             configureSubview()
             bindSubviewEvent()
-            
-//            var error: NSError?
-//            VICacheManager.cleanAllCacheWithError(&error)
         }
         
-        override func viewWillAppear(_ animated: Bool) {
-            super.viewWillAppear(animated)
-            
+        func onViewWillAppear() {
             shouldAutoPauseWhenDismiss = true
             
-            if let cell = tableView.visibleCells.first as? FeedListCell {
-                cell.play()
-            }
-            //
             if dataSource.isEmpty {
                 loadData()
+            } else if let cell = tableView.visibleCells.first as? FeedListCell {
+                cell.play()
             }
         }
         
-        override func viewWillDisappear(_ animated: Bool) {
-            super.viewWillDisappear(animated)
-            if shouldAutoPauseWhenDismiss, let cell = tableView.visibleCells.first as? FeedListCell {
+        func onViewWillDisappear() {
+            if shouldAutoPauseWhenDismiss,
+               let cell = tableView.visibleCells.first as? FeedListCell {
                 cell.pause()
             }
         }
@@ -84,6 +77,30 @@ extension Feed {
                 }
             }
         }
+        func bindSubviewEvent() {
+            
+            setAudioMode()
+            
+            Observable.merge(rx.viewWillAppear.asObservable(),
+                             NotificationCenter.default.rx.notification(UIApplication.didBecomeActiveNotification)
+                                 .map { _ in },
+                             Settings.shared.loginResult.replay().map { _ in })
+                .observeOn(MainScheduler.asyncInstance)
+                .subscribe(onNext: { [weak self] _ in
+                    self?.onViewWillAppear()
+                })
+                .disposed(by: bag)
+            
+            Observable.merge(rx.viewWillDisappear.asObservable(),
+                             NotificationCenter.default.rx.notification(UIApplication.willResignActiveNotification)
+                                 .map { _ in })
+                .observeOn(MainScheduler.asyncInstance)
+                .subscribe(onNext: { [weak self] _ in
+                    self?.onViewWillDisappear()
+                })
+                .disposed(by: bag)
+        }
+        
         
         func configureSubview() {
                         
@@ -105,19 +122,9 @@ extension Feed {
             tableView.snp.makeConstraints { maker in
                 maker.top.leading.trailing.equalToSuperview()
                 maker.bottom.equalTo(-Frame.Height.bottomBar)
-            }            
+            }
         }
         
-        func bindSubviewEvent() {
-            Settings.shared.loginResult.replay()
-                .filterNil()
-                .subscribe(onNext: { [weak self] _ in
-                    self?.loadData()
-                })
-                .disposed(by: bag)
-            
-            setAudioMode()
-        }
     }
 }
 

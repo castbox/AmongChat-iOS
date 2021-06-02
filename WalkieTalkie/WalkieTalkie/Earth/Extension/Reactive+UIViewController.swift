@@ -30,6 +30,10 @@ extension Reactive where Base: UIViewController {
         return ControlEvent(events: source)
     }
 
+    var viewWillDisappear: ControlEvent<Void> {
+        let source = self.methodInvoked(#selector(Base.viewWillDisappear(_:))).map { _ in }
+        return ControlEvent(events: source)
+    }
 }
 
 extension Reactive where Base: UIButton {
