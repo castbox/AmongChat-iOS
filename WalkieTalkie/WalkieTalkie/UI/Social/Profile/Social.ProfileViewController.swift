@@ -517,7 +517,8 @@ private extension Social.ProfileViewController {
         
         layoutScrollView.rx.contentOffset
             .subscribe(onNext: { [weak self] (point) in
-                guard let `self` = self else { return }
+                guard let `self` = self,
+                      self.layoutScrollView.contentSize != .zero else { return }
                 
                 let frame = self.layoutScrollView.convert(self.segmentedButtonContainer.frame, to: self.view)
                 if frame.origin.y <= self.navView.bottom {
