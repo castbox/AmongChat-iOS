@@ -24,11 +24,8 @@ extension Feed {
         
         var feedHeight: CGFloat = 0
         
-        var dataSource: [Feed.ListCellViewModel] = [] {
-            didSet {
-                tableView.reloadData()
-            }
-        }
+        var dataSource: [Feed.ListCellViewModel] = []
+        
         var currentIndex = 0
         
         private var shouldAutoPauseWhenDismiss: Bool = true
@@ -102,7 +99,7 @@ extension Feed {
             tableView.register(nibWithCellClass: FeedListCell.self)
             tableView.delegate = self
             tableView.dataSource = self
-            tableView.prefetchDataSource = self
+            tableView.estimatedRowHeight = feedHeight
             view.addSubviews(views: tableView)
             
             tableView.snp.makeConstraints { maker in
@@ -125,7 +122,7 @@ extension Feed {
 }
 
 // MARK: - Table View Extensions
-extension Feed.ListViewController: UITableViewDelegate, UITableViewDataSource, UITableViewDataSourcePrefetching {
+extension Feed.ListViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return dataSource.count
@@ -149,7 +146,6 @@ extension Feed.ListViewController: UITableViewDelegate, UITableViewDataSource, U
         // If the cell is the first cell in the tableview, the queuePlayer automatically starts.
         // If the cell will be displayed, pause the video until the drag on the scroll view is ended
         if let cell = cell as? FeedListCell {
-//            oldAndNewIndices.1 = indexPath.row
             if currentIndex != -1 {
                 cell.pause()
             }
@@ -163,17 +159,8 @@ extension Feed.ListViewController: UITableViewDelegate, UITableViewDataSource, U
             cell.pause()
         }
     }
-    
-    func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
-        for indexPath in indexPaths {
-            print("prefetchRowsAt: \(indexPath.row)")
-        }
-    }
-    
-    
 }
 
-// MARK: - ScrollView Extension
 extension Feed.ListViewController: UIScrollViewDelegate {
     
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {

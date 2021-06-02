@@ -43,6 +43,9 @@ extension Social {
         private var playCountView: UIView!
         private var playCountLabel: UILabel!
         
+        private var isLoadingMore: Bool = false
+        private var hasMore: Bool = true
+        
         private let uid: Int
         
         private let defaultIndex: Int
@@ -71,6 +74,7 @@ extension Social {
                     guard let `self` = self else { return }
                     self.tableView.alpha = 0
                     self.dataSource = data.list.map { Feed.ListCellViewModel(feed: $0) }
+                    self.tableView.reloadData()
                 }, onDispose: {
                     removeBlock()
                 })
@@ -83,6 +87,43 @@ extension Social {
                     self?.addErrorView({ [weak self] in
                         self?.loadData()
                     })
+                }).disposed(by: bag)
+        }
+        
+        override func loadMore() {
+//            let removeBlock = view.raft.show(.loading)
+            //exclutepids
+            guard hasMore else {
+                return
+            }
+            isLoadingMore = true
+            let maxIndex = dataSource.count - 1
+//            cdPrint("excludePid: \(excludePids)")
+            Request.userFeeds(uid, skipMs: dataSource.count.int64) //Settings.loginUserId
+                .do(onDispose: { [weak self] in
+                    self?.isLoadingMore = false
+//                    removeBlock()
+                })
+                .delay(.fromSeconds(0.2), scheduler: MainScheduler.asyncInstance)
+                .subscribe(onSuccess: { [weak self] data in
+                    guard let `self` = self else { return }
+                    var source = data.list.map { Feed.ListCellViewModel(feed: $0) }
+                    self.hasMore = source.count >= 10
+                    source.insert(contentsOf: self.dataSource, at: 0)
+                    self.dataSource = source
+                    //insert datasource
+                    let rows = self.tableView.numberOfRows(inSection: 0)
+                    let newRow = self.dataSource.count
+                    self.tableView.isPagingEnabled = false
+                    let indexPaths = Array(rows..<newRow).map({ IndexPath(row: $0, section: 0) })
+                    self.tableView.beginUpdates()
+                    self.tableView.insertRows(at: indexPaths, with: .none)
+                    self.tableView.endUpdates()
+                    self.tableView.isPagingEnabled = true
+                }, onError: { [weak self](error) in
+//                    self?.addErrorView({ [weak self] in
+//                        self?.loadData()
+//                    })
                 }).disposed(by: bag)
         }
         

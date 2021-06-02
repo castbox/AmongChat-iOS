@@ -187,15 +187,13 @@ class FeedListCell: UITableViewCell {
     func replay(){
         if !isPlaying {
             playerView.replay()
-            Logger.Action.log(.feeds_item_clk, category: .play, viewModel?.feed.pid)
-            isPlaying = true
+            play()
         }
     }
     
     func play() {
         if !isPlaying {
             playerView.play()
-//            musicLbl.holdScrolling = false
             isPlaying = true
             Logger.Action.log(.feeds_item_clk, category: .play, viewModel?.feed.pid)
         }
@@ -204,7 +202,6 @@ class FeedListCell: UITableViewCell {
     func pause(){
         if isPlaying {
             playerView.pause()
-//            musicLbl.holdScrolling = true
             isPlaying = false
             Logger.Action.log(.feeds_item_clk, category: .pause, viewModel?.feed.pid)
         }
@@ -212,28 +209,15 @@ class FeedListCell: UITableViewCell {
     
     func handlePause() {
         if isPlaying {
-            // Pause video and show pause sign
-//            UIView.animate(withDuration: 0.075, delay: 0, options: .curveEaseIn, animations: { [weak self] in
-//                guard let self = self else { return }
-                self.pauseView.alpha = 1
-//                self.pauseView.transform = CGAffineTransform.init(scaleX: 0.45, y: 0.45)
-//            }, completion: { [weak self] _ in
-                self.pause()
-//            })
+            self.pauseView.alpha = 1
+            self.pause()
         } else {
-            // Start video and remove pause sign
-//            UIView.animate(withDuration: 0.075, delay: 0, options: .curveEaseInOut, animations: { [weak self] in
-//                guard let self = self else { return }
-                self.pauseView.alpha = 0
-//            }, completion: { [weak self] _ in
-                self.play()
-//                self?.pauseView.transform = .identity
-//            })
+            self.pauseView.alpha = 0
+            self.play()
         }
     }
     
     func resetViewsForReuse(){
-//        likeBtn.tintColor = .white
         pauseView.alpha = 0
     }
     
@@ -256,7 +240,6 @@ class FeedListCell: UITableViewCell {
             }
         }
         progressLabel.isHidden = !userInfoContainer.isHidden
-        //calculate progress
     }
 
     
