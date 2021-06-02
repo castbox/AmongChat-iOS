@@ -10,6 +10,7 @@ import UIKit
 import Photos
 import PhotosUI
 import RxSwift
+import RxCocoa
 
 extension Feed {
     
@@ -30,6 +31,42 @@ extension Feed {
             return layout
         }()
         
+        private lazy var emptyView: FansGroup.Views.EmptyDataView = {
+            let v = FansGroup.Views.EmptyDataView()
+            v.titleLabel.text = R.string.localizable.feedLibraryVideoEmpty()
+            v.isHidden = true
+            return v
+        }()
+        
+        private lazy var queryAccessLabel: UILabel = {
+            let l = UILabel()
+            l.font = R.font.nunitoSemiBold(size: 14)
+            l.textColor = UIColor(hex6: 0xABABAB)
+            l.textAlignment = .center
+            l.text = R.string.localizable.feedLibraryAccessPhotoText()
+            l.numberOfLines = 0
+            l.isHidden = true
+            return l
+        }()
+        
+        private lazy var gotoSettinsBtn: UIButton = {
+            let btn = UIButton(type: .custom)
+            btn.rx.controlEvent(.primaryActionTriggered)
+                .subscribe(onNext: { [weak self] (_) in
+                    UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
+                })
+                .disposed(by: bag)
+            btn.setTitleColor(.black, for: .normal)
+            btn.backgroundColor = UIColor(hex6: 0xFFF000)
+            btn.titleLabel?.font = R.font.nunitoExtraBold(size: 16)
+            btn.layer.masksToBounds = true
+            btn.layer.cornerRadius = 18
+            btn.contentEdgeInsets = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
+            btn.setTitle(R.string.localizable.amongChatOpenSettings(), for: .normal)
+            btn.isHidden = true
+            return btn
+        }()
+
         private lazy var videoCollectionView: UICollectionView = {
             let v = UICollectionView(frame: .zero, collectionViewLayout: videoCollectionViewFlowLayout)
             v.register(cellWithClazz: VideoCell.self)
@@ -44,19 +81,45 @@ extension Feed {
         
         private let mediaManager = VideoMediaManager()
         
+        private var fetchResult: PHFetchResult<PHAsset>! {
+            didSet {
+                videoCollectionView.reloadData()
+                switch PHPhotoLibrary.authorizationStatus() {
+                case .restricted, .denied:
+                    emptyView.titleLabel.text = R.string.localizable.feedLibraryAccessPhotoTitle()
+                    emptyView.iconIV.image = R.image.ac_feed_library_empty()
+                    emptyView.isHidden = false
+                    queryAccessLabel.isHidden = false
+                    gotoSettinsBtn.isHidden = false
+                    
+                default:
+                    emptyView.titleLabel.text = R.string.localizable.feedLibraryVideoEmpty()
+                    emptyView.iconIV.image = R.image.ac_among_apply_empty()
+                    emptyView.isHidden = (fetchResult.count > 0)
+                    queryAccessLabel.isHidden = true
+                    gotoSettinsBtn.isHidden = true
+                }
+            }
+        }
+        
         override func viewDidLoad() {
             super.viewDidLoad()
             
+            switch PHPhotoLibrary.authorizationStatus() {
+            case .notDetermined:
+                PhotoManager.shared.requestAuthorization({ (status) in
+                    
+                })
+            default:
+                ()
+            }
+            
             mediaManager.resetCachedAssets()
-            PHPhotoLibrary.shared().register(self)
             
             setUpLayout()
+            setUpEvents()
         }
-        
-        deinit {
-            PHPhotoLibrary.shared().unregisterChangeObserver(self)
-        }
-        
+                
         override func viewDidAppear(_ animated: Bool) {
             super.viewDidAppear(animated)
             mediaManager.updateCachedAssets(in: videoCollectionView, cellSize: videoCollectionViewFlowLayout.itemSize)
@@ -69,10 +132,39 @@ extension Feed {
 extension Feed.VideoLibraryViewController {
     
     private func setUpLayout() {
-        view.addSubview(videoCollectionView)
+        view.addSubviews(views: videoCollectionView, emptyView, queryAccessLabel, gotoSettinsBtn)
         videoCollectionView.snp.makeConstraints { (maker) in
             maker.edges.equalToSuperview()
         }
+        
+        emptyView.snp.makeConstraints { (maker) in
+            maker.centerX.equalToSuperview()
+            maker.leading.greaterThanOrEqualToSuperview().offset(40)
+            maker.top.equalTo(90)
+        }
+        
+        queryAccessLabel.snp.makeConstraints { (maker) in
+            maker.top.equalTo(emptyView.snp.bottom)
+            maker.centerX.equalToSuperview()
+            maker.leading.greaterThanOrEqualToSuperview().offset(40)
+        }
+        
+        gotoSettinsBtn.snp.makeConstraints { (maker) in
+            maker.top.equalTo(queryAccessLabel.snp.bottom).offset(20)
+            maker.height.equalTo(36)
+            maker.centerX.equalToSuperview()
+            maker.leading.greaterThanOrEqualToSuperview().offset(40)
+        }
+        
+    }
+    
+    private func setUpEvents() {
+        
+        mediaManager.fetchResultObservable
+            .subscribe(onNext: { [weak self] (result) in
+                self?.fetchResult = result
+            })
+            .disposed(by: bag)
     }
     
 }
@@ -80,12 +172,12 @@ extension Feed.VideoLibraryViewController {
 extension Feed.VideoLibraryViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return mediaManager.fetchResult.count
+        return fetchResult?.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withClazz: VideoCell.self, for: indexPath)
-        let asset = mediaManager.fetchResult.object(at: indexPath.item)
+        let asset = fetchResult.object(at: indexPath.item)
         cell.configCell(with: asset, imageOb: mediaManager.requestImage(for: asset))
         return cell
     }
@@ -94,7 +186,7 @@ extension Feed.VideoLibraryViewController: UICollectionViewDataSource {
 extension Feed.VideoLibraryViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-        let asset = mediaManager.fetchResult.object(at: indexPath.item)
+        let asset = fetchResult.object(at: indexPath.item)
         return asset.duration <= 60
     }
     
@@ -123,52 +215,9 @@ extension Feed.VideoLibraryViewController: FeedVideoSelective {
             return Observable.empty()
         }
         
-        let asset = mediaManager.fetchResult.object(at: selectedIndex)
+        let asset = fetchResult.object(at: selectedIndex)
         
         return mediaManager.exportVideo(for: asset)
     }
 }
 
-// MARK: PHPhotoLibraryChangeObserver
-extension Feed.VideoLibraryViewController: PHPhotoLibraryChangeObserver {
-    
-    func photoLibraryDidChange(_ changeInstance: PHChange) {
-        
-        guard let changes = changeInstance.changeDetails(for: mediaManager.fetchResult)
-        else { return }
-        
-        // Change notifications may originate from a background queue.
-        // As such, re-dispatch execution to the main queue before acting
-        // on the change, so you can update the UI.
-        DispatchQueue.main.sync {
-            // Hang on to the new fetch result.
-            mediaManager.fetchResult = changes.fetchResultAfterChanges
-            // If we have incremental changes, animate them in the collection view.
-            if changes.hasIncrementalChanges {
-                let collectionView = self.videoCollectionView
-                // Handle removals, insertions, and moves in a batch update.
-                videoCollectionView.performBatchUpdates({
-                    if let removed = changes.removedIndexes, !removed.isEmpty {
-                        collectionView.deleteItems(at: removed.map({ IndexPath(item: $0, section: 0) }))
-                    }
-                    if let inserted = changes.insertedIndexes, !inserted.isEmpty {
-                        collectionView.insertItems(at: inserted.map({ IndexPath(item: $0, section: 0) }))
-                    }
-                    changes.enumerateMoves { fromIndex, toIndex in
-                        collectionView.moveItem(at: IndexPath(item: fromIndex, section: 0),
-                                                to: IndexPath(item: toIndex, section: 0))
-                    }
-                })
-                // We are reloading items after the batch update since `PHFetchResultChangeDetails.changedIndexes` refers to
-                // items in the *after* state and not the *before* state as expected by `performBatchUpdates(_:completion:)`.
-                if let changed = changes.changedIndexes, !changed.isEmpty {
-                    collectionView.reloadItems(at: changed.map({ IndexPath(item: $0, section: 0) }))
-                }
-            } else {
-                // Reload the collection view if incremental changes are not available.
-                videoCollectionView.reloadData()
-            }
-            mediaManager.resetCachedAssets()
-        }
-    }
-}
