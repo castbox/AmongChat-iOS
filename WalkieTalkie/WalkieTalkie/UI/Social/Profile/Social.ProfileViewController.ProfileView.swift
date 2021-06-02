@@ -86,12 +86,12 @@ extension Social.ProfileViewController {
                     liveRoomView.coverIV.setImage(with: liveRoom.roomCover)
                     liveRoomView.label.text = liveRoom.roomName
                     liveRoomView.joinBtn.isEnabled = !liveRoom.isPrivate
-                    addSubview(liveRoomView)
+                    penddingViewContainer.addSubview(liveRoomView)
                     
                     liveRoomView.snp.makeConstraints { (maker) in
                         maker.leading.trailing.equalToSuperview().inset(Frame.horizontalBleedWidth)
                         maker.height.equalTo(liveRoomHeight)
-                        maker.top.equalTo(relationContainer.snp.bottom).offset(liveRoomTopSpace)
+                        maker.top.equalToSuperview().offset(liveRoomTopSpace)
                     }
                     
                     if let room = liveRoom as? Entity.UserStatus.Room {
@@ -240,6 +240,11 @@ extension Social.ProfileViewController {
             }
             
             return view
+        }()
+        
+        private lazy var penddingViewContainer: UIView = {
+            let v = UIView()
+            return v
         }()
         
         private lazy var followerBtn: VerticalTitleButton = {
@@ -428,7 +433,7 @@ extension Social.ProfileViewController {
         
         private func setupLayout() {
             
-            addSubviews(views: bg, avatarIV, petView, nameLabel, infoCollectionView, descriptionLabel, relationContainer)
+            addSubviews(views: bg, avatarIV, petView, nameLabel, infoCollectionView, descriptionLabel, relationContainer, penddingViewContainer)
             
             bg.snp.makeConstraints { (maker) in
                 maker.leading.trailing.bottom.equalToSuperview()
@@ -455,7 +460,7 @@ extension Social.ProfileViewController {
             infoCollectionView.snp.makeConstraints { (maker) in
                 maker.leading.trailing.equalToSuperview().inset(Frame.horizontalBleedWidth)
                 maker.top.equalTo(nameLabel.snp.bottom).offset(infoTopSpace)
-                maker.height.equalTo(0)
+                maker.height.equalTo(24)
             }
             
             descriptionLabel.snp.makeConstraints { (maker) in
@@ -468,6 +473,12 @@ extension Social.ProfileViewController {
                 maker.top.equalTo(descriptionLabel.snp.bottom).offset(relationContainerTopSpace)
                 maker.leading.trailing.equalToSuperview().inset(Frame.horizontalBleedWidth)
                 maker.height.equalTo(relationContainerHeight)
+            }
+            
+            penddingViewContainer.snp.makeConstraints { (maker) in
+                maker.top.equalTo(relationContainer.snp.bottom)
+                maker.leading.trailing.equalToSuperview()
+                maker.bottom.equalToSuperview().offset(-bottomSpace)
             }
             
             if isSelf {
@@ -486,20 +497,7 @@ extension Social.ProfileViewController {
                     make.height.equalTo(20)
                     make.width.greaterThanOrEqualTo(30)
                 }
-                
-                addSubview(loginButton)
-                loginButton.snp.makeConstraints { (maker) in
-                    maker.leading.trailing.equalToSuperview().inset(Frame.horizontalBleedWidth)
-                    maker.top.equalTo(relationContainer.snp.bottom).offset(loginButtonTopSpace)
-                    maker.height.equalTo(loginButtonHeight)
-                }
-                Settings.shared.loginResult.replay()
-                    .filterNil()
-                    .subscribe(onNext: { [weak self] (p) in
-                        self?.loginButton.isHidden = !p.isAnonymousUser
-                    })
-                    .disposed(by: bag)
-                
+                                
                 addSubview(editBtn)
                 editBtn.snp.makeConstraints { (maker) in
                     maker.trailing.equalToSuperview().inset(Frame.horizontalBleedWidth)
@@ -508,6 +506,26 @@ extension Social.ProfileViewController {
                     maker.height.equalTo(36)
                 }
                 
+                Settings.shared.loginResult.replay()
+                    .filterNil()
+                    .subscribe(onNext: { [weak self] (p) in
+                        
+                        guard let `self` = self else { return }
+                        
+                        if p.isAnonymousUser {
+                            self.penddingViewContainer.addSubview(self.loginButton)
+                            self.loginButton.snp.makeConstraints { (maker) in
+                                maker.leading.trailing.equalToSuperview().inset(Frame.horizontalBleedWidth)
+                                maker.top.equalToSuperview().offset(self.loginButtonTopSpace)
+                                maker.height.equalTo(self.loginButtonHeight)
+                            }
+                        } else {
+                            self.loginButton.removeFromSuperview()
+                        }
+                        
+                    })
+                    .disposed(by: bag)
+
             } else {
                 
                 addSubview(onlineStatusView)
