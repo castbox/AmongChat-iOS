@@ -75,6 +75,7 @@ extension Feed {
                     guard AmongChat.Login.canDoLoginEvent(style: .authNeeded(source: .create_feed)) else {
                         return
                     }
+                    Logger.Action.log(.feeds_create_clk)
                     let vc = Feed.SelectVideoViewController()
                     self?.navigationController?.pushViewController(vc)
                 })

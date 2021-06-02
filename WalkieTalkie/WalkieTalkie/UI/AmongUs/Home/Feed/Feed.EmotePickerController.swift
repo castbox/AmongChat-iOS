@@ -36,6 +36,9 @@ extension Feed {
         override func viewDidLoad() {
             super.viewDidLoad()
             view.backgroundColor = UIColor(hex: 0x303030)
+            
+            Logger.Action.log(.emotes_imp)
+
             setUpSubviews()
             configureSubview()
         }
@@ -100,9 +103,9 @@ extension Feed {
         
         func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
             let item = self.viewModel.dataSource[indexPath.section][indexPath.item]
-//            guard item.isEnable else {
-//                return
-//            }
+
+            Logger.Action.log(.emotes_item_clk, category: nil, item.id)
+
             hideModal(animated: true) { [weak self] in
                 self?.didSelectItemHandler(item)
             }

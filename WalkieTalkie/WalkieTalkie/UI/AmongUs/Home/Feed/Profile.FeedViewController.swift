@@ -242,6 +242,7 @@ extension Social.ProfileFeedController {
               let viewModel = cell.viewModel else {
             return
         }
+        Logger.Action.log(.feeds_comment_send_clk)
         Request.createComment(toFeed: viewModel.feed.pid, text: commentInputView.inputTextView.text)
             .subscribe(onSuccess: { [weak self] (_) in
                 self?.commentInputView.inputTextView.text = ""

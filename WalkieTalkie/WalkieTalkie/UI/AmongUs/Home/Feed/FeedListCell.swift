@@ -187,7 +187,8 @@ class FeedListCell: UITableViewCell {
     func replay(){
         if !isPlaying {
             playerView.replay()
-            play()
+            Logger.Action.log(.feeds_item_clk, category: .play, viewModel?.feed.pid)
+            isPlaying = true
         }
     }
     
@@ -196,6 +197,7 @@ class FeedListCell: UITableViewCell {
             playerView.play()
 //            musicLbl.holdScrolling = false
             isPlaying = true
+            Logger.Action.log(.feeds_item_clk, category: .play, viewModel?.feed.pid)
         }
     }
     
@@ -204,6 +206,7 @@ class FeedListCell: UITableViewCell {
             playerView.pause()
 //            musicLbl.holdScrolling = true
             isPlaying = false
+            Logger.Action.log(.feeds_item_clk, category: .pause, viewModel?.feed.pid)
         }
     }
     
@@ -245,6 +248,7 @@ class FeedListCell: UITableViewCell {
                 playerView.set(progress: slider.value.cgFloat)
                 
             case .ended:
+                Logger.Action.log(.feeds_item_clk, category: .slide_play, self.viewModel?.feed.pid)
                 userInfoContainer.isHidden = false
                 play()
             default:
@@ -299,6 +303,7 @@ private extension FeedListCell {
                 guard let uid = self?.viewModel?.feed.uid else {
                     return
                 }
+                Logger.Action.log(.feeds_item_clk, category: .profile, self?.viewModel?.feed.pid)
                 Routes.handle("/profile/\(uid)")
 //                Routes.handle("/profile/feeds/\(uid)?index=2")
             })

@@ -53,6 +53,16 @@ extension Conversation {
                 }).disposed(by: bag)
             n.selectHandler = { [weak self] type in
                 self?.opType = type
+                switch type {
+                case .comment:
+                    Logger.Action.log(.dm_interactive_filter_clk, category: .comments)
+                case .like:
+                    Logger.Action.log(.dm_interactive_filter_clk, category: .likes)
+                case .emotes:
+                    Logger.Action.log(.dm_interactive_filter_clk, category: .emotes)
+                case .none:
+                    Logger.Action.log(.dm_interactive_filter_clk, category: .all)
+                }
             }
             return n
         }()
@@ -91,6 +101,8 @@ extension Conversation {
         
         override func viewDidLoad() {
             super.viewDidLoad()
+            
+            Logger.Action.log(.dm_interactive_imp)
             setupLayout()
             loadData()
         }
@@ -191,13 +203,13 @@ extension Conversation.InteractiveMessageController: UITableViewDataSource, UITa
         
         switch viewModel.msg.opType {
         case .comment:
-            ()
-        case .emotes:
-            ()
+            Logger.Action.log(.dm_interactive_item_clk, category: .comments)
         case .like:
-            ()
+            Logger.Action.log(.dm_interactive_item_clk, category: .likes)
+        case .emotes:
+            Logger.Action.log(.dm_interactive_item_clk, category: .emotes)
         case .none:
-            ()
+            Logger.Action.log(.dm_interactive_item_clk, category: .all)
         }
     }
 }

@@ -34,6 +34,7 @@ extension Social {
             btn.layer.cornerRadius = 24
             btn.rx.controlEvent(.primaryActionTriggered)
                 .subscribe(onNext: { [weak self] () in
+                    Logger.Action.log(.profile_avatar_select_alert_clk, category: .avatar)
                     let vc = Social.ProfileLookViewController()
                     self?.dismiss(animated: false)
                     if let nav = self?.presentingViewController as? UINavigationController {
@@ -96,6 +97,8 @@ extension Social {
         
         override func viewDidLoad() {
             super.viewDidLoad()
+            Logger.Action.log(.profile_avatar_select_alert_imp)
+
             setupLayout()
             setupEvents()
         }
@@ -129,7 +132,9 @@ extension Social.CustomAvatarViewController {
         switch sender {
         case takePhotoButton:
             source = .camera
+            Logger.Action.log(.profile_avatar_select_alert_clk, category: .camera)
         case selectImageButton:
+            Logger.Action.log(.profile_avatar_select_alert_clk, category: .album)
             source = .album
         default:
             return
@@ -141,9 +146,9 @@ extension Social.CustomAvatarViewController {
             .subscribe(onSuccess: { (_) in
                 hudRemoval()
                 self.dismiss(animated: false)
-            }, onError: { [weak self] (error) in
+            }, onError: { (error) in
                 hudRemoval()
-                self?.view.raft.autoShow(.text(error.msgOfError ?? R.string.localizable.amongChatUnknownError()))
+//                self?.view.raft.autoShow(.text(error.msgOfError ?? R.string.localizable.amongChatUnknownError()))
             })
             .disposed(by: bag)
         

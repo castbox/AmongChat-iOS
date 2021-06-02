@@ -84,6 +84,8 @@ extension Logger {
             case enter_home_topic
             case profile_imp
             case profile_avatar_imp
+            case profile_avatar_select_alert_imp
+            case profile_avatar_select_alert_clk
             case profile_avatar_clk
             case profile_avatar_get
             case profile_avatar_get_success
@@ -268,7 +270,7 @@ extension Logger {
             case group_emoji_clk
             case group_emoji_selected
             
-            case home_notice_clk
+//            case dm_notice_clk
             case notice_tab_system_clk
             case notice_tab_social_clk
             case notice_tab_group_request_clk
@@ -285,6 +287,15 @@ extension Logger {
             case dm_detail_send_msg
             case gif_search_clk
             case gif_select_clk
+            
+            case dm_interactive_imp
+            case dm_interactive_filter_clk
+            case dm_interactive_item_clk
+            case feeds_create_clk
+            case feeds_item_clk
+            case feeds_comment_send_clk
+            case emotes_imp
+            case emotes_item_clk
         }
         
         enum Category: String {
@@ -319,6 +330,10 @@ extension Logger {
             case followers
             case unfollow
             
+            case avatar
+            case camera
+            case album
+            
             case phone
             case google
             case apple_id
@@ -349,6 +364,15 @@ extension Logger {
             case voice
             case textvoice
             case gift
+            //
+            case comments
+            case emotes
+            case likes
+            case pause
+            case play
+            case comment
+            case slide_play // 拖动播放
+            case not_intereasted
         }
         
         static func log(_ eventName: EventName, category: Category? = nil, _ itemName: String? = nil, _ value: Int? = nil, extra: [String: Any]? = nil) {

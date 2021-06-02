@@ -30,6 +30,8 @@ extension Feed {
             }
         }
         var currentIndex = 0
+        
+        private var shouldAutoPauseWhenDismiss: Bool = true
                 
         // MARK: - Lifecycles
         override func viewDidLoad() {
@@ -44,14 +46,21 @@ extension Feed {
         
         override func viewWillAppear(_ animated: Bool) {
             super.viewWillAppear(animated)
+            
+            shouldAutoPauseWhenDismiss = true
+            
             if let cell = tableView.visibleCells.first as? FeedListCell {
                 cell.play()
+            }
+            //
+            if dataSource.isEmpty {
+                loadData()
             }
         }
         
         override func viewWillDisappear(_ animated: Bool) {
             super.viewWillDisappear(animated)
-            if let cell = tableView.visibleCells.first as? FeedListCell {
+            if shouldAutoPauseWhenDismiss, let cell = tableView.visibleCells.first as? FeedListCell {
                 cell.pause()
             }
         }
@@ -180,6 +189,9 @@ extension Feed.ListViewController: UIScrollViewDelegate {
 
 extension Feed.ListViewController {
     func updateEmoteState(with pid: String, emoteId: String, isSelect: Bool, index: Int)  {
+        guard AmongChat.Login.canDoLoginEvent(style: .authNeeded(source: .emote)) else {
+            return
+        }
         let resultSingle: Single<Bool>
         if isSelect {
             resultSingle = Request.feedSelectEmote(pid, emoteId: emoteId)
@@ -205,6 +217,7 @@ extension Feed.ListViewController {
               config.progress == 1 else {
             return
         }
+        Logger.Action.log(.feeds_item_clk, category: .share, feed.pid)
         let tagImageView = VideoShareTagView(with: feed.user.name ?? feed.user.uid.string)
         view.addSubview(tagImageView)
         guard let tagImage = tagImageView.screenshot else {
@@ -246,6 +259,7 @@ extension Feed.ListViewController {
                     guard let `self` = self else {
                         return
                     }
+                    Logger.Action.log(.feeds_item_clk, category: .emotes, emote.id)
                     if !viewModel.emotes.contains(where: { $0.id == emote.id && $0.isVoted == true }) {
                         self.updateEmoteState(with: viewModel.feed.pid, emoteId: emote.id, isSelect: true, index: indexPath.row)
                     } else {
@@ -255,6 +269,7 @@ extension Feed.ListViewController {
                 }
                 vc.showModal(in: tabBarController)
             } else {
+                Logger.Action.log(.feeds_item_clk, category: .emotes, emote.id)
                 updateEmoteState(with: viewModel.feed.pid, emoteId: emote.id, isSelect: !emote.isVoted, index: indexPath.row)
             }
         case .playComplete:
@@ -263,6 +278,10 @@ extension Feed.ListViewController {
             guard AmongChat.Login.canDoLoginEvent(style: .authNeeded(source: .comment)) else {
                 return
             }
+            
+            Logger.Action.log(.feeds_item_clk, category: .comments, viewModel.feed.pid)
+            
+            shouldAutoPauseWhenDismiss = false
             let commentList = Feed.Comments.CommentsListViewController(with: viewModel.feed.pid)
             self.presentPanModal(commentList)
         case .share:
@@ -280,6 +299,7 @@ extension Feed.ListViewController {
                 case .share:
                     self.share(feed: viewModel.feed)
                 case .notInterested:
+                    Logger.Action.log(.feeds_item_clk, category: .not_intereasted, viewModel.feed.pid)
                     self.dataSource = self.dataSource.filter { $0.feed.pid != viewModel.feed.pid }
                     self.viewModel.reportNotIntereasted(viewModel.feed.pid)
                         .subscribe(onSuccess: { [weak self] result in
@@ -289,6 +309,8 @@ extension Feed.ListViewController {
                         }
                         .disposed(by: self.bag)
                 case .deleteVideo:
+                    Logger.Action.log(.feeds_item_clk, category: .delete, viewModel.feed.pid)
+                    
                     let removeHandler = self.view.raft.show(.loading)
                     self.viewModel.feedDelete(viewModel.feed.pid)
                         .do(onDispose: {
@@ -302,6 +324,8 @@ extension Feed.ListViewController {
                         }
                         .disposed(by: self.bag)
                 case .report:
+                    Logger.Action.log(.feeds_item_clk, category: .report, viewModel.feed.pid)
+                    
                     Report.ViewController.showReport(on: self, uid: viewModel.feed.pid, type: .post, roomId: "") { [weak self] in
                         self?.view.raft.autoShow(.text(R.string.localizable.reportSuccess()))
                     }

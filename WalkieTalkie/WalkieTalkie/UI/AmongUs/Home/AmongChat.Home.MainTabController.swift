@@ -328,7 +328,7 @@ extension AmongChat.Home.MainTabController {
             case .friends:
                 return "friends"
             case .video:
-                return "video"
+                return "feed"
             case .topics:
                 return "game"
             case .messages:

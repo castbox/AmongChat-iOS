@@ -2702,7 +2702,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
     
-    /// This `R.string.localizable` struct is generated, and contains static references to 524 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 527 localization keys.
     struct localizable {
       /// en translation:  Congratulations!
       /// 
@@ -4692,6 +4692,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let dmVoiceMessageText = Rswift.StringResource(key: "dm.voice.message.text", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: add a comment
+      /// 
+      /// Locales: en
+      static let amongChatLoginAuthSourceComment = Rswift.StringResource(key: "among.chat.login.auth.source.comment", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: click to copy the code
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -4704,6 +4708,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatLoginAuthSourceChannel = Rswift.StringResource(key: "among.chat.login.auth.source.channel", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: create posts
+      /// 
+      /// Locales: en
+      static let amongChatLoginAuthSourceCreateFeed = Rswift.StringResource(key: "among.chat.login.auth.source.create.feed", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: edit your profile
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -4772,6 +4780,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatLoginAuthSourceChat = Rswift.StringResource(key: "among.chat.login.auth.source.chat", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: send emotes
+      /// 
+      /// Locales: en
+      static let amongChatLoginAuthSourceEmote = Rswift.StringResource(key: "among.chat.login.auth.source.emote", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: sent
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -8280,6 +8292,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("dm.voice.message.text", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: add a comment
+      /// 
+      /// Locales: en
+      static func amongChatLoginAuthSourceComment(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.login.auth.source.comment", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: click to copy the code
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -8299,6 +8318,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func amongChatLoginAuthSourceChannel(_: Void = ()) -> String {
         return NSLocalizedString("among.chat.login.auth.source.channel", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: create posts
+      /// 
+      /// Locales: en
+      static func amongChatLoginAuthSourceCreateFeed(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.login.auth.source.create.feed", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: edit your profile
@@ -8418,6 +8444,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func amongChatLoginAuthSourceChat(_: Void = ()) -> String {
         return NSLocalizedString("among.chat.login.auth.source.chat", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: send emotes
+      /// 
+      /// Locales: en
+      static func amongChatLoginAuthSourceEmote(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.login.auth.source.emote", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: sent
