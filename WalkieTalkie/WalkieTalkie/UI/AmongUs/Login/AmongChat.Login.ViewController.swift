@@ -21,12 +21,16 @@ extension AmongChat.Login {
         case inAppLogin
         case authNeeded(source: AuthNeededSource)
         
-        enum AuthNeededSource {
+        enum AuthNeededSource: String {
             case createChannel
             case editProfile
             case upgradedToPro
             case applyVerified
             case chat
+            case emote // 发送 emote 时
+            case comment // 发送评论时
+//            case like_comment //点击喜欢评论时
+            case create_feed // 创建 feed 时
         }
         
         var loggerSource: String? {
@@ -36,7 +40,6 @@ extension AmongChat.Login {
             case .inAppLogin:
                 return "profile"
             case .authNeeded(let source):
-                
                 switch source {
                 case .createChannel:
                     return "create_channel"
@@ -49,9 +52,8 @@ extension AmongChat.Login {
                     
                 case .applyVerified:
                     return "apply_verify"
-                    
-                case .chat:
-                    return "chat"
+                default:
+                    return source.rawValue
                 }
             }
         }

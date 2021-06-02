@@ -260,6 +260,9 @@ extension Feed.ListViewController {
         case .playComplete:
             self.viewModel.reportPlayFinish(viewModel.feed.pid)
         case .comment:
+            guard AmongChat.Login.canDoLoginEvent(style: .authNeeded(source: .comment)) else {
+                return
+            }
             let commentList = Feed.Comments.CommentsListViewController(with: viewModel.feed.pid)
             self.presentPanModal(commentList)
         case .share:

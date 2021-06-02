@@ -72,6 +72,9 @@ extension Feed {
             
             createButton.rx.tap
                 .subscribe(onNext: { [weak self] in
+                    guard AmongChat.Login.canDoLoginEvent(style: .authNeeded(source: .create_feed)) else {
+                        return
+                    }
                     let vc = Feed.SelectVideoViewController()
                     self?.navigationController?.pushViewController(vc)
                 })

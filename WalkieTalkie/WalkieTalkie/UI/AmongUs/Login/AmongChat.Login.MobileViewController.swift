@@ -817,6 +817,13 @@ fileprivate extension AmongChat.Login.LoginStyle.AuthNeededSource {
             return nil
         case .chat:
             return R.string.localizable.amongChatLoginAuthTip(R.string.localizable.amongChatLoginAuthSourceChat())
+        case .comment:
+            return R.string.localizable.amongChatLoginAuthTip(R.string.localizable.amongChatLoginAuthSourceComment())
+        case .emote:
+            return R.string.localizable.amongChatLoginAuthTip(R.string.localizable.amongChatLoginAuthSourceEmote())
+        case .create_feed:
+            return R.string.localizable.amongChatLoginAuthTip(R.string.localizable.amongChatLoginAuthSourceCreateFeed())
+            
         }
         
     }

@@ -600,3 +600,6 @@
 "feed.comment.delete.failed" = "Failed to delete";
 "feed.comment.reply.failed" = "Failed to reply";
 "feed.comments.comment.success" = "Comment posted";
+"among.chat.login.auth.source.emote" = "send emotes";
+"among.chat.login.auth.source.comment" = "add a comment";
+"among.chat.login.auth.source.create.feed" = "create posts";
