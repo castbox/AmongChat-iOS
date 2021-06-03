@@ -11,10 +11,13 @@ import SnapKit
 import AVFoundation
 import RxSwift
 import VIMediaCache
+import Alamofire
 
 extension Feed {
     
     class ListViewController: WalkieTalkie.ViewController {
+        
+        typealias NetworkConnectionType = NetworkReachabilityManager.NetworkReachabilityStatus.ConnectionType
         
         var tableView: UITableView!
         
@@ -30,6 +33,7 @@ extension Feed {
         
         private var shouldAutoPauseWhenDismiss: Bool = true
         private var scrollDisposeBag: Disposable?
+        private var previousNetworkType: NetworkConnectionType?
         // MARK: - Lifecycles
         override func viewDidLoad() {
             super.viewDidLoad()
@@ -119,6 +123,28 @@ extension Feed {
                     self?.onViewWillDisappear()
                 })
                 .disposed(by: bag)
+            
+            NetworkReachabilityManager.default?.startListening(onUpdatePerforming: { [weak self] status in
+                switch status {
+                case .unknown:
+                    self?.previousNetworkType = nil
+                /// The network is not reachable.
+                case .notReachable:
+                    self?.previousNetworkType = nil
+                /// The network is reachable on the associated `ConnectionType`.
+                case .reachable(let type):
+                    switch type {
+                    case .cellular:
+                        if self?.previousNetworkType == nil || self?.previousNetworkType == .ethernetOrWiFi {
+                            self?.view.raft.autoShow(.text(R.string.localizable.feedPlayNoWifiTips()), interval: 3)
+                        }
+                    case .ethernetOrWiFi:
+                        ()
+                    }
+                    self?.previousNetworkType = type
+                    cdPrint("NetworkReachabilityManager reachable type: \(type)")
+                }
+            })
         }
         
         
