@@ -304,8 +304,9 @@ extension Feed.ListViewController {
             
             shouldAutoPauseWhenDismiss = false
             let commentList = Feed.Comments.CommentsListViewController(with: viewModel.feed.pid)
-            self.presentPanModal(commentList)
-            
+            let nav = NavigationViewController(rootViewController: commentList)
+            nav.modalPresentationStyle = .overCurrentContext
+            UIApplication.tabBarController?.present(nav, animated: true)
         case .share:
             share(feed: viewModel.feed)
             

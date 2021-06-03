@@ -13,7 +13,7 @@ import RxSwift
 extension Feed.VideoLibraryViewController {
     
     class VideoCell: UICollectionViewCell {
-                
+        
         private lazy var imageView: UIImageView = {
             let i = UIImageView()
             i.contentMode = .scaleAspectFill
@@ -146,5 +146,52 @@ extension Feed.VideoLibraryViewController {
         }
         
     }
+    
+}
+
+extension Feed.VideoLibraryViewController {
+    
+    class DurationTipHeader: UICollectionReusableView {
+        
+        private lazy var icon: UIImageView = {
+            let i = UIImageView(image: R.image.ac_feed_video_tip())
+            return i
+        }()
+        
+        private lazy var titleLabel: UILabel = {
+            let l = UILabel()
+            l.textColor = UIColor(hexString: "#FFFFFF")
+            l.font = R.font.nunitoExtraBold(size: 16)
+            l.adjustsFontSizeToFitWidth = true
+            l.text = R.string.localizable.feedPostTip()
+            return l
+        }()
+        
+        override init(frame: CGRect) {
+            super.init(frame: .zero)
+            setupLayout()
+        }
+        
+        required init?(coder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
+        }
+        
+        private func setupLayout() {
+            addSubviews(views: icon, titleLabel)
+            
+            icon.snp.makeConstraints { (maker) in
+                maker.centerY.equalToSuperview()
+                maker.leading.equalToSuperview().offset(Frame.horizontalBleedWidth)
+            }
+            
+            titleLabel.snp.makeConstraints { (maker) in
+                maker.centerY.equalTo(icon)
+                maker.leading.equalTo(icon.snp.trailing).offset(8)
+                maker.trailing.lessThanOrEqualToSuperview().offset(-Frame.horizontalBleedWidth)
+            }
+        }
+        
+    }
+    
     
 }
