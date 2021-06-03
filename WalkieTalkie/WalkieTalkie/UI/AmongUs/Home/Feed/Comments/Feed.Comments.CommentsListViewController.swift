@@ -9,11 +9,30 @@
 import UIKit
 import RxSwift
 import RxCocoa
-import HWPanModal
+import PullToDismiss
 
 extension Feed.Comments {
     
     class CommentsListViewController: WalkieTalkie.ViewController {
+        
+        private lazy var container: UIView = {
+            let v = UIView()
+            return v
+        }()
+        
+        private let containerHeight: CGFloat = 500
+        
+        private lazy var dismissView: UIView = {
+            let v = UIView()
+            let dismissTap = UITapGestureRecognizer()
+            v.addGestureRecognizer(dismissTap)
+            dismissTap.rx.event
+                .subscribe(onNext: { [weak self] (gr) in
+                    self?.dismiss(animated: true)
+                })
+                .disposed(by: bag)
+            return v
+        }()
         
         private lazy var titleLabel: UILabel = {
             let lb = UILabel()
@@ -74,9 +93,10 @@ extension Feed.Comments {
             v.backgroundColor = UIColor(hex6: 0x222222)
             v.alwaysBounceVertical = true
             v.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 98, right: 0)
-            v.keyboardDismissMode = .interactive
             return v
         }()
+        
+        private var pullToDismiss: PullToDismiss?
         
         private lazy var commentInputView: CommentInputView = {
             let v = CommentInputView()
@@ -147,6 +167,11 @@ extension Feed.Comments {
             setUpEvents()
         }
         
+        override func viewDidLayoutSubviews() {
+            super.viewDidLayoutSubviews()
+            container.addCorner(with: 20)
+        }
+        
     }
     
 }
@@ -155,7 +180,22 @@ extension Feed.Comments.CommentsListViewController {
     
     private func setUpLayout() {
         
-        view.addSubviews(views: topBar, commentListView, emptyView, bottomBar)
+        view.backgroundColor = .clear
+        
+        view.addSubviews(views: dismissView, container)
+        
+        dismissView.snp.makeConstraints { (maker) in
+            maker.leading.top.trailing.equalToSuperview()
+            maker.bottom.equalTo(container.snp.top)
+        }
+        
+        container.snp.makeConstraints { (maker) in
+            maker.leading.trailing.equalToSuperview()
+            maker.bottom.equalToSuperview().offset(0)
+            maker.height.equalTo(containerHeight)
+        }
+        
+        container.addSubviews(views: topBar, commentListView, emptyView, bottomBar)
         
         emptyView.snp.makeConstraints { (maker) in
             maker.centerX.equalToSuperview()
@@ -199,6 +239,12 @@ extension Feed.Comments.CommentsListViewController {
             })
             .disposed(by: bag)
         
+        pullToDismiss = PullToDismiss(scrollView: commentListView)
+        pullToDismiss?.delegate = self
+        pullToDismiss?.backgroundEffect = nil
+        pullToDismiss?.edgeShadow = nil
+        pullToDismiss?.dismissableHeightPercentage = 0.4
+        
     }
     
     private func setUpEvents() {
@@ -219,6 +265,8 @@ extension Feed.Comments.CommentsListViewController {
                 
                 guard let `self` = self else { return }
                 
+                self.dismissView.isUserInteractionEnabled = keyboardVisibleHeight <= 0
+                
                 guard keyboardVisibleHeight > 0 else {
                     self.bottomBar.snp.updateConstraints { (maker) in
                         maker.bottom.equalToSuperview().offset(0)
@@ -227,7 +275,7 @@ extension Feed.Comments.CommentsListViewController {
                 }
                 
                 self.bottomBar.snp.updateConstraints { (maker) in
-                    maker.bottom.equalToSuperview().offset(-7)
+                    maker.bottom.equalToSuperview().offset(-keyboardVisibleHeight + 34)
                 }
                 
             })
@@ -437,34 +485,6 @@ extension Feed.Comments.CommentsListViewController: UICollectionViewDelegateFlow
             return UIEdgeInsets(top: 28, left: 0, bottom: 0, right: 0)
         }
         
-    }
-    
-}
-
-extension Feed.Comments.CommentsListViewController {
-    
-    override func longFormHeight() -> PanModalHeight {
-        return PanModalHeight(type: .topInset, height: 0)
-    }
-    
-    override func shortFormHeight() -> PanModalHeight {
-        return PanModalHeight(type: .content, height: Frame.Scale.height(500))
-    }
-    
-    override func panScrollable() -> UIScrollView? {
-        return commentListView
-    }
-    
-    override func allowsExtendedPanScrolling() -> Bool {
-        return true
-    }
-    
-    override func cornerRadius() -> CGFloat {
-        return 20
-    }
-    
-    override func showDragIndicator() -> Bool {
-        return false
     }
     
 }
