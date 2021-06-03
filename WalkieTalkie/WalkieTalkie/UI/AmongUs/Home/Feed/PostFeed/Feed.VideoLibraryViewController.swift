@@ -27,7 +27,7 @@ extension Feed {
             layout.itemSize = CGSize(width: cellWidth, height: cellHeight)
             layout.minimumInteritemSpacing = interitemSpacing
             layout.minimumLineSpacing = 8
-            layout.sectionInset = UIEdgeInsets(top: 12, left: hInset, bottom: 0, right: hInset)
+            layout.sectionInset = UIEdgeInsets(top: 17, left: hInset, bottom: 0, right: hInset)
             return layout
         }()
         
@@ -70,12 +70,14 @@ extension Feed {
         private lazy var videoCollectionView: UICollectionView = {
             let v = UICollectionView(frame: .zero, collectionViewLayout: videoCollectionViewFlowLayout)
             v.register(cellWithClazz: VideoCell.self)
+            v.register(DurationTipHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: NSStringFromClass(DurationTipHeader.self))
             v.showsVerticalScrollIndicator = false
             v.showsHorizontalScrollIndicator = false
             v.dataSource = self
             v.delegate = self
             v.backgroundColor = .clear
             v.alwaysBounceVertical = true
+            v.contentInset = UIEdgeInsets(top: 13, left: 0, bottom: 0, right: 0)
             return v
         }()
         
@@ -181,6 +183,25 @@ extension Feed.VideoLibraryViewController: UICollectionViewDataSource {
         cell.configCell(with: asset, imageOb: mediaManager.requestImage(for: asset))
         return cell
     }
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        switch kind {
+        case UICollectionView.elementKindSectionHeader:
+            return collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: NSStringFromClass(DurationTipHeader.self), for: indexPath)
+        default:
+            return UICollectionReusableView()
+        }
+
+    }
+    
+}
+
+extension Feed.VideoLibraryViewController: UICollectionViewDelegateFlowLayout {
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        return CGSize(width: Frame.Screen.bounds.width, height: 20)
+    }
+    
 }
 
 extension Feed.VideoLibraryViewController: UICollectionViewDelegate {
