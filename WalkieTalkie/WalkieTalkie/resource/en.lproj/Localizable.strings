@@ -603,3 +603,4 @@
 "among.chat.login.auth.source.emote" = "send emotes";
 "among.chat.login.auth.source.comment" = "add a comment";
 "among.chat.login.auth.source.create.feed" = "create posts";
+"feed.play.no.wifi.tips" = "You're not connected to WIFI. To continue streaming, your mobile data would be consumed.";

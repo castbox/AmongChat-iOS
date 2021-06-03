@@ -2702,7 +2702,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
     
-    /// This `R.string.localizable` struct is generated, and contains static references to 527 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 528 localization keys.
     struct localizable {
       /// en translation:  Congratulations!
       /// 
@@ -4660,6 +4660,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let errorNoFollowing = Rswift.StringResource(key: "error.no.following", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: You're not connected to WIFI. To continue streaming, your mobile data would be consumed.
+      /// 
+      /// Locales: en
+      static let feedPlayNoWifiTips = Rswift.StringResource(key: "feed.play.no.wifi.tips", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Your %@ Gaming Stats have been uploaded successfully and are pending review. Valid Gaming Stats will be approved within 24 hours and become publicly viewable.
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -8234,6 +8238,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func errorNoFollowing(_: Void = ()) -> String {
         return NSLocalizedString("error.no.following", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: You're not connected to WIFI. To continue streaming, your mobile data would be consumed.
+      /// 
+      /// Locales: en
+      static func feedPlayNoWifiTips(_: Void = ()) -> String {
+        return NSLocalizedString("feed.play.no.wifi.tips", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Your %@ Gaming Stats have been uploaded successfully and are pending review. Valid Gaming Stats will be approved within 24 hours and become publicly viewable.
