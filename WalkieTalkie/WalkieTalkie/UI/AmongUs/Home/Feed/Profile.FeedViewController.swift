@@ -67,23 +67,17 @@ extension Social {
         }
         
         override func loadData() {
-            let removeBlock = view.raft.show(.loading)
+            let removeBlock = view.raft.show(.loading, hideAnimated: false)
             Request.userFeeds(uid, skipMs: 0) //Settings.loginUserId
-                .do(onSuccess: { [weak self] data in
-                    removeBlock()
+                .subscribe(onSuccess: { [weak self] data in
                     guard let `self` = self else { return }
+                    removeBlock()
                     self.tableView.alpha = 0
                     self.dataSource = data.list.map { Feed.ListCellViewModel(feed: $0) }
                     self.tableView.reloadData()
-                }, onDispose: {
+                    self.autoScrollToDefaultIndex()
+                }, onError: { [weak self] _ in
                     removeBlock()
-                })
-                .delay(.fromSeconds(0.2), scheduler: MainScheduler.asyncInstance)
-                .subscribe(onSuccess: { [weak self] data in
-                    //play first
-//                    self?.replayVisibleItem()
-                    self?.autoScrollToDefaultIndex()
-                }, onError: { [weak self](error) in
                     self?.addErrorView({ [weak self] in
                         self?.loadData()
                     })
@@ -152,7 +146,8 @@ extension Social {
                     visibleCell = nil
                 }
             }
-            guard let feed = visibleCell?.viewModel?.feed else {
+            guard let feed = visibleCell?.viewModel?.feed,
+                  uid == Settings.loginUserId else {
                 return
             }
             playCountLabel.text = feed.playCountValue.string

@@ -58,13 +58,13 @@ class PlayerView: UIView {
     
     func configureSubview() {
         avPlayerLayer = AVPlayerLayer(player: queuePlayer)
-        avPlayerLayer.videoGravity = .resizeAspectFill
+//        avPlayerLayer.videoGravity = .resizeAspectFill
         layer.addSublayer(self.avPlayerLayer)
     }
     
     func configure(url: URL?, size: (Int, Int), loadHandler: CallBack?) {
         // If Height is larger than width, change the aspect ratio of the video
-        //        avPlayerLayer.videoGravity = (size.0 < size.1) ? .resizeAspectFill : .resizeAspect
+        avPlayerLayer.videoGravity = (size.0 < size.1) ? .resizeAspectFill : .resizeAspect
         guard let url = url else {
             return
         }

@@ -88,7 +88,7 @@ class FeedListCell: UITableViewCell {
         tagLabel.text = feed.topicName
         
         activityView.startAnimating()
-        playerView.configure(url: feed.url, size: (feed.width ?? 100, feed.height ?? 120)) { [weak self] in
+        playerView.configure(url: feed.url, size: (feed.width ?? 0, feed.height ?? 0)) { [weak self] in
             self?.activityView.stopAnimating()
         }
         update(emotes: viewModel.emotes)
