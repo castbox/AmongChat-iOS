@@ -167,18 +167,19 @@ class FeedListCell: UITableViewCell {
         let y = height / 4 + (Int(arc4random()) % (width - emoteSize).int).cgFloat
         view.frame = CGRect(x: 20 + xOffset.cgFloat, y: y, width: emoteSize, height: emoteSize)
         view.alpha = 0
-        view.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
-        UIView.animate(withDuration: 0.2, delay: 0.1, options: [.beginFromCurrentState, .curveEaseIn]) {
+        view.transform = CGAffineTransform(scaleX: 2.1, y: 2.1)
+        
+        UIView.animate(withDuration: 0.1, delay: 0.1, options: [.beginFromCurrentState, .curveEaseIn]) {
             view.alpha = 1
-            view.transform = CGAffineTransform(scaleX: 2, y: 2)
+            view.transform = CGAffineTransform(scaleX: 0.4, y: 0.4)
         } completion: { finish in
-            UIView.animate(withDuration: 0.2, delay: 0, options: [.beginFromCurrentState, .curveEaseIn]) {
+            UIView.animate(withDuration: 0.1, delay: 0, options: [.beginFromCurrentState, .curveEaseIn]) {
                 view.alpha = 1
                 view.transform = .identity
             } completion: { finish in
-                UIView.animate(withDuration: 0.2, delay: 1.5, options: [.beginFromCurrentState, .curveEaseIn]) {
+                UIView.animate(withDuration: 0.2, delay: 1.1, options: [.beginFromCurrentState, .curveEaseIn]) {
                     view.alpha = 0
-                    view.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
+//                    view.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
                 } completion: { finish in
                     view.removeFromSuperview()
                 }
