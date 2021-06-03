@@ -283,10 +283,11 @@ private extension FeedListCell {
     
     func configureSubview() {
         collectionView.register(nibWithCellClass: FeedEmojiCollectionCell.self)
-        
+
+        sliderBar.setMinimumTrackImage(UIImage.image(with: .white, size: CGSize(width: 10, height: 3)), for: .normal)
+        sliderBar.setMaximumTrackImage(UIImage.image(with: UIColor.white.alpha(0.1), size: CGSize(width: 10, height: 3)), for: .normal)
         sliderBar.addTarget(self, action: #selector(onSliderValChanged(slider:event:)), for: .valueChanged)
         sliderBar.setThumbImage(R.image.iconFeedSliderThumb(), for: .normal)
-//        sliderBar.setThumbImage(R.image.iconFeedSliderThumb(), for: .)
         
         avatarView.rx.tapGesture()
             .when(.recognized)
@@ -308,7 +309,6 @@ private extension FeedListCell {
             .disposed(by: bag)
         
         playerView.playingProgressHandler = { [weak self] value in
-//            cdPrint("progress: \(value)")
             self?.sliderBar.setValue(value, animated: true)
             self?.updateTimeString(with: value.double)
             if value > 0.9 {
