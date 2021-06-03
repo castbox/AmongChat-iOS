@@ -130,7 +130,7 @@
                         </connections>
                     </button>
                     <slider hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="Rch-gs-sFL">
-                        <rect key="frame" x="-3" y="470" width="326" height="31"/>
+                        <rect key="frame" x="-3" y="471.5" width="326" height="31"/>
                         <color key="minimumTrackTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="maximumTrackTintColor" white="1" alpha="0.10000000000000001" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <connections>
@@ -156,7 +156,7 @@
                     <constraint firstItem="uQ0-uo-4L1" firstAttribute="centerX" secondItem="oM0-lk-uGK" secondAttribute="centerX" id="352-PD-NQe"/>
                     <constraint firstAttribute="bottom" secondItem="rqh-Vf-hwl" secondAttribute="bottom" id="3Hd-L5-MKG"/>
                     <constraint firstItem="1c1-et-f5z" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="5Ew-o1-8MG"/>
-                    <constraint firstAttribute="bottom" secondItem="Rch-gs-sFL" secondAttribute="bottom" id="5Zv-L4-Cf7"/>
+                    <constraint firstAttribute="bottom" secondItem="Rch-gs-sFL" secondAttribute="bottom" constant="-1.5" id="5Zv-L4-Cf7"/>
                     <constraint firstItem="VtH-gr-9m2" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="9AV-Hz-jeg"/>
                     <constraint firstItem="Ztd-Vz-93s" firstAttribute="centerX" secondItem="rqh-Vf-hwl" secondAttribute="centerX" id="JFv-Xb-0dD"/>
                     <constraint firstItem="oM0-lk-uGK" firstAttribute="centerX" secondItem="6oi-es-PqU" secondAttribute="centerX" id="KMR-mZ-dhN"/>
