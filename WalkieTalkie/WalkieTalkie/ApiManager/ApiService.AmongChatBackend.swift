@@ -135,6 +135,7 @@ extension APIService {
         case createComment([String : Any])
         case deleteComment([String : Any])
         case myFeeds([String : Any])
+        case feedPostPage([String : Any])
     }
 }
 
@@ -384,6 +385,8 @@ extension APIService.AmongChatBackend: TargetType {
             return "post/comment/delete"
         case .myFeeds:
             return "/post/my/posts"
+        case .feedPostPage:
+            return "/post/post/page"
         }
     }
     
@@ -497,6 +500,7 @@ extension APIService.AmongChatBackend: TargetType {
              .likeComment,
              .cancelLikingComment,
              .myFeeds,
+             .feedPostPage,
              .shareUserSign:
             return .get
         case .follow:
@@ -641,6 +645,7 @@ extension APIService.AmongChatBackend: TargetType {
              .createComment(let params),
              .deleteComment(let params),
              .myFeeds(let params),
+             .feedPostPage(let params),
              .unFollow(let params):
             return .requestParameters(parameters: params, encoding: URLEncoding.queryString)
             

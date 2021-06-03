@@ -74,3 +74,34 @@ extension Entity {
         }
     }
 }
+
+extension Entity {
+    
+    struct FeedRedirectInfo: Codable {
+        
+        var post: Entity.Feed
+        
+        struct CommentsInfo: Codable {
+            var list: [Entity.FeedComment]
+            var index: Int?
+            var indexReply: Int?
+            var more: Bool
+            
+            private enum CodingKeys: String, CodingKey {
+                case list
+                case index
+                case indexReply = "index_reply"
+                case more
+            }
+
+        }
+        
+        var commentsInfo: CommentsInfo?
+        
+        private enum CodingKeys: String, CodingKey {
+            case post
+            case commentsInfo = "comments_info"
+        }
+    }
+    
+}

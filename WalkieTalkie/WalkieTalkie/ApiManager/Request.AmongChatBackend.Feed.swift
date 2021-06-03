@@ -183,4 +183,25 @@ extension Request {
         
     }
     
+    static func redirectToFeed(directMessage: Entity.DMInteractiveMessage) -> Single<Entity.FeedRedirectInfo> {
+        
+        var params: [String : Any] = [
+            "pid" : directMessage.urlId,
+            "pos_id" : directMessage.posId,
+            "pos_type" : directMessage.posType
+        ]
+        
+        return amongchatProvider.rx.request(.feedPostPage(params))
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .mapTo(Entity.FeedRedirectInfo.self)
+            .map({
+                guard let r = $0 else {
+                    throw MsgError.default
+                }
+                return r
+            })
+            .observeOn(MainScheduler.asyncInstance)
+        
+    }
 }

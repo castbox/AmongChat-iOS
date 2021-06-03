@@ -211,5 +211,20 @@ extension Conversation.InteractiveMessageController: UITableViewDataSource, UITa
         case .none:
             Logger.Action.log(.dm_interactive_item_clk, category: .all)
         }
+        
+        Request.redirectToFeed(directMessage: viewModel.msg)
+            .subscribe(onSuccess: { (redirectInfo) in
+                cdPrint("")
+                if let commentsInfo = redirectInfo.commentsInfo {
+                    //跳转到feed并打开comments
+                } else {
+                    let post = redirectInfo.post
+                    //跳转到feed
+                }
+                
+            }, onError: { (error) in
+                cdPrint("")
+            })
+            .disposed(by: bag)
     }
 }
