@@ -15,7 +15,7 @@ import VIMediaCache
 extension Feed {
     
     class ListViewController: WalkieTalkie.ViewController {
-                
+        
         var tableView: UITableView!
         
         lazy var viewModel = Feed.ListViewModel()
@@ -33,32 +33,31 @@ extension Feed {
         // MARK: - Lifecycles
         override func viewDidLoad() {
             super.viewDidLoad()
-
+            
             configureSubview()
             bindSubviewEvent()
         }
-        
-        override func viewDidAppear(_ animated: Bool) {
-            super.viewDidAppear(animated)
-            if !dataSource.isEmpty,
-               let cell = tableView.visibleCells.first as? FeedListCell,
-                      UIApplication.topViewController() == self,
-                      !cell.isUserPaused {
-                cell.play()
-            }
-        }
-        
+                
         func onViewWillAppear() {
             shouldAutoPauseWhenDismiss = true
             
             if dataSource.isEmpty {
                 loadData()
             }
-//            else if let cell = tableView.visibleCells.first as? FeedListCell,
-//                      UIApplication.topViewController() == self,
-//                      !cell.isUserPaused {
-//                cell.play()
-//            }
+            //            else if let cell = tableView.visibleCells.first as? FeedListCell,
+            //                      UIApplication.topViewController() == self,
+            //                      !cell.isUserPaused {
+            //                cell.play()
+            //            }
+        }
+        
+        func onViewDidAppear() {
+            if !dataSource.isEmpty,
+               let cell = tableView.visibleCells.first as? FeedListCell,
+               UIApplication.topViewController() == self,
+               !cell.isUserPaused {
+                cell.play()
+            }
         }
         
         func onViewWillDisappear() {
@@ -68,13 +67,13 @@ extension Feed {
                 cell.pause()
             }
         }
-
+        
         func loadData() {
-
+            
         }
         
         func loadMore() {
-
+            
         }
         
         func replayVisibleItem() {
@@ -96,8 +95,6 @@ extension Feed {
             setAudioMode()
             
             Observable.merge(rx.viewWillAppear.asObservable(),
-                             NotificationCenter.default.rx.notification(UIApplication.didBecomeActiveNotification)
-                                 .map { _ in },
                              Settings.shared.loginResult.replay().map { _ in })
                 .observeOn(MainScheduler.asyncInstance)
                 .subscribe(onNext: { [weak self] _ in
@@ -105,9 +102,18 @@ extension Feed {
                 })
                 .disposed(by: bag)
             
+            Observable.merge(rx.viewDidAppear.asObservable(),
+                             NotificationCenter.default.rx.notification(UIApplication.didBecomeActiveNotification)
+                                .map { _ in })
+                .observeOn(MainScheduler.asyncInstance)
+                .subscribe(onNext: { [weak self] _ in
+                    self?.onViewDidAppear()
+                })
+                .disposed(by: bag)
+            
             Observable.merge(rx.viewWillDisappear.asObservable(),
                              NotificationCenter.default.rx.notification(UIApplication.willResignActiveNotification)
-                                 .map { _ in })
+                                .map { _ in })
                 .observeOn(MainScheduler.asyncInstance)
                 .subscribe(onNext: { [weak self] _ in
                     self?.onViewWillDisappear()
@@ -117,7 +123,7 @@ extension Feed {
         
         
         func configureSubview() {
-                        
+            
             tableView = UITableView()
             tableView.backgroundColor = .clear
             tableView.tableFooterView = UIView()
@@ -262,34 +268,34 @@ extension Feed.ListViewController {
         let indexPath = IndexPath(row: index, section: 0)
         switch action {
         case .selectEmote(let emote):
-                if emote.id.isEmpty {
-                    let vc = Feed.EmotePickerController(Feed.EmotePickerViewModel())
-                    vc.didSelectItemHandler = { [weak self] emote in
-                        //didn't contains voted
-                        guard let `self` = self else {
-                            return
-                        }
-                        Logger.Action.log(.feeds_item_clk, category: .emotes, emote.id)
-                        AmongChat.Login.doLogedInEvent(style: .authNeeded(source: .emote)) { [weak self] in
-                            guard let `self` = self else { return }
-                            
-                            if !viewModel.emotes.contains(where: { $0.id == emote.id && $0.isVoted == true }) {
-                                self.updateEmoteState(with: viewModel.feed.pid, emoteId: emote.id, isSelect: true, index: indexPath.row)
-                            } else {
-                                let cell = self.tableView.cellForRow(at: indexPath) as? FeedListCell
-                                cell?.show(emote: viewModel.emotes.first(where: { $0.id == emote.id }))
-                            }
-                        }
+            if emote.id.isEmpty {
+                let vc = Feed.EmotePickerController(Feed.EmotePickerViewModel())
+                vc.didSelectItemHandler = { [weak self] emote in
+                    //didn't contains voted
+                    guard let `self` = self else {
+                        return
                     }
-                    vc.showModal(in: self.tabBarController)
-                } else {
                     Logger.Action.log(.feeds_item_clk, category: .emotes, emote.id)
                     AmongChat.Login.doLogedInEvent(style: .authNeeded(source: .emote)) { [weak self] in
                         guard let `self` = self else { return }
                         
-                        self.updateEmoteState(with: viewModel.feed.pid, emoteId: emote.id, isSelect: !emote.isVoted, index: indexPath.row)
+                        if !viewModel.emotes.contains(where: { $0.id == emote.id && $0.isVoted == true }) {
+                            self.updateEmoteState(with: viewModel.feed.pid, emoteId: emote.id, isSelect: true, index: indexPath.row)
+                        } else {
+                            let cell = self.tableView.cellForRow(at: indexPath) as? FeedListCell
+                            cell?.show(emote: viewModel.emotes.first(where: { $0.id == emote.id }))
+                        }
                     }
                 }
+                vc.showModal(in: self.tabBarController)
+            } else {
+                Logger.Action.log(.feeds_item_clk, category: .emotes, emote.id)
+                AmongChat.Login.doLogedInEvent(style: .authNeeded(source: .emote)) { [weak self] in
+                    guard let `self` = self else { return }
+                    
+                    self.updateEmoteState(with: viewModel.feed.pid, emoteId: emote.id, isSelect: !emote.isVoted, index: indexPath.row)
+                }
+            }
         case .playComplete:
             self.viewModel.reportPlayFinish(viewModel.feed.pid)
             
@@ -344,7 +350,7 @@ extension Feed.ListViewController {
                         self.dataSource = dataSource
                         self.tableView.beginUpdates()
                         self.tableView.deleteRows(at: [indexPath], with: .none)
-//                        self.tableView.reloadRows(at: <#T##[IndexPath]#>, with: <#T##UITableView.RowAnimation#>)
+                        //                        self.tableView.reloadRows(at: <#T##[IndexPath]#>, with: <#T##UITableView.RowAnimation#>)
                         self.tableView.endUpdates()
                         self.scrollDisposeBag?.dispose()
                     })
@@ -393,5 +399,5 @@ extension Feed.ListViewController {
         }
         
     }
-
+    
 }
