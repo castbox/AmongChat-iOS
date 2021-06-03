@@ -407,7 +407,8 @@ extension Feed.Comments.CommentsListViewController: UICollectionViewDataSource {
                 let cell = collectionView.dequeueReusableCell(withClazz: Feed.Comments.ReplyCell.self, for: indexPath)
                 cell.bindData(reply: reply,
                               tapAtHandler: {
-                                Routes.handle("/profile/\(reply.reply.toUid)")
+                                let uid = reply.reply.toUid > 0 ? reply.reply.toUid : comment.comment.uid
+                                Routes.handle("/profile/\(uid)")
                               },
                               replyHandler: { [weak self] in
                     guard let `self` = self else { return }

@@ -32,8 +32,23 @@ extension Feed.Comments {
         
         private lazy var avatarView: AvatarImageView = {
             let iv = AvatarImageView()
+            iv.isUserInteractionEnabled = true
+            iv.addGestureRecognizer(avatarTap)
             return iv
         }()
+                
+        private lazy var avatarTap: UITapGestureRecognizer = {
+            let g = UITapGestureRecognizer()
+            g.rx.event
+                .subscribe(onNext: { [weak self] (_) in
+                    self?.avatarTapHandler?()
+                })
+                .disposed(by: bag)
+
+            return g
+        }()
+        
+        private var avatarTapHandler: (() -> Void)? = nil
         
         private lazy var nameLabel: UILabel = {
             let l = UILabel()
@@ -179,7 +194,7 @@ extension Feed.Comments {
             self.likeHandler = { [weak self] liked in
                 
                 guard let `self` = self else { return }
-                AmongChat.Login.doLogedInEvent(style: .authNeeded(source: .comment)) { [weak self] in
+                AmongChat.Login.doLogedInEvent(style: .authNeeded(source: .comment)) {
                     likeHandler(liked)
                 }
                 
@@ -189,6 +204,9 @@ extension Feed.Comments {
             }
             self.replyHandler = replyHandler
             self.moreActionHandler = moreActionHandler
+            self.avatarTapHandler = {
+                Routes.handle("/profile/\(comment.comment.uid)")
+            }
         }
     }
     
@@ -216,9 +234,24 @@ extension Feed.Comments {
         
         private lazy var avatarView: AvatarImageView = {
             let iv = AvatarImageView()
+            iv.isUserInteractionEnabled = true
+            iv.addGestureRecognizer(avatarTap)
             return iv
         }()
+                
+        private lazy var avatarTap: UITapGestureRecognizer = {
+            let g = UITapGestureRecognizer()
+            g.rx.event
+                .subscribe(onNext: { [weak self] (_) in
+                    self?.avatarTapHandler?()
+                })
+                .disposed(by: bag)
+
+            return g
+        }()
         
+        private var avatarTapHandler: (() -> Void)? = nil
+
         private lazy var nameLabel: UILabel = {
             let l = UILabel()
             l.font = R.font.nunitoExtraBold(size: 16)
@@ -353,6 +386,9 @@ extension Feed.Comments {
             self.replyHandler = replyHandler
             self.moreActionHandler = moreActionHandler
             self.tapAtHandler = tapAtHandler
+            self.avatarTapHandler = {
+                Routes.handle("/profile/\(reply.reply.uid)")
+            }
         }
         
     }
