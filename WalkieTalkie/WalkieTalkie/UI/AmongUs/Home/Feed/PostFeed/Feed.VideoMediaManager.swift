@@ -10,20 +10,28 @@ import Foundation
 import Photos
 import PhotosUI
 import RxSwift
+import RxCocoa
 
 extension Feed {
     
     class VideoMediaManager: NSObject {
         
-        lazy var fetchResult: PHFetchResult<PHAsset> = {
-            let options = PHFetchOptions()
-            options.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
-            options.predicate = NSPredicate(format: "mediaType = %d", PHAssetMediaType.video.rawValue)
-            let r = PHAsset.fetchAssets(with: options)
-            return r
-        }()
+        private var fetchResult: PHFetchResult<PHAsset> {
+            get {
+                return fetchResultRelay.value
+            }
+            
+            set {
+                fetchResultRelay.accept(newValue)
+            }
+        }
         
-        let imageManager = PHCachingImageManager()
+        private let fetchResultRelay: BehaviorRelay<PHFetchResult<PHAsset>>
+        var fetchResultObservable: Observable<PHFetchResult<PHAsset>> {
+            return fetchResultRelay.asObservable().observeOn(MainScheduler.asyncInstance)
+        }
+        
+        private let imageManager = PHCachingImageManager()
         
         private lazy var previousPreheatRect = CGRect.zero
         
@@ -31,9 +39,26 @@ extension Feed {
         
         private var exportedVideoURLs = [URL]()
         
+        override init() {
+            
+            let fetchResult: PHFetchResult<PHAsset> = {
+                let options = PHFetchOptions()
+                options.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
+                options.predicate = NSPredicate(format: "mediaType = %d", PHAssetMediaType.video.rawValue)
+                let r = PHAsset.fetchAssets(with: options)
+                return r
+            }()
+
+            fetchResultRelay = BehaviorRelay(value: fetchResult)
+            
+            super.init()
+            PHPhotoLibrary.shared().register(self)
+        }
+        
         deinit {
             cdPrint("")
             clearExportedVideoFiles()
+            PHPhotoLibrary.shared().unregisterChangeObserver(self)
         }
         
     }
@@ -262,6 +287,21 @@ extension Feed.VideoMediaManager {
         }
     }
 }
+
+// MARK: PHPhotoLibraryChangeObserver
+extension Feed.VideoMediaManager: PHPhotoLibraryChangeObserver {
+    
+    func photoLibraryDidChange(_ changeInstance: PHChange) {
+        
+        guard let changes = changeInstance.changeDetails(for: fetchResult) else { return }
+        
+        // Hang on to the new fetch result.
+        fetchResult = changes.fetchResultAfterChanges
+        
+        resetCachedAssets()
+    }
+}
+
 
 private extension UICollectionView {
     func indexPathsForElements(in rect: CGRect) -> [IndexPath] {
