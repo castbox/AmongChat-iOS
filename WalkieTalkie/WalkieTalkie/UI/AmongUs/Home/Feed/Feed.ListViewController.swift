@@ -38,15 +38,27 @@ extension Feed {
             bindSubviewEvent()
         }
         
+        override func viewDidAppear(_ animated: Bool) {
+            super.viewDidAppear(animated)
+            if !dataSource.isEmpty,
+               let cell = tableView.visibleCells.first as? FeedListCell,
+                      UIApplication.topViewController() == self,
+                      !cell.isUserPaused {
+                cell.play()
+            }
+        }
+        
         func onViewWillAppear() {
             shouldAutoPauseWhenDismiss = true
             
             if dataSource.isEmpty {
                 loadData()
-            } else if let cell = tableView.visibleCells.first as? FeedListCell,
-                      !cell.isUserPaused {
-                cell.play()
             }
+//            else if let cell = tableView.visibleCells.first as? FeedListCell,
+//                      UIApplication.topViewController() == self,
+//                      !cell.isUserPaused {
+//                cell.play()
+//            }
         }
         
         func onViewWillDisappear() {
@@ -189,9 +201,6 @@ extension Feed.ListViewController: UIScrollViewDelegate {
 
 extension Feed.ListViewController {
     func updateEmoteState(with pid: String, emoteId: String, isSelect: Bool, index: Int)  {
-        guard AmongChat.Login.canDoLoginEvent(style: .authNeeded(source: .emote)) else {
-            return
-        }
         let resultSingle: Single<Bool>
         if isSelect {
             resultSingle = Request.feedSelectEmote(pid, emoteId: emoteId)
@@ -253,35 +262,38 @@ extension Feed.ListViewController {
         let indexPath = IndexPath(row: index, section: 0)
         switch action {
         case .selectEmote(let emote):
-            if emote.id.isEmpty {
-                let vc = Feed.EmotePickerController(Feed.EmotePickerViewModel())
-                vc.didSelectItemHandler = { [weak self] emote in
-                    //didn't contains voted
-                    guard let `self` = self else {
-                        return
+                if emote.id.isEmpty {
+                    let vc = Feed.EmotePickerController(Feed.EmotePickerViewModel())
+                    vc.didSelectItemHandler = { [weak self] emote in
+                        //didn't contains voted
+                        guard let `self` = self else {
+                            return
+                        }
+                        Logger.Action.log(.feeds_item_clk, category: .emotes, emote.id)
+                        AmongChat.Login.doLogedInEvent(style: .authNeeded(source: .emote)) { [weak self] in
+                            guard let `self` = self else { return }
+                            
+                            if !viewModel.emotes.contains(where: { $0.id == emote.id && $0.isVoted == true }) {
+                                self.updateEmoteState(with: viewModel.feed.pid, emoteId: emote.id, isSelect: true, index: indexPath.row)
+                            } else {
+                                let cell = self.tableView.cellForRow(at: indexPath) as? FeedListCell
+                                cell?.show(emote: viewModel.emotes.first(where: { $0.id == emote.id }))
+                            }
+                        }
                     }
+                    vc.showModal(in: self.tabBarController)
+                } else {
                     Logger.Action.log(.feeds_item_clk, category: .emotes, emote.id)
-                    if !viewModel.emotes.contains(where: { $0.id == emote.id && $0.isVoted == true }) {
-                        self.updateEmoteState(with: viewModel.feed.pid, emoteId: emote.id, isSelect: true, index: indexPath.row)
-                    } else {
-                        let cell = self.tableView.cellForRow(at: indexPath) as? FeedListCell
-                        cell?.show(emote: viewModel.emotes.first(where: { $0.id == emote.id }))
+                    AmongChat.Login.doLogedInEvent(style: .authNeeded(source: .emote)) { [weak self] in
+                        guard let `self` = self else { return }
+                        
+                        self.updateEmoteState(with: viewModel.feed.pid, emoteId: emote.id, isSelect: !emote.isVoted, index: indexPath.row)
                     }
                 }
-                vc.showModal(in: tabBarController)
-            } else {
-                Logger.Action.log(.feeds_item_clk, category: .emotes, emote.id)
-                updateEmoteState(with: viewModel.feed.pid, emoteId: emote.id, isSelect: !emote.isVoted, index: indexPath.row)
-            }
-            
         case .playComplete:
             self.viewModel.reportPlayFinish(viewModel.feed.pid)
             
         case .comment:
-            guard AmongChat.Login.canDoLoginEvent(style: .authNeeded(source: .comment)) else {
-                return
-            }
-            
             Logger.Action.log(.feeds_item_clk, category: .comments, viewModel.feed.pid)
             
             shouldAutoPauseWhenDismiss = false

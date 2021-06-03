@@ -84,7 +84,10 @@ extension Feed.Comments {
             btn.setTitle(R.string.localizable.amongChatReply(), for: .normal)
             btn.rx.controlEvent(.primaryActionTriggered)
                 .subscribe(onNext: { [weak self] (_) in
-                    self?.replyHandler?()
+                    guard let `self` = self else { return }
+                    AmongChat.Login.doLogedInEvent(style: .authNeeded(source: .comment)) { [weak self] in
+                        self?.replyHandler?()
+                    }
                 })
                 .disposed(by: bag)
             return btn
@@ -176,8 +179,9 @@ extension Feed.Comments {
             self.likeHandler = { [weak self] liked in
                 
                 guard let `self` = self else { return }
-                
-                likeHandler(liked)
+                AmongChat.Login.doLogedInEvent(style: .authNeeded(source: .comment)) { [weak self] in
+                    likeHandler(liked)
+                }
                 
                 guard var count = Int(self.likeButton.title(for: .normal) ?? "") else { return }
                 liked ? (count += 1) : (count -= 1)

@@ -103,12 +103,12 @@ extension Feed {
             
             createButton.rx.tap
                 .subscribe(onNext: { [weak self] in
-                    guard AmongChat.Login.canDoLoginEvent(style: .authNeeded(source: .create_feed)) else {
-                        return
+                    guard let `self` = self else { return }
+                    AmongChat.Login.doLogedInEvent(style: .authNeeded(source: .create_feed)) { [weak self] in
+                        Logger.Action.log(.feeds_create_clk)
+                        let vc = Feed.SelectVideoViewController()
+                        self?.navigationController?.pushViewController(vc)
                     }
-                    Logger.Action.log(.feeds_create_clk)
-                    let vc = Feed.SelectVideoViewController()
-                    self?.navigationController?.pushViewController(vc)
                 })
                 .disposed(by: bag)
         }
