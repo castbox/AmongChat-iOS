@@ -27,7 +27,7 @@ class AvatarImageView: UIView {
         return iv
     }()
     
-    private lazy var verifyIV: UIImageView = {
+    lazy var verifyIV: UIImageView = {
         let iv = UIImageView(image: R.image.iconVerifyGrayBorder())
         iv.isHidden = true
         return iv

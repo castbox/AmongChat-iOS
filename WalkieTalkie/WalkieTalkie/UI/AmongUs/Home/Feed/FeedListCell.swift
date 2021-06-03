@@ -166,14 +166,14 @@ class FeedListCell: UITableViewCell {
         let xOffset = Int(arc4random()) % maxX.int
         let y = height / 4 + (Int(arc4random()) % (width - emoteSize).int).cgFloat
         view.frame = CGRect(x: 20 + xOffset.cgFloat, y: y, width: emoteSize, height: emoteSize)
-        view.alpha = 0
+//        view.alpha = 0
         view.transform = CGAffineTransform(scaleX: 2.1, y: 2.1)
         
-        UIView.animate(withDuration: 0.1, delay: 0.1, options: [.beginFromCurrentState, .curveEaseIn]) {
-            view.alpha = 1
+        UIView.animate(withDuration: 0.2, delay: 0.1, options: [.beginFromCurrentState, .curveEaseIn]) {
+//            view.alpha = 1
             view.transform = CGAffineTransform(scaleX: 0.4, y: 0.4)
         } completion: { finish in
-            UIView.animate(withDuration: 0.1, delay: 0, options: [.beginFromCurrentState, .curveEaseIn]) {
+            UIView.animate(withDuration: 0.2, delay: 0, options: [.beginFromCurrentState, .curveEaseIn]) {
                 view.alpha = 1
                 view.transform = .identity
             } completion: { finish in
@@ -288,6 +288,11 @@ private extension FeedListCell {
         sliderBar.setMaximumTrackImage(UIImage.image(with: UIColor.white.alpha(0.1), size: CGSize(width: 10, height: 3)), for: .normal)
         sliderBar.addTarget(self, action: #selector(onSliderValChanged(slider:event:)), for: .valueChanged)
         sliderBar.setThumbImage(R.image.iconFeedSliderThumb(), for: .normal)
+        avatarView.clipsToBounds = false
+        avatarView.verifyIV.snp.makeConstraints { maker in
+            maker.top.equalTo(-1)
+            maker.trailing.equalTo(4)
+        }
         
         avatarView.rx.tapGesture()
             .when(.recognized)
