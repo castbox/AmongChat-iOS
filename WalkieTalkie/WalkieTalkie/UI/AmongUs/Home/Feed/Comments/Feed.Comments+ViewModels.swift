@@ -118,7 +118,7 @@ extension Feed.Comments {
             
             if let replies = comment.replyList?.map({ ReplyViewModel(with: $0, comment: comment) }) {
                 repliesRelay.accept(replies)
-                showExpandOption = !(replies.count > 0)
+                showExpandOption = replies.count <= 0 || replies.count < comment.replyCount
             }
             hasMoreReplies = (comment.replyList?.count ?? 0) < comment.replyCount
         }
