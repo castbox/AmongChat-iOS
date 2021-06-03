@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 extension Feed {
-    class ListCellViewModel { //: Equatable
+    class ListCellViewModel: NSObject { //: Equatable
         
         var feed: Entity.Feed {
             didSet {
@@ -22,6 +22,7 @@ extension Feed {
         
         init(feed: Entity.Feed) {
             self.feed = feed
+            super.init()
             updateEmotes()
         }
         

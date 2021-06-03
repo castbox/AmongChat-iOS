@@ -29,7 +29,7 @@ extension Feed {
         var currentIndex = 0
         
         private var shouldAutoPauseWhenDismiss: Bool = true
-                
+        private var scrollDisposeBag: Disposable?
         // MARK: - Lifecycles
         override func viewDidLoad() {
             super.viewDidLoad()
@@ -139,9 +139,10 @@ extension Feed.ListViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withClass: FeedListCell.self, for: indexPath)
-        cell.config(with: dataSource.safe(indexPath.row))
+        let viewModel = dataSource.safe(indexPath.row)
+        cell.config(with: viewModel)
         cell.actionHandler = { [weak self] action in
-            self?.onCell(action: action, indexPath: indexPath)
+            self?.onCell(action: action, viewModel: viewModel)
         }
         return cell
     }
@@ -180,6 +181,9 @@ extension Feed.ListViewController: UIScrollViewDelegate {
         replayVisibleItem()
     }
     
+    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+        
+    }
 }
 
 
@@ -241,11 +245,12 @@ extension Feed.ListViewController {
         }
     }
     
-    func onCell(action: FeedListCell.Action, indexPath: IndexPath) {
-        guard let viewModel = dataSource.safe(indexPath.row) else {
+    
+    func onCell(action: FeedListCell.Action, viewModel: Feed.ListCellViewModel?) {
+        guard let viewModel = viewModel, let index = dataSource.firstIndex(where: { $0.isEqual(viewModel) }) else {
             return
         }
-        
+        let indexPath = IndexPath(row: index, section: 0)
         switch action {
         case .selectEmote(let emote):
             if emote.id.isEmpty {
@@ -268,8 +273,10 @@ extension Feed.ListViewController {
                 Logger.Action.log(.feeds_item_clk, category: .emotes, emote.id)
                 updateEmoteState(with: viewModel.feed.pid, emoteId: emote.id, isSelect: !emote.isVoted, index: indexPath.row)
             }
+            
         case .playComplete:
             self.viewModel.reportPlayFinish(viewModel.feed.pid)
+            
         case .comment:
             guard AmongChat.Login.canDoLoginEvent(style: .authNeeded(source: .comment)) else {
                 return
@@ -280,8 +287,10 @@ extension Feed.ListViewController {
             shouldAutoPauseWhenDismiss = false
             let commentList = Feed.Comments.CommentsListViewController(with: viewModel.feed.pid)
             self.presentPanModal(commentList)
+            
         case .share:
             share(feed: viewModel.feed)
+            
         case .more:
             let types: [AmongSheetController.ItemType]
             if Settings.loginUserId == viewModel.feed.uid {
@@ -290,63 +299,76 @@ extension Feed.ListViewController {
                 types = [.share, .notInterested, .report, .cancel]
             }
             AmongSheetController.show(items: types, in: self.tabBarController ?? self) { [weak self] item in
-                guard let `self` = self else { return }
-                switch item {
-                case .share:
-                    self.share(feed: viewModel.feed)
-                case .notInterested:
-                    Logger.Action.log(.feeds_item_clk, category: .not_intereasted, viewModel.feed.pid)
-                    CATransaction.begin()
-                    //pause
-                    let cell = self.tableView.cellForRow(at: indexPath) as? FeedListCell
-                    cell?.pause()
-                    let nextIndex = IndexPath(row: indexPath.row + 1, section: 0)
-                    if nextIndex.row < self.dataSource.count - 1 {
-                        self.tableView.scrollToRow(at: nextIndex, at: .top, animated: true)
-                        CATransaction.setCompletionBlock { [weak self] in
-                            guard let `self` = self else { return }
-                            //play
-                            let nextCell = self.tableView.cellForRow(at: nextIndex) as? FeedListCell
-                            nextCell?.play()
-                            self.dataSource = self.dataSource.filter { $0.feed.pid != viewModel.feed.pid }
-                            self.tableView.beginUpdates()
-                            self.tableView.deleteRows(at: [indexPath], with: .top)
-                            self.tableView.endUpdates()
-                        }
-                        CATransaction.commit()
-                    } else {
-                        self.tableView.reloadData()
-                        
-                    }
-                    
-//                    self.viewModel.reportNotIntereasted(viewModel.feed.pid)
-//                        .subscribe()
-//                        .disposed(by: self.bag)
-                case .deleteVideo:
-                    Logger.Action.log(.feeds_item_clk, category: .delete, viewModel.feed.pid)
-                    
-                    let removeHandler = self.view.raft.show(.loading)
-                    self.viewModel.feedDelete(viewModel.feed.pid)
-                        .do(onDispose: {
-                            removeHandler()
-                        })
-                        .subscribe(onSuccess: { [weak self] result in
-                            guard let `self` = self else { return }
-                            self.dataSource = self.dataSource.filter { $0.feed.pid != viewModel.feed.pid }
-                        }) { error in
-                            
-                        }
-                        .disposed(by: self.bag)
-                case .report:
-                    Logger.Action.log(.feeds_item_clk, category: .report, viewModel.feed.pid)
-                    
-                    Report.ViewController.showReport(on: self, uid: viewModel.feed.pid, type: .post, roomId: "") { [weak self] in
-                        self?.view.raft.autoShow(.text(R.string.localizable.reportSuccess()))
-                    }
-                default:
-                    ()
-                }
+                self?.onSheet(action: item, indexPath: indexPath)
             }
+        }
+    }
+    
+    func onSheet(action: AmongSheetController.ItemType, indexPath: IndexPath) {
+        guard let viewModel = dataSource.safe(indexPath.row) else {
+            return
+        }
+        
+        switch action {
+        case .share:
+            self.share(feed: viewModel.feed)
+        case .notInterested:
+            Logger.Action.log(.feeds_item_clk, category: .not_intereasted, viewModel.feed.pid)
+            //pause
+            
+            let cell = self.tableView.cellForRow(at: indexPath) as? FeedListCell
+            cell?.pause()
+            
+            let nextIndex = IndexPath(row: indexPath.row + 1, section: 0)
+            if nextIndex.row < self.dataSource.count - 1 {
+                self.scrollDisposeBag?.dispose()
+                self.scrollDisposeBag = self.rx.methodInvoked(#selector(self.scrollViewDidEndScrollingAnimation(_:)))
+                    .subscribe(onNext: { [weak self] _ in
+                        guard let `self` = self else { return }
+                        let nextCell = self.tableView.cellForRow(at: nextIndex) as? FeedListCell
+                        nextCell?.play()
+                        var dataSource = self.dataSource
+                        dataSource.remove(at: indexPath.row)
+                        self.dataSource = dataSource
+                        self.tableView.beginUpdates()
+                        self.tableView.deleteRows(at: [indexPath], with: .none)
+//                        self.tableView.reloadRows(at: <#T##[IndexPath]#>, with: <#T##UITableView.RowAnimation#>)
+                        self.tableView.endUpdates()
+                        self.scrollDisposeBag?.dispose()
+                    })
+                self.scrollDisposeBag?.disposed(by: self.bag)
+                self.tableView.scrollToRow(at: nextIndex, at: .top, animated: true)
+            } else {
+                self.tableView.reloadData()
+            }
+            HapticFeedback.Impact.success()
+            
+            self.viewModel.reportNotIntereasted(viewModel.feed.pid)
+                .subscribe()
+                .disposed(by: self.bag)
+        case .deleteVideo:
+            Logger.Action.log(.feeds_item_clk, category: .delete, viewModel.feed.pid)
+            
+            let removeHandler = self.view.raft.show(.loading)
+            self.viewModel.feedDelete(viewModel.feed.pid)
+                .do(onDispose: {
+                    removeHandler()
+                })
+                .subscribe(onSuccess: { [weak self] result in
+                    guard let `self` = self else { return }
+                    self.dataSource = self.dataSource.filter { $0.feed.pid != viewModel.feed.pid }
+                }) { error in
+                    
+                }
+                .disposed(by: self.bag)
+        case .report:
+            Logger.Action.log(.feeds_item_clk, category: .report, viewModel.feed.pid)
+            
+            Report.ViewController.showReport(on: self, uid: viewModel.feed.pid, type: .post, roomId: "") { [weak self] in
+                self?.view.raft.autoShow(.text(R.string.localizable.reportSuccess()))
+            }
+        default:
+            ()
         }
     }
     

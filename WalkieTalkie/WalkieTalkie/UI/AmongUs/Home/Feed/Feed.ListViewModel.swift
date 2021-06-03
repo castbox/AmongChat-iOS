@@ -32,10 +32,10 @@ extension Feed {
         }
         
         func reportNotIntereasted(_ pid: String?) -> Single<Bool> {
-            guard let pid = pid else {
+//            guard let pid = pid else {
                 return .just(false)
-            }
-            return Request.feedReportNotIntereasted(pid: pid)
+//            }
+//            return Request.feedReportNotIntereasted(pid: pid)
 //                .subscribe()
 //                .disposed(by: bag)
         }
