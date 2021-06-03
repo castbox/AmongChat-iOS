@@ -232,7 +232,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 262 images.
+  /// This `R.image` struct is generated, and contains static references to 264 images.
   struct image {
     /// Image `ac_add_stats_add`.
     static let ac_add_stats_add = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_add_stats_add")
@@ -290,6 +290,10 @@ struct R: Rswift.Validatable {
     static let ac_feed_like_liked = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_feed_like_liked")
     /// Image `ac_feed_like_normal`.
     static let ac_feed_like_normal = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_feed_like_normal")
+    /// Image `ac_feed_reply_collapse`.
+    static let ac_feed_reply_collapse = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_feed_reply_collapse")
+    /// Image `ac_feed_reply_expand`.
+    static let ac_feed_reply_expand = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_feed_reply_expand")
     /// Image `ac_feed_topic_tip`.
     static let ac_feed_topic_tip = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_feed_topic_tip")
     /// Image `ac_feed_video_tip`.
@@ -897,6 +901,16 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "ac_feed_like_normal", bundle: ..., traitCollection: ...)`
     static func ac_feed_like_normal(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ac_feed_like_normal, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_feed_reply_collapse", bundle: ..., traitCollection: ...)`
+    static func ac_feed_reply_collapse(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_feed_reply_collapse, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_feed_reply_expand", bundle: ..., traitCollection: ...)`
+    static func ac_feed_reply_expand(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_feed_reply_expand, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "ac_feed_topic_tip", bundle: ..., traitCollection: ...)`

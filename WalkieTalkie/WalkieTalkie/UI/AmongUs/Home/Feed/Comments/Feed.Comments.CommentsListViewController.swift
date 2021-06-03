@@ -151,10 +151,20 @@ extension Feed.Comments {
         
         private var replyComment: CommentViewModel? = nil
         private var replyReply: ReplyViewModel? = nil
+        private var positionBlock: (() -> Void)? = nil
         
-        init(with feedId: String) {
+        init(with feedId: String, commentsInfo: Entity.FeedRedirectInfo.CommentsInfo? = nil) {
             self.commentListVM = CommentListViewModel(with: feedId)
             super.init(nibName: nil, bundle: nil)
+            if let commentsInfo = commentsInfo {
+                positionBlock = { [weak self] in
+                    let commentIdx = commentsInfo.index
+                    let replyIdx = commentsInfo.indexReply
+                    let positioningIndexPath = IndexPath(item: replyIdx ?? 0, section: commentIdx ?? 0)
+                    self?.commentListView.selectItem(at: positioningIndexPath, animated: true, scrollPosition: .top)
+                    self?.commentListView.deselectItem(at: positioningIndexPath, animated: true)
+                }
+            }
         }
         
         required init?(coder aDecoder: NSCoder) {
@@ -231,13 +241,26 @@ extension Feed.Comments.CommentsListViewController {
             maker.top.greaterThanOrEqualTo(topBar.snp.bottom)
         }
         
-        commentListVM.loadComments()
-            .subscribe(onSuccess: { (_) in
-                
-            }, onError: { (error) in
-                
-            })
-            .disposed(by: bag)
+        if let positioning = positionBlock {
+            
+            commentListView.rx.observe(CGSize.self, "contentSize")
+                .filterNil()
+                .filter({ $0 != .zero })
+                .take(1)
+                .subscribe(onNext: { (_) in
+                    positioning()
+                })
+                .disposed(by: bag)
+            
+        } else {
+            commentListVM.loadComments()
+                .subscribe(onSuccess: { (_) in
+                    
+                }, onError: { (error) in
+                    
+                })
+                .disposed(by: bag)
+        }
         
         pullToDismiss = PullToDismiss(scrollView: commentListView)
         pullToDismiss?.delegate = self

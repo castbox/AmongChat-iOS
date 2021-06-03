@@ -24,8 +24,13 @@ extension Feed.Comments {
             return commentsRelay.asObservable().observeOn(MainScheduler.asyncInstance)
         }
         
-        init(with feedId: String) {
+        init(with feedId: String, commentsInfo: Entity.FeedRedirectInfo.CommentsInfo? = nil) {
             self.feedId = feedId
+            
+            if let commentsInfo = commentsInfo {
+                commentsRelay.accept(commentsInfo.list.map { CommentViewModel(with: $0) })
+                hasMore = commentsInfo.more
+            }
         }
         
         func loadComments() -> Single<Void> {
@@ -110,7 +115,13 @@ extension Feed.Comments {
         }
         
         var expandActionIcon: UIImage? {
-            return nil
+            
+            if replies.count < comment.replyCount {
+                return R.image.ac_feed_reply_expand()
+            } else {
+                return repliesCollapsed ? R.image.ac_feed_reply_expand() : R.image.ac_feed_reply_collapse()
+            }
+            
         }
         
         init(with comment: Entity.FeedComment) {

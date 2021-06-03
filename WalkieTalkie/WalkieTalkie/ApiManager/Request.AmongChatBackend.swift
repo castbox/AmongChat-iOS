@@ -1699,7 +1699,7 @@ extension Request {
             }
     }
     
-    static func feedCommentList(ofPost pid: String, skipMs: Int64 = 0, limit: Int = 20) -> Single<Entity.FeedCommentList> {
+    static func feedCommentList(ofPost pid: String, skipMs: Int64 = 0, limit: Int = 10) -> Single<Entity.FeedCommentList> {
         
         let params: [String : Any]  = [
             "pid" : pid,
@@ -1720,7 +1720,7 @@ extension Request {
             .observeOn(MainScheduler.asyncInstance)
     }
     
-    static func commentReplyList(ofComment cid: String, skipMs: Int64 = 0, limit: Int = 20) -> Single<Entity.CommentReplyList> {
+    static func commentReplyList(ofComment cid: String, skipMs: Int64 = 0, limit: Int = 10) -> Single<Entity.CommentReplyList> {
         
         let params: [String : Any]  = [
             "cid" : cid,
