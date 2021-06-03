@@ -413,6 +413,10 @@ extension Feed.Comments {
                     self?.tapAction?()
                 })
                 .disposed(by: bag)
+            
+            btn.transform = CGAffineTransform(scaleX: -1.0, y: 1.0)
+            btn.titleLabel?.transform = CGAffineTransform(scaleX: -1.0, y: 1.0)
+            btn.imageView?.transform = CGAffineTransform(scaleX: -1.0, y: 1.0)
             return btn
         }()
         

@@ -115,7 +115,13 @@ extension Feed.Comments {
         }
         
         var expandActionIcon: UIImage? {
-            return nil
+            
+            if replies.count < comment.replyCount {
+                return R.image.ac_feed_reply_expand()
+            } else {
+                return repliesCollapsed ? R.image.ac_feed_reply_expand() : R.image.ac_feed_reply_collapse()
+            }
+            
         }
         
         init(with comment: Entity.FeedComment) {
