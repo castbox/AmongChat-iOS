@@ -24,8 +24,13 @@ extension Feed.Comments {
             return commentsRelay.asObservable().observeOn(MainScheduler.asyncInstance)
         }
         
-        init(with feedId: String) {
+        init(with feedId: String, commentsInfo: Entity.FeedRedirectInfo.CommentsInfo? = nil) {
             self.feedId = feedId
+            
+            if let commentsInfo = commentsInfo {
+                commentsRelay.accept(commentsInfo.list.map { CommentViewModel(with: $0) })
+                hasMore = commentsInfo.more
+            }
         }
         
         func loadComments() -> Single<Void> {
