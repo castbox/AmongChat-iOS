@@ -23,7 +23,7 @@ extension Feed.Comments {
             v.layer.shadowColor = UIColor(hex6: 0x000000, alpha: 0.16).cgColor
             return v
         }()
-                
+        
         private lazy var dismissView: UIView = {
             let v = UIView()
             let dismissTap = UITapGestureRecognizer()
@@ -176,6 +176,7 @@ extension Feed.Comments {
         private var replyComment: CommentViewModel? = nil
         private var replyReply: ReplyViewModel? = nil
         private var positionBlock: (() -> Void)? = nil
+        private var replyToIndexPath: IndexPath? = nil
         
         init(with feedId: String, commentsInfo: Entity.FeedRedirectInfo.CommentsInfo? = nil) {
             self.commentListVM = CommentListViewModel(with: feedId, commentsInfo: commentsInfo)
@@ -192,7 +193,6 @@ extension Feed.Comments {
                     }, completion: { (_) in
                         cell?.transform = .identity
                     })
-
                 }
             }
         }
@@ -326,6 +326,22 @@ extension Feed.Comments.CommentsListViewController {
                     maker.bottom.equalToSuperview().offset(-keyboardVisibleHeight + 34)
                 }
                 
+                UIView.animate(withDuration: RxKeyboard.instance.animationDuration) {
+                    self.view.layoutIfNeeded()
+                }
+                //回复的条目滚动到键盘上方
+                guard let replyIndexPath = self.replyToIndexPath,
+                      let replyCell = self.commentListView.cellForItem(at: replyIndexPath) else { return }
+                
+                let rect = self.commentListView.convert(replyCell.frame, to: self.view)
+                let distance = Frame.Screen.height - (keyboardVisibleHeight + 64 + 8) - rect.maxY
+                
+                guard distance < 0 else { return }
+                
+                UIView.animate(withDuration: RxKeyboard.instance.animationDuration) {
+                    self.commentListView.contentOffset.y = self.commentListView.contentOffset.y - distance
+                }
+                //end
             })
             .disposed(by: bag)
         
@@ -366,6 +382,17 @@ extension Feed.Comments.CommentsListViewController {
                 self?.replyReply = nil
                 self?.commentInputView.inputTextView.text = ""
                 self?.commentInputView.placeholderLabel.text = R.string.localizable.feedCommentsPlaceholder()
+                
+                //新增的条目显示出来
+                guard let replyIndex = self?.replyToIndexPath else {
+                    self?.commentListView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
+                    return
+                }
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                    self?.commentListView.scrollToItem(at: IndexPath(item: 0, section: replyIndex.section), at: .top, animated: true)
+                }
+                self?.replyToIndexPath = nil
+                //end
             }, onError: { [weak self] (error) in
                 self?.view.raft.autoShow(.text(error.msgOfError ?? ""))
             })
@@ -434,6 +461,7 @@ extension Feed.Comments.CommentsListViewController: UICollectionViewDataSource {
                 
             }, replyHandler: { [weak self] in
                 guard let `self` = self else { return }
+                self.replyToIndexPath = indexPath
                 self.commentInputView.inputTextView.becomeFirstResponder()
                 self.commentInputView.placeholderLabel.text = R.string.localizable.amongChatReply() + " @\(comment.comment.user.name ?? "")"
                 self.replyComment = comment
@@ -464,24 +492,25 @@ extension Feed.Comments.CommentsListViewController: UICollectionViewDataSource {
                                 Routes.handle("/profile/\(uid)")
                               },
                               replyHandler: { [weak self] in
-                    guard let `self` = self else { return }
-                    self.commentInputView.inputTextView.becomeFirstResponder()
-                    self.commentInputView.placeholderLabel.text = R.string.localizable.amongChatReply() + " @\(reply.reply.user.name ?? "")"
-                    self.replyReply = reply
-                    self.replyComment = comment
-                }, moreActionHandler: { [weak self] in
-                    guard let `self` = self,
-                          reply.reply.user.uid.isSelfUid else { return }
-                    self.deleteCommentAlert(deleteAction: {
-                        comment.deleteReply(reply)
-                            .subscribe(onSuccess: { (_) in
-                                
-                            }, onError: { (error) in
-                                
-                            })
-                            .disposed(by: self.bag)
-                    })
-                })
+                                guard let `self` = self else { return }
+                                self.replyToIndexPath = indexPath
+                                self.commentInputView.inputTextView.becomeFirstResponder()
+                                self.commentInputView.placeholderLabel.text = R.string.localizable.amongChatReply() + " @\(reply.reply.user.name ?? "")"
+                                self.replyReply = reply
+                                self.replyComment = comment
+                              }, moreActionHandler: { [weak self] in
+                                guard let `self` = self,
+                                      reply.reply.user.uid.isSelfUid else { return }
+                                self.deleteCommentAlert(deleteAction: {
+                                    comment.deleteReply(reply)
+                                        .subscribe(onSuccess: { (_) in
+                                            
+                                        }, onError: { (error) in
+                                            
+                                        })
+                                        .disposed(by: self.bag)
+                                })
+                              })
                 return cell
             } else {
                 let cell = collectionView.dequeueReusableCell(withClazz: Feed.Comments.ExpandReplyCell.self, for: indexPath)
