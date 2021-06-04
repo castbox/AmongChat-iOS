@@ -52,8 +52,9 @@ class CopyableLabel: UILabel {
 
         if !menu.isMenuVisible {
             var rect = bounds
-            rect.origin = locationOfTouchInLabel
             rect.size = CGSize(width: 1, height: 1)
+            rect.origin.y = 0
+            rect.origin.x = bounds.midX
             
             menu.setTargetRect(rect, in: self)
             menu.setMenuVisible(true, animated: true)
