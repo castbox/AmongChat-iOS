@@ -440,7 +440,8 @@ extension Feed.Comments {
             
             actionButton.snp.makeConstraints { (maker) in
                 maker.leading.equalToSuperview().offset(Frame.horizontalBleedWidth + 52)
-                maker.top.bottom.equalToSuperview()
+                maker.bottom.equalToSuperview()
+                maker.height.equalTo(19)
                 maker.trailing.lessThanOrEqualToSuperview().offset(-Frame.horizontalBleedWidth)
             }
         }

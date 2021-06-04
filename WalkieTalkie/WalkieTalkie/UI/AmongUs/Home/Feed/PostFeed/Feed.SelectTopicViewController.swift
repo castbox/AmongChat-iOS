@@ -217,6 +217,7 @@ extension Feed.SelectTopicViewController {
                 self?.navigationController?.popToRootViewController(animated: true)
             }, onError: { [weak self] (error) in
                 hudRemoval()
+                self?.view.raft.autoShow(.text(error.msgOfError ?? R.string.localizable.amongChatUnknownError()))
             })
             .disposed(by: bag)
     }

@@ -199,6 +199,9 @@ extension Feed.VideoLibraryViewController: UICollectionViewDataSource {
 extension Feed.VideoLibraryViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        guard (fetchResult?.count ?? 0) > 0 else {
+            return .zero
+        }
         return CGSize(width: Frame.Screen.bounds.width, height: 20)
     }
     
