@@ -500,8 +500,8 @@ extension Feed.Comments {
         private(set) lazy var placeholderLabel: UILabel = {
             let l = UILabel()
             l.numberOfLines = 0
-            l.font = R.font.nunitoExtraBold(size: 18)
-            l.textColor = UIColor(hex6: 0x363636)
+            l.font = R.font.nunitoBold(size: 16)
+            l.textColor = UIColor(hex6: 0x646464)
             l.text = R.string.localizable.feedCommentsPlaceholder()
             return l
         }()
