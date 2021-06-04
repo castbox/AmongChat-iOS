@@ -164,7 +164,9 @@ extension SZAVPlayer {
             oldAssetLoader.cleanup()
             self.assetLoader = nil
         }
-
+        if let playerLayer = playerLayer {
+            playerLayer.videoGravity = config.videoGravity
+        }
         self.config = config
         isReadyToPlay = false
         currentURLStr = config.urlStr
