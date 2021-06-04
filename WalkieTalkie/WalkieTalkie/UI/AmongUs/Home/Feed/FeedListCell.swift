@@ -303,6 +303,16 @@ private extension FeedListCell {
         sliderBar.setMaximumTrackImage(UIImage.image(with: UIColor.white.alpha(0.1), size: CGSize(width: 10, height: 3)), for: .normal)
         sliderBar.addTarget(self, action: #selector(onSliderValChanged(slider:event:)), for: .valueChanged)
         sliderBar.setThumbImage(R.image.iconFeedSliderThumb(), for: .normal)
+        commentButton.titleLabel?.layer.shadowOpacity = 0.2
+        commentButton.titleLabel?.layer.shadowRadius = 1
+        commentButton.titleLabel?.layer.shadowOffset = CGSize(width: 0, height: 2)
+        commentButton.setTitleShadowColor(.black, for: .normal)
+        
+        shareButton.titleLabel?.layer.shadowOpacity = 0.2
+        shareButton.titleLabel?.layer.shadowRadius = 2
+        shareButton.titleLabel?.layer.shadowOffset = CGSize(width: 0, height: 2)
+        shareButton.setTitleShadowColor(.black, for: .normal)
+        
         avatarView.clipsToBounds = false
         avatarView.verifyIV.snp.makeConstraints { maker in
             maker.top.equalTo(-1)
