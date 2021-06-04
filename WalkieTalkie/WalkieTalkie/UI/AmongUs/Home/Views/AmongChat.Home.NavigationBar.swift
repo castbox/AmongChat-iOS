@@ -24,7 +24,8 @@ extension AmongChat.Home {
             
             Settings.shared.profilePage.replay()
                 .subscribe(onNext: { (p) in
-                    if let avatar = p?.profile?.pictureUrl?.url {
+                    if let avatar = p?.profile?.pictureUrl?.url,
+                       p?.profile?.isAnonymous == false {
                         btn.setImage(with: avatar, for: .normal)
                         btn.imageView?.layer.cornerRadius = 16
                         btn.imageView?.clipsToBounds = true

@@ -42,15 +42,15 @@
                         <rect key="frame" x="328" y="33" width="20" height="20"/>
                     </imageView>
                     <view contentMode="scaleToFill" horizontalHuggingPriority="253" horizontalCompressionResistancePriority="752" translatesAutoresizingMaskIntoConstraints="NO" id="U4B-Rs-aor">
-                        <rect key="frame" x="271" y="38" width="10" height="10"/>
+                        <rect key="frame" x="275" y="39" width="8" height="8"/>
                         <color key="backgroundColor" red="0.98431372549999996" green="0.34509803919999998" blue="0.34509803919999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="10" id="dwz-DX-l9B"/>
-                            <constraint firstAttribute="height" constant="10" id="pfg-Ye-9Yr"/>
+                            <constraint firstAttribute="width" constant="8" id="dwz-DX-l9B"/>
+                            <constraint firstAttribute="height" constant="8" id="pfg-Ye-9Yr"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                <real key="value" value="5"/>
+                                <real key="value" value="4"/>
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                     </view>
@@ -59,7 +59,7 @@
                 <constraints>
                     <constraint firstItem="U4B-Rs-aor" firstAttribute="centerY" secondItem="Gv3-De-K75" secondAttribute="centerY" id="4Ec-IM-K4G"/>
                     <constraint firstItem="uz7-XL-YM3" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="U4B-Rs-aor" secondAttribute="trailing" constant="20" id="GJY-zA-Yh4"/>
-                    <constraint firstItem="U4B-Rs-aor" firstAttribute="leading" secondItem="Gv3-De-K75" secondAttribute="trailing" constant="4" id="Nao-su-xy4"/>
+                    <constraint firstItem="U4B-Rs-aor" firstAttribute="leading" secondItem="Gv3-De-K75" secondAttribute="trailing" constant="8" id="Nao-su-xy4"/>
                     <constraint firstItem="DwW-SL-niN" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="OBC-Oe-Tot"/>
                     <constraint firstItem="DwW-SL-niN" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="PAN-Zk-bMa"/>
                     <constraint firstItem="Gv3-De-K75" firstAttribute="centerY" secondItem="DwW-SL-niN" secondAttribute="centerY" id="eYw-fM-4GX"/>

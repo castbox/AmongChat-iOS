@@ -87,15 +87,15 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ej9-Jr-g1m">
-                        <rect key="frame" x="124" y="58" width="10" height="10"/>
+                        <rect key="frame" x="128" y="59" width="8" height="8"/>
                         <color key="backgroundColor" red="0.98431372549019602" green="0.34509803921568627" blue="0.34509803921568627" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="10" id="bbM-IW-1VH"/>
-                            <constraint firstAttribute="height" constant="10" id="pPs-Xk-kBi"/>
+                            <constraint firstAttribute="width" constant="8" id="bbM-IW-1VH"/>
+                            <constraint firstAttribute="height" constant="8" id="pPs-Xk-kBi"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                <real key="value" value="5"/>
+                                <real key="value" value="4"/>
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                     </view>
@@ -121,7 +121,7 @@
                     <constraint firstAttribute="trailing" secondItem="jv6-E1-dLR" secondAttribute="trailing" constant="20" id="YUQ-Wi-Xob"/>
                     <constraint firstItem="5mR-Jq-jld" firstAttribute="top" secondItem="bMj-4t-cHy" secondAttribute="bottom" constant="8" id="a38-jV-8F5"/>
                     <constraint firstItem="jv6-E1-dLR" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="24" id="aQi-HR-bgl"/>
-                    <constraint firstItem="ej9-Jr-g1m" firstAttribute="leading" secondItem="qQs-uj-44W" secondAttribute="trailing" constant="4" id="cA4-1z-n4J"/>
+                    <constraint firstItem="ej9-Jr-g1m" firstAttribute="leading" secondItem="qQs-uj-44W" secondAttribute="trailing" constant="8" id="cA4-1z-n4J"/>
                     <constraint firstAttribute="trailing" secondItem="O2o-9M-BgO" secondAttribute="trailing" constant="20" id="hJE-UZ-8f7"/>
                     <constraint firstItem="jv6-E1-dLR" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="ej9-Jr-g1m" secondAttribute="trailing" constant="16" id="hTI-KO-muP"/>
                     <constraint firstItem="bsg-y8-vuM" firstAttribute="top" secondItem="IhD-93-0vv" secondAttribute="top" id="iae-tR-wRy"/>
