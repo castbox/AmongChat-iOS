@@ -69,7 +69,8 @@ extension Feed {
             .asSingle()
             .observeOn(MainScheduler.asyncInstance)
         }()
-                
+        
+        private typealias TopiceHeader = Feed.VideoLibraryViewController.DurationTipHeader
         private lazy var topicCollectionView: UICollectionView = {
             let layout = UICollectionViewFlowLayout()
             layout.scrollDirection = .vertical
@@ -84,9 +85,11 @@ extension Feed {
             layout.sectionInset = UIEdgeInsets(top: 16, left: hInset, bottom: 0, right: hInset)
             let v = UICollectionView(frame: .zero, collectionViewLayout: layout)
             v.register(cellWithClazz: TopicCell.self)
+            v.register(TopiceHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: NSStringFromClass(TopiceHeader.self))
             v.showsVerticalScrollIndicator = false
             v.showsHorizontalScrollIndicator = false
             v.dataSource = self
+            v.delegate = self
             v.backgroundColor = .clear
             v.alwaysBounceVertical = true
             return v
@@ -130,7 +133,7 @@ extension Feed {
         
         override func viewDidLayoutSubviews() {
             super.viewDidLayoutSubviews()
-            topicCollectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: bottomGradientView.bounds.height, right: 0)
+            topicCollectionView.contentInset = UIEdgeInsets(top: 16, left: 0, bottom: bottomGradientView.bounds.height, right: 0)
         }
         
     }
@@ -147,7 +150,7 @@ extension Feed.SelectTopicViewController {
             maker.leading.trailing.equalToSuperview()
             maker.top.equalTo(topLayoutGuide.snp.bottom)
         }
-
+        
         thumbnailView.snp.makeConstraints { (maker) in
             maker.leading.trailing.equalToSuperview().inset(Frame.horizontalBleedWidth)
             maker.top.equalTo(navView.snp.bottom).offset(24)
@@ -200,7 +203,7 @@ extension Feed.SelectTopicViewController {
     private func post() {
         
         let hudRemoval: (() -> Void) = view.raft.show(.loading, userInteractionEnabled: false)
-
+        
         Observable.combineLatest(uploadThumbnail().asObservable(), uploadVideo().asObservable())
             .flatMap { [weak self] (thumbnailUrl, videoUrl) -> Observable<Void> in
                 guard let `self` = self else {
@@ -269,6 +272,29 @@ extension Feed.SelectTopicViewController: UICollectionViewDataSource {
         }
         
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        switch kind {
+        case UICollectionView.elementKindSectionHeader:
+            let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: NSStringFromClass(TopiceHeader.self.self), for: indexPath)
+            if let header = header as? TopiceHeader {
+                header.icon.image = R.image.ac_feed_topic_tip()
+                header.titleLabel.text = R.string.localizable.feedChooseTopicTitle()
+            }
+            return header
+        default:
+            return UICollectionReusableView()
+        }
+        
+    }
+    
+}
+
+extension Feed.SelectTopicViewController: UICollectionViewDelegateFlowLayout {
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        return CGSize(width: Frame.Screen.bounds.width, height: 20)
     }
     
 }
