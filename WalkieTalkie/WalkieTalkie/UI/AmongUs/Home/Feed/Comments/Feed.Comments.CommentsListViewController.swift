@@ -23,9 +23,7 @@ extension Feed.Comments {
             v.layer.shadowColor = UIColor(hex6: 0x000000, alpha: 0.16).cgColor
             return v
         }()
-        
-        private let containerHeight: CGFloat = 500
-        
+                
         private lazy var dismissView: UIView = {
             let v = UIView()
             let dismissTap = UITapGestureRecognizer()
@@ -227,7 +225,7 @@ extension Feed.Comments.CommentsListViewController {
         container.snp.makeConstraints { (maker) in
             maker.leading.trailing.equalToSuperview()
             maker.bottom.equalToSuperview().offset(0)
-            maker.height.equalTo(containerHeight)
+            maker.height.equalTo(view.snp.height).multipliedBy(0.75)
         }
         
         container.addSubviews(views: topBar, commentListView, emptyView, bottomBar)
