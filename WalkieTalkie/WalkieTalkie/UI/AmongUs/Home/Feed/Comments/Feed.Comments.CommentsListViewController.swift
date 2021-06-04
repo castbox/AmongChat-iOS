@@ -499,10 +499,11 @@ extension Feed.Comments.CommentsListViewController: UICollectionViewDelegateFlow
             return comment.viewSize
             
         default:
-            if let reply = comment.replies.safe(indexPath.item - 1) {
+            if let reply = comment.replies.safe(indexPath.item - 1),
+               !comment.repliesCollapsed {
                 return reply.viewSize
             } else {
-                return CGSize(width: UIScreen.main.bounds.width, height: 19)
+                return CGSize(width: UIScreen.main.bounds.width, height: 15)
             }
             
         }
