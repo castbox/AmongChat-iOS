@@ -107,7 +107,7 @@ extension Feed {
             return v
         }()
         
-        private lazy var topicDataSource: [Entity.SummaryTopic] = Settings.shared.supportedTopics.value?.topicList ?? [] {
+        private lazy var topicDataSource: [Entity.GlobalSetting.Topic] = Settings.shared.globalSetting.value?.feedTopics ?? [] {
             didSet {
                 topicCollectionView.reloadData()
             }
@@ -128,7 +128,6 @@ extension Feed {
             super.viewDidLoad()
             setUpLayout()
             setUpEvents()
-            fetchTopicsIfNeeded()
         }
         
         override func viewDidLayoutSubviews() {
@@ -175,31 +174,7 @@ extension Feed.SelectTopicViewController {
             .disposed(by: bag)
         
     }
-    
-    private func fetchTopicsIfNeeded() {
         
-        guard topicDataSource.count == 0 else {
-            return
-        }
-        
-        let hudRemoval: (() -> Void) = view.raft.show(.loading, userInteractionEnabled: false)
-        
-        Request.topics()
-            .do(onDispose: {
-                hudRemoval()
-            })
-            .subscribe(onSuccess: { [weak self] (s) in
-                guard let summary = s else {
-                    self?.view.raft.autoShow(.text(R.string.localizable.amongChatUnknownError()))
-                    return
-                }
-                self?.topicDataSource = summary.topicList
-            }, onError: { [weak self] (error) in
-                self?.view.raft.autoShow(.text(error.localizedDescription))
-            })
-            .disposed(by: bag)
-    }
-    
     private func post() {
         
         let hudRemoval: (() -> Void) = view.raft.show(.loading, userInteractionEnabled: false)

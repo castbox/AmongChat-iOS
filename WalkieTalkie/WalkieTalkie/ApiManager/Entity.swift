@@ -80,6 +80,11 @@ extension Entity {
             let resource: URL?
         }
         
+        struct Topic: Codable {
+            var topicId: String
+            var topicName: String
+        }
+        
         struct KeyValue: Codable {
             let key: String
             let value: String
@@ -100,6 +105,7 @@ extension Entity {
         let changeTip: [KeyValue]
         let chatLanguage: [KeyValue]
         let feedEmotes: [Emotes]
+        let feedTopics: [Topic]
         let iosCheckVersion: String
         //emoji like cuddle
         let emoji: [EmojiItem]
@@ -112,6 +118,7 @@ extension Entity {
             case iosCheckVersion = "ios_check_version"
             case emoji = "emoji"
             case feedEmotes = "post_emotes"
+            case feedTopics = "post_topic"
         }
         
         init(from decoder: Decoder) throws {
@@ -123,6 +130,7 @@ extension Entity {
             iosCheckVersion = (try? container.decode(String.self, forKey: .iosCheckVersion)) ?? ""
             emoji = (try? container.decode([EmojiItem].self, forKey: .emoji)) ?? []
             feedEmotes = (try? container.decode([Emotes].self, forKey: .feedEmotes)) ?? []
+            feedTopics = (try? container.decode([Topic].self, forKey: .feedTopics)) ?? []
         }
     }
     

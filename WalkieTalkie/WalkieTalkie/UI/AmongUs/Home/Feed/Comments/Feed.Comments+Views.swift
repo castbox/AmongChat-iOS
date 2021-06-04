@@ -463,7 +463,8 @@ extension Feed.Comments {
         private let bag = DisposeBag()
         
         private let maxInputLength = Int(280)
-        private let textViewMinHeight = CGFloat(40)
+        private let textViewMinHeight = CGFloat(16)
+        private let textViewMaxHeight = CGFloat(65)
         
         private let sendSignal = PublishSubject<Void>()
         
@@ -478,7 +479,7 @@ extension Feed.Comments {
             f.backgroundColor = .clear
             f.keyboardAppearance = .dark
             f.returnKeyType = .send
-            f.textContainerInset = UIEdgeInsets(top: 9, left: 16, bottom: 9, right: 16)
+            f.textContainerInset = .zero
             f.textContainer.lineFragmentPadding = 0
             f.delegate = self
             f.font = R.font.nunitoBold(size: 16)
@@ -500,8 +501,8 @@ extension Feed.Comments {
         private(set) lazy var placeholderLabel: UILabel = {
             let l = UILabel()
             l.numberOfLines = 0
-            l.font = R.font.nunitoExtraBold(size: 18)
-            l.textColor = UIColor(hex6: 0x363636)
+            l.font = R.font.nunitoBold(size: 16)
+            l.textColor = UIColor(hex6: 0x646464)
             l.text = R.string.localizable.feedCommentsPlaceholder()
             return l
         }()
@@ -525,13 +526,12 @@ extension Feed.Comments {
             addSubviews(views: inputTextView, placeholderLabel)
             
             inputTextView.snp.makeConstraints { (maker) in
-                maker.edges.equalToSuperview()
+                maker.edges.equalToSuperview().inset(UIEdgeInsets(top: 12, left: 16, bottom: 12, right: 16))
                 maker.height.equalTo(textViewMinHeight)
             }
             
             placeholderLabel.snp.makeConstraints { (maker) in
-                maker.leading.equalToSuperview().offset(16)
-                maker.top.equalToSuperview().offset(9)
+                maker.leading.centerY.equalTo(inputTextView)
             }
         }
         
@@ -543,7 +543,7 @@ extension Feed.Comments {
                     
                     let height = self.inputTextView.contentSize.height
                     self.inputTextView.snp.updateConstraints { (maker) in
-                        maker.height.equalTo(max(self.textViewMinHeight, height))
+                        maker.height.equalTo(min(self.textViewMaxHeight, max(self.textViewMinHeight, height)))
                     }
                 })
                 .disposed(by: bag)

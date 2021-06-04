@@ -144,6 +144,21 @@ extension Feed.Comments {
                 commentListView.reloadData()
                 titleLabel.text = R.string.localizable.feedCommentsListTitle("\(comments.count)")
                 emptyView.isHidden = (comments.count > 0)
+                if comments.count > 0 {
+                    commentListView.pullToLoadMore { [weak self] in
+                        guard let `self` = self else { return }
+                        self.commentListVM.loadComments()
+                            .do(onSuccess: { (_) in
+                                self.commentListView.endLoadMore(self.commentListVM.hasMore)
+                            })
+                            .subscribe(onError: { (error) in
+                                
+                            })
+                            .disposed(by: self.bag)
+                    }
+                } else {
+                    commentListView.mj_footer = nil
+                }
             }
         }
         
@@ -231,18 +246,6 @@ extension Feed.Comments.CommentsListViewController {
         commentListView.snp.makeConstraints { (maker) in
             maker.leading.trailing.bottom.equalToSuperview()
             maker.top.equalTo(topBar.snp.bottom).offset(-0.5)
-        }
-        
-        commentListView.pullToLoadMore { [weak self] in
-            guard let `self` = self else { return }
-            self.commentListVM.loadComments()
-                .do(onSuccess: { (_) in
-                    self.commentListView.endLoadMore(self.commentListVM.hasMore)
-                })
-                .subscribe(onError: { (error) in
-                    
-                })
-                .disposed(by: self.bag)
         }
         
         bottomBar.snp.makeConstraints { (maker) in
@@ -342,15 +345,20 @@ extension Feed.Comments.CommentsListViewController {
             action = commentListVM.addComment(text: commentInputView.inputTextView.text)
         }
         
-        action.subscribe(onSuccess: { [weak self] (_) in
-            self?.replyComment = nil
-            self?.replyReply = nil
-            self?.commentInputView.inputTextView.text = ""
-            self?.commentInputView.placeholderLabel.text = R.string.localizable.feedCommentsPlaceholder()
-        }, onError: { [weak self] (error) in
-            self?.view.raft.autoShow(.text(error.msgOfError ?? ""))
-        })
-        .disposed(by: bag)
+        let hudRemoval = view.raft.show(.loading)
+        action
+            .do(onDispose: {
+                hudRemoval()
+            })
+            .subscribe(onSuccess: { [weak self] (_) in
+                self?.replyComment = nil
+                self?.replyReply = nil
+                self?.commentInputView.inputTextView.text = ""
+                self?.commentInputView.placeholderLabel.text = R.string.localizable.feedCommentsPlaceholder()
+            }, onError: { [weak self] (error) in
+                self?.view.raft.autoShow(.text(error.msgOfError ?? ""))
+            })
+            .disposed(by: bag)
         
     }
     

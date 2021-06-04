@@ -71,7 +71,7 @@ extension Feed.SelectTopicViewController {
             }
         }
         
-        func configCell(with topic: Entity.SummaryTopic) {
+        func configCell(with topic: Entity.GlobalSetting.Topic) {
             
             nameLabel.text = topic.topicName
             
