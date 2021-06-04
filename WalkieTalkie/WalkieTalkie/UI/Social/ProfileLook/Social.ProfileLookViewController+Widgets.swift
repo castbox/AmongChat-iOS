@@ -371,32 +371,32 @@ extension Social.ProfileLookViewController {
             UIView.animate(withDuration: 0.25) { [weak self] in
                 guard let `self` = self else { return }
                 button.isSelected = true
-                let enlargeFractor: CGFloat = 1.2
-                button.transform = CGAffineTransform(scaleX: enlargeFractor, y: enlargeFractor)
-                if button == self.buttons.last {
-                    button.snp.updateConstraints { (maker) in
-                        maker.trailing.equalToSuperview().inset(Frame.horizontalBleedWidth + ceil((enlargeFractor - 1) * button.frame.width) / 2)
-                    }
-                }
+//                let enlargeFractor: CGFloat = 1.2
+//                button.transform = CGAffineTransform(scaleX: enlargeFractor, y: enlargeFractor)
+//                if button == self.buttons.last {
+//                    button.snp.updateConstraints { (maker) in
+//                        maker.trailing.equalToSuperview().inset(Frame.horizontalBleedWidth + ceil((enlargeFractor - 1) * button.frame.width) / 2)
+//                    }
+//                }
+//
+//                if button == self.buttons.first {
+//                    button.snp.updateConstraints { (maker) in
+//                        maker.leading.equalToSuperview().inset(Frame.horizontalBleedWidth + ceil((enlargeFractor - 1) * button.frame.width) / 2)
+//                    }
+//                }
                 
-                if button == self.buttons.first {
-                    button.snp.updateConstraints { (maker) in
-                        maker.leading.equalToSuperview().inset(Frame.horizontalBleedWidth + ceil((enlargeFractor - 1) * button.frame.width) / 2)
-                    }
-                }
-                
-                button.titleLabel?.font = R.font.nunitoExtraBold(size: 20)
+                button.titleLabel?.font = R.font.nunitoExtraBold(size: 24)
                 self.selectedBtn?.isSelected = false
-                self.selectedBtn?.transform = .identity
-                if self.selectedBtn == self.buttons.last {
-                    self.selectedBtn?.snp.updateConstraints { (maker) in
-                        maker.trailing.equalToSuperview().inset(Frame.horizontalBleedWidth)
-                    }
-                } else if self.selectedBtn == self.buttons.first {
-                    self.selectedBtn?.snp.updateConstraints { (maker) in
-                        maker.leading.equalToSuperview().inset(Frame.horizontalBleedWidth)
-                    }
-                }
+//                self.selectedBtn?.transform = .identity
+//                if self.selectedBtn == self.buttons.last {
+//                    self.selectedBtn?.snp.updateConstraints { (maker) in
+//                        maker.trailing.equalToSuperview().inset(Frame.horizontalBleedWidth)
+//                    }
+//                } else if self.selectedBtn == self.buttons.first {
+//                    self.selectedBtn?.snp.updateConstraints { (maker) in
+//                        maker.leading.equalToSuperview().inset(Frame.horizontalBleedWidth)
+//                    }
+//                }
 
                 self.selectedBtn?.titleLabel?.font = R.font.nunitoBold(size: 20)
                 self.selectedBtn = button
