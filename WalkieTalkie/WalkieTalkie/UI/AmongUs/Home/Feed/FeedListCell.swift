@@ -77,10 +77,13 @@ class FeedListCell: UITableViewCell {
     }
     
     func config(with viewModel: Feed.ListCellViewModel?) {
-        self.viewModel = viewModel
         guard let viewModel = viewModel else {
             return
         }
+        self.viewModel = viewModel
+
+        self.isUserPaused = false
+        
         let feed = viewModel.feed
         avatarView.setAvatarImage(with: feed.user.pictureUrl)
         avatarView.isVerify = feed.user.isVerified
@@ -91,7 +94,10 @@ class FeedListCell: UITableViewCell {
         playerView.configure(url: feed.url, size: (feed.width ?? 0, feed.height ?? 0)) { [weak self] in
             self?.activityView.stopAnimating()
         }
+        
         update(emotes: viewModel.emotes)
+        sliderBar.value = 0
+        
         if feed.cmtCount > 0 {
             commentButton.setTitle(feed.cmtCount.string, for: .normal)
         } else {
@@ -199,6 +205,8 @@ class FeedListCell: UITableViewCell {
             playerView.play()
             isPlaying = true
             Logger.Action.log(.feeds_item_clk, category: .play, viewModel?.feed.pid)
+            pauseView.fadeOut(duration: 0.1)
+            sliderBar.fadeOut(duration: 0.1)
         }
     }
     
@@ -217,8 +225,6 @@ class FeedListCell: UITableViewCell {
             isUserPaused = true
             pause()
         } else {
-            pauseView.fadeOut(duration: 0.1)
-            sliderBar.fadeOut(duration: 0.1)
             isUserPaused = false
             play()
         }

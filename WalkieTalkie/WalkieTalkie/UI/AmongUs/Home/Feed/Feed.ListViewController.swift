@@ -301,6 +301,8 @@ extension Feed.ListViewController {
         let indexPath = IndexPath(row: index, section: 0)
         switch action {
         case .selectEmote(let emote):
+            HapticFeedback.Impact.light()
+            
             if emote.id.isEmpty {
                 let vc = Feed.EmotePickerController(Feed.EmotePickerViewModel())
                 vc.didSelectItemHandler = { [weak self] emote in
@@ -308,10 +310,10 @@ extension Feed.ListViewController {
                     guard let `self` = self else {
                         return
                     }
+                    HapticFeedback.Impact.light()
                     Logger.Action.log(.feeds_item_clk, category: .emotes, emote.id)
                     AmongChat.Login.doLogedInEvent(style: .authNeeded(source: .emote)) { [weak self] in
                         guard let `self` = self else { return }
-                        
                         if !viewModel.emotes.contains(where: { $0.id == emote.id && $0.isVoted == true }) {
                             self.updateEmoteState(with: viewModel.feed.pid, emoteId: emote.id, isSelect: true, index: indexPath.row)
                         } else {

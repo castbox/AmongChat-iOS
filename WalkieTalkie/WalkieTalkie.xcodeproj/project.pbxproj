@@ -368,6 +368,23 @@
 		FE914B0C2614663A00C755FF /* AmongChat.Room.BackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE914B0B2614663A00C755FF /* AmongChat.Room.BackgroundView.swift */; };
 		FE914B1226146AD700C755FF /* AmongChat.GroupRoom.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE914B1126146AD700C755FF /* AmongChat.GroupRoom.swift */; };
 		FE914B1626146DC900C755FF /* BottomTitleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE914B1526146DC900C755FF /* BottomTitleButton.swift */; };
+		FE952FD62669C76E004E2AD1 /* SZLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE952FC12669C76E004E2AD1 /* SZLog.swift */; };
+		FE952FD72669C76E004E2AD1 /* SZAVPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE952FC22669C76E004E2AD1 /* SZAVPlayer.swift */; };
+		FE952FD82669C76E004E2AD1 /* SZDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE952FC42669C76E004E2AD1 /* SZDatabase.swift */; };
+		FE952FD92669C76E004E2AD1 /* SZAVPlayerFileSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE952FC52669C76E004E2AD1 /* SZAVPlayerFileSystem.swift */; };
+		FE952FDA2669C76E004E2AD1 /* SZAVPlayerDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE952FC62669C76E004E2AD1 /* SZAVPlayerDatabase.swift */; };
+		FE952FDB2669C76E004E2AD1 /* SZAVPlayerCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE952FC72669C76E004E2AD1 /* SZAVPlayerCache.swift */; };
+		FE952FDC2669C76E004E2AD1 /* SZBaseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE952FC92669C76E004E2AD1 /* SZBaseModel.swift */; };
+		FE952FDD2669C76E004E2AD1 /* SZAVPlayerConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE952FCA2669C76E004E2AD1 /* SZAVPlayerConfig.swift */; };
+		FE952FDE2669C76E004E2AD1 /* SZAVPlayerError.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE952FCB2669C76E004E2AD1 /* SZAVPlayerError.swift */; };
+		FE952FDF2669C76E004E2AD1 /* SZAVPlayerSeekItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE952FCC2669C76E004E2AD1 /* SZAVPlayerSeekItem.swift */; };
+		FE952FE02669C76E004E2AD1 /* SZAVPlayerLocalFileInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE952FCD2669C76E004E2AD1 /* SZAVPlayerLocalFileInfo.swift */; };
+		FE952FE12669C76E004E2AD1 /* SZAVPlayerContentInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE952FCE2669C76E004E2AD1 /* SZAVPlayerContentInfo.swift */; };
+		FE952FE22669C76E004E2AD1 /* SZAVPlayerDataLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE952FD02669C76E004E2AD1 /* SZAVPlayerDataLoader.swift */; };
+		FE952FE32669C76E004E2AD1 /* SZAVPlayerItemRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE952FD12669C76E004E2AD1 /* SZAVPlayerItemRequest.swift */; };
+		FE952FE42669C76E004E2AD1 /* SZAVPlayerDataLoaderOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE952FD22669C76E004E2AD1 /* SZAVPlayerDataLoaderOperation.swift */; };
+		FE952FE52669C76E004E2AD1 /* SZAVPlayerRequestOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE952FD32669C76E004E2AD1 /* SZAVPlayerRequestOperation.swift */; };
+		FE952FE62669C76E004E2AD1 /* SZAVPlayerAssetLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE952FD42669C76E004E2AD1 /* SZAVPlayerAssetLoader.swift */; };
 		FE97371524AB3D050015ECE6 /* DebugViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE97371424AB3D050015ECE6 /* DebugViewController.swift */; };
 		FE9B29F22488CD4B009A4969 /* SpeechRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE9B29F12488CD4B009A4969 /* SpeechRecognizer.swift */; };
 		FE9B29F42488D250009A4969 /* ConfettiView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE9B29F32488D250009A4969 /* ConfettiView.swift */; };
@@ -884,6 +901,23 @@
 		FE914B0B2614663A00C755FF /* AmongChat.Room.BackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChat.Room.BackgroundView.swift; sourceTree = "<group>"; };
 		FE914B1126146AD700C755FF /* AmongChat.GroupRoom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChat.GroupRoom.swift; sourceTree = "<group>"; };
 		FE914B1526146DC900C755FF /* BottomTitleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomTitleButton.swift; sourceTree = "<group>"; };
+		FE952FC12669C76E004E2AD1 /* SZLog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SZLog.swift; sourceTree = "<group>"; };
+		FE952FC22669C76E004E2AD1 /* SZAVPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SZAVPlayer.swift; sourceTree = "<group>"; };
+		FE952FC42669C76E004E2AD1 /* SZDatabase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SZDatabase.swift; sourceTree = "<group>"; };
+		FE952FC52669C76E004E2AD1 /* SZAVPlayerFileSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SZAVPlayerFileSystem.swift; sourceTree = "<group>"; };
+		FE952FC62669C76E004E2AD1 /* SZAVPlayerDatabase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SZAVPlayerDatabase.swift; sourceTree = "<group>"; };
+		FE952FC72669C76E004E2AD1 /* SZAVPlayerCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SZAVPlayerCache.swift; sourceTree = "<group>"; };
+		FE952FC92669C76E004E2AD1 /* SZBaseModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SZBaseModel.swift; sourceTree = "<group>"; };
+		FE952FCA2669C76E004E2AD1 /* SZAVPlayerConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SZAVPlayerConfig.swift; sourceTree = "<group>"; };
+		FE952FCB2669C76E004E2AD1 /* SZAVPlayerError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SZAVPlayerError.swift; sourceTree = "<group>"; };
+		FE952FCC2669C76E004E2AD1 /* SZAVPlayerSeekItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SZAVPlayerSeekItem.swift; sourceTree = "<group>"; };
+		FE952FCD2669C76E004E2AD1 /* SZAVPlayerLocalFileInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SZAVPlayerLocalFileInfo.swift; sourceTree = "<group>"; };
+		FE952FCE2669C76E004E2AD1 /* SZAVPlayerContentInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SZAVPlayerContentInfo.swift; sourceTree = "<group>"; };
+		FE952FD02669C76E004E2AD1 /* SZAVPlayerDataLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SZAVPlayerDataLoader.swift; sourceTree = "<group>"; };
+		FE952FD12669C76E004E2AD1 /* SZAVPlayerItemRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SZAVPlayerItemRequest.swift; sourceTree = "<group>"; };
+		FE952FD22669C76E004E2AD1 /* SZAVPlayerDataLoaderOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SZAVPlayerDataLoaderOperation.swift; sourceTree = "<group>"; };
+		FE952FD32669C76E004E2AD1 /* SZAVPlayerRequestOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SZAVPlayerRequestOperation.swift; sourceTree = "<group>"; };
+		FE952FD42669C76E004E2AD1 /* SZAVPlayerAssetLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SZAVPlayerAssetLoader.swift; sourceTree = "<group>"; };
 		FE97371424AB3D050015ECE6 /* DebugViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugViewController.swift; sourceTree = "<group>"; };
 		FE9B29F12488CD4B009A4969 /* SpeechRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechRecognizer.swift; sourceTree = "<group>"; };
 		FE9B29F32488D250009A4969 /* ConfettiView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfettiView.swift; sourceTree = "<group>"; };
@@ -1311,6 +1345,7 @@
 				FE0A0F2A265E21CD00AC9FF7 /* Feed.EmotePickerViewModel.swift */,
 				FEFDDBE426651F5C004FF134 /* VideoEditor.swift */,
 				FEB308F126662841006849CF /* Profile.FeedViewController.swift */,
+				FE952FBE2669C76E004E2AD1 /* SZAVPlayer */,
 			);
 			path = Feed;
 			sourceTree = "<group>";
@@ -1723,6 +1758,62 @@
 				26A4AEE82665E534004782FE /* Entity+Feed.swift */,
 			);
 			path = ApiManager;
+			sourceTree = "<group>";
+		};
+		FE952FBE2669C76E004E2AD1 /* SZAVPlayer */ = {
+			isa = PBXGroup;
+			children = (
+				FE952FC02669C76E004E2AD1 /* Utils */,
+				FE952FC22669C76E004E2AD1 /* SZAVPlayer.swift */,
+				FE952FC32669C76E004E2AD1 /* Storage */,
+				FE952FC82669C76E004E2AD1 /* Model */,
+				FE952FCF2669C76E004E2AD1 /* Request */,
+				FE952FD42669C76E004E2AD1 /* SZAVPlayerAssetLoader.swift */,
+			);
+			path = SZAVPlayer;
+			sourceTree = "<group>";
+		};
+		FE952FC02669C76E004E2AD1 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				FE952FC12669C76E004E2AD1 /* SZLog.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		FE952FC32669C76E004E2AD1 /* Storage */ = {
+			isa = PBXGroup;
+			children = (
+				FE952FC42669C76E004E2AD1 /* SZDatabase.swift */,
+				FE952FC52669C76E004E2AD1 /* SZAVPlayerFileSystem.swift */,
+				FE952FC62669C76E004E2AD1 /* SZAVPlayerDatabase.swift */,
+				FE952FC72669C76E004E2AD1 /* SZAVPlayerCache.swift */,
+			);
+			path = Storage;
+			sourceTree = "<group>";
+		};
+		FE952FC82669C76E004E2AD1 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				FE952FC92669C76E004E2AD1 /* SZBaseModel.swift */,
+				FE952FCA2669C76E004E2AD1 /* SZAVPlayerConfig.swift */,
+				FE952FCB2669C76E004E2AD1 /* SZAVPlayerError.swift */,
+				FE952FCC2669C76E004E2AD1 /* SZAVPlayerSeekItem.swift */,
+				FE952FCD2669C76E004E2AD1 /* SZAVPlayerLocalFileInfo.swift */,
+				FE952FCE2669C76E004E2AD1 /* SZAVPlayerContentInfo.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		FE952FCF2669C76E004E2AD1 /* Request */ = {
+			isa = PBXGroup;
+			children = (
+				FE952FD02669C76E004E2AD1 /* SZAVPlayerDataLoader.swift */,
+				FE952FD12669C76E004E2AD1 /* SZAVPlayerItemRequest.swift */,
+				FE952FD22669C76E004E2AD1 /* SZAVPlayerDataLoaderOperation.swift */,
+				FE952FD32669C76E004E2AD1 /* SZAVPlayerRequestOperation.swift */,
+			);
+			path = Request;
 			sourceTree = "<group>";
 		};
 		FEAD54D12449B69F006454F6 /* ParentViewController */ = {
@@ -2315,6 +2406,7 @@
 				265FB7CF25B6C402004987AB /* AmongChat.Login.RegionModal.swift in Sources */,
 				BDF3D8D7259B26B70047A460 /* AmongChat.Home.MainTabController.IMViewModel.swift in Sources */,
 				FE4FDAD92435D0AB00CD5E97 /* Logger.swift in Sources */,
+				FE952FDF2669C76E004E2AD1 /* SZAVPlayerSeekItem.swift in Sources */,
 				FE9B29F22488CD4B009A4969 /* SpeechRecognizer.swift in Sources */,
 				26FC617F266733EB005D8F79 /* Social.ProfileGameSkillViewController.swift in Sources */,
 				FE169E33261351C400AD7866 /* AmongGroupJoinRequestCell.swift in Sources */,
@@ -2345,6 +2437,7 @@
 				FE078C912615C028004C38C5 /* AmongChat.GroupRoom.JoinRequestListController.swift in Sources */,
 				FEAE256B262078D5001F10A9 /* AmongChat.GroupRoom.ViewController.Audience.swift in Sources */,
 				269A6DE8261D9DFD00A07C7D /* FansGroup.GroupInfoViewController+ViewModels.swift in Sources */,
+				FE952FD92669C76E004E2AD1 /* SZAVPlayerFileSystem.swift in Sources */,
 				26DCEEF6264BD63F00B874FB /* NavigationBar.swift in Sources */,
 				FE860D4E2446D1D700087B73 /* Padding.swift in Sources */,
 				FE2AF9F7244DCC0400763747 /* URI.swift in Sources */,
@@ -2356,14 +2449,17 @@
 				2B51C894258C6EC700BAE937 /* Social.BirthdaySetViewController.swift in Sources */,
 				FE2DF3F52616EE640038F963 /* AmongChat.BaseRoomViewModel.swift in Sources */,
 				FE126D4F243481FF00BEDD60 /* AttributeKey.swift in Sources */,
+				FE952FDD2669C76E004E2AD1 /* SZAVPlayerConfig.swift in Sources */,
 				FE7CEB63258A05EC0067952C /* JustChillingInfoView.swift in Sources */,
 				2B51C882258B8ED700BAE937 /* Social.DatePickerView.swift in Sources */,
 				FE684884244BD9F900F87AF9 /* GradientView.swift in Sources */,
 				26259B61260B11B800636E50 /* Social.AddStatsViewController+Views.swift in Sources */,
+				FE952FDE2669C76E004E2AD1 /* SZAVPlayerError.swift in Sources */,
 				FE80A58425AD96BB009914A7 /* Search.ViewController.swift in Sources */,
 				FE684871244B4B5600F87AF9 /* PasswordGenerator.swift in Sources */,
 				FE0A0C30265CECCA00AC9FF7 /* FeedListCell.swift in Sources */,
 				FE860D5B2446D2A800087B73 /* Castbox+Rx.swift in Sources */,
+				FE952FE12669C76E004E2AD1 /* SZAVPlayerContentInfo.swift in Sources */,
 				FE0A0F29265E217200AC9FF7 /* Feed.EmotePickerController.swift in Sources */,
 				269A6E0E26203E3300A07C7D /* FansGroup.GroupJoinRequestListViewController.swift in Sources */,
 				FEC17A4924A99BF0003719BC /* Entity.swift in Sources */,
@@ -2384,6 +2480,7 @@
 				FE078C892615B64B004C38C5 /* AmongChat.GroupRoom.MembersController.swift in Sources */,
 				26430FD9263803E40096177B /* Notice.Views.swift in Sources */,
 				FE684879244BD45F00F87AF9 /* DateUtil.swift in Sources */,
+				FE952FE52669C76E004E2AD1 /* SZAVPlayerRequestOperation.swift in Sources */,
 				26DC82792609C8F1000A9111 /* Social.ChooseGame+Views.swift in Sources */,
 				FE7CE9D32589C1BE0067952C /* AmongRoomInfoView.swift in Sources */,
 				FE0A0F26265E0C8600AC9FF7 /* FeedEmojiCollectionCell.swift in Sources */,
@@ -2401,6 +2498,7 @@
 				FE0A0F2B265E21CD00AC9FF7 /* Feed.EmotePickerViewModel.swift in Sources */,
 				263F8ACF26132B3100282F8F /* FansGroup.GroupsViewController.swift in Sources */,
 				FE1A2DF3248A3BDC00F9A44D /* Data+Crypto.swift in Sources */,
+				FE952FE22669C76E004E2AD1 /* SZAVPlayerDataLoader.swift in Sources */,
 				FE27B92C265CE30300D1AD1F /* Feed.ListViewController.swift in Sources */,
 				261C35262660A2140058C911 /* Feed.Comments+ViewModels.swift in Sources */,
 				FE684877244BD3D200F87AF9 /* AdsDebugger.swift in Sources */,
@@ -2432,6 +2530,7 @@
 				FE0DFDBC265132FE00A194A7 /* Conversation.HeaderLoadingView.swift in Sources */,
 				FE6AF8582457E03500FD474A /* RxKeyboard.swift in Sources */,
 				FEE8502F259B31DF00CF9A74 /* JoinRoomable.swift in Sources */,
+				FE952FE62669C76E004E2AD1 /* SZAVPlayerAssetLoader.swift in Sources */,
 				FE0D1A292448A06200518793 /* UIViewExtension.swift in Sources */,
 				2656752D2645029A004D77D6 /* AmongChat.Home.ConversationListController.swift in Sources */,
 				BD8B4E57257E1E5000BE6520 /* IMManager.swift in Sources */,
@@ -2446,6 +2545,7 @@
 				FE0A0F42265FB69C00AC9FF7 /* Request.AmongChatBackend.Feed.swift in Sources */,
 				FE4FDAD32435B98D00CD5E97 /* Frame.swift in Sources */,
 				FE126D3F243481BD00BEDD60 /* RtmManager.swift in Sources */,
+				FE952FE42669C76E004E2AD1 /* SZAVPlayerDataLoaderOperation.swift in Sources */,
 				FECA43B2245987CA0075D139 /* PushSettingController.swift in Sources */,
 				FE402A3C264A42480060486D /* AudioPlayer.swift in Sources */,
 				FEA2E93325C139E4007485A8 /* AvatarGuideViewController.swift in Sources */,
@@ -2479,6 +2579,7 @@
 				FE80678E261DB1C900207992 /* AmongChat.GroupRoom.SeatRequestListController.swift in Sources */,
 				265E53E9262DBC70003500D0 /* FansGroup.Views.GroupCells.swift in Sources */,
 				FE860D472446D1D700087B73 /* Theme.Palette.swift in Sources */,
+				FE952FDC2669C76E004E2AD1 /* SZBaseModel.swift in Sources */,
 				FE7218712456D900005274CA /* FireMessaging.swift in Sources */,
 				FE8DEA6A243DB09A0059C252 /* ApiManager.Transform.swift in Sources */,
 				FE0D1A2724489FE300518793 /* UIBezierPathExtension.swift in Sources */,
@@ -2487,6 +2588,7 @@
 				FE126D41243481BD00BEDD60 /* MessageManager.swift in Sources */,
 				FE126D52243481FF00BEDD60 /* Seat.swift in Sources */,
 				263F8ADF26156D7F00282F8F /* Entity.Group.swift in Sources */,
+				FE952FDA2669C76E004E2AD1 /* SZAVPlayerDatabase.swift in Sources */,
 				FE79F375258C731400E9BC6C /* SoundAnimationView.swift in Sources */,
 				BDFCA56F25959428000ABB39 /* AmongChat.Home.RelationsViewController.swift in Sources */,
 				FEFDDBE526651F5C004FF134 /* VideoEditor.swift in Sources */,
@@ -2510,12 +2612,14 @@
 				FEA9359A264A641900CEC89A /* NSFileManagerExtension.swift in Sources */,
 				FE0A0F3B265E433B00AC9FF7 /* InteractiveMsgTableCell.swift in Sources */,
 				FE7E227526456AE600DAD431 /* Entity.Conversation.swift in Sources */,
+				FE952FE32669C76E004E2AD1 /* SZAVPlayerItemRequest.swift in Sources */,
 				FE7CE9CB2589BEBD0067952C /* AmongChatRoomTopBar.swift in Sources */,
 				FE8089CC2449E7FD006A1644 /* PremiumViewController.swift in Sources */,
 				FE401E48244DAD680081F793 /* Scheduler.swift in Sources */,
 				FE126D4C243481FF00BEDD60 /* ChannelData.swift in Sources */,
 				BDFCA4AD2594A9A3000ABB39 /* AmongChat.Home.MainTabController.swift in Sources */,
 				FEC17A4B24A9B957003719BC /* Request.swift in Sources */,
+				FE952FD82669C76E004E2AD1 /* SZDatabase.swift in Sources */,
 				BDD1F9F024FB974D00B8563C /* Reactive+UIViewController.swift in Sources */,
 				FE2AF9E8244DB16F00763747 /* UIViewController+Safari.swift in Sources */,
 				FEAD54D62449B6A0006454F6 /* GestureBackable.swift in Sources */,
@@ -2615,6 +2719,8 @@
 				FE401E46244DA3B60081F793 /* UIWindow+Controller.swift in Sources */,
 				FE730E4D24ADCB0100680062 /* PhotoManager.swift in Sources */,
 				26A3D2C22636B1BA00DD4F53 /* Notice.NoticeListViewController.swift in Sources */,
+				FE952FD72669C76E004E2AD1 /* SZAVPlayer.swift in Sources */,
+				FE952FE02669C76E004E2AD1 /* SZAVPlayerLocalFileInfo.swift in Sources */,
 				FE7CEB56258A029F0067952C /* AmongRoomInfoSetupView.swift in Sources */,
 				FECA43AC24597B570075D139 /* Automator.swift in Sources */,
 				FEF6171F264AB62C007CC97E /* Giphy.Entity.swift in Sources */,
@@ -2634,10 +2740,12 @@
 				FEC2A94925CAB637001B9556 /* StringSizeExtension.swift in Sources */,
 				FE2AF9E6244DB0F500763747 /* WebViewController.swift in Sources */,
 				26A3D2BA26366DDB00DD4F53 /* Notice.GroupRequestsListViewController.swift in Sources */,
+				FE952FD62669C76E004E2AD1 /* SZLog.swift in Sources */,
 				FE70553E2654E77000A489F4 /* Social.BirthdaySelectViewController.swift in Sources */,
 				FEAD54DD2449C74F006454F6 /* Modal.Container.swift in Sources */,
 				26259B6B260B3E7400636E50 /* Social.ChooseGame.ViewModel.swift in Sources */,
 				26A3D2B626366D8500DD4F53 /* Notice.AllNoticeViewController.swift in Sources */,
+				FE952FDB2669C76E004E2AD1 /* SZAVPlayerCache.swift in Sources */,
 				FE126D5C2434922E00BEDD60 /* ObservableOptionalExtension.swift in Sources */,
 				269A6DE0261D589700A07C7D /* FansGroup.GroupInfoViewController.swift in Sources */,
 				BD6739BD2595EEAD00B3305B /* AmongChat.Home+RelationViewModels.swift in Sources */,

@@ -4122,6 +4122,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let reportUser = Rswift.StringResource(key: "report.user", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Reported successfully
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let reportSuccess = Rswift.StringResource(key: "report.success", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Requests
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -4662,10 +4666,6 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let socialFollowedSucess = Rswift.StringResource(key: "social.followed.sucess", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
-      /// en translation: You have successfully reported  this person
-      /// 
-      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
-      static let reportSuccess = Rswift.StringResource(key: "report.success", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: You haven't blocked others yet.
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -7288,6 +7288,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("report.user", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Reported successfully
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func reportSuccess(_: Void = ()) -> String {
+        return NSLocalizedString("report.success", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Requests
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -8231,13 +8238,6 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func socialFollowedSucess(_: Void = ()) -> String {
         return NSLocalizedString("social.followed.sucess", bundle: R.hostingBundle, comment: "")
-      }
-      
-      /// en translation: You have successfully reported  this person
-      /// 
-      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
-      static func reportSuccess(_: Void = ()) -> String {
-        return NSLocalizedString("report.success", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: You haven't blocked others yet.
