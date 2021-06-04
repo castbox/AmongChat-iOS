@@ -153,12 +153,12 @@ extension Feed.VideoLibraryViewController {
     
     class DurationTipHeader: UICollectionReusableView {
         
-        private lazy var icon: UIImageView = {
+        private(set) lazy var icon: UIImageView = {
             let i = UIImageView(image: R.image.ac_feed_video_tip())
             return i
         }()
         
-        private lazy var titleLabel: UILabel = {
+        private(set) lazy var titleLabel: UILabel = {
             let l = UILabel()
             l.textColor = UIColor(hexString: "#FFFFFF")
             l.font = R.font.nunitoExtraBold(size: 16)
