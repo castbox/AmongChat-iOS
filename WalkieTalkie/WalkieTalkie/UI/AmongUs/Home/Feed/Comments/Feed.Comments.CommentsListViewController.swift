@@ -126,7 +126,7 @@ extension Feed.Comments {
             a.snp.makeConstraints { (maker) in
                 maker.width.height.equalTo(40)
                 maker.leading.equalToSuperview().offset(Frame.horizontalBleedWidth)
-                maker.top.equalToSuperview().offset(12)
+                maker.bottom.equalTo(commentInputView)
             }
             
             commentInputView.snp.makeConstraints { (maker) in
