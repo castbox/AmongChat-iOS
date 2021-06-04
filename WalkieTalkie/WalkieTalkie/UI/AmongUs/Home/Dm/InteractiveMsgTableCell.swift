@@ -35,7 +35,7 @@ class InteractiveMsgTableCell: UITableViewCell {
         switch msg.opType {
         case .comment:
             if msg.posType == .comment {
-                desLabel.text = msg.opType?.title
+                desLabel.text = msg.opType?.contentString
             } else {
                 desLabel.text = R.string.localizable.dmInteractiveReplyCommentTitle()
             }

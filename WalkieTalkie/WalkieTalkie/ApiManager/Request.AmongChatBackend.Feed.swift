@@ -188,7 +188,7 @@ extension Request {
         let params: [String : Any] = [
             "pid" : directMessage.urlId,
             "pos_id" : directMessage.posId,
-            "pos_type" : directMessage.posType?.rawValue ?? ""
+            "pos_type" : directMessage.posType ?? ""
         ]
         
         return amongchatProvider.rx.request(.feedPostPage(params))

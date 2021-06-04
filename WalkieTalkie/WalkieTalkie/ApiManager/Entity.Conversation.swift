@@ -401,7 +401,7 @@ extension Entity {
         let objType: String //
         let urlType: String
         let urlId: String
-        let posType: PosType? //
+        let posTypeString: String? //
         let posId: String
         let emoteIds: [String]?
         var name: String?
@@ -411,6 +411,10 @@ extension Entity {
         
         var opTime: Double {
             createTime
+        }
+        
+        var posType: PosType? {
+            return PosType(rawValue: posTypeString ?? "")
         }
         
         //seconds
@@ -435,7 +439,7 @@ extension Entity {
             case objType = "obj_type"
             case urlType = "url_type"
             case urlId = "url_id"
-            case posType = "pos_type"
+            case posTypeString = "pos_type"
             case posId = "pos_id"
             case emoteIds = "emote_ids"
             case name
@@ -451,7 +455,7 @@ extension Entity {
 }
 
 extension Entity.DMInteractiveMessage.OpType {
-    var title: String {
+    var contentString: String {
         switch self {
         case .like:
             return R.string.localizable.dmInteractiveCommentLikeTitle()
@@ -459,6 +463,17 @@ extension Entity.DMInteractiveMessage.OpType {
             return R.string.localizable.dmInteractiveEmoteTitle()
         case .comment:
             return R.string.localizable.dmInteractiveCommentTitle()
+        }
+    }
+    
+    var title: String {
+        switch self {
+        case .like:
+            return R.string.localizable.dmInteractiveLikes()
+        case .emotes:
+            return R.string.localizable.dmInteractiveEmotes()
+        case .comment:
+            return R.string.localizable.dmInteractiveComments()
         }
     }
 }
