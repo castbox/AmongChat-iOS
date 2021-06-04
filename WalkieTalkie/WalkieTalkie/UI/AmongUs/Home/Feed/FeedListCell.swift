@@ -214,8 +214,10 @@ class FeedListCell: UITableViewCell {
             playerView.play()
             isPlaying = true
             Logger.Action.log(.feeds_item_clk, category: .play, viewModel?.feed.pid)
-            pauseView.fadeOut(duration: 0.1)
-            sliderBar.fadeOut(duration: 0.1)
+            if !pauseView.isHidden {
+                pauseView.fadeOut(duration: 0.1)
+                sliderBar.fadeOut(duration: 0.1)
+            }
         }
     }
     
