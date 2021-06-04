@@ -388,28 +388,7 @@ extension Feed.ListViewController {
             let cell = self.tableView.cellForRow(at: indexPath) as? FeedListCell
             cell?.pause()
             
-            let nextIndex = IndexPath(row: indexPath.row + 1, section: 0)
-            if nextIndex.row < self.dataSource.count - 1 {
-                self.scrollDisposeBag?.dispose()
-                self.scrollDisposeBag = self.rx.methodInvoked(#selector(self.scrollViewDidEndScrollingAnimation(_:)))
-                    .subscribe(onNext: { [weak self] _ in
-                        guard let `self` = self else { return }
-                        let nextCell = self.tableView.cellForRow(at: nextIndex) as? FeedListCell
-                        nextCell?.play()
-                        var dataSource = self.dataSource
-                        dataSource.remove(at: indexPath.row)
-                        self.dataSource = dataSource
-                        self.tableView.beginUpdates()
-                        self.tableView.deleteRows(at: [indexPath], with: .none)
-                        //                        self.tableView.reloadRows(at: <#T##[IndexPath]#>, with: <#T##UITableView.RowAnimation#>)
-                        self.tableView.endUpdates()
-                        self.scrollDisposeBag?.dispose()
-                    })
-                self.scrollDisposeBag?.disposed(by: self.bag)
-                self.tableView.scrollToRow(at: nextIndex, at: .top, animated: true)
-            } else {
-                self.tableView.reloadData()
-            }
+            deleteRow(at: indexPath)
             HapticFeedback.Impact.success()
             
             self.viewModel.reportNotIntereasted(viewModel.feed.pid)
@@ -417,17 +396,18 @@ extension Feed.ListViewController {
                 .disposed(by: self.bag)
         case .deleteVideo:
             Logger.Action.log(.feeds_item_clk, category: .delete, viewModel.feed.pid)
-            
-            let removeHandler = self.view.raft.show(.loading)
+            let cell = self.tableView.cellForRow(at: indexPath) as? FeedListCell
+            cell?.pause()
+            let removeHandler = self.view.raft.show(.loading, hideAnimated: false)
             self.viewModel.feedDelete(viewModel.feed.pid)
-                .do(onDispose: {
-                    removeHandler()
-                })
                 .subscribe(onSuccess: { [weak self] result in
+                    removeHandler()
                     guard let `self` = self else { return }
                     self.dataSource = self.dataSource.filter { $0.feed.pid != viewModel.feed.pid }
+                    self.deleteRow(at: indexPath)
+                    HapticFeedback.Impact.success()
                 }) { error in
-                    
+                    removeHandler()
                 }
                 .disposed(by: self.bag)
         case .report:
@@ -439,6 +419,45 @@ extension Feed.ListViewController {
         default:
             ()
         }
+    }
+    
+    func deleteRow(at indexPath: IndexPath) {
+        guard let viewModel = dataSource.safe(indexPath.row) else {
+            return
+        }
+        let nextIndex = IndexPath(row: indexPath.row + 1, section: 0)
+        if nextIndex.row < dataSource.count - 1 {
+            scrollDisposeBag?.dispose()
+            scrollDisposeBag = self.rx.methodInvoked(#selector(self.scrollViewDidEndScrollingAnimation(_:)))
+                .subscribe(onNext: { [weak self] _ in
+                    guard let `self` = self else { return }
+                    let nextCell = self.tableView.cellForRow(at: nextIndex) as? FeedListCell
+                    nextCell?.play()
+                    var dataSource = self.dataSource
+                    dataSource.remove(at: indexPath.row)
+                    self.dataSource = dataSource
+                    self.tableView.beginUpdates()
+                    self.tableView.deleteRows(at: [indexPath], with: .top)
+                    self.tableView.endUpdates()
+                    UIView.performWithoutAnimation {
+                        self.tableView.layoutIfNeeded()
+                    }
+                    self.scrollDisposeBag?.dispose()
+                })
+            scrollDisposeBag?.disposed(by: self.bag)
+            tableView.scrollToRow(at: nextIndex, at: .top, animated: true)
+        } else {
+            dataSource = self.dataSource.filter { $0.feed.pid != viewModel.feed.pid }
+            tableView.reloadData()
+            if dataSource.isEmpty {
+                if listStyle == .profile {
+                    navigationController?.popViewController()
+                } else {
+                    loadData()
+                }
+            }
+        }
+
     }
     
     func setAudioMode() {
