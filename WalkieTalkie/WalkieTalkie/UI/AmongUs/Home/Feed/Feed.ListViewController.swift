@@ -240,23 +240,31 @@ extension Feed.ListViewController: UIScrollViewDelegate {
 
 extension Feed.ListViewController {
     func updateEmoteState(with pid: String, emoteId: String, isSelect: Bool, index: Int)  {
+        
+        updateCellEmote(with: emoteId, isSelect: isSelect, index: index)
+
         let resultSingle: Single<Bool>
         if isSelect {
             resultSingle = Request.feedSelectEmote(pid, emoteId: emoteId)
         } else {
             resultSingle = Request.feedUnselectEmote(pid, emoteId: emoteId)
         }
+
         resultSingle
-            .subscribe(onSuccess: { [weak self] result in
-                guard let `self` = self, let viewModel = self.dataSource.safe(index) else { return }
-                viewModel.updateEmoteState(emoteId: emoteId, isSelect: isSelect)
-                let cell = self.tableView.cellForRow(at: IndexPath(row: index, section: 0)) as? FeedListCell
-                cell?.update(emotes: viewModel.emotes)
-                if isSelect {
-                    cell?.show(emote: viewModel.emotes.first(where: { $0.id == emoteId }))
-                }
-            })
+            .subscribe()
             .disposed(by: bag)
+    }
+    
+    func updateCellEmote(with emoteId: String, isSelect: Bool, index: Int) {
+        guard let viewModel = self.dataSource.safe(index) else {
+            return
+        }
+        viewModel.updateEmoteState(emoteId: emoteId, isSelect: isSelect)
+        let cell = self.tableView.cellForRow(at: IndexPath(row: index, section: 0)) as? FeedListCell
+        cell?.update(emotes: viewModel.emotes)
+        if isSelect {
+            cell?.show(emote: viewModel.emotes.first(where: { $0.id == emoteId }))
+        }
     }
     
     func share(feed: Entity.Feed) {
