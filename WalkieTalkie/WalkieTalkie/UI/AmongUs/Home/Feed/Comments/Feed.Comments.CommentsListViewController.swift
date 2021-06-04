@@ -36,6 +36,13 @@ extension Feed.Comments {
             return v
         }()
         
+        private lazy var muskView: UIView = {
+            let v = UIView()
+            v.backgroundColor = UIColor(hex6: 0x000000, alpha: 0.5)
+            v.isHidden = true
+            return v
+        }()
+        
         private lazy var titleLabel: UILabel = {
             let lb = UILabel()
             lb.font = R.font.nunitoExtraBold(size: 16)
@@ -215,7 +222,7 @@ extension Feed.Comments.CommentsListViewController {
         
         view.backgroundColor = .clear
         
-        view.addSubviews(views: dismissView, container)
+        view.addSubviews(views: dismissView, container, muskView)
         
         dismissView.snp.makeConstraints { (maker) in
             maker.leading.top.trailing.equalToSuperview()
@@ -250,6 +257,11 @@ extension Feed.Comments.CommentsListViewController {
             maker.leading.trailing.equalToSuperview()
             maker.bottom.equalToSuperview().offset(0)
             maker.top.greaterThanOrEqualTo(topBar.snp.bottom)
+        }
+        
+        muskView.snp.makeConstraints { (maker) in
+            maker.leading.top.trailing.equalToSuperview()
+            maker.bottom.equalTo(bottomBar.snp.top)
         }
         
         if let positioning = positionBlock {
@@ -301,6 +313,7 @@ extension Feed.Comments.CommentsListViewController {
                 guard let `self` = self else { return }
                 
                 self.dismissView.isUserInteractionEnabled = keyboardVisibleHeight <= 0
+                self.muskView.isHidden = keyboardVisibleHeight <= 0
                 
                 guard keyboardVisibleHeight > 0 else {
                     self.bottomBar.snp.updateConstraints { (maker) in
