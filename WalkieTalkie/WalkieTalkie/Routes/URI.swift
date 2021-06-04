@@ -213,7 +213,7 @@ extension URI {
         
         init?(_ paras: [String : Any]) {
             
-            guard let uid = paras["uid"] as? String else { return nil }
+            guard let uid = paras["uid"] as? String, uid.isDigits else { return nil }
             
             self.uid = uid
         }
