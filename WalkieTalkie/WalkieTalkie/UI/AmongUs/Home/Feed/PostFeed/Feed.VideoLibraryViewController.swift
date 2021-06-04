@@ -77,7 +77,6 @@ extension Feed {
             v.delegate = self
             v.backgroundColor = .clear
             v.alwaysBounceVertical = true
-            v.contentInset = UIEdgeInsets(top: 13, left: 0, bottom: 0, right: 0)
             return v
         }()
         
@@ -223,6 +222,10 @@ extension Feed.VideoLibraryViewController: FeedVideoSelective {
     
     var hasSelected: Observable<Void> {
         return videoCollectionView.rx.itemSelected.map({ _ in }).asObservable()
+    }
+    
+    var scrollView: UIScrollView {
+        return videoCollectionView
     }
     
     func clearSelection() {

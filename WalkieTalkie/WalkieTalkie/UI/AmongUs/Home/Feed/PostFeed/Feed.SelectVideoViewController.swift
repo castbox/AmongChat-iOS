@@ -12,6 +12,7 @@ import RxCocoa
 
 protocol FeedVideoSelective: UIViewController {
     var hasSelected: Observable<Void> { get }
+    var scrollView: UIScrollView { get }
     func clearSelection()
     func getVideo() -> Observable<URL>
 }
@@ -146,7 +147,8 @@ extension Feed.SelectVideoViewController {
                 
             }
             vc.didMove(toParent: self)
-            
+            vc.scrollView.contentInset = UIEdgeInsets(top: 13, left: 0, bottom: 134, right: 0)
+
         }
         
         scrollView.layoutIfNeeded()
