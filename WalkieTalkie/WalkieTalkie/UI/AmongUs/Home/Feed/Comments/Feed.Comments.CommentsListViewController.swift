@@ -342,15 +342,20 @@ extension Feed.Comments.CommentsListViewController {
             action = commentListVM.addComment(text: commentInputView.inputTextView.text)
         }
         
-        action.subscribe(onSuccess: { [weak self] (_) in
-            self?.replyComment = nil
-            self?.replyReply = nil
-            self?.commentInputView.inputTextView.text = ""
-            self?.commentInputView.placeholderLabel.text = R.string.localizable.feedCommentsPlaceholder()
-        }, onError: { [weak self] (error) in
-            self?.view.raft.autoShow(.text(error.msgOfError ?? ""))
-        })
-        .disposed(by: bag)
+        let hudRemoval = view.raft.show(.loading)
+        action
+            .do(onDispose: {
+                hudRemoval()
+            })
+            .subscribe(onSuccess: { [weak self] (_) in
+                self?.replyComment = nil
+                self?.replyReply = nil
+                self?.commentInputView.inputTextView.text = ""
+                self?.commentInputView.placeholderLabel.text = R.string.localizable.feedCommentsPlaceholder()
+            }, onError: { [weak self] (error) in
+                self?.view.raft.autoShow(.text(error.msgOfError ?? ""))
+            })
+            .disposed(by: bag)
         
     }
     
