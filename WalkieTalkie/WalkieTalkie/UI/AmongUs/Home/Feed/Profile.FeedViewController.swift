@@ -17,6 +17,10 @@ private let bottomBarMinHeight = 57 + Frame.Height.safeAeraBottomHeight
 extension Social {
     
     class ProfileFeedController: Feed.ListViewController {
+        enum Style {
+            case single //单 feed
+            case `default`
+        }
         
         private lazy var navView: NavigationBar = {
             let n = NavigationBar()
@@ -47,14 +51,25 @@ extension Social {
         private var hasMore: Bool = true
         
         private let uid: Int
-        
         private let defaultIndex: Int
+        private let feedRedirectInfo: Entity.FeedRedirectInfo?
+        
+        private var style: Style {
+            feedRedirectInfo == nil ? .default : .single
+        }
         
         init(with uid: Int, index: Int = 0) {
             self.uid = uid
             self.defaultIndex = index
+            self.feedRedirectInfo = nil
             super.init(nibName: nil, bundle: nil)
-            
+        }
+        
+        init(with uid: Int, feedRedirectInfo: Entity.FeedRedirectInfo) {
+            self.uid = uid
+            self.defaultIndex = 0
+            self.feedRedirectInfo = feedRedirectInfo
+            super.init(nibName: nil, bundle: nil)
         }
         
         required init?(coder aDecoder: NSCoder) {
@@ -67,27 +82,35 @@ extension Social {
         }
         
         override func loadData() {
-            let removeBlock = view.raft.show(.loading, hideAnimated: false)
-            Request.userFeeds(uid, skipMs: 0) //Settings.loginUserId
-                .subscribe(onSuccess: { [weak self] data in
-                    guard let `self` = self else { return }
-                    removeBlock()
-                    self.tableView.alpha = 0
-                    self.dataSource = data.list.map { Feed.ListCellViewModel(feed: $0) }
-                    self.tableView.reloadData()
-                    self.autoScrollToDefaultIndex()
-                }, onError: { [weak self] _ in
-                    removeBlock()
-                    self?.addErrorView({ [weak self] in
-                        self?.loadData()
-                    })
-                }).disposed(by: bag)
+            if let feed = feedRedirectInfo?.post {
+                tableView.alpha = 0
+                dataSource = [feed].map { Feed.ListCellViewModel(feed: $0) }
+                tableView.reloadData()
+                autoScrollToDefaultIndex()
+            } else {
+                let removeBlock = view.raft.show(.loading, hideAnimated: false)
+                Request.userFeeds(uid, skipMs: 0) //Settings.loginUserId
+                    .subscribe(onSuccess: { [weak self] data in
+                        guard let `self` = self else { return }
+                        removeBlock()
+                        self.tableView.alpha = 0
+                        self.dataSource = data.list.map { Feed.ListCellViewModel(feed: $0) }
+                        self.tableView.reloadData()
+                        self.autoScrollToDefaultIndex()
+                    }, onError: { [weak self] _ in
+                        removeBlock()
+                        self?.addErrorView({ [weak self] in
+                            self?.loadData()
+                        })
+                    }).disposed(by: bag)
+            }
         }
         
         override func loadMore() {
 //            let removeBlock = view.raft.show(.loading)
             //exclutepids
-            guard hasMore else {
+            guard style == .default,
+                  hasMore else {
                 return
             }
             isLoadingMore = true
@@ -187,6 +210,12 @@ extension Social {
                 })
                 .disposed(by: bag)
             
+            //show comment
+            if let feed = feedRedirectInfo?.post,
+               let commentInfo = feedRedirectInfo?.commentsInfo {
+                //show comment
+                self.showCommentList(with: feed.pid, commentsInfo: commentInfo)
+            }
         }
         
         override func configureSubview() {

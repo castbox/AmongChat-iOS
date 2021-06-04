@@ -286,7 +286,14 @@ extension Feed.ListViewController {
         }
     }
     
-    
+    func showCommentList(with feedId: String, commentsInfo: Entity.FeedRedirectInfo.CommentsInfo? = nil) {
+        shouldAutoPauseWhenDismiss = false
+        let commentList = Feed.Comments.CommentsListViewController(with: feedId, commentsInfo: commentsInfo)
+        let nav = NavigationViewController(rootViewController: commentList)
+        nav.modalPresentationStyle = .overCurrentContext
+        UIApplication.tabBarController?.present(nav, animated: true)
+    }
+
     func onCell(action: FeedListCell.Action, viewModel: Feed.ListCellViewModel?) {
         guard let viewModel = viewModel, let index = dataSource.firstIndex(where: { $0.isEqual(viewModel) }) else {
             return
@@ -327,12 +334,7 @@ extension Feed.ListViewController {
             
         case .comment:
             Logger.Action.log(.feeds_item_clk, category: .comments, viewModel.feed.pid)
-            
-            shouldAutoPauseWhenDismiss = false
-            let commentList = Feed.Comments.CommentsListViewController(with: viewModel.feed.pid)
-            let nav = NavigationViewController(rootViewController: commentList)
-            nav.modalPresentationStyle = .overCurrentContext
-            UIApplication.tabBarController?.present(nav, animated: true)
+            self.showCommentList(with: viewModel.feed.pid, commentsInfo: nil)
         case .share:
             share(feed: viewModel.feed)
             
@@ -348,7 +350,7 @@ extension Feed.ListViewController {
             }
         }
     }
-    
+        
     func onSheet(action: AmongSheetController.ItemType, indexPath: IndexPath) {
         guard let viewModel = dataSource.safe(indexPath.row) else {
             return

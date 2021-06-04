@@ -134,10 +134,15 @@ extension Conversation {
         }
         
         private func loadData() {
-//            let removeBlock = view.raft.show(.loading)
+            let removeBlock: CallBack?
+            if tableView.mj_header?.isRefreshing == false {
+                removeBlock = view.raft.show(.loading)
+            } else {
+                removeBlock = nil
+            }
             Request.interactiveMsgs(opType, skipMs: 0)
                 .subscribe(onSuccess: { [weak self](data) in
-//                    removeBlock()
+                    removeBlock?()
                     guard let `self` = self else { return }
                     self.dataSource = data.list.map { InteractiveMessageCellViewModel(msg: $0, updateTime: self.updateTime) }
                     if self.dataSource.isEmpty {
@@ -147,7 +152,7 @@ extension Conversation {
                     }
                     self.tableView.endLoadMore(data.more)
                 }, onError: { [weak self](error) in
-//                    removeBlock()
+                    removeBlock?()
                     self?.addErrorView({ [weak self] in
                         self?.loadData()
                     })
@@ -212,18 +217,15 @@ extension Conversation.InteractiveMessageController: UITableViewDataSource, UITa
             Logger.Action.log(.dm_interactive_item_clk, category: .all)
         }
         
+        let removeHandler = view.raft.show(.loading)
         Request.redirectToFeed(directMessage: viewModel.msg)
-            .subscribe(onSuccess: { (redirectInfo) in
-                cdPrint("")
-                if let commentsInfo = redirectInfo.commentsInfo {
-                    //跳转到feed并打开comments
-                } else {
-                    let post = redirectInfo.post
-                    //跳转到feed
-                }
-                
+            .subscribe(onSuccess: { [weak self] (redirectInfo) in
+                removeHandler()
+                let vc = Social.ProfileFeedController(with: viewModel.msg.uid, feedRedirectInfo: redirectInfo)
+                self?.navigationController?.pushViewController(vc)
             }, onError: { (error) in
-                cdPrint("")
+                removeHandler()
+                cdPrint("error: \(error)")
             })
             .disposed(by: bag)
     }
