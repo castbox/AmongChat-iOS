@@ -54,6 +54,8 @@ class PlayerView: UIView {
     
     var playingProgressHandler: ((Float) -> Void)?
     var loadHandler: CallBack?
+    var config: SZAVPlayerConfig?
+    var retryTime: UInt = 0
     
     // MARK: - Initializers
     override init(frame: CGRect) {
@@ -67,19 +69,15 @@ class PlayerView: UIView {
     }
     
     deinit {
-//        removeObserver()
+
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
         backgroundColor = .clear
-//        avPlayerLayer.frame = self.layer.bounds
     }
     
     func configureSubview() {
-//        avPlayerLayer = AVPlayerLayer(player: queuePlayer)
-//        avPlayerLayer.videoGravity = .resizeAspectFill
-//        layer.addSublayer(self.avPlayerLayer)
         addSubview(videoPlayer)
         videoPlayer.snp.makeConstraints { maker in
             maker.edges.equalToSuperview()
@@ -87,74 +85,33 @@ class PlayerView: UIView {
     }
     
     func configure(url: URL?, size: (Int, Int), loadHandler: CallBack?) {
-        // If Height is larger than width, change the aspect ratio of the video
-//        avPlayerLayer.videoGravity = (size.0 < size.1) ? .resizeAspectFill : .resizeAspect
+        
         guard let url = url else {
             return
         }
         SZAVPlayerCache.shared.setup(maxCacheSize: 50)
+        
         videoPlayer.reset(cleanAsset: true)
+        
         cdPrint("configure url: \(url)")
-//        cancelAllLoadingRequest()
+        
+        retryTime = 0
         
         var config = SZAVPlayerConfig(urlStr: url.absoluteString, uniqueID: nil, isVideo: true, isVideoOutputEnabled: false)
         config.timeObserverInterval = 0.05
         config.videoGravity = (size.0 < size.1) ? .resizeAspectFill : .resizeAspect
         videoPlayer.setupPlayer(config: config)
+        self.config = config
         
-//        self.originalURL = url
+        self.originalURL = url
         self.loadHandler = loadHandler
-//
-//        resourceLoaderManager = VIResourceLoaderManager()
-//        playerItem = resourceLoaderManager?.playerItem(with: url)
-//        addObserverToPlayerItem()
-//        //
-//        if VICacheManager.cacheConfiguration(for: url).progress >= 1.0 {
-//            callLoadedHandler()
-//        }
-        
-//        if let queuePlayer = self.queuePlayer {
-//            queuePlayer.replaceCurrentItem(with: playerItem)
-//        } else {
-//            queuePlayer = AVQueuePlayer(playerItem: playerItem)
-//            queuePlayer?.automaticallyWaitsToMinimizeStalling = false
-//        }
-//
-//        playerLooper = AVPlayerLooper(player: queuePlayer!, templateItem: queuePlayer!.currentItem!)
-//
-//        avPlayerLayer.player = queuePlayer
-//
-//        let interval = CMTime(seconds: 0.05, preferredTimescale: CMTimeScale(NSEC_PER_SEC))
-//        timeObserver = queuePlayer?.addPeriodicTimeObserver(forInterval: interval, queue: DispatchQueue(label: "chat.among.player.queue"), using: { [weak self] time in
-//            mainQueueDispatchAsync {
-//                guard let `self` = self, let item = self.playerItem else {
-//                    return
-//                }
-//                self.callLoadedHandler()
-//                self.duration = String(format: "%.f", CMTimeGetSeconds(item.duration)).float() ?? 0
-//                let currentTime = time.value.cgFloat / CGFloat(time.timescale)
-//                if !currentTime.isNaN {
-//                    self.currentTime = currentTime.float
-//                } else {
-//                    self.currentTime = 0
-//                }
-//                let progress = self.currentTime / self.duration
-////                cdPrint("currentTime: \(self.currentTime) \(time) duration: \(self.duration) progress: \(progress)")
-//                self.playingProgressHandler?(progress)
-//            }
-//        })
-        
     }
     
     func set(progress: CGFloat) {
-        guard let item = queuePlayer?.currentItem?.asset, progress >= 0 else {
-            return
-        }
-        let duration = item.duration
-//        let seekTo = CMTime(value: CMTimeValue((duration.value.cgFloat * progress)), timescale: duration.timescale)
-//        queuePlayer?.seek(to: seekTo, completionHandler: { [weak self] result in
-
-//        })
+//        guard let item = queuePlayer?.currentItem?.asset, progress >= 0 else {
+//            return
+//        }
+//        let duration = item.duration
         videoPlayer.seekPlayerToTime(time: Float64(progress)) { result in
             
         }
@@ -169,15 +126,13 @@ class PlayerView: UIView {
     }
     
     func play() {
-//        self.queuePlayer?.play()
-        videoPlayer.play()
         playerControllerEvent = .playing
+        videoPlayer.play()
     }
     
     func pause(){
-//        self.queuePlayer?.pause()
-        videoPlayer.pause()
         playerControllerEvent = .paused
+        videoPlayer.pause()
     }
     
     func callLoadedHandler() {
@@ -204,7 +159,6 @@ extension PlayerView: SZAVPlayerDelegate {
             cdPrint("ready to play: \(String(describing: avplayer.currentURLStr))")
             callLoadedHandler()
             if playerControllerEvent == .playing {
-//                videoPlayer.enableVideoOutput()
                 videoPlayer.play()
             }
         case .playEnd:
@@ -214,7 +168,20 @@ extension PlayerView: SZAVPlayerDelegate {
         case .loading:
             cdPrint("loading: \(String(describing: avplayer.currentURLStr))")
         case .loadingFailed:
+            guard retryTime < 3, let config = self.config else {
+                callLoadedHandler()
+                return
+            }
             cdPrint("loading failed: \(String(describing: avplayer.currentURLStr))")
+            mainQueueDispatchAsync(after: 1 + Double(retryTime)) { [weak self] in
+                guard let `self` = self,
+                      config.urlStr == self.config?.urlStr else {
+                    return
+                }
+                self.retryTime += 1
+                self.videoPlayer.reset(cleanAsset: true)
+                self.videoPlayer.setupPlayer(config: config)
+            }
         case .bufferBegin:
             cdPrint("buffer begin: \(String(describing: avplayer.currentURLStr))")
         case .bufferEnd:
@@ -234,8 +201,7 @@ extension PlayerView: SZAVPlayerDelegate {
     }
 
     func avplayer(_ avplayer: SZAVPlayer, didOutput videoImage: CGImage) {
-//        videoOutputView1.layer.contents = videoImage
-//        videoOutputView2.layer.contents = videoImage
+
     }
 
 }
