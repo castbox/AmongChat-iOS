@@ -13,7 +13,7 @@ import RxCocoa
 extension Feed {
     
     class EmotePickerViewModel {
-        var SHEER_ITEM_HEIGHT: CGFloat = 64
+        var SHEER_ITEM_HEIGHT: CGFloat = 72
         var SHEET_ITEM_SPACE: CGFloat = 0
         
         var sheetHeight: CGFloat {

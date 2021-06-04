@@ -17,10 +17,10 @@ extension Feed {
     
     class EmotePickerController: WalkieTalkie.ViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
         
-        var collectionView: UICollectionView!
-        var pageControl: UIPageControl!
+        private var collectionView: UICollectionView!
+        private var pageControl: UIPageControl!
         
-        let viewModel: EmotePickerViewModel
+        private let viewModel: EmotePickerViewModel
         
         var didSelectItemHandler: (FeedEmotes) -> Void = { _  in }
         
@@ -204,7 +204,7 @@ extension Feed {
                 for j in 0 ..< itemCount {
                     
                     let indexPath = IndexPath(item: j, section: i)
-                    let itemSize = CGSize(width: (UIScreen.main.bounds.size.width - sectionInset.left * 2) / (Frame.isPad ? 10 : 5), height: 64)
+                    let itemSize = CGSize(width: (UIScreen.main.bounds.size.width - sectionInset.left * 2) / (Frame.isPad ? 10 : 5), height: 72)
                     //判断列/
                     let columenIndex = j % columnCount
                     let xOffset = CGFloat(i) * viewWidth + sectionInset.left + CGFloat(columenIndex) * (itemSize.width + minLineSpace)
