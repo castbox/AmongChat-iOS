@@ -158,15 +158,21 @@ extension Feed.Comments {
         private var positionBlock: (() -> Void)? = nil
         
         init(with feedId: String, commentsInfo: Entity.FeedRedirectInfo.CommentsInfo? = nil) {
-            self.commentListVM = CommentListViewModel(with: feedId)
+            self.commentListVM = CommentListViewModel(with: feedId, commentsInfo: commentsInfo)
             super.init(nibName: nil, bundle: nil)
             if let commentsInfo = commentsInfo {
                 positionBlock = { [weak self] in
-                    let commentIdx = commentsInfo.index
-                    let replyIdx = commentsInfo.indexReply
-                    let positioningIndexPath = IndexPath(item: replyIdx ?? 0, section: commentIdx ?? 0)
-                    self?.commentListView.selectItem(at: positioningIndexPath, animated: true, scrollPosition: .top)
-                    self?.commentListView.deselectItem(at: positioningIndexPath, animated: true)
+                    let commentIdx: Int = commentsInfo.index ?? 0
+                    let replyIdx: Int = (commentsInfo.indexReply ?? -1) + 1
+                    let positioningIndexPath = IndexPath(item: replyIdx, section: commentIdx)
+                    self?.commentListView.scrollToItem(at: positioningIndexPath, at: .top, animated: true)
+                    let cell = self?.commentListView.cellForItem(at: positioningIndexPath)
+                    UIView.animate(withDuration: 0.2, delay: 0, options: .transitionCurlUp, animations: {
+                        cell?.transform = CGAffineTransform(scaleX: 1.05, y: 1.05)
+                    }, completion: { (_) in
+                        cell?.transform = .identity
+                    })
+
                 }
             }
         }
@@ -247,9 +253,10 @@ extension Feed.Comments.CommentsListViewController {
         
         if let positioning = positionBlock {
             
-            commentListView.rx.observe(CGSize.self, "contentSize")
-                .filterNil()
-                .filter({ $0 != .zero })
+            Observable.combineLatest(rx.viewDidAppear,
+                                     commentListView.rx.observe(CGSize.self, "contentSize")
+                                        .filterNil()
+                                        .filter({ $0 != .zero }))
                 .take(1)
                 .subscribe(onNext: { (_) in
                     positioning()
