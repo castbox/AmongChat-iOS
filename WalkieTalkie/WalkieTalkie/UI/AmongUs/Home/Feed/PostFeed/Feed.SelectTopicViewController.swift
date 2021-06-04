@@ -97,7 +97,7 @@ extension Feed {
         
         private lazy var bottomGradientView: FansGroup.Views.BottomGradientButton = {
             let v = FansGroup.Views.BottomGradientButton()
-            v.button.setTitle(R.string.localizable.feedPostTitle(), for: .normal)
+            v.button.setTitle(R.string.localizable.amongChatCreateRoomCreate(), for: .normal)
             v.button.rx.controlEvent(.primaryActionTriggered)
                 .subscribe(onNext: { [weak self] (_) in
                     self?.post()
