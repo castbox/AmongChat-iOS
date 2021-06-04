@@ -17,6 +17,10 @@ extension Feed.Comments {
         
         private lazy var container: UIView = {
             let v = UIView()
+            v.layer.shadowOpacity = 1
+            v.layer.shadowRadius = 20
+            v.layer.shadowOffset = CGSize(width: 0, height: 6)
+            v.layer.shadowColor = UIColor(hex6: 0x000000, alpha: 0.16).cgColor
             return v
         }()
         
@@ -81,7 +85,7 @@ extension Feed.Comments {
         private lazy var commentListView: UICollectionView = {
             let layout = UICollectionViewFlowLayout()
             layout.scrollDirection = .vertical
-            layout.minimumLineSpacing = 12
+            layout.minimumLineSpacing = 16
             let v = UICollectionView(frame: .zero, collectionViewLayout: layout)
             v.register(cellWithClazz: CommentCell.self)
             v.register(cellWithClazz: ReplyCell.self)
@@ -179,7 +183,7 @@ extension Feed.Comments {
         
         override func viewDidLayoutSubviews() {
             super.viewDidLayoutSubviews()
-            container.addCorner(with: 20)
+            topBar.addCorner(with: 20)
         }
         
     }
@@ -220,7 +224,7 @@ extension Feed.Comments.CommentsListViewController {
         
         commentListView.snp.makeConstraints { (maker) in
             maker.leading.trailing.bottom.equalToSuperview()
-            maker.top.equalTo(topBar.snp.bottom)
+            maker.top.equalTo(topBar.snp.bottom).offset(-0.5)
         }
         
         commentListView.pullToLoadMore { [weak self] in
