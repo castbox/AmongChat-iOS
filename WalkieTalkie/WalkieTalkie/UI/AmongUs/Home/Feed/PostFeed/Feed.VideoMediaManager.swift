@@ -74,6 +74,8 @@ extension Feed.VideoMediaManager {
     /// - Tag: UpdateAssets
     func updateCachedAssets(in videoCollectionView: UICollectionView, cellSize: CGSize) {
         
+        guard fetchResult.count > 0 else { return }
+        
         thumbnailSize = {
             let scale = UIScreen.main.scale
             return CGSize(width: cellSize.width * scale, height: cellSize.height * scale)
