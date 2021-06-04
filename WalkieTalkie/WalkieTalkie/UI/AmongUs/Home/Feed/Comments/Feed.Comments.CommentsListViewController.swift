@@ -81,7 +81,7 @@ extension Feed.Comments {
         private lazy var commentListView: UICollectionView = {
             let layout = UICollectionViewFlowLayout()
             layout.scrollDirection = .vertical
-            layout.minimumLineSpacing = 12
+            layout.minimumLineSpacing = 16
             let v = UICollectionView(frame: .zero, collectionViewLayout: layout)
             v.register(cellWithClazz: CommentCell.self)
             v.register(cellWithClazz: ReplyCell.self)
