@@ -53,6 +53,7 @@ extension Social.ProfileFeedsViewController {
             
             icon.snp.makeConstraints { (maker) in
                 maker.top.centerX.equalTo(guide)
+                maker.width.height.equalTo(24)
             }
             
             label.snp.makeConstraints { (maker) in
