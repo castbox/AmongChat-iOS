@@ -220,6 +220,20 @@ extension URI {
         
     }
     
+    struct DMInteractiveMessage: URIRepresentable {
+        
+        static func patterns() -> [String] {
+            return [
+                "/message/interactive",
+            ]
+        }
+        
+        init?(_ paras: [String : Any]) {
+            
+        }
+        
+    }
+    
     struct AllNotice: URIRepresentable {
         static func patterns() -> [String] {
             return [

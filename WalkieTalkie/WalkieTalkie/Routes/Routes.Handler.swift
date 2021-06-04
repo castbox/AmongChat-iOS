@@ -62,6 +62,8 @@ extension Routes {
                         self.handleDmMessage(message.uid)
                     case let profileFeed as URI.ProfileFeeds:
                         self.handleProfileFeeds(profileFeed)
+                    case _ as URI.DMInteractiveMessage:
+                        self.handleInteractiveMessage()
                     default:
                         cdAssertFailure("should never enter here")
                     }
@@ -221,6 +223,11 @@ extension Routes {
                 }) { Error in
                     loadingHandler?()
                 }
+        }
+        
+        func handleInteractiveMessage() {
+            let vc = Conversation.InteractiveMessageController()
+            UIApplication.topViewController()?.navigationController?.pushViewController(vc)
         }
         
         func showWebViewController(urlString: String) {

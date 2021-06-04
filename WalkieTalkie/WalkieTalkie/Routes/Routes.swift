@@ -36,6 +36,7 @@ final class Routes {
             URI.AllNotice.self,
             URI.DMMessage.self,
             URI.ProfileFeeds.self,
+            URI.DMInteractiveMessage.self
             ]
         
         types.forEach { (type) in
