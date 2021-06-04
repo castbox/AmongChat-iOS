@@ -42,6 +42,7 @@ extension Social {
             return v
         }()
         
+        private var bottomContainer: UIView!
         private var bottomBar: UIView!
         
         private var playCountView: UIView!
@@ -54,6 +55,7 @@ extension Social {
         private let defaultIndex: Int
         private let feedRedirectInfo: Entity.FeedRedirectInfo?
         
+        
         private var style: Style {
             feedRedirectInfo == nil ? .default : .single
         }
@@ -63,6 +65,7 @@ extension Social {
             self.defaultIndex = index
             self.feedRedirectInfo = nil
             super.init(nibName: nil, bundle: nil)
+            self.listStyle = .profile
         }
         
         init(with uid: Int, feedRedirectInfo: Entity.FeedRedirectInfo) {
@@ -70,6 +73,7 @@ extension Social {
             self.defaultIndex = 0
             self.feedRedirectInfo = feedRedirectInfo
             super.init(nibName: nil, bundle: nil)
+            self.listStyle = .profile
         }
         
         required init?(coder aDecoder: NSCoder) {
@@ -195,6 +199,9 @@ extension Social {
                     self.bottomBar.snp.updateConstraints { (maker) in
                         maker.bottom.equalToSuperview().offset(-keyboardVisibleHeight)
                     }
+                    self.bottomContainer.snp.updateConstraints { maker in
+                        maker.bottom.equalTo(keyboardVisibleHeight > 0 ? 0 : -Frame.Height.safeAeraBottomHeight)
+                    }
                     UIView.animate(withDuration: 0) {
                         self.view.layoutIfNeeded()
                     }
@@ -221,6 +228,9 @@ extension Social {
         override func configureSubview() {
             super.configureSubview()
             
+            
+            bottomContainer = UIView()
+            bottomContainer.backgroundColor = .clear
             
             bottomBar = UIView()
             bottomBar.backgroundColor = UIColor(hex6: 0x1C1C1C)
@@ -254,19 +264,24 @@ extension Social {
             avatarView.isHidden = !playCountView.isHidden
             commentInputView.isHidden = !playCountView.isHidden
             
-            bottomBar.addSubviews(views: avatarView, commentInputView, playCountView)
+            bottomBar.addSubviews(views: bottomContainer)
+            bottomContainer.snp.makeConstraints { maker in
+                maker.top.leading.trailing.equalToSuperview()
+                maker.bottom.equalTo(-Frame.Height.safeAeraBottomHeight)
+            }
             
+            bottomContainer.addSubviews(views: avatarView, commentInputView, playCountView)
             
             avatarView.snp.makeConstraints { (maker) in
                 maker.width.height.equalTo(40)
                 maker.leading.equalToSuperview().offset(Frame.horizontalBleedWidth)
-                maker.top.equalToSuperview().offset(8.5)
+                maker.bottom.equalToSuperview().offset(-8.5)
             }
             
             commentInputView.snp.makeConstraints { (maker) in
                 maker.leading.equalTo(avatarView.snp.trailing).offset(16)
                 maker.trailing.equalToSuperview().offset(-Frame.horizontalBleedWidth)
-                maker.top.bottom.equalToSuperview().offset(8.5)
+                maker.top.equalToSuperview().offset(8.5)
                 maker.bottom.equalToSuperview().offset(-8.5)
             }
             
@@ -291,7 +306,7 @@ extension Social {
             bottomBar.snp.makeConstraints { (maker) in
                 maker.leading.trailing.equalToSuperview()
                 maker.bottom.equalToSuperview()
-                maker.height.greaterThanOrEqualTo(bottomBarMinHeight)
+//                maker.height.greaterThanOrEqualTo(bottomBarMinHeight)
                 maker.top.greaterThanOrEqualTo(navView.snp.bottom)
             }
         }
@@ -317,9 +332,9 @@ extension Social.ProfileFeedController {
                 viewModel.increasementCommentCount()
                 cell.updateCommentCount()
                 
-                self?.view.raft.autoShow(.text(R.string.localizable.feedCommentsCommentSuccess()))
+                self?.view.raft.autoShow(.text(R.string.localizable.feedCommentsCommentSuccess()), userInteractionEnabled: false)
             }, onError: { [weak self] (error) in
-                self?.view.raft.autoShow(.text(error.msgOfError ?? ""))
+                self?.view.raft.autoShow(.text(error.msgOfError ?? ""), userInteractionEnabled: false)
             })
             .disposed(by: bag)
         

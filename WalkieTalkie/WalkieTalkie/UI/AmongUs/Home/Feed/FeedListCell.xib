@@ -48,50 +48,61 @@
                                     <outlet property="delegate" destination="KGk-i7-Jjw" id="oTU-eP-DLA"/>
                                 </connections>
                             </collectionView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U62-1J-LHH">
-                                <rect key="frame" x="80" y="0.0" width="220" height="25"/>
-                                <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito" pointSize="18"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YoT-EB-VOj">
-                                <rect key="frame" x="100" y="26" width="200" height="22"/>
-                                <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito" pointSize="16"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2Z7-Lj-Kc6" customClass="AvatarImageView" customModule="WalkieTalkie" customModuleProvider="target">
-                                <rect key="frame" x="20" y="0.0" width="48" height="48"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hxF-Cs-EMb">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="48"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U62-1J-LHH">
+                                        <rect key="frame" x="80" y="0.0" width="220" height="25"/>
+                                        <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito" pointSize="18"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YoT-EB-VOj">
+                                        <rect key="frame" x="100" y="26" width="200" height="22"/>
+                                        <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito" pointSize="16"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="252" verticalHuggingPriority="251" image="iconFeedTagPrefix" translatesAutoresizingMaskIntoConstraints="NO" id="yvN-Xf-ghr">
+                                        <rect key="frame" x="80" y="29" width="16" height="16"/>
+                                    </imageView>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2Z7-Lj-Kc6" customClass="AvatarImageView" customModule="WalkieTalkie" customModuleProvider="target">
+                                        <rect key="frame" x="20" y="0.0" width="48" height="48"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="48" id="VxY-nP-9JM"/>
+                                            <constraint firstAttribute="width" constant="48" id="l7o-Ml-qEf"/>
+                                        </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="24"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </view>
+                                </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="48" id="VxY-nP-9JM"/>
-                                    <constraint firstAttribute="width" constant="48" id="l7o-Ml-qEf"/>
+                                    <constraint firstItem="yvN-Xf-ghr" firstAttribute="leading" secondItem="U62-1J-LHH" secondAttribute="leading" id="540-Ji-2qL"/>
+                                    <constraint firstItem="YoT-EB-VOj" firstAttribute="leading" secondItem="yvN-Xf-ghr" secondAttribute="trailing" constant="4" id="5XA-Ft-eMh"/>
+                                    <constraint firstItem="YoT-EB-VOj" firstAttribute="trailing" secondItem="U62-1J-LHH" secondAttribute="trailing" id="ICf-OV-KoK"/>
+                                    <constraint firstItem="2Z7-Lj-Kc6" firstAttribute="leading" secondItem="hxF-Cs-EMb" secondAttribute="leading" constant="20" id="JrH-Rq-iBF"/>
+                                    <constraint firstAttribute="trailing" secondItem="U62-1J-LHH" secondAttribute="trailing" constant="20" id="L2Y-98-wdX"/>
+                                    <constraint firstItem="2Z7-Lj-Kc6" firstAttribute="top" secondItem="hxF-Cs-EMb" secondAttribute="top" id="Ovn-2C-Hul"/>
+                                    <constraint firstItem="U62-1J-LHH" firstAttribute="leading" secondItem="2Z7-Lj-Kc6" secondAttribute="trailing" constant="12" id="Wmh-Dp-894"/>
+                                    <constraint firstItem="U62-1J-LHH" firstAttribute="top" secondItem="2Z7-Lj-Kc6" secondAttribute="top" id="aPV-QF-J6P"/>
+                                    <constraint firstAttribute="height" constant="48" id="e83-1u-K28"/>
+                                    <constraint firstItem="YoT-EB-VOj" firstAttribute="bottom" secondItem="2Z7-Lj-Kc6" secondAttribute="bottom" id="ik6-wT-wg0"/>
+                                    <constraint firstItem="yvN-Xf-ghr" firstAttribute="centerY" secondItem="YoT-EB-VOj" secondAttribute="centerY" id="qNl-8S-JeP"/>
                                 </constraints>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                        <real key="value" value="24"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
                             </view>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="252" verticalHuggingPriority="251" image="iconFeedTagPrefix" translatesAutoresizingMaskIntoConstraints="NO" id="yvN-Xf-ghr">
-                                <rect key="frame" x="80" y="29" width="16" height="16"/>
-                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="0Vq-Q9-oJP" firstAttribute="leading" secondItem="VtH-gr-9m2" secondAttribute="leading" id="0Rq-5u-Gc7"/>
-                            <constraint firstItem="U62-1J-LHH" firstAttribute="leading" secondItem="2Z7-Lj-Kc6" secondAttribute="trailing" constant="12" id="6VT-8s-jbn"/>
-                            <constraint firstItem="yvN-Xf-ghr" firstAttribute="centerY" secondItem="YoT-EB-VOj" secondAttribute="centerY" id="70X-a6-T4L"/>
-                            <constraint firstItem="YoT-EB-VOj" firstAttribute="trailing" secondItem="U62-1J-LHH" secondAttribute="trailing" id="Azc-0E-w4R"/>
-                            <constraint firstItem="0Vq-Q9-oJP" firstAttribute="top" secondItem="2Z7-Lj-Kc6" secondAttribute="bottom" constant="20" id="DSi-YO-KiT"/>
                             <constraint firstAttribute="trailing" secondItem="0Vq-Q9-oJP" secondAttribute="trailing" id="JBx-EE-g5g"/>
-                            <constraint firstItem="YoT-EB-VOj" firstAttribute="bottom" secondItem="2Z7-Lj-Kc6" secondAttribute="bottom" id="LjH-7M-BPH"/>
+                            <constraint firstItem="0Vq-Q9-oJP" firstAttribute="top" secondItem="hxF-Cs-EMb" secondAttribute="bottom" constant="20" id="Osy-Yp-edW"/>
+                            <constraint firstItem="hxF-Cs-EMb" firstAttribute="leading" secondItem="VtH-gr-9m2" secondAttribute="leading" id="RJm-Ec-pBb"/>
                             <constraint firstAttribute="bottom" secondItem="0Vq-Q9-oJP" secondAttribute="bottom" constant="24" id="TqT-Y5-rFd"/>
-                            <constraint firstItem="2Z7-Lj-Kc6" firstAttribute="top" secondItem="VtH-gr-9m2" secondAttribute="top" id="aef-ID-e4a"/>
-                            <constraint firstItem="U62-1J-LHH" firstAttribute="top" secondItem="2Z7-Lj-Kc6" secondAttribute="top" id="iR2-XA-aeL"/>
-                            <constraint firstItem="2Z7-Lj-Kc6" firstAttribute="leading" secondItem="VtH-gr-9m2" secondAttribute="leading" constant="20" id="jY6-DJ-hwz"/>
-                            <constraint firstItem="yvN-Xf-ghr" firstAttribute="leading" secondItem="U62-1J-LHH" secondAttribute="leading" id="rzX-zX-Cm9"/>
-                            <constraint firstItem="YoT-EB-VOj" firstAttribute="leading" secondItem="yvN-Xf-ghr" secondAttribute="trailing" constant="4" id="vl6-9x-92R"/>
-                            <constraint firstAttribute="trailing" secondItem="U62-1J-LHH" secondAttribute="trailing" constant="20" id="ykl-mP-gXR"/>
+                            <constraint firstItem="hxF-Cs-EMb" firstAttribute="top" secondItem="VtH-gr-9m2" secondAttribute="top" id="jnL-S0-ghG"/>
+                            <constraint firstAttribute="trailing" secondItem="hxF-Cs-EMb" secondAttribute="trailing" id="k8a-LJ-emr"/>
                         </constraints>
                     </view>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oM0-lk-uGK" customClass="BottomTitleButton" customModule="WalkieTalkie" customModuleProvider="target">
@@ -180,6 +191,7 @@
             <connections>
                 <outlet property="activityView" destination="Ztd-Vz-93s" id="A30-Yz-3at"/>
                 <outlet property="avatarView" destination="2Z7-Lj-Kc6" id="0fY-En-0DC"/>
+                <outlet property="bottomBar" destination="VtH-gr-9m2" id="JoT-Nn-XuQ"/>
                 <outlet property="collectionView" destination="0Vq-Q9-oJP" id="TkJ-Ho-2ak"/>
                 <outlet property="commentButton" destination="uQ0-uo-4L1" id="oOp-Yt-ccg"/>
                 <outlet property="moreButton" destination="6oi-es-PqU" id="bXl-Xe-02B"/>
@@ -190,7 +202,7 @@
                 <outlet property="shareButton" destination="oM0-lk-uGK" id="CcY-BA-Iw1"/>
                 <outlet property="sliderBar" destination="Rch-gs-sFL" id="Ufs-iN-lE6"/>
                 <outlet property="tagLabel" destination="YoT-EB-VOj" id="6lQ-v4-ZAU"/>
-                <outlet property="userInfoContainer" destination="VtH-gr-9m2" id="JoT-Nn-XuQ"/>
+                <outlet property="userInfoContainer" destination="hxF-Cs-EMb" id="Umv-Ng-v6C"/>
             </connections>
             <point key="canvasLocation" x="137.68115942028987" y="153.34821428571428"/>
         </tableViewCell>

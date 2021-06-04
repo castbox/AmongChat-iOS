@@ -387,6 +387,12 @@ extension Entity {
             case comment = "reply"
         }
         
+        //pos_type， pos_id：跳转feed页，定位到某个具体的评论或回复，comment和reply两种；不需要定位的时候是空值；跳转时参数一致 http://dev.api.among.chat/post/post/page?pid=PhdCyNL8m&pos_type=comment&pos_id=ChdCyv6j2
+        enum PosType: String, Codable {
+            case comment
+            case reply
+        }
+        
         let uid: Int
         let createTime: Double
         let text: String
@@ -395,7 +401,7 @@ extension Entity {
         let objType: String //
         let urlType: String
         let urlId: String
-        let posType: String //
+        let posType: PosType? //
         let posId: String
         let emoteIds: [String]?
         var name: String?
@@ -452,7 +458,7 @@ extension Entity.DMInteractiveMessage.OpType {
         case .emotes:
             return R.string.localizable.dmInteractiveEmoteTitle()
         case .comment:
-            return R.string.localizable.dmInteractiveCommentLikeTitle()
+            return R.string.localizable.dmInteractiveCommentTitle()
         }
     }
 }

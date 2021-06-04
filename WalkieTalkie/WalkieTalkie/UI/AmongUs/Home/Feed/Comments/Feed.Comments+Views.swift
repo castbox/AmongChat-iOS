@@ -69,8 +69,11 @@ extension Feed.Comments {
             btn.contentEdgeInsets = UIEdgeInsets(top: 0, left: 2, bottom: 0, right: 2)
             btn.rx.controlEvent(.primaryActionTriggered)
                 .subscribe(onNext: { [weak self] (_) in
-                    btn.isSelected = !btn.isSelected
-                    self?.likeHandler?(btn.isSelected)
+                    guard let `self` = self else { return }
+                    AmongChat.Login.doLogedInEvent(style: .authNeeded(source: .comment)) { [weak self] in
+                        btn.isSelected = !btn.isSelected
+                        self?.likeHandler?(btn.isSelected)
+                    }
                 })
                 .disposed(by: bag)
             return btn
@@ -194,9 +197,6 @@ extension Feed.Comments {
             self.likeHandler = { [weak self] liked in
                 
                 guard let `self` = self else { return }
-                AmongChat.Login.doLogedInEvent(style: .authNeeded(source: .comment)) {
-                    likeHandler(liked)
-                }
                 
                 guard var count = Int(self.likeButton.title(for: .normal) ?? "") else { return }
                 liked ? (count += 1) : (count -= 1)

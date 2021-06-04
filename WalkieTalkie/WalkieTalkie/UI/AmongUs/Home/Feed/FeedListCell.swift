@@ -34,8 +34,10 @@ class FeedListCell: UITableViewCell {
         case comment
         case more
         case playComplete
+        case userProfile(Int)
     }
     
+    @IBOutlet weak var bottomBar: UIView!
     @IBOutlet weak var userInfoContainer: UIView!
     @IBOutlet weak var avatarView: AvatarImageView!
     @IBOutlet weak var nameLabel: UILabel!
@@ -63,10 +65,10 @@ class FeedListCell: UITableViewCell {
     private(set) var isPlaying = false
     private(set) var liked = false
     private(set) var isUserPaused = false
-    
+    private(set) var viewModel: Feed.ListCellViewModel?
     private let bag = DisposeBag()
     
-    private(set) var viewModel: Feed.ListCellViewModel?
+//    var listStyle: Feed.ListStyle = .recommend
     var actionHandler: ((Action) -> Void)?
     
     private var emotes: [Emote] = [] {
@@ -76,7 +78,7 @@ class FeedListCell: UITableViewCell {
         }
     }
     
-    func config(with viewModel: Feed.ListCellViewModel?) {
+    func config(with viewModel: Feed.ListCellViewModel?, listStyle: Feed.ListStyle) {
         guard let viewModel = viewModel else {
             return
         }
@@ -96,6 +98,7 @@ class FeedListCell: UITableViewCell {
         }
         
         update(emotes: viewModel.emotes)
+        
         sliderBar.value = 0
         
         if feed.cmtCount > 0 {
@@ -108,6 +111,12 @@ class FeedListCell: UITableViewCell {
             shareButton.setTitle(feed.shareCountValue.string, for: .normal)
         } else {
             shareButton.setTitle("", for: .normal)
+        }
+        
+        if listStyle == .profile, Settings.loginUserId == feed.uid {
+            userInfoContainer.isHidden = true
+        } else {
+            userInfoContainer.isHidden = false
         }
         updateCommentCount()
     }
@@ -241,19 +250,19 @@ class FeedListCell: UITableViewCell {
                 ()
                 pause()
             case .moved:
-                userInfoContainer.isHidden = true
+                bottomBar.isHidden = true
                 playerView.set(progress: slider.value.cgFloat)
                 
             case .ended:
                 Logger.Action.log(.feeds_item_clk, category: .slide_play, self.viewModel?.feed.pid)
-                userInfoContainer.isHidden = false
+                bottomBar.isHidden = false
 //                play()
                 handlePause()
             default:
                 break
             }
         }
-        progressLabel.isHidden = !userInfoContainer.isHidden
+        progressLabel.isHidden = !bottomBar.isHidden
     }
 
     
@@ -307,7 +316,7 @@ private extension FeedListCell {
                     return
                 }
                 Logger.Action.log(.feeds_item_clk, category: .profile, self?.viewModel?.feed.pid)
-                Routes.handle("/profile/\(uid)")
+                self?.actionHandler?(.userProfile(uid))
 //                Routes.handle("/profile/feeds/\(uid)?index=2")
             })
             .disposed(by: bag)

@@ -32,7 +32,16 @@ class InteractiveMsgTableCell: UITableViewCell {
         avatarView.setAvatarImage(with: msg.pictureUrl)
         avatarView.isVerify = msg.isVerified
         nameLabel.attributedText = msg.nameWithVerified()
-        desLabel.text = msg.opType?.title
+        switch msg.opType {
+        case .comment:
+            if msg.posType == .comment {
+                desLabel.text = msg.opType?.title
+            } else {
+                desLabel.text = R.string.localizable.dmInteractiveReplyCommentTitle()
+            }
+        default:
+            desLabel.text = msg.opType?.title
+        }
         postCoverView.setImage(with: msg.img)
         timeLabel.text = viewModel.timeString
         commentLabel.text = msg.text

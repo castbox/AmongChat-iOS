@@ -185,10 +185,10 @@ extension Request {
     
     static func redirectToFeed(directMessage: Entity.DMInteractiveMessage) -> Single<Entity.FeedRedirectInfo> {
         
-        var params: [String : Any] = [
+        let params: [String : Any] = [
             "pid" : directMessage.urlId,
             "pos_id" : directMessage.posId,
-            "pos_type" : directMessage.posType
+            "pos_type" : directMessage.posType?.rawValue ?? ""
         ]
         
         return amongchatProvider.rx.request(.feedPostPage(params))

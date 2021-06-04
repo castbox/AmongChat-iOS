@@ -109,6 +109,7 @@ extension Conversation {
             
             opTypeView.selectHandler = { [weak self] type in
                 self?.type = type
+                self?.titleLabel.text = type?.title ?? R.string.localizable.dmInteractiveAllMessage()
                 self?.selectHandler?(type)
             }
         }

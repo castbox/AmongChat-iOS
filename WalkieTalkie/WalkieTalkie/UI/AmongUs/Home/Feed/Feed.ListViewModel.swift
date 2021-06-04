@@ -17,25 +17,25 @@ extension Feed {
             guard let pid = pid else {
                 return
             }
-//            Request.feedReportPlay(pid)
-//                .subscribe()
-//                .disposed(by: bag)
+            Request.feedReportPlay(pid)
+                .subscribe()
+                .disposed(by: bag)
         }
         
         func reportPlayFinish(_ pid: String?) {
             guard let pid = pid else {
                 return
             }
-//            Request.feedReportPlayFinish(pid)
-//                .subscribe()
-//                .disposed(by: bag)
+            Request.feedReportPlayFinish(pid)
+                .subscribe()
+                .disposed(by: bag)
         }
         
         func reportNotIntereasted(_ pid: String?) -> Single<Bool> {
-//            guard let pid = pid else {
+            guard let pid = pid else {
                 return .just(false)
-//            }
-//            return Request.feedReportNotIntereasted(pid: pid)
+            }
+            return Request.feedReportNotIntereasted(pid: pid)
 //                .subscribe()
 //                .disposed(by: bag)
         }

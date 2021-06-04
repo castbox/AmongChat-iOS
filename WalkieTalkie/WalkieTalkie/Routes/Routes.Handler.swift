@@ -129,7 +129,7 @@ extension Routes {
         
         func handleAvatars() {
             let vc = Social.ProfileLookViewController()
-            UIApplication.navigationController?.pushViewController(vc)
+            UIApplication.topViewController()?.navigationController?.pushViewController(vc)
         }
         
         func handleInviteUser(uid: String?) {

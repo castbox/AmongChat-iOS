@@ -15,6 +15,11 @@ import Alamofire
 
 extension Feed {
     
+    enum ListStyle {
+        case recommend
+        case profile
+    }
+    
     class ListViewController: WalkieTalkie.ViewController {
         
         typealias NetworkConnectionType = NetworkReachabilityManager.NetworkReachabilityStatus.ConnectionType
@@ -30,6 +35,8 @@ extension Feed {
         var dataSource: [Feed.ListCellViewModel] = []
         
         var currentIndex = 0
+        
+        var listStyle: ListStyle = .recommend
         
         private var shouldAutoPauseWhenDismiss: Bool = true
         private var scrollDisposeBag: Disposable?
@@ -184,7 +191,7 @@ extension Feed.ListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withClass: FeedListCell.self, for: indexPath)
         let viewModel = dataSource.safe(indexPath.row)
-        cell.config(with: viewModel)
+        cell.config(with: viewModel, listStyle: listStyle)
         cell.actionHandler = { [weak self] action in
             self?.onCell(action: action, viewModel: viewModel)
         }
@@ -291,7 +298,7 @@ extension Feed.ListViewController {
         let commentList = Feed.Comments.CommentsListViewController(with: feedId, commentsInfo: commentsInfo)
         let nav = NavigationViewController(rootViewController: commentList)
         nav.modalPresentationStyle = .overCurrentContext
-        UIApplication.tabBarController?.present(nav, animated: true)
+        topController()?.present(nav, animated: true)
     }
 
     func onCell(action: FeedListCell.Action, viewModel: Feed.ListCellViewModel?) {
@@ -322,7 +329,7 @@ extension Feed.ListViewController {
                         }
                     }
                 }
-                vc.showModal(in: self.tabBarController)
+                vc.showModal(in: topController())
             } else {
                 Logger.Action.log(.feeds_item_clk, category: .emotes, emote.id)
                 AmongChat.Login.doLogedInEvent(style: .authNeeded(source: .emote)) { [weak self] in
@@ -340,6 +347,11 @@ extension Feed.ListViewController {
         case .share:
             share(feed: viewModel.feed)
             
+        case .userProfile(let uid):
+            guard Settings.loginUserId != uid else {
+                return
+            }
+            Routes.handle("/profile/\(uid)")
         case .more:
             let types: [AmongSheetController.ItemType]
             if Settings.loginUserId == viewModel.feed.uid {
@@ -431,4 +443,12 @@ extension Feed.ListViewController {
         
     }
     
+    func topController() -> UIViewController? {
+        return tabBarController ?? self
+//        if self.navigationController?.viewControllers.count > 1 {
+//            return self
+//        } else {
+//            return UIApplication.tabBarController
+//        }
+    }
 }
