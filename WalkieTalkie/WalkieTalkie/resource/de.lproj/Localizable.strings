@@ -37,7 +37,7 @@
 "report.incorrect.sexual" = "Sexueller Inhalt";
 "report.incorrect.harassment" = "Belästigung oder abstoßende Sprache";
 "report.incorrect.unreasonable" = "Unangemessene Forderungen";
-"report.success" = "Sie haben diese Person\nerfolgreich gemeldet";
+"report.success" = "erfolgreich gemeldet";
 
 
 "alert.block" = "Blockieren";
@@ -470,7 +470,6 @@
 
 //1.18
 "report.user" = "Benutzer melden";
-"report.success" = "Sie haben diese Person\nerfolgreich gemeldet";
 "report.failed" = "Bericht fehlgeschlagen. Bitte versuche es erneut";
 "report.comments" = "Bemerkungen";
 "report.comments.placeholder" = "Bitte beschreiben Sie den Bericht";

@@ -37,8 +37,6 @@
 "report.incorrect.sexual" = "Contenuto sessuale";
 "report.incorrect.harassment" = "Molestie o linguaggio ripugnante";
 "report.incorrect.unreasonable" = "Richieste irragionevoli";
-"report.success" = "Hai segnalato con successo \nquesta persona";
-
 
 "alert.block" = "Bloccare";
 "alert.unblock" = "Sbloccare";
@@ -470,7 +468,7 @@
 
 //1.18
 "report.user" = "Segnala utente";
-"report.success" = "Hai segnalato con successo \nquesta persona";
+"report.success" = "segnalato con successo";
 "report.failed" = "Rapporto fallito. Per favore riprova";
 "report.comments" = "Commenti";
 "report.comments.placeholder" = "Descrivi il rapporto";

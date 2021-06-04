@@ -37,7 +37,6 @@
 "report.incorrect.sexual" = "Sexual content";
 "report.incorrect.harassment" = "Harassment or repulsive language";
 "report.incorrect.unreasonable" = "Unreasonable demands";
-"report.success" = "You have successfully reported \nthis person";
 
 
 "alert.block" = "Block";
@@ -470,7 +469,7 @@
 
 //1.18
 "report.user" = "Report user";
-"report.success" = "You have successfully reported \nthis person";
+"report.success" = "Reported successfully";
 "report.failed" = "Report failed. Please try again";
 "report.comments" = "Comments";
 "report.comments.placeholder" = "Please describe the report";
@@ -604,3 +603,5 @@
 "among.chat.login.auth.source.comment" = "add a comment";
 "among.chat.login.auth.source.create.feed" = "create posts";
 "feed.play.no.wifi.tips" = "You're not connected to WIFI. To continue streaming, your mobile data would be consumed.";
+
+

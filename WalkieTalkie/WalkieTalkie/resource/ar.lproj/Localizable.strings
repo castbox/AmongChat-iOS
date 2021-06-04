@@ -37,7 +37,7 @@
 "report.incorrect.sexual" = "المحتوى الجنسي";
 "report.incorrect.harassment" = "التحرش أو لغة بغيضة";
 "report.incorrect.unreasonable" = "متطلبات غير منطقية";
-"report.success" = "لقد أبلغت عن هذا \nالشخص بنجاح";
+"report.success" = "تم الإبلاغ عنها بنجاح";
 
 
 "alert.block" = "الحظر";
@@ -470,7 +470,6 @@
 
 //1.18
 "report.user" = "أبلغ عن مستخدم";
-"report.success" = "لقد أبلغت عن هذا \nالشخص بنجاح";
 "report.failed" = "فشل التقرير. حاول مرة اخرى";
 "report.comments" = "تعليقات";
 "report.comments.placeholder" = "يرجى وصف التقرير";

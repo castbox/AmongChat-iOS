@@ -37,7 +37,6 @@
 "report.incorrect.sexual" = "성적인 콘텐츠";
 "report.incorrect.harassment" = "괴롭힘 또는 혐오스러운 언어";
 "report.incorrect.unreasonable" = "불합리한 요구";
-"report.success" = "성공적으로 신고했습니다 \n이 사람을";
 
 
 "alert.block" = "블록";
@@ -470,7 +469,7 @@
 
 //1.18
 "report.user" = "보고서 사용자";
-"report.success" = "성공적으로 신고했습니다 \n이 사람을";
+"report.success" = "성공적으로보고";
 "report.failed" = "신고하지 못했습니다. 다시 시도하십시오";
 "report.comments" = "코멘트";
 "report.comments.placeholder" = "보고서를 설명하십시오";

@@ -37,8 +37,6 @@
 "report.incorrect.sexual" = "Сексуальный контент";
 "report.incorrect.harassment" = "Оскорбления или отталкивающие выражения";
 "report.incorrect.unreasonable" = "Необоснованные требования";
-"report.success" = "Вы успешно заявили об \nэтом человеке";
-
 
 "alert.block" = "Блокировать";
 "alert.unblock" = "Разблокировать";
@@ -470,7 +468,7 @@
 
 //1.18
 "report.user" = "Пожаловаться на пользователя";
-"report.success" = "Вы успешно заявили об \nэтом человеке";
+"report.success" = "сообщил успешно";
 "report.failed" = "Отчет не удалось. Пожалуйста, попробуйте еще раз";
 "report.comments" = "Комментарии";
 "report.comments.placeholder" = "Опишите отчет";

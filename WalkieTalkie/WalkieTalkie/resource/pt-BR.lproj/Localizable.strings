@@ -37,8 +37,6 @@
 "report.incorrect.sexual" = "Conteúdo sexual";
 "report.incorrect.harassment" = "Assédio ou linguagem repulsiva";
 "report.incorrect.unreasonable" = "Demandas irracionais";
-"report.success" = "Você denunciou esta pessoa com sucesso";
-
 
 "alert.block" = "Quadra";
 "alert.unblock" = "Desbloquear";
@@ -470,7 +468,7 @@
 
 //1.18
 "report.user" = "Reportar usuário";
-"report.success" = "Você denunciou esta pessoa com sucesso";
+"report.success" = "reportado com sucesso";
 "report.failed" = "Relatório falhou. Por favor, tente novamente";
 "report.comments" = "Comentários";
 "report.comments.placeholder" = "Descreva o relatório";
