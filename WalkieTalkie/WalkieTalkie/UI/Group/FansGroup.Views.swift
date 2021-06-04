@@ -436,6 +436,7 @@ extension FansGroup.Views {
             return b
         }()
         
+        var bottomCornerRadius: CGFloat = 24
         
         override init(frame: CGRect) {
             super.init(frame: frame)
@@ -449,7 +450,7 @@ extension FansGroup.Views {
         
         override func layoutSubviews() {
             super.layoutSubviews()
-            addCorner(with: 24, corners: [.bottomLeft, .bottomRight])
+            addCorner(with: bottomCornerRadius, corners: [.bottomLeft, .bottomRight])
         }
         
         private func setUpLayout() {

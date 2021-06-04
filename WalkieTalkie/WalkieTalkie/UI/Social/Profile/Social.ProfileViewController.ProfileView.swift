@@ -121,6 +121,7 @@ extension Social.ProfileViewController {
         private typealias BigCoverView = FansGroup.Views.GroupBigCoverView
         private lazy var bg: BigCoverView = {
             let b = BigCoverView()
+            b.bottomCornerRadius = 0
             b.coverRelay.accept(R.image.ac_profile_avatar())
             avatarIV.imageOb
                 .bind(to: b.coverRelay)
