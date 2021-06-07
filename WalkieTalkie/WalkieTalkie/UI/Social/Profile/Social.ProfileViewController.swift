@@ -104,6 +104,7 @@ extension Social {
             let p = JXPagingView(delegate: self)
             p.backgroundColor = UIColor(hex6: 0x121212)
             p.mainTableView.backgroundColor = UIColor(hex6: 0x121212)
+            p.pinSectionHeaderVerticalOffset = NavigationBar.barHeight.int + Frame.Height.safeAeraTopHeight.int
             return p
         }()
         
@@ -431,51 +432,6 @@ private extension Social.ProfileViewController {
             .observeOn(MainScheduler.asyncInstance)
             .subscribe(onNext: { [weak self] (isSelf) in
                 self?.bottomGradientView.isHidden = isSelf
-            })
-            .disposed(by: bag)
-        
-        pagingView.mainTableView.rx.contentOffset
-            .subscribe(onNext: { [weak self] (point) in
-                
-                guard let `self` = self else { return }
-                
-                let distance = point.y
-                
-                self.headerView.enlargeTopGbHeight(extraHeight: -distance)
-                
-                self.navView.backgroundView.alpha = distance / 49
-                self.navView.backgroundView.isHidden = distance <= 0
-            })
-            .disposed(by: bag)
-        
-        pagingView.mainTableView.rx.contentOffset
-            .skip(1)
-            .subscribe(onNext: { [weak self] (point) in
-                guard let `self` = self,
-                      self.pagingView.mainTableView.contentSize != .zero else { return }
-                
-                let frame = self.pagingView.mainTableView.convert(self.segmentedButtonContainer.frame, to: self.view)
-                if frame.origin.y <= self.navView.bottom {
-                    if self.segmentedButton.superview != self.view {
-                        self.segmentedButton.removeFromSuperview()
-                        self.view.addSubview(self.segmentedButton)
-                        self.segmentedButton.snp.makeConstraints { (maker) in
-                            maker.leading.trailing.equalToSuperview()
-                            maker.top.equalTo(self.navView.snp.bottom)
-                            maker.height.equalTo(self.segmentedBtnHeight)
-                        }
-                    }
-                } else {
-                    if self.segmentedButton.superview != self.segmentedButtonContainer {
-                        self.segmentedButton.removeFromSuperview()
-                        self.segmentedButtonContainer.addSubview(self.segmentedButton)
-                        self.segmentedButton.snp.makeConstraints { (maker) in
-                            maker.edges.equalToSuperview()
-                        }
-                    }
-                    
-                }
-                
             })
             .disposed(by: bag)
         
@@ -815,4 +771,10 @@ extension Social.ProfileViewController: JXPagingViewDelegate {
         return profileDataViews[index]
     }
     
+    func mainTableViewDidScroll(_ scrollView: UIScrollView) {
+        let distance = scrollView.contentOffset.y
+        headerView.enlargeTopGbHeight(extraHeight: -distance)
+        navView.backgroundView.alpha = distance / NavigationBar.barHeight
+        navView.backgroundView.isHidden = distance <= 0
+    }
 }
