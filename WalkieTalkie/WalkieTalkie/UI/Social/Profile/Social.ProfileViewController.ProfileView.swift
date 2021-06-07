@@ -53,7 +53,10 @@ extension Social.ProfileViewController {
             
             height = height + avatarTop + avatarSize.height
             
-            let nameHeight = nameLabel.attributedText?.string.height(forConstrainedWidth: UIScreen.main.bounds.width - Frame.horizontalBleedWidth * 2, font: nameLabelFont) ?? 33.0
+            let nameHeight = nameLabel.textRect(forBounds: CGRect(origin: .zero,
+                                                                  size: CGSize(width: UIScreen.main.bounds.width - Frame.horizontalBleedWidth * 2,
+                                                                               height: .greatestFiniteMagnitude)),
+                                                limitedToNumberOfLines: 0).size.height
             
             height = height + nameLabelTopSpace + nameHeight
             
