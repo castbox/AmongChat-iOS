@@ -534,6 +534,18 @@ extension Feed.Comments.CommentsListViewController: UICollectionViewDataSource {
     }
 }
 
+extension Feed.Comments.CommentsListViewController: UICollectionViewDelegate {
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        guard let cell = collectionView.cellForItem(at: indexPath) as? Feed.Comments.ExpandReplyCell else {
+            return
+        }
+        
+        cell.tapAction?()
+    }
+}
+
 extension Feed.Comments.CommentsListViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

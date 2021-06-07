@@ -429,7 +429,7 @@ extension Feed.Comments {
             fatalError("init(coder:) has not been implemented")
         }
         
-        private var tapAction: (() -> Void)? = nil
+        private(set) var tapAction: (() -> Void)? = nil
         
         private func setUpLayout() {
             
