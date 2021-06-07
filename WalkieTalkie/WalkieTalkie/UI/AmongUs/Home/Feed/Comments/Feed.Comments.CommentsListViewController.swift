@@ -138,7 +138,7 @@ extension Feed.Comments {
                 maker.leading.equalTo(a.snp.trailing).offset(16)
                 maker.trailing.equalToSuperview().offset(-Frame.horizontalBleedWidth)
                 maker.top.equalToSuperview().offset(12)
-                maker.bottom.equalToSuperview().offset(-46)
+                maker.bottom.equalToSuperview().offset(-(12 + Frame.Height.safeAeraBottomHeight))
             }
             return v
         }()
@@ -323,7 +323,7 @@ extension Feed.Comments.CommentsListViewController {
                 }
                 
                 self.bottomBar.snp.updateConstraints { (maker) in
-                    maker.bottom.equalToSuperview().offset(-keyboardVisibleHeight + 34)
+                    maker.bottom.equalToSuperview().offset(-keyboardVisibleHeight + Frame.Height.safeAeraBottomHeight)
                 }
                 
                 UIView.animate(withDuration: RxKeyboard.instance.animationDuration) {

@@ -463,7 +463,7 @@ extension Feed.Comments {
         private let bag = DisposeBag()
         
         private let maxInputLength = Int(280)
-        private let textViewMinHeight = CGFloat(16)
+        private let textViewMinHeight = CGFloat(22)
         private let textViewMaxHeight = CGFloat(65)
         
         private let sendSignal = PublishSubject<Void>()
@@ -526,7 +526,7 @@ extension Feed.Comments {
             addSubviews(views: inputTextView, placeholderLabel)
             
             inputTextView.snp.makeConstraints { (maker) in
-                maker.edges.equalToSuperview().inset(UIEdgeInsets(top: 12, left: 16, bottom: 12, right: 16))
+                maker.edges.equalToSuperview().inset(UIEdgeInsets(top: 9, left: 16, bottom: 9, right: 16))
                 maker.height.equalTo(textViewMinHeight)
             }
             
