@@ -547,10 +547,25 @@ extension Feed.Comments {
                     }
                 })
                 .disposed(by: bag)
+            
+            inputTextView.isEditable = AmongChat.Login.isLogedin
+            
+            if !AmongChat.Login.isLogedin {
+                inputTextView.rx.tapGesture()
+                    .when(.recognized)
+                    .subscribe(onNext: { [weak self] gesture in
+                        let style: AmongChat.Login.LoginStyle = .authNeeded(source: .comment)
+                        AmongChat.Login.doLogedInEvent(style: style) { [weak self] in
+                            self?.inputTextView.removeGestureRecognizer(gesture)
+                            self?.inputTextView.isEditable = true
+                            _ = self?.inputTextView.becomeFirstResponder()
+                        }
+                    })
+                    .disposed(by: bag)
+            }
         }
         
         // MARK: - UITextView Delegate
-        
         func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
             guard let textFieldText = textView.text,
                   let rangeOfTextToReplace = Range(range, in: textFieldText) else {

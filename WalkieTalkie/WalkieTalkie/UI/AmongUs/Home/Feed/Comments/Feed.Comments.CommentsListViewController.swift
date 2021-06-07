@@ -359,9 +359,7 @@ extension Feed.Comments.CommentsListViewController {
             })
             .subscribe(onNext: { [weak self] (text) in
                 guard let `self` = self else { return }
-                AmongChat.Login.doLogedInEvent(style: .authNeeded(source: .comment)) { [weak self] in
-                    self?.sendComment()
-                }
+                self.sendComment()
             })
             .disposed(by: bag)
         
