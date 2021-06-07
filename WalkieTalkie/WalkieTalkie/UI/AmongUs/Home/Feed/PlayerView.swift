@@ -97,6 +97,7 @@ class PlayerView: UIView {
         retryTime = 0
         
         var config = SZAVPlayerConfig(urlStr: url.absoluteString, uniqueID: nil, isVideo: true, isVideoOutputEnabled: false)
+        config.disableCustomLoading = true
         config.timeObserverInterval = 0.05
         config.videoGravity = (size.0 < size.1) ? .resizeAspectFill : .resizeAspect
         videoPlayer.setupPlayer(config: config)
