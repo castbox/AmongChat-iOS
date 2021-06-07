@@ -107,12 +107,13 @@ class PlayerView: UIView {
     }
     
     func set(progress: CGFloat) {
-//        guard let item = queuePlayer?.currentItem?.asset, progress >= 0 else {
-//            return
-//        }
-//        let duration = item.duration
-        videoPlayer.seekPlayerToTime(time: Float64(progress)) { result in
-            
+        guard duration > 0 else {
+            return
+        }
+        let time = duration.cgFloat * progress
+        cdPrint("progress: \(progress) time: \(time)")
+        videoPlayer.seekPlayerToTime(time: Float64(time), autoPlay: false) { [weak self] result in
+            self?.playingProgressHandler?(Float(progress))
         }
     }
     
@@ -156,8 +157,17 @@ extension PlayerView: SZAVPlayerDelegate {
         switch status {
         case .readyToPlay:
             cdPrint("ready to play: \(String(describing: avplayer.currentURLStr))")
+            
             callLoadedHandler()
+            //reset retry count
             retryTime = 0
+            
+            if let item = avplayer.playerItem {
+                duration = String(format: "%.f", CMTimeGetSeconds(item.duration)).float() ?? 0
+            } else {
+                duration = 0
+            }
+            
             if playerControllerEvent == .playing {
                 setAudioMode()
                 videoPlayer.play()
