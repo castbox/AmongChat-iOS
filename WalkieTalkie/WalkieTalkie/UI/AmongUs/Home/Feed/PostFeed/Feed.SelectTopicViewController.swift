@@ -230,7 +230,16 @@ extension Feed.SelectTopicViewController {
         
         let duration = videoAsset.duration.value / Int64(videoAsset.duration.timescale)
         
-        let proto = Entity.FeedProto(img: thumbnailUrl, url: videoUrl, duration: duration, topic: topic.topicId)
+        let resolution = videoAsset.tracks.first(where: { (track) -> Bool in
+            track.mediaType == .video
+        })?.naturalSize ?? CGSize.zero
+        
+        let proto = Entity.FeedProto(img: thumbnailUrl,
+                                     url: videoUrl,
+                                     duration: duration,
+                                     topic: topic.topicId,
+                                     width: resolution.width,
+                                     height: resolution.height)
         
         return Request.createFeed(proto: proto)
         
