@@ -37,6 +37,8 @@
 "report.incorrect.sexual" = "Contenuto sessuale";
 "report.incorrect.harassment" = "Molestie o linguaggio ripugnante";
 "report.incorrect.unreasonable" = "Richieste irragionevoli";
+"report.success" = "Hai segnalato con successo \nquesta persona";
+
 
 "alert.block" = "Bloccare";
 "alert.unblock" = "Sbloccare";
@@ -468,7 +470,7 @@
 
 //1.18
 "report.user" = "Segnala utente";
-"report.success" = "segnalato con successo";
+"report.success" = "Hai segnalato con successo \nquesta persona";
 "report.failed" = "Rapporto fallito. Per favore riprova";
 "report.comments" = "Commenti";
 "report.comments.placeholder" = "Descrivi il rapporto";
@@ -559,3 +561,46 @@
 "profile.constellation.capricorn" = "Capricorno";
 "profile.constellation.aquarius" = "Acquario";
 "profile.constellation.pisces" = "Pesci";
+
+"dm.interactive.messages" = "Messaggi interattivi";
+"dm.interactive.all.message" = "Tutti i messaggi";
+"dm.interactive.comments" = "Commenti";
+"dm.interactive.emotes" = "Emote";
+"dm.interactive.likes" = "Mi piace";
+"dm.interactive.emote.title" = "inviato emote sul tuo post";
+"dm.interactive.reply.comment.title" = "risposto al tuo commento";
+"dm.interactive.comment.title" = "commentato il tuo post";
+"dm.interactive.comment.like.title" = "piaciuto il tuo commento";
+
+//1.22
+"feed.share" = "Condividere";
+"feed.sheet.not.interested" = "Non interessato";
+"feed.sheet.delete.video" = "Elimina video";
+"feed.library.video.unsupported" = "Non supportato";
+"feed.post.title" = "Post";
+"feed.library.title" = "Raccolta";
+"feed.post.tip" = "I video dovrebbero durare meno di 60 secondi";
+"feed.choose.topic.title" = "Scegli un argomento di gioco";
+"among.chat.reply" = "Rispondere";
+"feed.comments.expand.count" = "Visualizza risposte (%1$@)";
+"feed.comments.expand.more" = "Visualizza di più";
+"feed.comments.collapse" = "Nascondere";
+"feed.comments.placeholder" = "Aggiungi un commento";
+"feed.comments.list.title" = "%1$@ Commenti";
+
+"profile.feed.no.videos" = "Oops, ancora nessun video!";
+"profile.feed.click.create" = "Clicca per creare il tuo primo video";
+"feed.library.access.photo.title" = "Accedi alla tua galleria";
+"feed.library.access.photo.text" = "È necessaria l'autorizzazione per accedere alla tua galleria. Per favore cambialo facendo clic sul pulsante qui sotto, per ottenere tutte le tue clip qui.";
+"among.chat.open.settings" = "Apri Impostazioni";
+"feed.comments.deleted" = "Eliminato";
+"profile.game.stats.empty" = "Oops, ancora nessuna statistica di gioco!";
+"feed.library.video.empty" = "Oops, nessun contenuto qui!";
+"feed.comment.create.failed" = "Il commento non è stato pubblicato";
+"feed.comment.delete.failed" = "Impossibile eliminare";
+"feed.comment.reply.failed" = "Impossibile rispondere";
+"feed.comments.comment.success" = "Commento pubblicato";
+"among.chat.login.auth.source.emote" = "inviare emote";
+"among.chat.login.auth.source.comment" = "aggiungere un commento";
+"among.chat.login.auth.source.create.feed" = "creare post";
+"feed.play.no.wifi.tips" = "Non sei connesso al WIFI. Per continuare lo streaming, i tuoi dati mobili verrebbero consumati.";

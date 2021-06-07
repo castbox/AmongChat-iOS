@@ -37,6 +37,7 @@
 "report.incorrect.sexual" = "성적인 콘텐츠";
 "report.incorrect.harassment" = "괴롭힘 또는 혐오스러운 언어";
 "report.incorrect.unreasonable" = "불합리한 요구";
+"report.success" = "성공적으로 신고했습니다 \n이 사람을";
 
 
 "alert.block" = "블록";
@@ -469,7 +470,7 @@
 
 //1.18
 "report.user" = "보고서 사용자";
-"report.success" = "성공적으로보고";
+"report.success" = "성공적으로 신고했습니다 \n이 사람을";
 "report.failed" = "신고하지 못했습니다. 다시 시도하십시오";
 "report.comments" = "코멘트";
 "report.comments.placeholder" = "보고서를 설명하십시오";
@@ -560,3 +561,46 @@
 "profile.constellation.capricorn" = "염소 자리";
 "profile.constellation.aquarius" = "물병 자리";
 "profile.constellation.pisces" = "물고기 자리";
+
+"dm.interactive.messages" = "대화 형 메시지";
+"dm.interactive.all.message" = "모든 메시지";
+"dm.interactive.comments" = "댓글";
+"dm.interactive.emotes" = "이모티콘";
+"dm.interactive.likes" = "좋아요";
+"dm.interactive.emote.title" = "게시물에 이모티콘을 보냈습니다";
+"dm.interactive.reply.comment.title" = "댓글에 응답했습니다";
+"dm.interactive.comment.title" = "게시물에 댓글을 달았습니다";
+"dm.interactive.comment.like.title" = "댓글에 좋아요를 보냈습니다";
+
+//1.22
+"feed.share" = "공유하기";
+"feed.sheet.not.interested" = "관심이 없다";
+"feed.sheet.delete.video" = "동영상 삭제하기";
+"feed.library.video.unsupported" = "지원되지 않음";
+"feed.post.title" = "게시물";
+"feed.library.title" = "보관함";
+"feed.post.tip" = "동영상은 60 초 미만이어야합니다";
+"feed.choose.topic.title" = "게임 주제를 선택하십시오";
+"among.chat.reply" = "응답하기";
+"feed.comments.expand.count" = "응답보기 (%1$@)";
+"feed.comments.expand.more" = "더보기";
+"feed.comments.collapse" = "숨기기";
+"feed.comments.placeholder" = "댓글 달기";
+"feed.comments.list.title" = "댓글 %1$@개";
+
+"profile.feed.no.videos" = "죄송합니다. 아직 동영상이 없습니다.";
+"profile.feed.click.create" = "첫 번째 동영상을 만들려면 클릭하세요.";
+"feed.library.access.photo.title" = "갤러리에 액세스하십시오";
+"feed.library.access.photo.text" = "갤러리에 액세스하려면 권한이 필요합니다. 여기에서 모든 클립을 얻으려면 아래 버튼을 클릭하여 변경하십시오.";
+"among.chat.open.settings" = "설정 열기";
+"feed.comments.deleted" = "삭제되었습니다";
+"profile.game.stats.empty" = "죄송합니다. 아직 게임 통계가 없습니다!";
+"feed.library.video.empty" = "죄송합니다. 내용이 없습니다.";
+"feed.comment.create.failed" = "댓글을 게시하지 못했습니다";
+"feed.comment.delete.failed" = "삭제하지 못했습니다";
+"feed.comment.reply.failed" = "응답하지 못했습니다";
+"feed.comments.comment.success" = "댓글이 게시되었습니다";
+"among.chat.login.auth.source.emote" = "이모티콘을 보내려면";
+"among.chat.login.auth.source.comment" = "댓글을 추가하려면";
+"among.chat.login.auth.source.create.feed" = "게시물을 작성하려면";
+"feed.play.no.wifi.tips" = "WIFI에 연결되어 있지 않습니다. 스트리밍을 계속하려면 모바일 데이터가 사용됩니다.";
