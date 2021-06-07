@@ -251,6 +251,8 @@ extension FansGroup.GroupsViewController {
         
         private let bag = DisposeBag()
         
+        private lazy var buttonLayoutGuide = UILayoutGuide()
+        
         private lazy var indicatorContainer: UIView = {
             let v = UIView()
             return v
@@ -286,11 +288,18 @@ extension FansGroup.GroupsViewController {
         private func setupLayout() {
             indicatorContainer.addSubview(selectedIndicator)
             
+            addLayoutGuide(buttonLayoutGuide)
+            
+            buttonLayoutGuide.snp.makeConstraints { (maker) in
+                maker.top.equalTo(8)
+                maker.leading.trailing.equalToSuperview()
+            }
+            
             addSubviews(views: indicatorContainer)
             
             indicatorContainer.snp.makeConstraints { (maker) in
                 maker.leading.trailing.equalToSuperview()
-                maker.bottom.equalTo(-12)
+                maker.top.equalTo(buttonLayoutGuide.snp.bottom).offset(1)
             }
         }
         
@@ -323,7 +332,7 @@ extension FansGroup.GroupsViewController {
             for (idx, btn) in buttons.enumerated() {
                 
                 btn.snp.makeConstraints { (maker) in
-                    maker.top.equalTo(8)
+                    maker.top.bottom.equalTo(buttonLayoutGuide)
                     if idx == 0 {
                         maker.leading.equalToSuperview()
                     } else if idx == buttons.count - 1 {
