@@ -107,7 +107,7 @@ extension Feed {
             
             Observable.merge(rx.viewWillAppear.asObservable(),
                              Settings.shared.loginResult.replay().map { _ in })
-                .observeOn(MainScheduler.asyncInstance)
+                .debounce(.seconds(1), scheduler: MainScheduler.asyncInstance)
                 .subscribe(onNext: { [weak self] _ in
                     self?.onViewWillAppear()
                 })
@@ -170,6 +170,8 @@ extension Feed {
             tableView.delegate = self
             tableView.dataSource = self
             tableView.estimatedRowHeight = feedHeight
+            tableView.estimatedSectionHeaderHeight = 0
+            tableView.estimatedSectionFooterHeight = 0
             view.addSubviews(views: tableView)
             
             tableView.snp.makeConstraints { maker in
@@ -190,6 +192,8 @@ extension Feed.ListViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withClass: FeedListCell.self, for: indexPath)
+        cdPrint("tableView cellForRowAt index: \(indexPath.row)")
+
         let viewModel = dataSource.safe(indexPath.row)
         cell.config(with: viewModel, listStyle: listStyle)
         cell.actionHandler = { [weak self] action in
@@ -206,6 +210,7 @@ extension Feed.ListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         // If the cell is the first cell in the tableview, the queuePlayer automatically starts.
         // If the cell will be displayed, pause the video until the drag on the scroll view is ended
+        cdPrint("tableView willDisplay row: \(indexPath.row)")
         if let cell = cell as? FeedListCell {
             if currentIndex != -1 {
                 cell.pause()
@@ -216,6 +221,7 @@ extension Feed.ListViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         // Pause the video if the cell is ended displaying
+        cdPrint("tableView didEndDisplaying row: \(indexPath.row)")
         if let cell = cell as? FeedListCell {
             cell.pause()
         }
@@ -368,15 +374,17 @@ extension Feed.ListViewController {
                 types = [.share, .notInterested, .report, .cancel]
             }
             AmongSheetController.show(items: types, in: self.tabBarController ?? self) { [weak self] item in
-                self?.onSheet(action: item, indexPath: indexPath)
+                self?.onSheet(action: item, viewModel: viewModel)
             }
         }
     }
         
-    func onSheet(action: AmongSheetController.ItemType, indexPath: IndexPath) {
-        guard let viewModel = dataSource.safe(indexPath.row) else {
+    func onSheet(action: AmongSheetController.ItemType, viewModel: Feed.ListCellViewModel?) {
+        guard let viewModel = viewModel, let index = dataSource.firstIndex(where: { $0.isEqual(viewModel) }) else {
             return
         }
+        
+        let indexPath = IndexPath(row: index, section: 0)
         
         switch action {
         case .share:
@@ -388,7 +396,7 @@ extension Feed.ListViewController {
             let cell = self.tableView.cellForRow(at: indexPath) as? FeedListCell
             cell?.pause()
             
-            deleteRow(at: indexPath)
+            deleteRow(at: viewModel)
             HapticFeedback.Impact.success()
             
             self.viewModel.reportNotIntereasted(viewModel.feed.pid)
@@ -404,7 +412,7 @@ extension Feed.ListViewController {
                     removeHandler()
                     guard let `self` = self else { return }
                     self.dataSource = self.dataSource.filter { $0.feed.pid != viewModel.feed.pid }
-                    self.deleteRow(at: indexPath)
+                    self.deleteRow(at: viewModel)
                     HapticFeedback.Impact.success()
                 }) { error in
                     removeHandler()
@@ -421,34 +429,55 @@ extension Feed.ListViewController {
         }
     }
     
-    func deleteRow(at indexPath: IndexPath) {
-        guard let viewModel = dataSource.safe(indexPath.row) else {
+    func deleteRow(at viewModel: Feed.ListCellViewModel?) {
+        guard let viewModel = viewModel, let index = dataSource.firstIndex(where: { $0.isEqual(viewModel) }) else {
             return
         }
+//        guard let viewModel = dataSource.safe(indexPath.row) else {
+//            return
+//        }
+        let indexPath = IndexPath(row: index, section: 0)
         let nextIndex = IndexPath(row: indexPath.row + 1, section: 0)
-        if nextIndex.row < dataSource.count - 1 {
-            scrollDisposeBag?.dispose()
-            scrollDisposeBag = self.rx.methodInvoked(#selector(self.scrollViewDidEndScrollingAnimation(_:)))
-                .subscribe(onNext: { [weak self] _ in
-                    guard let `self` = self else { return }
-                    let nextCell = self.tableView.cellForRow(at: nextIndex) as? FeedListCell
-                    nextCell?.play()
-                    var dataSource = self.dataSource
-                    dataSource.remove(at: indexPath.row)
-                    self.dataSource = dataSource
-                    self.tableView.beginUpdates()
-                    self.tableView.deleteRows(at: [indexPath], with: .top)
-                    self.tableView.endUpdates()
-                    UIView.performWithoutAnimation {
-                        self.tableView.layoutIfNeeded()
-                    }
-                    self.scrollDisposeBag?.dispose()
-                })
-            scrollDisposeBag?.disposed(by: self.bag)
-            tableView.scrollToRow(at: nextIndex, at: .top, animated: true)
-        } else {
+//        if nextIndex.row < dataSource.count - 1 {
+//            scrollDisposeBag?.dispose()
+//            scrollDisposeBag = self.rx.methodInvoked(#selector(self.scrollViewDidEndScrollingAnimation(_:)))
+//                .subscribe(onNext: { [weak self] _ in
+//                    guard let `self` = self else { return }
+//                    //                    cell?.backgroundColor = .red
+//                    //                    cell?.alpha = 0
+//                    cdPrint("tableView will delete row: \(indexPath.row)")
+////                    let nextCell = self.tableView.cellForRow(at: nextIndex) as? FeedListCell
+////                    nextCell?.play()
+//                    var dataSource = self.dataSource
+//                    dataSource.remove(at: indexPath.row)
+//                    self.dataSource = dataSource
+//                    if 1 == 1 {
+//                        self.tableView.reloadData { [weak self] in
+//                            let newCell = self?.tableView.cellForRow(at: indexPath) as? FeedListCell
+//                            newCell?.play()
+//                        }
+//                    } else {
+//                        self.tableView.beginUpdates()
+//                        self.tableView.deleteRows(at: [indexPath], with: .none)
+//                        self.tableView.endUpdates()
+//                        UIView.performWithoutAnimation {
+//                            self.tableView.layoutIfNeeded()
+//                        }
+//                    }
+//                    //                    self.tableView.layer.removeAllAnimations()
+//                    cdPrint("tableView did delete row: \(indexPath.row)")
+//                    self.scrollDisposeBag?.dispose()
+//                })
+//            scrollDisposeBag?.disposed(by: self.bag)
+//            cdPrint("tableView scroll to row: \(nextIndex.row)")
+//            tableView.scrollToRow(at: nextIndex, at: .top, animated: true)
+//        } else {
             dataSource = self.dataSource.filter { $0.feed.pid != viewModel.feed.pid }
-            tableView.reloadData()
+//            tableView.reloadData()
+            self.tableView.reloadData { [weak self] in
+                let newCell = self?.tableView.cellForRow(at: indexPath) as? FeedListCell
+                newCell?.play()
+            }
             if dataSource.isEmpty {
                 if listStyle == .profile {
                     navigationController?.popViewController()
@@ -456,7 +485,7 @@ extension Feed.ListViewController {
                     loadData()
                 }
             }
-        }
+//        }
 
     }
     
