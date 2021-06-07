@@ -168,7 +168,7 @@ extension PlayerView: SZAVPlayerDelegate {
         case .loading:
             cdPrint("loading: \(String(describing: avplayer.currentURLStr))")
         case .loadingFailed:
-            guard retryTime < 3, let config = self.config else {
+            guard retryTime < 4, let config = self.config else {
                 callLoadedHandler()
                 return
             }
