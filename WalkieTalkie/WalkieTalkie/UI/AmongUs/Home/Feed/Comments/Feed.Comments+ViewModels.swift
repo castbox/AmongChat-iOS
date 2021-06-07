@@ -21,7 +21,7 @@ extension Feed.Comments {
         private var isLoading = false
         
         var commentsObservable: Observable<[CommentViewModel]> {
-            return commentsRelay.asObservable().observeOn(MainScheduler.asyncInstance)
+            return commentsRelay.skip(1).asObservable().observeOn(MainScheduler.asyncInstance)
         }
         
         init(with feedId: String, commentsInfo: Entity.FeedRedirectInfo.CommentsInfo? = nil) {

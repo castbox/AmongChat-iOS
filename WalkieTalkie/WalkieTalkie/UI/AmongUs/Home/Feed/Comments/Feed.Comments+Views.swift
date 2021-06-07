@@ -201,6 +201,7 @@ extension Feed.Comments {
                 guard var count = Int(self.likeButton.title(for: .normal) ?? "") else { return }
                 liked ? (count += 1) : (count -= 1)
                 self.likeButton.setTitle("\(max(0, count))", for: .normal)
+                likeHandler(liked)
             }
             self.replyHandler = replyHandler
             self.moreActionHandler = moreActionHandler
