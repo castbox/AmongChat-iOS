@@ -43,3 +43,15 @@ extension Reactive where Base: UIButton {
         return ControlEvent(events: source)
     }
 }
+
+extension Reactive where Base: UINavigationController {
+    var pushViewController: ControlEvent<Void> {
+        let source = self.methodInvoked(#selector(Base.pushViewController(_:animated:))).map { _ in }
+        return ControlEvent(events: source)
+    }
+    
+    var popViewController: ControlEvent<Void> {
+        let source = self.methodInvoked(#selector(Base.popViewController(animated:))).map { _ in }
+        return ControlEvent(events: source)
+    }
+}

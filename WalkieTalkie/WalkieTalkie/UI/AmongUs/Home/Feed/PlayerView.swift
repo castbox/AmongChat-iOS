@@ -158,6 +158,7 @@ extension PlayerView: SZAVPlayerDelegate {
             cdPrint("ready to play: \(String(describing: avplayer.currentURLStr))")
             callLoadedHandler()
             if playerControllerEvent == .playing {
+                setAudioMode()
                 videoPlayer.play()
             }
         case .playEnd:
@@ -203,6 +204,17 @@ extension PlayerView: SZAVPlayerDelegate {
 
     }
 
+}
+
+extension PlayerView {
+    func setAudioMode() {
+        do {
+            try! AVAudioSession.sharedInstance().setCategory(.playback, mode: .moviePlayback)
+            try AVAudioSession.sharedInstance().setActive(true)
+        } catch (let err){
+            print("setAudioMode error:" + err.localizedDescription)
+        }
+    }
 }
 
 

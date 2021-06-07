@@ -63,17 +63,34 @@ extension Feed {
         }
         
         func onViewDidAppear() {
+            guard UIApplication.topViewController() == self else {
+                return
+            }
+            autoPlayVisibleVideoIfCould()
+        }
+        
+        func onViewWillDisappear() {
+            guard shouldAutoPauseWhenDismiss else {
+                return
+            }
+            autoPauseVisibleVideoIfCould()
+//            if shouldAutoPauseWhenDismiss,
+//               let cell = tableView.visibleCells.first as? FeedListCell,
+//               !cell.isUserPaused {
+//                cell.pause()
+//            }
+        }
+        
+        func autoPlayVisibleVideoIfCould() {
             if !dataSource.isEmpty,
                let cell = tableView.visibleCells.first as? FeedListCell,
-               UIApplication.topViewController() == self,
                !cell.isUserPaused {
                 cell.play()
             }
         }
         
-        func onViewWillDisappear() {
-            if shouldAutoPauseWhenDismiss,
-               let cell = tableView.visibleCells.first as? FeedListCell,
+        func autoPauseVisibleVideoIfCould() {
+            if let cell = tableView.visibleCells.first as? FeedListCell,
                !cell.isUserPaused {
                 cell.pause()
             }
@@ -104,8 +121,6 @@ extension Feed {
         func bindSubviewEvent() {
             SZAVPlayerCache.shared.setup(maxCacheSize: 100)
 
-            setAudioMode()
-            
             Observable.merge(rx.viewWillAppear.asObservable(),
                              Settings.shared.loginResult.replay().map { _ in })
                 .debounce(.seconds(1), scheduler: MainScheduler.asyncInstance)
@@ -341,6 +356,21 @@ extension Feed.ListViewController {
         let nav = NavigationViewController(rootViewController: commentList)
         nav.modalPresentationStyle = .overCurrentContext
         topController()?.present(nav, animated: true)
+        
+        Observable.merge(nav.rx.popViewController.map { true },
+        nav.rx.pushViewController.map { false })
+            .subscribe(onNext: { [weak self, weak nav] result in
+                guard let `self` = self, let nav = nav else { return }
+                if result, nav.viewControllers.count == 1 {
+                    //play
+                    self.autoPlayVisibleVideoIfCould()
+                } else {
+                    self.autoPauseVisibleVideoIfCould()
+                }
+                cdPrint("self.isVisible: \(self.isVisible)")
+            })
+            .disposed(by: commentList.bag)
+
     }
 
     func onCell(action: FeedListCell.Action, viewModel: Feed.ListCellViewModel?) {
@@ -515,16 +545,6 @@ extension Feed.ListViewController {
             }
 //        }
 
-    }
-    
-    func setAudioMode() {
-        do {
-            try! AVAudioSession.sharedInstance().setCategory(.playback, mode: .moviePlayback)
-            try AVAudioSession.sharedInstance().setActive(true)
-        } catch (let err){
-            print("setAudioMode error:" + err.localizedDescription)
-        }
-        
     }
     
     func topController() -> UIViewController? {
