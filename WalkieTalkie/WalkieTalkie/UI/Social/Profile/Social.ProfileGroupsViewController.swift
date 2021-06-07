@@ -9,6 +9,7 @@
 import UIKit
 import RxCocoa
 import RxSwift
+import JXPagingView
 
 extension Social {
     
@@ -18,6 +19,8 @@ extension Social {
             case groupsCreated
             case groupsJoined
         }
+        
+        private var listViewDidScrollCallback: ((UIScrollView) -> ())?
         
         private let createdGroupsRelay = BehaviorRelay<[Entity.Group]>(value: [])
         private let joinedGroupsRelay = BehaviorRelay<[Entity.Group]>(value: [])
@@ -37,7 +40,7 @@ extension Social {
             layout.minimumLineSpacing = 20
             layout.minimumInteritemSpacing = 16
             let v = UICollectionView(frame: .zero, collectionViewLayout: layout)
-            v.contentInset = UIEdgeInsets(top: 0, left: hInset, bottom: 0, right: hInset)
+            v.contentInset = UIEdgeInsets(top: 24, left: hInset, bottom: 0, right: hInset)
             v.register(cellWithClazz: FansGroupItemCell.self)
             v.register(cellWithClazz: FansGroupSelfItemCell.self)
             v.register(cellWithClazz: JoinedGroupCell.self)
@@ -57,7 +60,7 @@ extension Social {
             v.isHidden = true
             return v
         }()
-
+        
         private lazy var options = [Option]() {
             didSet {
                 table.reloadData()
@@ -419,8 +422,25 @@ extension Social.ProfileGroupsViewController: UICollectionViewDelegateFlowLayout
     
 }
 
-extension Social.ProfileGroupsViewController: ProfileDataView {
-    var scrollView: UIScrollView {
-        return table
+extension Social.ProfileGroupsViewController: UIScrollViewDelegate {
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        listViewDidScrollCallback?(scrollView)
     }
+    
+}
+
+extension Social.ProfileGroupsViewController: JXPagingViewListViewDelegate {
+    
+    func listView() -> UIView {
+        return view
+    }
+    
+    func listViewDidScrollCallback(callback: @escaping (UIScrollView) -> ()) {
+        listViewDidScrollCallback = callback
+    }
+    
+    func listScrollView() -> UIScrollView {
+        return table
+    }    
 }

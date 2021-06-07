@@ -11,10 +11,7 @@ import RxCocoa
 import RxSwift
 import SwiftyUserDefaults
 import PullToDismiss
-
-protocol ProfileDataView: UIViewController {
-    var scrollView: UIScrollView { get }
-}
+import JXPagingView
 
 extension Social {
     
@@ -75,7 +72,8 @@ extension Social {
                 .subscribe(onNext: { [weak self] (idx) in
                     guard let `self` = self else { return }
                     let offset = CGPoint(x: self.pagingView.bounds.width * CGFloat(idx), y: 0)
-                    self.pagingView.setContentOffset(offset, animated: true)
+                    self.pagingView.listContainerView.didClickSelectedItem(at: idx)
+                    self.pagingView.listContainerView.contentScrollView().setContentOffset(offset, animated: true)
                 })
                 .disposed(by: bag)
             return s
@@ -91,30 +89,14 @@ extension Social {
         }()
         private let segmentedBtnHeight = CGFloat(60)
         
-        private lazy var layoutScrollView: UIScrollView = {
-            let s = UIScrollView()
-            s.showsVerticalScrollIndicator = false
-            s.showsHorizontalScrollIndicator = false
-            s.delegate = self
-            if #available(iOS 11.0, *) {
-                s.contentInsetAdjustmentBehavior = .never
-            } else {
-                // Fallback on earlier versions
-                automaticallyAdjustsScrollViewInsets = false
-            }
-            return s
+        private lazy var pagingView: JXPagingView = {
+            let p = JXPagingView(delegate: self)
+            p.backgroundColor = UIColor(hex6: 0x121212)
+            p.mainTableView.backgroundColor = UIColor(hex6: 0x121212)
+            return p
         }()
         
-        private lazy var profileDataViews = [ProfileDataView]()
-        
-        private lazy var pagingView: UIScrollView = {
-            let s = UIScrollView()
-            s.showsVerticalScrollIndicator = false
-            s.showsHorizontalScrollIndicator = false
-            s.isPagingEnabled = true
-            s.delegate = self
-            return s
-        }()
+        private lazy var profileDataViews = [JXPagingViewListViewDelegate]()
         
         private var pageIndex: Int = 0 {
             didSet {
@@ -311,8 +293,8 @@ extension Social {
                 case .following:
                     self.followingAction()
                 case .heightUpdated:
-                    //TODO: update header height
-                    ()
+                    //update header height
+                    self.pagingView.resizeTableHeaderViewHeight()
                 }
             }
             return v
@@ -370,7 +352,7 @@ extension Social {
 private extension Social.ProfileViewController {
     func setupLayout() {
         
-        view.addSubviews(views: layoutScrollView, navView, bottomGradientView)
+        view.addSubviews(views: pagingView, navView, bottomGradientView)
         
         navView.snp.makeConstraints { (maker) in
             maker.leading.trailing.equalToSuperview()
@@ -382,30 +364,8 @@ private extension Social.ProfileViewController {
             maker.height.equalTo(134)
         }
         
-        layoutScrollView.snp.makeConstraints { (maker) in
-            maker.width.equalTo(view.snp.width)
-            maker.edges.equalToSuperview()
-        }
-        
-        layoutScrollView.addSubviews(views: headerView, segmentedButtonContainer, pagingView)
-        
-        headerView.snp.makeConstraints { (maker) in
-            maker.leading.top.trailing.equalToSuperview()
-            maker.width.equalTo(view.snp.width)
-        }
-        
-        segmentedButtonContainer.snp.makeConstraints { (maker) in
-            maker.top.equalTo(headerView.snp.bottom)
-            maker.width.equalTo(view.snp.width)
-            maker.leading.trailing.equalToSuperview()
-            maker.height.equalTo(segmentedBtnHeight)
-        }
-        
         pagingView.snp.makeConstraints { (maker) in
-            maker.top.equalTo(segmentedButtonContainer.snp.bottom)
-            maker.leading.trailing.bottom.equalToSuperview()
-            maker.width.equalTo(view.snp.width)
-            maker.height.equalTo(view.snp.height).inset((Frame.Height.safeAeraTopHeight + segmentedBtnHeight) / 2)
+            maker.edges.equalToSuperview()
         }
         
         if isSelfProfile.value {
@@ -424,67 +384,13 @@ private extension Social.ProfileViewController {
     
     func setUpPagingLayout(for uid: Int) {
         
-        profileDataViews.forEach { (v) in
-            v.willMove(toParent: nil)
-            v.view.removeFromSuperview()
-            v.removeFromParent()
-        }
-        
         profileDataViews = [
             Social.ProfileGameSkillViewController(with: uid),
             Social.ProfileFeedsViewController(with: uid),
             Social.ProfileGroupsViewController(with: uid)
         ]
         
-        for (idx, vc) in profileDataViews.enumerated() {
-            
-            addChild(vc)
-            pagingView.addSubview(vc.view)
-            vc.view.snp.makeConstraints { (maker) in
-                maker.top.bottom.equalToSuperview()
-                maker.width.equalTo(view)
-                maker.height.equalTo(view.snp.height).inset((Frame.Height.safeAeraTopHeight + segmentedBtnHeight) / 2)
-                
-                if idx == 0 {
-                    maker.leading.equalToSuperview()
-                }
-                
-                if idx == profileDataViews.count - 1 {
-                    maker.trailing.equalToSuperview()
-                }
-                
-                if idx > 0,
-                   let pre = profileDataViews.safe(idx - 1) {
-                    maker.leading.equalTo(pre.view.snp.trailing)
-                }
-                
-            }
-            vc.didMove(toParent: self)
-            
-        }
-        
-        pagingView.layoutIfNeeded()
-        
-        Observable.merge(
-            profileDataViews.map({ (profileDataView) in
-                return profileDataView.scrollView.rx.contentOffset.map {
-                    (profileDataView.scrollView, $0)
-                }
-            })
-        )
-        .subscribe(onNext: { [weak self] table, point in
-            guard let `self` = self,
-                  point.y < 0,
-                  point.y > -self.segmentedBtnHeight else { return }
-            
-            var offset = self.layoutScrollView.contentOffset
-            offset.y = offset.y + point.y
-            
-            self.layoutScrollView.setContentOffset(offset, animated: false)
-            table.contentOffset = CGPoint(x: point.x, y: 0)
-        })
-        .disposed(by: bag)
-
+        pagingView.reloadData()
     }
     
     func setUpEvents() {
@@ -507,7 +413,7 @@ private extension Social.ProfileViewController {
             })
             .disposed(by: bag)
         
-        layoutScrollView.rx.contentOffset
+        pagingView.mainTableView.rx.contentOffset
             .subscribe(onNext: { [weak self] (point) in
                 
                 guard let `self` = self else { return }
@@ -521,12 +427,13 @@ private extension Social.ProfileViewController {
             })
             .disposed(by: bag)
         
-        layoutScrollView.rx.contentOffset
+        pagingView.mainTableView.rx.contentOffset
+            .skip(1)
             .subscribe(onNext: { [weak self] (point) in
                 guard let `self` = self,
-                      self.layoutScrollView.contentSize != .zero else { return }
+                      self.pagingView.mainTableView.contentSize != .zero else { return }
                 
-                let frame = self.layoutScrollView.convert(self.segmentedButtonContainer.frame, to: self.view)
+                let frame = self.pagingView.mainTableView.convert(self.segmentedButtonContainer.frame, to: self.view)
                 if frame.origin.y <= self.navView.bottom {
                     if self.segmentedButton.superview != self.view {
                         self.segmentedButton.removeFromSuperview()
@@ -548,6 +455,14 @@ private extension Social.ProfileViewController {
                     
                 }
                 
+            })
+            .disposed(by: bag)
+        
+        pagingView.listContainerView.contentScrollView().rx.didEndDecelerating
+            .subscribe(onNext: { [weak self] (_) in
+                guard let `self` = self else { return }
+                let scrollView = self.pagingView.listContainerView.contentScrollView()
+                self.pageIndex = Int(scrollView.contentOffset.x / scrollView.frame.size.width)
             })
             .disposed(by: bag)
     }
@@ -593,8 +508,8 @@ private extension Social.ProfileViewController {
     
     func setupData() {
         if isSelfProfile.value, navigationController?.viewControllers.count == 1 {
-            pullToDismiss = PullToDismiss(scrollView: layoutScrollView)
-            pullToDismiss?.delegate = self
+            pullToDismiss = PullToDismiss(scrollView: pagingView.mainTableView)
+            pullToDismiss?.delegate = pagingView
             pullToDismiss?.dismissableHeightPercentage = 0.4
         }
         
@@ -853,14 +768,30 @@ private extension Social.ProfileViewController {
     }
 }
 
-extension Social.ProfileViewController: UIScrollViewDelegate {
+extension Social.ProfileViewController: JXPagingViewDelegate {
     
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        
-        if scrollView == pagingView {
-            pageIndex = Int(scrollView.contentOffset.x / scrollView.frame.size.width)
-        }
-        
+    func tableHeaderViewHeight(in pagingView: JXPagingView) -> Int {
+        return headerView.viewHeight.int
+    }
+    
+    func tableHeaderView(in pagingView: JXPagingView) -> UIView {
+        return headerView
+    }
+    
+    func heightForPinSectionHeader(in pagingView: JXPagingView) -> Int {
+        return segmentedBtnHeight.int
+    }
+    
+    func viewForPinSectionHeader(in pagingView: JXPagingView) -> UIView {
+        return segmentedButtonContainer
+    }
+    
+    func numberOfLists(in pagingView: JXPagingView) -> Int {
+        return profileDataViews.count
+    }
+    
+    func pagingView(_ pagingView: JXPagingView, initListAtIndex index: Int) -> JXPagingViewListViewDelegate {
+        return profileDataViews[index]
     }
     
 }

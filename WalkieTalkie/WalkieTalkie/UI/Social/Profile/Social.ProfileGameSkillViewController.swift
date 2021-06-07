@@ -10,10 +10,13 @@ import UIKit
 import RxCocoa
 import RxSwift
 import SDCAlertView
+import JXPagingView
 
 extension Social {
     
     class ProfileGameSkillViewController: WalkieTalkie.ViewController {
+        
+        private var listViewDidScrollCallback: ((UIScrollView) -> ())?
         
         private typealias SectionHeader = Social.ProfileViewController.SectionHeader
         private typealias ProfileTableCell = Social.ProfileViewController.ProfileTableCell
@@ -27,7 +30,7 @@ extension Social {
             layout.sectionInset = UIEdgeInsets(top: 16, left: 0, bottom: 56, right: 0)
             layout.minimumLineSpacing = 20
             let v = UICollectionView(frame: .zero, collectionViewLayout: layout)
-            v.contentInset = UIEdgeInsets(top: 0, left: hInset, bottom: 0, right: hInset)
+            v.contentInset = UIEdgeInsets(top: 24, left: hInset, bottom: 0, right: hInset)
             v.register(cellWithClazz: GameCell.self)
             v.register(cellWithClazz: ProfileTableCell.self)
             v.register(supplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withClass: SectionHeader.self)
@@ -312,9 +315,25 @@ extension Social.ProfileGameSkillViewController: UICollectionViewDelegateFlowLay
     
 }
 
-extension Social.ProfileGameSkillViewController: ProfileDataView {
+extension Social.ProfileGameSkillViewController: UIScrollViewDelegate {
     
-    var scrollView: UIScrollView {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        listViewDidScrollCallback?(scrollView)
+    }
+    
+}
+
+extension Social.ProfileGameSkillViewController: JXPagingViewListViewDelegate {
+    
+    func listView() -> UIView {
+        return view
+    }
+
+    func listViewDidScrollCallback(callback: @escaping (UIScrollView) -> ()) {
+        listViewDidScrollCallback = callback
+    }
+
+    func listScrollView() -> UIScrollView {
         return table
     }
     
