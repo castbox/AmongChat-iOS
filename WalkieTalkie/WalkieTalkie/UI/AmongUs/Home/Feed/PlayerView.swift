@@ -157,6 +157,7 @@ extension PlayerView: SZAVPlayerDelegate {
         case .readyToPlay:
             cdPrint("ready to play: \(String(describing: avplayer.currentURLStr))")
             callLoadedHandler()
+            retryTime = 0
             if playerControllerEvent == .playing {
                 setAudioMode()
                 videoPlayer.play()
@@ -168,7 +169,7 @@ extension PlayerView: SZAVPlayerDelegate {
         case .loading:
             cdPrint("loading: \(String(describing: avplayer.currentURLStr))")
         case .loadingFailed:
-            guard retryTime < 4, let config = self.config else {
+            guard retryTime < 10, let config = self.config else {
                 callLoadedHandler()
                 return
             }
