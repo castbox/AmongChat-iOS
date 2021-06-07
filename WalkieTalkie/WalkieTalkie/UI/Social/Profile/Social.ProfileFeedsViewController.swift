@@ -36,7 +36,7 @@ extension Social {
             layout.minimumLineSpacing = 8
             layout.minimumInteritemSpacing = 8
             let v = UICollectionView(frame: .zero, collectionViewLayout: layout)
-            v.contentInset = UIEdgeInsets(top: 24, left: hInset, bottom: 0, right: hInset)
+            v.contentInset = UIEdgeInsets(top: 8, left: hInset, bottom: 0, right: hInset)
             v.register(cellWithClazz: ProfileTableCell.self)
             v.register(cellWithClazz: FeedCell.self)
             v.register(cellWithClazz: CreateFeedCell.self)
