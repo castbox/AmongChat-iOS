@@ -147,7 +147,6 @@ extension Feed.Comments {
         private lazy var comments: [CommentViewModel] = [] {
             didSet {
                 commentListView.reloadData()
-                titleLabel.text = R.string.localizable.feedCommentsListTitle("\(comments.count)")
                 emptyView.isHidden = (comments.count > 0)
                 if comments.count > 0 {
                     commentListView.pullToLoadMore { [weak self] in
@@ -177,9 +176,14 @@ extension Feed.Comments {
         private var replyReply: ReplyViewModel? = nil
         private var positionBlock: (() -> Void)? = nil
         private var replyToIndexPath: IndexPath? = nil
+        private let commentsCountRelay: BehaviorRelay<Int>
+        var commentsCountObservable: Observable<Int> {
+            return commentsCountRelay.asObservable()
+        }
         
-        init(with feedId: String, commentsInfo: Entity.FeedRedirectInfo.CommentsInfo? = nil) {
+        init(with feedId: String, commentsInfo: Entity.FeedRedirectInfo.CommentsInfo? = nil, commentsCount: Int = 0) {
             self.commentListVM = CommentListViewModel(with: feedId, commentsInfo: commentsInfo)
+            self.commentsCountRelay = BehaviorRelay(value: commentsCount)
             super.init(nibName: nil, bundle: nil)
             if let commentsInfo = commentsInfo {
                 positionBlock = { [weak self] in
@@ -360,6 +364,10 @@ extension Feed.Comments.CommentsListViewController {
             })
             .disposed(by: bag)
         
+        commentsCountRelay.subscribe(onNext: { [weak self] (count) in
+            self?.titleLabel.text = R.string.localizable.feedCommentsListTitle("\(count)")
+        })
+        .disposed(by: bag)
     }
     
     private func sendComment() {
@@ -373,6 +381,12 @@ extension Feed.Comments.CommentsListViewController {
             action = comment.replyToComment(comment, text: commentInputView.inputTextView.text)
         } else {
             action = commentListVM.addComment(text: commentInputView.inputTextView.text)
+                .do(onSuccess: { [weak self] (_) in
+                    guard let `self` = self else { return }
+                    var count = self.commentsCountRelay.value
+                    count += 1
+                    self.commentsCountRelay.accept(count)
+                })
         }
         
         let hudRemoval = view.raft.show(.loading)
