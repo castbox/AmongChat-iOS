@@ -13,7 +13,7 @@ class VideoShareTagView: XibLoadableView {
     @IBOutlet weak var nameLabel: UILabel!
     
     init(with name: String) {
-        super.init(frame: CGRect(x: 0, y: 0, width: Frame.Screen.width - 40, height: 32))
+        super.init(frame: CGRect(x: 0, y: 0, width: Frame.Screen.width - 40, height: 64))
         self.nameLabel.text = "@\(name)"
     }
     
