@@ -467,7 +467,6 @@ extension Social.ProfileViewController {
             penddingViewContainer.snp.makeConstraints { (maker) in
                 maker.top.equalTo(relationContainer.snp.bottom)
                 maker.leading.trailing.equalToSuperview()
-                maker.bottom.equalToSuperview().offset(-bottomSpace)
             }
             
             if isSelf {

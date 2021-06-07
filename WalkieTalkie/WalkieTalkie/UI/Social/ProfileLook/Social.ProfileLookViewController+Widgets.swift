@@ -348,16 +348,6 @@ extension Social.ProfileLookViewController {
             guard let button = buttons.safe(index) else {
                 return
             }
-            switch index {
-            case 0:
-                Logger.Action.log(.notice_tab_system_clk)
-            case 1:
-                Logger.Action.log(.notice_tab_social_clk)
-            case 2:
-                Logger.Action.log(.notice_tab_group_request_clk)
-            default:
-                ()
-            }
             
             guard selectedBtn != button else { return }
                         

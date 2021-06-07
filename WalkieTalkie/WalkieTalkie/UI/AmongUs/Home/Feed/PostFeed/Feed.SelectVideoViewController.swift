@@ -43,6 +43,16 @@ extension Feed {
                     guard let `self` = self else { return }
                     let offset = CGPoint(x: self.scrollView.bounds.width * CGFloat(idx), y: 0)
                     self.scrollView.setContentOffset(offset, animated: true)
+                    switch idx {
+                    case 0:
+                        Logger.Action.log(.feeds_create_tab_clk, categoryValue: "library")
+                    case 1:
+                        Logger.Action.log(.feeds_create_tab_clk, categoryValue: "twitch")
+                    case 2:
+                        Logger.Action.log(.feeds_create_tab_clk, categoryValue: "youtube")
+                    default:
+                        ()
+                    }
                 })
                 .disposed(by: bag)
             return s
@@ -174,6 +184,11 @@ extension Feed.SelectVideoViewController {
         })
         .disposed(by: bag)
         
+        rx.viewDidAppear.take(1)
+            .subscribe(onNext: { (_) in
+                Logger.Action.log(.feeds_create_imp)
+            })
+            .disposed(by: bag)
     }
     
     private func next() {
@@ -192,7 +207,7 @@ extension Feed.SelectVideoViewController {
                 self?.navigationController?.pushViewController(vc)
             })
             .disposed(by: bag)
-        
+        Logger.Action.log(.feeds_create_next_clk)
     }
 }
 

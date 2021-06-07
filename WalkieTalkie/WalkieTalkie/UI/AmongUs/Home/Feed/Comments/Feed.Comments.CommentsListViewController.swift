@@ -138,7 +138,7 @@ extension Feed.Comments {
                 maker.leading.equalTo(a.snp.trailing).offset(16)
                 maker.trailing.equalToSuperview().offset(-Frame.horizontalBleedWidth)
                 maker.top.equalToSuperview().offset(12)
-                maker.bottom.equalToSuperview().offset(-46)
+                maker.bottom.equalToSuperview().offset(-(12 + Frame.Height.safeAeraBottomHeight))
             }
             return v
         }()
@@ -147,7 +147,6 @@ extension Feed.Comments {
         private lazy var comments: [CommentViewModel] = [] {
             didSet {
                 commentListView.reloadData()
-                titleLabel.text = R.string.localizable.feedCommentsListTitle("\(comments.count)")
                 emptyView.isHidden = (comments.count > 0)
                 if comments.count > 0 {
                     commentListView.pullToLoadMore { [weak self] in
@@ -177,9 +176,14 @@ extension Feed.Comments {
         private var replyReply: ReplyViewModel? = nil
         private var positionBlock: (() -> Void)? = nil
         private var replyToIndexPath: IndexPath? = nil
+        private let commentsCountRelay: BehaviorRelay<Int>
+        var commentsCountObservable: Observable<Int> {
+            return commentsCountRelay.asObservable()
+        }
         
-        init(with feedId: String, commentsInfo: Entity.FeedRedirectInfo.CommentsInfo? = nil) {
+        init(with feedId: String, commentsInfo: Entity.FeedRedirectInfo.CommentsInfo? = nil, commentsCount: Int = 0) {
             self.commentListVM = CommentListViewModel(with: feedId, commentsInfo: commentsInfo)
+            self.commentsCountRelay = BehaviorRelay(value: commentsCount)
             super.init(nibName: nil, bundle: nil)
             if let commentsInfo = commentsInfo {
                 positionBlock = { [weak self] in
@@ -323,7 +327,7 @@ extension Feed.Comments.CommentsListViewController {
                 }
                 
                 self.bottomBar.snp.updateConstraints { (maker) in
-                    maker.bottom.equalToSuperview().offset(-keyboardVisibleHeight + 34)
+                    maker.bottom.equalToSuperview().offset(-keyboardVisibleHeight + Frame.Height.safeAeraBottomHeight)
                 }
                 
                 UIView.animate(withDuration: RxKeyboard.instance.animationDuration) {
@@ -346,6 +350,9 @@ extension Feed.Comments.CommentsListViewController {
             .disposed(by: bag)
         
         commentInputView.sendObservable
+            .do(onNext: { [weak self] (_) in
+                Logger.Action.log(.comments_send_clk, categoryValue: nil, self?.commentListVM.feedId)
+            })
             .map({ [weak self] _ in
                 self?.commentInputView.inputTextView.text
             })
@@ -357,6 +364,10 @@ extension Feed.Comments.CommentsListViewController {
             })
             .disposed(by: bag)
         
+        commentsCountRelay.subscribe(onNext: { [weak self] (count) in
+            self?.titleLabel.text = R.string.localizable.feedCommentsListTitle("\(count)")
+        })
+        .disposed(by: bag)
     }
     
     private func sendComment() {
@@ -370,6 +381,12 @@ extension Feed.Comments.CommentsListViewController {
             action = comment.replyToComment(comment, text: commentInputView.inputTextView.text)
         } else {
             action = commentListVM.addComment(text: commentInputView.inputTextView.text)
+                .do(onSuccess: { [weak self] (_) in
+                    guard let `self` = self else { return }
+                    var count = self.commentsCountRelay.value
+                    count += 1
+                    self.commentsCountRelay.accept(count)
+                })
         }
         
         let hudRemoval = view.raft.show(.loading)
@@ -405,6 +422,7 @@ extension Feed.Comments.CommentsListViewController {
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         let delete = UIAlertAction(title: R.string.localizable.amongChatDelete(), style: .destructive) { (_) in
             deleteAction()
+            Logger.Action.log(.comments_item_clk, categoryValue: "delete")
         }
         
         let cancel = UIAlertAction(title: R.string.localizable.toastCancel(), style: .cancel) { (_) in
@@ -458,13 +476,14 @@ extension Feed.Comments.CommentsListViewController: UICollectionViewDataSource {
                         self?.commentListView.reloadItems(at: [indexPath])
                     })
                     .disposed(by: self.bag)
-                
+                Logger.Action.log(.comments_item_clk, categoryValue: "like")
             }, replyHandler: { [weak self] in
                 guard let `self` = self else { return }
                 self.replyToIndexPath = indexPath
                 self.commentInputView.inputTextView.becomeFirstResponder()
                 self.commentInputView.placeholderLabel.text = R.string.localizable.amongChatReply() + " @\(comment.comment.user.name ?? "")"
                 self.replyComment = comment
+                Logger.Action.log(.comments_item_clk, "reply")
             }, moreActionHandler: { [weak self] in
                 guard let `self` = self,
                       comment.comment.user.uid.isSelfUid else { return }
@@ -498,6 +517,7 @@ extension Feed.Comments.CommentsListViewController: UICollectionViewDataSource {
                                 self.commentInputView.placeholderLabel.text = R.string.localizable.amongChatReply() + " @\(reply.reply.user.name ?? "")"
                                 self.replyReply = reply
                                 self.replyComment = comment
+                                Logger.Action.log(.comments_item_clk, categoryValue: "reply")
                               }, moreActionHandler: { [weak self] in
                                 guard let `self` = self,
                                       reply.reply.user.uid.isSelfUid else { return }
@@ -531,6 +551,18 @@ extension Feed.Comments.CommentsListViewController: UICollectionViewDataSource {
             }
             
         }
+    }
+}
+
+extension Feed.Comments.CommentsListViewController: UICollectionViewDelegate {
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        guard let cell = collectionView.cellForItem(at: indexPath) as? Feed.Comments.ExpandReplyCell else {
+            return
+        }
+        
+        cell.tapAction?()
     }
 }
 

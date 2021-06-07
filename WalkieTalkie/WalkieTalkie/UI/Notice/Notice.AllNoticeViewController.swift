@@ -36,6 +36,18 @@ extension Notice {
                     guard let `self` = self else { return }
                     let offset = CGPoint(x: self.scrollView.bounds.width * CGFloat(idx), y: 0)
                     self.scrollView.setContentOffset(offset, animated: true)
+                    
+                    switch idx {
+                    case 0:
+                        Logger.Action.log(.notice_tab_system_clk)
+                    case 1:
+                        Logger.Action.log(.notice_tab_social_clk)
+                    case 2:
+                        Logger.Action.log(.notice_tab_group_request_clk)
+                    default:
+                        ()
+                    }
+
                 })
                 .disposed(by: bag)
             return s

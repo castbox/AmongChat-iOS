@@ -37,6 +37,7 @@
 "report.incorrect.sexual" = "Contenido sexual";
 "report.incorrect.harassment" = "Acoso o lenguaje repulsivo";
 "report.incorrect.unreasonable" = "Exigencias irrazonables";
+"report.success" = "Has informado con éxito \na esta persona";
 
 
 "alert.block" = "Bloquear";
@@ -469,7 +470,7 @@
 
 //1.18
 "report.user" = "Reportar usuario";
-"report.success" = "informado con éxito";
+"report.success" = "Has informado con éxito \na esta persona";
 "report.failed" = "Informe fallido. Inténtalo de nuevo";
 "report.comments" = "Comentarios";
 "report.comments.placeholder" = "Describe el informe";
@@ -560,3 +561,46 @@
 "profile.constellation.capricorn" = "Capricornio";
 "profile.constellation.aquarius" = "Acuario";
 "profile.constellation.pisces" = "Piscis";
+
+"dm.interactive.messages" = "Mensajes interactivos";
+"dm.interactive.all.message" = "Todos los mensajes";
+"dm.interactive.comments" = "Comentarios";
+"dm.interactive.emotes" = "Emotes";
+"dm.interactive.likes" = "Gustos";
+"dm.interactive.emote.title" = "envió un emote en tu publicación";
+"dm.interactive.reply.comment.title" = "respondió a tu comentario";
+"dm.interactive.comment.title" = "comentó en tu publicación";
+"dm.interactive.comment.like.title" = "me gustó tu comentario";
+
+//1.22
+"feed.share" = "Compartir";
+"feed.sheet.not.interested" = "No interesado";
+"feed.sheet.delete.video" = "Eliminar video";
+"feed.library.video.unsupported" = "No soportado";
+"feed.post.title" = "Publicación";
+"feed.library.title" = "Biblioteca";
+"feed.post.tip" = "Los videos deben durar menos de 60 segundos";
+"feed.choose.topic.title" = "Elige un tema de juego";
+"among.chat.reply" = "Responder";
+"feed.comments.expand.count" = "Ver respuestas (%1$@)";
+"feed.comments.expand.more" = "Ver más";
+"feed.comments.collapse" = "Esconder";
+"feed.comments.placeholder" = "Agrega un comentario";
+"feed.comments.list.title" = "%1$@ Comentarios";
+
+"profile.feed.no.videos" = "¡Vaya, aún no hay videos!";
+"profile.feed.click.create" = "Haz clic para crear tu primer video";
+"feed.library.access.photo.title" = "Accede a tu galería";
+"feed.library.access.photo.text" = "Se necesita el permiso para acceder a su galería. Cámbielo haciendo clic en el botón de abajo para obtener todos sus clips aquí.";
+"among.chat.open.settings" = "Configuración Abierta";
+"feed.comments.deleted" = "Eliminado";
+"profile.game.stats.empty" = "¡Vaya, aún no hay estadísticas de juegos!";
+"feed.library.video.empty" = "¡Vaya, no hay contenido aquí!";
+"feed.comment.create.failed" = "No se pudo publicar el comentario";
+"feed.comment.delete.failed" = "No se pudo eliminar";
+"feed.comment.reply.failed" = "No pudo responder";
+"feed.comments.comment.success" = "Comentario publicado";
+"among.chat.login.auth.source.emote" = "enviar emotes";
+"among.chat.login.auth.source.comment" = "agregar un comentario";
+"among.chat.login.auth.source.create.feed" = "crear publicaciones";
+"feed.play.no.wifi.tips" = "No estás conectado a WIFI. Para continuar transmitiendo, se consumirían sus datos móviles.";

@@ -327,7 +327,12 @@ extension Feed.ListViewController {
     
     func showCommentList(with feedId: String, commentsInfo: Entity.FeedRedirectInfo.CommentsInfo? = nil) {
         shouldAutoPauseWhenDismiss = false
-        let commentList = Feed.Comments.CommentsListViewController(with: feedId, commentsInfo: commentsInfo)
+        let commentList = Feed.Comments.CommentsListViewController(with: feedId, commentsInfo: commentsInfo, commentsCount: 0)
+        commentList.commentsCountObservable
+            .subscribe(onNext: { (count) in
+                //TODO: update comment count
+            })
+            .disposed(by: bag)
         let nav = NavigationViewController(rootViewController: commentList)
         nav.modalPresentationStyle = .overCurrentContext
         topController()?.present(nav, animated: true)

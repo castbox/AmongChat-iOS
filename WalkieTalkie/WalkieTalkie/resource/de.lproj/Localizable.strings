@@ -37,7 +37,7 @@
 "report.incorrect.sexual" = "Sexueller Inhalt";
 "report.incorrect.harassment" = "Belästigung oder abstoßende Sprache";
 "report.incorrect.unreasonable" = "Unangemessene Forderungen";
-"report.success" = "erfolgreich gemeldet";
+"report.success" = "Sie haben diese Person\nerfolgreich gemeldet";
 
 
 "alert.block" = "Blockieren";
@@ -470,8 +470,9 @@
 
 //1.18
 "report.user" = "Benutzer melden";
+"report.success" = "Sie haben diese Person\nerfolgreich gemeldet";
 "report.failed" = "Bericht fehlgeschlagen. Bitte versuche es erneut";
-"report.comments" = "Bemerkungen";
+"report.comments" = "Kommentare";
 "report.comments.placeholder" = "Bitte beschreiben Sie den Bericht";
 "report.upload.screenshots" = "Screenshots hochladen";
 "report.select.reason.title" = "Bitte wählen Sie den Grund für den Bericht";
@@ -545,7 +546,7 @@
 "profile.set.bio" = "Stellen Sie Ihre Biografie ein";
 "profile.pronoun.she.her" = "sie/ihr";
 "profile.pronoun.he.him" = "er/ihm";
-"profile.pronoun.they.them" = "sie/ihnen";
+"profile.pronoun.they.them" = "dey";
 "profile.pronoun.other" = "Andere";
 "profile.pronoun.not.share" = "Möchte ich für mich behalten";
 "profile.constellation.aries" = "Widder";
@@ -560,3 +561,46 @@
 "profile.constellation.capricorn" = "Steinbock";
 "profile.constellation.aquarius" = "Wassermann";
 "profile.constellation.pisces" = "Fische";
+
+"dm.interactive.messages" = "Interaktive Nachrichten";
+"dm.interactive.all.message" = "Alle Nachrichten";
+"dm.interactive.comments" = "Kommentare";
+"dm.interactive.emotes" = "Emotes";
+"dm.interactive.likes" = "Likes";
+"dm.interactive.emote.title" = "emotiert auf Ihrem Beitrag";
+"dm.interactive.reply.comment.title" = "auf Ihren Kommentar geantwortet";
+"dm.interactive.comment.title" = "hat Ihren Beitrag kommentiert";
+"dm.interactive.comment.like.title" = "hat Ihren Kommentar gefallen";
+
+//1.22
+"feed.share" = "Teilen";
+"feed.sheet.not.interested" = "Nicht interessiert";
+"feed.sheet.delete.video" = "Video löschen";
+"feed.library.video.unsupported" = "Nicht unterstützt";
+"feed.post.title" = "Beitrag";
+"feed.library.title" = "Bibliothek";
+"feed.post.tip" = "Videos sollten weniger als 60 Sekunden lang sein";
+"feed.choose.topic.title" = "Ein Spielthema wählen";
+"among.chat.reply" = "Antworten";
+"feed.comments.expand.count" = "Antworten anzeigen (%1$@)";
+"feed.comments.expand.more" = "Mehr sehen";
+"feed.comments.collapse" = "Ausblenden";
+"feed.comments.placeholder" = "Einen Kommentar hinzufügen";
+"feed.comments.list.title" = "%1$@ Kommentare";
+
+"profile.feed.no.videos" = "Ups, noch keine Videos!";
+"profile.feed.click.create" = "Klicken Sie hier, um Ihr erstes Video zu erstellen";
+"feed.library.access.photo.title" = "Greifen Sie auf Ihre Galerie zu";
+"feed.library.access.photo.text" = "Die Berechtigung zum Zugriff auf Ihre Galerie ist erforderlich. Bitte ändern Sie es, indem Sie auf die Schaltfläche unten klicken, um alle Ihre Clips hier zu erhalten.";
+"among.chat.open.settings" = "Einstellungen öffnen";
+"feed.comments.deleted" = "Gelöscht";
+"profile.game.stats.empty" = "Ups, noch keine Spielstatistiken!";
+"feed.library.video.empty" = "Ups, kein Inhalt hier!";
+"feed.comment.create.failed" = "Kommentar konnte nicht gepostet werden";
+"feed.comment.delete.failed" = "Löschen fehlgeschlagen";
+"feed.comment.reply.failed" = "Antwort fehlgeschlagen";
+"feed.comments.comment.success" = "Kommentar veröffentlicht";
+"among.chat.login.auth.source.emote" = "Emotes absenden";
+"among.chat.login.auth.source.comment" = "Einen Kommentar hinzufügen";
+"among.chat.login.auth.source.create.feed" = "Beiträge erstellen";
+"feed.play.no.wifi.tips" = "Sie sind nicht mit WIFI verbunden. Um das Streaming fortzusetzen, werden Ihre mobilen Daten verbraucht.";

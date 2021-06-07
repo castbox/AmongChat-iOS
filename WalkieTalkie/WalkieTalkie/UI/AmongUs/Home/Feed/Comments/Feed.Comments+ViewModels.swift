@@ -17,7 +17,7 @@ extension Feed.Comments {
         private let bag = DisposeBag()
         private let commentsRelay = BehaviorRelay<[CommentViewModel]>(value: [])
         private(set) var hasMore: Bool = true
-        private let feedId: String
+        let feedId: String
         private var isLoading = false
         
         var commentsObservable: Observable<[CommentViewModel]> {
@@ -251,6 +251,9 @@ extension Feed.Comments {
         private var comment: Entity.FeedComment
         
         var content: String {
+            guard atPrefix.count > 0 else {
+                return reply.text
+            }
             return atPrefix + " " + reply.text
         }
                 
@@ -260,7 +263,9 @@ extension Feed.Comments {
         
         var atPrefix: String {
             
-            let toUser = reply.toUser ?? comment.user
+            guard let toUser = reply.toUser else {
+                return ""
+            }
             
             return "@" + (toUser.name ?? "\(toUser.uid)") + ":"
         }

@@ -9,6 +9,7 @@
 import UIKit
 import RxCocoa
 import RxSwift
+import JXPagingView
 
 extension Social {
     
@@ -18,6 +19,8 @@ extension Social {
             case tiktok
             case feed
         }
+        
+        private var listViewDidScrollCallback: ((UIScrollView) -> ())?
         
         private typealias SectionHeader = Social.ProfileViewController.SectionHeader
         private typealias ProfileTableCell = Social.ProfileViewController.ProfileTableCell
@@ -33,7 +36,7 @@ extension Social {
             layout.minimumLineSpacing = 8
             layout.minimumInteritemSpacing = 8
             let v = UICollectionView(frame: .zero, collectionViewLayout: layout)
-            v.contentInset = UIEdgeInsets(top: 0, left: hInset, bottom: 0, right: hInset)
+            v.contentInset = UIEdgeInsets(top: 24, left: hInset, bottom: 0, right: hInset)
             v.register(cellWithClazz: ProfileTableCell.self)
             v.register(cellWithClazz: FeedCell.self)
             v.register(cellWithClazz: CreateFeedCell.self)
@@ -214,6 +217,7 @@ extension Social.ProfileFeedsViewController: UICollectionViewDataSource {
                 cell.createAction = { [weak self] in
                     let vc = Feed.SelectVideoViewController()
                     self?.navigationController?.pushViewController(vc)
+                    Logger.Action.log(.profile_feed_create_clk)
                 }
                 return cell
             }
@@ -334,8 +338,25 @@ extension Social.ProfileFeedsViewController: UICollectionViewDelegateFlowLayout 
     
 }
 
-extension Social.ProfileFeedsViewController: ProfileDataView {
-    var scrollView: UIScrollView {
+extension Social.ProfileFeedsViewController: UIScrollViewDelegate {
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        listViewDidScrollCallback?(scrollView)
+    }
+    
+}
+
+extension Social.ProfileFeedsViewController: JXPagingViewListViewDelegate {
+    
+    func listView() -> UIView {
+        return view
+    }
+
+    func listViewDidScrollCallback(callback: @escaping (UIScrollView) -> ()) {
+        listViewDidScrollCallback = callback
+    }
+
+    func listScrollView() -> UIScrollView {
         return table
     }
     
