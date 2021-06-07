@@ -51,6 +51,10 @@ extension Feed {
             feed.cmtCount += 1
         }
         
+        func updateCommentCount(_ count: Int) {
+            feed.cmtCount = count
+        }
+        
         private func updateEmotes() {
             let feedEmotes = Settings.shared.globalSetting.value?.feedEmotes ?? []
             

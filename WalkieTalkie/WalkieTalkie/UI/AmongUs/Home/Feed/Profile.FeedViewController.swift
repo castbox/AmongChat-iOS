@@ -221,7 +221,7 @@ extension Social {
             if let feed = feedRedirectInfo?.post,
                let commentInfo = feedRedirectInfo?.commentsInfo {
                 //show comment
-                self.showCommentList(with: feed.pid, commentsInfo: commentInfo)
+                self.showCommentList(with: feed.pid, commentsInfo: commentInfo, count: feed.cmtCount)
             }
         }
         

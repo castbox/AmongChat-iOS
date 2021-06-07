@@ -102,7 +102,7 @@ extension Feed {
             }
         }
         func bindSubviewEvent() {
-            SZAVPlayerCache.shared.setup(maxCacheSize: 10)
+            SZAVPlayerCache.shared.setup(maxCacheSize: 100)
 
             setAudioMode()
             
@@ -325,12 +325,17 @@ extension Feed.ListViewController {
         }
     }
     
-    func showCommentList(with feedId: String, commentsInfo: Entity.FeedRedirectInfo.CommentsInfo? = nil) {
+    func showCommentList(with feedId: String, commentsInfo: Entity.FeedRedirectInfo.CommentsInfo? = nil, count: Int) {
         shouldAutoPauseWhenDismiss = false
-        let commentList = Feed.Comments.CommentsListViewController(with: feedId, commentsInfo: commentsInfo, commentsCount: 0)
+        let commentList = Feed.Comments.CommentsListViewController(with: feedId, commentsInfo: commentsInfo, commentsCount: count)
         commentList.commentsCountObservable
-            .subscribe(onNext: { (count) in
+            .subscribe(onNext: { [weak self] (count) in
                 //TODO: update comment count
+                guard let `self` = self, let index = self.dataSource.firstIndex(where: { $0.feed.pid == feedId }) else { return }
+                let viewModel = self.dataSource[index]
+                viewModel.updateCommentCount(count)
+                let cell = self.tableView.cellForRow(at: IndexPath(row: index, section: 0)) as? FeedListCell
+                cell?.updateCommentCount()
             })
             .disposed(by: bag)
         let nav = NavigationViewController(rootViewController: commentList)
@@ -380,7 +385,7 @@ extension Feed.ListViewController {
             
         case .comment:
             Logger.Action.log(.feeds_item_clk, category: .comments, viewModel.feed.pid)
-            self.showCommentList(with: viewModel.feed.pid, commentsInfo: nil)
+            self.showCommentList(with: viewModel.feed.pid, commentsInfo: nil, count: viewModel.feed.cmtCount)
         case .share:
             share(viewModel: viewModel)
             
