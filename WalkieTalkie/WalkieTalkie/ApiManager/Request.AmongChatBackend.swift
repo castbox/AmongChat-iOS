@@ -35,6 +35,7 @@ struct MsgError: Error {
         case roomNotFound = 202 //'can not find this room'
         
         case beBlocked = 1003 //You are on this user\'s blacklist. You can not message this user any more.
+        case feedDeleted = 2100
         case sendDmError = 100000
     }
     
@@ -94,6 +95,8 @@ extension MsgError.CodeType {
             return R.string.localizable.adminCannotMatchedRoomTips()
         case .beBlocked:
             return R.string.localizable.dmSendMessageBeblockedError()
+        case .feedDeleted:
+            return R.string.localizable.feedDeletedTips()
         default:
             return nil
         }

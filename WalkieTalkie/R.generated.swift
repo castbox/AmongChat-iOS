@@ -2716,7 +2716,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
     
-    /// This `R.string.localizable` struct is generated, and contains static references to 528 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 529 localization keys.
     struct localizable {
       /// en translation:  Congratulations!
       /// 
@@ -3918,6 +3918,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let serverLostTips = Rswift.StringResource(key: "server.lost.tips", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Oops, this post has been deleted
+      /// 
+      /// Locales: en
+      static let feedDeletedTips = Rswift.StringResource(key: "feed.deleted.tips", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Open Game
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -6929,6 +6933,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func serverLostTips(_: Void = ()) -> String {
         return NSLocalizedString("server.lost.tips", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Oops, this post has been deleted
+      /// 
+      /// Locales: en
+      static func feedDeletedTips(_: Void = ()) -> String {
+        return NSLocalizedString("feed.deleted.tips", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Open Game

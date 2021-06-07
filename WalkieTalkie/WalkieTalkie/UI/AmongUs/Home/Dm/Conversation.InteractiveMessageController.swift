@@ -223,8 +223,12 @@ extension Conversation.InteractiveMessageController: UITableViewDataSource, UITa
                 removeHandler()
                 let vc = Social.ProfileFeedController(with: viewModel.msg.uid, feedRedirectInfo: redirectInfo)
                 self?.navigationController?.pushViewController(vc)
-            }, onError: { (error) in
+            }, onError: { [weak self] (error) in
                 removeHandler()
+                guard let msgError = error as? MsgError, let tips = msgError.codeType?.tips else {
+                    return
+                }
+                self?.view.raft.autoShow(.text(tips))
                 cdPrint("error: \(error)")
             })
             .disposed(by: bag)
