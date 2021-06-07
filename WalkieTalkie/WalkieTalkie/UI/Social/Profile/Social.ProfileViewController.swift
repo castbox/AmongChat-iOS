@@ -74,6 +74,17 @@ extension Social {
                     let offset = CGPoint(x: self.pagingView.bounds.width * CGFloat(idx), y: 0)
                     self.pagingView.listContainerView.didClickSelectedItem(at: idx)
                     self.pagingView.listContainerView.contentScrollView().setContentOffset(offset, animated: true)
+                    
+                    switch idx {
+                    case 0:
+                        Logger.Action.log(.profile_tab_clk, categoryValue: "game")
+                    case 1:
+                        Logger.Action.log(.profile_tab_clk, categoryValue: "feed")
+                    case 2:
+                        Logger.Action.log(.profile_tab_clk, categoryValue: "group")
+                    default:
+                        ()
+                    }
                 })
                 .disposed(by: bag)
             return s

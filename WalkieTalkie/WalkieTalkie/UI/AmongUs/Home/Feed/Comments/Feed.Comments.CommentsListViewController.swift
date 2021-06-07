@@ -346,6 +346,9 @@ extension Feed.Comments.CommentsListViewController {
             .disposed(by: bag)
         
         commentInputView.sendObservable
+            .do(onNext: { [weak self] (_) in
+                Logger.Action.log(.comments_send_clk, categoryValue: nil, self?.commentListVM.feedId)
+            })
             .map({ [weak self] _ in
                 self?.commentInputView.inputTextView.text
             })
@@ -405,6 +408,7 @@ extension Feed.Comments.CommentsListViewController {
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         let delete = UIAlertAction(title: R.string.localizable.amongChatDelete(), style: .destructive) { (_) in
             deleteAction()
+            Logger.Action.log(.comments_item_clk, categoryValue: "delete")
         }
         
         let cancel = UIAlertAction(title: R.string.localizable.toastCancel(), style: .cancel) { (_) in
@@ -458,13 +462,14 @@ extension Feed.Comments.CommentsListViewController: UICollectionViewDataSource {
                         self?.commentListView.reloadItems(at: [indexPath])
                     })
                     .disposed(by: self.bag)
-                
+                Logger.Action.log(.comments_item_clk, categoryValue: "like")
             }, replyHandler: { [weak self] in
                 guard let `self` = self else { return }
                 self.replyToIndexPath = indexPath
                 self.commentInputView.inputTextView.becomeFirstResponder()
                 self.commentInputView.placeholderLabel.text = R.string.localizable.amongChatReply() + " @\(comment.comment.user.name ?? "")"
                 self.replyComment = comment
+                Logger.Action.log(.comments_item_clk, "reply")
             }, moreActionHandler: { [weak self] in
                 guard let `self` = self,
                       comment.comment.user.uid.isSelfUid else { return }
@@ -498,6 +503,7 @@ extension Feed.Comments.CommentsListViewController: UICollectionViewDataSource {
                                 self.commentInputView.placeholderLabel.text = R.string.localizable.amongChatReply() + " @\(reply.reply.user.name ?? "")"
                                 self.replyReply = reply
                                 self.replyComment = comment
+                                Logger.Action.log(.comments_item_clk, categoryValue: "reply")
                               }, moreActionHandler: { [weak self] in
                                 guard let `self` = self,
                                       reply.reply.user.uid.isSelfUid else { return }

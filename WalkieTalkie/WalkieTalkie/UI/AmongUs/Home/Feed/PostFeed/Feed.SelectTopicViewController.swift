@@ -169,6 +169,9 @@ extension Feed.SelectTopicViewController {
     private func setUpEvents() {
         
         topicCollectionView.rx.itemSelected
+            .do(onNext: { [weak self] (idx) in
+                Logger.Action.log(.feeds_create_topic_clk, categoryValue: self?.topicDataSource.safe(idx.item)?.topicId)
+            })
             .map({ _ in true })
             .bind(to: bottomGradientView.button.rx.isEnabled)
             .disposed(by: bag)
@@ -195,6 +198,8 @@ extension Feed.SelectTopicViewController {
                 self?.view.raft.autoShow(.text(error.msgOfError ?? R.string.localizable.amongChatUnknownError()))
             })
             .disposed(by: bag)
+        
+        Logger.Action.log(.feeds_create_topic_done)
     }
     
     private func uploadThumbnail() -> Single<String> {

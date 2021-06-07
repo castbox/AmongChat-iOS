@@ -17,7 +17,7 @@ extension Feed.Comments {
         private let bag = DisposeBag()
         private let commentsRelay = BehaviorRelay<[CommentViewModel]>(value: [])
         private(set) var hasMore: Bool = true
-        private let feedId: String
+        let feedId: String
         private var isLoading = false
         
         var commentsObservable: Observable<[CommentViewModel]> {

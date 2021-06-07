@@ -217,6 +217,7 @@ extension Social.ProfileFeedsViewController: UICollectionViewDataSource {
                 cell.createAction = { [weak self] in
                     let vc = Feed.SelectVideoViewController()
                     self?.navigationController?.pushViewController(vc)
+                    Logger.Action.log(.profile_feed_create_clk)
                 }
                 return cell
             }

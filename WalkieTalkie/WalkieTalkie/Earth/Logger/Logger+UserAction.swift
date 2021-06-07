@@ -296,6 +296,17 @@ extension Logger {
             case feeds_comment_send_clk
             case emotes_imp
             case emotes_item_clk
+            
+            case profile_tab_clk
+            case profile_feed_create_clk
+            
+            case comments_send_clk
+            case comments_item_clk
+            case feeds_create_imp
+            case feeds_create_tab_clk
+            case feeds_create_next_clk
+            case feeds_create_topic_clk
+            case feeds_create_topic_done
         }
         
         enum Category: String {
