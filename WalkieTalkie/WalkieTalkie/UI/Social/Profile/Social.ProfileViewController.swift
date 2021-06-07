@@ -219,6 +219,7 @@ extension Social {
             return btn
         }()
         
+        private let bottomGradientViewHeight: CGFloat = 134
         private lazy var bottomGradientView: GradientView = {
             let v = GradientView()
             let l = v.layer
@@ -361,7 +362,7 @@ private extension Social.ProfileViewController {
         
         bottomGradientView.snp.makeConstraints { (maker) in
             maker.leading.trailing.bottom.equalToSuperview()
-            maker.height.equalTo(134)
+            maker.height.equalTo(bottomGradientViewHeight)
         }
         
         pagingView.snp.makeConstraints { (maker) in
@@ -389,6 +390,15 @@ private extension Social.ProfileViewController {
             Social.ProfileFeedsViewController(with: uid),
             Social.ProfileGroupsViewController(with: uid)
         ]
+        
+        if !isSelfProfile.value {
+            profileDataViews.forEach { (view) in
+                let scroll = view.listScrollView()
+                var contentInset = scroll.contentInset
+                contentInset.bottom = max(contentInset.bottom, bottomGradientViewHeight)
+                scroll.contentInset = contentInset
+            }
+        }
         
         pagingView.reloadData()
     }
