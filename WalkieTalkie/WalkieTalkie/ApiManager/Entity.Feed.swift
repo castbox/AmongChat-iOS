@@ -111,6 +111,8 @@ extension Entity {
         var url: String
         var duration: Int64
         var topic: String
+        var width: CGFloat
+        var height: CGFloat
     }
     
 }
