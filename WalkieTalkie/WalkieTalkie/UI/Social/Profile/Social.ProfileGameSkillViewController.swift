@@ -302,7 +302,7 @@ extension Social.ProfileGameSkillViewController: UICollectionViewDelegateFlowLay
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        if gameSkills.count > 0 {
+        if gameSkills.count > 0 || uid.isSelfUid {
             return CGSize(width: Frame.Screen.width, height: 27)
         } else {
             return .zero
