@@ -213,6 +213,7 @@ extension Feed.Comments {
         
         override func viewDidLayoutSubviews() {
             super.viewDidLayoutSubviews()
+            topBar.layoutIfNeeded()
             topBar.addCorner(with: 20)
         }
         
