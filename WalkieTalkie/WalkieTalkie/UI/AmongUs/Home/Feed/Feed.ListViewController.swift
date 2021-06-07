@@ -12,6 +12,7 @@ import AVFoundation
 import RxSwift
 import VIMediaCache
 import Alamofire
+import MBProgressHUD
 
 extension Feed {
     
@@ -298,30 +299,48 @@ extension Feed.ListViewController {
         cell?.updateShareCount()
     }
     
-    func share(viewModel: Feed.ListCellViewModel?) {
-        guard let viewModel = viewModel, let index = dataSource.firstIndex(where: { $0.isEqual(viewModel) }) else {
+    func downloadVideo(viewModel: Feed.ListCellViewModel?) {
+        guard let viewModel = viewModel else {
             return
         }
         let feed = viewModel.feed
-        //get tag imge
-        let uniqueId = SZAVPlayerFileSystem.uniqueID(url: feed.url)
-        guard SZAVPlayerCache.shared.isFullyCached(uniqueID: uniqueId),
-              let localFileName = SZAVPlayerDatabase.shared.localFileInfos(uniqueID: uniqueId).first?.localFileName else {
+        let hudHandler = view.raft.show(.loading)
+//        let hud = view.raft.topHud()
+//        hud?.mode = .annularDeterminate
+//        hud?.label.text = "Loading"
+//        hud?.progress = 0
+        self.viewModel.download(fileUrl: feed.url.absoluteString) { [weak self] progress in
+//            hud?.progress = progress.float
+            cdPrint("progress: \(progress)")
+        } completionHandler: { [weak self] fileUrl in
+            hudHandler()
+            guard let `self` = self, let url = fileUrl else {
+                return
+            }
+            self.share(viewModel: viewModel, fileUrl: url)
+        }
+
+    }
+    
+    func share(viewModel: Feed.ListCellViewModel, fileUrl: URL) {
+        guard let index = dataSource.firstIndex(where: { $0.isEqual(viewModel) }) else {
+            FileManager.removefile(filePath: fileUrl.path)
             return
         }
-        
-        let filePath = SZAVPlayerFileSystem.localFilePath(fileName: localFileName)
+        let feed = viewModel.feed
         Logger.Action.log(.feeds_item_clk, category: .share, feed.pid)
         let tagImageView = VideoShareTagView(with: feed.user.name ?? feed.user.uid.string)
         view.addSubview(tagImageView)
         guard let tagImage = tagImageView.screenshot else {
             tagImageView.removeFromSuperview()
+            FileManager.removefile(filePath: fileUrl.path)
             return
         }
         tagImageView.removeFromSuperview()
-        let url = filePath
+    
         let removeHandler = view.raft.show(.loading)
-        videoEditor.addTag(image: tagImage, for: url) { [weak self] url in
+        videoEditor.addTag(image: tagImage, for: fileUrl) { [weak self] url in
+            FileManager.removefile(filePath: fileUrl.path)
             removeHandler()
             guard let `self` = self, let url = url else {
                 return
@@ -339,6 +358,48 @@ extension Feed.ListViewController {
             }
         }
     }
+    
+//    func share(viewModel: Feed.ListCellViewModel?) {
+//        guard let viewModel = viewModel, let index = dataSource.firstIndex(where: { $0.isEqual(viewModel) }) else {
+//            return
+//        }
+//        let feed = viewModel.feed
+//        //get tag imge
+//        let uniqueId = SZAVPlayerFileSystem.uniqueID(url: feed.url)
+//        guard SZAVPlayerCache.shared.isFullyCached(uniqueID: uniqueId),
+//              let localFileName = SZAVPlayerDatabase.shared.localFileInfos(uniqueID: uniqueId).first?.localFileName else {
+//            return
+//        }
+//
+//        let filePath = SZAVPlayerFileSystem.localFilePath(fileName: localFileName)
+//        Logger.Action.log(.feeds_item_clk, category: .share, feed.pid)
+//        let tagImageView = VideoShareTagView(with: feed.user.name ?? feed.user.uid.string)
+//        view.addSubview(tagImageView)
+//        guard let tagImage = tagImageView.screenshot else {
+//            tagImageView.removeFromSuperview()
+//            return
+//        }
+//        tagImageView.removeFromSuperview()
+//        let url = filePath
+//        let removeHandler = view.raft.show(.loading)
+//        videoEditor.addTag(image: tagImage, for: url) { [weak self] url in
+//            removeHandler()
+//            guard let `self` = self, let url = url else {
+//                return
+//            }
+//            cdPrint("url: \(url)")
+//            ShareManager.default.showActivity(items: [url], viewController: self) { [weak self] in
+//                self?.increaseShareCount(with: index)
+//                self?.viewModel.reportShare(feed.pid)
+//                //cancel or finish, remove
+//                do {
+//                    try FileManager.default.removeItem(at: url)
+//                } catch {
+//                    cdPrint("FileManager.default.removeItem: \(error)")
+//                }
+//            }
+//        }
+//    }
     
     func showCommentList(with feedId: String, commentsInfo: Entity.FeedRedirectInfo.CommentsInfo? = nil, count: Int) {
         shouldAutoPauseWhenDismiss = false
@@ -417,7 +478,7 @@ extension Feed.ListViewController {
             Logger.Action.log(.feeds_item_clk, category: .comments, viewModel.feed.pid)
             self.showCommentList(with: viewModel.feed.pid, commentsInfo: nil, count: viewModel.feed.cmtCount)
         case .share:
-            share(viewModel: viewModel)
+            downloadVideo(viewModel: viewModel)
             
         case .userProfile(let uid):
             guard Settings.loginUserId != uid else {
@@ -446,7 +507,7 @@ extension Feed.ListViewController {
         
         switch action {
         case .share:
-            self.share(viewModel: viewModel)
+            downloadVideo(viewModel: viewModel)
         case .notInterested:
             Logger.Action.log(.feeds_item_clk, category: .not_intereasted, viewModel.feed.pid)
             //pause

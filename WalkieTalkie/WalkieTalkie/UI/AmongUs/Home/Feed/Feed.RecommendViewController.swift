@@ -127,5 +127,30 @@ extension Feed {
                 maker.width.height.equalTo(42)
             }
         }
+        
+//        static func preload() {
+//            let removeBlock = view.raft.show(.loading, hideAnimated: false)
+//            Request.recommendFeeds(excludePids: []) //Settings.loginUserId
+//                .do(onSuccess: { [weak self] data in
+//                    guard let `self` = self else { return }
+//                    removeBlock()
+//                    self.tableView.alpha = 0
+//                    self.dataSource = data?.map { Feed.ListCellViewModel(feed: $0) } ?? []
+//                    self.tableView.reloadData()
+//                    self.tableView.layoutIfNeeded()
+//                    self.tableView.alpha = 1
+//                }, onError: { _ in
+//                    removeBlock()
+//                })
+//                .delay(.fromSeconds(0.2), scheduler: MainScheduler.asyncInstance)
+//                .subscribe(onSuccess: { [weak self] data in
+//                    //play first
+//                    self?.replayVisibleItem()
+//                }, onError: { [weak self](error) in
+//                    self?.addErrorView({ [weak self] in
+//                        self?.loadData()
+//                    })
+//                }).disposed(by: bag)
+//        }
     }
 }

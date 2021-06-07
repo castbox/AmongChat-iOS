@@ -8,6 +8,7 @@
 
 import Foundation
 import RxSwift
+import Alamofire
 
 extension Feed {
     class ListViewModel {
@@ -54,6 +55,23 @@ extension Feed {
                 return .just(false)
             }
             return Request.feedDelete(pid)
+        }
+        
+        func download(fileUrl: String, progressHandler: @escaping (CGFloat) -> Void, completionHandler: @escaping (URL?) -> Void) {
+            
+            let destination: DownloadRequest.Destination = { _, _ in
+                let documentsURL = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask)[0]
+                let fileURL = documentsURL.appendingPathComponent("/downloadForExport/\(Date().timeIntervalSince1970.int).mp4")
+                return (fileURL, [.removePreviousFile, .createIntermediateDirectories])
+            }
+            AF.download(fileUrl, to: destination)
+                .downloadProgress(closure : { (progress) in
+                    cdPrint("progress: \(progress.fractionCompleted)")
+                    progressHandler(progress.fractionCompleted.cgFloat)
+                }).response { (response) in
+                    completionHandler(response.fileURL)
+//                    print(response)
+                }
         }
     }
 }
