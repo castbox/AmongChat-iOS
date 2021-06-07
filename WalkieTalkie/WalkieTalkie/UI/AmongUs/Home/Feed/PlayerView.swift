@@ -89,7 +89,6 @@ class PlayerView: UIView {
         guard let url = url else {
             return
         }
-        SZAVPlayerCache.shared.setup(maxCacheSize: 50)
         
         videoPlayer.reset(cleanAsset: true)
         

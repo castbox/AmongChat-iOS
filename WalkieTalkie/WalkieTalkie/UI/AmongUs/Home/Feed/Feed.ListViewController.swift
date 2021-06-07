@@ -102,7 +102,8 @@ extension Feed {
             }
         }
         func bindSubviewEvent() {
-            
+            SZAVPlayerCache.shared.setup(maxCacheSize: 10)
+
             setAudioMode()
             
             Observable.merge(rx.viewWillAppear.asObservable(),
@@ -273,12 +274,28 @@ extension Feed.ListViewController {
         }
     }
     
-    func share(feed: Entity.Feed) {
-        //get tag imge
-        guard let config = VICacheManager.cacheConfiguration(for: feed.url),
-              config.progress == 1 else {
+    func increaseShareCount(with index: Int) {
+        guard let viewModel = self.dataSource.safe(index) else {
             return
         }
+        viewModel.feed.shareCount = viewModel.feed.shareCountValue + 1
+        let cell = self.tableView.cellForRow(at: IndexPath(row: index, section: 0)) as? FeedListCell
+        cell?.updateShareCount()
+    }
+    
+    func share(viewModel: Feed.ListCellViewModel?) {
+        guard let viewModel = viewModel, let index = dataSource.firstIndex(where: { $0.isEqual(viewModel) }) else {
+            return
+        }
+        let feed = viewModel.feed
+        //get tag imge
+        let uniqueId = SZAVPlayerFileSystem.uniqueID(url: feed.url)
+        guard SZAVPlayerCache.shared.isFullyCached(uniqueID: uniqueId),
+              let localFileName = SZAVPlayerDatabase.shared.localFileInfos(uniqueID: uniqueId).first?.localFileName else {
+            return
+        }
+        
+        let filePath = SZAVPlayerFileSystem.localFilePath(fileName: localFileName)
         Logger.Action.log(.feeds_item_clk, category: .share, feed.pid)
         let tagImageView = VideoShareTagView(with: feed.user.name ?? feed.user.uid.string)
         view.addSubview(tagImageView)
@@ -287,7 +304,7 @@ extension Feed.ListViewController {
             return
         }
         tagImageView.removeFromSuperview()
-        let url = URL(fileURLWithPath: config.filePath.replacingOccurrences(of: ".mt_cfg", with: ""))
+        let url = filePath
         let removeHandler = view.raft.show(.loading)
         videoEditor.addTag(image: tagImage, for: url) { [weak self] url in
             removeHandler()
@@ -296,6 +313,7 @@ extension Feed.ListViewController {
             }
             cdPrint("url: \(url)")
             ShareManager.default.showActivity(items: [url], viewController: self) { [weak self] in
+                self?.increaseShareCount(with: index)
                 self?.viewModel.reportShare(feed.pid)
                 //cancel or finish, remove
                 do {
@@ -359,7 +377,7 @@ extension Feed.ListViewController {
             Logger.Action.log(.feeds_item_clk, category: .comments, viewModel.feed.pid)
             self.showCommentList(with: viewModel.feed.pid, commentsInfo: nil)
         case .share:
-            share(feed: viewModel.feed)
+            share(viewModel: viewModel)
             
         case .userProfile(let uid):
             guard Settings.loginUserId != uid else {
@@ -388,7 +406,7 @@ extension Feed.ListViewController {
         
         switch action {
         case .share:
-            self.share(feed: viewModel.feed)
+            self.share(viewModel: viewModel)
         case .notInterested:
             Logger.Action.log(.feeds_item_clk, category: .not_intereasted, viewModel.feed.pid)
             //pause

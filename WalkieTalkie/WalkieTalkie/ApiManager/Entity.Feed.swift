@@ -69,7 +69,7 @@ extension Entity {
         //播放数
         let playCount: Int?
         //分享数
-        let shareCount: Int?
+        var shareCount: Int?
         var emotes: [FeedEmote]
         
         var playCountValue: Int {

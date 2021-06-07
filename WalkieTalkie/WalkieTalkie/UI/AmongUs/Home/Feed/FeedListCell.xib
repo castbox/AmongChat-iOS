@@ -25,7 +25,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="500"/>
                         <gestureRecognizers/>
                     </view>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.0" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="iconVideoPause" translatesAutoresizingMaskIntoConstraints="NO" id="1c1-et-f5z">
+                    <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.0" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="iconVideoPause" translatesAutoresizingMaskIntoConstraints="NO" id="1c1-et-f5z">
                         <rect key="frame" x="136" y="226" width="48" height="48"/>
                     </imageView>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VtH-gr-9m2">

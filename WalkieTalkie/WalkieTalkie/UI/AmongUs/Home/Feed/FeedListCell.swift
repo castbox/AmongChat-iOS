@@ -101,24 +101,13 @@ class FeedListCell: UITableViewCell {
         
         sliderBar.value = 0
         
-        if feed.cmtCount > 0 {
-            commentButton.setTitle(feed.cmtCount.string, for: .normal)
-        } else {
-            commentButton.setTitle("", for: .normal)
-        }
-        
-        if feed.shareCountValue > 0 {
-            shareButton.setTitle(feed.shareCountValue.string, for: .normal)
-        } else {
-            shareButton.setTitle("", for: .normal)
-        }
-        
         if listStyle == .profile, Settings.loginUserId == feed.uid {
             userInfoContainer.isHidden = true
         } else {
             userInfoContainer.isHidden = false
         }
         updateCommentCount()
+        updateShareCount()
     }
     
     func update(emotes: [Emote]) {
@@ -135,10 +124,21 @@ class FeedListCell: UITableViewCell {
             commentButton.setTitle("", for: .normal)
         }
     }
+    
+    func updateShareCount() {
+        guard let feed = viewModel?.feed else {
+            return
+        }
+        if feed.shareCountValue > 0 {
+            shareButton.setTitle(feed.shareCountValue.string, for: .normal)
+        } else {
+            shareButton.setTitle("", for: .normal)
+        }
+    }
 
     override func prepareForReuse() {
         super.prepareForReuse()
-        resetViewsForReuse()
+//        resetViewsForReuse()
     }
     
     
@@ -241,9 +241,9 @@ class FeedListCell: UITableViewCell {
         }
     }
     
-    func resetViewsForReuse(){
-        pauseView.alpha = 0
-    }
+//    func resetViewsForReuse() {
+//        pauseView.alpha = 0
+//    }
     
     @objc func onSliderValChanged(slider: UISlider, event: UIEvent) {
         if let touchEvent = event.allTouches?.first {
