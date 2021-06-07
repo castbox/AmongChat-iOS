@@ -530,7 +530,7 @@ extension Feed.ListViewController {
                 .subscribe(onSuccess: { [weak self] result in
                     removeHandler()
                     guard let `self` = self else { return }
-                    self.dataSource = self.dataSource.filter { $0.feed.pid != viewModel.feed.pid }
+//                    self.dataSource = self.dataSource.filter { $0.feed.pid != viewModel.feed.pid }
                     self.deleteRow(at: viewModel)
                     HapticFeedback.Impact.success()
                 }) { error in
