@@ -33,6 +33,7 @@ extension Social.ProfileViewController {
         private let avatarTop = Frame.Height.safeAeraTopHeight + NavigationBar.barHeight + 24
         private let avatarSize = CGSize(width: 100, height: 100)
         private let nameLabelTopSpace: CGFloat = 16
+        private let nameLabelFont: UIFont = R.font.nunitoExtraBold(size: 24) ?? UIFont.systemFont(ofSize: 24, weight: .black)
         private let infoTopSpace: CGFloat = 8
         private let descriptionLabelTopSpace: CGFloat = 8
         private let relationContainerTopSpace: CGFloat = 24
@@ -52,7 +53,9 @@ extension Social.ProfileViewController {
             
             height = height + avatarTop + avatarSize.height
             
-            height = height + nameLabelTopSpace + nameLabel.height
+            let nameHeight = nameLabel.attributedText?.string.height(forConstrainedWidth: UIScreen.main.bounds.width - Frame.horizontalBleedWidth * 2, font: nameLabelFont) ?? 33.0
+            
+            height = height + nameLabelTopSpace + nameHeight
             
             if infoItems.count > 0 {
                 height = height + infoTopSpace + infoCollectionView.collectionViewLayout.collectionViewContentSize.height
@@ -321,7 +324,6 @@ extension Social.ProfileViewController {
         private var isSelf = true
         private var uid = ""
         private var changedName = false
-        private var currentName = ""
         private weak var controller: ViewController?
         
         init(with isSelf: Bool, viewController: ViewController) {
@@ -329,6 +331,7 @@ extension Social.ProfileViewController {
             self.isSelf = isSelf
             self.controller = viewController
             setupLayout()
+            setUpEvents()
         }
         
         required init?(coder: NSCoder) {
@@ -373,7 +376,6 @@ extension Social.ProfileViewController {
                 maker.height.equalTo(descriptionLabel.textHeight)
             }
             
-            currentName = nameLabel.text ?? ""
             avatarIV.updateAvatar(with: profile)
             
             if let pet = profile.decorations.first(where: { $0.decorationType == .pet }) {
@@ -526,6 +528,18 @@ extension Social.ProfileViewController {
                 }
             }
             
+        }
+        
+        func setUpEvents() {
+            infoCollectionView.rx.observe(CGSize.self, "contentSize")
+                .filterNil()
+                .filter({ $0 != .zero })
+                .take(1)
+                .subscribe(onNext: { [weak self] (_) in
+                    self?.headerHandle?(.heightUpdated)
+                })
+                .disposed(by: bag)
+
         }
         
         @objc private func onEditBtn() {
