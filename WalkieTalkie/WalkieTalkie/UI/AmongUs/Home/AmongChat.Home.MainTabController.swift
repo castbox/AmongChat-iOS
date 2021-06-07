@@ -387,14 +387,14 @@ extension AmongChat.Home {
         override func selectedState(_ icon: UIImageView, textLabel _: UILabel) {
             icon.image = selectedImage
             icon.layer.anchorPoint = CGPoint(x: 0, y: 0.5)
-            icon.layer.transform = CATransform3D(scaleX: 1.2, y: 1.2, z: 1).rotated(by: (-25).degreesToRadians.cgFloat, x: 0.001, y: 0, z: 1)
+            icon.layer.transform = CATransform3D(scaleX: 1.08, y: 1.08, z: 1).rotated(by: (-25).degreesToRadians.cgFloat, x: 0.001, y: 0, z: 1)
             iconRelay.accept(icon)
         }
         
         override func deselectedState(_ icon: UIImageView, textLabel _: UILabel) {
             icon.image = normalImage
             icon.layer.anchorPoint = CGPoint(x: 0, y: 0.5)
-            icon.layer.transform = CATransform3D(scaleX: 0.9, y: 0.9, z: 1).rotated(by: 0.001, x: 0.001, y: 0, z: 1)
+            icon.layer.transform = CATransform3D(scaleX: 0.8, y: 0.8, z: 1).rotated(by: 0.001, x: 0.001, y: 0, z: 1)
             iconRelay.accept(icon)
         }
         
@@ -405,19 +405,19 @@ extension AmongChat.Home {
             UIView.animateKeyframes(withDuration: 0.9, delay: 0.0) {
                 
                 UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.25) {
-                    icon.transform = CGAffineTransform(scaleX: 1.07, y: 1.07).rotated(by: (-25).degreesToRadians.cgFloat)
+                    icon.transform = CGAffineTransform(scaleX: 0.9, y: 0.9).rotated(by: (-25).degreesToRadians.cgFloat)
                 }
                 
                 UIView.addKeyframe(withRelativeStartTime: 0.25, relativeDuration: 0.25) {
-                    icon.transform = CGAffineTransform(scaleX: 1.2, y: 1.2).rotated(by: (-25).degreesToRadians.cgFloat)
+                    icon.transform = CGAffineTransform(scaleX: 1.08, y: 1.08).rotated(by: (-25).degreesToRadians.cgFloat)
                 }
                 
                 UIView.addKeyframe(withRelativeStartTime: 0.5, relativeDuration: 0.25) {
-                    icon.transform = CGAffineTransform(scaleX: 1.1, y: 1.1).rotated(by: (-25).degreesToRadians.cgFloat)
+                    icon.transform = CGAffineTransform(scaleX: 1, y: 1).rotated(by: (-25).degreesToRadians.cgFloat)
                 }
                 
                 UIView.addKeyframe(withRelativeStartTime: 0.75, relativeDuration: 0.25) {
-                    icon.transform = CGAffineTransform(scaleX: 1.2, y: 1.2).rotated(by: (-25).degreesToRadians.cgFloat)
+                    icon.transform = CGAffineTransform(scaleX: 1.08, y: 1.08).rotated(by: (-25).degreesToRadians.cgFloat)
                 }
                 
             }
@@ -427,8 +427,7 @@ extension AmongChat.Home {
             icon.image = normalImage
             icon.layer.removeAllAnimations()
             icon.layer.anchorPoint = CGPoint(x: 0, y: 0.5)
-            icon.layer.transform = CATransform3D(scaleX: 0.9, y: 0.9, z: 1)
-            
+            icon.layer.transform = CATransform3D(scaleX: 0.8, y: 0.8, z: 1)
         }
         
     }
