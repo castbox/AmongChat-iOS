@@ -20,7 +20,7 @@ public struct SZAVPlayerLocalFileInfo: SZBaseModel {
     static func newFileName(uniqueID: String) -> String {
         let timeInterval = Int64(Date().timeIntervalSince1970 * 1000)
 
-        return "\(timeInterval)"
+        return "\(timeInterval).mp4"
     }
 
 }
