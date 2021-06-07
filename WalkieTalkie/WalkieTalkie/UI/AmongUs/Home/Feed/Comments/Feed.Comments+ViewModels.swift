@@ -251,6 +251,9 @@ extension Feed.Comments {
         private var comment: Entity.FeedComment
         
         var content: String {
+            guard atPrefix.count > 0 else {
+                return reply.text
+            }
             return atPrefix + " " + reply.text
         }
                 
@@ -260,7 +263,9 @@ extension Feed.Comments {
         
         var atPrefix: String {
             
-            let toUser = reply.toUser ?? comment.user
+            guard let toUser = reply.toUser else {
+                return ""
+            }
             
             return "@" + (toUser.name ?? "\(toUser.uid)") + ":"
         }
