@@ -7,8 +7,8 @@
 */
 
 NSMicrophoneUsageDescription = "Aktivieren Sie das Mikrofon, um mit anderen in Kanälen zu sprechen";
-NSPhotoLibraryUsageDescription = "Bitte erlauben Sie AmongChat, Ihre Fotobibliothek zu verwenden";
+NSPhotoLibraryUsageDescription = "Bitte erlauben Sie AmongChat den Zugriff auf Ihre Fotos, um einen Avatar und die Videos hochzuladen";
 NSSpeechRecognitionUsageDescription = "Bitte erlauben Sie AmongChat, Ihre Spracherkennung zu verwenden";
 NSContactsUsageDescription = "AmongChat verwendet Ihre Kontakte, um Freunde zu finden und zusammen zu spielen.";
 NSUserTrackingUsageDescription = "Der Bezeichner wird verwendet, um Ihnen personalisierte Werbungen zu liefern.";
-NSCameraUsageDescription = "Bitte erlauben Sie AmongChat, Ihre Kamera zu verwenden.";
+NSCameraUsageDescription = "Bitte erlauben Sie AmongChat den Zugriff auf Ihre Kamera, um einen Avatar hochzuladen";
