@@ -284,7 +284,7 @@ extension Feed.ListViewController {
         }
         viewModel.updateEmoteState(emoteId: emoteId, isSelect: isSelect)
         let cell = self.tableView.cellForRow(at: IndexPath(row: index, section: 0)) as? FeedListCell
-        cell?.update(emotes: viewModel.emotes)
+        cell?.updateEmotes(with: viewModel)
         if isSelect {
             cell?.show(emote: viewModel.emotes.first(where: { $0.id == emoteId }))
         }

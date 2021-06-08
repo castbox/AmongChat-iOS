@@ -45,6 +45,7 @@ class FeedListCell: UITableViewCell {
     @IBOutlet weak var shareButton: BottomTitleButton!
     @IBOutlet weak var commentButton: BottomTitleButton!
     @IBOutlet weak var moreButton: BottomTitleButton!
+    @IBOutlet weak var emotesButton: BottomTitleButton!
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var playerView: PlayerView!
     @IBOutlet weak var sliderBar: UISlider!
@@ -97,7 +98,7 @@ class FeedListCell: UITableViewCell {
             self?.activityView.stopAnimating()
         }
         
-        update(emotes: viewModel.emotes)
+        updateEmotes(with: viewModel)
         
         sliderBar.value = 0
         
@@ -110,8 +111,13 @@ class FeedListCell: UITableViewCell {
         updateShareCount()
     }
     
-    func update(emotes: [Emote]) {
-        self.emotes = emotes
+    func updateEmotes(with viewModel: Feed.ListCellViewModel) {
+        self.emotes = viewModel.emotes
+        if viewModel.emoteCount > 0 {
+            emotesButton.setTitle(viewModel.emoteCount.string, for: .normal)
+        } else {
+            emotesButton.setTitle("", for: .normal)
+        }
     }
     
     func updateCommentCount() {
@@ -160,6 +166,10 @@ class FeedListCell: UITableViewCell {
     
     @IBAction func moreButtonAction(_ sender: Any) {
         actionHandler?(.more)
+    }
+    
+    @IBAction func emotesButtonAction(_ sender: Any) {
+        actionHandler?(.selectEmote(Entity.FeedEmote(id: "", count: 0, isVoted: false)))
     }
     
     @IBAction func sliderEndDragAction(_ sender: Any) {
@@ -305,15 +315,10 @@ private extension FeedListCell {
         sliderBar.setMaximumTrackImage(UIImage.image(with: UIColor.white.alpha(0.1), size: CGSize(width: 10, height: 3)), for: .normal)
         sliderBar.addTarget(self, action: #selector(onSliderValChanged(slider:event:)), for: .valueChanged)
         sliderBar.setThumbImage(R.image.iconFeedSliderThumb(), for: .normal)
-        commentButton.titleLabel?.layer.shadowOpacity = 0.2
-        commentButton.titleLabel?.layer.shadowRadius = 1
-        commentButton.titleLabel?.layer.shadowOffset = CGSize(width: 0, height: 2)
-        commentButton.setTitleShadowColor(.black, for: .normal)
         
-        shareButton.titleLabel?.layer.shadowOpacity = 0.2
-        shareButton.titleLabel?.layer.shadowRadius = 2
-        shareButton.titleLabel?.layer.shadowOffset = CGSize(width: 0, height: 2)
-        shareButton.setTitleShadowColor(.black, for: .normal)
+        addTitleShadow(for: shareButton)
+        addTitleShadow(for: commentButton)
+        addTitleShadow(for: emotesButton)
         
         avatarView.clipsToBounds = false
         avatarView.verifyIV.snp.makeConstraints { maker in
@@ -362,6 +367,13 @@ private extension FeedListCell {
             maker.edges.equalToSuperview()
         }
 
+    }
+    
+    func addTitleShadow(for button: UIButton) {
+        button.titleLabel?.layer.shadowOpacity = 0.2
+        button.titleLabel?.layer.shadowRadius = 2
+        button.titleLabel?.layer.shadowOffset = CGSize(width: 0, height: 2)
+        button.setTitleShadowColor(.black, for: .normal)
     }
 }
 

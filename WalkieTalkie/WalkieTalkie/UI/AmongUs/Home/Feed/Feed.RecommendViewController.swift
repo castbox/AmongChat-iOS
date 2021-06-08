@@ -123,7 +123,7 @@ extension Feed {
             
             createButton.snp.makeConstraints { maker in
                 maker.top.equalTo(Frame.Height.safeAeraTopHeight + 4.5)
-                maker.trailing.equalTo(-20)
+                maker.trailing.equalTo(-14)
                 maker.width.height.equalTo(42)
             }
         }
