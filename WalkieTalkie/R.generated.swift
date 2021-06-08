@@ -2716,7 +2716,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
     
-    /// This `R.string.localizable` struct is generated, and contains static references to 529 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 533 localization keys.
     struct localizable {
       /// en translation:  Congratulations!
       /// 
@@ -3126,6 +3126,14 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let reportConfirm = Rswift.StringResource(key: "report.confirm", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Congratulations on getting AmongChat's Exclusive Avatar!
+      /// 
+      /// Locales: en
+      static let amongChatCongratesExclusiveAvatar = Rswift.StringResource(key: "among.chat.congrates.exclusive.avatar", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Congratulations on getting AmongChat's Exclusive Pet!
+      /// 
+      /// Locales: en
+      static let amongChatCongratesExclusivePet = Rswift.StringResource(key: "among.chat.congrates.exclusive.pet", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Contacts
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3270,10 +3278,18 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatExample = Rswift.StringResource(key: "among.chat.example", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Exclusive Avatar
+      /// 
+      /// Locales: en
+      static let amongChatExclusiveAvatar = Rswift.StringResource(key: "among.chat.exclusive.avatar", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Exclusive PRO badge
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatProPrivilegeBadge = Rswift.StringResource(key: "among.chat.pro.privilege.badge", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Exclusive Pet
+      /// 
+      /// Locales: en
+      static let amongChatExclusivePet = Rswift.StringResource(key: "among.chat.exclusive.pet", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Exit channel
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -5549,6 +5565,20 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("report.confirm", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Congratulations on getting AmongChat's Exclusive Avatar!
+      /// 
+      /// Locales: en
+      static func amongChatCongratesExclusiveAvatar(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.congrates.exclusive.avatar", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Congratulations on getting AmongChat's Exclusive Pet!
+      /// 
+      /// Locales: en
+      static func amongChatCongratesExclusivePet(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.congrates.exclusive.pet", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Contacts
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -5801,11 +5831,25 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("among.chat.example", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Exclusive Avatar
+      /// 
+      /// Locales: en
+      static func amongChatExclusiveAvatar(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.exclusive.avatar", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Exclusive PRO badge
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func amongChatProPrivilegeBadge(_: Void = ()) -> String {
         return NSLocalizedString("among.chat.pro.privilege.badge", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Exclusive Pet
+      /// 
+      /// Locales: en
+      static func amongChatExclusivePet(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.exclusive.pet", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Exit channel

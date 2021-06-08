@@ -604,3 +604,9 @@
 "among.chat.login.auth.source.create.feed" = "create posts";
 "feed.play.no.wifi.tips" = "You're not connected to WIFI. To continue streaming, your mobile data would be consumed.";
 "feed.deleted.tips" = "Oops, this post has been deleted";
+
+//21.06.08
+"among.chat.exclusive.avatar" = "Exclusive Avatar";
+"among.chat.congrates.exclusive.avatar" = "Congratulations on getting AmongChat's Exclusive Avatar!";
+"among.chat.exclusive.pet" = "Exclusive Pet";
+"among.chat.congrates.exclusive.pet" = "Congratulations on getting AmongChat's Exclusive Pet!";
