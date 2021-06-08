@@ -183,13 +183,13 @@
 		<true/>
 	</dict>
 	<key>NSCameraUsageDescription</key>
-	<string>Please allow Among Chat to use your camera</string>
+	<string>Please allow AmongChat to access your Camera to upload an avatar</string>
 	<key>NSContactsUsageDescription</key>
 	<string>Please allow Among Chat to access contacts so you can compete with friends</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Enable microphone to talk to others in channels</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Please allow Among Chat to use your photo library</string>
+	<string>Please allow AmongChat to access your Photos to upload avatar and videos</string>
 	<key>NSSpeechRecognitionUsageDescription</key>
 	<string>Please allow Among Chat to use your speech recognition</string>
 	<key>NSUserTrackingUsageDescription</key>
