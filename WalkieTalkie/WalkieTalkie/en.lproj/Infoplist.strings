@@ -7,8 +7,8 @@
 */
 
 NSMicrophoneUsageDescription = "Enable microphone to talk to others in channels";
-NSPhotoLibraryUsageDescription = "Please allow AmongChat to use your photo library";
+NSPhotoLibraryUsageDescription = "Please allow AmongChat to access your Photos to upload avatar and videos";
 NSSpeechRecognitionUsageDescription = "Please allow AmongChat to use your speech recognition";
 NSContactsUsageDescription = "AmongChat uses your contacts to help you find friends and play together.";
 NSUserTrackingUsageDescription = "This identifier will be used to deliver personalized ads to you.";
-NSCameraUsageDescription = "Please allow AmongChat to use your Camera.";
+NSCameraUsageDescription = "Please allow AmongChat to access your Camera to upload an avatar";
