@@ -203,21 +203,20 @@ class FeedListCell: UITableViewCell {
 //        view.alpha = 0
         view.transform = CGAffineTransform(scaleX: 2.1, y: 2.1)
         
-        UIView.animate(withDuration: 0.2, delay: 0.1, options: [.beginFromCurrentState, .curveEaseIn]) {
-//            view.alpha = 1
-            view.transform = CGAffineTransform(scaleX: 0.4, y: 0.4)
-        } completion: { finish in
-            UIView.animate(withDuration: 0.2, delay: 0, options: [.beginFromCurrentState, .curveEaseIn]) {
-                view.alpha = 1
-                view.transform = .identity
-            } completion: { finish in
-                UIView.animate(withDuration: 0.2, delay: 1.1, options: [.beginFromCurrentState, .curveEaseIn]) {
-                    view.alpha = 0
-//                    view.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
-                } completion: { finish in
-                    view.removeFromSuperview()
-                }
+        UIView.animateKeyframes(withDuration: 1.7, delay: 0, options: [.allowUserInteraction, .beginFromCurrentState]) {
+            UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.1 / 1.7) {
+                view.transform = CGAffineTransform(scaleX: 0.4, y: 0.4)
             }
+            
+            UIView.addKeyframe(withRelativeStartTime: 0.1 / 1.7, relativeDuration: 0.1 / 1.7) {
+                view.transform = .identity
+            }
+            
+            UIView.addKeyframe(withRelativeStartTime: 1.5 / 1.7, relativeDuration: 0.2 / 1.7) {
+                view.alpha = 0
+            }
+        } completion: { result in
+            view.removeFromSuperview()
         }
     }
     
@@ -371,8 +370,8 @@ private extension FeedListCell {
 
         backgroundLayer.startPoint = CGPoint(x: 0, y: 0)
         backgroundLayer.endPoint = CGPoint(x: 0, y: 1)
-        backgroundLayer.locations = [0, 0.2, 0.8, 1]
-        backgroundLayer.colors = [UIColor.black.alpha(0.4).cgColor, UIColor.black.alpha(0).cgColor, UIColor.black.alpha(0).cgColor, UIColor.black.alpha(0.4).cgColor]
+        backgroundLayer.locations = [0.75, 1]
+        backgroundLayer.colors = [UIColor.black.alpha(0).cgColor, UIColor.black.alpha(0.25).cgColor]
 //        backgroundLayer.opacity = 0
         
         gradientBackgroundView.snp.makeConstraints { (maker) in
