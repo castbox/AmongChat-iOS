@@ -56,11 +56,6 @@ extension Feed {
             if dataSource.isEmpty {
                 loadData()
             }
-            //            else if let cell = tableView.visibleCells.first as? FeedListCell,
-            //                      UIApplication.topViewController() == self,
-            //                      !cell.isUserPaused {
-            //                cell.play()
-            //            }
         }
         
         func onViewDidAppear() {
@@ -418,8 +413,15 @@ extension Feed.ListViewController {
         nav.modalPresentationStyle = .overCurrentContext
         topController()?.present(nav, animated: true)
         
+        commentList.rx.dismiss
+            .subscribe(onNext: { [weak self] result in
+                guard let `self` = self else { return }
+                self.onViewWillAppear()
+            })
+            .disposed(by: commentList.bag)
+        
         Observable.merge(nav.rx.popViewController.map { true },
-        nav.rx.pushViewController.map { false })
+                         nav.rx.pushViewController.map { false })
             .subscribe(onNext: { [weak self, weak nav] result in
                 guard let `self` = self, let nav = nav else { return }
                 if result, nav.viewControllers.count == 1 {
