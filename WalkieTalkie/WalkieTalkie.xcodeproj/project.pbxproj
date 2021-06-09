@@ -16,6 +16,8 @@
 		26259B61260B11B800636E50 /* Social.AddStatsViewController+Views.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26259B60260B11B800636E50 /* Social.AddStatsViewController+Views.swift */; };
 		26259B6B260B3E7400636E50 /* Social.ChooseGame.ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26259B6A260B3E7400636E50 /* Social.ChooseGame.ViewModel.swift */; };
 		26259F56260D8D0F00636E50 /* SmallSizeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26259F55260D8D0F00636E50 /* SmallSizeButton.swift */; };
+		26275C0E2670D44C0013E86D /* WelfareClaimViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26275C0D2670D44C0013E86D /* WelfareClaimViewController.xib */; };
+		26275C122670D47F0013E86D /* WelfareClaimViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26275C112670D47F0013E86D /* WelfareClaimViewController.swift */; };
 		263F872B26130EE500282F8F /* FansGroup.AddTopicViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 263F872A26130EE500282F8F /* FansGroup.AddTopicViewController.swift */; };
 		263F8ACB2613271500282F8F /* FansGroup.TopicViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 263F8ACA2613271500282F8F /* FansGroup.TopicViewModel.swift */; };
 		263F8ACF26132B3100282F8F /* FansGroup.GroupsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 263F8ACE26132B3100282F8F /* FansGroup.GroupsViewController.swift */; };
@@ -523,6 +525,8 @@
 		26259B60260B11B800636E50 /* Social.AddStatsViewController+Views.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Social.AddStatsViewController+Views.swift"; sourceTree = "<group>"; };
 		26259B6A260B3E7400636E50 /* Social.ChooseGame.ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Social.ChooseGame.ViewModel.swift; sourceTree = "<group>"; };
 		26259F55260D8D0F00636E50 /* SmallSizeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmallSizeButton.swift; sourceTree = "<group>"; };
+		26275C0D2670D44C0013E86D /* WelfareClaimViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WelfareClaimViewController.xib; sourceTree = "<group>"; };
+		26275C112670D47F0013E86D /* WelfareClaimViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelfareClaimViewController.swift; sourceTree = "<group>"; };
 		263F872A26130EE500282F8F /* FansGroup.AddTopicViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FansGroup.AddTopicViewController.swift; sourceTree = "<group>"; };
 		263F8ACA2613271500282F8F /* FansGroup.TopicViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FansGroup.TopicViewModel.swift; sourceTree = "<group>"; };
 		263F8ACE26132B3100282F8F /* FansGroup.GroupsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FansGroup.GroupsViewController.swift; sourceTree = "<group>"; };
@@ -1652,6 +1656,8 @@
 				FEC7855925A8577300E343F7 /* BaseNotificationBannerExtension.swift */,
 				FEA2E93125C139E4007485A8 /* AvatarGuideViewController.swift */,
 				FEA2E93225C139E4007485A8 /* AvatarGuideViewController.xib */,
+				26275C112670D47F0013E86D /* WelfareClaimViewController.swift */,
+				26275C0D2670D44C0013E86D /* WelfareClaimViewController.xib */,
 				FE705535265273E200A489F4 /* NewVersionAlertController.swift */,
 				FE705536265273E200A489F4 /* NewVersionAlertController.xib */,
 			);
@@ -2189,6 +2195,7 @@
 				FE126D21243461EA00BEDD60 /* Assets.xcassets in Resources */,
 				FE7ED90125F20292009C608A /* room-emoji-pink.svga in Resources */,
 				FE7CEB57258A029F0067952C /* AmongRoomInfoSetupView.xib in Resources */,
+				26275C0E2670D44C0013E86D /* WelfareClaimViewController.xib in Resources */,
 				FEFDDBE9266520FE004FF134 /* VideoShareTagView.xib in Resources */,
 				FE1A2DF5248A4BAD00F9A44D /* emojis.json in Resources */,
 				FECFC4FC24666DD500B10EEE /* Nunito-Black.ttf in Resources */,
@@ -2355,6 +2362,7 @@
 				FE045FC826451CB20032FE67 /* ConversationListCell.swift in Sources */,
 				FE6306AB2450076E00CEA651 /* NSObjectExtension.swift in Sources */,
 				263FC49726218B9A00EC0588 /* FansGroup.Views.ShareBar.swift in Sources */,
+				26275C122670D47F0013E86D /* WelfareClaimViewController.swift in Sources */,
 				2B9566FA259ADD2E001C7B91 /* R.generated.swift in Sources */,
 				FEB308F626673606006849CF /* Feed.ListViewModel.swift in Sources */,
 				FE2AF9EC244DC24300763747 /* AppConfig.swift in Sources */,

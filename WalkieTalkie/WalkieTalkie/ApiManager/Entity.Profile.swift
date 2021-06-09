@@ -258,10 +258,14 @@ extension Entity {
     
     struct SearchData: Codable {
         var list: [UserProfile]?
+        var welfare: Entity.DecorationEntity?
         var more: Bool?
+        var type: String
         private enum CodingKeys: String, CodingKey {
             case list
+            case welfare
             case more
+            case type
         }
     }
 }

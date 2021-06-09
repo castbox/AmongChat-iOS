@@ -598,6 +598,7 @@ extension Request {
     
     static func search(_ keyword: String, skip: Int) -> Single<Entity.SearchData?> {
         let params: [String: Any] = [
+            "with_code" : 1,
             "keyword": keyword,
             "skip": skip,
             "limit": 20
@@ -740,8 +741,10 @@ extension Request {
     }
     
     static func defaultProfileDecorations() -> Single<[Entity.DecorationCategory]?> {
-        
-        return amongchatProvider.rx.request(.defaultDecorations)
+        let params = [
+            "with_hide" : 1
+        ]
+        return amongchatProvider.rx.request(.defaultDecorations(params))
             .mapJSON()
             .mapToDataKeyListValue()
             .mapTo([Entity.DecorationCategory].self)
@@ -1846,4 +1849,16 @@ extension Request {
             .observeOn(MainScheduler.asyncInstance)
     }
     
+    static func claimWelfare(code: String) -> Single<Bool> {
+        
+        let params: [String : Any]  = [
+            "code" : code
+        ]
+                
+        return amongchatProvider.rx.request(.claimWelfare(params))
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .mapToProcessedValue()
+            .observeOn(MainScheduler.asyncInstance)
+    }
 }

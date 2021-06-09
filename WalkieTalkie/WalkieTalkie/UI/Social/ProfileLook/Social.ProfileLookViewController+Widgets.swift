@@ -659,6 +659,9 @@ extension Social.ProfileLookViewController {
             case .premium:
                 adBadge.image = R.image.ac_avatar_pro()
                 adBadge.isHidden = decoration.selected
+            case .claim:
+                adBadge.image = R.image.ac_avatar_exclusive()
+                adBadge.isHidden = decoration.selected
             default:
                 adBadge.image = nil
             }

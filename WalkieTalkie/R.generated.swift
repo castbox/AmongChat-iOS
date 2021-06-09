@@ -2100,7 +2100,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.nib` struct is generated, and contains static references to 43 nibs.
+  /// This `R.nib` struct is generated, and contains static references to 44 nibs.
   struct nib {
     /// Nib `AddStatsPendingController`.
     static let addStatsPendingController = _R.nib._AddStatsPendingController()
@@ -2188,6 +2188,8 @@ struct R: Rswift.Validatable {
     static let tikTokShareView = _R.nib._TikTokShareView()
     /// Nib `VideoShareTagView`.
     static let videoShareTagView = _R.nib._VideoShareTagView()
+    /// Nib `WelfareClaimViewController`.
+    static let welfareClaimViewController = _R.nib._WelfareClaimViewController()
     
     /// `UINib(name: "AddStatsPendingController", in: bundle)`
     @available(*, deprecated, message: "Use UINib(resource: R.nib.addStatsPendingController) instead")
@@ -2447,6 +2449,12 @@ struct R: Rswift.Validatable {
       return UIKit.UINib(resource: R.nib.videoShareTagView)
     }
     
+    /// `UINib(name: "WelfareClaimViewController", in: bundle)`
+    @available(*, deprecated, message: "Use UINib(resource: R.nib.welfareClaimViewController) instead")
+    static func welfareClaimViewController(_: Void = ()) -> UIKit.UINib {
+      return UIKit.UINib(resource: R.nib.welfareClaimViewController)
+    }
+    
     static func addStatsPendingController(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
       return R.nib.addStatsPendingController.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
     }
@@ -2619,6 +2627,10 @@ struct R: Rswift.Validatable {
       return R.nib.videoShareTagView.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
     }
     
+    static func welfareClaimViewController(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+      return R.nib.welfareClaimViewController.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+    }
+    
     fileprivate init() {}
   }
   
@@ -2730,7 +2742,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
     
-    /// This `R.string.localizable` struct is generated, and contains static references to 533 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 534 localization keys.
     struct localizable {
       /// en translation:  Congratulations!
       /// 
@@ -3040,6 +3052,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatCreateRoomCardClaim = Rswift.StringResource(key: "among.chat.create.room.card.claim", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Claim failed
+      /// 
+      /// Locales: en
+      static let amongChatClaimFail = Rswift.StringResource(key: "among.chat.claim.fail", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Click to Go
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -5402,6 +5418,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func amongChatCreateRoomCardClaim(_: Void = ()) -> String {
         return NSLocalizedString("among.chat.create.room.card.claim", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Claim failed
+      /// 
+      /// Locales: en
+      static func amongChatClaimFail(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.claim.fail", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Click to Go
@@ -8643,6 +8666,7 @@ struct _R: Rswift.Validatable {
       try _SnapChatSharePhotoView.validate()
       try _TikTokShareView.validate()
       try _VideoShareTagView.validate()
+      try _WelfareClaimViewController.validate()
     }
     
     struct _AddStatsPendingController: Rswift.NibResourceType, Rswift.Validatable {
@@ -9302,6 +9326,23 @@ struct _R: Rswift.Validatable {
       static func validate() throws {
         if UIKit.UIImage(named: "iconVideoShareAmongChat", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'iconVideoShareAmongChat' is used in nib 'VideoShareTagView', but couldn't be loaded.") }
         if UIKit.UIImage(named: "launch_logo", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'launch_logo' is used in nib 'VideoShareTagView', but couldn't be loaded.") }
+        if #available(iOS 11.0, *) {
+        }
+      }
+      
+      fileprivate init() {}
+    }
+    
+    struct _WelfareClaimViewController: Rswift.NibResourceType, Rswift.Validatable {
+      let bundle = R.hostingBundle
+      let name = "WelfareClaimViewController"
+      
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+      }
+      
+      static func validate() throws {
+        if UIKit.UIImage(named: "ac_profile_close", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ac_profile_close' is used in nib 'WelfareClaimViewController', but couldn't be loaded.") }
         if #available(iOS 11.0, *) {
         }
       }
