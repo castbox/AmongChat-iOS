@@ -610,3 +610,5 @@
 "among.chat.congrates.exclusive.avatar" = "Congratulations on getting AmongChat's Exclusive Avatar!";
 "among.chat.exclusive.pet" = "Exclusive Pet";
 "among.chat.congrates.exclusive.pet" = "Congratulations on getting AmongChat's Exclusive Pet!";
+
+"social.profile.chat.anonymous.user.tips" = "Sorry, this user is anonymous and cannot receive messages.";

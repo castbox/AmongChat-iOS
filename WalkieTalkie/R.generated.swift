@@ -2723,7 +2723,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
     
-    /// This `R.string.localizable` struct is generated, and contains static references to 533 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 534 localization keys.
     struct localizable {
       /// en translation:  Congratulations!
       /// 
@@ -4377,6 +4377,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let groupDismissedTips = Rswift.StringResource(key: "group.dismissed.tips", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Sorry, this user is anonymous and cannot receive messages.
+      /// 
+      /// Locales: en
+      static let socialProfileChatAnonymousUserTips = Rswift.StringResource(key: "social.profile.chat.anonymous.user.tips", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Sorry, you can't re-enter the channel now.
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -7747,6 +7751,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func groupDismissedTips(_: Void = ()) -> String {
         return NSLocalizedString("group.dismissed.tips", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Sorry, this user is anonymous and cannot receive messages.
+      /// 
+      /// Locales: en
+      static func socialProfileChatAnonymousUserTips(_: Void = ()) -> String {
+        return NSLocalizedString("social.profile.chat.anonymous.user.tips", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Sorry, you can't re-enter the channel now.

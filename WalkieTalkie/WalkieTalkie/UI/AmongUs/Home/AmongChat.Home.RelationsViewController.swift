@@ -205,18 +205,23 @@ extension AmongChat.Home.RelationsViewController: UICollectionViewDataSource {
             if let cell = cell as? FriendCell,
                let playing = dataSource.safe(indexPath.section)?.userLsit.safe(indexPath.item) {
                 cell.bind(viewModel: playing, onJoin: { [weak self] in
+                    guard let `self` = self else { return }
+                    guard let roomState = playing.roomState else {
+                        //chat
+                        self.startChatAfterLogin(with: playing.playingModel.user)
+                        return
+                    }
                     
-                    guard let roomState = playing.roomState,
-                          (roomState == .public || Settings.isSilentUser) else {
-                        self?.view.raft.autoShow(.text(R.string.localizable.amongChatHomeFirendsPrivateChannelTip()))
+                    guard (roomState == .public || Settings.isSilentUser) else {
+                        self.view.raft.autoShow(.text(R.string.localizable.amongChatHomeFirendsPrivateChannelTip()))
                         return
                     }
                     
                     if let gid = playing.groupId {
-                        self?.enter(group: gid, logSource: .init(.friends))
+                        self.enter(group: gid, logSource: .init(.friends))
                     } else if let roomId = playing.roomId,
                               let topicId = playing.roomTopicId {
-                        self?.enterRoom(roomId: roomId, topicId: topicId, logSource: ParentPageSource(.friends), apiSource: ParentApiSource(.join_friend_room))
+                        self.enterRoom(roomId: roomId, topicId: topicId, logSource: ParentPageSource(.friends), apiSource: ParentApiSource(.join_friend_room))
                     }
                     
                     Logger.Action.log(.home_friends_following_join, categoryValue: playing.roomTopicId)

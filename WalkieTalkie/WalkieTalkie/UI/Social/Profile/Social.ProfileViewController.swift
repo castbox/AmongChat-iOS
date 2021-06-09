@@ -224,7 +224,7 @@ extension Social {
             btn.setTitle(R.string.localizable.amongChatProfileChat(), for: .normal)
             btn.rx.tap
                 .subscribe(onNext: { [weak self] () in
-                    self?.startChatIfCould()
+                    self?.startChatAfterLogin(with: self?.userProfile.value)
                     Logger.Action.log(.profile_other_chat_clk, category: nil, self?.userProfile.value?.uid.string)
                 }).disposed(by: bag)
             btn.isHidden = true
@@ -248,8 +248,8 @@ extension Social {
                     
                     guard let `self` = self else { return }
                     
-                    if AmongChat.Login.isLogedin,
-                       !(p.isAnonymous ?? true) {
+//                    if AmongChat.Login.isLogedin,
+//                       !(p.isAnonymous ?? true) {
                         v.addSubviews(views: self.chatButton, self.followButton)
                         self.chatButton.snp.makeConstraints { (maker) in
                             maker.leading.equalTo(20)
@@ -264,14 +264,14 @@ extension Social {
                             maker.width.equalTo(self.chatButton.snp.width)
                         }
                         self.chatButton.isHidden = false
-                    } else {
-                        v.addSubviews(views: self.followButton)
-                        self.followButton.snp.makeConstraints { (maker) in
-                            maker.bottom.equalTo(-33)
-                            maker.height.equalTo(48)
-                            maker.leading.trailing.equalToSuperview().inset(20)
-                        }
-                    }
+//                    } else {
+//                        v.addSubviews(views: self.followButton)
+//                        self.followButton.snp.makeConstraints { (maker) in
+//                            maker.bottom.equalTo(-33)
+//                            maker.height.equalTo(48)
+//                            maker.leading.trailing.equalToSuperview().inset(20)
+//                        }
+//                    }
                     
                     let follow = relation.isFollowed ?? false
                     self.setFollowButton(follow)
@@ -713,35 +713,6 @@ private extension Social.ProfileViewController {
         followButton.layer.borderWidth = 3
         followButton.layer.borderColor = UIColor(hex6: 0xFFF000).cgColor
         followButton.setTitleColor(.black, for: .normal)
-    }
-    
-    func startChatIfCould() {
-        //判断为非匿名用户
-        guard let profile = userProfile.value?.dmProfile else {
-            return
-        }
-        
-        let hudRemoval = view.raft.show(.loading)
-        //query
-        DMManager.shared.queryConversation(fromUid: profile.uid.string)
-            .flatMap { conversation -> Single<Entity.DMConversation?> in
-                guard conversation == nil else {
-                    return .just(conversation)
-                }
-                return DMManager.shared.add(message: Entity.DMMessage.emptyMessage(for: profile))
-                    .flatMap { DMManager.shared.queryConversation(fromUid: profile.uid.string) }
-            }
-            .subscribe(onSuccess: { [weak self] conversation in
-                hudRemoval()
-                guard let conversation = conversation else {
-                    return
-                }
-                let vc = ConversationViewController(conversation)
-                self?.navigationController?.pushViewController(vc)
-            }, onError: { error in
-                hudRemoval()
-            })
-            .disposed(by: bag)
     }
 }
 

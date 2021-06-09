@@ -478,6 +478,7 @@ extension Feed.ListViewController {
             Logger.Action.log(.feeds_item_clk, category: .comments, viewModel.feed.pid)
             self.showCommentList(with: viewModel.feed.pid, commentsInfo: nil, count: viewModel.feed.cmtCount)
         case .share:
+            HapticFeedback.Impact.light()
             downloadVideo(viewModel: viewModel)
             
         case .userProfile(let uid):
