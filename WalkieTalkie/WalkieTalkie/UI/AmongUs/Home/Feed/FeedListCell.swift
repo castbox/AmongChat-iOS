@@ -51,6 +51,7 @@ class FeedListCell: UITableViewCell {
     @IBOutlet weak var sliderBar: UISlider!
     @IBOutlet weak var pauseView: UIImageView!
     @IBOutlet weak var activityView: UIActivityIndicatorView!
+    @IBOutlet weak var videoImageView: UIImageView!
     @IBOutlet weak var progressLabel: UILabel!
     
     private lazy var backgroundLayer = CAGradientLayer()
@@ -93,8 +94,16 @@ class FeedListCell: UITableViewCell {
         nameLabel.attributedText = feed.user.nameWithVerified(isShowVerify: false)
         tagLabel.text = feed.topicName
         
+        let feedWidth = feed.width ?? 0
+        let feedHeight = feed.height ?? 0
+        
+        videoImageView.contentMode = feedWidth < feedHeight ? .scaleAspectFill : .scaleAspectFit
+
+        videoImageView.setImage(with: feed.img)
+        
+        videoImageView.isHidden = false
         activityView.startAnimating()
-        playerView.configure(url: feed.url, size: (feed.width ?? 0, feed.height ?? 0)) { [weak self] in
+        playerView.configure(url: feed.url, size: (feedWidth, feedHeight)) { [weak self] in
             self?.activityView.stopAnimating()
         }
         
@@ -194,21 +203,20 @@ class FeedListCell: UITableViewCell {
 //        view.alpha = 0
         view.transform = CGAffineTransform(scaleX: 2.1, y: 2.1)
         
-        UIView.animate(withDuration: 0.2, delay: 0.1, options: [.beginFromCurrentState, .curveEaseIn]) {
-//            view.alpha = 1
-            view.transform = CGAffineTransform(scaleX: 0.4, y: 0.4)
-        } completion: { finish in
-            UIView.animate(withDuration: 0.2, delay: 0, options: [.beginFromCurrentState, .curveEaseIn]) {
-                view.alpha = 1
-                view.transform = .identity
-            } completion: { finish in
-                UIView.animate(withDuration: 0.2, delay: 1.1, options: [.beginFromCurrentState, .curveEaseIn]) {
-                    view.alpha = 0
-//                    view.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
-                } completion: { finish in
-                    view.removeFromSuperview()
-                }
+        UIView.animateKeyframes(withDuration: 1.7, delay: 0, options: [.allowUserInteraction, .beginFromCurrentState]) {
+            UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.1 / 1.7) {
+                view.transform = CGAffineTransform(scaleX: 0.4, y: 0.4)
             }
+            
+            UIView.addKeyframe(withRelativeStartTime: 0.1 / 1.7, relativeDuration: 0.1 / 1.7) {
+                view.transform = .identity
+            }
+            
+            UIView.addKeyframe(withRelativeStartTime: 1.5 / 1.7, relativeDuration: 0.2 / 1.7) {
+                view.alpha = 0
+            }
+        } completion: { result in
+            view.removeFromSuperview()
         }
     }
     
@@ -346,6 +354,9 @@ private extension FeedListCell {
             .disposed(by: bag)
         
         playerView.playingProgressHandler = { [weak self] value in
+            if value > 0 {
+                self?.videoImageView.isHidden = true
+            }
             self?.sliderBar.setValue(value, animated: true)
             self?.updateTimeString(with: value.double)
             if value > 0.9 {
@@ -359,8 +370,8 @@ private extension FeedListCell {
 
         backgroundLayer.startPoint = CGPoint(x: 0, y: 0)
         backgroundLayer.endPoint = CGPoint(x: 0, y: 1)
-        backgroundLayer.locations = [0, 0.2, 0.8, 1]
-        backgroundLayer.colors = [UIColor.black.alpha(0.4).cgColor, UIColor.black.alpha(0).cgColor, UIColor.black.alpha(0).cgColor, UIColor.black.alpha(0.4).cgColor]
+        backgroundLayer.locations = [0.75, 1]
+        backgroundLayer.colors = [UIColor.black.alpha(0).cgColor, UIColor.black.alpha(0.25).cgColor]
 //        backgroundLayer.opacity = 0
         
         gradientBackgroundView.snp.makeConstraints { (maker) in
