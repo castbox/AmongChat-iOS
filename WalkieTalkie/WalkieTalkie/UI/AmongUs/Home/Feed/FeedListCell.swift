@@ -51,6 +51,7 @@ class FeedListCell: UITableViewCell {
     @IBOutlet weak var sliderBar: UISlider!
     @IBOutlet weak var pauseView: UIImageView!
     @IBOutlet weak var activityView: UIActivityIndicatorView!
+    @IBOutlet weak var videoImageView: UIImageView!
     @IBOutlet weak var progressLabel: UILabel!
     
     private lazy var backgroundLayer = CAGradientLayer()
@@ -93,8 +94,16 @@ class FeedListCell: UITableViewCell {
         nameLabel.attributedText = feed.user.nameWithVerified(isShowVerify: false)
         tagLabel.text = feed.topicName
         
+        let feedWidth = feed.width ?? 0
+        let feedHeight = feed.height ?? 0
+        
+        videoImageView.contentMode = feedWidth < feedHeight ? .scaleAspectFill : .scaleAspectFit
+
+        videoImageView.setImage(with: feed.img)
+        
+        videoImageView.isHidden = false
         activityView.startAnimating()
-        playerView.configure(url: feed.url, size: (feed.width ?? 0, feed.height ?? 0)) { [weak self] in
+        playerView.configure(url: feed.url, size: (feedWidth, feedHeight)) { [weak self] in
             self?.activityView.stopAnimating()
         }
         
@@ -346,6 +355,9 @@ private extension FeedListCell {
             .disposed(by: bag)
         
         playerView.playingProgressHandler = { [weak self] value in
+            if value > 0 {
+                self?.videoImageView.isHidden = true
+            }
             self?.sliderBar.setValue(value, animated: true)
             self?.updateTimeString(with: value.double)
             if value > 0.9 {
