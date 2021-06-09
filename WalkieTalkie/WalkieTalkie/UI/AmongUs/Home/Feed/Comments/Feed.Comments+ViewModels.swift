@@ -19,17 +19,21 @@ extension Feed.Comments {
         private(set) var hasMore: Bool = true
         let feedId: String
         private var isLoading = false
+        let observableSkipCount: Int
         
         var commentsObservable: Observable<[CommentViewModel]> {
-            return commentsRelay.skip(1).asObservable().observeOn(MainScheduler.asyncInstance)
+            return commentsRelay.skip(observableSkipCount).asObservable().observeOn(MainScheduler.asyncInstance)
         }
         
         init(with feedId: String, commentsInfo: Entity.FeedRedirectInfo.CommentsInfo? = nil) {
             self.feedId = feedId
             
             if let commentsInfo = commentsInfo {
+                observableSkipCount = 0
                 commentsRelay.accept(commentsInfo.list.map { CommentViewModel(with: $0) })
                 hasMore = commentsInfo.more
+            } else {
+                observableSkipCount = 1
             }
         }
         

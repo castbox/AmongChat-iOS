@@ -2661,11 +2661,11 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let nsMicrophoneUsageDescription = Rswift.StringResource(key: "NSMicrophoneUsageDescription", tableName: "Infoplist", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
-      /// en translation: Please allow AmongChat to use your Camera.
+      /// en translation: Please allow AmongChat to access your Camera to upload an avatar
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let nsCameraUsageDescription = Rswift.StringResource(key: "NSCameraUsageDescription", tableName: "Infoplist", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
-      /// en translation: Please allow AmongChat to use your photo library
+      /// en translation: Please allow AmongChat to access your Photos to upload avatar and videos
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let nsPhotoLibraryUsageDescription = Rswift.StringResource(key: "NSPhotoLibraryUsageDescription", tableName: "Infoplist", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
@@ -2692,14 +2692,14 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("NSMicrophoneUsageDescription", tableName: "Infoplist", bundle: R.hostingBundle, comment: "")
       }
       
-      /// en translation: Please allow AmongChat to use your Camera.
+      /// en translation: Please allow AmongChat to access your Camera to upload an avatar
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func nsCameraUsageDescription(_: Void = ()) -> String {
         return NSLocalizedString("NSCameraUsageDescription", tableName: "Infoplist", bundle: R.hostingBundle, comment: "")
       }
       
-      /// en translation: Please allow AmongChat to use your photo library
+      /// en translation: Please allow AmongChat to access your Photos to upload avatar and videos
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func nsPhotoLibraryUsageDescription(_: Void = ()) -> String {
