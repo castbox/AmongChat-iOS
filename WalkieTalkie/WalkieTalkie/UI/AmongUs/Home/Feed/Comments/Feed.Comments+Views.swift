@@ -189,7 +189,8 @@ extension Feed.Comments {
                       replyHandler: @escaping (() -> Void),
                       moreActionHandler: @escaping (() -> Void)) {
             avatarView.updateAvatar(with: comment.comment.user)
-            nameLabel.text = comment.comment.user.name
+            avatarView.isVerify = comment.comment.user.isVerified ?? false
+            nameLabel.attributedText = comment.comment.user.nameWithVerified(fontSize: 16, withAge: false, isShowVerify: false)
             commentLabel.text = comment.comment.text
             likeButton.isSelected = comment.comment.isLiked
             likeButton.setTitle("\(comment.comment.likeCount)", for: .normal)
@@ -377,7 +378,8 @@ extension Feed.Comments {
                       replyHandler: @escaping (() -> Void),
                       moreActionHandler: @escaping (() -> Void)) {
             avatarView.updateAvatar(with: reply.reply.user)
-            nameLabel.text = reply.reply.user.name
+            avatarView.isVerify = reply.reply.user.isVerified ?? false
+            nameLabel.attributedText = reply.reply.user.nameWithVerified(fontSize: 16, withAge: false, isShowVerify: false)
             let attComment = NSMutableAttributedString(string: reply.content)
             let atRange = (reply.content as NSString).range(of: reply.atPrefix)
             attComment.addAttributes([.foregroundColor : UIColor(hex6: 0x866EEF)], range: atRange)
