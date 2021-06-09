@@ -90,7 +90,10 @@ extension FansGroup {
                     self.listScrollView.setContentOffset(offset, animated: true)
                 })
                 .disposed(by: bag)
-            s.setTitles(titles: [R.string.localizable.amongChatGroupJoined(), R.string.localizable.amongChatGroupRequests()])
+            s.setButtons(tuples: [(normalIcon: nil, selectedIcon: nil, normalTitle: R.string.localizable.amongChatGroupJoined(), selectedTitle: nil),
+                                  (normalIcon: nil, selectedIcon: nil, normalTitle: R.string.localizable.amongChatGroupRequests(), selectedTitle: nil)
+            ])
+
             return s
         }()
         private let segmentedBtnHeight = CGFloat(60)

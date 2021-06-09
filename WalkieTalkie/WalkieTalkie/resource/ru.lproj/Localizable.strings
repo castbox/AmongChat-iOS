@@ -561,3 +561,46 @@
 "profile.constellation.capricorn" = "Козерог";
 "profile.constellation.aquarius" = "Водолей";
 "profile.constellation.pisces" = "Рыбы";
+
+"dm.interactive.messages" = "Интерактивные сообщения";
+"dm.interactive.all.message" = "Все сообщения";
+"dm.interactive.comments" = "Комментарии";
+"dm.interactive.emotes" = "Эмоции";
+"dm.interactive.likes" = "Лайков";
+"dm.interactive.emote.title" = "отправил эмоцию на ваш публикация";
+"dm.interactive.reply.comment.title" = "ответил на ваш комментарий";
+"dm.interactive.comment.title" = "прокомментировал ваш публикация";
+"dm.interactive.comment.like.title" = "понравился ваш комментарий";
+
+//1.22
+"feed.share" = "Поделиться";
+"feed.sheet.not.interested" = "Не интересует";
+"feed.sheet.delete.video" = "Удалить видео";
+"feed.library.video.unsupported" = "Не поддерживается";
+"feed.post.title" = "Публикация";
+"feed.library.title" = "Библиотека";
+"feed.post.tip" = "Видео не должно быть меньше 60 секунд.";
+"feed.choose.topic.title" = "Выберите тему игры";
+"among.chat.reply" = "Отвечать";
+"feed.comments.expand.count" = "Посмотреть ответы (%1$@)";
+"feed.comments.expand.more" = "Посмотреть больше";
+"feed.comments.collapse" = "Скрывать";
+"feed.comments.placeholder" = "Добавить комментарий";
+"feed.comments.list.title" = "%1$@ Комментарии";
+
+"profile.feed.no.videos" = "Ой, видео пока нет!";
+"profile.feed.click.create" = "Нажмите, чтобы создать свое первое видео";
+"feed.library.access.photo.title" = "Доступ к вашей галерее";
+"feed.library.access.photo.text" = "Требуется разрешение на доступ к вашей галерее. Пожалуйста, измените его, нажав кнопку ниже, чтобы все ваши клипы были здесь.";
+"among.chat.open.settings" = "Открыть Настройки";
+"feed.comments.deleted" = "Удалено";
+"profile.game.stats.empty" = "Ой, игровой статистики пока нет!";
+"feed.library.video.empty" = "Ой, здесь нет контента!";
+"feed.comment.create.failed" = "Не удалось опубликовать комментарий";
+"feed.comment.delete.failed" = "Не удалось удалить";
+"feed.comment.reply.failed" = "Не удалось ответить";
+"feed.comments.comment.success" = "Комментарий опубликован";
+"among.chat.login.auth.source.emote" = "отправить эмоции";
+"among.chat.login.auth.source.comment" = "добавить комментарий";
+"among.chat.login.auth.source.create.feed" = "создавать публикации";
+"feed.play.no.wifi.tips" = "Вы не подключены к WIFI. Для продолжения потоковой передачи ваши мобильные данные будут израсходованы.";

@@ -9,6 +9,8 @@
 import UIKit
 
 class BottomTitleButton: UIButton {
+    
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         centerTitleLabel()
@@ -30,7 +32,7 @@ class BottomTitleButton: UIButton {
             if let size = titleLabel?.sizeThatFits(CGSize(width: self.contentRect(forBounds: self.bounds).width, height: CGFloat.greatestFiniteMagnitude)) {
                 labelHeight = size.height
             }
-            return CGSize(width: size.width, height: image.size.height + labelHeight + 5)
+            return CGSize(width: size.width, height: image.size.height + labelHeight + 3)
         }
         return size
     }

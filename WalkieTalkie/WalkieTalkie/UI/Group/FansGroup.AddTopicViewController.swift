@@ -160,7 +160,6 @@ extension FansGroup.AddTopicViewController {
                     self?.view.raft.autoShow(.text(R.string.localizable.amongChatUnknownError()))
                     return
                 }
-                Settings.shared.supportedTopics.value = summary
                 self?.topicDataSource = summary.topicList.map({ TopicViewModel(with: $0) })
                 self?.initialSelect()
             }, onError: { [weak self] (error) in

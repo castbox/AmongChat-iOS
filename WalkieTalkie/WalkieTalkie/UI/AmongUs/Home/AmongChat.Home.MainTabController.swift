@@ -220,10 +220,10 @@ extension AmongChat.Home.MainTabController {
         //TODO: combine unread messages and unread notices
         let messageTabHasUnreadReply =
             Observable.combineLatest(Settings.shared.hasUnreadNoticeRelay,
-                          Settings.shared.hasUnreadMessageRelay)
-            .map { $0 || $1 }
+                                     Settings.shared.hasUnreadMessageRelay, Settings.shared.hasUnreadInteractiveMsgRelay)
+            .map { $0 || $1 || $2 }
         Observable.combineLatest(messageTabHasUnreadReply,
-                                 tabs.safe(2)?.1
+                                 tabs.first(where: { $0.2 == .messages })?.1
                                     .filterNil()
                                     .take(1) ?? Observable.empty())
             .observeOn(MainScheduler.asyncInstance)
@@ -258,6 +258,7 @@ extension AmongChat.Home.MainTabController {
     
     enum Tab: CaseIterable {
         case topics
+        case video
         case friends
         case messages
         
@@ -276,17 +277,16 @@ extension AmongChat.Home.MainTabController {
             let nav = NavigationViewController(rootViewController: vc)
             nav.tabBarItem = item
             return (nav, anim.iconRelay.asObservable(), self)
-            
         }
         
         private var rootViewController: UIViewController {
             switch self {
             case .topics:
                 return AmongChat.Home.TopicsViewController()
-                
+            case .video:
+                return Feed.RecommendViewController()
             case .friends:
                 return AmongChat.Home.RelationsViewController()
-                
             case .messages:
                 return AmongChat.Home.ConversationListController()
             }
@@ -297,7 +297,8 @@ extension AmongChat.Home.MainTabController {
             switch self {
             case .topics:
                 return R.image.ac_home_topic_tab_normal()
-                
+            case .video:
+                return R.image.ac_home_video_tab_normal()
             case .friends:
                 return R.image.ac_home_friends_tab_normal()
                 
@@ -311,7 +312,8 @@ extension AmongChat.Home.MainTabController {
             switch self {
             case .topics:
                 return R.image.ac_home_topic_tab_selected()
-                
+            case .video:
+                return R.image.ac_home_video_tab_selected()
             case .friends:
                 return R.image.ac_home_friends_tab_selected()
                 
@@ -325,6 +327,8 @@ extension AmongChat.Home.MainTabController {
             switch self {
             case .friends:
                 return "friends"
+            case .video:
+                return "feed"
             case .topics:
                 return "game"
             case .messages:
@@ -383,14 +387,14 @@ extension AmongChat.Home {
         override func selectedState(_ icon: UIImageView, textLabel _: UILabel) {
             icon.image = selectedImage
             icon.layer.anchorPoint = CGPoint(x: 0, y: 0.5)
-            icon.layer.transform = CATransform3D(scaleX: 1.2, y: 1.2, z: 1).rotated(by: (-25).degreesToRadians.cgFloat, x: 0.001, y: 0, z: 1)
+            icon.layer.transform = CATransform3D(scaleX: 1.08, y: 1.08, z: 1).rotated(by: (-25).degreesToRadians.cgFloat, x: 0.001, y: 0, z: 1)
             iconRelay.accept(icon)
         }
         
         override func deselectedState(_ icon: UIImageView, textLabel _: UILabel) {
             icon.image = normalImage
             icon.layer.anchorPoint = CGPoint(x: 0, y: 0.5)
-            icon.layer.transform = CATransform3D(scaleX: 0.9, y: 0.9, z: 1).rotated(by: 0.001, x: 0.001, y: 0, z: 1)
+            icon.layer.transform = CATransform3D(scaleX: 0.8, y: 0.8, z: 1).rotated(by: 0.001, x: 0.001, y: 0, z: 1)
             iconRelay.accept(icon)
         }
         
@@ -401,19 +405,19 @@ extension AmongChat.Home {
             UIView.animateKeyframes(withDuration: 0.9, delay: 0.0) {
                 
                 UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.25) {
-                    icon.transform = CGAffineTransform(scaleX: 1.07, y: 1.07).rotated(by: (-25).degreesToRadians.cgFloat)
+                    icon.transform = CGAffineTransform(scaleX: 0.9, y: 0.9).rotated(by: (-25).degreesToRadians.cgFloat)
                 }
                 
                 UIView.addKeyframe(withRelativeStartTime: 0.25, relativeDuration: 0.25) {
-                    icon.transform = CGAffineTransform(scaleX: 1.2, y: 1.2).rotated(by: (-25).degreesToRadians.cgFloat)
+                    icon.transform = CGAffineTransform(scaleX: 1.08, y: 1.08).rotated(by: (-25).degreesToRadians.cgFloat)
                 }
                 
                 UIView.addKeyframe(withRelativeStartTime: 0.5, relativeDuration: 0.25) {
-                    icon.transform = CGAffineTransform(scaleX: 1.1, y: 1.1).rotated(by: (-25).degreesToRadians.cgFloat)
+                    icon.transform = CGAffineTransform(scaleX: 1, y: 1).rotated(by: (-25).degreesToRadians.cgFloat)
                 }
                 
                 UIView.addKeyframe(withRelativeStartTime: 0.75, relativeDuration: 0.25) {
-                    icon.transform = CGAffineTransform(scaleX: 1.2, y: 1.2).rotated(by: (-25).degreesToRadians.cgFloat)
+                    icon.transform = CGAffineTransform(scaleX: 1.08, y: 1.08).rotated(by: (-25).degreesToRadians.cgFloat)
                 }
                 
             }
@@ -423,8 +427,7 @@ extension AmongChat.Home {
             icon.image = normalImage
             icon.layer.removeAllAnimations()
             icon.layer.anchorPoint = CGPoint(x: 0, y: 0.5)
-            icon.layer.transform = CATransform3D(scaleX: 0.9, y: 0.9, z: 1)
-            
+            icon.layer.transform = CATransform3D(scaleX: 0.8, y: 0.8, z: 1)
         }
         
     }

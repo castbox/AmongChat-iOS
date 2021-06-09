@@ -37,7 +37,6 @@
 "report.incorrect.sexual" = "Sexual content";
 "report.incorrect.harassment" = "Harassment or repulsive language";
 "report.incorrect.unreasonable" = "Unreasonable demands";
-"report.success" = "You have successfully reported \nthis person";
 
 
 "alert.block" = "Block";
@@ -470,7 +469,7 @@
 
 //1.18
 "report.user" = "Report user";
-"report.success" = "You have successfully reported \nthis person";
+"report.success" = "Reported successfully";
 "report.failed" = "Report failed. Please try again";
 "report.comments" = "Comments";
 "report.comments.placeholder" = "Please describe the report";
@@ -561,3 +560,47 @@
 "profile.constellation.capricorn" = "Capricorn";
 "profile.constellation.aquarius" = "Aquarius";
 "profile.constellation.pisces" = "Pisces";
+
+"dm.interactive.messages" = "Interactive messages";
+"dm.interactive.all.message" = "All Messages";
+"dm.interactive.comments" = "Comments";
+"dm.interactive.emotes" = "Emotes";
+"dm.interactive.likes" = "Likes";
+"dm.interactive.emote.title" = "emoted on your post";
+"dm.interactive.reply.comment.title" = "replied to your comment";
+"dm.interactive.comment.title" = "commented on your post";
+"dm.interactive.comment.like.title" = "liked your comment";
+
+//1.22
+"feed.share" = "Share";
+"feed.sheet.not.interested" = "Not interested";
+"feed.sheet.delete.video" = "Delete video";
+"feed.library.video.unsupported" = "Not Supported";
+"feed.post.title" = "Post";
+"feed.library.title" = "Library";
+"feed.post.tip" = "Videos should be under 60 seconds";
+"feed.choose.topic.title" = "Choose a game topic ";
+"among.chat.reply" = "Reply";
+"feed.comments.expand.count" = "View replies (%1$@)";
+"feed.comments.expand.more" = "View more";
+"feed.comments.collapse" = "Hide";
+"feed.comments.placeholder" = "Add a comment";
+"feed.comments.list.title" = "%1$@ Comments";
+
+"profile.feed.no.videos" = "Oops, no videos yet!";
+"profile.feed.click.create" = "Click to create your first video";
+"feed.library.access.photo.title" = "Access Your Gallery";
+"feed.library.access.photo.text" = "The permission to access your gallery is needed. Please change it by clicking the button below, to get all your clips here.";
+"among.chat.open.settings" = "Open Settings";
+"feed.comments.deleted" = "Deleted";
+"profile.game.stats.empty" = "Oops, no gaming stats yet!";
+"feed.library.video.empty" = "Oops, no content here!";
+"feed.comment.create.failed" = "Comment failed to post";
+"feed.comment.delete.failed" = "Failed to delete";
+"feed.comment.reply.failed" = "Failed to reply";
+"feed.comments.comment.success" = "Comment posted";
+"among.chat.login.auth.source.emote" = "send emotes";
+"among.chat.login.auth.source.comment" = "add a comment";
+"among.chat.login.auth.source.create.feed" = "create posts";
+"feed.play.no.wifi.tips" = "You're not connected to WIFI. To continue streaming, your mobile data would be consumed.";
+"feed.deleted.tips" = "Oops, this post has been deleted";

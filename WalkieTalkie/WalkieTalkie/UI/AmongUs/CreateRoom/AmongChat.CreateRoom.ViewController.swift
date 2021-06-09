@@ -509,7 +509,6 @@ extension AmongChat.CreateRoom.ViewController {
                     self?.view.raft.autoShow(.text(R.string.localizable.amongChatUnknownError()))
                     return
                 }
-                Settings.shared.supportedTopics.value = summary
             }, onError: { [weak self] (error) in
                 self?.view.raft.autoShow(.text(error.localizedDescription))
             })

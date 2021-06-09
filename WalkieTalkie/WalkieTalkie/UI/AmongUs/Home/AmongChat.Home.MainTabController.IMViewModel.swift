@@ -72,7 +72,8 @@ extension AmongChat.Home.MainTabController {
                 
             case .unreadNotice, .unreadGroupApply:
                 Settings.shared.hasUnreadNoticeRelay.accept(true)
-            
+            case .unreadInteractiveMsg:
+                Settings.shared.hasUnreadInteractiveMsgRelay.accept(true)
             default:
                 ()
             }

@@ -35,6 +35,7 @@ struct MsgError: Error {
         case roomNotFound = 202 //'can not find this room'
         
         case beBlocked = 1003 //You are on this user\'s blacklist. You can not message this user any more.
+        case feedDeleted = 2100
         case sendDmError = 100000
     }
     
@@ -94,6 +95,8 @@ extension MsgError.CodeType {
             return R.string.localizable.adminCannotMatchedRoomTips()
         case .beBlocked:
             return R.string.localizable.dmSendMessageBeblockedError()
+        case .feedDeleted:
+            return R.string.localizable.feedDeletedTips()
         default:
             return nil
         }
@@ -614,6 +617,10 @@ extension Request {
             .mapToDataKeyJsonValue()
             .mapTo(Entity.Summary.self)
             .observeOn(MainScheduler.asyncInstance)
+            .do(onSuccess: { (summary) in
+                guard let summary = summary else { return }
+                Settings.shared.supportedTopics.value = summary
+            })
         
     }
     
@@ -1558,10 +1565,11 @@ extension Request {
             .observeOn(MainScheduler.asyncInstance)
     }
     
-    static func noticeCheck(lastCheckMs: Int64) -> Single<Bool> {
+    static func noticeCheck(lastCheckMs: Int64, interactiveMsgReadMs: Int64) -> Single<(Bool, Bool)> {
         
         let params: [String : Any] = [
-            "read_ms" : lastCheckMs
+            "read_ms" : lastCheckMs,
+            "i_read_ms": interactiveMsgReadMs,
         ]
         
         return amongchatProvider.rx.request(.noticeCheck(params))
@@ -1571,7 +1579,8 @@ extension Request {
                 let unread_g = data["unread_g"] as? Bool ?? false
                 let unread_p = data["unread_p"] as? Bool ?? false
                 let unread_ga = data["unread_ga"] as? Bool ?? false
-                return unread_g || unread_p || unread_ga
+                let unread_i = data["unread_i"] as? Bool ?? false
+                return ((unread_g || unread_p || unread_ga), unread_i)
             }
             .observeOn(MainScheduler.asyncInstance)
         
@@ -1674,4 +1683,167 @@ extension Request {
             .mapTo(Entity.UserStatus.self)
             .observeOn(MainScheduler.asyncInstance)
     }
+    
+    static func createFeed(proto: Entity.FeedProto) -> Single<Void> {
+        
+        guard let params = proto.dictionary else {
+            return Single.error(MsgError.default)
+        }
+        
+        return amongchatProvider.rx.request(.feedCreate(params))
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .map { (data) in
+                guard let _ = data["pid"] else {
+                    throw MsgError.default
+                }
+                
+                return
+            }
+    }
+    
+    static func feedCommentList(ofPost pid: String, skipMs: Int64 = 0, limit: Int = 10) -> Single<Entity.FeedCommentList> {
+        
+        let params: [String : Any]  = [
+            "pid" : pid,
+            "skip_ms" : skipMs,
+            "limit" : limit
+        ]
+        
+        return amongchatProvider.rx.request(.commentList(params))
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .mapTo(Entity.FeedCommentList.self)
+            .map({
+                guard let list = $0 else {
+                    throw MsgError.default
+                }
+                return list
+            })
+            .observeOn(MainScheduler.asyncInstance)
+    }
+    
+    static func commentReplyList(ofComment cid: String, skipMs: Int64 = 0, limit: Int = 10) -> Single<Entity.CommentReplyList> {
+        
+        let params: [String : Any]  = [
+            "cid" : cid,
+            "skip_ms" : skipMs,
+            "limit" : limit
+        ]
+        
+        return amongchatProvider.rx.request(.commentReplyList(params))
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .mapTo(Entity.CommentReplyList.self)
+            .map({
+                guard let list = $0 else {
+                    throw MsgError.default
+                }
+                return list
+            })
+            .observeOn(MainScheduler.asyncInstance)
+    }
+
+    static func replyToComment(_ cid: String, toUid: Int? = nil, text: String) -> Single<Entity.FeedCommentReply> {
+        
+        var params: [String : Any]  = [
+            "cid" : cid,
+            "text" : text
+        ]
+        
+        if let toUid = toUid {
+            params["to_uid"] = toUid
+        }
+        
+        return amongchatProvider.rx.request(.createReply(params))
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .mapTo(Entity.FeedCommentReply.self)
+            .map({
+                guard let reply = $0 else {
+                    throw MsgError.default
+                }
+                return reply
+            })
+            .observeOn(MainScheduler.asyncInstance)
+
+    }
+    
+    static func likeComment(_ cid: String) -> Single<Bool> {
+        
+        let params: [String : Any]  = [
+            "obj_id" : cid,
+            "type" : "like_c"
+        ]
+                
+        return amongchatProvider.rx.request(.likeComment(params))
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .mapToProcessedValue()
+            .observeOn(MainScheduler.asyncInstance)
+
+    }
+    
+    static func cancelLikingComment(_ cid: String) -> Single<Bool> {
+        
+        let params: [String : Any]  = [
+            "obj_id" : cid,
+            "type" : "like_c"
+        ]
+                
+        return amongchatProvider.rx.request(.cancelLikingComment(params))
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .mapToProcessedValue()
+            .observeOn(MainScheduler.asyncInstance)
+
+    }
+    
+    static func deleteReply(_ rid: String) -> Single<Bool> {
+        
+        let params: [String : Any]  = [
+            "rid" : rid
+        ]
+                
+        return amongchatProvider.rx.request(.deleteReply(params))
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .mapToProcessedValue()
+            .observeOn(MainScheduler.asyncInstance)
+    }
+
+    static func createComment(toFeed pid: String, text: String) -> Single<Entity.FeedComment> {
+        
+        let params: [String : Any]  = [
+            "pid" : pid,
+            "text" : text
+        ]
+                
+        return amongchatProvider.rx.request(.createComment(params))
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .mapTo(Entity.FeedComment.self)
+            .map({
+                guard let comment = $0 else {
+                    throw MsgError.default
+                }
+                return comment
+            })
+            .observeOn(MainScheduler.asyncInstance)
+        
+    }
+    
+    static func deleteComment(_ cid: String) -> Single<Bool> {
+        
+        let params: [String : Any]  = [
+            "cid" : cid
+        ]
+                
+        return amongchatProvider.rx.request(.deleteComment(params))
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .mapToProcessedValue()
+            .observeOn(MainScheduler.asyncInstance)
+    }
+    
 }

@@ -32,6 +32,7 @@ extension Peer {
         case roomInvitationInviteStranger = "AC:PEER:InviteStranger"
         case unreadNotice = "AC:PEER:UnreadNotice"
         case unreadGroupApply = "AC:PEER:UnreadGroupApply"
+        case unreadInteractiveMsg = "AC:PEER:UnreadInteractiveMsg"
         case dm = "AC:PEER:Dm"
     }
     

@@ -213,9 +213,23 @@ extension URI {
         
         init?(_ paras: [String : Any]) {
             
-            guard let uid = paras["uid"] as? String else { return nil }
+            guard let uid = paras["uid"] as? String, uid.isDigits else { return nil }
             
             self.uid = uid
+        }
+        
+    }
+    
+    struct DMInteractiveMessage: URIRepresentable {
+        
+        static func patterns() -> [String] {
+            return [
+                "/message/interactive",
+            ]
+        }
+        
+        init?(_ paras: [String : Any]) {
+            
         }
         
     }
@@ -229,6 +243,25 @@ extension URI {
         
         init?(_ paras: [String : Any]) {
         }
+    }
+    
+    struct ProfileFeeds: URIRepresentable {
+        
+        static func patterns() -> [String] {
+            return [
+                "/profile/feeds/:uid",
+                "/profile/feeds"
+            ]
+        }
+        
+        let uid: Int?
+        let index: Int?
+        
+        init?(_ paras: [String: Any]) {
+            self.uid = Int(paras["uid"] as? String ?? "")
+            self.index = Int(paras["index"] as? String ?? "")
+        }
+        
     }
     
     struct Undefined: URIRepresentable {

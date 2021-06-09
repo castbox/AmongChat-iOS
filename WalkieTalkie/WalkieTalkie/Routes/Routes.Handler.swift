@@ -60,6 +60,10 @@ extension Routes {
                         self.handleAllNotice()
                     case let message as URI.DMMessage:
                         self.handleDmMessage(message.uid)
+                    case let profileFeed as URI.ProfileFeeds:
+                        self.handleProfileFeeds(profileFeed)
+                    case _ as URI.DMInteractiveMessage:
+                        self.handleInteractiveMessage()
                     default:
                         cdAssertFailure("should never enter here")
                     }
@@ -127,7 +131,7 @@ extension Routes {
         
         func handleAvatars() {
             let vc = Social.ProfileLookViewController()
-            UIApplication.navigationController?.pushViewController(vc)
+            UIApplication.topViewController()?.navigationController?.pushViewController(vc)
         }
         
         func handleInviteUser(uid: String?) {
@@ -180,6 +184,14 @@ extension Routes {
             UIApplication.topViewController()?.navigationController?.pushViewController(vc)
         }
         
+        func handleProfileFeeds(_ profileFeeds: URI.ProfileFeeds) {
+            guard let uid = profileFeeds.uid else {
+                return
+            }
+            let vc = Social.ProfileFeedController(with: uid, index: profileFeeds.index ?? 0)
+            UIApplication.topViewController()?.navigationController?.pushViewController(vc)
+        }
+        
         func handleDmMessage(_ uid: String) {
             let loadingHandler = UIApplication.topViewController()?.view.raft.show(.loading)
             _ = DMManager.shared.queryConversation(fromUid: uid)
@@ -211,6 +223,11 @@ extension Routes {
                 }) { Error in
                     loadingHandler?()
                 }
+        }
+        
+        func handleInteractiveMessage() {
+            let vc = Conversation.InteractiveMessageController()
+            UIApplication.topViewController()?.navigationController?.pushViewController(vc)
         }
         
         func showWebViewController(urlString: String) {

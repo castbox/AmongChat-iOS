@@ -114,6 +114,28 @@ extension APIService {
         case myGroupApplyStat
         case updateInstalledGames([String: Any])
         case userStatus([String: Any])
+        //
+        case interactiveMsgs([String: Any])
+        case recommendFeeds([String: Any])
+        case userFeeds([String: Any])
+        case feedDelete([String: Any])
+        case feedReportNotIntereasted([String: Any])
+        case feedReportPlay([String: Any])
+        case feedReportShare([String: Any])
+        case feedReportPlayFinish([String: Any])
+        case feedSelectEmote([String: Any])
+        case feedUnselectEmote([String: Any])
+        case feedCreate([String : Any])
+        case commentList([String : Any])
+        case commentReplyList([String : Any])
+        case createReply([String : Any])
+        case likeComment([String : Any])
+        case cancelLikingComment([String : Any])
+        case deleteReply([String : Any])
+        case createComment([String : Any])
+        case deleteComment([String : Any])
+        case myFeeds([String : Any])
+        case feedPostPage([String : Any])
     }
 }
 
@@ -319,10 +341,52 @@ extension APIService.AmongChatBackend: TargetType {
             return "/api/v1/my/group/apply/stat"
         case .sendDM:
             return "/api/v1/direct/message"
+        case .interactiveMsgs:
+            return "/post/my/interactive/msg/list"
         case .updateInstalledGames:
             return "/account/games"
         case .userStatus:
             return "/api/v1/user/status"
+        case .recommendFeeds:
+            return "/post/recommend/posts"
+        case .feedReportNotIntereasted:
+            return "/post/boring"
+        case .feedDelete:
+            return "/post/delete"
+        case .userFeeds:
+            return "/post/user/posts"
+        case .feedReportPlay:
+            return "/post/play"
+        case .feedReportShare:
+            return "/post/share"
+        case .feedReportPlayFinish:
+            return "/post/play/finish"
+        case .feedSelectEmote:
+            return "/post/vote"
+        case .feedUnselectEmote:
+            return "post/unvote"
+        case .feedCreate:
+            return "/post/create"
+        case .commentList:
+            return "/post/comment/list"
+        case .commentReplyList:
+            return "/post/reply/list"
+        case .createReply:
+            return "/post/reply/create"
+        case .likeComment:
+            return "/post/like"
+        case .cancelLikingComment:
+            return "/post/unlike"
+        case .deleteReply:
+            return "/post/reply/delete"
+        case .createComment:
+            return "/post/comment/create"
+        case .deleteComment:
+            return "post/comment/delete"
+        case .myFeeds:
+            return "/post/my/posts"
+        case .feedPostPage:
+            return "/post/post/page"
         }
     }
     
@@ -359,6 +423,9 @@ extension APIService.AmongChatBackend: TargetType {
              .adminUnmuteIm,
              .updateInstalledGames,
              .sendDM,
+             .feedCreate,
+             .createReply,
+             .createComment,
              .logout:
             return .post
             
@@ -418,7 +485,22 @@ extension APIService.AmongChatBackend: TargetType {
              .peerMessage,
              .globalMessage,
              .myGroupApplyStat,
+             .interactiveMsgs,
+             .userFeeds,
+             .recommendFeeds,
+             .feedReportNotIntereasted,
+             .feedReportPlay,
+             .feedReportShare,
+             .feedReportPlayFinish,
+             .feedSelectEmote,
+             .feedUnselectEmote,
              .userStatus,
+             .commentList,
+             .commentReplyList,
+             .likeComment,
+             .cancelLikingComment,
+             .myFeeds,
+             .feedPostPage,
              .shareUserSign:
             return .get
         case .follow:
@@ -426,6 +508,9 @@ extension APIService.AmongChatBackend: TargetType {
         case .removeGameSkill,
              .deleteGroup,
              .kickMemberFromGroup,
+             .feedDelete,
+             .deleteReply,
+             .deleteComment,
              .unFollow:
             return .delete
             
@@ -475,6 +560,7 @@ extension APIService.AmongChatBackend: TargetType {
              .adminMuteIm(let params),
              .adminUnmuteIm(let params),
              .updateInstalledGames(let params),
+             .feedCreate(let params),
              .updateDevice(let params):
             return .requestParameters(parameters: params, encoding: JSONEncoding.default)
             
@@ -539,7 +625,27 @@ extension APIService.AmongChatBackend: TargetType {
              .peerMessage(let params),
              .globalMessage(let params),
              .sendDM(let params),
+             .interactiveMsgs(let params),
+             .userFeeds(let params),
+             .recommendFeeds(let params),
+             .feedReportNotIntereasted(let params),
+             .feedDelete(let params),
+             .feedReportPlay(let params),
+             .feedReportShare(let params),
+             .feedReportPlayFinish(let params),
+             .feedSelectEmote(let params),
+             .feedUnselectEmote(let params),
              .userStatus(let params),
+             .commentList(let params),
+             .commentReplyList(let params),
+             .createReply(let params),
+             .likeComment(let params),
+             .cancelLikingComment(let params),
+             .deleteReply(let params),
+             .createComment(let params),
+             .deleteComment(let params),
+             .myFeeds(let params),
+             .feedPostPage(let params),
              .unFollow(let params):
             return .requestParameters(parameters: params, encoding: URLEncoding.queryString)
             

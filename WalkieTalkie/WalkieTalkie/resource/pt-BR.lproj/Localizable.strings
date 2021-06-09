@@ -561,3 +561,46 @@
 "profile.constellation.capricorn" = "Capricórnio";
 "profile.constellation.aquarius" = "Aquário";
 "profile.constellation.pisces" = "Peixes";
+
+"dm.interactive.messages" = "Mensagens interativas";
+"dm.interactive.all.message" = "Todas as mensagens";
+"dm.interactive.comments" = "Comentários";
+"dm.interactive.emotes" = "Emotes";
+"dm.interactive.likes" = "Gostos";
+"dm.interactive.emote.title" = "enviou emote na sua publicação";
+"dm.interactive.reply.comment.title" = "respondeu ao seu comentário";
+"dm.interactive.comment.title" = "comentou em sua publicação";
+"dm.interactive.comment.like.title" = "gostou do seu comentário";
+
+//1.22
+"feed.share" = "Compartilhar";
+"feed.sheet.not.interested" = "Não interessado";
+"feed.sheet.delete.video" = "Excluir vídeo";
+"feed.library.video.unsupported" = "Não suportado";
+"feed.post.title" = "Publicação";
+"feed.library.title" = "Biblioteca";
+"feed.post.tip" = "Os vídeos devem ter menos de 60 segundos";
+"feed.choose.topic.title" = "Escolha um tópico de jogo";
+"among.chat.reply" = "Responder";
+"feed.comments.expand.count" = "Ver respostas (%1$@)";
+"feed.comments.expand.more" = "Ver mais";
+"feed.comments.collapse" = "Esconder";
+"feed.comments.placeholder" = "Adicione um comentário";
+"feed.comments.list.title" = "%1$@ Comentários";
+
+"profile.feed.no.videos" = "Ops, ainda não há vídeos!";
+"profile.feed.click.create" = "Clique para criar seu primeiro vídeo";
+"feed.library.access.photo.title" = "Acesse sua galeria";
+"feed.library.access.photo.text" = "A permissão para acessar sua galeria é necessária. Por favor, altere-o clicando no botão abaixo, para obter todos os seus clipes aqui.";
+"among.chat.open.settings" = "Abrir Configurações";
+"feed.comments.deleted" = "Excluído";
+"profile.game.stats.empty" = "Ops, ainda não há estatísticas de jogo!";
+"feed.library.video.empty" = "Ops, nenhum conteúdo aqui!";
+"feed.comment.create.failed" = "O comentário falhou ao postar";
+"feed.comment.delete.failed" = "Falha ao excluir";
+"feed.comment.reply.failed" = "Falha ao responder";
+"feed.comments.comment.success" = "Comentário postado";
+"among.chat.login.auth.source.emote" = "enviar emotes";
+"among.chat.login.auth.source.comment" = "adicionar um comentário";
+"among.chat.login.auth.source.create.feed" = "criar publicações";
+"feed.play.no.wifi.tips" = "Você não está conectado ao WIFI. Para continuar o streaming, seus dados móveis seriam consumidos.";

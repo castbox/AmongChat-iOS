@@ -30,12 +30,28 @@ extension Reactive where Base: UIViewController {
         return ControlEvent(events: source)
     }
 
+    var viewWillDisappear: ControlEvent<Void> {
+        let source = self.methodInvoked(#selector(Base.viewWillDisappear(_:))).map { _ in }
+        return ControlEvent(events: source)
+    }
 }
 
 extension Reactive where Base: UIButton {
     
     var isEnable: ControlEvent<Void> {
         let source = self.methodInvoked(#selector(setter: Base.isEnabled)).map { _ in }
+        return ControlEvent(events: source)
+    }
+}
+
+extension Reactive where Base: UINavigationController {
+    var pushViewController: ControlEvent<Void> {
+        let source = self.methodInvoked(#selector(Base.pushViewController(_:animated:))).map { _ in }
+        return ControlEvent(events: source)
+    }
+    
+    var popViewController: ControlEvent<Void> {
+        let source = self.methodInvoked(#selector(Base.popViewController(animated:))).map { _ in }
         return ControlEvent(events: source)
     }
 }

@@ -183,13 +183,13 @@
 		<true/>
 	</dict>
 	<key>NSCameraUsageDescription</key>
-	<string>Please allow Among Chat to use your camera</string>
+	<string>Please allow AmongChat to access your Camera to upload an avatar</string>
 	<key>NSContactsUsageDescription</key>
 	<string>Please allow Among Chat to access contacts so you can compete with friends</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Enable microphone to talk to others in channels</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Please allow Among Chat to use your photo library</string>
+	<string>Please allow AmongChat to access your Photos to upload avatar and videos</string>
 	<key>NSSpeechRecognitionUsageDescription</key>
 	<string>Please allow Among Chat to use your speech recognition</string>
 	<key>NSUserTrackingUsageDescription</key>
@@ -364,6 +364,10 @@
 		<dict>
 			<key>SKAdNetworkIdentifier</key>
 			<string>44n7hlldy6.skadnetwork</string>
+		</dict>
+		<dict>
+			<key>SKAdNetworkIdentifier</key>
+			<string>47vhws6wlr.skadnetwork</string>
 		</dict>
 		<dict>
 			<key>SKAdNetworkIdentifier</key>
@@ -559,6 +563,14 @@
 		</dict>
 		<dict>
 			<key>SKAdNetworkIdentifier</key>
+			<string>275upjj5gd.skadnetwork</string>
+		</dict>
+		<dict>
+			<key>SKAdNetworkIdentifier</key>
+			<string>294l99pt4k.skadnetwork</string>
+		</dict>
+		<dict>
+			<key>SKAdNetworkIdentifier</key>
 			<string>32z4fx6l9h.skadnetwork</string>
 		</dict>
 		<dict>
@@ -603,6 +615,18 @@
 		</dict>
 		<dict>
 			<key>SKAdNetworkIdentifier</key>
+			<string>qqp299437r.skadnetwork</string>
+		</dict>
+		<dict>
+			<key>SKAdNetworkIdentifier</key>
+			<string>r45fhb6rf7.skadnetwork</string>
+		</dict>
+		<dict>
+			<key>SKAdNetworkIdentifier</key>
+			<string>rvh3l7un93.skadnetwork</string>
+		</dict>
+		<dict>
+			<key>SKAdNetworkIdentifier</key>
 			<string>tl55sbb4fm.skadnetwork</string>
 		</dict>
 		<dict>
@@ -619,19 +643,7 @@
 		</dict>
 		<dict>
 			<key>SKAdNetworkIdentifier</key>
-			<string>4dzt52r2t5.skadnetwork</string>
-		</dict>
-		<dict>
-			<key>SKAdNetworkIdentifier</key>
 			<string>v79kvwwj4g.skadnetwork</string>
-		</dict>
-		<dict>
-			<key>SKAdNetworkIdentifier</key>
-			<string>5tjdwbrq8w.skadnetwork</string>
-		</dict>
-		<dict>
-			<key>SKAdNetworkIdentifier</key>
-			<string>f7s53z58qe.skadnetwork</string>
 		</dict>
 		<dict>
 			<key>SKAdNetworkIdentifier</key>
@@ -639,11 +651,23 @@
 		</dict>
 		<dict>
 			<key>SKAdNetworkIdentifier</key>
-			<string>238da6jt44.skadnetwork</string>
+			<string>5tjdwbrq8w.skadnetwork</string>
 		</dict>
 		<dict>
 			<key>SKAdNetworkIdentifier</key>
 			<string>488r3q3dtq.skadnetwork</string>
+		</dict>
+		<dict>
+			<key>SKAdNetworkIdentifier</key>
+			<string>4dzt52r2t5.skadnetwork</string>
+		</dict>
+		<dict>
+			<key>SKAdNetworkIdentifier</key>
+			<string>238da6jt44.skadnetwork</string>
+		</dict>
+		<dict>
+			<key>SKAdNetworkIdentifier</key>
+			<string>f7s53z58qe.skadnetwork</string>
 		</dict>
 		<dict>
 			<key>SKAdNetworkIdentifier</key>
@@ -675,19 +699,7 @@
 		</dict>
 		<dict>
 			<key>SKAdNetworkIdentifier</key>
-			<string>275upjj5gd.skadnetwork</string>
-		</dict>
-		<dict>
-			<key>SKAdNetworkIdentifier</key>
 			<string>hb56zgv37p.skadnetwork</string>
-		</dict>
-		<dict>
-			<key>SKAdNetworkIdentifier</key>
-			<string>rvh3l7un93.skadnetwork</string>
-		</dict>
-		<dict>
-			<key>SKAdNetworkIdentifier</key>
-			<string>qqp299437r.skadnetwork</string>
 		</dict>
 		<dict>
 			<key>SKAdNetworkIdentifier</key>
@@ -703,11 +715,23 @@
 		</dict>
 		<dict>
 			<key>SKAdNetworkIdentifier</key>
-			<string>294l99pt4k.skadnetwork</string>
+			<string>3l6bd9hu43.skadnetwork</string>
+		</dict>
+		<dict>
+			<key>SKAdNetworkIdentifier</key>
+			<string>vcra2ehyfk.skadnetwork</string>
 		</dict>
 		<dict>
 			<key>SKAdNetworkIdentifier</key>
 			<string>ecpz2srf59.skadnetwork</string>
+		</dict>
+		<dict>
+			<key>SKAdNetworkIdentifier</key>
+			<string>4w7y6s5ca2.skadnetwork</string>
+		</dict>
+		<dict>
+			<key>SKAdNetworkIdentifier</key>
+			<string>s69wq72ugq.skadnetwork</string>
 		</dict>
 	</array>
 	<key>TikTokAppID</key>
