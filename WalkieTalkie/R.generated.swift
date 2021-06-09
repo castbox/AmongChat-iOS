@@ -232,7 +232,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 265 images.
+  /// This `R.image` struct is generated, and contains static references to 266 images.
   struct image {
     /// Image `ac_add_stats_add`.
     static let ac_add_stats_add = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_add_stats_add")
@@ -254,6 +254,8 @@ struct R: Rswift.Validatable {
     static let ac_app_tracking_icon = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_app_tracking_icon")
     /// Image `ac_avatar_ad`.
     static let ac_avatar_ad = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_avatar_ad")
+    /// Image `ac_avatar_exclusive`.
+    static let ac_avatar_exclusive = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_avatar_exclusive")
     /// Image `ac_avatar_pro`.
     static let ac_avatar_pro = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_avatar_pro")
     /// Image `ac_avatar_selected`.
@@ -813,6 +815,11 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "ac_avatar_ad", bundle: ..., traitCollection: ...)`
     static func ac_avatar_ad(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ac_avatar_ad, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_avatar_exclusive", bundle: ..., traitCollection: ...)`
+    static func ac_avatar_exclusive(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_avatar_exclusive, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "ac_avatar_pro", bundle: ..., traitCollection: ...)`
