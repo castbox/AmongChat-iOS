@@ -322,6 +322,7 @@ private extension FeedListCell {
     }
     
     func configureSubview() {
+        contentView.backgroundColor = "121212".color()
         collectionView.register(nibWithCellClass: FeedEmojiCollectionCell.self)
 
         sliderBar.setMinimumTrackImage(UIImage.image(with: .white, size: CGSize(width: 10, height: 3)), for: .normal)
