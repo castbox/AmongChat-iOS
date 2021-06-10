@@ -37,7 +37,6 @@
 "report.incorrect.sexual" = "성적인 콘텐츠";
 "report.incorrect.harassment" = "괴롭힘 또는 혐오스러운 언어";
 "report.incorrect.unreasonable" = "불합리한 요구";
-"report.success" = "성공적으로 신고했습니다 \n이 사람을";
 
 
 "alert.block" = "블록";
@@ -470,7 +469,7 @@
 
 //1.18
 "report.user" = "보고서 사용자";
-"report.success" = "성공적으로 신고했습니다 \n이 사람을";
+"report.success" = "성공적으로 보고되었습니다";
 "report.failed" = "신고하지 못했습니다. 다시 시도하십시오";
 "report.comments" = "코멘트";
 "report.comments.placeholder" = "보고서를 설명하십시오";
@@ -604,3 +603,12 @@
 "among.chat.login.auth.source.comment" = "댓글을 추가하려면";
 "among.chat.login.auth.source.create.feed" = "게시물을 작성하려면";
 "feed.play.no.wifi.tips" = "WIFI에 연결되어 있지 않습니다. 스트리밍을 계속하려면 모바일 데이터가 사용됩니다.";
+"feed.deleted.tips" = "죄송합니다. 이 게시물은 삭제되었습니다.";
+
+//21.06.08
+"among.chat.exclusive.avatar" = "독점 아바타";
+"among.chat.congrates.exclusive.avatar" = "AmongChat의 독점 아바타를 획득하신 것을 축하합니다!";
+"among.chat.exclusive.pet" = "독점 애완 동물";
+"among.chat.congrates.exclusive.pet" = "AmongChat의 독점 애완 동물을 획득 한 것을 축하합니다!";
+"among.chat.claim.fail" = "청구하지 못했습니다.";
+"among.chat.claimed" = "받은";

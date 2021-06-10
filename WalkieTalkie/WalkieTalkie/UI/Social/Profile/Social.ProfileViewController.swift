@@ -25,7 +25,7 @@ extension Social {
             if isSelfProfile.value, navigationController?.viewControllers.count == 1 {
                 btn.setImage(R.image.ac_profile_close_down(), for: .normal)
             } else {
-                btn.setImage(R.image.ac_profile_close(), for: .normal)
+                btn.setImage(R.image.ac_back(), for: .normal)
             }
             btn.rx.tap.observeOn(MainScheduler.instance)
                 .subscribe(onNext: { [weak self]() in

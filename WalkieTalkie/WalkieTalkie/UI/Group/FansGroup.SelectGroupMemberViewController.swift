@@ -85,6 +85,9 @@ extension FansGroup {
         
         private lazy var bottomGradientView: FansGroup.Views.BottomGradientButton = {
             let v = FansGroup.Views.BottomGradientButton()
+            v.button.setTitleColor(UIColor(hex6: 0x757575), for: .disabled)
+            v.button.setTitleColor(UIColor(hex6: 0xFB5858), for: .normal)
+            v.button.setBackgroundImage(UIColor(hex6: 0x2B2B2B).image, for: .normal)
             selectedMembersRelay.map { $0.count }
                 .subscribe(onNext: { (count) in
                     v.button.setTitle(R.string.localizable.amongChatGroupKickMemberButtonTitle("\(count)"), for: .normal)

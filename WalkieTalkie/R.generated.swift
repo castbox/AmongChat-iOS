@@ -2749,7 +2749,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
     
-    /// This `R.string.localizable` struct is generated, and contains static references to 534 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 535 localization keys.
     struct localizable {
       /// en translation:  Congratulations!
       /// 
@@ -3061,8 +3061,12 @@ struct R: Rswift.Validatable {
       static let amongChatCreateRoomCardClaim = Rswift.StringResource(key: "among.chat.create.room.card.claim", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Claim failed
       /// 
-      /// Locales: en
-      static let amongChatClaimFail = Rswift.StringResource(key: "among.chat.claim.fail", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let amongChatClaimFail = Rswift.StringResource(key: "among.chat.claim.fail", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Claimed
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let amongChatClaimed = Rswift.StringResource(key: "among.chat.claimed", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Click to Go
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3165,12 +3169,12 @@ struct R: Rswift.Validatable {
       static let reportConfirm = Rswift.StringResource(key: "report.confirm", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Congratulations on getting AmongChat's Exclusive Avatar!
       /// 
-      /// Locales: en
-      static let amongChatCongratesExclusiveAvatar = Rswift.StringResource(key: "among.chat.congrates.exclusive.avatar", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let amongChatCongratesExclusiveAvatar = Rswift.StringResource(key: "among.chat.congrates.exclusive.avatar", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Congratulations on getting AmongChat's Exclusive Pet!
       /// 
-      /// Locales: en
-      static let amongChatCongratesExclusivePet = Rswift.StringResource(key: "among.chat.congrates.exclusive.pet", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let amongChatCongratesExclusivePet = Rswift.StringResource(key: "among.chat.congrates.exclusive.pet", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Contacts
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3317,16 +3321,16 @@ struct R: Rswift.Validatable {
       static let amongChatExample = Rswift.StringResource(key: "among.chat.example", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Exclusive Avatar
       /// 
-      /// Locales: en
-      static let amongChatExclusiveAvatar = Rswift.StringResource(key: "among.chat.exclusive.avatar", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let amongChatExclusiveAvatar = Rswift.StringResource(key: "among.chat.exclusive.avatar", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Exclusive PRO badge
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatProPrivilegeBadge = Rswift.StringResource(key: "among.chat.pro.privilege.badge", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Exclusive Pet
       /// 
-      /// Locales: en
-      static let amongChatExclusivePet = Rswift.StringResource(key: "among.chat.exclusive.pet", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let amongChatExclusivePet = Rswift.StringResource(key: "among.chat.exclusive.pet", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Exit channel
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3973,8 +3977,8 @@ struct R: Rswift.Validatable {
       static let serverLostTips = Rswift.StringResource(key: "server.lost.tips", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Oops, this post has been deleted
       /// 
-      /// Locales: en
-      static let feedDeletedTips = Rswift.StringResource(key: "feed.deleted.tips", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let feedDeletedTips = Rswift.StringResource(key: "feed.deleted.tips", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Open Game
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -5429,9 +5433,16 @@ struct R: Rswift.Validatable {
       
       /// en translation: Claim failed
       /// 
-      /// Locales: en
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func amongChatClaimFail(_: Void = ()) -> String {
         return NSLocalizedString("among.chat.claim.fail", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Claimed
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func amongChatClaimed(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.claimed", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Click to Go
@@ -5611,14 +5622,14 @@ struct R: Rswift.Validatable {
       
       /// en translation: Congratulations on getting AmongChat's Exclusive Avatar!
       /// 
-      /// Locales: en
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func amongChatCongratesExclusiveAvatar(_: Void = ()) -> String {
         return NSLocalizedString("among.chat.congrates.exclusive.avatar", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Congratulations on getting AmongChat's Exclusive Pet!
       /// 
-      /// Locales: en
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func amongChatCongratesExclusivePet(_: Void = ()) -> String {
         return NSLocalizedString("among.chat.congrates.exclusive.pet", bundle: R.hostingBundle, comment: "")
       }
@@ -5877,7 +5888,7 @@ struct R: Rswift.Validatable {
       
       /// en translation: Exclusive Avatar
       /// 
-      /// Locales: en
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func amongChatExclusiveAvatar(_: Void = ()) -> String {
         return NSLocalizedString("among.chat.exclusive.avatar", bundle: R.hostingBundle, comment: "")
       }
@@ -5891,7 +5902,7 @@ struct R: Rswift.Validatable {
       
       /// en translation: Exclusive Pet
       /// 
-      /// Locales: en
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func amongChatExclusivePet(_: Void = ()) -> String {
         return NSLocalizedString("among.chat.exclusive.pet", bundle: R.hostingBundle, comment: "")
       }
@@ -7025,7 +7036,7 @@ struct R: Rswift.Validatable {
       
       /// en translation: Oops, this post has been deleted
       /// 
-      /// Locales: en
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func feedDeletedTips(_: Void = ()) -> String {
         return NSLocalizedString("feed.deleted.tips", bundle: R.hostingBundle, comment: "")
       }

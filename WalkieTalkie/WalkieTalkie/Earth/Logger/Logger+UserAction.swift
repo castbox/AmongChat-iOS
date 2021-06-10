@@ -310,6 +310,8 @@ extension Logger {
             case feeds_create_topic_clk
             case feeds_create_topic_done
             case feeds_play_finish_progress
+            case search_exclusive_alert_imp
+            case search_exclusive_alert_clk
         }
         
         enum Category: String {
