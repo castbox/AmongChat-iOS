@@ -62,6 +62,9 @@ extension Social.ProfileLookViewController {
             
             set {
                 decoration.selected = newValue
+                suit.forEach { (deco) in
+                    deco.selected = selected
+                }
             }
             
             get {
