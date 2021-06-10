@@ -76,8 +76,7 @@ extension AmongChat.Home {
             
             icon.snp.makeConstraints { (maker) in
                 maker.top.equalTo(contentLayoutGuide)
-                maker.left.right.equalToSuperview()
-                maker.height.equalTo(icon.snp.width).multipliedBy(120.0/375.0)
+                maker.centerX.equalToSuperview()
             }
             
             title.snp.makeConstraints { (maker) in

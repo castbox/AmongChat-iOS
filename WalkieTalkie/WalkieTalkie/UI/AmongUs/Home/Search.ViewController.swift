@@ -264,7 +264,7 @@ extension Search {
                     
                     self.userList = data
                     if self.userList.isEmpty {
-                        self.addNoDataView(R.string.localizable.errorNoSearch(), image: R.image.ac_among_no_search_result())
+                        self.addNoDataView(R.string.localizable.errorNoSearch(), image: R.image.ac_among_no_data())
                     } else {
                         //remove
                         self.removeNoDataView()
