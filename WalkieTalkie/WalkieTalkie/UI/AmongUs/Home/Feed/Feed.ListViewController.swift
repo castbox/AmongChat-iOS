@@ -222,7 +222,7 @@ extension Feed.ListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         // If the cell is the first cell in the tableview, the queuePlayer automatically starts.
         // If the cell will be displayed, pause the video until the drag on the scroll view is ended
-        cdPrint("tableView willDisplay row: \(indexPath.row)")
+//        cdPrint("tableView willDisplay row: \(indexPath.row)")
         if let cell = cell as? FeedListCell {
             if currentIndex != -1 {
                 cell.pause()
@@ -233,9 +233,12 @@ extension Feed.ListViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         // Pause the video if the cell is ended displaying
-        cdPrint("tableView didEndDisplaying row: \(indexPath.row)")
+//        cdPrint("tableView didEndDisplaying row: \(indexPath.row)")
         if let cell = cell as? FeedListCell {
             cell.pause()
+            //report
+            let viewModel = dataSource.safe(indexPath.row)
+            Logger.Action.log(.feeds_play_finish_progress, category: nil, viewModel?.feed.pid, lroundf(cell.playProgress * 10))
         }
     }
 }

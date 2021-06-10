@@ -232,7 +232,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 266 images.
+  /// This `R.image` struct is generated, and contains static references to 267 images.
   struct image {
     /// Image `ac_add_stats_add`.
     static let ac_add_stats_add = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_add_stats_add")
@@ -694,6 +694,8 @@ struct R: Rswift.Validatable {
     static let icon_mic = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_mic")
     /// Image `icon_pri_ad`.
     static let icon_pri_ad = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_pri_ad")
+    /// Image `icon_profile_back`.
+    static let icon_profile_back = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_profile_back")
     /// Image `icon_room_bg_topicId_amongus`.
     static let icon_room_bg_topicId_amongus = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_room_bg_topicId_amongus")
     /// Image `icon_room_bg_topicId_animalcrossing`.
@@ -1915,6 +1917,11 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "icon_pri_ad", bundle: ..., traitCollection: ...)`
     static func icon_pri_ad(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.icon_pri_ad, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "icon_profile_back", bundle: ..., traitCollection: ...)`
+    static func icon_profile_back(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.icon_profile_back, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "icon_room_bg_topicId_amongus", bundle: ..., traitCollection: ...)`

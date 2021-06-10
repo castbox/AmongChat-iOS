@@ -286,6 +286,21 @@ extension Pronoun {
             return R.string.localizable.profilePronounOther()
         }
     }
+    
+    var logString: String {
+        switch self {
+        case .pronounNotShare:
+            return "not_share"
+        case .pronounHe:
+            return "he"
+        case .pronounShe:
+            return "she"
+        case .pronounThey:
+            return "they"
+        case .pronounOther:
+            return "other"
+        }
+    }
 }
 
 extension Constellation {

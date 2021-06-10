@@ -68,10 +68,14 @@ class FeedListCell: UITableViewCell {
     private(set) var liked = false
     private(set) var isUserPaused = false
     private(set) var viewModel: Feed.ListCellViewModel?
+    private var isFullPlayed: Bool = false
     private let bag = DisposeBag()
     
 //    var listStyle: Feed.ListStyle = .recommend
     var actionHandler: ((Action) -> Void)?
+    var playProgress: Float {
+        isFullPlayed ? 1 : sliderBar.value
+    }
     
     private var emotes: [Emote] = [] {
         didSet {
@@ -108,7 +112,7 @@ class FeedListCell: UITableViewCell {
         }
         
         updateEmotes(with: viewModel)
-        
+        isFullPlayed = false
         sliderBar.value = 0
         
         if listStyle == .profile, Settings.loginUserId == feed.uid {
@@ -243,7 +247,6 @@ class FeedListCell: UITableViewCell {
         if isPlaying {
             playerView.pause()
             isPlaying = false
-            Logger.Action.log(.feeds_item_clk, category: .pause, viewModel?.feed.pid)
         }
     }
     
@@ -253,6 +256,8 @@ class FeedListCell: UITableViewCell {
             sliderBar.fadeIn(duration: 0.1)
             isUserPaused = true
             pause()
+            //手动暂停
+            Logger.Action.log(.feeds_item_clk, category: .pause, viewModel?.feed.pid)
         } else {
             isUserPaused = false
             play()
@@ -360,6 +365,7 @@ private extension FeedListCell {
             self?.sliderBar.setValue(value, animated: true)
             self?.updateTimeString(with: value.double)
             if value > 0.9 {
+                self?.isFullPlayed = true
                 self?.actionHandler?(.playComplete)
             }
         }
