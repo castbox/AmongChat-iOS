@@ -570,7 +570,6 @@ extension Search.ViewController {
                 })
                 .subscribe(onSuccess: { _ in
                     claimVC?.goButton.isEnabled = false
-                    claimVC?.dismissModal()
                 }, onError: { [weak self] (error) in
                     self?.view.raft.autoShow(.text(R.string.localizable.amongChatClaimFail()))
                 })
