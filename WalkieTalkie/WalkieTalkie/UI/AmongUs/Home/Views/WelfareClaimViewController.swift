@@ -75,6 +75,7 @@ class WelfareClaimViewController: ViewController {
         }
         
         goButton.setTitle(R.string.localizable.amongChatCreateRoomCardClaim(), for: .normal)
+        goButton.setTitle(R.string.localizable.amongChatClaimed(), for: .disabled)        
         goButton.setBackgroundImage(UIColor(hex6: 0xFFF000).image, for: .normal)
         goButton.setBackgroundImage(UIColor(hex6: 0x393939).image, for: .disabled)
         goButton.isEnabled = !(welfare.isClaimed ?? false)
