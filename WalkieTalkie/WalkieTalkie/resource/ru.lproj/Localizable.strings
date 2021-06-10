@@ -610,3 +610,5 @@
 "among.chat.congrates.exclusive.avatar" = "Поздравляем с получением эксклюзивного аватара AmongChat!";
 "among.chat.exclusive.pet" = "Эксклюзивный питомец";
 "among.chat.congrates.exclusive.pet" = "Поздравляем с получением эксклюзивного питомца AmongChat!";
+"among.chat.claim.fail" = "Запрос не выполнен";
+"among.chat.claimed" = "Получили";

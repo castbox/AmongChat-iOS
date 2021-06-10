@@ -610,3 +610,5 @@
 "among.chat.congrates.exclusive.avatar" = "تهانينا على الحصول على الصورة الرمزية الحصرية لـ AmongChat!";
 "among.chat.exclusive.pet" = "حيوان أليف حصري";
 "among.chat.congrates.exclusive.pet" = "تهانينا على الحصول على حيوان أليف حصري لـ AmongChat!";
+"among.chat.claim.fail" = "فشلت المطالبة";
+"among.chat.claimed" = "ادعى";

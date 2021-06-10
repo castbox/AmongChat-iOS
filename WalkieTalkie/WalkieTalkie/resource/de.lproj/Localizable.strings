@@ -610,3 +610,5 @@
 "among.chat.congrates.exclusive.avatar" = "Herzlichen Glückwunsch zum Erhalt des exklusiven Avatars von AmongChat!";
 "among.chat.exclusive.pet" = "Exklusives Haustier";
 "among.chat.congrates.exclusive.pet" = "Herzlichen Glückwunsch zum Erhalt des exklusiven Haustiers von AmongChat!";
+"among.chat.claim.fail" = "Beanspruch fehlgeschlagen";
+"among.chat.claimed" = "Beansprucht";

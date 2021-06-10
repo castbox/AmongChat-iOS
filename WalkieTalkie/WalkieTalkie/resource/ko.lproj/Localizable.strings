@@ -610,3 +610,5 @@
 "among.chat.congrates.exclusive.avatar" = "AmongChat의 독점 아바타를 획득하신 것을 축하합니다!";
 "among.chat.exclusive.pet" = "독점 애완 동물";
 "among.chat.congrates.exclusive.pet" = "AmongChat의 독점 애완 동물을 획득 한 것을 축하합니다!";
+"among.chat.claim.fail" = "청구하지 못했습니다.";
+"among.chat.claimed" = "받은";

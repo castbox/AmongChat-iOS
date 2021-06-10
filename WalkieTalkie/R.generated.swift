@@ -3054,12 +3054,12 @@ struct R: Rswift.Validatable {
       static let amongChatCreateRoomCardClaim = Rswift.StringResource(key: "among.chat.create.room.card.claim", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Claim failed
       /// 
-      /// Locales: en
-      static let amongChatClaimFail = Rswift.StringResource(key: "among.chat.claim.fail", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let amongChatClaimFail = Rswift.StringResource(key: "among.chat.claim.fail", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Claimed
       /// 
-      /// Locales: en
-      static let amongChatClaimed = Rswift.StringResource(key: "among.chat.claimed", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let amongChatClaimed = Rswift.StringResource(key: "among.chat.claimed", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Click to Go
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -5426,14 +5426,14 @@ struct R: Rswift.Validatable {
       
       /// en translation: Claim failed
       /// 
-      /// Locales: en
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func amongChatClaimFail(_: Void = ()) -> String {
         return NSLocalizedString("among.chat.claim.fail", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Claimed
       /// 
-      /// Locales: en
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func amongChatClaimed(_: Void = ()) -> String {
         return NSLocalizedString("among.chat.claimed", bundle: R.hostingBundle, comment: "")
       }
