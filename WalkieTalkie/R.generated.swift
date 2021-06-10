@@ -232,7 +232,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 267 images.
+  /// This `R.image` struct is generated, and contains static references to 266 images.
   struct image {
     /// Image `ac_add_stats_add`.
     static let ac_add_stats_add = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_add_stats_add")
@@ -246,8 +246,6 @@ struct R: Rswift.Validatable {
     static let ac_among_apply_empty = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_among_apply_empty")
     /// Image `ac_among_no_data`.
     static let ac_among_no_data = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_among_no_data")
-    /// Image `ac_among_no_search_result`.
-    static let ac_among_no_search_result = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_among_no_search_result")
     /// Image `ac_animation_background`.
     static let ac_animation_background = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_animation_background")
     /// Image `ac_app_tracking_icon`.
@@ -797,11 +795,6 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "ac_among_no_data", bundle: ..., traitCollection: ...)`
     static func ac_among_no_data(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ac_among_no_data, compatibleWith: traitCollection)
-    }
-    
-    /// `UIImage(named: "ac_among_no_search_result", bundle: ..., traitCollection: ...)`
-    static func ac_among_no_search_result(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.ac_among_no_search_result, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "ac_animation_background", bundle: ..., traitCollection: ...)`
