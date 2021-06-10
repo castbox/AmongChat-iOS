@@ -150,10 +150,10 @@ extension Social {
         
         func autoScrollToDefaultIndex() {
             if defaultIndex > 0 {
-                tableView.layoutIfNeeded()
                 if defaultIndex < dataSource.count {
                     let indexPath = IndexPath(row: defaultIndex, section: 0)
                     tableView.scrollToRow(at: indexPath, at: .none, animated: false)
+                    tableView.layoutIfNeeded()
                 }
             }
             replayVisibleItem()
