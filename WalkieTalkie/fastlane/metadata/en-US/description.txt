@@ -15,8 +15,10 @@ Key Features
 - Voice Chat with friends on the same channel
 - Run in the background, no need to switch between games and the among chat app
 - Following & Followers. You can follow each other to play together.
-- Get verified and build your own Group in AmongChat
+- Get verified and build your own Group on AmongChat
 - Exclusive channel for AmongChat Group
+- Sending Emojis to chat more vividly with your teammates
+- Share your awesome game clips with the entire AmongChat community
 
 The channels will be monitored 24/7 in case of any inappropriate content, to provide a safe and pure chatting experience. Please comply with the "Community Guidelines" while using the app. 
 

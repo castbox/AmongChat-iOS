@@ -1,5 +1,4 @@
 Welcome to AmongChat voice chat app!
-In this version, we further optimize and improve the reporting function.
-Super Admins and Monitors are more authorized to exercise stricter supervision over the community.
-We are continuously working hard to provide a healthy and safe community for all users.
+In this version, a brand new tab for gameplay videos is added. Come to share your amazing gaming clips!
+Other bug fixes and performance improvements.
 Find and Voice Chat with your friends, play together, and enjoy!
