@@ -37,7 +37,6 @@
 "report.incorrect.sexual" = "Contenu sexuel";
 "report.incorrect.harassment" = "Harcèlement ou langage répugnant";
 "report.incorrect.unreasonable" = "Demandes déraisonnables";
-"report.success" = "Vous avez signalé \ncette personne avec succès";
 
 
 "alert.block" = "Bloquer";
@@ -470,7 +469,7 @@
 
 //1.18
 "report.user" = "Dénoncer un utilisateur";
-"report.success" = "Vous avez signalé \ncette personne avec succès";
+"report.success" = "Rapporté avec succès";
 "report.failed" = "Le rapport a échoué. Veuillez réessayer";
 "report.comments" = "commentaires";
 "report.comments.placeholder" = "Veuillez décrire le rapport";
@@ -604,3 +603,10 @@
 "among.chat.login.auth.source.comment" = "ajouter un commentaire";
 "among.chat.login.auth.source.create.feed" = "créer des publications";
 "feed.play.no.wifi.tips" = "Vous n'êtes pas connecté au WIFI. Pour continuer à diffuser, vos données mobiles seraient consommées.";
+"feed.deleted.tips" = "Oups, ce publication a été supprimé";
+
+//21.06.08
+"among.chat.exclusive.avatar" = "Avatar exclusif";
+"among.chat.congrates.exclusive.avatar" = "Félicitations pour avoir obtenu l'avatar exclusif de AmongChat!";
+"among.chat.exclusive.pet" = "Animal exclusif";
+"among.chat.congrates.exclusive.pet" = "Félicitations pour avoir obtenu l'animal exclusif de AmongChat!";
