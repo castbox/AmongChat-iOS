@@ -79,10 +79,13 @@ class WelfareClaimViewController: ViewController {
         goButton.setBackgroundImage(UIColor(hex6: 0xFFF000).image, for: .normal)
         goButton.setBackgroundImage(UIColor(hex6: 0x393939).image, for: .disabled)
         goButton.isEnabled = !(welfare.isClaimed ?? false)
+        
+        Logger.Action.log(.search_exclusive_alert_imp, categoryValue: welfare.decoType, welfare.id.string)
     }
 
     @IBAction func closeButtonAction(_ sender: Any) {
         dismissModal()
+        Logger.Action.log(.search_exclusive_alert_clk, "close")
     }
     
     @IBAction func goButtonAction(_ sender: Any) {

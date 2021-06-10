@@ -570,10 +570,12 @@ extension Search.ViewController {
                 })
                 .subscribe(onSuccess: { _ in
                     claimVC?.goButton.isEnabled = false
+                    claimVC?.dismissModal()
                 }, onError: { [weak self] (error) in
                     self?.view.raft.autoShow(.text(R.string.localizable.amongChatClaimFail()))
                 })
                 .disposed(by: self.bag)
+            Logger.Action.log(.search_exclusive_alert_clk, categoryValue: "claim", self.viewModel.keywords)
         }
         
     }
