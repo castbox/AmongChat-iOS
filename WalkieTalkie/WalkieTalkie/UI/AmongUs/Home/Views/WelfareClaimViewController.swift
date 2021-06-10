@@ -32,6 +32,11 @@ class WelfareClaimViewController: ViewController {
         return iv
     }()
     
+    private lazy var suitView: Social.ProfileLookViewController.ProfileLookView = {
+        let s = Social.ProfileLookViewController.ProfileLookView(.cell)
+        return s
+    }()
+    
     private let welfare: Entity.DecorationEntity
     
     init(_ welfare: Entity.DecorationEntity) {
@@ -62,6 +67,18 @@ class WelfareClaimViewController: ViewController {
                 titleLabel.text = R.string.localizable.amongChatExclusivePet()
                 subtitleLabel.text = R.string.localizable.amongChatCongratesExclusivePet()
                 
+            case .suit:
+                welfareContainer.addSubview(suitView)
+                suitView.snp.makeConstraints { (maker) in
+                    maker.top.centerX.equalToSuperview()
+                    maker.width.height.equalTo(150)
+                }
+                suitView.updateLook(Social.ProfileLookViewController.DecorationViewModel(dataModel: welfare, decorationType: decoType))
+                welfareContainer.layer.cornerRadius = 50
+                welfareContainer.clipsToBounds = true
+                titleLabel.text = R.string.localizable.amongChatExclusiveAvatar()
+                subtitleLabel.text = R.string.localizable.amongChatCongratesExclusiveAvatar()
+
             default:
                 welfareContainer.addSubview(decorationIV)
                 decorationIV.snp.makeConstraints { (maker) in
