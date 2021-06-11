@@ -612,3 +612,5 @@
 "among.chat.congrates.exclusive.pet" = "Congratulations on getting AmongChat's Exclusive Pet!";
 "among.chat.claim.fail" = "Claim failed";
 "among.chat.claimed" = "Claimed";
+
+"social.profile.chat.anonymous.user.tips" = "Sorry, this user is anonymous and cannot receive messages.";

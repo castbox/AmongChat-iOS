@@ -823,3 +823,47 @@ extension UICollectionView {
         setContentOffset(newOffset, animated: false)
     }
 }
+
+extension WalkieTalkie.ViewController {
+    func reportChatToAnonymousEvent() {
+        view.raft.autoShow(.text(R.string.localizable.socialProfileChatAnonymousUserTips()))
+        //report
+    }
+    
+    func startChatAfterLogin(with profile: Entity.UserProfile?) {
+        AmongChat.Login.doLogedInEvent(style: .authNeeded(source: .chat)) { [weak self] in
+            self?.startChat(with: profile)
+        }
+    }
+
+    private func startChat(with profile: Entity.UserProfile?) {
+        guard let profile = profile else {
+            return
+        }
+        guard profile.isAnonymous == false else {
+            reportChatToAnonymousEvent()
+            return
+        }
+        let hudRemoval = view.raft.show(.loading)
+        //query
+        DMManager.shared.queryConversation(fromUid: profile.uid.string)
+            .flatMap { conversation -> Single<Entity.DMConversation?> in
+                guard conversation == nil else {
+                    return .just(conversation)
+                }
+                return DMManager.shared.add(message: Entity.DMMessage.emptyMessage(for: profile.dmProfile))
+                    .flatMap { DMManager.shared.queryConversation(fromUid: profile.uid.string) }
+            }
+            .subscribe(onSuccess: { [weak self] conversation in
+                hudRemoval()
+                guard let conversation = conversation else {
+                    return
+                }
+                let vc = ConversationViewController(conversation)
+                self?.navigationController?.pushViewController(vc)
+            }, onError: { error in
+                hudRemoval()
+            })
+            .disposed(by: bag)
+    }
+}
