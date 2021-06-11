@@ -1861,4 +1861,18 @@ extension Request {
             .mapToProcessedValue()
             .observeOn(MainScheduler.asyncInstance)
     }
+    
+    
+    static func sendDMPushToAnonymousUser(_ uid: String) -> Single<Bool> {
+        
+        let params: [String : Any]  = [
+            "uid" : uid
+        ]
+                
+        return amongchatProvider.rx.request(.sendDMPushToAnonymousUser(params))
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .mapToProcessedValue()
+            .observeOn(MainScheduler.asyncInstance)
+    }
 }

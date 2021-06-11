@@ -825,9 +825,12 @@ extension UICollectionView {
 }
 
 extension WalkieTalkie.ViewController {
-    func reportChatToAnonymousEvent() {
+    private func sendDMPushToAnonymousUser(_ uid: Int) {
         view.raft.autoShow(.text(R.string.localizable.socialProfileChatAnonymousUserTips()))
         //report
+        Request.sendDMPushToAnonymousUser(uid.string)
+            .subscribe()
+            .disposed(by: bag)
     }
     
     func startChatAfterLogin(with profile: Entity.UserProfile?) {
@@ -841,7 +844,7 @@ extension WalkieTalkie.ViewController {
             return
         }
         guard profile.isAnonymous == false else {
-            reportChatToAnonymousEvent()
+            sendDMPushToAnonymousUser(profile.uid)
             return
         }
         let hudRemoval = view.raft.show(.loading)

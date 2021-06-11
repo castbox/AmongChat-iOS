@@ -328,8 +328,10 @@ extension Social {
         var roomUser: Entity.RoomUser!
         private let userProfile = BehaviorRelay<Entity.UserProfile?>(value: nil)
         private var pullToDismiss: PullToDismiss?
+        private let autoOpenChat: Bool
         
-        init(with uid: Int) {
+        init(with uid: Int, autoOpenChat: Bool = false) {
+            self.autoOpenChat = autoOpenChat
             super.init(nibName: nil, bundle: nil)
             self.isNavigationBarHiddenWhenAppear = true
             self.uid = uid
@@ -451,6 +453,7 @@ private extension Social.ProfileViewController {
                 guard let data = data, let `self` = self else { return }
                 self.userProfile.accept(data)
                 self.headerView.configProfile(data)
+                self.autoStartChatIfNeed()
             }, onError: {(error) in
                 cdPrint("profilePage error : \(error.localizedDescription)")
             }).disposed(by: bag)
@@ -713,6 +716,17 @@ private extension Social.ProfileViewController {
         followButton.layer.borderWidth = 3
         followButton.layer.borderColor = UIColor(hex6: 0xFFF000).cgColor
         followButton.setTitleColor(.black, for: .normal)
+    }
+}
+
+private extension Social.ProfileViewController {
+    func autoStartChatIfNeed() {
+        guard autoOpenChat,
+              let profile = userProfile.value,
+              profile.uid != Settings.loginUserId else {
+            return
+        }
+        startChatAfterLogin(with: profile)
     }
 }
 
