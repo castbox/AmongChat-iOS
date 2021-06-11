@@ -405,6 +405,12 @@ extension Social.EditProfileViewController {
                     if let birthdayStr = profileProto.birthday {
                         Logger.Action.log(.profile_birthday_update_success, category: nil, birthdayStr)
                     }
+                    if profileProto.gender != nil {
+                        Logger.Action.log(.profile_pronouns_update_success, category: nil, profileProto.pronoun.logString)
+                    }
+                    if profileProto.description != nil {
+                        Logger.Action.log(.profile_bio_update_success)
+                    }
                 }
                 self?.navigationController?.popViewController()
             }, onError: { (error) in

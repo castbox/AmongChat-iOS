@@ -211,7 +211,7 @@ extension Entity {
     struct DefaultAvatar: Codable {
         
         enum UnlockType: String, Codable {
-            case free, rewarded, premium, pay
+            case free, rewarded, premium, pay, claim = "hide"
         }
         
         var avatarId: String
@@ -404,6 +404,8 @@ extension Entity {
         var product: DecorationProduct?
         var selected: Bool?
         var decoList: [DecorationEntity]?
+        var hide: Bool?
+        var isClaimed: Bool?
         
         private enum CodingKeys: String, CodingKey {
             case id
@@ -417,6 +419,8 @@ extension Entity {
             case product
             case selected
             case decoList = "deco_list"
+            case hide
+            case isClaimed = "is_claimed"
         }
         
     }

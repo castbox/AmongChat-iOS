@@ -71,6 +71,10 @@ extension Entity {
         //分享数
         var shareCount: Int?
         var emotes: [FeedEmote]
+        var emoteCount: Int?
+        var emoteCountValue: Int {
+            emoteCount ?? 0
+        }
         
         var playCountValue: Int {
             playCount ?? 0
@@ -97,6 +101,7 @@ extension Entity {
             case playCount = "play_count"
             case shareCount = "share_count"
             case emotes
+            case emoteCount = "vote_count"
         }
     }
     

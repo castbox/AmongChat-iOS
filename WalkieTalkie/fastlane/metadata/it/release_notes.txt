@@ -1,5 +1,4 @@
 Benvenuto nell'app di chat vocale AmongChat!
-In questa versione ottimizziamo e miglioriamo ulteriormente la funzione di reporting.
-I super amministratori e i monitor sono più autorizzati a esercitare una supervisione più rigorosa sulla comunità.
-Lavoriamo costantemente per fornire una comunità sana e sicura per tutti gli utenti.
+In questa versione viene aggiunta una nuova scheda per i video di gioco. Vieni a condividere le tue fantastiche clip di gioco!
+Altre correzioni di bug e miglioramenti delle prestazioni.
 Trova e chatta con i tuoi amici, gioca insieme e divertiti!

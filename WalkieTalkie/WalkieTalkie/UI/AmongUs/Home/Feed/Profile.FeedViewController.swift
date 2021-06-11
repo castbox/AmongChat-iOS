@@ -25,7 +25,7 @@ extension Social {
         private lazy var navView: NavigationBar = {
             let n = NavigationBar()
             let btn = n.leftBtn
-            btn.setImage(R.image.ac_back(), for: .normal)
+            btn.setImage(R.image.icon_profile_back(), for: .normal)
             btn.rx.controlEvent(.primaryActionTriggered)
                 .subscribe(onNext: { [weak self] () in
                     self?.navigationController?.popViewController()
@@ -150,10 +150,10 @@ extension Social {
         
         func autoScrollToDefaultIndex() {
             if defaultIndex > 0 {
-                tableView.layoutIfNeeded()
                 if defaultIndex < dataSource.count {
                     let indexPath = IndexPath(row: defaultIndex, section: 0)
                     tableView.scrollToRow(at: indexPath, at: .none, animated: false)
+                    tableView.layoutIfNeeded()
                 }
             }
             replayVisibleItem()

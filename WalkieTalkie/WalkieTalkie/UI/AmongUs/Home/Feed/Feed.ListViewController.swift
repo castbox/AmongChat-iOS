@@ -56,11 +56,6 @@ extension Feed {
             if dataSource.isEmpty {
                 loadData()
             }
-            //            else if let cell = tableView.visibleCells.first as? FeedListCell,
-            //                      UIApplication.topViewController() == self,
-            //                      !cell.isUserPaused {
-            //                cell.play()
-            //            }
         }
         
         func onViewDidAppear() {
@@ -227,7 +222,7 @@ extension Feed.ListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         // If the cell is the first cell in the tableview, the queuePlayer automatically starts.
         // If the cell will be displayed, pause the video until the drag on the scroll view is ended
-        cdPrint("tableView willDisplay row: \(indexPath.row)")
+//        cdPrint("tableView willDisplay row: \(indexPath.row)")
         if let cell = cell as? FeedListCell {
             if currentIndex != -1 {
                 cell.pause()
@@ -238,9 +233,12 @@ extension Feed.ListViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         // Pause the video if the cell is ended displaying
-        cdPrint("tableView didEndDisplaying row: \(indexPath.row)")
+//        cdPrint("tableView didEndDisplaying row: \(indexPath.row)")
         if let cell = cell as? FeedListCell {
             cell.pause()
+            //report
+            let viewModel = dataSource.safe(indexPath.row)
+            Logger.Action.log(.feeds_play_finish_progress, category: nil, viewModel?.feed.pid, lroundf(cell.playProgress * 10))
         }
     }
 }
@@ -284,7 +282,7 @@ extension Feed.ListViewController {
         }
         viewModel.updateEmoteState(emoteId: emoteId, isSelect: isSelect)
         let cell = self.tableView.cellForRow(at: IndexPath(row: index, section: 0)) as? FeedListCell
-        cell?.update(emotes: viewModel.emotes)
+        cell?.updateEmotes(with: viewModel)
         if isSelect {
             cell?.show(emote: viewModel.emotes.first(where: { $0.id == emoteId }))
         }
@@ -418,8 +416,15 @@ extension Feed.ListViewController {
         nav.modalPresentationStyle = .overCurrentContext
         topController()?.present(nav, animated: true)
         
+        commentList.rx.dismiss
+            .subscribe(onNext: { [weak self] result in
+                guard let `self` = self else { return }
+                self.onViewWillAppear()
+            })
+            .disposed(by: commentList.bag)
+        
         Observable.merge(nav.rx.popViewController.map { true },
-        nav.rx.pushViewController.map { false })
+                         nav.rx.pushViewController.map { false })
             .subscribe(onNext: { [weak self, weak nav] result in
                 guard let `self` = self, let nav = nav else { return }
                 if result, nav.viewControllers.count == 1 {

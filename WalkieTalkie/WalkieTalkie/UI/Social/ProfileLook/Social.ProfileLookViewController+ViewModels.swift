@@ -62,6 +62,9 @@ extension Social.ProfileLookViewController {
             
             set {
                 decoration.selected = newValue
+                suit.forEach { (deco) in
+                    deco.selected = selected
+                }
             }
             
             get {
@@ -92,7 +95,12 @@ extension Social.ProfileLookViewController {
             
             self.dataModel = dataModel
             self.decorationType = decorationType
-            self.decorations = dataModel.list.map({ DecorationViewModel(dataModel: $0, decorationType: decorationType) })
+            self.decorations = dataModel.list.compactMap({ (decoration) in
+                guard !(decoration.hide ?? false) else {
+                    return nil
+                }
+                return DecorationViewModel(dataModel: decoration, decorationType: decorationType)
+            })
         }
         
         var name: String {

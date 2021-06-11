@@ -488,8 +488,11 @@ extension Feed.Comments.CommentsListViewController: UICollectionViewDataSource {
                       comment.comment.user.uid.isSelfUid else { return }
                 self.deleteCommentAlert(deleteAction: {
                     self.commentListVM.deleteComment(comment)
-                        .subscribe(onSuccess: { (_) in
-                            
+                        .subscribe(onSuccess: { [weak self] (_) in
+                            guard let `self` = self else { return }
+                            var count = self.commentsCountRelay.value
+                            count -= 1
+                            self.commentsCountRelay.accept(max(0, count))
                         }, onError: { (error) in
                             
                         })

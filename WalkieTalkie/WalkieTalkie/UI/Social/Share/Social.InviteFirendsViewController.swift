@@ -679,7 +679,7 @@ extension Social {
             }
             
             followBtn.snp.makeConstraints { (maker) in
-                maker.width.equalTo(90)
+                maker.width.equalTo(71)
                 maker.height.equalTo(32)
                 maker.trailing.equalTo(-20)
                 maker.centerY.equalTo(avatarIV.snp.centerY)

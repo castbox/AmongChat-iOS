@@ -258,10 +258,14 @@ extension Entity {
     
     struct SearchData: Codable {
         var list: [UserProfile]?
+        var welfare: Entity.DecorationEntity?
         var more: Bool?
+        var type: String
         private enum CodingKeys: String, CodingKey {
             case list
+            case welfare
             case more
+            case type
         }
     }
 }
@@ -280,6 +284,21 @@ extension Pronoun {
             return R.string.localizable.profilePronounTheyThem()
         case .pronounOther:
             return R.string.localizable.profilePronounOther()
+        }
+    }
+    
+    var logString: String {
+        switch self {
+        case .pronounNotShare:
+            return "not_share"
+        case .pronounHe:
+            return "he"
+        case .pronounShe:
+            return "she"
+        case .pronounThey:
+            return "they"
+        case .pronounOther:
+            return "other"
         }
     }
 }

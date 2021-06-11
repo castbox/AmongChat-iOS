@@ -45,11 +45,13 @@ class FeedListCell: UITableViewCell {
     @IBOutlet weak var shareButton: BottomTitleButton!
     @IBOutlet weak var commentButton: BottomTitleButton!
     @IBOutlet weak var moreButton: BottomTitleButton!
+    @IBOutlet weak var emotesButton: BottomTitleButton!
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var playerView: PlayerView!
     @IBOutlet weak var sliderBar: UISlider!
     @IBOutlet weak var pauseView: UIImageView!
     @IBOutlet weak var activityView: UIActivityIndicatorView!
+    @IBOutlet weak var videoImageView: UIImageView!
     @IBOutlet weak var progressLabel: UILabel!
     
     private lazy var backgroundLayer = CAGradientLayer()
@@ -66,10 +68,14 @@ class FeedListCell: UITableViewCell {
     private(set) var liked = false
     private(set) var isUserPaused = false
     private(set) var viewModel: Feed.ListCellViewModel?
+    private var isFullPlayed: Bool = false
     private let bag = DisposeBag()
     
 //    var listStyle: Feed.ListStyle = .recommend
     var actionHandler: ((Action) -> Void)?
+    var playProgress: Float {
+        isFullPlayed ? 1 : sliderBar.value
+    }
     
     private var emotes: [Emote] = [] {
         didSet {
@@ -92,13 +98,21 @@ class FeedListCell: UITableViewCell {
         nameLabel.attributedText = feed.user.nameWithVerified(isShowVerify: false)
         tagLabel.text = feed.topicName
         
+        let feedWidth = feed.width ?? 0
+        let feedHeight = feed.height ?? 0
+        
+        videoImageView.contentMode = feedWidth < feedHeight ? .scaleAspectFill : .scaleAspectFit
+
+        videoImageView.setImage(with: feed.img)
+        
+        videoImageView.isHidden = false
         activityView.startAnimating()
-        playerView.configure(url: feed.url, size: (feed.width ?? 0, feed.height ?? 0)) { [weak self] in
+        playerView.configure(url: feed.url, size: (feedWidth, feedHeight)) { [weak self] in
             self?.activityView.stopAnimating()
         }
         
-        update(emotes: viewModel.emotes)
-        
+        updateEmotes(with: viewModel)
+        isFullPlayed = false
         sliderBar.value = 0
         
         if listStyle == .profile, Settings.loginUserId == feed.uid {
@@ -110,8 +124,13 @@ class FeedListCell: UITableViewCell {
         updateShareCount()
     }
     
-    func update(emotes: [Emote]) {
-        self.emotes = emotes
+    func updateEmotes(with viewModel: Feed.ListCellViewModel) {
+        self.emotes = viewModel.emotes
+        if viewModel.emoteCount > 0 {
+            emotesButton.setTitle(viewModel.emoteCount.string, for: .normal)
+        } else {
+            emotesButton.setTitle("", for: .normal)
+        }
     }
     
     func updateCommentCount() {
@@ -162,6 +181,10 @@ class FeedListCell: UITableViewCell {
         actionHandler?(.more)
     }
     
+    @IBAction func emotesButtonAction(_ sender: Any) {
+        actionHandler?(.selectEmote(Entity.FeedEmote(id: "", count: 0, isVoted: false)))
+    }
+    
     @IBAction func sliderEndDragAction(_ sender: Any) {
         avatarView.isHidden = false
     }
@@ -184,21 +207,20 @@ class FeedListCell: UITableViewCell {
 //        view.alpha = 0
         view.transform = CGAffineTransform(scaleX: 2.1, y: 2.1)
         
-        UIView.animate(withDuration: 0.2, delay: 0.1, options: [.beginFromCurrentState, .curveEaseIn]) {
-//            view.alpha = 1
-            view.transform = CGAffineTransform(scaleX: 0.4, y: 0.4)
-        } completion: { finish in
-            UIView.animate(withDuration: 0.2, delay: 0, options: [.beginFromCurrentState, .curveEaseIn]) {
-                view.alpha = 1
-                view.transform = .identity
-            } completion: { finish in
-                UIView.animate(withDuration: 0.2, delay: 1.1, options: [.beginFromCurrentState, .curveEaseIn]) {
-                    view.alpha = 0
-//                    view.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
-                } completion: { finish in
-                    view.removeFromSuperview()
-                }
+        UIView.animateKeyframes(withDuration: 1.7, delay: 0, options: [.allowUserInteraction, .beginFromCurrentState]) {
+            UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.1 / 1.7) {
+                view.transform = CGAffineTransform(scaleX: 0.4, y: 0.4)
             }
+            
+            UIView.addKeyframe(withRelativeStartTime: 0.1 / 1.7, relativeDuration: 0.1 / 1.7) {
+                view.transform = .identity
+            }
+            
+            UIView.addKeyframe(withRelativeStartTime: 1.5 / 1.7, relativeDuration: 0.2 / 1.7) {
+                view.alpha = 0
+            }
+        } completion: { result in
+            view.removeFromSuperview()
         }
     }
     
@@ -225,7 +247,6 @@ class FeedListCell: UITableViewCell {
         if isPlaying {
             playerView.pause()
             isPlaying = false
-            Logger.Action.log(.feeds_item_clk, category: .pause, viewModel?.feed.pid)
         }
     }
     
@@ -235,6 +256,8 @@ class FeedListCell: UITableViewCell {
             sliderBar.fadeIn(duration: 0.1)
             isUserPaused = true
             pause()
+            //手动暂停
+            Logger.Action.log(.feeds_item_clk, category: .pause, viewModel?.feed.pid)
         } else {
             isUserPaused = false
             play()
@@ -305,15 +328,10 @@ private extension FeedListCell {
         sliderBar.setMaximumTrackImage(UIImage.image(with: UIColor.white.alpha(0.1), size: CGSize(width: 10, height: 3)), for: .normal)
         sliderBar.addTarget(self, action: #selector(onSliderValChanged(slider:event:)), for: .valueChanged)
         sliderBar.setThumbImage(R.image.iconFeedSliderThumb(), for: .normal)
-        commentButton.titleLabel?.layer.shadowOpacity = 0.2
-        commentButton.titleLabel?.layer.shadowRadius = 1
-        commentButton.titleLabel?.layer.shadowOffset = CGSize(width: 0, height: 2)
-        commentButton.setTitleShadowColor(.black, for: .normal)
         
-        shareButton.titleLabel?.layer.shadowOpacity = 0.2
-        shareButton.titleLabel?.layer.shadowRadius = 2
-        shareButton.titleLabel?.layer.shadowOffset = CGSize(width: 0, height: 2)
-        shareButton.setTitleShadowColor(.black, for: .normal)
+        addTitleShadow(for: shareButton)
+        addTitleShadow(for: commentButton)
+        addTitleShadow(for: emotesButton)
         
         avatarView.clipsToBounds = false
         avatarView.verifyIV.snp.makeConstraints { maker in
@@ -341,9 +359,13 @@ private extension FeedListCell {
             .disposed(by: bag)
         
         playerView.playingProgressHandler = { [weak self] value in
+            if value > 0 {
+                self?.videoImageView.isHidden = true
+            }
             self?.sliderBar.setValue(value, animated: true)
             self?.updateTimeString(with: value.double)
             if value > 0.9 {
+                self?.isFullPlayed = true
                 self?.actionHandler?(.playComplete)
             }
         }
@@ -354,14 +376,21 @@ private extension FeedListCell {
 
         backgroundLayer.startPoint = CGPoint(x: 0, y: 0)
         backgroundLayer.endPoint = CGPoint(x: 0, y: 1)
-        backgroundLayer.locations = [0, 0.2, 0.8, 1]
-        backgroundLayer.colors = [UIColor.black.alpha(0.4).cgColor, UIColor.black.alpha(0).cgColor, UIColor.black.alpha(0).cgColor, UIColor.black.alpha(0.4).cgColor]
+        backgroundLayer.locations = [0.75, 1]
+        backgroundLayer.colors = [UIColor.black.alpha(0).cgColor, UIColor.black.alpha(0.25).cgColor]
 //        backgroundLayer.opacity = 0
         
         gradientBackgroundView.snp.makeConstraints { (maker) in
             maker.edges.equalToSuperview()
         }
 
+    }
+    
+    func addTitleShadow(for button: UIButton) {
+        button.titleLabel?.layer.shadowOpacity = 0.2
+        button.titleLabel?.layer.shadowRadius = 2
+        button.titleLabel?.layer.shadowOffset = CGSize(width: 0, height: 2)
+        button.setTitleShadowColor(.black, for: .normal)
     }
 }
 

@@ -21,6 +21,9 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="500"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="TLZ-Q1-mBb">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="500"/>
+                    </imageView>
                     <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rqh-Vf-hwl" customClass="PlayerView" customModule="WalkieTalkie" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="500"/>
                         <gestureRecognizers/>
@@ -37,7 +40,7 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="32" id="HqL-3O-5ea"/>
                                 </constraints>
-                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="12" id="p3i-kN-R25">
+                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="12" minimumInteritemSpacing="12" id="p3i-kN-R25">
                                     <size key="itemSize" width="128" height="128"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
@@ -106,7 +109,7 @@
                         </constraints>
                     </view>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oM0-lk-uGK" customClass="BottomTitleButton" customModule="WalkieTalkie" customModuleProvider="target">
-                        <rect key="frame" x="262" y="228" width="44" height="59"/>
+                        <rect key="frame" x="264" y="200" width="44" height="59"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="44" id="3LC-jX-bvF"/>
                             <constraint firstAttribute="height" constant="59" id="Liu-9L-S0P"/>
@@ -118,18 +121,19 @@
                         </connections>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6oi-es-PqU" customClass="BottomTitleButton" customModule="WalkieTalkie" customModuleProvider="target">
-                        <rect key="frame" x="262" y="314" width="44" height="44"/>
+                        <rect key="frame" x="264" y="289" width="44" height="59"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="44" id="ZTv-iN-554"/>
-                            <constraint firstAttribute="height" constant="44" id="tTU-lQ-evD"/>
+                            <constraint firstAttribute="height" constant="59" id="tTU-lQ-evD"/>
                         </constraints>
-                        <state key="normal" image="iconVideoMore"/>
+                        <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito" pointSize="14"/>
+                        <state key="normal" image="iconVideoEmotes"/>
                         <connections>
-                            <action selector="moreButtonAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="BTg-ZD-w3Z"/>
+                            <action selector="emotesButtonAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Z5A-16-S4l"/>
                         </connections>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uQ0-uo-4L1" customClass="BottomTitleButton" customModule="WalkieTalkie" customModuleProvider="target">
-                        <rect key="frame" x="262" y="141" width="44" height="59"/>
+                        <rect key="frame" x="264" y="111" width="44" height="59"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="44" id="Dwp-ZN-4ZJ"/>
                             <constraint firstAttribute="height" constant="59" id="WCs-sI-lMO"/>
@@ -158,17 +162,29 @@
                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HyZ-3O-VLy" customClass="BottomTitleButton" customModule="WalkieTalkie" customModuleProvider="target">
+                        <rect key="frame" x="264" y="31" width="44" height="44"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="44" id="0hN-xG-eHt"/>
+                            <constraint firstAttribute="width" constant="44" id="ovy-CY-TpU"/>
+                        </constraints>
+                        <state key="normal" image="iconVideoMore"/>
+                        <connections>
+                            <action selector="moreButtonAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Afs-E3-wiX"/>
+                        </connections>
+                    </button>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="Rch-gs-sFL" secondAttribute="trailing" constant="-1" id="0iv-YC-35e"/>
                     <constraint firstAttribute="trailing" secondItem="VtH-gr-9m2" secondAttribute="trailing" id="1Fy-WS-Mf4"/>
-                    <constraint firstItem="6oi-es-PqU" firstAttribute="top" secondItem="oM0-lk-uGK" secondAttribute="bottom" constant="27" id="2Wk-9m-JB3"/>
+                    <constraint firstItem="6oi-es-PqU" firstAttribute="top" secondItem="oM0-lk-uGK" secondAttribute="bottom" constant="30" id="2Wk-9m-JB3"/>
                     <constraint firstItem="uQ0-uo-4L1" firstAttribute="centerX" secondItem="oM0-lk-uGK" secondAttribute="centerX" id="352-PD-NQe"/>
                     <constraint firstAttribute="bottom" secondItem="rqh-Vf-hwl" secondAttribute="bottom" id="3Hd-L5-MKG"/>
                     <constraint firstItem="1c1-et-f5z" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="5Ew-o1-8MG"/>
                     <constraint firstAttribute="bottom" secondItem="Rch-gs-sFL" secondAttribute="bottom" constant="-1.5" id="5Zv-L4-Cf7"/>
                     <constraint firstItem="VtH-gr-9m2" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="9AV-Hz-jeg"/>
+                    <constraint firstAttribute="trailing" secondItem="TLZ-Q1-mBb" secondAttribute="trailing" id="Ggi-eh-Np0"/>
                     <constraint firstItem="Ztd-Vz-93s" firstAttribute="centerX" secondItem="rqh-Vf-hwl" secondAttribute="centerX" id="JFv-Xb-0dD"/>
                     <constraint firstItem="oM0-lk-uGK" firstAttribute="centerX" secondItem="6oi-es-PqU" secondAttribute="centerX" id="KMR-mZ-dhN"/>
                     <constraint firstItem="1c1-et-f5z" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="MGl-Ow-jKC"/>
@@ -176,14 +192,19 @@
                     <constraint firstItem="Rch-gs-sFL" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="-1" id="P5Y-FZ-8uY"/>
                     <constraint firstItem="Ztd-Vz-93s" firstAttribute="centerY" secondItem="rqh-Vf-hwl" secondAttribute="centerY" id="Q8b-Ka-ixI"/>
                     <constraint firstAttribute="trailingMargin" secondItem="Ffj-Zk-aDm" secondAttribute="trailing" constant="20" id="U5j-c3-FSW"/>
-                    <constraint firstItem="oM0-lk-uGK" firstAttribute="top" secondItem="uQ0-uo-4L1" secondAttribute="bottom" constant="28" id="Vkf-Lz-1Fz"/>
+                    <constraint firstItem="uQ0-uo-4L1" firstAttribute="top" secondItem="HyZ-3O-VLy" secondAttribute="bottom" constant="36" id="VPT-an-SpJ"/>
+                    <constraint firstItem="oM0-lk-uGK" firstAttribute="top" secondItem="uQ0-uo-4L1" secondAttribute="bottom" constant="30" id="Vkf-Lz-1Fz"/>
                     <constraint firstAttribute="bottom" secondItem="VtH-gr-9m2" secondAttribute="bottom" id="WNb-mN-smA"/>
                     <constraint firstAttribute="trailing" secondItem="rqh-Vf-hwl" secondAttribute="trailing" id="WXy-fH-aHU"/>
                     <constraint firstAttribute="bottom" secondItem="Ffj-Zk-aDm" secondAttribute="bottom" constant="45" id="ahp-Vp-A2s"/>
                     <constraint firstItem="rqh-Vf-hwl" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="dl4-jc-rPe"/>
+                    <constraint firstItem="TLZ-Q1-mBb" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="ilC-2E-Hyz"/>
+                    <constraint firstItem="TLZ-Q1-mBb" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="jhQ-bh-Elg"/>
                     <constraint firstItem="rqh-Vf-hwl" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="lWm-BK-dwO"/>
-                    <constraint firstAttribute="trailing" secondItem="6oi-es-PqU" secondAttribute="trailing" constant="14" id="nWy-Vz-3y9"/>
-                    <constraint firstItem="VtH-gr-9m2" firstAttribute="top" secondItem="6oi-es-PqU" secondAttribute="bottom" constant="18" id="nca-bR-bxW"/>
+                    <constraint firstAttribute="bottom" secondItem="TLZ-Q1-mBb" secondAttribute="bottom" id="mZR-36-J3O"/>
+                    <constraint firstAttribute="trailing" secondItem="6oi-es-PqU" secondAttribute="trailing" constant="12" id="nWy-Vz-3y9"/>
+                    <constraint firstItem="VtH-gr-9m2" firstAttribute="top" secondItem="6oi-es-PqU" secondAttribute="bottom" constant="28" id="nca-bR-bxW"/>
+                    <constraint firstAttribute="trailing" secondItem="HyZ-3O-VLy" secondAttribute="trailing" constant="12" id="zBA-VL-bYn"/>
                 </constraints>
             </tableViewCellContentView>
             <color key="backgroundColor" white="1" alpha="0.059999999999999998" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -194,7 +215,8 @@
                 <outlet property="bottomBar" destination="VtH-gr-9m2" id="JoT-Nn-XuQ"/>
                 <outlet property="collectionView" destination="0Vq-Q9-oJP" id="TkJ-Ho-2ak"/>
                 <outlet property="commentButton" destination="uQ0-uo-4L1" id="oOp-Yt-ccg"/>
-                <outlet property="moreButton" destination="6oi-es-PqU" id="bXl-Xe-02B"/>
+                <outlet property="emotesButton" destination="6oi-es-PqU" id="g6t-cq-vRv"/>
+                <outlet property="moreButton" destination="HyZ-3O-VLy" id="NY9-jN-V18"/>
                 <outlet property="nameLabel" destination="U62-1J-LHH" id="hfU-MA-3Br"/>
                 <outlet property="pauseView" destination="1c1-et-f5z" id="cMs-pE-4IP"/>
                 <outlet property="playerView" destination="rqh-Vf-hwl" id="amU-EP-hgV"/>
@@ -203,6 +225,7 @@
                 <outlet property="sliderBar" destination="Rch-gs-sFL" id="Ufs-iN-lE6"/>
                 <outlet property="tagLabel" destination="YoT-EB-VOj" id="6lQ-v4-ZAU"/>
                 <outlet property="userInfoContainer" destination="hxF-Cs-EMb" id="Umv-Ng-v6C"/>
+                <outlet property="videoImageView" destination="TLZ-Q1-mBb" id="XLN-o2-bFH"/>
             </connections>
             <point key="canvasLocation" x="137.68115942028987" y="153.34821428571428"/>
         </tableViewCell>
@@ -210,6 +233,7 @@
     <resources>
         <image name="iconFeedTagPrefix" width="16" height="16"/>
         <image name="iconVideoComment" width="36" height="36"/>
+        <image name="iconVideoEmotes" width="36" height="36"/>
         <image name="iconVideoMore" width="36" height="36"/>
         <image name="iconVideoPause" width="48" height="48"/>
         <image name="iconVideoShare" width="36" height="36"/>

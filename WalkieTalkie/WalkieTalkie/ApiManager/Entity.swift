@@ -48,7 +48,8 @@ extension Entity {
     }
     
     struct Processed: Codable {
-        let processed: Bool
+        let processed: Bool?
+        let process: Bool?
     }
 }
 

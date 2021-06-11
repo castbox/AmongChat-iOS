@@ -69,15 +69,14 @@ extension AmongChat.Home {
             
             contentLayoutGuide.snp.makeConstraints { (maker) in
                 maker.left.right.equalToSuperview()
-                maker.centerY.equalToSuperview()
+                maker.top.equalToSuperview().offset(160)
             }
             
             addSubviews(views: icon, title, msg, tryAgainBtn)
             
             icon.snp.makeConstraints { (maker) in
                 maker.top.equalTo(contentLayoutGuide)
-                maker.left.right.equalToSuperview()
-                maker.height.equalTo(icon.snp.width).multipliedBy(120.0/375.0)
+                maker.centerX.equalToSuperview()
             }
             
             title.snp.makeConstraints { (maker) in

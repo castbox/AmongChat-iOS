@@ -89,6 +89,7 @@ extension Search {
         private let bag = DisposeBag()
 
         var userInfoList = BehaviorRelay<[Entity.UserProfile]?>(value: nil)
+        var welfare = BehaviorRelay<Entity.DecorationEntity?>(value: nil)
         var isLoadingReplay = BehaviorRelay<Bool>(value: false)
         var keywords: String = ""
         var hasMore = false
@@ -100,6 +101,11 @@ extension Search {
                 .catchErrorJustReturn(nil)
                 .asObservable()
                 .flatMap { [weak self] data -> Observable<[Entity.UserProfile]> in
+                    
+                    if let welfare = data?.welfare {
+                        self?.welfare.accept(welfare)
+                    }
+                    
                     let userList = data?.list ?? []
                     self?.hasMore = userList.count >= 20
                     self?.isLoadingReplay.accept(false)
@@ -164,6 +170,13 @@ extension Search {
         private var userList: [Entity.UserProfile] = [] {
             didSet {
                 tableView.reloadData()
+            }
+        }
+        
+        private var welfare: Entity.DecorationEntity? = nil {
+            didSet {
+                guard let welfare = welfare else { return }
+                presentClaimView(welfare)
             }
         }
         
@@ -239,14 +252,19 @@ extension Search {
         }
         
         private func bindSubviewEvent() {
-            viewModel.userInfoList
-                .filterNil()
+            Observable.combineLatest(viewModel.welfare, viewModel.userInfoList.filterNil())
                 .observeOn(MainScheduler.asyncInstance)
-                .subscribe(onNext: { [weak self](data) in
+                .subscribe(onNext: { [weak self] welfare, data in
                     guard let `self` = self else { return }
+                    
+                    guard welfare == nil else {
+                        self.welfare = welfare
+                        return
+                    }
+                    
                     self.userList = data
                     if self.userList.isEmpty {
-                        self.addNoDataView(R.string.localizable.errorNoSearch(), image: R.image.ac_among_no_search_result())
+                        self.addNoDataView(R.string.localizable.errorNoSearch(), image: R.image.ac_among_no_data())
                     } else {
                         //remove
                         self.removeNoDataView()
@@ -525,4 +543,40 @@ extension Search {
             }
         }
     }
+}
+
+extension Search.ViewController {
+    
+    private func presentClaimView(_ welfare: Entity.DecorationEntity) {
+        
+        let claimVC = WelfareClaimViewController(welfare)
+        claimVC.showModal(in: self)
+        
+        claimVC.goHandler = { [weak self, weak claimVC] in
+            guard let `self` = self else {
+                return
+            }
+            
+            let hudRemoval = self.view.raft.show(.loading)
+            Request.claimWelfare(code: self.viewModel.keywords)
+                .do(onDispose: {
+                    hudRemoval()
+                })
+                .map({ (claimed) -> Void in
+                    guard claimed else {
+                        throw MsgError.default
+                    }
+                    return
+                })
+                .subscribe(onSuccess: { _ in
+                    claimVC?.goButton.isEnabled = false
+                }, onError: { [weak self] (error) in
+                    self?.view.raft.autoShow(.text(R.string.localizable.amongChatClaimFail()))
+                })
+                .disposed(by: self.bag)
+            Logger.Action.log(.search_exclusive_alert_clk, categoryValue: "claim", self.viewModel.keywords)
+        }
+        
+    }
+    
 }

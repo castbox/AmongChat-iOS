@@ -59,7 +59,7 @@ extension APIService {
         case requestSmsCode([String : Any])
         case verifySmsCode([String : Any])
         case receipt([String : Any])
-        case defaultDecorations
+        case defaultDecorations([String : Any])
         case unlockDecoration([String : Any])
         case updateDecoration([String : Any])
         case shareUserSign
@@ -136,6 +136,7 @@ extension APIService {
         case deleteComment([String : Any])
         case myFeeds([String : Any])
         case feedPostPage([String : Any])
+        case claimWelfare([String : Any])
     }
 }
 
@@ -387,6 +388,8 @@ extension APIService.AmongChatBackend: TargetType {
             return "/post/my/posts"
         case .feedPostPage:
             return "/post/post/page"
+        case .claimWelfare:
+            return "/account/welfare/claim"
         }
     }
     
@@ -426,6 +429,7 @@ extension APIService.AmongChatBackend: TargetType {
              .feedCreate,
              .createReply,
              .createComment,
+             .claimWelfare,
              .logout:
             return .post
             
@@ -537,7 +541,6 @@ extension APIService.AmongChatBackend: TargetType {
              .accountMetaData,
              .contactList,
              .groupCheckHaveLive,
-             .defaultDecorations,
              .globalSetting,
              .gameSkills,
              .reportReasons,
@@ -646,6 +649,8 @@ extension APIService.AmongChatBackend: TargetType {
              .deleteComment(let params),
              .myFeeds(let params),
              .feedPostPage(let params),
+             .claimWelfare(let params),
+             .defaultDecorations(let params),
              .unFollow(let params):
             return .requestParameters(parameters: params, encoding: URLEncoding.queryString)
             

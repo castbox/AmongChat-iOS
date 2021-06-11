@@ -37,7 +37,6 @@
 "report.incorrect.sexual" = "Сексуальный контент";
 "report.incorrect.harassment" = "Оскорбления или отталкивающие выражения";
 "report.incorrect.unreasonable" = "Необоснованные требования";
-"report.success" = "Вы успешно заявили об \nэтом человеке";
 
 
 "alert.block" = "Блокировать";
@@ -470,7 +469,7 @@
 
 //1.18
 "report.user" = "Пожаловаться на пользователя";
-"report.success" = "Вы успешно заявили об \nэтом человеке";
+"report.success" = "Отчет успешно отправлен";
 "report.failed" = "Отчет не удалось. Пожалуйста, попробуйте еще раз";
 "report.comments" = "Комментарии";
 "report.comments.placeholder" = "Опишите отчет";
@@ -604,3 +603,12 @@
 "among.chat.login.auth.source.comment" = "добавить комментарий";
 "among.chat.login.auth.source.create.feed" = "создавать публикации";
 "feed.play.no.wifi.tips" = "Вы не подключены к WIFI. Для продолжения потоковой передачи ваши мобильные данные будут израсходованы.";
+"feed.deleted.tips" = "Ой, этот публикация был удален";
+
+//21.06.08
+"among.chat.exclusive.avatar" = "Эксклюзивный аватар";
+"among.chat.congrates.exclusive.avatar" = "Поздравляем с получением эксклюзивного аватара AmongChat!";
+"among.chat.exclusive.pet" = "Эксклюзивный питомец";
+"among.chat.congrates.exclusive.pet" = "Поздравляем с получением эксклюзивного питомца AmongChat!";
+"among.chat.claim.fail" = "Запрос не выполнен";
+"among.chat.claimed" = "Получили";

@@ -1,5 +1,4 @@
 Chào mừng bạn đến với ứng dụng trò chuyện thoại AmongChat!
-Trong phiên bản này, chúng tôi tiếp tục tối ưu hóa và cải thiện chức năng báo cáo.
-Quản trị viên và Giám sát cấp cao được ủy quyền hơn để thực hiện giám sát chặt chẽ hơn đối với cộng đồng.
-Chúng tôi liên tục làm việc chăm chỉ để cung cấp một cộng đồng lành mạnh và an toàn cho tất cả người dùng.
+Trong phiên bản này, một tab hoàn toàn mới dành cho video trò chơi được thêm vào. Hãy đến để chia sẻ những clip chơi game tuyệt vời của bạn!
+Các bản sửa lỗi và cải tiến hiệu suất khác.
 Tìm và Trò chuyện bằng giọng nói với bạn bè của bạn, chơi cùng nhau và tận hưởng!

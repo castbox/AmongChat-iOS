@@ -195,7 +195,7 @@ extension Social.ProfileViewController {
         private func setUpLayout() {
             backgroundColor = .clear
             contentView.layer.cornerRadius = 12
-            contentView.backgroundColor = UIColor(hex6: 0x222222)
+            contentView.backgroundColor = UIColor(hex6: 0xFFFFFF, alpha: 0.12)
 
             contentView.addSubviews(views: coverIV, label, joinBtn)
             
