@@ -2742,7 +2742,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
     
-    /// This `R.string.localizable` struct is generated, and contains static references to 536 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 537 localization keys.
     struct localizable {
       /// en translation:  Congratulations!
       /// 
@@ -4876,6 +4876,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let profilePronounTheyThem = Rswift.StringResource(key: "profile.pronoun.they.them", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: upload your avatar
+      /// 
+      /// Locales: en
+      static let amongChatLoginAuthSourceUploadAvatar = Rswift.StringResource(key: "among.chat.login.auth.source.upload.avatar", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: your purchase was successful
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -8618,6 +8622,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func profilePronounTheyThem(_: Void = ()) -> String {
         return NSLocalizedString("profile.pronoun.they.them", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: upload your avatar
+      /// 
+      /// Locales: en
+      static func amongChatLoginAuthSourceUploadAvatar(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.login.auth.source.upload.avatar", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: your purchase was successful
