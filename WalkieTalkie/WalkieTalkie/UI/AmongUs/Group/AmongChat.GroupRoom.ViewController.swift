@@ -131,7 +131,6 @@ extension AmongChat.GroupRoom {
         private lazy var messageInputContainerView: AmongChat.Room.MessageInputView = {
             let v = AmongChat.Room.MessageInputView(sendable: viewModel)
             v.isHidden = true
-            v.backgroundColor = .clear
             return v
         }()
         
@@ -849,7 +848,7 @@ extension AmongChat.GroupRoom.ViewController {
         }
         
         messageInputContainerView.snp.makeConstraints { (maker) in
-            maker.left.top.right.equalToSuperview()
+            maker.left.right.equalToSuperview()
             maker.bottom.equalToSuperview()
         }
         
