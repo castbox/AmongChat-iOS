@@ -91,6 +91,7 @@ extension Feed {
                 switch (oldValue, adView) {
                 case (.none, .some(_)):
                     buildDataSourceModels()
+                    //刷新除当前 index 之外的所有 index
                     self.tableView.reloadData()
                 case (.some(_), .some(_)):
                     if let _ = tableView.cellForRow(at: IndexPath(item: currentIndex, section: 0)) as? FeedNativeAdCell {
