@@ -9,7 +9,7 @@
 import UIKit
 import RxSwift
 import RxCocoa
-////import MoPub
+////import MoPubSDK
 
 extension AmongChat.Room {
     enum EditType {

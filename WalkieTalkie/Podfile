@@ -100,9 +100,11 @@ target 'WalkieTalkie' do
     #- Integrate SwiftStdlib extensions only:
     pod 'SwifterSwift'
     
-    pod 'mopub-ios-sdk/Core'
+    pod 'mopub-ios-sdk', '5.17.0'
 #    pod 'MoPub-AdMob-Adapters'
-    pod 'MoPub-UnityAds-Adapters', '3.4.8.1'
+    pod 'MoPub-UnityAds-Adapters', '3.7.2.0'
+    pod 'MoPub-FacebookAudienceNetwork-Adapters'
+    
     #objc
     pod 'MBProgressHUD', '~> 1.0.0'
     

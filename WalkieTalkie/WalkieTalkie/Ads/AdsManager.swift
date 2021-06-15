@@ -10,7 +10,7 @@ import Foundation
 import RxSwift
 import RxCocoa
 //import AppMonet_Mopub
-import MoPub
+import MoPubSDK
 //import MoPub_FacebookAudienceNetwork_Adapters
 //import MoPub_AdMob_Adapters
 //import DTBiOSSDK
@@ -294,6 +294,7 @@ class AdsManager: NSObject {
         case channelCard
         case unlockAvatar
         case profileLook
+//        case feeds
     }
     
     private class func rewardedVideoAdUnitId(of adPostion: RewardedVideoPosition) -> String {
@@ -304,6 +305,8 @@ class AdsManager: NSObject {
             return "bacb18c823584a5cbcd04f6768e7bf9b"
         case .profileLook:
             return "4d8dcec7fe8c486b9437b1f25362c8a6"
+//        case .feeds:
+//            return "f3699b02d46549a69e483df10868e3ba"
         }
     }
     

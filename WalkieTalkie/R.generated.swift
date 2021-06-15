@@ -2100,7 +2100,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.nib` struct is generated, and contains static references to 44 nibs.
+  /// This `R.nib` struct is generated, and contains static references to 46 nibs.
   struct nib {
     /// Nib `AddStatsPendingController`.
     static let addStatsPendingController = _R.nib._AddStatsPendingController()
@@ -2160,6 +2160,10 @@ struct R: Rswift.Validatable {
     static let feedEmojiCollectionCell = _R.nib._FeedEmojiCollectionCell()
     /// Nib `FeedListCell`.
     static let feedListCell = _R.nib._FeedListCell()
+    /// Nib `FeedsAdTableCell`.
+    static let feedsAdTableCell = _R.nib._FeedsAdTableCell()
+    /// Nib `FeedsAdView`.
+    static let feedsAdView = _R.nib._FeedsAdView()
     /// Nib `InfoWithNicknameView`.
     static let infoWithNicknameView = _R.nib._InfoWithNicknameView()
     /// Nib `InteractiveMsgTableCell`.
@@ -2363,6 +2367,18 @@ struct R: Rswift.Validatable {
     @available(*, deprecated, message: "Use UINib(resource: R.nib.feedListCell) instead")
     static func feedListCell(_: Void = ()) -> UIKit.UINib {
       return UIKit.UINib(resource: R.nib.feedListCell)
+    }
+    
+    /// `UINib(name: "FeedsAdTableCell", in: bundle)`
+    @available(*, deprecated, message: "Use UINib(resource: R.nib.feedsAdTableCell) instead")
+    static func feedsAdTableCell(_: Void = ()) -> UIKit.UINib {
+      return UIKit.UINib(resource: R.nib.feedsAdTableCell)
+    }
+    
+    /// `UINib(name: "FeedsAdView", in: bundle)`
+    @available(*, deprecated, message: "Use UINib(resource: R.nib.feedsAdView) instead")
+    static func feedsAdView(_: Void = ()) -> UIKit.UINib {
+      return UIKit.UINib(resource: R.nib.feedsAdView)
     }
     
     /// `UINib(name: "InfoWithNicknameView", in: bundle)`
@@ -2569,6 +2585,14 @@ struct R: Rswift.Validatable {
     
     static func feedListCell(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> FeedListCell? {
       return R.nib.feedListCell.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? FeedListCell
+    }
+    
+    static func feedsAdTableCell(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> FeedsAdTableCell? {
+      return R.nib.feedsAdTableCell.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? FeedsAdTableCell
+    }
+    
+    static func feedsAdView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+      return R.nib.feedsAdView.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
     }
     
     static func infoWithNicknameView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
@@ -9131,6 +9155,28 @@ struct _R: Rswift.Validatable {
         if UIKit.UIImage(named: "iconVideoShare", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'iconVideoShare' is used in nib 'FeedListCell', but couldn't be loaded.") }
         if #available(iOS 11.0, *) {
         }
+      }
+      
+      fileprivate init() {}
+    }
+    
+    struct _FeedsAdTableCell: Rswift.NibResourceType {
+      let bundle = R.hostingBundle
+      let name = "FeedsAdTableCell"
+      
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> FeedsAdTableCell? {
+        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? FeedsAdTableCell
+      }
+      
+      fileprivate init() {}
+    }
+    
+    struct _FeedsAdView: Rswift.NibResourceType {
+      let bundle = R.hostingBundle
+      let name = "FeedsAdView"
+      
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
       }
       
       fileprivate init() {}

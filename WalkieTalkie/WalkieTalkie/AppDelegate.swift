@@ -8,7 +8,7 @@
 
 import UIKit
 import Firebase
-import MoPub
+import MoPubSDK
 //import MoPub_AdMob_Adapters
 import RxSwift
 import RxCocoa
