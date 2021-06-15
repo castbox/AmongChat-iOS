@@ -12,9 +12,9 @@
 //import SwiftyUserDefaults
 ////import MoPubSDK
 //
-//struct Ad {
-//    
-//}
+struct Ad {
+    
+}
 //
 //extension Ad {
 //    

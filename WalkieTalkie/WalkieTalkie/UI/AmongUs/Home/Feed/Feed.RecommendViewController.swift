@@ -42,7 +42,7 @@ extension Feed {
                     guard let `self` = self else { return }
                     removeBlock()
                     self.tableView.alpha = 0
-                    self.dataSource = data?.map { Feed.ListCellViewModel(feed: $0) } ?? []
+                    self.feedsDataSource = data?.map { Feed.ListCellViewModel(feed: $0) } ?? []
                     self.tableView.reloadData()
                     self.tableView.layoutIfNeeded()
                     self.tableView.alpha = 1
@@ -67,10 +67,14 @@ extension Feed {
                 return
             }
             isLoadingMore = true
+            
             let maxIndex = dataSource.count - 1
             let excludePids = dataSource[currentIndex...maxIndex]
+                .compactMap { $0 as? FeedCellViewModel }
                 .map { $0.feed.pid }
+            
             cdPrint("excludePid: \(excludePids)")
+            
             Request.recommendFeeds(excludePids: excludePids) //Settings.loginUserId
                 .do(onDispose: { [weak self] in
                     self?.isLoadingMore = false
@@ -81,8 +85,8 @@ extension Feed {
                     guard let `self` = self else { return }
                     var source = data?.map { Feed.ListCellViewModel(feed: $0) } ?? []
                     self.hasMore = source.count >= 10
-                    source.insert(contentsOf: self.dataSource, at: 0)
-                    self.dataSource = source
+                    source.insert(contentsOf: self.feedsDataSource, at: 0)
+                    self.feedsDataSource = source
                     //insert datasource
                     let rows = self.tableView.numberOfRows(inSection: 0)
                     let newRow = self.dataSource.count

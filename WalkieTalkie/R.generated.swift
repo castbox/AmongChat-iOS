@@ -2160,16 +2160,16 @@ struct R: Rswift.Validatable {
     static let feedEmojiCollectionCell = _R.nib._FeedEmojiCollectionCell()
     /// Nib `FeedListCell`.
     static let feedListCell = _R.nib._FeedListCell()
-    /// Nib `FeedsAdTableCell`.
-    static let feedsAdTableCell = _R.nib._FeedsAdTableCell()
-    /// Nib `FeedsAdView`.
-    static let feedsAdView = _R.nib._FeedsAdView()
+    /// Nib `FeedNativeAdCell`.
+    static let feedNativeAdCell = _R.nib._FeedNativeAdCell()
     /// Nib `InfoWithNicknameView`.
     static let infoWithNicknameView = _R.nib._InfoWithNicknameView()
     /// Nib `InteractiveMsgTableCell`.
     static let interactiveMsgTableCell = _R.nib._InteractiveMsgTableCell()
     /// Nib `JustChillingInfoView`.
     static let justChillingInfoView = _R.nib._JustChillingInfoView()
+    /// Nib `NativeFeedsAdView`.
+    static let nativeFeedsAdView = _R.nib._NativeFeedsAdView()
     /// Nib `NewVersionAlertController`.
     static let newVersionAlertController = _R.nib._NewVersionAlertController()
     /// Nib `ReportCell`.
@@ -2369,16 +2369,10 @@ struct R: Rswift.Validatable {
       return UIKit.UINib(resource: R.nib.feedListCell)
     }
     
-    /// `UINib(name: "FeedsAdTableCell", in: bundle)`
-    @available(*, deprecated, message: "Use UINib(resource: R.nib.feedsAdTableCell) instead")
-    static func feedsAdTableCell(_: Void = ()) -> UIKit.UINib {
-      return UIKit.UINib(resource: R.nib.feedsAdTableCell)
-    }
-    
-    /// `UINib(name: "FeedsAdView", in: bundle)`
-    @available(*, deprecated, message: "Use UINib(resource: R.nib.feedsAdView) instead")
-    static func feedsAdView(_: Void = ()) -> UIKit.UINib {
-      return UIKit.UINib(resource: R.nib.feedsAdView)
+    /// `UINib(name: "FeedNativeAdCell", in: bundle)`
+    @available(*, deprecated, message: "Use UINib(resource: R.nib.feedNativeAdCell) instead")
+    static func feedNativeAdCell(_: Void = ()) -> UIKit.UINib {
+      return UIKit.UINib(resource: R.nib.feedNativeAdCell)
     }
     
     /// `UINib(name: "InfoWithNicknameView", in: bundle)`
@@ -2397,6 +2391,12 @@ struct R: Rswift.Validatable {
     @available(*, deprecated, message: "Use UINib(resource: R.nib.justChillingInfoView) instead")
     static func justChillingInfoView(_: Void = ()) -> UIKit.UINib {
       return UIKit.UINib(resource: R.nib.justChillingInfoView)
+    }
+    
+    /// `UINib(name: "NativeFeedsAdView", in: bundle)`
+    @available(*, deprecated, message: "Use UINib(resource: R.nib.nativeFeedsAdView) instead")
+    static func nativeFeedsAdView(_: Void = ()) -> UIKit.UINib {
+      return UIKit.UINib(resource: R.nib.nativeFeedsAdView)
     }
     
     /// `UINib(name: "NewVersionAlertController", in: bundle)`
@@ -2587,12 +2587,8 @@ struct R: Rswift.Validatable {
       return R.nib.feedListCell.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? FeedListCell
     }
     
-    static func feedsAdTableCell(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> FeedsAdTableCell? {
-      return R.nib.feedsAdTableCell.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? FeedsAdTableCell
-    }
-    
-    static func feedsAdView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
-      return R.nib.feedsAdView.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+    static func feedNativeAdCell(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> FeedNativeAdCell? {
+      return R.nib.feedNativeAdCell.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? FeedNativeAdCell
     }
     
     static func infoWithNicknameView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
@@ -2605,6 +2601,10 @@ struct R: Rswift.Validatable {
     
     static func justChillingInfoView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
       return R.nib.justChillingInfoView.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+    }
+    
+    static func nativeFeedsAdView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+      return R.nib.nativeFeedsAdView.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
     }
     
     static func newVersionAlertController(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
@@ -9160,23 +9160,12 @@ struct _R: Rswift.Validatable {
       fileprivate init() {}
     }
     
-    struct _FeedsAdTableCell: Rswift.NibResourceType {
+    struct _FeedNativeAdCell: Rswift.NibResourceType {
       let bundle = R.hostingBundle
-      let name = "FeedsAdTableCell"
+      let name = "FeedNativeAdCell"
       
-      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> FeedsAdTableCell? {
-        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? FeedsAdTableCell
-      }
-      
-      fileprivate init() {}
-    }
-    
-    struct _FeedsAdView: Rswift.NibResourceType {
-      let bundle = R.hostingBundle
-      let name = "FeedsAdView"
-      
-      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
-        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> FeedNativeAdCell? {
+        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? FeedNativeAdCell
       }
       
       fileprivate init() {}
@@ -9218,6 +9207,17 @@ struct _R: Rswift.Validatable {
       
       func secondView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
         return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[1] as? UIKit.UIView
+      }
+      
+      fileprivate init() {}
+    }
+    
+    struct _NativeFeedsAdView: Rswift.NibResourceType {
+      let bundle = R.hostingBundle
+      let name = "NativeFeedsAdView"
+      
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
       }
       
       fileprivate init() {}

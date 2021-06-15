@@ -250,7 +250,6 @@
 		FE684875244BD2E700F87AF9 /* AdsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE684874244BD2E700F87AF9 /* AdsManager.swift */; };
 		FE684877244BD3D200F87AF9 /* AdsDebugger.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE684876244BD3D200F87AF9 /* AdsDebugger.swift */; };
 		FE684879244BD45F00F87AF9 /* DateUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE684878244BD45F00F87AF9 /* DateUtil.swift */; };
-		FE68487C244BD65B00F87AF9 /* NativeAdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE68487B244BD65B00F87AF9 /* NativeAdView.swift */; };
 		FE68487E244BD66200F87AF9 /* NativeToMRectAdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE68487D244BD66200F87AF9 /* NativeToMRectAdView.swift */; };
 		FE684880244BD72A00F87AF9 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE68487F244BD72A00F87AF9 /* Settings.swift */; };
 		FE684882244BD80700F87AF9 /* PremiumFreqControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE684881244BD80600F87AF9 /* PremiumFreqControl.swift */; };
@@ -388,6 +387,12 @@
 		FE952FE52669C76E004E2AD1 /* SZAVPlayerRequestOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE952FD32669C76E004E2AD1 /* SZAVPlayerRequestOperation.swift */; };
 		FE952FE62669C76E004E2AD1 /* SZAVPlayerAssetLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE952FD42669C76E004E2AD1 /* SZAVPlayerAssetLoader.swift */; };
 		FE97371524AB3D050015ECE6 /* DebugViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE97371424AB3D050015ECE6 /* DebugViewController.swift */; };
+		FE9A9B1226789E7E00A2EA06 /* NativeFeedsAdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE9A9B1026789E7E00A2EA06 /* NativeFeedsAdView.swift */; };
+		FE9A9B1326789E7E00A2EA06 /* NativeFeedsAdView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE9A9B1126789E7E00A2EA06 /* NativeFeedsAdView.xib */; };
+		FE9A9B152678A4D200A2EA06 /* Ad.NativeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE9A9B142678A4D200A2EA06 /* Ad.NativeManager.swift */; };
+		FE9A9E412678A89200A2EA06 /* Logger+Ads.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE9A9E402678A89200A2EA06 /* Logger+Ads.swift */; };
+		FE9AA1622678B9F700A2EA06 /* FeedNativeAdCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE9AA1602678B9F700A2EA06 /* FeedNativeAdCell.swift */; };
+		FE9AA1632678B9F700A2EA06 /* FeedNativeAdCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE9AA1612678B9F700A2EA06 /* FeedNativeAdCell.xib */; };
 		FE9B29F22488CD4B009A4969 /* SpeechRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE9B29F12488CD4B009A4969 /* SpeechRecognizer.swift */; };
 		FE9B29F42488D250009A4969 /* ConfettiView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE9B29F32488D250009A4969 /* ConfettiView.swift */; };
 		FE9BC9E7258A3CDD002F82AF /* ApiService.AmongChatBackend.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE9BC9E6258A3CDD002F82AF /* ApiService.AmongChatBackend.swift */; };
@@ -785,7 +790,6 @@
 		FE684874244BD2E700F87AF9 /* AdsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdsManager.swift; sourceTree = "<group>"; };
 		FE684876244BD3D200F87AF9 /* AdsDebugger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdsDebugger.swift; sourceTree = "<group>"; };
 		FE684878244BD45F00F87AF9 /* DateUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateUtil.swift; sourceTree = "<group>"; };
-		FE68487B244BD65B00F87AF9 /* NativeAdView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NativeAdView.swift; sourceTree = "<group>"; };
 		FE68487D244BD66200F87AF9 /* NativeToMRectAdView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NativeToMRectAdView.swift; sourceTree = "<group>"; };
 		FE68487F244BD72A00F87AF9 /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		FE684881244BD80600F87AF9 /* PremiumFreqControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PremiumFreqControl.swift; sourceTree = "<group>"; };
@@ -923,6 +927,12 @@
 		FE952FD32669C76E004E2AD1 /* SZAVPlayerRequestOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SZAVPlayerRequestOperation.swift; sourceTree = "<group>"; };
 		FE952FD42669C76E004E2AD1 /* SZAVPlayerAssetLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SZAVPlayerAssetLoader.swift; sourceTree = "<group>"; };
 		FE97371424AB3D050015ECE6 /* DebugViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugViewController.swift; sourceTree = "<group>"; };
+		FE9A9B1026789E7E00A2EA06 /* NativeFeedsAdView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NativeFeedsAdView.swift; sourceTree = "<group>"; };
+		FE9A9B1126789E7E00A2EA06 /* NativeFeedsAdView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NativeFeedsAdView.xib; sourceTree = "<group>"; };
+		FE9A9B142678A4D200A2EA06 /* Ad.NativeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Ad.NativeManager.swift; sourceTree = "<group>"; };
+		FE9A9E402678A89200A2EA06 /* Logger+Ads.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Logger+Ads.swift"; sourceTree = "<group>"; };
+		FE9AA1602678B9F700A2EA06 /* FeedNativeAdCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedNativeAdCell.swift; sourceTree = "<group>"; };
+		FE9AA1612678B9F700A2EA06 /* FeedNativeAdCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FeedNativeAdCell.xib; sourceTree = "<group>"; };
 		FE9B29F12488CD4B009A4969 /* SpeechRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechRecognizer.swift; sourceTree = "<group>"; };
 		FE9B29F32488D250009A4969 /* ConfettiView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfettiView.swift; sourceTree = "<group>"; };
 		FE9BC9E6258A3CDD002F82AF /* ApiService.AmongChatBackend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiService.AmongChatBackend.swift; sourceTree = "<group>"; };
@@ -1341,6 +1351,8 @@
 				FEB308F72667362C006849CF /* Feed.ListCellViewModel.swift */,
 				FEB308F526673606006849CF /* Feed.ListViewModel.swift */,
 				FE0A0C32265D278000AC9FF7 /* PlayerView.swift */,
+				FE9AA1602678B9F700A2EA06 /* FeedNativeAdCell.swift */,
+				FE9AA1612678B9F700A2EA06 /* FeedNativeAdCell.xib */,
 				FE0A0C2E265CECCA00AC9FF7 /* FeedListCell.swift */,
 				FE0A0C2F265CECCA00AC9FF7 /* FeedListCell.xib */,
 				FE0A0F24265E0C8600AC9FF7 /* FeedEmojiCollectionCell.swift */,
@@ -1937,9 +1949,11 @@
 			children = (
 				BD680D742554F8210062CEC7 /* Ad.AppOpenAdManager.swift */,
 				BDD692762536DE2900260F1F /* Ad.InterstitialManager.swift */,
+				FE9A9B142678A4D200A2EA06 /* Ad.NativeManager.swift */,
 				FE684874244BD2E700F87AF9 /* AdsManager.swift */,
 				FE684876244BD3D200F87AF9 /* AdsDebugger.swift */,
-				FE68487B244BD65B00F87AF9 /* NativeAdView.swift */,
+				FE9A9B1026789E7E00A2EA06 /* NativeFeedsAdView.swift */,
+				FE9A9B1126789E7E00A2EA06 /* NativeFeedsAdView.xib */,
 				FE68487D244BD66200F87AF9 /* NativeToMRectAdView.swift */,
 			);
 			path = Ads;
@@ -1998,6 +2012,7 @@
 		FED7B5FD244EC9C500D94F97 /* Logger */ = {
 			isa = PBXGroup;
 			children = (
+				FE9A9E402678A89200A2EA06 /* Logger+Ads.swift */,
 				BDC9D4AC258A2AB400412BDC /* AdjustAnalytics.swift */,
 				FE4FDAD82435D0AB00CD5E97 /* Logger.swift */,
 				FED7B5FE244EC9E100D94F97 /* Logger+Screen.swift */,
@@ -2182,6 +2197,7 @@
 				FE79F38E258CDFA500E9BC6C /* AmongSheetUserCell.xib in Resources */,
 				FEBE521E262D2DF500E49EC4 /* ReportTableHeader.xib in Resources */,
 				FE9EF52C258B23BC008C0BAD /* AmongRoomToolView.xib in Resources */,
+				FE9A9B1326789E7E00A2EA06 /* NativeFeedsAdView.xib in Resources */,
 				BDC9D4B2258A2BC200412BDC /* Adjust-Info.plist in Resources */,
 				FE7CEB6B258A060B0067952C /* JustChillingInfoView.xib in Resources */,
 				FE169E2826134A2000AD7866 /* AmongGroupHostView.xib in Resources */,
@@ -2217,6 +2233,7 @@
 				FE7ED90425F20292009C608A /* room-emoji-green.svga in Resources */,
 				FE7CE9E72589E5550067952C /* AmongRoomBottomBar.xib in Resources */,
 				FE9EF534258B2DC1008C0BAD /* AmongInputNickNameView.xib in Resources */,
+				FE9AA1632678B9F700A2EA06 /* FeedNativeAdCell.xib in Resources */,
 				FE169E2E2613516500AD7866 /* AmongGroupJoinRequestCell.xib in Resources */,
 				FE7ED90825F20292009C608A /* room-emoji-yellow.svga in Resources */,
 				FEE6F215264E53FE00F4C0C5 /* dmWaveYellow.svga in Resources */,
@@ -2380,6 +2397,7 @@
 				BDF3D8DB259B2B230047A460 /* AmongChat.Home.RoomInvitationModal.swift in Sources */,
 				FE860D542446D29E00087B73 /* Knife.swift in Sources */,
 				26F414A42611C548003ED5BE /* FansGroup.CreateGroupViewController.swift in Sources */,
+				FE9A9B1226789E7E00A2EA06 /* NativeFeedsAdView.swift in Sources */,
 				2696D42325B8082200C38C09 /* UITextFieldExtension.swift in Sources */,
 				FE9B29F42488D250009A4969 /* ConfettiView.swift in Sources */,
 				FED7B5FC244EC99300D94F97 /* ScreenLifeLogable.swift in Sources */,
@@ -2419,7 +2437,6 @@
 				26FC617F266733EB005D8F79 /* Social.ProfileGameSkillViewController.swift in Sources */,
 				FE169E33261351C400AD7866 /* AmongGroupJoinRequestCell.swift in Sources */,
 				2686A6FB265E8B0900931A03 /* Entity.Feed.swift in Sources */,
-				FE68487C244BD65B00F87AF9 /* NativeAdView.swift in Sources */,
 				FECA43AE24597B570075D139 /* Automator.Analytics.swift in Sources */,
 				FE126D50243481FF00BEDD60 /* VoiceChanger.swift in Sources */,
 				FEB308F82667362D006849CF /* Feed.ListCellViewModel.swift in Sources */,
@@ -2506,6 +2523,7 @@
 				FE0A0F2B265E21CD00AC9FF7 /* Feed.EmotePickerViewModel.swift in Sources */,
 				263F8ACF26132B3100282F8F /* FansGroup.GroupsViewController.swift in Sources */,
 				FE1A2DF3248A3BDC00F9A44D /* Data+Crypto.swift in Sources */,
+				FE9A9B152678A4D200A2EA06 /* Ad.NativeManager.swift in Sources */,
 				FE952FE22669C76E004E2AD1 /* SZAVPlayerDataLoader.swift in Sources */,
 				FE27B92C265CE30300D1AD1F /* Feed.ListViewController.swift in Sources */,
 				261C35262660A2140058C911 /* Feed.Comments+ViewModels.swift in Sources */,
@@ -2513,6 +2531,7 @@
 				FEBE521F262D2DF500E49EC4 /* ReportFooterView.swift in Sources */,
 				26AFD8B525C976D900B652E8 /* Social.ProfileLookViewController+Widgets.swift in Sources */,
 				FE7E2277264661F500DAD431 /* Database.swift in Sources */,
+				FE9A9E412678A89200A2EA06 /* Logger+Ads.swift in Sources */,
 				FE126D4E243481FF00BEDD60 /* Channel.swift in Sources */,
 				2BAB4F7E2595D53D00A1C8DC /* UIScrollViewExtension.swift in Sources */,
 				2602C16026271D5000CB3469 /* FansGroup.Notifications.swift in Sources */,
@@ -2568,6 +2587,7 @@
 				FE8DEA6D243DB09A0059C252 /* JSONDecoder.Extension.swift in Sources */,
 				FEBE5220262D2DF500E49EC4 /* Report.ViewModel.swift in Sources */,
 				FE9EF528258B23B5008C0BAD /* AmongRoomToolView.swift in Sources */,
+				FE9AA1622678B9F700A2EA06 /* FeedNativeAdCell.swift in Sources */,
 				FE401E39244D9C450081F793 /* IAP.swift in Sources */,
 				FE49CE9F24361A1F00C36EC6 /* HapticFeedback.swift in Sources */,
 				FE2AF9F6244DCC0400763747 /* Routes.Handler.swift in Sources */,

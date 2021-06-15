@@ -130,7 +130,7 @@ extension Social {
                     guard let `self` = self else { return }
                     var source = data.list.map { Feed.ListCellViewModel(feed: $0) }
                     self.hasMore = source.count >= 10
-                    source.insert(contentsOf: self.dataSource, at: 0)
+                    source.insert(contentsOf: self.feedsDataSource, at: 0)
                     self.dataSource = source
                     //insert datasource
                     let rows = self.tableView.numberOfRows(inSection: 0)
