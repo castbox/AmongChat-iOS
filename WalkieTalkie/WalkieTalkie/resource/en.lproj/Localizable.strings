@@ -617,3 +617,8 @@
 
 //21.06.11
 "among.chat.login.auth.source.upload.avatar" = "upload your avatar";
+"among.chat.clear.cache" = "Clear Cache";
+"among.chat.contact.us" = "Contact Us";
+"among.chat.clear.cache.tip" = "After clearing the cache, all of your voice messages would be removed permanently. Are you sure you want to continue?";
+"among.chat.clear" = "Clear";
+"among.chat.clearing" = "Clearing";

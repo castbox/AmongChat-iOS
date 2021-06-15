@@ -495,7 +495,7 @@ extension FileManager {
     /// 计算 (文件夹/文件) 的大小
     /// - Parameter path: (文件夹/文件) 的路径
     /// - Returns: (文件夹/文件) 的大小
-    static func fileOrDirectorySize(path: String) -> String {
+    static func fileOrDirectoryFormmatedSize(path: String) -> String {
         if path.count == 0, !fileManager.fileExists(atPath: path) {
             return "0MB"
         }
@@ -513,6 +513,37 @@ extension FileManager {
         // 转换后的大小 ["bytes", "KB", "MB", "GB", "TB", "PB",  "EB",  "ZB", "YB"]
         return covertUInt64ToString(with: fileSize)
     }
+    
+    //MARK: 2.22-1、计算 (文件夹/文件) 的大小（转换过的）
+    /// 计算 (文件夹/文件) 的大小
+    /// - Parameter path: (文件夹/文件) 的路径
+    /// - Returns: (文件夹/文件) 的大小
+    static func fileOrDirectorySize(path: String) -> UInt64 {
+        if path.count == 0, !fileManager.fileExists(atPath: path) {
+            return 0
+        }
+        // (文件夹/文件) 的实际大小
+        var fileSize: UInt64 = 0
+        do {
+            let files = try fileManager.contentsOfDirectory(atPath: path)
+            for file in files {
+                let path = path + "/\(file)"
+                var isDir: ObjCBool = false
+                if fileManager.fileExists(atPath: path, isDirectory: &isDir),
+                   !isDir.boolValue {
+                    fileSize = fileSize + fileOrDirectorySingleSize(filePath: path)
+                } else {
+                    fileSize = fileSize + fileOrDirectorySize(path: path)
+                }
+                
+            }
+        } catch {
+            fileSize = fileSize + fileOrDirectorySingleSize(filePath: path)
+        }
+        // 转换后的大小 ["bytes", "KB", "MB", "GB", "TB", "PB",  "EB",  "ZB", "YB"]
+        return fileSize
+    }
+
 
     // MARK: 2.23、获取(文件夹/文件)属性集合
     ///  获取(文件夹/文件)属性集合
