@@ -122,7 +122,9 @@ extension AmongChat.Login {
         private func setupReCaptcha() {
             
             recaptcha = try! ReCaptcha(apiKey: "6LdbGCcbAAAAAMUo75A5kIjMFVHTYpmH0Uy5VfqR", baseURL: URL(string: "https://among.chat"), endpoint: .default, locale: Locale.current)
+            #if DEBUG
             recaptcha.forceVisibleChallenge = false
+            #endif
             recaptcha.configureWebView { [weak self] webview in
                 guard let `self` = self else { return }
                 let width: CGFloat = 300
