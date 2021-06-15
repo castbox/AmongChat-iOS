@@ -240,7 +240,7 @@ extension APIService.AmongChatBackend: TargetType {
         case .accountMetaData:
             return "/account/meta_data"
         case .requestSmsCode:
-            return "/auth/phone/send_code"
+            return "/auth/phone/send_code/v2"
         case .verifySmsCode:
             return "/auth/phone/verify"
         case .receipt:

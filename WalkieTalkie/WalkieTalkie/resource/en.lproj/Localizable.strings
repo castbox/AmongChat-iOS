@@ -605,7 +605,7 @@
 "feed.play.no.wifi.tips" = "You're not connected to WIFI. To continue streaming, your mobile data would be consumed.";
 "feed.deleted.tips" = "Oops, this post has been deleted";
 
-//21.06.08
+//1.23.0
 "among.chat.exclusive.avatar" = "Exclusive Avatar";
 "among.chat.congrates.exclusive.avatar" = "Congratulations on getting AmongChat's Exclusive Avatar!";
 "among.chat.exclusive.pet" = "Exclusive Pet";
@@ -614,3 +614,11 @@
 "among.chat.claimed" = "Claimed";
 
 "social.profile.chat.anonymous.user.tips" = "Sorry, this user is anonymous and cannot receive messages.";
+
+//21.06.11
+"among.chat.login.auth.source.upload.avatar" = "upload your avatar";
+"among.chat.clear.cache" = "Clear Cache";
+"among.chat.contact.us" = "Contact Us";
+"among.chat.clear.cache.tip" = "After clearing the cache, all of your voice messages would be removed permanently. Are you sure you want to continue?";
+"among.chat.clear" = "Clear";
+"among.chat.clearing" = "Clearing";

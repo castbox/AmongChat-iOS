@@ -127,6 +127,10 @@ extension Social.CustomAvatarViewController {
     @objc
     private func onUploadButtonTouched(_ sender: UIButton) {
         
+        guard AmongChat.Login.canDoLoginEvent(style: .authNeeded(source: .uploadAvatar)) else {
+            return
+        }
+        
         var source = CustomAvatarSource.album
         
         switch sender {

@@ -35,6 +35,7 @@
 		265FB7C725B690A7004987AB /* mobileRegions.json in Resources */ = {isa = PBXBuildFile; fileRef = 265FB7C625B690A7004987AB /* mobileRegions.json */; };
 		265FB7CB25B69C3A004987AB /* AmongChat.Login.MobileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 265FB7CA25B69C3A004987AB /* AmongChat.Login.MobileViewController.swift */; };
 		265FB7CF25B6C402004987AB /* AmongChat.Login.RegionModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 265FB7CE25B6C402004987AB /* AmongChat.Login.RegionModal.swift */; };
+		2660758926789FB20065844D /* CacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2660758826789FB20065844D /* CacheManager.swift */; };
 		266A42F625F10C5A003B583B /* InfoWithNicknameView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 266A42F525F10C5A003B583B /* InfoWithNicknameView.xib */; };
 		266A42FA25F10CC4003B583B /* InfoWithNicknameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 266A42F925F10CC4003B583B /* InfoWithNicknameView.swift */; };
 		2686A6FB265E8B0900931A03 /* Entity.Feed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2686A6FA265E8B0900931A03 /* Entity.Feed.swift */; };
@@ -549,6 +550,7 @@
 		265FB7C625B690A7004987AB /* mobileRegions.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = mobileRegions.json; sourceTree = "<group>"; };
 		265FB7CA25B69C3A004987AB /* AmongChat.Login.MobileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChat.Login.MobileViewController.swift; sourceTree = "<group>"; };
 		265FB7CE25B6C402004987AB /* AmongChat.Login.RegionModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChat.Login.RegionModal.swift; sourceTree = "<group>"; };
+		2660758826789FB20065844D /* CacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheManager.swift; sourceTree = "<group>"; };
 		266A42F525F10C5A003B583B /* InfoWithNicknameView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InfoWithNicknameView.xib; sourceTree = "<group>"; };
 		266A42F925F10CC4003B583B /* InfoWithNicknameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoWithNicknameView.swift; sourceTree = "<group>"; };
 		2686A6FA265E8B0900931A03 /* Entity.Feed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entity.Feed.swift; sourceTree = "<group>"; };
@@ -1549,6 +1551,7 @@
 				FE87C2DD259C5ADD00799883 /* ShareManager */,
 				FE7E227A26466B3E00DAD431 /* Database */,
 				FED568D0263AB68C0009F4FF /* InstalledChecker.swift */,
+				2660758826789FB20065844D /* CacheManager.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -2665,6 +2668,7 @@
 				FE126D42243481BD00BEDD60 /* SeatManager.swift in Sources */,
 				26FC5FE22666126F005D8F79 /* Social.ProfileFeedsViewController+Views.swift in Sources */,
 				FE2AF9F9244DCC0400763747 /* Routes.swift in Sources */,
+				2660758926789FB20065844D /* CacheManager.swift in Sources */,
 				FEA79E63249B52EF0067C1C1 /* ShareManager.swift in Sources */,
 				BDC9D4AE258A2AB400412BDC /* AdjustAnalytics.swift in Sources */,
 				26A3D2B026366D4300DD4F53 /* Notice.swift in Sources */,

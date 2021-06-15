@@ -232,7 +232,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 266 images.
+  /// This `R.image` struct is generated, and contains static references to 268 images.
   struct image {
     /// Image `ac_add_stats_add`.
     static let ac_add_stats_add = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_add_stats_add")
@@ -574,8 +574,12 @@ struct R: Rswift.Validatable {
     static let ac_set_birthday_birthday = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_set_birthday_birthday")
     /// Image `ac_setting_check`.
     static let ac_setting_check = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_setting_check")
+    /// Image `ac_setting_clear_cache`.
+    static let ac_setting_clear_cache = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_setting_clear_cache")
     /// Image `ac_setting_diamonds`.
     static let ac_setting_diamonds = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_setting_diamonds")
+    /// Image `ac_setting_feedback`.
+    static let ac_setting_feedback = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_setting_feedback")
     /// Image `ac_setting_region`.
     static let ac_setting_region = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_setting_region")
     /// Image `ac_share_app`.
@@ -1617,9 +1621,19 @@ struct R: Rswift.Validatable {
       return UIKit.UIImage(resource: R.image.ac_setting_check, compatibleWith: traitCollection)
     }
     
+    /// `UIImage(named: "ac_setting_clear_cache", bundle: ..., traitCollection: ...)`
+    static func ac_setting_clear_cache(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_setting_clear_cache, compatibleWith: traitCollection)
+    }
+    
     /// `UIImage(named: "ac_setting_diamonds", bundle: ..., traitCollection: ...)`
     static func ac_setting_diamonds(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ac_setting_diamonds, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_setting_feedback", bundle: ..., traitCollection: ...)`
+    static func ac_setting_feedback(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_setting_feedback, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "ac_setting_region", bundle: ..., traitCollection: ...)`
@@ -2766,7 +2780,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
     
-    /// This `R.string.localizable` struct is generated, and contains static references to 536 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 542 localization keys.
     struct localizable {
       /// en translation:  Congratulations!
       /// 
@@ -2876,6 +2890,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatGroupAdmin = Rswift.StringResource(key: "among.chat.group.admin", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: After clearing the cache, all of your voice messages would be removed permanently. Are you sure you want to continue?
+      /// 
+      /// Locales: en
+      static let amongChatClearCacheTip = Rswift.StringResource(key: "among.chat.clear.cache.tip", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: After the free trial, %@ subscription is %@, it automatically renews unless turned off in Accounting Settings at least 24h before current period ends. Payment is charged to your iTunes Account, cancel any time.
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3084,6 +3102,18 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatClaimed = Rswift.StringResource(key: "among.chat.claimed", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Clear
+      /// 
+      /// Locales: en
+      static let amongChatClear = Rswift.StringResource(key: "among.chat.clear", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Clear Cache
+      /// 
+      /// Locales: en
+      static let amongChatClearCache = Rswift.StringResource(key: "among.chat.clear.cache", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Clearing
+      /// 
+      /// Locales: en
+      static let amongChatClearing = Rswift.StringResource(key: "among.chat.clearing", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Click to Go
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3192,6 +3222,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatCongratesExclusivePet = Rswift.StringResource(key: "among.chat.congrates.exclusive.pet", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Contact Us
+      /// 
+      /// Locales: en
+      static let amongChatContactUs = Rswift.StringResource(key: "among.chat.contact.us", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Contacts
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -4900,6 +4934,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let profilePronounTheyThem = Rswift.StringResource(key: "profile.pronoun.they.them", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: upload your avatar
+      /// 
+      /// Locales: en
+      static let amongChatLoginAuthSourceUploadAvatar = Rswift.StringResource(key: "among.chat.login.auth.source.upload.avatar", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: your purchase was successful
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -5100,6 +5138,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func amongChatGroupAdmin(_: Void = ()) -> String {
         return NSLocalizedString("among.chat.group.admin", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: After clearing the cache, all of your voice messages would be removed permanently. Are you sure you want to continue?
+      /// 
+      /// Locales: en
+      static func amongChatClearCacheTip(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.clear.cache.tip", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: After the free trial, %@ subscription is %@, it automatically renews unless turned off in Accounting Settings at least 24h before current period ends. Payment is charged to your iTunes Account, cancel any time.
@@ -5466,6 +5511,27 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("among.chat.claimed", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Clear
+      /// 
+      /// Locales: en
+      static func amongChatClear(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.clear", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Clear Cache
+      /// 
+      /// Locales: en
+      static func amongChatClearCache(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.clear.cache", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Clearing
+      /// 
+      /// Locales: en
+      static func amongChatClearing(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.clearing", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Click to Go
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -5653,6 +5719,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func amongChatCongratesExclusivePet(_: Void = ()) -> String {
         return NSLocalizedString("among.chat.congrates.exclusive.pet", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Contact Us
+      /// 
+      /// Locales: en
+      static func amongChatContactUs(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.contact.us", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Contacts
@@ -8642,6 +8715,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func profilePronounTheyThem(_: Void = ()) -> String {
         return NSLocalizedString("profile.pronoun.they.them", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: upload your avatar
+      /// 
+      /// Locales: en
+      static func amongChatLoginAuthSourceUploadAvatar(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.login.auth.source.upload.avatar", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: your purchase was successful
