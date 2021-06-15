@@ -164,6 +164,7 @@ target 'WalkieTalkie' do
     pod 'VIMediaCache'
 #    pod 'SZAVPlayer'
     pod 'JXPagingView/Paging'
+    pod 'ReCaptcha/RxSwift'
 end
 
 post_install do |installer|

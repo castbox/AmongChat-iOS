@@ -10,8 +10,150 @@ import Foundation
 import UIKit
 import RxSwift
 import RxCocoa
+import ReCaptcha
+import CastboxDebuger
+
+private let recaptchaWebViewTag = 222
+
+fileprivate func cdPrint(_ message: Any) {
+    Debug.info("[Login]-\(message)")
+}
 
 extension AmongChat.Login {
+    
+    class ReCaptchaContainer: UIView {
+        private var recaptcha: ReCaptcha!
+        
+        private var indicator: UIActivityIndicatorView!
+
+        var successHandler: ((String?) -> Void)?
+        
+        let bag = DisposeBag()
+        
+        override init(frame: CGRect) {
+            super.init(frame: frame)
+            configureSubview()
+            bindSubviewEvent()
+        }
+        
+        required init?(coder aDecoder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
+        }
+        
+        func show() {
+            fadeIn(duration: 0.25)
+            showRecaptchaWebView()
+        }
+        
+        func dismiss() {
+            fadeOut(duration: 0.25) { [weak self] result in
+                self?.removeFromSuperview()
+            }
+        }
+        
+        
+        func showRecaptchaWebView() {
+            recaptcha.rx.didFinishLoading
+                .debug("did finish loading")
+                .subscribe()
+                .disposed(by: bag)
+
+            let validate = recaptcha.rx.validate(on: self, resetOnError: false)
+    //            .catch { error in
+    //                return .just("Error \(error)")
+    //            }
+                .catchErrorJustReturn("Error")
+                .debug("validate")
+                .share()
+
+            let isLoading = validate
+                .map { _ in false }
+                .startWith(true)
+                .share(replay: 1)
+
+            isLoading
+                .bind(to: indicator.rx.isAnimating)
+    //            .bind(to: spinner.rx.isAnimating)
+//                .subscribe(onNext: { loading in
+//                    cdPrint("loading: \(loading)")
+//                })
+                .disposed(by: bag)
+
+//            let isEnabled = isLoading
+//                .map { !$0 }
+//                .catchErrorJustReturn(false)
+//                .share(replay: 1)
+//
+//            isEnabled
+//                .bind(to: nextBtn.rx.isEnabled)
+//                .disposed(by: bag)
+
+    //        isEnabled
+    //            .bind(to: endpointSegmentedControl.rx.isEnabled)
+    //            .disposed(by: bag)
+
+            validate
+                .map { [weak self] _ in
+                    self?.viewWithTag(recaptchaWebViewTag)
+                }
+                .subscribe(onNext: { [weak self] subview in
+//                    subview?.removeFromSuperview()
+                    self?.dismiss()
+                })
+                .disposed(by: bag)
+
+            validate
+    //            .bind(to: label.rx.text)
+                .subscribe(onNext: { [weak self] text in
+                    self?.successHandler?(text)
+                  cdPrint("validate text: \(text)")
+                })
+                .disposed(by: bag)
+
+    //        visibleChallengeSwitch.rx.value
+    //            .subscribe(onNext: { [weak recaptcha] value in
+    //                recaptcha?.forceVisibleChallenge = value
+    //            })
+    //            .disposed(by: bag)
+
+        }
+        
+        private func setupReCaptcha() {
+            
+            recaptcha = try! ReCaptcha(apiKey: "6LdbGCcbAAAAAMUo75A5kIjMFVHTYpmH0Uy5VfqR", baseURL: URL(string: "https://among.chat"), endpoint: .default, locale: Locale.current)
+            recaptcha.forceVisibleChallenge = true
+            recaptcha.configureWebView { [weak self] webview in
+                guard let `self` = self else { return }
+                let width: CGFloat = 300
+                webview.frame = CGRect(x: (Frame.Screen.width - width) / 2, y: 0, width: width, height: width * 1.57)
+                webview.centerY = self.centerY
+    //            webview.frame = self.view.bounds
+                webview.tag = recaptchaWebViewTag
+                webview.backgroundColor = .red
+            }
+        }
+        
+        private func bindSubviewEvent() {
+            rx.tapGesture()
+                .when(.recognized)
+                .subscribe(onNext: { [weak self] _ in
+                    self?.dismiss()
+                })
+                .disposed(by: bag)
+        }
+        
+        private func configureSubview() {
+            backgroundColor = UIColor.black.alpha(0.75)
+            indicator = UIActivityIndicatorView(style: .white)
+            indicator.hidesWhenStopped = true
+            addSubview(indicator)
+            setupReCaptcha()
+            
+            indicator.snp.makeConstraints { maker in
+                maker.center.equalToSuperview()
+            }
+        }
+    }
     
     class MobileViewController: WalkieTalkie.ViewController {
         
@@ -189,6 +331,7 @@ extension AmongChat.Login {
             f.font = R.font.nunitoExtraBold(size: 20)
             f.adjustsFontSizeToFitWidth = true
             f.keyboardAppearance = .dark
+            f.text = "18911982154"
             return f
         }()
         
@@ -304,6 +447,8 @@ extension AmongChat.Login {
         
         private let style: LoginStyle
         
+//        private var recaptcha: ReCaptcha!
+        
         private var loggerSource: String? {
             return style.loggerSource
         }
@@ -375,42 +520,17 @@ extension AmongChat.Login.MobileViewController {
     
     @objc
     private func onNextBtn() {
-        
-        guard let region = currentRegion else {
-            return
+        let recaptchaContainer = AmongChat.Login.ReCaptchaContainer(frame: view.bounds)
+        recaptchaContainer.successHandler = { [weak self] code in
+            guard let code = code else {
+                return
+            }
+            self?.requestSmsCode(with: code)
         }
-        
-        guard let phone = mobileInputField.text else {
-            return
-        }
-        
-        let hudRemoval = view.raft.show(.loading)
-        
-        let completion = { [weak self] in
-            hudRemoval()
-            self?.view.isUserInteractionEnabled = true
-        }
-        
-        view.isUserInteractionEnabled = false
-        Request.requestSmsCode(telRegion: region.telCode, phoneNumber: phone)
-            .subscribe(onSuccess: { [weak self] (response) in
-                completion()
-                self?.showVerifyCodeView(dataModel: AmongChat.Login.SmsCodeViewController.DataModel(telRegion: region.telCode, phone: phone, secondsRemain: response.data?.expire ?? 60))
-                Logger.Action.log(.signin_phone_next_result, category: nil, self?.loggerSource, 0)
-            }, onError: { [weak self] (error) in
-                Logger.Action.log(.signin_phone_next_result_fail, category: nil, "\(region)\(phone)" + "error: \(error.msgOfError ?? "")")
-                completion()
-                
-                guard let error = (error as? MsgError) else {
-                    self?.showAmongAlert(title: R.string.localizable.amongChatCommonError())
-                    return
-                }
-
-                self?.view.raft.autoShow(.text(error.msg ?? R.string.localizable.amongChatUnknownError()))
-            })
-            .disposed(by: bag)
-        Logger.Action.log(.signin_clk, category: .phone, loggerSource)
+        view.addSubview(recaptchaContainer)
+        recaptchaContainer.show()
     }
+    
     
     @available(iOS 13.0, *)
     @objc
@@ -512,6 +632,43 @@ extension AmongChat.Login.MobileViewController {
 }
 
 extension AmongChat.Login.MobileViewController {
+    
+    func requestSmsCode(with recapchaCode: String) {
+        guard let region = currentRegion else {
+            return
+        }
+
+        guard let phone = mobileInputField.text else {
+            return
+        }
+
+        let hudRemoval = view.raft.show(.loading)
+
+        let completion = { [weak self] in
+            hudRemoval()
+            self?.view.isUserInteractionEnabled = true
+        }
+
+        view.isUserInteractionEnabled = false
+        Request.requestSmsCode(telRegion: region.telCode, phoneNumber: phone)
+            .subscribe(onSuccess: { [weak self] (response) in
+                completion()
+                self?.showVerifyCodeView(dataModel: AmongChat.Login.SmsCodeViewController.DataModel(telRegion: region.telCode, phone: phone, secondsRemain: response.data?.expire ?? 60))
+                Logger.Action.log(.signin_phone_next_result, category: nil, self?.loggerSource, 0)
+            }, onError: { [weak self] (error) in
+                Logger.Action.log(.signin_phone_next_result_fail, category: nil, "\(region)\(phone)" + "error: \(error.msgOfError ?? "")")
+                completion()
+
+                guard let error = (error as? MsgError) else {
+                    self?.showAmongAlert(title: R.string.localizable.amongChatCommonError())
+                    return
+                }
+
+                self?.view.raft.autoShow(.text(error.msg ?? R.string.localizable.amongChatUnknownError()))
+            })
+            .disposed(by: bag)
+        Logger.Action.log(.signin_clk, category: .phone, loggerSource)
+    }
     
     private func onLoginResult(_ result: Entity.LoginResult?, _ error: Error?) {
         if let error = error {

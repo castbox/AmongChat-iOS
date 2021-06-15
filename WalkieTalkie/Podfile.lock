@@ -229,6 +229,10 @@ PODS:
     - R.swift.Library (~> 5.0.0)
   - R.swift.Library (5.0.1)
   - RAMAnimatedTabBarController (5.2.0)
+  - ReCaptcha/Core (1.5.0)
+  - ReCaptcha/RxSwift (1.5.0):
+    - ReCaptcha/Core
+    - RxSwift (~> 5.0)
   - Reveal-SDK (4)
   - RxCocoa (5.1.1):
     - RxRelay (~> 5)
@@ -348,6 +352,7 @@ DEPENDENCIES:
   - PullToDismiss (~> 2.2)
   - R.swift (~> 5.0.2)
   - RAMAnimatedTabBarController
+  - ReCaptcha/RxSwift
   - Reveal-SDK (= 4)
   - RxCocoa
   - RxGesture (= 3.0.2)
@@ -436,6 +441,7 @@ SPEC REPOS:
     - R.swift
     - R.swift.Library
     - RAMAnimatedTabBarController
+    - ReCaptcha
     - Reveal-SDK
     - RxCocoa
     - RxGesture
@@ -546,6 +552,7 @@ SPEC CHECKSUMS:
   R.swift: f5a87643b91ea569d23d6afb3eee9c743edde239
   R.swift.Library: cfe85d569d9bae6cb262922db130e7c3a7a5fad1
   RAMAnimatedTabBarController: 6863a386e7ae2ab227cd60aa73ab8ff56cdacfdd
+  ReCaptcha: 40ae1dc390fd5837267674b9a6ae0978abb5eeeb
   Reveal-SDK: 178c927f1a3230648d3a92b96f6e730a35b2750a
   RxCocoa: 32065309a38d29b5b0db858819b5bf9ef038b601
   RxGesture: d6bd7447ca3a596c7a9702a6a2b6a2bb5d8bae54
