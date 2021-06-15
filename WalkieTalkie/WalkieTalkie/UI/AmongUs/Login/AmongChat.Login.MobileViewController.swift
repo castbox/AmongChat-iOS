@@ -21,11 +21,12 @@ fileprivate func cdPrint(_ message: Any) {
 
 extension AmongChat.Login {
     
-    class ReCaptchaContainer: UIView {
+    class ReCaptchaContainer: UIView, UIGestureRecognizerDelegate {
         private var recaptcha: ReCaptcha!
         
         private var indicator: UIActivityIndicatorView!
-
+        private weak var webView: UIView?
+        
         var successHandler: ((String?) -> Void)?
         
         let bag = DisposeBag()
@@ -121,20 +122,21 @@ extension AmongChat.Login {
         private func setupReCaptcha() {
             
             recaptcha = try! ReCaptcha(apiKey: "6LdbGCcbAAAAAMUo75A5kIjMFVHTYpmH0Uy5VfqR", baseURL: URL(string: "https://among.chat"), endpoint: .default, locale: Locale.current)
-            recaptcha.forceVisibleChallenge = true
+            recaptcha.forceVisibleChallenge = false
             recaptcha.configureWebView { [weak self] webview in
                 guard let `self` = self else { return }
                 let width: CGFloat = 300
                 webview.frame = CGRect(x: (Frame.Screen.width - width) / 2, y: 0, width: width, height: width * 1.57)
                 webview.centerY = self.centerY
-    //            webview.frame = self.view.bounds
                 webview.tag = recaptchaWebViewTag
-                webview.backgroundColor = .red
+                self.webView = webview
             }
         }
-        
+              
         private func bindSubviewEvent() {
-            rx.tapGesture()
+            rx.tapGesture(configuration: { [weak self] gesture, delegate in
+                gesture.delegate = self
+            })
                 .when(.recognized)
                 .subscribe(onNext: { [weak self] _ in
                     self?.dismiss()
@@ -152,6 +154,14 @@ extension AmongChat.Login {
             indicator.snp.makeConstraints { maker in
                 maker.center.equalToSuperview()
             }
+        }
+        
+        override func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+            guard let webView = webView else {
+                return true
+            }
+            let point = gestureRecognizer.location(in: webView)
+            return !webView.bounds.contains(point)
         }
     }
     
@@ -633,7 +643,7 @@ extension AmongChat.Login.MobileViewController {
 
 extension AmongChat.Login.MobileViewController {
     
-    func requestSmsCode(with recapchaCode: String) {
+    func requestSmsCode(with recaptchaToken: String) {
         guard let region = currentRegion else {
             return
         }
@@ -650,7 +660,7 @@ extension AmongChat.Login.MobileViewController {
         }
 
         view.isUserInteractionEnabled = false
-        Request.requestSmsCode(telRegion: region.telCode, phoneNumber: phone)
+        Request.requestSmsCode(telRegion: region.telCode, phoneNumber: phone, recaptchaToken: recaptchaToken)
             .subscribe(onSuccess: { [weak self] (response) in
                 completion()
                 self?.showVerifyCodeView(dataModel: AmongChat.Login.SmsCodeViewController.DataModel(telRegion: region.telCode, phone: phone, secondsRemain: response.data?.expire ?? 60))

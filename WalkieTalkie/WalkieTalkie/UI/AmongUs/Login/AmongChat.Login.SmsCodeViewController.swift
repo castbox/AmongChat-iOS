@@ -278,13 +278,22 @@ extension AmongChat.Login.SmsCodeViewController {
         
         timingTip.textTapAction = { [weak self] (containerView: UIView, text: NSAttributedString, range: NSRange, rect: CGRect) -> Void in
             if NSIntersectionRange(range, resendRange).length > 0 {
-                self?.requestSmsCode()
-                Logger.Action.log(.signin_phone_verify_resend, category: nil, self?.loggerSource)
+                guard let `self` = self else { return }
+                let recaptchaContainer = AmongChat.Login.ReCaptchaContainer(frame: self.view.bounds)
+                recaptchaContainer.successHandler = { [weak self] code in
+                    guard let code = code else {
+                        return
+                    }
+                    self?.requestSmsCode(with: code)
+                }
+                self.view.addSubview(recaptchaContainer)
+                recaptchaContainer.show()
+                Logger.Action.log(.signin_phone_verify_resend, category: nil, self.loggerSource)
             }
         }
     }
     
-    private func requestSmsCode() {
+    private func requestSmsCode(with recaptchaToken: String) {
         let hudRemoval = view.raft.show(.loading)
         
         let completion = { [weak self] in
@@ -292,7 +301,7 @@ extension AmongChat.Login.SmsCodeViewController {
             self?.timingTip.isUserInteractionEnabled = true
         }
         timingTip.isUserInteractionEnabled = false
-        Request.requestSmsCode(telRegion: dataModel.telRegion, phoneNumber: dataModel.phone)
+        Request.requestSmsCode(telRegion: dataModel.telRegion, phoneNumber: dataModel.phone, recaptchaToken: recaptchaToken)
             .subscribe(onSuccess: { [weak self] (response) in
                 completion()
                 self?.codeInputField.clearText()

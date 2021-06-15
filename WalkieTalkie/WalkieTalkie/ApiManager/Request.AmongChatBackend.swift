@@ -649,11 +649,12 @@ extension Request {
             .observeOn(MainScheduler.asyncInstance)
     }
 
-    static func requestSmsCode(telRegion: String, phoneNumber: String) -> Single<Entity.SmsCodeResponse> {
+    static func requestSmsCode(telRegion: String, phoneNumber: String, recaptchaToken: String) -> Single<Entity.SmsCodeResponse> {
         let params = [
             "client_secret" : "585ea6cf-862b-4630-9029-5ccb27a018ca",
-            "zone_code" : telRegion,
-            "phone" : phoneNumber,
+            "zone_code": telRegion,
+            "phone": phoneNumber,
+            "token": recaptchaToken,
         ]
         
         return amongchatProvider.rx.request(.requestSmsCode(params))
