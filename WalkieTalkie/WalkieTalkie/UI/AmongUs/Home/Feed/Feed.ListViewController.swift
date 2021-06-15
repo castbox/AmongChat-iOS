@@ -90,9 +90,19 @@ extension Feed {
             didSet {
                 switch (oldValue, adView) {
                 case (.none, .some(_)):
-                    buildDataSourceModels()
-                    //刷新除当前 index 之外的所有 index
-                    self.tableView.reloadData()
+                    //
+                    let oldIndex = dataSource.count
+                    let adIndexs = buildDataSourceModels()
+                        .map { IndexPath(row: $0, section: 0) }
+                    if oldIndex < dataSource.count {
+                        //新插入
+                        tableView.beginUpdates()
+                        tableView.insertRows(at: adIndexs, with: .none)
+                        tableView.endUpdates()
+                    } else {
+                        tableView.reloadData()
+                        replayVisibleItem(false)
+                    }
                 case (.some(_), .some(_)):
                     if let _ = tableView.cellForRow(at: IndexPath(item: currentIndex, section: 0)) as? FeedNativeAdCell {
                         self.tableView.reloadRows(at: [IndexPath(item: currentIndex, section: 0)], with: .none)
@@ -103,20 +113,24 @@ extension Feed {
             }
         }
         
-        private func buildDataSourceModels() {
+        @discardableResult
+        private func buildDataSourceModels() -> [Int] {
             dataSource.removeAll()
+            var adPlaceholderIndex: [Int] = []
             if ableToShowAd {
                 let adPlaceholder = DataPlaceholder(type: .ad)
                 feedsDataSource.enumerated().forEach { (idx, ele) in
                     if idx > currentIndex,
                         idx % adPositionInterval == 0 {
                         dataSource.append(adPlaceholder)
+                        adPlaceholderIndex.append(idx)
                     }
                     dataSource.append(ele)
                 }
             } else {
                 dataSource.append(contentsOf: feedsDataSource)
             }
+            return adPlaceholderIndex
             
 //            if shouldShowFollowIns,
 //                dataSourceModels.count > followInsIdx,
@@ -200,20 +214,29 @@ extension Feed {
             
         }
         
-        func replayVisibleItem() {
+        func replayVisibleItem(_ replay: Bool = true) {
             guard isVisible else {
                 return
             }
             if let cell = tableView.cellForRow(at: IndexPath(row: currentIndex, section: 0)) as? FeedListCell {
-                cell.replay()
+                if replay {
+                    cell.replay()
+                } else {
+                    cell.play()
+                }
                 viewModel.reportPlay(cell.viewModel?.feed.pid)
             } else {
                 if let cell = tableView.visibleCells.first as? FeedListCell {
-                    cell.replay()
+                    if replay {
+                        cell.replay()
+                    } else {
+                        cell.play()
+                    }
                     viewModel.reportPlay(cell.viewModel?.feed.pid)
                 }
             }
         }
+        
         func bindSubviewEvent() {
             SZAVPlayerCache.shared.setup(maxCacheSize: 100)
 
@@ -359,7 +382,7 @@ extension Feed.ListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         // If the cell is the first cell in the tableview, the queuePlayer automatically starts.
         // If the cell will be displayed, pause the video until the drag on the scroll view is ended
-//        cdPrint("tableView willDisplay row: \(indexPath.row)")
+        cdPrint("tableView willDisplay row: \(indexPath.row)")
         if let cell = cell as? FeedListCell {
             if currentIndex != -1 {
                 cell.pause()
@@ -370,7 +393,7 @@ extension Feed.ListViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         // Pause the video if the cell is ended displaying
-//        cdPrint("tableView didEndDisplaying row: \(indexPath.row)")
+        cdPrint("tableView didEndDisplaying row: \(indexPath.row)")
         if let cell = cell as? FeedListCell {
             cell.pause()
             //report
