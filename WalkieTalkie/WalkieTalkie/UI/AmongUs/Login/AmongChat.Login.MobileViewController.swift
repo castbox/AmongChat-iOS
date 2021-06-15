@@ -980,7 +980,8 @@ fileprivate extension AmongChat.Login.LoginStyle.AuthNeededSource {
             return R.string.localizable.amongChatLoginAuthTip(R.string.localizable.amongChatLoginAuthSourceEmote())
         case .create_feed:
             return R.string.localizable.amongChatLoginAuthTip(R.string.localizable.amongChatLoginAuthSourceCreateFeed())
-            
+        case .uploadAvatar:
+            return R.string.localizable.amongChatLoginAuthTip(R.string.localizable.amongChatLoginAuthSourceUploadAvatar())
         }
         
     }
