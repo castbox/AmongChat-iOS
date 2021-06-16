@@ -605,10 +605,20 @@
 "feed.play.no.wifi.tips" = "أنت غير متصل بشبكة WIFI. لمواصلة التدفق ، سيتم استهلاك بيانات الجوال الخاصة بك.";
 "feed.deleted.tips" = "عفوًا ، تم حذف هذا النشر";
 
-//21.06.08
+//1.23.0
 "among.chat.exclusive.avatar" = "الصورة الرمزية الحصرية";
 "among.chat.congrates.exclusive.avatar" = "تهانينا على الحصول على الصورة الرمزية الحصرية لـ AmongChat!";
 "among.chat.exclusive.pet" = "حيوان أليف حصري";
 "among.chat.congrates.exclusive.pet" = "تهانينا على الحصول على حيوان أليف حصري لـ AmongChat!";
 "among.chat.claim.fail" = "فشلت المطالبة";
 "among.chat.claimed" = "ادعى";
+
+"social.profile.chat.anonymous.user.tips" = "عذرًا ، هذا المستخدم مجهول ولا يمكنه تلقي الرسائل.";
+
+//21.06.11
+"among.chat.login.auth.source.upload.avatar" = "تحميل الصورة الرمزية الخاصة بك";
+"among.chat.clear.cache" = "مسح ذاكرة التخزين المؤقت";
+"among.chat.contact.us" = "اتصل بنا";
+"among.chat.clear.cache.tip" = "بعد مسح ذاكرة التخزين المؤقت ، ستتم إزالة جميع رسائلك الصوتية بشكل دائم. هل أنت متأكد أنك تريد الاستمرار؟";
+"among.chat.clear" = "صافي";
+"among.chat.clearing" = "المقاصة";

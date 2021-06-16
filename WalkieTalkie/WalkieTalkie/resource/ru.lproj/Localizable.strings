@@ -605,10 +605,20 @@
 "feed.play.no.wifi.tips" = "Вы не подключены к WIFI. Для продолжения потоковой передачи ваши мобильные данные будут израсходованы.";
 "feed.deleted.tips" = "Ой, этот публикация был удален";
 
-//21.06.08
+//1.23.0
 "among.chat.exclusive.avatar" = "Эксклюзивный аватар";
 "among.chat.congrates.exclusive.avatar" = "Поздравляем с получением эксклюзивного аватара AmongChat!";
 "among.chat.exclusive.pet" = "Эксклюзивный питомец";
 "among.chat.congrates.exclusive.pet" = "Поздравляем с получением эксклюзивного питомца AmongChat!";
 "among.chat.claim.fail" = "Запрос не выполнен";
 "among.chat.claimed" = "Получили";
+
+"social.profile.chat.anonymous.user.tips" = "Извините, этот пользователь анонимен и не может получать сообщения.";
+
+//21.06.11
+"among.chat.login.auth.source.upload.avatar" = "загрузите свой аватар";
+"among.chat.clear.cache" = "Очистить кэш";
+"among.chat.contact.us" = "Свяжитесь с нами";
+"among.chat.clear.cache.tip" = "После очистки кеша все ваши голосовые сообщения будут удалены без возможности восстановления. Вы уверены что хотите продолжить?";
+"among.chat.clear" = "Очистить";
+"among.chat.clearing" = "выполняется очистка";

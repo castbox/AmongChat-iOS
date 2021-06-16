@@ -605,10 +605,20 @@
 "feed.play.no.wifi.tips" = "No estás conectado a WIFI. Para continuar transmitiendo, se consumirían sus datos móviles.";
 "feed.deleted.tips" = "Vaya, esta publicación ha sido eliminada";
 
-//21.06.08
+//1.23.0
 "among.chat.exclusive.avatar" = "Avatar exclusivo";
 "among.chat.congrates.exclusive.avatar" = "¡Felicitaciones por obtener el avatar exclusivo de AmongChat!";
 "among.chat.exclusive.pet" = "Mascota exclusiva";
 "among.chat.congrates.exclusive.pet" = "¡Felicitaciones por obtener la mascota exclusiva de AmongChat!";
 "among.chat.claim.fail" = "Reclamación fallida";
 "among.chat.claimed" = "Reclamado";
+
+"social.profile.chat.anonymous.user.tips" = "Lo sentimos, este usuario es anónimo y no puede recibir mensajes.";
+
+//21.06.11
+"among.chat.login.auth.source.upload.avatar" = "sube tu avatar";
+"among.chat.clear.cache" = "Limpiar cache";
+"among.chat.contact.us" = "Contáctenos";
+"among.chat.clear.cache.tip" = "Después de limpiar la caché, todos tus mensajes de voz serán eliminados permanentemente. ¿Estás seguro de que quieres continuar?";
+"among.chat.clear" = "Limpiar";
+"among.chat.clearing" = "Limpieza en curso";

@@ -605,10 +605,20 @@
 "feed.play.no.wifi.tips" = "WIFI에 연결되어 있지 않습니다. 스트리밍을 계속하려면 모바일 데이터가 사용됩니다.";
 "feed.deleted.tips" = "죄송합니다. 이 게시물은 삭제되었습니다.";
 
-//21.06.08
+//1.23.0
 "among.chat.exclusive.avatar" = "독점 아바타";
 "among.chat.congrates.exclusive.avatar" = "AmongChat의 독점 아바타를 획득하신 것을 축하합니다!";
 "among.chat.exclusive.pet" = "독점 애완 동물";
 "among.chat.congrates.exclusive.pet" = "AmongChat의 독점 애완 동물을 획득 한 것을 축하합니다!";
 "among.chat.claim.fail" = "청구하지 못했습니다.";
 "among.chat.claimed" = "받은";
+
+"social.profile.chat.anonymous.user.tips" = "죄송합니다.이 사용자는 익명이며 메시지를받을 수 없습니다.";
+
+//21.06.11
+"among.chat.login.auth.source.upload.avatar" = "아바타 업로드";
+"among.chat.clear.cache" = "캐시 지우기";
+"among.chat.contact.us" = "문의하기";
+"among.chat.clear.cache.tip" = "캐시를 지우면 모든 음성 메시지가 영구적으로 제거됩니다. 정말로 계속하기를 원하십니까?";
+"among.chat.clear" = "지우기";
+"among.chat.clearing" = "진행 중 지우기";
