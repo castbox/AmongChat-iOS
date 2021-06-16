@@ -200,7 +200,7 @@ extension AmongChat.Home {
                 maker.centerY.equalToSuperview()
                 maker.trailing.equalToSuperview().inset(20)
                 maker.height.equalTo(32)
-                maker.width.greaterThanOrEqualTo(71)
+                maker.width.greaterThanOrEqualTo(84)
             }
             
             userView.snp.makeConstraints { (maker) in
@@ -227,7 +227,7 @@ extension AmongChat.Home {
             if let state = viewModel.roomState {
                 joinBtn.isHidden = state == .private && !Settings.isSilentUser
                 lockedIcon.isHidden = !joinBtn.isHidden
-                joinBtn.setTitle(R.string.localizable.socialJoinAction(), for: .normal)
+                joinBtn.setTitle(R.string.localizable.socialJoinAction().uppercased(), for: .normal)
                 joinBtn.backgroundColor = UIColor(hex6: 0xFFF000)
                 joinBtn.setTitleColor(UIColor.black, for: .normal)
             } else {

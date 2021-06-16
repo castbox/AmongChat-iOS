@@ -343,7 +343,6 @@ extension AmongChat.Login {
             f.font = R.font.nunitoExtraBold(size: 20)
             f.adjustsFontSizeToFitWidth = true
             f.keyboardAppearance = .dark
-            f.text = "18911982154"
             return f
         }()
         
@@ -532,6 +531,7 @@ extension AmongChat.Login.MobileViewController {
     
     @objc
     private func onNextBtn() {
+        view.endEditing(true)
         let recaptchaContainer = AmongChat.Login.ReCaptchaContainer(frame: view.bounds)
         recaptchaContainer.successHandler = { [weak self] code in
             guard let code = code else {
