@@ -24,7 +24,6 @@ extension AmongChat.Home {
         var canShowAvatarGuide = true
         
         private weak var notificationBanner: FloatingNotificationBanner?
-        private weak var notificationBannerDimmerView: UIView?
         
         var topVC: WalkieTalkie.ViewController? {
             UIApplication.topViewController() as? WalkieTalkie.ViewController
@@ -90,9 +89,10 @@ extension AmongChat.Home.MainTabController {
         guard let topVC = UIApplication.topViewController() as? WalkieTalkie.ViewController else {
             return
         }
-        if (topVC is AmongChat.Home.TopicsViewController) || (topVC is AmongChat.Home.RelationsViewController) || (topVC is AmongChat.CreateRoom.ViewController) {
-            //dismiss previous
-            dismissNotificationBanner()
+        //dismiss previous
+        dismissNotificationBanner()
+
+        if (topVC is AmongChat.Home.TopicsViewController) || (topVC is AmongChat.Home.RelationsViewController) || (topVC is AmongChat.CreateRoom.ViewController) || (topVC is Feed.RecommendViewController) || (topVC is AmongChat.Home.ConversationListController) {
             
             Logger.Action.log(.invite_top_dialog_imp, categoryValue: room.topicId)
             
@@ -118,11 +118,7 @@ extension AmongChat.Home.MainTabController {
                 banner?.isDismissedByTapEvent = true
                 Logger.Action.log(.invite_top_dialog_clk, categoryValue: room.topicId, "join")
             }
-            banner.rx.notificationBannerWillDisappear
-                .subscribe(onCompleted: { [weak self] in
-                    self?.notificationBannerDimmerView?.removeFromSuperview()
-                })
-                .disposed(by: bag)
+
             banner.rx.notificationBannerDidDisappear
                 .subscribe(onCompleted: { [weak banner] in
                     if banner?.isDismissedByTapEvent != true {
@@ -187,15 +183,17 @@ extension AmongChat.Home.MainTabController {
     private func setupEvent() {
         imViewModel.invitationObservable
             .observeOn(MainScheduler.asyncInstance)
-            .subscribe(onNext: { user, room in
-                guard let topVC = UIApplication.topViewController() as? WalkieTalkie.ViewController,
+            .subscribe(onNext: { [weak self] user, room in
+                guard let `self` = self, let topVC = UIApplication.topViewController() as? WalkieTalkie.ViewController,
                       !(topVC is AmongChat.Room.ContainerController) && !(topVC is AmongChat.GroupRoom.ContainerController),
                       !topVC.isRequestingRoom else {
                     return
                 }
                 
-                let invitationModal: AmongChat.Home.RoomInvitationModal
+//                self.onReceive(strangerInvigation: user, room: room)
                 
+                let invitationModal: AmongChat.Home.RoomInvitationModal
+
                 if let currentModal = topVC as? AmongChat.Home.RoomInvitationModal {
                     invitationModal = currentModal
                 } else {
@@ -203,7 +201,7 @@ extension AmongChat.Home.MainTabController {
                     invitationModal.modalPresentationStyle = .overCurrentContext
                     topVC.present(invitationModal, animated: false)
                 }
-                
+
                 invitationModal.updateContent(user: user, room: room)
                 invitationModal.bindEvent(join: { [weak self] in
                     guard let `self` = self else { return }

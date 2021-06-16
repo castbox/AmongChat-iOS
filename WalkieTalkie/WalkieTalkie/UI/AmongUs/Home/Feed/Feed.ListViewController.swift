@@ -416,7 +416,10 @@ extension Feed.ListViewController: UIScrollViewDelegate {
 extension Feed.ListViewController {
     func loadNativeAdIfCould() {
         adPositionInterval = FireRemote.shared.value.feedsAdInterval
-        guard adPositionInterval > 0 else {
+        if adPositionInterval == 0 {
+            adPositionInterval = 1
+        }
+        guard adPositionInterval > 1 else {
             return
         }
         Ad.NativeManager.shared.loadAd()

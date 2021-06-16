@@ -70,7 +70,8 @@ class FeedNativeAdCell: UITableViewCell {
         contentView.addLayoutGuide(adViewLayoutGuide)
         
         adViewLayoutGuide.snp.makeConstraints { (maker) in
-            maker.leading.top.trailing.equalToSuperview()
+            maker.leading.trailing.equalToSuperview()
+            maker.top.equalTo(76)
             maker.bottom.equalTo(-76)
 //            maker.edges.equalToSuperview()
         }
