@@ -38,7 +38,7 @@ enum Pronoun: Int {
     case pronounOther
 }
 
-func attribuated(with name: String?, isVerified: Bool?, isVip: Bool?, isOfficial: Bool?, fontSize: CGFloat = 16) -> NSAttributedString {
+func attribuated(with name: String?, isVerified: Bool?, isVip: Bool?, isOfficial: Bool?, officialHeight: OfficialBadgeView.HeightStyle = ._18, fontSize: CGFloat = 16) -> NSAttributedString {
     let nameString = name ?? ""
     let fullString = NSMutableAttributedString(string: nameString)
     if isVerified == true {
@@ -84,24 +84,19 @@ func attribuated(with name: String?, isVerified: Bool?, isVip: Bool?, isOfficial
     }
     
     if isOfficial == true {
-        let font = R.font.nunitoExtraBold(size: fontSize)!
-        var extraTopPadding: CGFloat = 0
-        var image: UIImage {
-            if fontSize == 12 {
-                return R.image.ac_official_icon_14()!
-            } else if fontSize >= 24  {
-                extraTopPadding = -2
-                return R.image.ac_official_icon_14()!
-            }
-            return R.image.ac_official_icon_14()!
+        let b = OfficialBadgeView(heightStyle: officialHeight)
+        
+        if let image = b.asImage() {
+            let font = R.font.nunitoExtraBold(size: fontSize)!
+            let extraTopPadding: CGFloat = 0
+            let imageAttachment = NSTextAttachment()
+            imageAttachment.image = image
+            imageAttachment.bounds = CGRect(x: 0, y: (font.capHeight - image.size.height)/2 + extraTopPadding, width: image.size.width, height: image.size.height)
+            
+            let imageString = NSAttributedString(attachment: imageAttachment)
+            fullString.yy_appendString(" ")
+            fullString.append(imageString)
         }
-        let imageAttachment = NSTextAttachment()
-        imageAttachment.image = image
-        imageAttachment.bounds = CGRect(x: 0, y: (font.capHeight - image.size.height)/2 + extraTopPadding, width: image.size.width, height: image.size.height)
-
-        let imageString = NSAttributedString(attachment: imageAttachment)
-        fullString.yy_appendString(" ")
-        fullString.append(imageString)
     }
     
     return fullString
@@ -109,8 +104,8 @@ func attribuated(with name: String?, isVerified: Bool?, isVip: Bool?, isOfficial
 
 extension Verifiedable {
     
-    func nameWithVerified(fontSize: CGFloat = 16, isShowVerify: Bool = true, isShowOfficial: Bool = true) -> NSAttributedString {
-        return attribuated(with: name, isVerified: isShowVerify ? isVerified : false, isVip: isVip, isOfficial: isShowOfficial ? isOfficial : false,  fontSize: fontSize)
+    func nameWithVerified(fontSize: CGFloat = 16, isShowVerify: Bool = true, isShowOfficial: Bool = true, officialHeight: OfficialBadgeView.HeightStyle = ._18) -> NSAttributedString {
+        return attribuated(with: name, isVerified: isShowVerify ? isVerified : false, isVip: isVip, isOfficial: isShowOfficial ? isOfficial : false, officialHeight: officialHeight, fontSize: fontSize)
     }
 }
 
@@ -398,9 +393,9 @@ extension Entity.UserProfile {
         return name ?? ""
     }
     
-    func nameWithVerified(fontSize: CGFloat = 16, withAge: Bool = false, isShowVerify: Bool = true, isShowOfficial: Bool = true) -> NSAttributedString {
+    func nameWithVerified(fontSize: CGFloat = 16, withAge: Bool = false, isShowVerify: Bool = true, isShowOfficial: Bool = true, officialHeight: OfficialBadgeView.HeightStyle = ._18) -> NSAttributedString {
         let nameString = withAge ? nameWithAge : (name ?? "")
-        return attribuated(with: nameString, isVerified: isShowVerify ? isVerified : false, isVip: isVip, isOfficial: isShowOfficial ? isOfficial : false, fontSize: fontSize)
+        return attribuated(with: nameString, isVerified: isShowVerify ? isVerified : false, isVip: isVip, isOfficial: isShowOfficial ? isOfficial : false, officialHeight: officialHeight, fontSize: fontSize)
     }
     
     var locale: String? {
