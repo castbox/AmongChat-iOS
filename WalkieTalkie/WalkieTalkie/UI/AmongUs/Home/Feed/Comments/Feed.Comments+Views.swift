@@ -31,7 +31,7 @@ extension Feed.Comments {
         private let bag = DisposeBag()
         
         private lazy var avatarView: AvatarImageView = {
-            let iv = AvatarImageView()
+            let iv = AvatarImageView(.gray)
             iv.isUserInteractionEnabled = true
             iv.addGestureRecognizer(avatarTap)
             return iv
@@ -235,9 +235,14 @@ extension Feed.Comments {
         private let bag = DisposeBag()
         
         private lazy var avatarView: AvatarImageView = {
-            let iv = AvatarImageView()
+            let iv = AvatarImageView(.gray)
             iv.isUserInteractionEnabled = true
             iv.addGestureRecognizer(avatarTap)
+            iv.verifyIV.snp.remakeConstraints { maker in
+                maker.width.height.equalTo(15)
+                maker.top.equalTo(-2)
+                maker.trailing.equalTo(7.5)
+            }
             return iv
         }()
                 
