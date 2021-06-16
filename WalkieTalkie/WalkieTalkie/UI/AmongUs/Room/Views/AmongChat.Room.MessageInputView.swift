@@ -86,7 +86,6 @@ extension AmongChat.Room {
         }
         
         private func configureSubview() {
-            backgroundColor = UIColor(hex6: 0x222222, alpha: 0.6)
             addSubviews(views: blurView, inputTextView, placeholderLabel)
             
             blurView.snp.makeConstraints { (maker) in
