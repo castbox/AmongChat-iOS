@@ -49,7 +49,6 @@ extension Feed {
         var feedsDataSource: [Feed.ListCellViewModel] = [] {
             didSet {
                 buildDataSourceModels()
-//                quotesQueueUpdatedSig.onNext(())
             }
         }
         
@@ -67,7 +66,7 @@ extension Feed {
                 case (let placeholder as DataPlaceholder, _ as FeedCellViewModel):
                     switch placeholder.type {
                     case .ad:
-                        Ad.NativeManager.shared.loadAd()
+                        loadNativeAdIfCould()
                     default:
                         break
                     }
@@ -85,7 +84,7 @@ extension Feed {
         private var scrollDisposeBag: Disposable?
         private var previousNetworkType: NetworkConnectionType?
         
-        private let adPositionInterval: Int = FireRemote.shared.value.feedsAdInterval
+        private var adPositionInterval: Int = 4
         private var adView: UIView? {
             didSet {
                 switch (oldValue, adView) {
@@ -154,8 +153,7 @@ extension Feed {
         }
         
         func onViewDidAppear() {
-            Ad.NativeManager.shared.loadAd()
-            
+            loadNativeAdIfCould()
             guard UIApplication.topViewController() == self else {
                 return
             }
@@ -221,7 +219,6 @@ extension Feed {
         }
         
         func bindSubviewEvent() {
-
             Observable.merge(rx.viewWillAppear.asObservable(),
                              Settings.shared.loginResult.replay().map { _ in })
                 .debounce(.seconds(1), scheduler: MainScheduler.asyncInstance)
@@ -351,7 +348,7 @@ extension Feed.ListViewController: UITableViewDelegate, UITableViewDataSource {
         }
         if indexPath.item > 0,
             indexPath.item % adPositionInterval == 0 {
-            Ad.NativeManager.shared.loadAd()
+            loadNativeAdIfCould()
         }
         return cell
     }
@@ -369,8 +366,8 @@ extension Feed.ListViewController: UITableViewDelegate, UITableViewDataSource {
             if currentIndex != -1 {
                 cell.pause()
             }
-            currentIndex = indexPath.row
         }
+        currentIndex = indexPath.row
     }
     
     func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
@@ -402,6 +399,14 @@ extension Feed.ListViewController: UIScrollViewDelegate {
 
 
 extension Feed.ListViewController {
+    func loadNativeAdIfCould() {
+        adPositionInterval = FireRemote.shared.value.feedsAdInterval
+        guard adPositionInterval > 0 else {
+            return
+        }
+        Ad.NativeManager.shared.loadAd()
+    }
+    
     func updateEmoteState(with pid: String, emoteId: String, isSelect: Bool, index: Int)  {
         
         updateCellEmote(with: emoteId, isSelect: isSelect, index: index)

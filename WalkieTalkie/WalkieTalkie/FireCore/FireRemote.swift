@@ -136,7 +136,7 @@ extension FireRemote {
             //
             showQuickChangeRoomButton = config["show_quick_change_button"].boolValue
             defaultMainTabIndex = config["default_main_tab_index"].numberValue?.intValue ?? 0
-            feedsAdInterval = config["default_main_tab_index"].numberValue?.intValue ?? -1
+            feedsAdInterval = config["feeds_ad_interval"].numberValue?.intValue ?? -1
         }
     }
 }
