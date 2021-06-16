@@ -9,7 +9,7 @@
 import UIKit
 import AVFoundation
 import CastboxDebuger
-import VIMediaCache
+
 
 fileprivate func cdPrint(_ message: Any) {
     Debug.info("[VideoPlayerView]-\(message)")

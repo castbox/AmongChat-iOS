@@ -321,7 +321,6 @@ PODS:
   - UICollectionViewLeftAlignedLayout (1.0.2)
   - UIColor_Hex_Swift (4.2.0)
   - UnityAds (3.7.2)
-  - VIMediaCache (0.4)
   - WCDB.swift (1.0.8.2):
     - SQLiteRepairKit (~> 1.2.0)
     - WCDBOptimizedSQLCipher (~> 1.2.0)
@@ -388,7 +387,6 @@ DEPENDENCIES:
   - SwiftyUserDefaults (~> 5.0.0)
   - UICollectionViewLeftAlignedLayout
   - UIColor_Hex_Swift (~> 4.2.0)
-  - VIMediaCache
   - WCDB.swift
   - WebViewJavascriptBridge (from `https://github.com/devSC/WebViewJavascriptBridge.git`, branch `Remove-UIWebView-Support`)
   - WSFlexibleTouch
@@ -486,7 +484,6 @@ SPEC REPOS:
     - UICollectionViewLeftAlignedLayout
     - UIColor_Hex_Swift
     - UnityAds
-    - VIMediaCache
     - WCDB.swift
     - WCDBOptimizedSQLCipher
     - WSFlexibleTouch
@@ -599,7 +596,6 @@ SPEC CHECKSUMS:
   UICollectionViewLeftAlignedLayout: 830bf6fa5bab9f9b464f62e3384f9d2e00b3c0f6
   UIColor_Hex_Swift: bc07fc197421ee896b9ed6dcfa2054b7fbf75145
   UnityAds: cca7e2191591e0bb5d45231f012a2c8722c3e686
-  VIMediaCache: aa650f82cb114c68a343beb4e67416cf5eb2f3a2
   WCDB.swift: 05d509d7a0e60fb6e11c34eb7e4027c0fab5849f
   WCDBOptimizedSQLCipher: baf44493b0c7a3d49e97bc5b64a3856f6428ddd1
   WebViewJavascriptBridge: 31111973095ed8d340ca56c3abdd1ec5cad9f6c4
@@ -608,6 +604,6 @@ SPEC CHECKSUMS:
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
   ZegoExpressEngine: 9d40a73953c000b9a511a58706a37bb14c18948e
 
-PODFILE CHECKSUM: c7eaae42a34092459094add6fe5d28c12b0bceed
+PODFILE CHECKSUM: 30bcbf904b7fbb8e1dfd5037ade0e0c4944b6579
 
 COCOAPODS: 1.10.0

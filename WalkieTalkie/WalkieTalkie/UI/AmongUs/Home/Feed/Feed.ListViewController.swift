@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 import AVFoundation
 import RxSwift
-import VIMediaCache
+
 import Alamofire
 import MBProgressHUD
 

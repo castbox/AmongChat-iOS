@@ -30,15 +30,28 @@ extension AmongChat.Home {
             UIApplication.topViewController() as? WalkieTalkie.ViewController
         }
         
+        override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+            super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        }
+        
+        required init?(coder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
+        }
+        
         private lazy var tabs = Tab.allCases.map { $0.tabTuple }
         
         override func viewDidLoad() {
             super.viewDidLoad()
             delegate = self
+            
             setupLayout()
             setupViewControllers()
             setupEvent()
             InstalledChecker.default.update()
+            
+            updateDefaultSelectedIndexIfNeed()
+            //add log for default index
+            Logger.Action.log(.home_tab, categoryValue: Tab.allCases[selectedIndex].loggerSource)
         }
         
         func dismissNotificationBanner() {
@@ -49,6 +62,13 @@ extension AmongChat.Home {
 }
 
 extension AmongChat.Home.MainTabController {
+    
+    func updateDefaultSelectedIndexIfNeed() {
+        let defaultMainTabIndex = FireRemote.shared.value.defaultMainTabIndex
+        if selectedIndex != defaultMainTabIndex, defaultMainTabIndex < Tab.allCases.count {
+            setSelectIndex(from: selectedIndex, to: defaultMainTabIndex)
+        }
+    }
     
     func showAvatarGuideViewController(with setting: Entity.GlobalSetting) {
         guard let avatarList = setting.changeTip(.avatar)?.list, canShowAvatarGuide,
