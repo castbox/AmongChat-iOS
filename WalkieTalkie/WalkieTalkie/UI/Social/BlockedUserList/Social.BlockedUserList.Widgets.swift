@@ -26,10 +26,11 @@ extension Social.BlockedUserList.Widgets {
             return iv
         }()
         
-        private lazy var usernameLabel: WalkieLabel = {
-            let lb = WalkieLabel()
+        private lazy var usernameLabel: UILabel = {
+            let lb = UILabel()
             lb.font = R.font.nunitoExtraBold(size: 20)
             lb.textColor = .white
+            lb.lineBreakMode = .byTruncatingMiddle
             return lb
         }()
         
@@ -94,7 +95,6 @@ extension Social.BlockedUserList.Widgets {
         func configView(with model: Entity.UserProfile) {
             usernameLabel.attributedText = model.nameWithVerified(isShowVerify: false)
             avatarIV.isVerify = model.isVerified
-            usernameLabel.appendKern()
             avatarIV.setAvatarImage(with: model.pictureUrl)
         }
     }

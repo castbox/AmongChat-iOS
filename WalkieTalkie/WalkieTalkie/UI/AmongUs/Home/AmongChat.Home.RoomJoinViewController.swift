@@ -172,7 +172,7 @@ extension AmongChat.Home {
             avatarIV.setImage(with: URL(string: user.pictureUrl), placeholder: R.image.ac_profile_avatar())
             //            nameLabel.text =
             let msgAttr = NSMutableAttributedString(string: "@")
-            msgAttr.append(user.nameWithVerified(fontSize: 14))
+            msgAttr.append(user.nameWithVerified(fontSize: 14, officialHeight: ._14))
             if room.isGroup {
                 msgAttr.yy_appendString(" " + R.string.localizable.amongChatGroupInvitationMsg(room.name))
             } else {

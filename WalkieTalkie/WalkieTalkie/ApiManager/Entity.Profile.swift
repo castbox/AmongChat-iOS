@@ -411,7 +411,7 @@ extension Entity.UserProfile {
 
 extension Entity.UserProfile {
     func toRoomUser(with seatNo: Int) -> Entity.RoomUser {
-        return Entity.RoomUser(uid: uid, name: name, pic: pictureUrl, seatNo: seatNo, status: .connected, isMuted: false, isMutedByLoginUser: false, isVerified: isVerified, isVip: isVip, decoPetId: decoPetId)
+        return Entity.RoomUser(uid: uid, name: name, pic: pictureUrl, seatNo: seatNo, status: .connected, isMuted: false, isMutedByLoginUser: false, isVerified: isVerified, isVip: isVip, decoPetId: decoPetId, isOfficial: isOfficial)
     }
 }
 

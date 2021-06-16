@@ -25,7 +25,7 @@ class ConversationListCell: UICollectionViewCell {
     func bind(_ item: Entity.DMConversation) {
         let msg = item.message
         avatarView.setAvatarImage(with: msg.fromUser.pictureUrl)
-        nameLabel.text = msg.fromUser.name
+        nameLabel.attributedText = msg.fromUser.nameWithVerified()
         switch item.message.body.msgType {
         case .text:
             contentLabel.text = msg.body.text

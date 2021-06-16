@@ -49,6 +49,7 @@ extension AmongChat.Home {
             let lb = UILabel()
             lb.font = R.font.nunitoExtraBold(size: 16)
             lb.textColor = .white
+            lb.lineBreakMode = .byTruncatingMiddle
             return lb
         }()
         
