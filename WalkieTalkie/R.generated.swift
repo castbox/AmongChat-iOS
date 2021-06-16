@@ -232,7 +232,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 268 images.
+  /// This `R.image` struct is generated, and contains static references to 270 images.
   struct image {
     /// Image `ac_add_stats_add`.
     static let ac_add_stats_add = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_add_stats_add")
@@ -650,6 +650,10 @@ struct R: Rswift.Validatable {
     static let iconFeedSliderThumb = Rswift.ImageResource(bundle: R.hostingBundle, name: "iconFeedSliderThumb")
     /// Image `iconFeedTagPrefix`.
     static let iconFeedTagPrefix = Rswift.ImageResource(bundle: R.hostingBundle, name: "iconFeedTagPrefix")
+    /// Image `iconFeedsAdClose`.
+    static let iconFeedsAdClose = Rswift.ImageResource(bundle: R.hostingBundle, name: "iconFeedsAdClose")
+    /// Image `iconFeedsAdRemove`.
+    static let iconFeedsAdRemove = Rswift.ImageResource(bundle: R.hostingBundle, name: "iconFeedsAdRemove")
     /// Image `iconMutedTips`.
     static let iconMutedTips = Rswift.ImageResource(bundle: R.hostingBundle, name: "iconMutedTips")
     /// Image `iconNewVersion`.
@@ -1809,6 +1813,16 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "iconFeedTagPrefix", bundle: ..., traitCollection: ...)`
     static func iconFeedTagPrefix(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.iconFeedTagPrefix, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "iconFeedsAdClose", bundle: ..., traitCollection: ...)`
+    static func iconFeedsAdClose(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.iconFeedsAdClose, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "iconFeedsAdRemove", bundle: ..., traitCollection: ...)`
+    static func iconFeedsAdRemove(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.iconFeedsAdRemove, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "iconMutedTips", bundle: ..., traitCollection: ...)`
@@ -8784,6 +8798,7 @@ struct _R: Rswift.Validatable {
       try _ConversationSystemMsgCell.validate()
       try _ConversationViewController.validate()
       try _FeedListCell.validate()
+      try _FeedNativeAdCell.validate()
       try _NewVersionAlertController.validate()
       try _ReportCell.validate()
       try _ReportImageCell.validate()
@@ -9240,12 +9255,19 @@ struct _R: Rswift.Validatable {
       fileprivate init() {}
     }
     
-    struct _FeedNativeAdCell: Rswift.NibResourceType {
+    struct _FeedNativeAdCell: Rswift.NibResourceType, Rswift.Validatable {
       let bundle = R.hostingBundle
       let name = "FeedNativeAdCell"
       
       func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> FeedNativeAdCell? {
         return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? FeedNativeAdCell
+      }
+      
+      static func validate() throws {
+        if UIKit.UIImage(named: "iconFeedsAdClose", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'iconFeedsAdClose' is used in nib 'FeedNativeAdCell', but couldn't be loaded.") }
+        if UIKit.UIImage(named: "iconFeedsAdRemove", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'iconFeedsAdRemove' is used in nib 'FeedNativeAdCell', but couldn't be loaded.") }
+        if #available(iOS 11.0, *) {
+        }
       }
       
       fileprivate init() {}

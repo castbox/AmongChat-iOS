@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 class FeedNativeAdCell: UITableViewCell {
     
@@ -14,6 +16,11 @@ class FeedNativeAdCell: UITableViewCell {
         didSet {
             oldValue?.removeFromSuperview()
             if let view = adView {
+                if let nativeView = view.subviews.first(where: { $0 is NativeFeedsAdView }) as? NativeFeedsAdView,
+                   nativeView.sponsoredByLabel.text?.isEmpty == true {
+                    nativeView.sponsoredByLabel.isHidden = false
+                    nativeView.sponsoredByLabel.text = "Sponsored"
+                }
                 contentView.addSubview(view)
                 view.snp.makeConstraints { (maker) in
                     maker.edges.equalTo(adViewLayoutGuide)
@@ -22,9 +29,12 @@ class FeedNativeAdCell: UITableViewCell {
         }
     }
     
+    @IBOutlet private weak var removeAdContainer: UIStackView!
+    var removeAdHandler: CallBack?
+    
     private lazy var adViewLayoutGuide = UILayoutGuide()
     
-//    weak var delegate: QuoteNativeAdCellDelegate?
+    private let bag = DisposeBag()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -39,8 +49,17 @@ class FeedNativeAdCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        removeAdContainer.rx.tapGesture()
+            .when(.recognized)
+            .subscribe(onNext: { [weak self] _ in
+                self?.removeAdHandler?()
+            })
+            .disposed(by: bag)
     }
 
+    @IBAction func removeAdAction(_ sender: Any) {
+        removeAdHandler?()
+    }
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
@@ -51,8 +70,9 @@ class FeedNativeAdCell: UITableViewCell {
         contentView.addLayoutGuide(adViewLayoutGuide)
         
         adViewLayoutGuide.snp.makeConstraints { (maker) in
-//            maker.left.right.centerY.equalToSuperview()
-            maker.edges.equalToSuperview()
+            maker.leading.top.trailing.equalToSuperview()
+            maker.bottom.equalTo(-76)
+//            maker.edges.equalToSuperview()
         }
     }
     

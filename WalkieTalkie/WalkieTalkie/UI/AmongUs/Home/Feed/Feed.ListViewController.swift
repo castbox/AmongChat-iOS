@@ -331,6 +331,16 @@ extension Feed.ListViewController: UITableViewDelegate, UITableViewDataSource {
         if let placeholder = item as? Feed.DataPlaceholder {
             let adCell = tableView.dequeueReusableCell(withClass: FeedNativeAdCell.self, for: indexPath)
             adCell.adView = adView
+            adCell.removeAdHandler = { [weak self] in
+                guard let `self` = self else { return }
+                self.presentPremiumView(source: .feeds_remove_ads, afterDismiss: { [weak self] purchased in
+                    //remove all ad
+                    guard purchased else {
+                        return
+                    }
+                    self?.removeAllAd(at: indexPath)
+                })
+            }
             Ad.NativeManager.shared.didShow(adView: adView, in: self) {
                 //
             }
@@ -405,6 +415,19 @@ extension Feed.ListViewController {
             return
         }
         Ad.NativeManager.shared.loadAd()
+    }
+    
+    func removeAllAd(at indexPath: IndexPath) {
+        //        buildDataSourceModels()
+        dataSource = dataSource.filter { $0 is FeedCellViewModel }
+        self.tableView.reloadData { [weak self] in
+            let newCell = self?.tableView.cellForRow(at: indexPath) as? FeedListCell
+            newCell?.play()
+        }
+//        if currentIndex >= dataSource.count {
+//            currentIndex = dataSource.count - 1
+//        }
+//        replayVisibleItem(false)
     }
     
     func updateEmoteState(with pid: String, emoteId: String, isSelect: Bool, index: Int)  {
