@@ -327,10 +327,11 @@ extension Ad {
 //
 //            return freeDuration > (free_m * secPerMinute)
 //        }()
-//
-//        let flag = !isInAudit && freeToShow && !isPremium
-//        cdPrint("shouldShow:\(flag)")
-//        return flag
-        return !isPremium
+        //        let flag = !isInAudit && freeToShow && !isPremium
+        //        cdPrint("shouldShow:\(flag)")
+        //        return flag
+        let canLoadAd = FireRemote.shared.value.feedsAdInterval > 0
+
+        return !isPremium && canLoadAd
     }
 }

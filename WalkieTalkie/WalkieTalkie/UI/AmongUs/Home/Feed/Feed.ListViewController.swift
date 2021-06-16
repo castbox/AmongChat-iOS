@@ -85,7 +85,7 @@ extension Feed {
         private var scrollDisposeBag: Disposable?
         private var previousNetworkType: NetworkConnectionType?
         
-        private let adPositionInterval: Int = 5
+        private let adPositionInterval: Int = FireRemote.shared.value.feedsAdInterval
         private var adView: UIView? {
             didSet {
                 switch (oldValue, adView) {
@@ -131,23 +131,6 @@ extension Feed {
                 dataSource.append(contentsOf: feedsDataSource)
             }
             return adPlaceholderIndex
-            
-//            if shouldShowFollowIns,
-//                dataSourceModels.count > followInsIdx,
-//                followInsIdx > currentIndexRelay.value {
-//                dataSourceModels.insert(DataPlaceholder(type: .followIns), at: followInsIdx)
-//            }
-//
-//            if shouldShowPromotion,
-//                dataSourceModels.count > premiumIdx,
-//                premiumIdx > currentIndexRelay.value {
-//                dataSourceModels.insert(DataPlaceholder(type: .promotion), at: premiumIdx)
-//            } else if !IAP.isInPromotion,
-//                shouldShowPremium,
-//                dataSourceModels.count > premiumIdx,
-//                premiumIdx > currentIndexRelay.value {
-//                dataSourceModels.insert(DataPlaceholder(type: .premium), at: premiumIdx)
-//            }
         }
         
         private var ableToShowAd: Bool {
@@ -238,7 +221,7 @@ extension Feed {
         }
         
         func bindSubviewEvent() {
-            SZAVPlayerCache.shared.setup(maxCacheSize: 100)
+//            SZAVPlayerCache.shared.setup(maxCacheSize: 100)
 
             Observable.merge(rx.viewWillAppear.asObservable(),
                              Settings.shared.loginResult.replay().map { _ in })
