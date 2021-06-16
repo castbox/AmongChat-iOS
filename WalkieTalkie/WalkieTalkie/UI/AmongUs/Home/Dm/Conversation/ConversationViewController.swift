@@ -54,6 +54,10 @@ class ConversationViewController: ViewController {
     
     var followedHandle:((Bool) -> Void)?
     
+    override var screenName: Logger.Screen.Node.Start {
+        .dm_conversation
+    }
+    
     deinit {
         AudioPlayerManager.default.stopPlay()
     }

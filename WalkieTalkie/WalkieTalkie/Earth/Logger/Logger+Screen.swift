@@ -35,6 +35,9 @@ extension Logger {
                 case chat_language
                 case search
                 case customize
+                case feeds
+                case dm
+                case dm_conversation
             }
             
             case start(Start)

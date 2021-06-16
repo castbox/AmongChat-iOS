@@ -43,6 +43,10 @@ extension AmongChat.Home {
             }
         }
         
+        override var screenName: Logger.Screen.Node.Start {
+            .dm
+        }
+        
         override func viewWillAppear(_ animated: Bool) {
             super.viewWillAppear(animated)
             

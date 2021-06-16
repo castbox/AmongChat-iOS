@@ -17,6 +17,10 @@ extension Feed {
         private var isLoadingMore: Bool = false
         private var hasMore: Bool = true
         
+        override var screenName: Logger.Screen.Node.Start {
+            .feeds
+        }
+        
         override var isHidesBottomBarWhenPushed: Bool {
             return false
         }

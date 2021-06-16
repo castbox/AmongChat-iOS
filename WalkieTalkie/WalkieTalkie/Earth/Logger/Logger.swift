@@ -263,7 +263,7 @@ extension Logger {
 //            // 通过URI直接购买
 //            case uri_buy
 //            // 播放页移除广告
-//            case remove_ads
+            case feeds_remove_ads
 //            // Remote Config配置的自动弹出逻辑
 //            case auto
             // api控制的首次弹出
