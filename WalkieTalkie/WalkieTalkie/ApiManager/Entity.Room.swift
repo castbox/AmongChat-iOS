@@ -189,6 +189,7 @@ extension Entity {
         var isVerified: Bool?
         var isVip: Bool?
         var decoPetId: Int
+        var isOfficial: Bool?
         
         var nickname: String? {
             switch topic {
@@ -253,6 +254,7 @@ extension Entity {
             case isVerified = "is_verified"
             case isVip = "is_vip"
             case decoPetId = "deco_pet_id"
+            case isOfficial = "is_official"
         }
         
         

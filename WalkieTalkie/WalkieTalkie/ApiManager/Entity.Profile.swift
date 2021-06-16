@@ -12,6 +12,7 @@ protocol Verifiedable {
     var name: String? { get set }
     var isVerified: Bool? { get set }
     var isVip: Bool? { get set }
+    var isOfficial: Bool? { get set }
 }
 
 enum Constellation: String, Codable {
@@ -37,7 +38,7 @@ enum Pronoun: Int {
     case pronounOther
 }
 
-func attribuated(with name: String?, isVerified: Bool?, isVip: Bool?, fontSize: CGFloat = 16) -> NSAttributedString {
+func attribuated(with name: String?, isVerified: Bool?, isVip: Bool?, isOfficial: Bool?, fontSize: CGFloat = 16) -> NSAttributedString {
     let nameString = name ?? ""
     let fullString = NSMutableAttributedString(string: nameString)
     if isVerified == true {
@@ -81,13 +82,35 @@ func attribuated(with name: String?, isVerified: Bool?, isVip: Bool?, fontSize: 
         fullString.yy_appendString(" ")
         fullString.append(imageString)
     }
+    
+    if isOfficial == true {
+        let font = R.font.nunitoExtraBold(size: fontSize)!
+        var extraTopPadding: CGFloat = 0
+        var image: UIImage {
+            if fontSize == 12 {
+                return R.image.ac_official_icon_14()!
+            } else if fontSize >= 24  {
+                extraTopPadding = -2
+                return R.image.ac_official_icon_14()!
+            }
+            return R.image.ac_official_icon_14()!
+        }
+        let imageAttachment = NSTextAttachment()
+        imageAttachment.image = image
+        imageAttachment.bounds = CGRect(x: 0, y: (font.capHeight - image.size.height)/2 + extraTopPadding, width: image.size.width, height: image.size.height)
+
+        let imageString = NSAttributedString(attachment: imageAttachment)
+        fullString.yy_appendString(" ")
+        fullString.append(imageString)
+    }
+    
     return fullString
 }
 
 extension Verifiedable {
     
-    func nameWithVerified(fontSize: CGFloat = 16, isShowVerify: Bool = true) -> NSAttributedString {
-        return attribuated(with: name, isVerified: isShowVerify ? isVerified : false, isVip: isVip, fontSize: fontSize)
+    func nameWithVerified(fontSize: CGFloat = 16, isShowVerify: Bool = true, isShowOfficial: Bool = true) -> NSAttributedString {
+        return attribuated(with: name, isVerified: isShowVerify ? isVerified : false, isVip: isVip, isOfficial: isShowOfficial ? isOfficial : false,  fontSize: fontSize)
     }
 }
 
@@ -128,6 +151,7 @@ extension Entity {
         var chatLanguage: String?
         var isVerified: Bool?
         var isVip: Bool?
+        var isOfficial: Bool?
         var decoBgId: Int?
         var decoSkinId: Int?
         var decoHatId: Int?
@@ -217,6 +241,7 @@ extension Entity {
             case followersCount = "followers_count"
             case role
             case isAnonymous = "is_anonymous"
+            case isOfficial = "is_official"
         }
     }
     
@@ -373,9 +398,9 @@ extension Entity.UserProfile {
         return name ?? ""
     }
     
-    func nameWithVerified(fontSize: CGFloat = 16, withAge: Bool = false, isShowVerify: Bool = true) -> NSAttributedString {
+    func nameWithVerified(fontSize: CGFloat = 16, withAge: Bool = false, isShowVerify: Bool = true, isShowOfficial: Bool = true) -> NSAttributedString {
         let nameString = withAge ? nameWithAge : (name ?? "")
-        return attribuated(with: nameString, isVerified: isShowVerify ? isVerified : false, isVip: isVip, fontSize: fontSize)
+        return attribuated(with: nameString, isVerified: isShowVerify ? isVerified : false, isVip: isVip, isOfficial: isShowOfficial ? isOfficial : false, fontSize: fontSize)
     }
     
     var locale: String? {

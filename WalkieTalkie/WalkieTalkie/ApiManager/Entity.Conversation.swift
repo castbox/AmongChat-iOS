@@ -23,6 +23,7 @@ extension Entity {
         let pictureUrl: String?
         var isVerified: Bool?
         var isVip: Bool?
+        var isOfficial: Bool?
         
         var isLoginUser: Bool {
             Settings.loginUserId?.int64 == uid
@@ -75,6 +76,7 @@ extension Entity {
             case pictureUrl = "picture_url"
             case isVerified = "is_verified"
             case isVip = "is_vip"
+            case isOfficial = "is_official"
         }
     }
     
@@ -408,6 +410,7 @@ extension Entity {
         let pictureUrl: String
         var isVerified: Bool?
         var isVip: Bool?
+        var isOfficial: Bool?
         
         var opTime: Double {
             createTime
@@ -444,6 +447,7 @@ extension Entity {
             case emoteIds = "emote_ids"
             case name
             case pictureUrl = "picture_url"
+            case isOfficial = "is_official"
         }
     }
     
