@@ -37,18 +37,21 @@ extension Entity {
             pictureUrl = profile.pictureUrl
             isVerified = profile.isVerified
             isVip = profile.isVip
+            isOfficial = profile.isOfficial
         }
         
         init(uid: Int64,
              name: String?,
              pictureUrl: String?,
              isVerified: Bool?,
-             isVip: Bool?) {
+             isVip: Bool?,
+             isOfficial: Bool?) {
             self.uid = uid
             self.name = name
             self.pictureUrl = pictureUrl
             self.isVerified = isVerified
             self.isVip = isVip
+            self.isOfficial = isOfficial
         }
         
         

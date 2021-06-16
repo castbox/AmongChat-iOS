@@ -361,7 +361,7 @@ extension Constellation {
 
 extension Entity.UserProfile {
     var dmProfile: Entity.DMProfile {
-        Entity.DMProfile(uid: uid.int64, name: name, pictureUrl: pictureUrl, isVerified: isVerified, isVip: isVip)
+        Entity.DMProfile(uid: uid.int64, name: name, pictureUrl: pictureUrl, isVerified: isVerified, isVip: isVip, isOfficial: isOfficial)
     }
     
     var age: String? {
