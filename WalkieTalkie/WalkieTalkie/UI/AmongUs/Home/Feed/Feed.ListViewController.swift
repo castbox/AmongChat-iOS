@@ -221,7 +221,6 @@ extension Feed {
         }
         
         func bindSubviewEvent() {
-//            SZAVPlayerCache.shared.setup(maxCacheSize: 100)
 
             Observable.merge(rx.viewWillAppear.asObservable(),
                              Settings.shared.loginResult.replay().map { _ in })

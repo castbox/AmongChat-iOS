@@ -37,9 +37,7 @@ class PlayerView: UIView {
     private var queuePlayer: AVQueuePlayer?
     private var observer: NSKeyValueObservation?
     private var timeObserver: Any?
-    
-    private var resourceLoaderManager: VIResourceLoaderManager?
-    
+        
     private lazy var videoPlayer: SZAVPlayer = {
         let player = SZAVPlayer()
         player.backgroundColor = .clear
