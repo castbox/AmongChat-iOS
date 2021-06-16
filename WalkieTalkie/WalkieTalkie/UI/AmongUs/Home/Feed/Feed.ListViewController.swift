@@ -21,7 +21,7 @@ extension Feed {
         case profile
     }
     
-    struct DataPlaceholder {
+    class DataPlaceholder: NSObject {
         enum PlaceholderType {
             case ad
 //            case followIns
@@ -29,6 +29,11 @@ extension Feed {
 //            case promotion
         }
         let type: PlaceholderType
+        
+        init(type: PlaceholderType) {
+            self.type = type
+            super.init()
+        }
     }
     
     class ListViewController: WalkieTalkie.ViewController {
@@ -338,7 +343,7 @@ extension Feed.ListViewController: UITableViewDelegate, UITableViewDataSource {
                     guard purchased else {
                         return
                     }
-                    self?.removeAllAd(at: indexPath)
+                    self?.removeAllAd(at: placeholder)
                 })
             }
             Ad.NativeManager.shared.didShow(adView: adView, in: self) {
@@ -417,8 +422,17 @@ extension Feed.ListViewController {
         Ad.NativeManager.shared.loadAd()
     }
     
-    func removeAllAd(at indexPath: IndexPath) {
-        //        buildDataSourceModels()
+    func removeAllAd(at placeholder: Feed.DataPlaceholder) {
+        let nilableIndex = self.dataSource.firstIndex(where: { item in
+            guard let item = item as? Feed.DataPlaceholder else {
+                return false
+            }
+            return item.isEqual(placeholder)
+        })
+        guard let index = nilableIndex else {
+            return
+        }
+        let indexPath = IndexPath(row: index, section: 0)
         dataSource = dataSource.filter { $0 is FeedCellViewModel }
         self.tableView.reloadData { [weak self] in
             let newCell = self?.tableView.cellForRow(at: indexPath) as? FeedListCell
@@ -732,9 +746,7 @@ extension Feed.ListViewController {
             self.viewModel.feedDelete(viewModel.feed.pid)
                 .subscribe(onSuccess: { [weak self] result in
                     removeHandler()
-                    guard let `self` = self else { return }
-//                    self.dataSource = self.dataSource.filter { $0.feed.pid != viewModel.feed.pid }
-                    self.deleteRow(at: viewModel)
+                    self?.deleteRow(at: viewModel)
                     HapticFeedback.Impact.success()
                 }) { error in
                     removeHandler()
@@ -761,11 +773,8 @@ extension Feed.ListViewController {
         guard let viewModel = viewModel, let index = nilableIndex else {
             return
         }
-//        guard let viewModel = dataSource.safe(indexPath.row) else {
-//            return
-//        }
         let indexPath = IndexPath(row: index, section: 0)
-        let nextIndex = IndexPath(row: indexPath.row + 1, section: 0)
+//        let nextIndex = IndexPath(row: indexPath.row + 1, section: 0)
 //        if nextIndex.row < dataSource.count - 1 {
 //            scrollDisposeBag?.dispose()
 //            scrollDisposeBag = self.rx.methodInvoked(#selector(self.scrollViewDidEndScrollingAnimation(_:)))
@@ -802,13 +811,13 @@ extension Feed.ListViewController {
 //        } else {
         
         
-            dataSource = dataSource.filter { item in
+            feedsDataSource = feedsDataSource.filter { item in
                 guard let item = item as? FeedCellViewModel else {
                     return false
                 }
                 return item.feed.pid != viewModel.feed.pid
             }
-//            tableView.reloadData()
+        
             self.tableView.reloadData { [weak self] in
                 let newCell = self?.tableView.cellForRow(at: indexPath) as? FeedListCell
                 newCell?.play()
