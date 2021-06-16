@@ -622,3 +622,4 @@
 "among.chat.clear.cache.tip" = "After clearing the cache, all of your voice messages would be removed permanently. Are you sure you want to continue?";
 "among.chat.clear" = "Clear";
 "among.chat.clearing" = "Clearing";
+"feed.remove.ads" = "Remove Ads";
