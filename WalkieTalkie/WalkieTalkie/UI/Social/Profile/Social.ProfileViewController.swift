@@ -678,7 +678,7 @@ private extension Social.ProfileViewController {
         if isBlocked {
             blocked = true
             if !blockedUsers.contains(where: { $0.uid == uid}) {
-                let newUser = Entity.RoomUser(uid: uid, name: userProfile.value?.name ?? "", pic: userProfile.value?.pictureUrl ?? "")
+                let newUser = Entity.RoomUser(uid: uid, name: userProfile.value?.name ?? "", pic: userProfile.value?.pictureUrl ?? "", isOfficial: nil)
                 blockedUsers.append(newUser)
                 Defaults[\.blockedUsersV2Key] = blockedUsers
             }

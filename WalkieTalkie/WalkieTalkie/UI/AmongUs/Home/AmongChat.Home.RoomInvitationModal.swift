@@ -50,6 +50,7 @@ extension AmongChat.Home {
             lb.font = R.font.nunitoExtraBold(size: 20)
             lb.textColor = .white
             lb.textAlignment = .center
+            lb.lineBreakMode = .byTruncatingMiddle
             return lb
         }()
         

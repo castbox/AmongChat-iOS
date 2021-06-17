@@ -375,6 +375,21 @@ extension ChatRoom.TextMessage {
             mutableNormalString.append(imageString)
         }
         
+        if user.isOfficial == true {
+            let b = OfficialBadgeView(heightStyle: ._14)
+            
+            if let image = b.asImage() {
+                let font = R.font.nunitoExtraBold(size: 12)!
+                let imageAttachment = NSTextAttachment()
+                imageAttachment.image = image
+                imageAttachment.bounds = CGRect(x: 0, y: (font.capHeight - image.size.height)/2, width: image.size.width, height: image.size.height)
+                
+                let imageString = NSAttributedString(attachment: imageAttachment)
+                mutableNormalString.yy_appendString(" ")
+                mutableNormalString.append(imageString)
+            }
+        }
+
         mutableNormalString.append(NSAttributedString(string: "  \(content)", attributes: contentAttr))
         return mutableNormalString
     }
@@ -437,6 +452,22 @@ extension ChatRoom.JoinRoomMessage {
 //            }
             mutableNormalString.append(imageString)
         }
+        
+        if user.isOfficial == true {
+            let b = OfficialBadgeView(heightStyle: ._14)
+            
+            if let image = b.asImage() {
+                let font = R.font.nunitoExtraBold(size: 12)!
+                let imageAttachment = NSTextAttachment()
+                imageAttachment.image = image
+                imageAttachment.bounds = CGRect(x: 0, y: (font.capHeight - image.size.height)/2, width: image.size.width, height: image.size.height)
+                
+                let imageString = NSAttributedString(attachment: imageAttachment)
+                mutableNormalString.yy_appendString(" ")
+                mutableNormalString.append(imageString)
+            }
+        }
+        
         mutableNormalString.append(NSAttributedString(string: "  \(R.string.localizable.chatroomMessageUserJoined())", attributes: contentAttr))
         return mutableNormalString
     }
@@ -524,6 +555,22 @@ extension ChatRoom.GroupJoinRoomMessage {
 //            }
             mutableNormalString.append(imageString)
         }
+        
+        if user.isOfficial == true {
+            let b = OfficialBadgeView(heightStyle: ._14)
+            
+            if let image = b.asImage() {
+                let font = R.font.nunitoExtraBold(size: 12)!
+                let imageAttachment = NSTextAttachment()
+                imageAttachment.image = image
+                imageAttachment.bounds = CGRect(x: 0, y: (font.capHeight - image.size.height)/2, width: image.size.width, height: image.size.height)
+                
+                let imageString = NSAttributedString(attachment: imageAttachment)
+                mutableNormalString.yy_appendString(" ")
+                mutableNormalString.append(imageString)
+            }
+        }
+
         mutableNormalString.append(NSAttributedString(string: "  \(R.string.localizable.chatroomMessageUserJoined())", attributes: contentAttr))
         return mutableNormalString
     }

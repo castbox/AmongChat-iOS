@@ -294,7 +294,7 @@ private extension ConversationViewController {
             blocked = true
             let user = conversation.message.fromUser
             if !blockedUsers.contains(where: { $0.uid == viewModel.targetUid.intValue }) {
-                let newUser = Entity.RoomUser(uid: viewModel.targetUid.intValue, name: user.name ?? "", pic: user.pictureUrl ?? "")
+                let newUser = Entity.RoomUser(uid: viewModel.targetUid.intValue, name: user.name ?? "", pic: user.pictureUrl ?? "", isOfficial: nil)
                 blockedUsers.append(newUser)
                 Defaults[\.blockedUsersV2Key] = blockedUsers
             }

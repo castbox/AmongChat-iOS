@@ -54,6 +54,7 @@ extension Feed.Comments {
             let l = UILabel()
             l.font = R.font.nunitoExtraBold(size: 16)
             l.textColor = UIColor(hex6: 0x898989)
+            l.lineBreakMode = .byTruncatingMiddle
             return l
         }()
         
@@ -167,6 +168,11 @@ extension Feed.Comments {
                 maker.trailing.lessThanOrEqualToSuperview().offset(-Frame.horizontalBleedWidth)
             }
             
+            likeButton.setContentHuggingPriority(UILayoutPriority(UILayoutPriority.defaultHigh.rawValue + 1), for: .horizontal)
+            likeButton.setContentCompressionResistancePriority(UILayoutPriority(UILayoutPriority.defaultHigh.rawValue + 1), for: .horizontal)
+            nameLabel.setContentHuggingPriority(UILayoutPriority(UILayoutPriority.defaultLow.rawValue - 1), for: .horizontal)
+            nameLabel.setContentCompressionResistancePriority(UILayoutPriority(UILayoutPriority.defaultLow.rawValue - 1), for: .horizontal)
+            
             let commentTap = UITapGestureRecognizer()
             commentLabel.addGestureRecognizer(commentTap)
             commentTap.rx.event
@@ -263,6 +269,7 @@ extension Feed.Comments {
             let l = UILabel()
             l.font = R.font.nunitoExtraBold(size: 16)
             l.textColor = UIColor(hex6: 0x898989)
+            l.lineBreakMode = .byTruncatingMiddle
             return l
         }()
         
