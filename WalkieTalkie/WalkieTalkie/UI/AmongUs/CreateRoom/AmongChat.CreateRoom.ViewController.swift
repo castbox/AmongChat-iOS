@@ -92,7 +92,7 @@ extension AmongChat.CreateRoom {
             v.addSubviews(views: privateStateLabel, privateStateSwitch, cardButton, confirmButton)
             
             var hInset: CGFloat = 20
-            var confirmButtonBottom: CGFloat = 46
+            var confirmButtonBottom: CGFloat = 20 + Frame.Height.safeAeraBottomHeight
             adaptToIPad {
                 hInset = 40
                 confirmButtonBottom = 32

@@ -231,14 +231,8 @@ extension Social {
             return btn
         }()
         
-        private let bottomGradientViewHeight: CGFloat = 134
         private lazy var bottomGradientView: GradientView = {
-            let v = GradientView()
-            let l = v.layer
-            l.colors = [UIColor(hex6: 0x121212, alpha: 0).cgColor, UIColor(hex6: 0x121212, alpha: 0.18).cgColor, UIColor(hex6: 0x121212, alpha: 0.57).cgColor, UIColor(hex6: 0x121212).cgColor]
-            l.startPoint = CGPoint(x: 0.5, y: 0)
-            l.endPoint = CGPoint(x: 0.5, y: 0.4)
-            l.locations = [0, 0.3, 0.6, 1]
+            let v = Social.ChooseGame.bottomGradientView()
             
             Observable.combineLatest(relationData.filterNil(),
                                      userProfile.filterNil())
@@ -248,31 +242,22 @@ extension Social {
                     
                     guard let `self` = self else { return }
                     
-//                    if AmongChat.Login.isLogedin,
-//                       !(p.isAnonymous ?? true) {
-                        v.addSubviews(views: self.chatButton, self.followButton)
-                        self.chatButton.snp.makeConstraints { (maker) in
-                            maker.leading.equalTo(20)
-                            maker.bottom.equalTo(-33)
-                            maker.height.equalTo(48)
-                        }
-                        self.followButton.snp.makeConstraints { (maker) in
-                            maker.bottom.equalTo(-33)
-                            maker.height.equalTo(48)
-                            maker.leading.equalTo(self.chatButton.snp.trailing).offset(20)
-                            maker.trailing.equalTo(-20)
-                            maker.width.equalTo(self.chatButton.snp.width)
-                        }
-                        self.chatButton.isHidden = false
-//                    } else {
-//                        v.addSubviews(views: self.followButton)
-//                        self.followButton.snp.makeConstraints { (maker) in
-//                            maker.bottom.equalTo(-33)
-//                            maker.height.equalTo(48)
-//                            maker.leading.trailing.equalToSuperview().inset(20)
-//                        }
-//                    }
-                    
+                    v.addSubviews(views: self.chatButton, self.followButton)
+                    self.chatButton.snp.makeConstraints { (maker) in
+                        maker.top.equalTo(40)
+                        maker.leading.equalTo(20)
+                        maker.bottom.equalTo(-(20 + Frame.Height.safeAeraBottomHeight))
+                        maker.height.equalTo(48)
+                    }
+                    self.followButton.snp.makeConstraints { (maker) in
+                        maker.top.equalTo(40)
+                        maker.bottom.equalTo(-(20 + Frame.Height.safeAeraBottomHeight))
+                        maker.height.equalTo(48)
+                        maker.leading.equalTo(self.chatButton.snp.trailing).offset(20)
+                        maker.trailing.equalTo(-20)
+                        maker.width.equalTo(self.chatButton.snp.width)
+                    }
+                    self.chatButton.isHidden = false
                     let follow = relation.isFollowed ?? false
                     self.setFollowButton(follow)
                 })
@@ -376,7 +361,6 @@ private extension Social.ProfileViewController {
         
         bottomGradientView.snp.makeConstraints { (maker) in
             maker.leading.trailing.bottom.equalToSuperview()
-            maker.height.equalTo(bottomGradientViewHeight)
         }
         
         pagingView.snp.makeConstraints { (maker) in
@@ -409,7 +393,7 @@ private extension Social.ProfileViewController {
             profileDataViews.forEach { (view) in
                 let scroll = view.listScrollView()
                 var contentInset = scroll.contentInset
-                contentInset.bottom = max(contentInset.bottom, bottomGradientViewHeight)
+                contentInset.bottom = max(contentInset.bottom, bottomGradientView.bounds.height)
                 scroll.contentInset = contentInset
             }
         }
