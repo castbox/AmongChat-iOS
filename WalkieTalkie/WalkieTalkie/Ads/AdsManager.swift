@@ -18,6 +18,7 @@ import MoPubSDK
 import CastboxDebuger
 import SwifterSwift
 //import GoogleMobileAds
+import MoPub_Fyber_Adapters
 
 enum AdsState: Int {
     case preparing = 0
@@ -68,7 +69,7 @@ class AdsManager: NSObject {
         //        setupAppmonet()
         setupMopub()
         //        setupAws()
-        //        setupFacebook()
+//                setupFacebook()
         setupAdmob()
         //        setupRefresh()
         //        setupEventListener()
@@ -90,6 +91,9 @@ class AdsManager: NSObject {
         #if DEBUG
         config.loggingLevel = .debug
         #endif
+        config.additionalNetworks = [FyberAdapterConfiguration.self]
+        config.mediatedNetworkConfigurations = [String(describing: FyberAdapterConfiguration.self):["appID": "121194"]]
+        
         MoPub.sharedInstance().initializeSdk(with: config) {
             DispatchQueue.main.async { [weak self] in
                 //send notification
@@ -132,13 +136,13 @@ class AdsManager: NSObject {
     
     var awsRequestCount = 0
     
-    //    private func setupFacebook() {
-    //        #if DEBUG
-    //        FBAdSettings.setLogLevel(.log)
-    //        FBAdSettings.addTestDevices(["b602d594afd2b0b327e07a06f36ca6a7e42546d0"])
-    ////        FBAdSettings.clearTestDevices()
-    //        #endif
-    //    }
+//        private func setupFacebook() {
+//            #if DEBUG
+//            FBAdSettings.setLogLevel(.log)
+//            FBAdSettings.addTestDevices(["b602d594afd2b0b327e07a06f36ca6a7e42546d0"])
+//    //        FBAdSettings.clearTestDevices()
+//            #endif
+//        }
     
     //    private func setupEventListener() {
     //        AdsManager.notificationCenter.rx.notification(.adEvent)

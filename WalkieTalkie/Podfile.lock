@@ -143,6 +143,15 @@ PODS:
     - GoogleUtilities/Environment (~> 6.2)
     - "GoogleUtilities/NSData+zlib (~> 6.2)"
     - Protobuf (>= 3.9.2, ~> 3.9)
+  - Fyber_Marketplace_SDK (7.8.6):
+    - Fyber_Marketplace_SDK/IASDKCore (= 7.8.6)
+    - Fyber_Marketplace_SDK/IASDKMRAID (= 7.8.6)
+    - Fyber_Marketplace_SDK/IASDKVideo (= 7.8.6)
+  - Fyber_Marketplace_SDK/IASDKCore (7.8.6)
+  - Fyber_Marketplace_SDK/IASDKMRAID (7.8.6):
+    - Fyber_Marketplace_SDK/IASDKCore
+  - Fyber_Marketplace_SDK/IASDKVideo (7.8.6):
+    - Fyber_Marketplace_SDK/IASDKCore
   - GoogleAppMeasurement (6.5.1):
     - GoogleUtilities/AppDelegateSwizzler (~> 6.0)
     - GoogleUtilities/MethodSwizzler (~> 6.0)
@@ -208,6 +217,14 @@ PODS:
     - FBAudienceNetwork (= 6.5.0)
     - mopub-ios-sdk/Core (~> 5.17.0)
     - mopub-ios-sdk/NativeAds (~> 5.17.0)
+  - MoPub-Fyber-Adapters (7.8.6.0):
+    - MoPub-Fyber-Adapters/MoPub (= 7.8.6.0)
+    - MoPub-Fyber-Adapters/Network (= 7.8.6.0)
+  - MoPub-Fyber-Adapters/MoPub (7.8.6.0):
+    - mopub-ios-sdk/Core (~> 5.17.0)
+  - MoPub-Fyber-Adapters/Network (7.8.6.0):
+    - Fyber_Marketplace_SDK (= 7.8.6)
+    - mopub-ios-sdk/Core (~> 5.17.0)
   - mopub-ios-sdk (5.17.0):
     - mopub-ios-sdk/MoPubSDK (= 5.17.0)
   - mopub-ios-sdk/Core (5.17.0)
@@ -363,7 +380,8 @@ DEPENDENCIES:
   - loady
   - MBProgressHUD (~> 1.0.0)
   - MJRefresh (~> 3.5.0)
-  - MoPub-FacebookAudienceNetwork-Adapters
+  - MoPub-FacebookAudienceNetwork-Adapters (= 6.5.0.0)
+  - MoPub-Fyber-Adapters (= 7.8.6.0)
   - mopub-ios-sdk (= 5.17.0)
   - MoPub-UnityAds-Adapters (= 3.7.2.0)
   - Moya/RxSwift
@@ -427,6 +445,7 @@ SPEC REPOS:
     - FirebaseInstanceID
     - FirebaseMessaging
     - FirebaseRemoteConfig
+    - Fyber_Marketplace_SDK
     - GoogleAppMeasurement
     - GoogleDataTransport
     - GoogleDataTransportCCTSupport
@@ -446,6 +465,7 @@ SPEC REPOS:
     - MBProgressHUD
     - MJRefresh
     - MoPub-FacebookAudienceNetwork-Adapters
+    - MoPub-Fyber-Adapters
     - mopub-ios-sdk
     - MoPub-UnityAds-Adapters
     - Moya
@@ -539,6 +559,7 @@ SPEC CHECKSUMS:
   FirebaseInstanceID: cef67c4967c7cecb56ea65d8acbb4834825c587b
   FirebaseMessaging: 29543feb343b09546ab3aa04d008ee8595b43c44
   FirebaseRemoteConfig: 3d189cf0c3c5abc0c924ef1cce60c4add8d3262c
+  Fyber_Marketplace_SDK: 8ba09b9df4cc225d34fb52260c0174269746b8e4
   GoogleAppMeasurement: 137afe68bfa406c3f4221b9395253d9e5d4654cf
   GoogleDataTransport: ad884314b81cdb808fb1d23787b367ff8da4e28a
   GoogleDataTransportCCTSupport: d70a561f7d236af529fee598835caad5e25f6d3d
@@ -558,6 +579,7 @@ SPEC CHECKSUMS:
   MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
   MJRefresh: 6afc955813966afb08305477dd7a0d9ad5e79a16
   MoPub-FacebookAudienceNetwork-Adapters: c7a4de4869afa6bc9075f03c71a8badd5577ece0
+  MoPub-Fyber-Adapters: 1328f8dcd409ffe31a6808965c8dae658e72ce56
   mopub-ios-sdk: 36d322902674b79b0560a1cb8d15af0548d364ea
   MoPub-UnityAds-Adapters: 58a32a7117cfed75e4bf7b30bd5adce7094119eb
   Moya: 5b45dacb75adb009f97fde91c204c1e565d31916
@@ -604,6 +626,6 @@ SPEC CHECKSUMS:
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
   ZegoExpressEngine: 9d40a73953c000b9a511a58706a37bb14c18948e
 
-PODFILE CHECKSUM: 30bcbf904b7fbb8e1dfd5037ade0e0c4944b6579
+PODFILE CHECKSUM: 23e7ffaae0c2cfdb167bdebde3ce51f72866493b
 
 COCOAPODS: 1.10.0

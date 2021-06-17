@@ -1,12 +1,12 @@
 source 'git@github.com:CocoaPods/Specs.git'
 source 'git@github.com:castbox/GuruSpecs.git'
-install! 'cocoapods',
-:deterministic_uuids => false,
-:generate_multiple_pod_projects => true,
-:disable_input_output_paths => true
+#install! 'cocoapods',
+#:deterministic_uuids => false,
+#:generate_multiple_pod_projects => true,
+#:disable_input_output_paths => true
 platform :ios, '10.0'
 use_frameworks!
-use_modular_headers!
+#use_modular_headers!
 
 
 def core_pods
@@ -101,9 +101,10 @@ target 'WalkieTalkie' do
     pod 'SwifterSwift'
     
     pod 'mopub-ios-sdk', '5.17.0'
-#    pod 'MoPub-AdMob-Adapters'
+#    pod 'MoPub-AdMob-Adapters', '8.6.0.0'
     pod 'MoPub-UnityAds-Adapters', '3.7.2.0'
-    pod 'MoPub-FacebookAudienceNetwork-Adapters'
+    pod 'MoPub-FacebookAudienceNetwork-Adapters', '6.5.0.0'
+    pod 'MoPub-Fyber-Adapters', '7.8.6.0'
     
     #objc
     pod 'MBProgressHUD', '~> 1.0.0'

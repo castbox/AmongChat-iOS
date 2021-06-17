@@ -148,7 +148,7 @@ extension Ad {
                 let mopubConfiguration = MPStaticNativeAdRenderer.rendererConfiguration(with: settings)
 
 //                let googleConfiguration = MPGoogleAdMobNativeRenderer.rendererConfiguration(with: settings)
-
+                
                 let facebookConfiguration = FacebookNativeAdRenderer.rendererConfiguration(with: settings)
 
                 let configurations = [mopubConfiguration,/* googleConfiguration,*/ facebookConfiguration]
