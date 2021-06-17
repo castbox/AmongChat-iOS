@@ -192,6 +192,7 @@ extension Social.AddStatsViewController {
         var config = YPImagePickerConfiguration()
         config.screens = [.library]
         config.wordings.permissionPopup.message = R.string.infoplist.nsPhotoLibraryUsageDescription()
+        config.library.isSquareByDefault = false
         config.library.itemOverlayType = .none
         config.showsPhotoFilters = false
         config.hidesStatusBar = false

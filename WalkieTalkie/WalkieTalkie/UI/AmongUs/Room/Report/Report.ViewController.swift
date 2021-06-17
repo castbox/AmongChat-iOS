@@ -11,6 +11,7 @@ import SnapKit
 import RxSwift
 import AVFoundation
 import IQKeyboardManagerSwift
+import YPImagePicker
 
 // MARK: - vc
 extension Report {
@@ -127,68 +128,74 @@ extension Report.ViewController: UITableViewDelegate {
 extension Report.ViewController {
     
     func chooseImage() {
-        // 设置相册和相机
-        let pickerVC = UIImagePickerController()
-        if  UIImagePickerController.isSourceTypeAvailable(.camera) ||
-            UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
-            pickerVC.delegate = self
-        }
-        
-        let gotoSettingAlert = { [weak self] in
-            guard let `self` = self else { return }
-            let alertVC = UIAlertController(title: "Cuddle would like to take a photo", message: "Please switch on camera permission", preferredStyle: .alert)
-            let resetAction = UIAlertAction(title: "Go Settings", style: .default, handler: { (_) in
-                if let url = URL(string: UIApplication.openSettingsURLString),
-                    UIApplication.shared.canOpenURL(url) {
-                    UIApplication.shared.open(url)
+        selectImage()
+            .subscribe(onSuccess: { [weak self] image in
+                guard let imgPng = image.scaled(toWidth: 400) else {
+                    return
                 }
-            })
-            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-            alertVC.addAction(cancelAction)
-            alertVC.addAction(resetAction)
-            DispatchQueue.main.async {
-                self.navigationController?.present(alertVC, animated: true)
+                self?.footerView.append(image: imgPng)
+            }) { error in
+                
             }
-        }
+            .disposed(by: bag)
+    }
+    
+    private func selectImage() -> Single<UIImage> {
         
-        AVCaptureDevice.requestAccess(for: .video, completionHandler: { [weak self] success in
-            DispatchQueue.main.async {
-                if success {
-                    guard let `self` = self else { return }
-                    pickerVC.sourceType = .photoLibrary
-                    self.navigationController?.present(pickerVC, animated: true)
-                } else {
-                    gotoSettingAlert()
+        var config = YPImagePickerConfiguration()
+        config.screens = [.library]
+        config.library.isSquareByDefault = false
+        config.wordings.permissionPopup.message = R.string.infoplist.nsPhotoLibraryUsageDescription()
+        
+        config.showsPhotoFilters = false
+        config.hidesStatusBar = false
+        let picker = YPImagePicker(configuration: config)
+        picker.imagePickerDelegate = self
+        present(picker, animated: true, completion: nil)
+        
+        return Single<UIImage>.create(subscribe: { (subscriber) -> Disposable in
+            
+            picker.didFinishPicking { [unowned picker] items, _ in
+                
+                defer {
+                    picker.dismiss(animated: true, completion: nil)
                 }
+                
+                guard let photo = items.singlePhoto else {
+                    subscriber(.error(MsgError.default))
+                    return
+                }
+                
+                subscriber(.success(photo.image))
+                
             }
+            
+            return Disposables.create()
+            
         })
+        
     }
 }
 
-extension Report.ViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        picker.dismiss(animated: true, completion: nil)
+extension Report.ViewController: YPImagePickerDelegate {
+    
+    func noPhotos() {
+        view.raft.autoShow(.text(MsgError.default.msg ?? R.string.localizable.amongChatUnknownError()))
     }
     
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
-        
-        defer { picker.dismiss(animated: true, completion: nil) }
-        guard let image = info[.originalImage] as? UIImage,
-            let imgPng = image.scaled(toWidth: 400) else {
-                return
-        }
-        footerView.append(image: imgPng)
+    func shouldAddToSelection(indexPath: IndexPath, numSelections: Int) -> Bool {
+        return true
     }
-    
+}
+
+extension Report.ViewController {
     func show(toast errorMsg: String? = nil) {
         guard let msg = errorMsg else {
             return
         }
         view.raft.autoShow(.text(msg))
     }
-}
 
-extension Report.ViewController {
     func report(with index: Int, note: String, images: [UIImage]) {
         guard let reason = dataSource.safe(index) else {
 //            Toast.showToast(alertType: .warnning, message: R.string.localizable.reportSelectReasonToast())
