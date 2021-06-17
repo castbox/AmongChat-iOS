@@ -622,3 +622,4 @@
 "among.chat.clear.cache.tip" = "Depois de limpar o cache, todas as suas mensagens de voz serão removidas permanentemente. Você tem certeza que quer continuar?";
 "among.chat.clear" = "Limpar";
 "among.chat.clearing" = "Limpando";
+"feed.remove.ads" = "Remover Anúncios";

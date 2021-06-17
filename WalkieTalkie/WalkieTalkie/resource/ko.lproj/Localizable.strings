@@ -622,3 +622,4 @@
 "among.chat.clear.cache.tip" = "캐시를 지우면 모든 음성 메시지가 영구적으로 제거됩니다. 정말로 계속하기를 원하십니까?";
 "among.chat.clear" = "지우기";
 "among.chat.clearing" = "진행 중 지우기";
+"feed.remove.ads" = "광고를 제거하다";

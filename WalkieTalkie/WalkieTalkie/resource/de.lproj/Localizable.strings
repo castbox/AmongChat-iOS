@@ -622,3 +622,4 @@
 "among.chat.clear.cache.tip" = "Nach dem Löschen des Caches werden alle Ihre Sprachnachrichten dauerhaft entfernt. Sind Sie sicher, dass Sie fortfahren möchten?";
 "among.chat.clear" = "Löschen";
 "among.chat.clearing" = "Löschen";
+"feed.remove.ads" = "Werbung entfernen";

@@ -622,3 +622,4 @@
 "among.chat.clear.cache.tip" = "Dopo aver cancellato la cache, tutti i tuoi messaggi vocali saranno rimossi definitivamente. Sei sicuro di voler continuare?";
 "among.chat.clear" = "Cancella";
 "among.chat.clearing" = "Cancellazione in corso";
+"feed.remove.ads" = "Rimuovi Pubblicità";

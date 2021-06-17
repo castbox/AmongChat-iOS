@@ -174,7 +174,12 @@ extension UIViewController {
         alertVC.addAction(AlertAction(attributedTitle: confirmAttr, style: .normal) { _ in
             confirmAction?()
         })
-        alertVC.view.backgroundColor = UIColor.black.alpha(0.7)
+        
+        let _ = alertVC.rx.viewWillAppear.take(1)
+            .subscribe(onNext: { [weak alertVC]_ in
+                alertVC?.view.backgroundColor = UIColor.black.alpha(0.7)
+            })
+
         return alertVC
     }
 }
