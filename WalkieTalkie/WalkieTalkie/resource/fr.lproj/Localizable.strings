@@ -622,3 +622,4 @@
 "among.chat.clear.cache.tip" = "Après avoir effacé le cache, tous vos messages vocaux seront supprimés définitivement. Vous êtes sûr de vouloir continuer ?";
 "among.chat.clear" = "Effacer";
 "among.chat.clearing" = "Effacement en cours";
+"feed.remove.ads" = "Supprimez la pub";

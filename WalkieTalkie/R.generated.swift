@@ -4234,8 +4234,8 @@ struct R: Rswift.Validatable {
       static let amongChatProfileRemove = Rswift.StringResource(key: "among.chat.profile.remove", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Remove Ads
       /// 
-      /// Locales: en
-      static let feedRemoveAds = Rswift.StringResource(key: "feed.remove.ads", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let feedRemoveAds = Rswift.StringResource(key: "feed.remove.ads", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Reply
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -7484,7 +7484,7 @@ struct R: Rswift.Validatable {
       
       /// en translation: Remove Ads
       /// 
-      /// Locales: en
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func feedRemoveAds(_: Void = ()) -> String {
         return NSLocalizedString("feed.remove.ads", bundle: R.hostingBundle, comment: "")
       }
