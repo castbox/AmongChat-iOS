@@ -317,7 +317,7 @@ extension SettingViewController {
     }
     
     private func clearCacheAlert() {
-        showAmongAlert(title: nil, message: R.string.localizable.amongChatClearCacheTip(), cancelTitle: R.string.localizable.toastCancel(), confirmTitle: R.string.localizable.amongChatClear(), confirmTitleColor: UIColor(hex6: 0xFB5858), confirmAction: { [weak self] in
+        let alert = amongChatAlert(title: nil, message: R.string.localizable.amongChatClearCacheTip(), cancelTitle: R.string.localizable.toastCancel(), confirmTitle: R.string.localizable.amongChatClear(), confirmTitleColor: UIColor(hex6: 0xFB5858), confirmAction: { [weak self] in
             
             guard let `self` = self else { return }
             
@@ -336,6 +336,8 @@ extension SettingViewController {
                 .disposed(by: self.bag)
             
         })
+        alert.visualStyle.contentPadding = UIEdgeInsets(top: 28, left: 32, bottom: 20, right: 32)
+        alert.present()
     }
         
     private func generateDataSource() -> [Option] {
