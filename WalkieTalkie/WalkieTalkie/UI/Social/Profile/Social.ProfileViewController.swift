@@ -117,7 +117,7 @@ extension Social {
         }
         
         private lazy var settingsBtn: UIButton = {
-            let btn = UIButton(type: .custom)
+            let btn = SmallSizeButton(type: .custom)
             btn.setImage(R.image.ac_profile_setting(), for: .normal)
             btn.rx.tap.observeOn(MainScheduler.instance)
                 .subscribe(onNext: { [weak self]() in
@@ -128,7 +128,7 @@ extension Social {
         }()
         
         private lazy var moreBtn: UIButton = {
-            let btn = UIButton(type: .custom)
+            let btn = SmallSizeButton(type: .custom)
             btn.setImage( R.image.ac_profile_more_icon(), for: .normal)
             btn.rx.tap.observeOn(MainScheduler.instance)
                 .subscribe(onNext: { [weak self]() in
