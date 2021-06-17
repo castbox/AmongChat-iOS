@@ -251,7 +251,7 @@ extension AmongChat.Home {
             }
             
             if room.isGroup {
-                return R.string.localizable.amongChatGroupAddMemberInGroup()
+                return R.string.localizable.amongChatGroupAddMemberInGroup().lowercased()
             } else {
                 return R.string.localizable.amongChatHomeFriendsInChannel(room.topicName)
             }
