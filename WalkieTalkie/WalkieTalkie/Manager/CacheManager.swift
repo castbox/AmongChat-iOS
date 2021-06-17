@@ -26,8 +26,11 @@ class CacheManager {
             }
             .reduce(0, +) ?? 0
             
-            let formatedSize = FileManager.covertUInt64ToString(with: totalSize)
+            var formatedSize = FileManager.covertUInt64ToString(with: totalSize)
             
+            if formatedSize.lowercased().hasSuffix("kb") || formatedSize.lowercased().hasSuffix("bytes") {
+                formatedSize = "0 MB"
+            }
             subscriber(.success(formatedSize))
             
             return Disposables.create {
@@ -42,9 +45,8 @@ class CacheManager {
     func clearCache() -> Single<Void> {
         
         return Single<Void>.create { [weak self] (subscriber) -> Disposable in
-            
             self?.cacheDirs.forEach({
-                FileManager.removefolder(folderPath: $0)
+                FileManager.removeAllFile(in: $0)
             })
             
             subscriber(.success(()))

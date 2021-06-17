@@ -178,6 +178,27 @@ extension FileManager {
             return (false, "删除失败")
         }
     }
+    
+    static func removeAllFile(in folderPath: String) -> (isSuccess: Bool, error: String) {
+        let filePath = "\(folderPath)"
+        guard judgeFileOrFolderExists(filePath: filePath),
+              let files = fileManager.subpaths(atPath: folderPath) else {
+            return (true, "")
+        }
+        for file in files {
+            let path = folderPath.appendingPathComponent(file)
+            if fileManager.fileExists(atPath: path) {
+                do {
+                    try fileManager.removeItem(atPath: path)
+                } catch {
+                    cdPrint("removefile error: \(error))")
+                }
+
+            }
+        }
+        return (true, "")
+    }
+
 
     // MARK: 2.3、创建文件
     /// 创建文件

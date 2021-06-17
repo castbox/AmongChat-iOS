@@ -2801,7 +2801,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
     
-    /// This `R.string.localizable` struct is generated, and contains static references to 542 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 543 localization keys.
     struct localizable {
       /// en translation:  Congratulations!
       /// 
@@ -4239,6 +4239,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatProfileRemove = Rswift.StringResource(key: "among.chat.profile.remove", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Remove Ads
+      /// 
+      /// Locales: en
+      static let feedRemoveAds = Rswift.StringResource(key: "feed.remove.ads", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Reply
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -7483,6 +7487,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func amongChatProfileRemove(_: Void = ()) -> String {
         return NSLocalizedString("among.chat.profile.remove", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Remove Ads
+      /// 
+      /// Locales: en
+      static func feedRemoveAds(_: Void = ()) -> String {
+        return NSLocalizedString("feed.remove.ads", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Reply
