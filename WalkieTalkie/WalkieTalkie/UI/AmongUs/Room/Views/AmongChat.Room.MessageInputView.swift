@@ -77,9 +77,14 @@ extension AmongChat.Room {
                 .subscribe(onNext: { [weak self] (_) in
                     guard let `self` = self else { return }
                     
-                    let height = min(self.textViewMaxHeight, max(self.textViewMinHeight, self.inputTextView.contentSize.height))
+                    let contentHeight = self.inputTextView.contentSize.height
+                    let height = min(self.textViewMaxHeight, max(self.textViewMinHeight, contentHeight))
                     self.inputTextView.snp.updateConstraints { (maker) in
                         maker.height.equalTo(height)
+                    }
+                
+                    if contentHeight <= self.textViewMaxHeight {
+                        self.inputTextView.setContentOffset(.zero, animated: false)
                     }
                 })
                 .disposed(by: bag)
