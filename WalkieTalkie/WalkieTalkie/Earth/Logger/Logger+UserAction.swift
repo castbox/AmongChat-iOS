@@ -229,7 +229,7 @@ extension Logger {
             case profile_other_game_state_item_clk
             case profile_game_state_detail_edit_clk
             case attracking_request_imp
-            
+            case attracking_request_alert_clk
             //group
             case profile_group_clk
             case profile_other_group_clk
