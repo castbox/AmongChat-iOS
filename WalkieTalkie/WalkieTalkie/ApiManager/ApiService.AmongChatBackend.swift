@@ -17,7 +17,7 @@ extension APIService {
         case createRoom([String : Any])
         case enteryRoom([String : Any])
         //        case roomUpdate([String: Any])
-        case updateNickName([String: Any])
+//        case updateNickName([String: Any])
         case heartBeating([String: Any])
         case agorzRtcToken([String: Any])
         case zegoRtcToken([String: Any])
@@ -163,8 +163,8 @@ extension APIService.AmongChatBackend: TargetType {
             return "/api/v1/rooms/create"
         case .enteryRoom:
             return "/api/v1/rooms/enter"
-        case .updateNickName:
-            return "/api/v1/rooms/nickname"
+//        case .updateNickName:
+//            return "/api/v1/rooms/nickname"
         case .heartBeating:
             return "/api/v1/rooms/heartbeat"
         case .agorzRtcToken:
@@ -400,7 +400,7 @@ extension APIService.AmongChatBackend: TargetType {
         switch self {
         case .login,
              .createRoom,
-             .updateNickName,
+//             .updateNickName,
              .updateRoomInfo,
              .kickUsers,
              .updateProfile,
@@ -568,12 +568,14 @@ extension APIService.AmongChatBackend: TargetType {
              .adminUnmuteIm(let params),
              .updateInstalledGames(let params),
              .feedCreate(let params),
+             .roomNickName(let params),
+             .groupNickName(let params),
              .updateDevice(let params):
             return .requestParameters(parameters: params, encoding: JSONEncoding.default)
             
         case .login(let params),
              .summary(let params),
-             .updateNickName(let params),
+//             .updateNickName(let params),
              .heartBeating(let params),
              .roomInfo(let params),
              .agorzRtcToken(let params),
@@ -581,7 +583,6 @@ extension APIService.AmongChatBackend: TargetType {
              .rtmToken(let params),
              .leaveRoom(let params),
              .kickUsers(let params),
-             .roomNickName(let params),
              .defaultAvatars(let params),
              .unlockAvatar(let params),
              .relationData(let params),
@@ -612,7 +613,6 @@ extension APIService.AmongChatBackend: TargetType {
              .addMemberToGroup(let params),
              .groupList(let params),
              .myGroupList(let params),
-             .groupNickName(let params),
              .groupListOfHost(let params),
              .groupListOfJoined(let params),
              .groupAppliedUserList(let params),
