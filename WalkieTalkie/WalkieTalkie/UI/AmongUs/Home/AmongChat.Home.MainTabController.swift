@@ -39,6 +39,8 @@ extension AmongChat.Home {
         
         private lazy var tabs = Tab.allCases.map { $0.tabTuple }
         
+        private let unredVideoRelay = BehaviorRelay(value: true)
+        
         override func viewDidLoad() {
             super.viewDidLoad()
             delegate = self
@@ -49,8 +51,10 @@ extension AmongChat.Home {
             InstalledChecker.default.update()
             
             updateDefaultSelectedIndexIfNeed()
+            
             //add log for default index
             Logger.Action.log(.home_tab, categoryValue: Tab.allCases[selectedIndex].loggerSource)
+            
         }
         
         func dismissNotificationBanner() {
@@ -66,6 +70,9 @@ extension AmongChat.Home.MainTabController {
         let defaultMainTabIndex = FireRemote.shared.value.defaultMainTabIndex
         if selectedIndex != defaultMainTabIndex, defaultMainTabIndex < Tab.allCases.count {
             setSelectIndex(from: selectedIndex, to: defaultMainTabIndex)
+            if defaultMainTabIndex == 1 {
+                unredVideoRelay.accept(false)
+            }
         }
     }
     
@@ -253,6 +260,20 @@ extension AmongChat.Home.MainTabController {
                 }
             })
             .disposed(by: bag)
+        
+        Observable.combineLatest(unredVideoRelay,
+                                 tabs.first(where: { $0.2 == .video })?.1
+                                    .filterNil()
+                                    .take(1) ?? Observable.empty())
+            .observeOn(MainScheduler.asyncInstance)
+            .subscribe(onNext: { unread, icon in
+                if unread {
+                    icon.badgeOn(topInset: 4)
+                } else {
+                    icon.badgeOff()
+                }
+            })
+            .disposed(by: bag)
     }
     
     func checkHaveGroupLiveRoom() {
@@ -364,6 +385,10 @@ extension AmongChat.Home.MainTabController: UITabBarControllerDelegate {
         HapticFeedback.Impact.light()
         let tab = tabs.first { $0.0 == viewController }
         Logger.Action.log(.home_tab, categoryValue: tab?.2.loggerSource)
+        
+        if tab?.2 == .video {
+            unredVideoRelay.accept(false)
+        }
     }
     
     func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
