@@ -103,7 +103,7 @@ extension Social.ProfileViewController {
                     
                     if let room = liveRoom as? Entity.UserStatus.Room {
                         liveRoomView.joinHandler = { [weak self] in
-                            self?.controller?.enterRoom(roomId: room.roomId, topicId: room.topicId)
+                            self?.controller?.tryToEnterRoom(roomId: room.roomId)
                         }
                     } else if let group = liveRoom as? Entity.UserStatus.Group {
                         liveRoomView.joinHandler = { [weak self] in
