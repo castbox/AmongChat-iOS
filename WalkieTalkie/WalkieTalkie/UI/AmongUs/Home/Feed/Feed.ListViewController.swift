@@ -422,7 +422,9 @@ extension Feed.ListViewController {
         guard adPositionInterval > 1 else {
             return
         }
-        Ad.NativeManager.shared.loadAd()
+        requestAppTrackPermission {
+            Ad.NativeManager.shared.loadAd()            
+        }
     }
     
     func removeAllAd(at placeholder: Feed.DataPlaceholder) {

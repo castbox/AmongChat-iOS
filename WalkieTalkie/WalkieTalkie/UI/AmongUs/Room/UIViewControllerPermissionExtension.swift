@@ -11,6 +11,8 @@ import AVFoundation
 import SDCAlertView
 import MessageUI
 import AppTrackingTransparency
+import RxSwift
+import RxCocoa
 
 extension UIViewController {
     /// 获取麦克风权限
@@ -30,6 +32,16 @@ extension UIViewController {
     }
     
     //FOR APP TRACKING
+    func requestAppTrackPermission() -> Single<Void> {
+        return Single.create { [weak self] observer in
+            self?.requestAppTrackPermission(completion: {
+                observer(.success(()))
+            })
+            return Disposables.create {
+                
+            }
+        }
+    }
     func requestAppTrackPermission(completion: CallBack?) {
         guard let viewController = self as? ViewController else {
             completion?()
