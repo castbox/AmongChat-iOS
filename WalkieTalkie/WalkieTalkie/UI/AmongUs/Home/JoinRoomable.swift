@@ -103,6 +103,32 @@ extension WalkieTalkie.ViewController {
 }
 
 extension JoinRoomable where Self: ViewController {
+    
+    func tryToEnterRoom(roomId: String, logSource: ParentPageSource? = nil, apiSource: ParentApiSource? = nil) {
+        
+        let hudRemoval = view.raft.show(.loading, userInteractionEnabled: false)
+        
+        Request.roomInfo(with: roomId)
+            .map({ room -> Entity.Room in
+                
+                guard let room = room else { throw MsgError.default }
+                
+                guard room.state == .public else {
+                    throw MsgError(code: 0, msg: R.string.localizable.amongChatHomeFirendsPrivateChannelTip())
+                }
+                
+                return room
+            })
+            .do(onDispose: { hudRemoval() })
+            .subscribe(onSuccess: { [weak self] room in
+                self?.enterRoom(roomId: room.roomId, topicId: room.topicId, logSource: logSource, apiSource: apiSource)
+            }, onError: { [weak self] error in
+                self?.view.raft.autoShow(.text(error.msgOfError ?? ""))
+            })
+            .disposed(by: self.bag)
+        
+    }
+    
     func enterRoom(roomId: String? = nil, topicId: String?, logSource: ParentPageSource? = nil, apiSource: ParentApiSource? = nil) {
         Logger.Action.log(.enter_home_topic, categoryValue: topicId)
         //

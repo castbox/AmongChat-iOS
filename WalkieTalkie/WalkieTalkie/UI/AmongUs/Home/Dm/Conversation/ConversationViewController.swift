@@ -216,7 +216,7 @@ private extension ConversationViewController {
                     self.liveView.label.text = R.string.localizable.profileUserInChannel(room.topicName)
                     self.liveView.joinBtn.isEnabled = (room.state != "private")
                     self.liveView.joinHandler = { [weak self] in
-                        self?.enterRoom(roomId: room.roomId, topicId: room.topicId)
+                        self?.tryToEnterRoom(roomId: room.roomId)
                         Logger.Action.log(.dm_detail_clk, categoryValue: "join_channel")
                     }
                 } else if let group = status.group {

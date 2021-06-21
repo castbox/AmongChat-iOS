@@ -201,7 +201,16 @@ private extension Social.ProfileLookViewController {
     
     func decoCategoryViewMapper(_ decoCategory: DecorationCategoryViewModel) -> UIView {
         let v = DecorationCategoryView(viewModel: decoCategory)
-        v.onSelectDecoration = onDecorationSelect(_:)
+        v.onSelectDecoration = { [weak self] viewModel -> Single<Bool> in
+            guard let `self` = self else {
+                return .just(false)
+            }
+            return self.requestAppTrackPermission()
+                .flatMap { [weak self] _ -> Single<Bool> in
+                    guard let `self` = self else { return .just(false) }
+                    return self.onDecorationSelect(viewModel)
+                }
+        }
         return v
     }
     
