@@ -39,6 +39,8 @@
 		2660758926789FB20065844D /* CacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2660758826789FB20065844D /* CacheManager.swift */; };
 		266A42F625F10C5A003B583B /* InfoWithNicknameView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 266A42F525F10C5A003B583B /* InfoWithNicknameView.xib */; };
 		266A42FA25F10CC4003B583B /* InfoWithNicknameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 266A42F925F10CC4003B583B /* InfoWithNicknameView.swift */; };
+		266F59422680647E00A97C20 /* Feed.Share.swift in Sources */ = {isa = PBXBuildFile; fileRef = 266F59412680647E00A97C20 /* Feed.Share.swift */; };
+		266F5944268064B600A97C20 /* Feed.Share+Views.swift in Sources */ = {isa = PBXBuildFile; fileRef = 266F5943268064B600A97C20 /* Feed.Share+Views.swift */; };
 		2686A6FB265E8B0900931A03 /* Entity.Feed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2686A6FA265E8B0900931A03 /* Entity.Feed.swift */; };
 		2696D42325B8082200C38C09 /* UITextFieldExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2696D42225B8082200C38C09 /* UITextFieldExtension.swift */; };
 		269A6DCE261C4A8C00A07C7D /* FansGroup.GroupListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 269A6DCD261C4A8C00A07C7D /* FansGroup.GroupListViewController.swift */; };
@@ -555,6 +557,8 @@
 		2660758826789FB20065844D /* CacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheManager.swift; sourceTree = "<group>"; };
 		266A42F525F10C5A003B583B /* InfoWithNicknameView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InfoWithNicknameView.xib; sourceTree = "<group>"; };
 		266A42F925F10CC4003B583B /* InfoWithNicknameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoWithNicknameView.swift; sourceTree = "<group>"; };
+		266F59412680647E00A97C20 /* Feed.Share.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Feed.Share.swift; sourceTree = "<group>"; };
+		266F5943268064B600A97C20 /* Feed.Share+Views.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Feed.Share+Views.swift"; sourceTree = "<group>"; };
 		2686A6FA265E8B0900931A03 /* Entity.Feed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entity.Feed.swift; sourceTree = "<group>"; };
 		269456582519DFE2003AA34A /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		2694565A2519DFE2003AA34A /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
@@ -1070,6 +1074,15 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		266F59402680646C00A97C20 /* Share */ = {
+			isa = PBXGroup;
+			children = (
+				266F59412680647E00A97C20 /* Feed.Share.swift */,
+				266F5943268064B600A97C20 /* Feed.Share+Views.swift */,
+			);
+			path = Share;
+			sourceTree = "<group>";
+		};
 		26728198265CAEB400749D7D /* PostFeed */ = {
 			isa = PBXGroup;
 			children = (
@@ -1347,6 +1360,7 @@
 		FE0A0C2D265CEB2700AC9FF7 /* Feed */ = {
 			isa = PBXGroup;
 			children = (
+				266F59402680646C00A97C20 /* Share */,
 				269B66AC265F7CA0001C315A /* Comments */,
 				26728198265CAEB400749D7D /* PostFeed */,
 				FE27B92D265CE89A00D1AD1F /* Feed.swift */,
@@ -2562,6 +2576,7 @@
 				FE7CEB79258A0FBA0067952C /* AmongInputCodeView.swift in Sources */,
 				FEBE5223262D2DF500E49EC4 /* ReportCell.swift in Sources */,
 				BD91A399258C9153008931AD /* AmongChat.Home.TopicCell.swift in Sources */,
+				266F59422680647E00A97C20 /* Feed.Share.swift in Sources */,
 				FE392C682466C5AA00A2CCF3 /* KernUI.swift in Sources */,
 				FE775CE8258E5262002A21F6 /* UITextFieldInspectable.swift in Sources */,
 				269A6DF2261EA85F00A07C7D /* FansGroup.GroupEditViewController.swift in Sources */,
@@ -2672,6 +2687,7 @@
 				FEC17A4F24A9BB92003719BC /* APIService.CastboxBackend.swift in Sources */,
 				BD9F26CB25A6B46800FA3616 /* AmongChat.ChatLanguageViewController.swift in Sources */,
 				FE684882244BD80700F87AF9 /* PremiumFreqControl.swift in Sources */,
+				266F5944268064B600A97C20 /* Feed.Share+Views.swift in Sources */,
 				BD6C36ED256E525000D1E708 /* AmongChat.swift in Sources */,
 				FE126D42243481BD00BEDD60 /* SeatManager.swift in Sources */,
 				26FC5FE22666126F005D8F79 /* Social.ProfileFeedsViewController+Views.swift in Sources */,

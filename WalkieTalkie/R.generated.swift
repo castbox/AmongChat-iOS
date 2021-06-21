@@ -2794,7 +2794,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
     
-    /// This `R.string.localizable` struct is generated, and contains static references to 543 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 544 localization keys.
     struct localizable {
       /// en translation:  Congratulations!
       /// 
@@ -4332,6 +4332,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatCustomAvatarSelectImage = Rswift.StringResource(key: "among.chat.custom.avatar.select.image", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Send
+      /// 
+      /// Locales: en
+      static let amongChatSend = Rswift.StringResource(key: "among.chat.send", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Send failed. Please try again.
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -7655,6 +7659,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func amongChatCustomAvatarSelectImage(_: Void = ()) -> String {
         return NSLocalizedString("among.chat.custom.avatar.select.image", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Send
+      /// 
+      /// Locales: en
+      static func amongChatSend(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.send", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Send failed. Please try again.

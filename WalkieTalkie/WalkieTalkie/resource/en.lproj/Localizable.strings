@@ -615,7 +615,7 @@
 
 "social.profile.chat.anonymous.user.tips" = "Sorry, this user is anonymous and cannot receive messages.";
 
-//21.06.11
+//1.24.0
 "among.chat.login.auth.source.upload.avatar" = "upload your avatar";
 "among.chat.clear.cache" = "Clear Cache";
 "among.chat.contact.us" = "Contact Us";
@@ -623,3 +623,6 @@
 "among.chat.clear" = "Clear";
 "among.chat.clearing" = "Clearing";
 "feed.remove.ads" = "Remove Ads";
+
+//1.25.0
+"among.chat.send" = "Send";
