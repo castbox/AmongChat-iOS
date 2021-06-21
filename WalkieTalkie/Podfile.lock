@@ -415,7 +415,7 @@ DEPENDENCIES:
 SPEC REPOS:
   "git@github.com:castbox/GuruSpecs.git":
     - CastboxDebuger
-  https://github.com/CocoaPods/Specs.git:
+  trunk:
     - Adjust
     - AgoraAudio_iOS
     - AgoraRtm_iOS
@@ -626,6 +626,6 @@ SPEC CHECKSUMS:
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
   ZegoExpressEngine: 9d40a73953c000b9a511a58706a37bb14c18948e
 
-PODFILE CHECKSUM: 23e7ffaae0c2cfdb167bdebde3ce51f72866493b
+PODFILE CHECKSUM: a9e5aa644b623d9e5ccb3f387e52b9a63ee9ecde
 
 COCOAPODS: 1.10.0
