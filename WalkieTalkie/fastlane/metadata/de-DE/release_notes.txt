@@ -1,5 +1,4 @@
 Willkommen in der Voice-Chat-App AmongChat!
-In dieser Version optimieren und verbessern wir die Berichtsfunktion weiter.
-Superadministratoren und Monitore sind eher berechtigt, eine strengere Aufsicht über die Community auszuüben.
-Wir arbeiten kontinuierlich daran, allen Benutzern eine gesunde und sichere Community zu bieten.
+In dieser Version wurde ein brandneuer Tab für Gameplay-Videos hinzugefügt. Kommen Sie und teilen Sie Ihre erstaunlichen Gaming-Clips!
+Andere Fehlerbehebungen und Leistungsverbesserungen stehen auch bereit.
 Finden und sprechen Sie mit Ihren Freunden, spielen zusammen und viel Spaß!

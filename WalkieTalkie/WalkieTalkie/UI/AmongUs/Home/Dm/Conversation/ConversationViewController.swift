@@ -54,6 +54,10 @@ class ConversationViewController: ViewController {
     
     var followedHandle:((Bool) -> Void)?
     
+    override var screenName: Logger.Screen.Node.Start {
+        .dm_conversation
+    }
+    
     deinit {
         AudioPlayerManager.default.stopPlay()
     }
@@ -212,7 +216,7 @@ private extension ConversationViewController {
                     self.liveView.label.text = R.string.localizable.profileUserInChannel(room.topicName)
                     self.liveView.joinBtn.isEnabled = (room.state != "private")
                     self.liveView.joinHandler = { [weak self] in
-                        self?.enterRoom(roomId: room.roomId, topicId: room.topicId)
+                        self?.tryToEnterRoom(roomId: room.roomId)
                         Logger.Action.log(.dm_detail_clk, categoryValue: "join_channel")
                     }
                 } else if let group = status.group {
@@ -290,7 +294,7 @@ private extension ConversationViewController {
             blocked = true
             let user = conversation.message.fromUser
             if !blockedUsers.contains(where: { $0.uid == viewModel.targetUid.intValue }) {
-                let newUser = Entity.RoomUser(uid: viewModel.targetUid.intValue, name: user.name ?? "", pic: user.pictureUrl ?? "")
+                let newUser = Entity.RoomUser(uid: viewModel.targetUid.intValue, name: user.name ?? "", pic: user.pictureUrl ?? "", isOfficial: nil)
                 blockedUsers.append(newUser)
                 Defaults[\.blockedUsersV2Key] = blockedUsers
             }
@@ -821,5 +825,52 @@ extension UICollectionView {
             x: contentOffset.x + (afterContentSize.width - beforeContentSize.width),
             y: contentOffset.y + (afterContentSize.height - beforeContentSize.height))
         setContentOffset(newOffset, animated: false)
+    }
+}
+
+extension WalkieTalkie.ViewController {
+    private func sendDMPushToAnonymousUser(_ uid: Int) {
+        view.raft.autoShow(.text(R.string.localizable.socialProfileChatAnonymousUserTips()))
+        //report
+        Request.sendDMPushToAnonymousUser(uid.string)
+            .subscribe()
+            .disposed(by: bag)
+    }
+    
+    func startChatAfterLogin(with profile: Entity.UserProfile?) {
+        AmongChat.Login.doLogedInEvent(style: .authNeeded(source: .chat)) { [weak self] in
+            self?.startChat(with: profile)
+        }
+    }
+
+    private func startChat(with profile: Entity.UserProfile?) {
+        guard let profile = profile else {
+            return
+        }
+        guard profile.isAnonymous == false else {
+            sendDMPushToAnonymousUser(profile.uid)
+            return
+        }
+        let hudRemoval = view.raft.show(.loading)
+        //query
+        DMManager.shared.queryConversation(fromUid: profile.uid.string)
+            .flatMap { conversation -> Single<Entity.DMConversation?> in
+                guard conversation == nil else {
+                    return .just(conversation)
+                }
+                return DMManager.shared.add(message: Entity.DMMessage.emptyMessage(for: profile.dmProfile))
+                    .flatMap { DMManager.shared.queryConversation(fromUid: profile.uid.string) }
+            }
+            .subscribe(onSuccess: { [weak self] conversation in
+                hudRemoval()
+                guard let conversation = conversation else {
+                    return
+                }
+                let vc = ConversationViewController(conversation)
+                self?.navigationController?.pushViewController(vc)
+            }, onError: { error in
+                hudRemoval()
+            })
+            .disposed(by: bag)
     }
 }

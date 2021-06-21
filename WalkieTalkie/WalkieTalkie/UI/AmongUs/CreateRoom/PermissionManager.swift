@@ -120,6 +120,14 @@ class PermissionManager {
                 ATTrackingManager.requestTrackingAuthorization { status in
                     cdPrint("requestTrackingAuthorization result state: \(status.rawValue)")
                     Defaults[key: DefaultsKeys.permissionRequestStatusKey(for: .appTracking)] = status.rawValue.int
+                    switch status {
+                    case .authorized:
+                        Logger.Action.log(.attracking_request_alert_clk, categoryValue: "authorized")
+                    case .denied:
+                        Logger.Action.log(.attracking_request_alert_clk, categoryValue: "denied")
+                    default:
+                        Logger.Action.log(.attracking_request_alert_clk, categoryValue: "other")
+                    }
                     mainQueueDispatchAsync(after: 0.1) {
                         completionHandler?()
                     }

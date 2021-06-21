@@ -49,6 +49,7 @@ extension AmongChat.Home {
             let lb = UILabel()
             lb.font = R.font.nunitoExtraBold(size: 16)
             lb.textColor = .white
+            lb.lineBreakMode = .byTruncatingMiddle
             return lb
         }()
         
@@ -164,6 +165,8 @@ extension AmongChat.Home {
             btn.setTitle(R.string.localizable.socialJoinAction().uppercased(), for: .normal)
             btn.layer.masksToBounds = true
             btn.layer.cornerRadius = 16
+            btn.layer.borderWidth = 2
+            btn.layer.borderColor = UIColor(hex6: 0xFFF000).cgColor
             btn.contentEdgeInsets = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
             btn.setContentHuggingPriority(.required, for: .horizontal)
             return btn
@@ -198,6 +201,7 @@ extension AmongChat.Home {
                 maker.centerY.equalToSuperview()
                 maker.trailing.equalToSuperview().inset(20)
                 maker.height.equalTo(32)
+                maker.width.greaterThanOrEqualTo(84)
             }
             
             userView.snp.makeConstraints { (maker) in
@@ -224,8 +228,14 @@ extension AmongChat.Home {
             if let state = viewModel.roomState {
                 joinBtn.isHidden = state == .private && !Settings.isSilentUser
                 lockedIcon.isHidden = !joinBtn.isHidden
+                joinBtn.setTitle(R.string.localizable.socialJoinAction().uppercased(), for: .normal)
+                joinBtn.backgroundColor = UIColor(hex6: 0xFFF000)
+                joinBtn.setTitleColor(UIColor.black, for: .normal)
             } else {
-                joinBtn.isHidden = true
+                joinBtn.setTitle(R.string.localizable.amongChatProfileChat(), for: .normal)
+                joinBtn.backgroundColor = UIColor(hex6: 0x121212)
+                joinBtn.setTitleColor(UIColor(hex6: 0xFFF000), for: .normal)
+                joinBtn.isHidden = false
                 lockedIcon.isHidden = true
             }
             

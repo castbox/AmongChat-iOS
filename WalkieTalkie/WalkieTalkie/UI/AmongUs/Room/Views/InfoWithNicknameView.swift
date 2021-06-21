@@ -58,7 +58,8 @@ class InfoWithNicknameView: XibLoadableView {
         
         switch room?.topicType {
         case .roblox:
-            if let name = profile.nameRoblox {
+            if let name = profile.nameRoblox,
+               !name.isEmpty {
                 nameTxt = R.string.localizable.amongChatRoomRobloxUserNamePrefix(name)
                 nameTxtAlignment = .left
             } else {
@@ -70,7 +71,8 @@ class InfoWithNicknameView: XibLoadableView {
             
         case .fortnite:
             
-            if let name = profile.nameFortnite {
+            if let name = profile.nameFortnite,
+               !name.isEmpty {
                 nameTxt = R.string.localizable.amongChatRoomFortniteNamePrefix(name)
                 nameTxtAlignment = .left
             } else {
@@ -82,7 +84,8 @@ class InfoWithNicknameView: XibLoadableView {
             
         case .freefire:
             
-            if let name = profile.nameFreefire {
+            if let name = profile.nameFreefire,
+               !name.isEmpty {
                 nameTxt = R.string.localizable.amongChatRoomFreefireNamePrefix(name)
                 nameTxtAlignment = .left
             } else {
@@ -94,7 +97,8 @@ class InfoWithNicknameView: XibLoadableView {
             
         case .minecraft:
             
-            if let name = profile.nameMineCraft {
+            if let name = profile.nameMineCraft,
+               !name.isEmpty {
                 nameTxt = R.string.localizable.amongChatRoomMinecraftNamePrefix(name)
                 nameTxtAlignment = .left
             } else {
@@ -106,7 +110,8 @@ class InfoWithNicknameView: XibLoadableView {
             
         case .mobilelegends:
             
-            if let name = profile.nameMobilelegends {
+            if let name = profile.nameMobilelegends,
+               !name.isEmpty {
                 nameTxt = R.string.localizable.amongChatRoomMobileLegendsNamePrefix(name)
                 nameTxtAlignment = .left
             } else {
@@ -118,7 +123,8 @@ class InfoWithNicknameView: XibLoadableView {
             
         case .pubgmobile:
             
-            if let name = profile.namePubgmobile {
+            if let name = profile.namePubgmobile,
+               !name.isEmpty {
                 nameTxt = R.string.localizable.amongChatRoomPubgNameIdPrefix(name)
             } else {
                 nameTxt = R.string.localizable.amongChatRoomSetPubgMobileName()
@@ -129,7 +135,8 @@ class InfoWithNicknameView: XibLoadableView {
             
         case .callofduty:
             
-            if let name = profile.nameCallofduty {
+            if let name = profile.nameCallofduty,
+               !name.isEmpty {
                 nameTxt = R.string.localizable.amongChatRoomCallOfDutyNamePrefix(name)
                 nameTxtAlignment = .left
             } else {
@@ -141,7 +148,8 @@ class InfoWithNicknameView: XibLoadableView {
             
         case .animalCrossing:
             
-            if let name = profile.nameAnimalCrossing {
+            if let name = profile.nameAnimalCrossing,
+               !name.isEmpty {
                 nameTxt = R.string.localizable.amongChatRoomAnimalCrossingIdPrefix(name)
                 nameTxtAlignment = .left
             } else {
@@ -152,7 +160,8 @@ class InfoWithNicknameView: XibLoadableView {
             inGameNameName = R.string.localizable.amongChatRoomAnimalCrossingId()
             
         case .brawlStars:
-            if let name = profile.nameBrawlStars {
+            if let name = profile.nameBrawlStars,
+               !name.isEmpty {
                 nameTxt = R.string.localizable.amongChatRoomBrawlIdPrefix(name)
                 nameTxtAlignment = .left
             } else {

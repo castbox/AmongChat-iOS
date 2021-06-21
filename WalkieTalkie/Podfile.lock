@@ -23,6 +23,8 @@ PODS:
   - DeviceKit (4.2.1)
   - DoraemonKit/Core (3.0.2)
   - EasyTipView (2.1.0)
+  - FBAudienceNetwork (6.5.0):
+    - FBSDKCoreKit/Basics (>= 7.0.1)
   - FBSDKCoreKit (9.2.0):
     - FBSDKCoreKit/Basics (= 9.2.0)
     - FBSDKCoreKit/Core (= 9.2.0)
@@ -141,6 +143,15 @@ PODS:
     - GoogleUtilities/Environment (~> 6.2)
     - "GoogleUtilities/NSData+zlib (~> 6.2)"
     - Protobuf (>= 3.9.2, ~> 3.9)
+  - Fyber_Marketplace_SDK (7.8.6):
+    - Fyber_Marketplace_SDK/IASDKCore (= 7.8.6)
+    - Fyber_Marketplace_SDK/IASDKMRAID (= 7.8.6)
+    - Fyber_Marketplace_SDK/IASDKVideo (= 7.8.6)
+  - Fyber_Marketplace_SDK/IASDKCore (7.8.6)
+  - Fyber_Marketplace_SDK/IASDKMRAID (7.8.6):
+    - Fyber_Marketplace_SDK/IASDKCore
+  - Fyber_Marketplace_SDK/IASDKVideo (7.8.6):
+    - Fyber_Marketplace_SDK/IASDKCore
   - GoogleAppMeasurement (6.5.1):
     - GoogleUtilities/AppDelegateSwizzler (~> 6.0)
     - GoogleUtilities/MethodSwizzler (~> 6.0)
@@ -196,15 +207,40 @@ PODS:
   - MarqueeLabel (4.0.5)
   - MBProgressHUD (1.0.0)
   - MJRefresh (3.5.0)
-  - mopub-ios-sdk/Core (5.15.0)
-  - MoPub-UnityAds-Adapters (3.4.8.1):
-    - MoPub-UnityAds-Adapters/MoPub (= 3.4.8.1)
-    - MoPub-UnityAds-Adapters/Network (= 3.4.8.1)
-  - MoPub-UnityAds-Adapters/MoPub (3.4.8.1):
-    - mopub-ios-sdk/Core (~> 5.13)
-  - MoPub-UnityAds-Adapters/Network (3.4.8.1):
-    - mopub-ios-sdk/Core (~> 5.13)
-    - UnityAds (= 3.4.8)
+  - MoPub-FacebookAudienceNetwork-Adapters (6.5.0.0):
+    - MoPub-FacebookAudienceNetwork-Adapters/MoPub (= 6.5.0.0)
+    - MoPub-FacebookAudienceNetwork-Adapters/Network (= 6.5.0.0)
+  - MoPub-FacebookAudienceNetwork-Adapters/MoPub (6.5.0.0):
+    - mopub-ios-sdk/Core (~> 5.17.0)
+    - mopub-ios-sdk/NativeAds (~> 5.17.0)
+  - MoPub-FacebookAudienceNetwork-Adapters/Network (6.5.0.0):
+    - FBAudienceNetwork (= 6.5.0)
+    - mopub-ios-sdk/Core (~> 5.17.0)
+    - mopub-ios-sdk/NativeAds (~> 5.17.0)
+  - MoPub-Fyber-Adapters (7.8.6.0):
+    - MoPub-Fyber-Adapters/MoPub (= 7.8.6.0)
+    - MoPub-Fyber-Adapters/Network (= 7.8.6.0)
+  - MoPub-Fyber-Adapters/MoPub (7.8.6.0):
+    - mopub-ios-sdk/Core (~> 5.17.0)
+  - MoPub-Fyber-Adapters/Network (7.8.6.0):
+    - Fyber_Marketplace_SDK (= 7.8.6)
+    - mopub-ios-sdk/Core (~> 5.17.0)
+  - mopub-ios-sdk (5.17.0):
+    - mopub-ios-sdk/MoPubSDK (= 5.17.0)
+  - mopub-ios-sdk/Core (5.17.0)
+  - mopub-ios-sdk/MoPubSDK (5.17.0):
+    - mopub-ios-sdk/Core
+    - mopub-ios-sdk/NativeAds
+  - mopub-ios-sdk/NativeAds (5.17.0):
+    - mopub-ios-sdk/Core
+  - MoPub-UnityAds-Adapters (3.7.2.0):
+    - MoPub-UnityAds-Adapters/MoPub (= 3.7.2.0)
+    - MoPub-UnityAds-Adapters/Network (= 3.7.2.0)
+  - MoPub-UnityAds-Adapters/MoPub (3.7.2.0):
+    - mopub-ios-sdk/Core (~> 5.17.0)
+  - MoPub-UnityAds-Adapters/Network (3.7.2.0):
+    - mopub-ios-sdk/Core (~> 5.17.0)
+    - UnityAds (= 3.7.2)
   - Moya/Core (14.0.0):
     - Alamofire (~> 5.0)
   - Moya/RxSwift (14.0.0):
@@ -229,6 +265,10 @@ PODS:
     - R.swift.Library (~> 5.0.0)
   - R.swift.Library (5.0.1)
   - RAMAnimatedTabBarController (5.2.0)
+  - ReCaptcha/Core (1.5.0)
+  - ReCaptcha/RxSwift (1.5.0):
+    - ReCaptcha/Core
+    - RxSwift (~> 5.0)
   - Reveal-SDK (4)
   - RxCocoa (5.1.1):
     - RxRelay (~> 5)
@@ -297,8 +337,7 @@ PODS:
   - SwiftyUserDefaults (5.0.0)
   - UICollectionViewLeftAlignedLayout (1.0.2)
   - UIColor_Hex_Swift (4.2.0)
-  - UnityAds (3.4.8)
-  - VIMediaCache (0.4)
+  - UnityAds (3.7.2)
   - WCDB.swift (1.0.8.2):
     - SQLiteRepairKit (~> 1.2.0)
     - WCDBOptimizedSQLCipher (~> 1.2.0)
@@ -341,13 +380,16 @@ DEPENDENCIES:
   - loady
   - MBProgressHUD (~> 1.0.0)
   - MJRefresh (~> 3.5.0)
-  - mopub-ios-sdk/Core
-  - MoPub-UnityAds-Adapters (= 3.4.8.1)
+  - MoPub-FacebookAudienceNetwork-Adapters (= 6.5.0.0)
+  - MoPub-Fyber-Adapters (= 7.8.6.0)
+  - mopub-ios-sdk (= 5.17.0)
+  - MoPub-UnityAds-Adapters (= 3.7.2.0)
   - Moya/RxSwift
   - NotificationBannerSwift (~> 3.0.0)
   - PullToDismiss (~> 2.2)
   - R.swift (~> 5.0.2)
   - RAMAnimatedTabBarController
+  - ReCaptcha/RxSwift
   - Reveal-SDK (= 4)
   - RxCocoa
   - RxGesture (= 3.0.2)
@@ -363,7 +405,6 @@ DEPENDENCIES:
   - SwiftyUserDefaults (~> 5.0.0)
   - UICollectionViewLeftAlignedLayout
   - UIColor_Hex_Swift (~> 4.2.0)
-  - VIMediaCache
   - WCDB.swift
   - WebViewJavascriptBridge (from `https://github.com/devSC/WebViewJavascriptBridge.git`, branch `Remove-UIWebView-Support`)
   - WSFlexibleTouch
@@ -384,6 +425,7 @@ SPEC REPOS:
     - DeviceKit
     - DoraemonKit
     - EasyTipView
+    - FBAudienceNetwork
     - FBSDKCoreKit
     - FBSDKLoginKit
     - Firebase
@@ -403,6 +445,7 @@ SPEC REPOS:
     - FirebaseInstanceID
     - FirebaseMessaging
     - FirebaseRemoteConfig
+    - Fyber_Marketplace_SDK
     - GoogleAppMeasurement
     - GoogleDataTransport
     - GoogleDataTransportCCTSupport
@@ -421,6 +464,8 @@ SPEC REPOS:
     - MarqueeLabel
     - MBProgressHUD
     - MJRefresh
+    - MoPub-FacebookAudienceNetwork-Adapters
+    - MoPub-Fyber-Adapters
     - mopub-ios-sdk
     - MoPub-UnityAds-Adapters
     - Moya
@@ -436,6 +481,7 @@ SPEC REPOS:
     - R.swift
     - R.swift.Library
     - RAMAnimatedTabBarController
+    - ReCaptcha
     - Reveal-SDK
     - RxCocoa
     - RxGesture
@@ -458,7 +504,6 @@ SPEC REPOS:
     - UICollectionViewLeftAlignedLayout
     - UIColor_Hex_Swift
     - UnityAds
-    - VIMediaCache
     - WCDB.swift
     - WCDBOptimizedSQLCipher
     - WSFlexibleTouch
@@ -494,6 +539,7 @@ SPEC CHECKSUMS:
   DeviceKit: cadb5ff25d45fe186778bf2d0fd2ea4750542189
   DoraemonKit: 8587e7a9aae0773dfc96707d2369d89d2a21b3d2
   EasyTipView: a92b6edc377b81c5ac18e9fd35d5ee78e9409488
+  FBAudienceNetwork: cfe55330dcc4e9a1df083c34a346ca7f8e32951e
   FBSDKCoreKit: dace5abafc2fd9272733e6d027bcf18102712117
   FBSDKLoginKit: 43f377b451d391f5bc9dd774f51a391db1072029
   Firebase: 5719b4f965f76643241a1bb8244483ff6117db39
@@ -513,6 +559,7 @@ SPEC CHECKSUMS:
   FirebaseInstanceID: cef67c4967c7cecb56ea65d8acbb4834825c587b
   FirebaseMessaging: 29543feb343b09546ab3aa04d008ee8595b43c44
   FirebaseRemoteConfig: 3d189cf0c3c5abc0c924ef1cce60c4add8d3262c
+  Fyber_Marketplace_SDK: 8ba09b9df4cc225d34fb52260c0174269746b8e4
   GoogleAppMeasurement: 137afe68bfa406c3f4221b9395253d9e5d4654cf
   GoogleDataTransport: ad884314b81cdb808fb1d23787b367ff8da4e28a
   GoogleDataTransportCCTSupport: d70a561f7d236af529fee598835caad5e25f6d3d
@@ -531,8 +578,10 @@ SPEC CHECKSUMS:
   MarqueeLabel: 00cc0bcd087111dca575878b3531af980559707d
   MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
   MJRefresh: 6afc955813966afb08305477dd7a0d9ad5e79a16
-  mopub-ios-sdk: a21098174b9420a291aca9fcdae832d0f2e2a368
-  MoPub-UnityAds-Adapters: 267a3e5f23252c01895fc220b958639e1c1343e2
+  MoPub-FacebookAudienceNetwork-Adapters: c7a4de4869afa6bc9075f03c71a8badd5577ece0
+  MoPub-Fyber-Adapters: 1328f8dcd409ffe31a6808965c8dae658e72ce56
+  mopub-ios-sdk: 36d322902674b79b0560a1cb8d15af0548d364ea
+  MoPub-UnityAds-Adapters: 58a32a7117cfed75e4bf7b30bd5adce7094119eb
   Moya: 5b45dacb75adb009f97fde91c204c1e565d31916
   nanopb: c43f40fadfe79e8b8db116583945847910cbabc9
   NotificationBannerSwift: 7021be2338f8f29cf424b0aca43da462bf9e2a1a
@@ -546,6 +595,7 @@ SPEC CHECKSUMS:
   R.swift: f5a87643b91ea569d23d6afb3eee9c743edde239
   R.swift.Library: cfe85d569d9bae6cb262922db130e7c3a7a5fad1
   RAMAnimatedTabBarController: 6863a386e7ae2ab227cd60aa73ab8ff56cdacfdd
+  ReCaptcha: 40ae1dc390fd5837267674b9a6ae0978abb5eeeb
   Reveal-SDK: 178c927f1a3230648d3a92b96f6e730a35b2750a
   RxCocoa: 32065309a38d29b5b0db858819b5bf9ef038b601
   RxGesture: d6bd7447ca3a596c7a9702a6a2b6a2bb5d8bae54
@@ -567,8 +617,7 @@ SPEC CHECKSUMS:
   SwiftyUserDefaults: 33fcb42bd1feb53a37d873feb62c82967db5f7f6
   UICollectionViewLeftAlignedLayout: 830bf6fa5bab9f9b464f62e3384f9d2e00b3c0f6
   UIColor_Hex_Swift: bc07fc197421ee896b9ed6dcfa2054b7fbf75145
-  UnityAds: 729ce6e485d5ae45df03ad13e440cde6967feee3
-  VIMediaCache: aa650f82cb114c68a343beb4e67416cf5eb2f3a2
+  UnityAds: cca7e2191591e0bb5d45231f012a2c8722c3e686
   WCDB.swift: 05d509d7a0e60fb6e11c34eb7e4027c0fab5849f
   WCDBOptimizedSQLCipher: baf44493b0c7a3d49e97bc5b64a3856f6428ddd1
   WebViewJavascriptBridge: 31111973095ed8d340ca56c3abdd1ec5cad9f6c4
@@ -577,6 +626,6 @@ SPEC CHECKSUMS:
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
   ZegoExpressEngine: 9d40a73953c000b9a511a58706a37bb14c18948e
 
-PODFILE CHECKSUM: 9ef135b6b606e1720ff373a10e1af9780f3f3bb5
+PODFILE CHECKSUM: 23e7ffaae0c2cfdb167bdebde3ce51f72866493b
 
 COCOAPODS: 1.10.0

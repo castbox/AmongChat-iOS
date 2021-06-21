@@ -1,5 +1,4 @@
 Selamat datang di aplikasi obrolan suara AmongChat!
-Dalam versi ini, kami lebih mengoptimalkan dan meningkatkan fungsi pelaporan.
-Super Admin dan Monitor lebih berwenang untuk melakukan pengawasan yang lebih ketat terhadap komunitas.
-Kami terus bekerja keras untuk menyediakan komunitas yang sehat dan aman bagi semua pengguna.
+Dalam versi ini, tab baru untuk video gameplay ditambahkan. Ayo bagikan klip game menakjubkan Anda!
+Perbaikan bug dan peningkatan kinerja lainnya.
 Temukan dan Obrolan Suara dengan teman-teman Anda, mainkan bersama, dan nikmatilah!

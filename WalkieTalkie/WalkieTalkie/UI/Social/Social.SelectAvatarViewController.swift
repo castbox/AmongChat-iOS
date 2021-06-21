@@ -9,7 +9,7 @@
 import UIKit
 import RxCocoa
 import RxSwift
-import MoPub
+import MoPubSDK
 
 extension Social {
     

@@ -1,5 +1,4 @@
 Bem-vindo ao aplicativo de bate-papo por voz AmongChat!
-Nesta versão, otimizamos e aprimoramos ainda mais a função de relatório.
-Superadministradores e monitores estão mais autorizados a exercer supervisão mais rigorosa sobre a comunidade.
-Estamos continuamente trabalhando duro para fornecer uma comunidade saudável e segura para todos os usuários.
+Nesta versão, uma nova guia para vídeos de jogo é adicionada. Venha compartilhar seus incríveis clipes de jogos!
+Outras correções de bugs e melhorias de desempenho.
 Encontre e converse por voz com seus amigos, joguem juntos e divirta-se!

@@ -17,7 +17,7 @@ extension APIService {
         case createRoom([String : Any])
         case enteryRoom([String : Any])
         //        case roomUpdate([String: Any])
-        case updateNickName([String: Any])
+//        case updateNickName([String: Any])
         case heartBeating([String: Any])
         case agorzRtcToken([String: Any])
         case zegoRtcToken([String: Any])
@@ -59,7 +59,7 @@ extension APIService {
         case requestSmsCode([String : Any])
         case verifySmsCode([String : Any])
         case receipt([String : Any])
-        case defaultDecorations
+        case defaultDecorations([String : Any])
         case unlockDecoration([String : Any])
         case updateDecoration([String : Any])
         case shareUserSign
@@ -136,6 +136,8 @@ extension APIService {
         case deleteComment([String : Any])
         case myFeeds([String : Any])
         case feedPostPage([String : Any])
+        case claimWelfare([String : Any])
+        case sendDMPushToAnonymousUser([String: Any])
     }
 }
 
@@ -161,8 +163,8 @@ extension APIService.AmongChatBackend: TargetType {
             return "/api/v1/rooms/create"
         case .enteryRoom:
             return "/api/v1/rooms/enter"
-        case .updateNickName:
-            return "/api/v1/rooms/nickname"
+//        case .updateNickName:
+//            return "/api/v1/rooms/nickname"
         case .heartBeating:
             return "/api/v1/rooms/heartbeat"
         case .agorzRtcToken:
@@ -238,7 +240,7 @@ extension APIService.AmongChatBackend: TargetType {
         case .accountMetaData:
             return "/account/meta_data"
         case .requestSmsCode:
-            return "/auth/phone/send_code"
+            return "/auth/phone/send_code/v2"
         case .verifySmsCode:
             return "/auth/phone/verify"
         case .receipt:
@@ -387,6 +389,10 @@ extension APIService.AmongChatBackend: TargetType {
             return "/post/my/posts"
         case .feedPostPage:
             return "/post/post/page"
+        case .claimWelfare:
+            return "/account/welfare/claim"
+        case .sendDMPushToAnonymousUser:
+            return "/api/v1/direct/message/tip"
         }
     }
     
@@ -394,7 +400,7 @@ extension APIService.AmongChatBackend: TargetType {
         switch self {
         case .login,
              .createRoom,
-             .updateNickName,
+//             .updateNickName,
              .updateRoomInfo,
              .kickUsers,
              .updateProfile,
@@ -426,6 +432,8 @@ extension APIService.AmongChatBackend: TargetType {
              .feedCreate,
              .createReply,
              .createComment,
+             .claimWelfare,
+             .sendDMPushToAnonymousUser,
              .logout:
             return .post
             
@@ -537,7 +545,6 @@ extension APIService.AmongChatBackend: TargetType {
              .accountMetaData,
              .contactList,
              .groupCheckHaveLive,
-             .defaultDecorations,
              .globalSetting,
              .gameSkills,
              .reportReasons,
@@ -561,12 +568,14 @@ extension APIService.AmongChatBackend: TargetType {
              .adminUnmuteIm(let params),
              .updateInstalledGames(let params),
              .feedCreate(let params),
+             .roomNickName(let params),
+             .groupNickName(let params),
              .updateDevice(let params):
             return .requestParameters(parameters: params, encoding: JSONEncoding.default)
             
         case .login(let params),
              .summary(let params),
-             .updateNickName(let params),
+//             .updateNickName(let params),
              .heartBeating(let params),
              .roomInfo(let params),
              .agorzRtcToken(let params),
@@ -574,7 +583,6 @@ extension APIService.AmongChatBackend: TargetType {
              .rtmToken(let params),
              .leaveRoom(let params),
              .kickUsers(let params),
-             .roomNickName(let params),
              .defaultAvatars(let params),
              .unlockAvatar(let params),
              .relationData(let params),
@@ -605,7 +613,6 @@ extension APIService.AmongChatBackend: TargetType {
              .addMemberToGroup(let params),
              .groupList(let params),
              .myGroupList(let params),
-             .groupNickName(let params),
              .groupListOfHost(let params),
              .groupListOfJoined(let params),
              .groupAppliedUserList(let params),
@@ -646,6 +653,9 @@ extension APIService.AmongChatBackend: TargetType {
              .deleteComment(let params),
              .myFeeds(let params),
              .feedPostPage(let params),
+             .claimWelfare(let params),
+             .defaultDecorations(let params),
+             .sendDMPushToAnonymousUser(let params),
              .unFollow(let params):
             return .requestParameters(parameters: params, encoding: URLEncoding.queryString)
             

@@ -93,6 +93,8 @@ extension Logger {
             case profile_nikename_clk
             case profile_birthday_clk
             case profile_birthday_update_success
+            case profile_pronouns_update_success
+            case profile_bio_update_success
             case profile_invite_friend_clk
             case profile_followers_imp
             case profile_followers_clk
@@ -227,7 +229,7 @@ extension Logger {
             case profile_other_game_state_item_clk
             case profile_game_state_detail_edit_clk
             case attracking_request_imp
-            
+            case attracking_request_alert_clk
             //group
             case profile_group_clk
             case profile_other_group_clk
@@ -307,6 +309,9 @@ extension Logger {
             case feeds_create_next_clk
             case feeds_create_topic_clk
             case feeds_create_topic_done
+            case feeds_play_finish_progress
+            case search_exclusive_alert_imp
+            case search_exclusive_alert_clk
         }
         
         enum Category: String {

@@ -31,7 +31,7 @@ extension Feed.Comments {
         private let bag = DisposeBag()
         
         private lazy var avatarView: AvatarImageView = {
-            let iv = AvatarImageView()
+            let iv = AvatarImageView(.gray)
             iv.isUserInteractionEnabled = true
             iv.addGestureRecognizer(avatarTap)
             return iv
@@ -54,6 +54,7 @@ extension Feed.Comments {
             let l = UILabel()
             l.font = R.font.nunitoExtraBold(size: 16)
             l.textColor = UIColor(hex6: 0x898989)
+            l.lineBreakMode = .byTruncatingMiddle
             return l
         }()
         
@@ -167,6 +168,11 @@ extension Feed.Comments {
                 maker.trailing.lessThanOrEqualToSuperview().offset(-Frame.horizontalBleedWidth)
             }
             
+            likeButton.setContentHuggingPriority(UILayoutPriority(UILayoutPriority.defaultHigh.rawValue + 1), for: .horizontal)
+            likeButton.setContentCompressionResistancePriority(UILayoutPriority(UILayoutPriority.defaultHigh.rawValue + 1), for: .horizontal)
+            nameLabel.setContentHuggingPriority(UILayoutPriority(UILayoutPriority.defaultLow.rawValue - 1), for: .horizontal)
+            nameLabel.setContentCompressionResistancePriority(UILayoutPriority(UILayoutPriority.defaultLow.rawValue - 1), for: .horizontal)
+            
             let commentTap = UITapGestureRecognizer()
             commentLabel.addGestureRecognizer(commentTap)
             commentTap.rx.event
@@ -189,7 +195,8 @@ extension Feed.Comments {
                       replyHandler: @escaping (() -> Void),
                       moreActionHandler: @escaping (() -> Void)) {
             avatarView.updateAvatar(with: comment.comment.user)
-            nameLabel.text = comment.comment.user.name
+            avatarView.isVerify = comment.comment.user.isVerified ?? false
+            nameLabel.attributedText = comment.comment.user.nameWithVerified(fontSize: 16, withAge: false, isShowVerify: false)
             commentLabel.text = comment.comment.text
             likeButton.isSelected = comment.comment.isLiked
             likeButton.setTitle("\(comment.comment.likeCount)", for: .normal)
@@ -234,9 +241,14 @@ extension Feed.Comments {
         private let bag = DisposeBag()
         
         private lazy var avatarView: AvatarImageView = {
-            let iv = AvatarImageView()
+            let iv = AvatarImageView(.gray)
             iv.isUserInteractionEnabled = true
             iv.addGestureRecognizer(avatarTap)
+            iv.verifyIV.snp.remakeConstraints { maker in
+                maker.width.height.equalTo(15)
+                maker.top.equalTo(-2)
+                maker.trailing.equalTo(7.5)
+            }
             return iv
         }()
                 
@@ -257,6 +269,7 @@ extension Feed.Comments {
             let l = UILabel()
             l.font = R.font.nunitoExtraBold(size: 16)
             l.textColor = UIColor(hex6: 0x898989)
+            l.lineBreakMode = .byTruncatingMiddle
             return l
         }()
         
@@ -377,7 +390,8 @@ extension Feed.Comments {
                       replyHandler: @escaping (() -> Void),
                       moreActionHandler: @escaping (() -> Void)) {
             avatarView.updateAvatar(with: reply.reply.user)
-            nameLabel.text = reply.reply.user.name
+            avatarView.isVerify = reply.reply.user.isVerified ?? false
+            nameLabel.attributedText = reply.reply.user.nameWithVerified(fontSize: 16, withAge: false, isShowVerify: false)
             let attComment = NSMutableAttributedString(string: reply.content)
             let atRange = (reply.content as NSString).range(of: reply.atPrefix)
             attComment.addAttributes([.foregroundColor : UIColor(hex6: 0x866EEF)], range: atRange)

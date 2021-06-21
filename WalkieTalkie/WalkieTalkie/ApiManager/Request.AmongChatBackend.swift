@@ -598,6 +598,7 @@ extension Request {
     
     static func search(_ keyword: String, skip: Int) -> Single<Entity.SearchData?> {
         let params: [String: Any] = [
+            "with_code" : 1,
             "keyword": keyword,
             "skip": skip,
             "limit": 20
@@ -648,11 +649,12 @@ extension Request {
             .observeOn(MainScheduler.asyncInstance)
     }
 
-    static func requestSmsCode(telRegion: String, phoneNumber: String) -> Single<Entity.SmsCodeResponse> {
+    static func requestSmsCode(telRegion: String, phoneNumber: String, recaptchaToken: String) -> Single<Entity.SmsCodeResponse> {
         let params = [
             "client_secret" : "585ea6cf-862b-4630-9029-5ccb27a018ca",
-            "zone_code" : telRegion,
-            "phone" : phoneNumber,
+            "zone_code": telRegion,
+            "phone": phoneNumber,
+            "token": recaptchaToken,
         ]
         
         return amongchatProvider.rx.request(.requestSmsCode(params))
@@ -740,8 +742,10 @@ extension Request {
     }
     
     static func defaultProfileDecorations() -> Single<[Entity.DecorationCategory]?> {
-        
-        return amongchatProvider.rx.request(.defaultDecorations)
+        let params = [
+            "with_hide" : 1
+        ]
+        return amongchatProvider.rx.request(.defaultDecorations(params))
             .mapJSON()
             .mapToDataKeyListValue()
             .mapTo([Entity.DecorationCategory].self)
@@ -1846,4 +1850,30 @@ extension Request {
             .observeOn(MainScheduler.asyncInstance)
     }
     
+    static func claimWelfare(code: String) -> Single<Bool> {
+        
+        let params: [String : Any]  = [
+            "code" : code
+        ]
+                
+        return amongchatProvider.rx.request(.claimWelfare(params))
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .mapToProcessedValue()
+            .observeOn(MainScheduler.asyncInstance)
+    }
+    
+    
+    static func sendDMPushToAnonymousUser(_ uid: String) -> Single<Bool> {
+        
+        let params: [String : Any]  = [
+            "uid" : uid
+        ]
+                
+        return amongchatProvider.rx.request(.sendDMPushToAnonymousUser(params))
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .mapToProcessedValue()
+            .observeOn(MainScheduler.asyncInstance)
+    }
 }

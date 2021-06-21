@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 import AVFoundation
 import RxSwift
-import VIMediaCache
+
 
 private let bottomBarMinHeight = 57 + Frame.Height.safeAeraBottomHeight
 
@@ -25,7 +25,7 @@ extension Social {
         private lazy var navView: NavigationBar = {
             let n = NavigationBar()
             let btn = n.leftBtn
-            btn.setImage(R.image.ac_back(), for: .normal)
+            btn.setImage(R.image.icon_profile_back(), for: .normal)
             btn.rx.controlEvent(.primaryActionTriggered)
                 .subscribe(onNext: { [weak self] () in
                     self?.navigationController?.popViewController()
@@ -88,7 +88,7 @@ extension Social {
         override func loadData() {
             if let feed = feedRedirectInfo?.post {
                 tableView.alpha = 0
-                dataSource = [feed].map { Feed.ListCellViewModel(feed: $0) }
+                feedsDataSource = [feed].map { Feed.ListCellViewModel(feed: $0) }
                 tableView.reloadData()
                 autoScrollToDefaultIndex()
             } else {
@@ -98,7 +98,7 @@ extension Social {
                         guard let `self` = self else { return }
                         removeBlock()
                         self.tableView.alpha = 0
-                        self.dataSource = data.list.map { Feed.ListCellViewModel(feed: $0) }
+                        self.feedsDataSource = data.list.map { Feed.ListCellViewModel(feed: $0) }
                         self.tableView.reloadData()
                         self.autoScrollToDefaultIndex()
                     }, onError: { [weak self] _ in
@@ -130,8 +130,8 @@ extension Social {
                     guard let `self` = self else { return }
                     var source = data.list.map { Feed.ListCellViewModel(feed: $0) }
                     self.hasMore = source.count >= 10
-                    source.insert(contentsOf: self.dataSource, at: 0)
-                    self.dataSource = source
+                    source.insert(contentsOf: self.feedsDataSource, at: 0)
+                    self.feedsDataSource = source
                     //insert datasource
                     let rows = self.tableView.numberOfRows(inSection: 0)
                     let newRow = self.dataSource.count
@@ -150,18 +150,18 @@ extension Social {
         
         func autoScrollToDefaultIndex() {
             if defaultIndex > 0 {
-                tableView.layoutIfNeeded()
                 if defaultIndex < dataSource.count {
                     let indexPath = IndexPath(row: defaultIndex, section: 0)
                     tableView.scrollToRow(at: indexPath, at: .none, animated: false)
+                    tableView.layoutIfNeeded()
                 }
             }
             replayVisibleItem()
             tableView.alpha = 1
         }
         
-        override func replayVisibleItem() {
-            super.replayVisibleItem()
+        override func replayVisibleItem(_ replay: Bool = true) {
+            super.replayVisibleItem(replay)
             let visibleCell: FeedListCell?
             
             if let cell = tableView.cellForRow(at: IndexPath(row: currentIndex, section: 0)) as? FeedListCell {

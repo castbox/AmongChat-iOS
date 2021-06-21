@@ -92,6 +92,12 @@ extension FireRemote {
         //展示直播间快速切换房间
         let showQuickChangeRoomButton: Bool
         
+        //
+        let defaultMainTabIndex: Int
+        
+        ///Feeds 广告加载间隔数 < 0 则不需要加载广告
+        let feedsAdInterval: Int
+        
         init(config: RemoteConfig) {
             cdPrint("remote config: \(config.allKeys(from: .remote))")
             let str = config["premium_prompt"].stringValue ?? ""
@@ -105,15 +111,6 @@ extension FireRemote {
             premiumProducts = Set(config["ios_premium_product"].jsonValue as? [String] ?? [])
             
             chatChannels = config["chat_channels"].jsonValue as? [String] ?? []
-            
-//            if let pbJson = config["popular_alert"].jsonValue as? [String: String],
-//                let image = pbJson["img"],
-//                let action = pbJson["uri"],
-//                let bgColor = pbJson["backgroundColor"] {
-//                popularBanner = TableBannerInfo(image: image, action: action, bgColor: bgColor)
-//            } else {
-//                popularBanner = nil
-//            }
             
             if let actionTitle = config["free_trial_action_title"].stringValue,
                 !actionTitle.isEmpty {
@@ -137,7 +134,9 @@ extension FireRemote {
             auditVersion = config["ios_audit_version"].stringValue ?? ""
             age_prompt_enable = config["age_prompt_enable"].boolValue
             //
-            showQuickChangeRoomButton = config["show_quick_change_button"].boolValue            
+            showQuickChangeRoomButton = config["show_quick_change_button"].boolValue
+            defaultMainTabIndex = config["default_main_tab_index"].numberValue?.intValue ?? 0
+            feedsAdInterval = config["feeds_ad_interval"].numberValue?.intValue ?? -1
         }
     }
 }

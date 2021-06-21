@@ -12,6 +12,8 @@ import RxSwift
 import RxCocoa
 import SwiftyUserDefaults
 import SCSDKLoginKit
+import MessageUI
+import CastboxDebuger
 
 class SettingViewController: ViewController {
     
@@ -69,7 +71,7 @@ class SettingViewController: ViewController {
         btn.titleLabel?.font = R.font.nunitoExtraBold(size: 20)
         return btn
     }()
-        
+    
     private lazy var settingsTable: UITableView = {
         let tb = UITableView(frame: .zero, style: .plain)
         tb.showsVerticalScrollIndicator = false
@@ -119,6 +121,8 @@ class SettingViewController: ViewController {
         }
     }
     
+    private lazy var cacheManager = CacheManager()
+    
     override var screenName: Logger.Screen.Node.Start {
         return .settings
     }
@@ -156,7 +160,7 @@ extension SettingViewController {
                 (UIApplication.shared.delegate as! AppDelegate).setupInitialView()
             }).disposed(by: bag)
     }
-
+    
     @objc
     private func updateEnvironment(_ sender: Any) {
         //debug
@@ -174,7 +178,7 @@ extension SettingViewController {
 extension SettingViewController {
     
     private func setupLayout() {
-
+        
         view.backgroundColor = UIColor.theme(.backgroundBlack)
         
         versionLabel.text = "version: \(Config.appVersionWithBuildVersion)"
@@ -196,15 +200,14 @@ extension SettingViewController {
         settingsTable.reloadData()
     }
     
-    func setupEvent() {
+    private func setupEvent() {
         
         Observable.combineLatest(Settings.shared.isProValue.replay(),
                                  Settings.shared.preferredChatLanguage.replay(),
                                  ChatLanguageHelper.supportedLanguages)
             .observeOn(MainScheduler.asyncInstance)
             .subscribe(onNext: { [weak self] _, _, lans in
-                guard let `self` = self else { return }
-                self.settingOptions = self.generateDataSource(languages: lans)
+                self?.generateRegionOption(languages: lans)
             })
             .disposed(by: bag)
         
@@ -218,9 +221,22 @@ extension SettingViewController {
                 self.logoutBtn.isHidden = !AmongChat.Login.isLogedin
             })
             .disposed(by: bag)
-
-    }
         
+        cacheManager.cacheFormatedSize()
+            .subscribe(onSuccess: { [weak self] (formattedSize) in
+                self?.updateCacheFormattedSize(formattedSize)
+            })
+            .disposed(by: bag)
+    }
+    
+    private func updateCacheFormattedSize(_ formattedSize: String) {
+        if let idx = settingOptions.firstIndex(where: { $0.type == .clearCache }) {
+            var op = settingOptions[idx]
+            op.rightText = formattedSize
+            settingOptions[idx] = op
+        }
+    }
+    
     private func shareApp() {
         Logger.Action.log(.settings_share_app_clk, category: nil)
         let removeHUDBlock = view.raft.show(.loading, userInteractionEnabled: false)
@@ -277,8 +293,55 @@ extension SettingViewController {
         self.open(urlSting: "https://docs.google.com/forms/d/e/1FAIpQLSeTzpMgWikmqajPHbEBAstCdFVB4Xo1CjYDc29wj4zSJq99Kg/viewform")        
     }
     
-    private func generateDataSource(languages: [Language] = []) -> [Option] {
-        var options: [Option] = [
+    private func exportLogger() {
+        if MFMailComposeViewController.canSendMail() {
+            let controller = MFMailComposeViewController()
+            controller.setSubject("Feedback - AmongChat iOS" + "(\(Config.appVersion))" + "isPro: \(Settings.shared.isProValue.value)")
+            controller.setToRecipients(["contact@among.chat"])
+            controller.mailComposeDelegate = self
+            if let fileURL = Debug.zip() {
+                do {
+                    let data = try Data(contentsOf: fileURL)
+                    controller.addAttachmentData(data, mimeType: "application/zip", fileName: Debug.filename)
+                } catch {
+                    
+                }
+            }
+            self.present(controller, animated: true, completion: nil)
+            return
+        } else {
+            if let openURL = URL(string: "mailto:contact@among.chat") {
+                UIApplication.shared.open(openURL)
+            }
+        }
+    }
+    
+    private func clearCacheAlert() {
+        let alert = amongChatAlert(title: nil, message: R.string.localizable.amongChatClearCacheTip(), cancelTitle: R.string.localizable.toastCancel(), confirmTitle: R.string.localizable.amongChatClear(), confirmTitleColor: UIColor(hex6: 0xFB5858), confirmAction: { [weak self] in
+            
+            guard let `self` = self else { return }
+            
+            let hudRemoval = self.view.raft.show(.text(R.string.localizable.amongChatClearing()))
+            
+            self.cacheManager.clearCache()
+                .flatMap({ (_) -> Single<String> in
+                    self.cacheManager.cacheFormatedSize()
+                })
+                .do(onDispose: {
+                    hudRemoval()
+                })
+                .subscribe(onSuccess: { (formattedSize) in
+                    self.updateCacheFormattedSize(formattedSize)
+                })
+                .disposed(by: self.bag)
+            
+        })
+        alert.visualStyle.contentPadding = UIEdgeInsets(top: 28, left: 32, bottom: 20, right: 32)
+        alert.present()
+    }
+        
+    private func generateDataSource() -> [Option] {
+        let options: [Option] = [
             Option(type: .blockList, selectionHandler: { [weak self] in
                 let vc = Social.BlockedUserList.ViewController()
                 self?.navigationController?.pushViewController(vc)
@@ -295,8 +358,21 @@ extension SettingViewController {
             Option(type: .restorePurchase, selectionHandler: { [weak self] in
                 self?.restorePurchases()
             }),
+            Option(type: .getVerified, selectionHandler: { [weak self] in
+                self?.getVerified()
+            }),
+            Option(type: .clearCache, rightText: "", selectionHandler: { [weak self] in
+                self?.clearCacheAlert()
+            }),
+            Option(type: .feedback, selectionHandler: { [weak self] in
+                self?.exportLogger()
+            }),
         ]
         
+        return options
+    }
+    
+    private func generateRegionOption(languages: [Language]) {
         if languages.count > 0 {
             
             let currentLan = ChatLanguageHelper.currentLanguage(from: languages)
@@ -305,16 +381,13 @@ extension SettingViewController {
                 let vc = AmongChat.ChatLanguageViewController(with: languages)
                 self?.navigationController?.pushViewController(vc, animated: true)
             })
-            options.insert(regionOption, at: 0)
+            
+            if let idx = settingOptions.firstIndex(where: { $0.type == .region }) {
+                settingOptions[idx] = regionOption
+            } else {
+                settingOptions.insert(regionOption, at: 0)
+            }
         }
-        
-        let verifiedOp = Option(type: .getVerified, selectionHandler: { [weak self] in
-            self?.getVerified()
-        })
-        
-        options.append(verifiedOp)
-        
-        return options
     }
     
     private func updateTableFooterHeight() {
@@ -329,7 +402,7 @@ extension SettingViewController {
 }
 
 extension SettingViewController: UITableViewDataSource {
-        
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return settingOptions.count
     }
@@ -367,12 +440,14 @@ extension SettingViewController {
             case blockList
             case restorePurchase
             case getVerified
+            case feedback
+            case clearCache
         }
         
         let type: OptionType
         var rightText: String? = nil
         let selectionHandler: (() -> Void)
-                
+        
         var leftText: String {
             switch type {
             case .region:
@@ -389,6 +464,10 @@ extension SettingViewController {
                 return R.string.localizable.premiumRestorePurchases()
             case .getVerified:
                 return R.string.localizable.amongChatSettingGetVerified()
+            case .feedback:
+                return R.string.localizable.amongChatContactUs()
+            case .clearCache:
+                return R.string.localizable.amongChatClearCache()
             }
         }
         
@@ -408,6 +487,10 @@ extension SettingViewController {
                 return R.image.ac_restore_purchases()
             case .getVerified:
                 return R.image.icon_verified_30()
+            case .feedback:
+                return R.image.ac_setting_feedback()
+            case .clearCache:
+                return R.image.ac_setting_clear_cache()
             }
         }
         
@@ -437,7 +520,7 @@ extension SettingViewController {
             lb.textColor = UIColor(hex6: 0xFFFFFF)
             return lb
         }()
-                
+        
         private lazy var rightLabel: UILabel = {
             let lb = UILabel()
             lb.font = R.font.nunitoExtraBold(size: 20)
@@ -449,7 +532,7 @@ extension SettingViewController {
             let iv = UIImageView()
             return iv
         }()
-
+        
         override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
             super.init(style: style, reuseIdentifier: reuseIdentifier)
             setupLayout()
@@ -458,7 +541,7 @@ extension SettingViewController {
         required init?(coder: NSCoder) {
             fatalError("init(coder:) has not been implemented")
         }
-                
+        
         private func setupLayout() {
             selectionStyle = .none
             backgroundColor = .clear
@@ -501,4 +584,10 @@ extension SettingViewController {
         
     }
     
+}
+
+extension SettingViewController: MFMailComposeViewControllerDelegate {
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        controller.presentingViewController?.dismiss(animated: true, completion: nil)
+    }
 }

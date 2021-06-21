@@ -267,10 +267,11 @@ extension Social {
             return iv
         }()
         
-        private lazy var usernameLabel: WalkieLabel = {
-            let lb = WalkieLabel()
+        private lazy var usernameLabel: UILabel = {
+            let lb = UILabel()
             lb.font = R.font.nunitoExtraBold(size: 16)
             lb.textColor = .white
+            lb.lineBreakMode = .byTruncatingMiddle
             return lb
         }()
         
@@ -355,8 +356,14 @@ extension Social {
             if isSelf {
                 if isFollowing {
                     followBtn.isHidden = true
+                    usernameLabel.snp.updateConstraints { maker in
+                        maker.trailing.equalTo(-12)
+                    }
                 } else {
                     followBtn.isHidden = false
+                    usernameLabel.snp.updateConstraints { maker in
+                        maker.trailing.equalTo(-115)
+                    }
                 }
             } else {
                 followBtn.isHidden = false

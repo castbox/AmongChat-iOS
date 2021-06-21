@@ -25,7 +25,7 @@ extension Social {
             if isSelfProfile.value, navigationController?.viewControllers.count == 1 {
                 btn.setImage(R.image.ac_profile_close_down(), for: .normal)
             } else {
-                btn.setImage(R.image.ac_profile_close(), for: .normal)
+                btn.setImage(R.image.ac_back(), for: .normal)
             }
             btn.rx.tap.observeOn(MainScheduler.instance)
                 .subscribe(onNext: { [weak self]() in
@@ -117,7 +117,7 @@ extension Social {
         }
         
         private lazy var settingsBtn: UIButton = {
-            let btn = UIButton(type: .custom)
+            let btn = SmallSizeButton(type: .custom)
             btn.setImage(R.image.ac_profile_setting(), for: .normal)
             btn.rx.tap.observeOn(MainScheduler.instance)
                 .subscribe(onNext: { [weak self]() in
@@ -128,7 +128,7 @@ extension Social {
         }()
         
         private lazy var moreBtn: UIButton = {
-            let btn = UIButton(type: .custom)
+            let btn = SmallSizeButton(type: .custom)
             btn.setImage( R.image.ac_profile_more_icon(), for: .normal)
             btn.rx.tap.observeOn(MainScheduler.instance)
                 .subscribe(onNext: { [weak self]() in
@@ -224,21 +224,15 @@ extension Social {
             btn.setTitle(R.string.localizable.amongChatProfileChat(), for: .normal)
             btn.rx.tap
                 .subscribe(onNext: { [weak self] () in
-                    self?.startChatIfCould()
+                    self?.startChatAfterLogin(with: self?.userProfile.value)
                     Logger.Action.log(.profile_other_chat_clk, category: nil, self?.userProfile.value?.uid.string)
                 }).disposed(by: bag)
             btn.isHidden = true
             return btn
         }()
         
-        private let bottomGradientViewHeight: CGFloat = 134
         private lazy var bottomGradientView: GradientView = {
-            let v = GradientView()
-            let l = v.layer
-            l.colors = [UIColor(hex6: 0x121212, alpha: 0).cgColor, UIColor(hex6: 0x121212, alpha: 0.18).cgColor, UIColor(hex6: 0x121212, alpha: 0.57).cgColor, UIColor(hex6: 0x121212).cgColor]
-            l.startPoint = CGPoint(x: 0.5, y: 0)
-            l.endPoint = CGPoint(x: 0.5, y: 0.4)
-            l.locations = [0, 0.3, 0.6, 1]
+            let v = Social.ChooseGame.bottomGradientView()
             
             Observable.combineLatest(relationData.filterNil(),
                                      userProfile.filterNil())
@@ -248,31 +242,22 @@ extension Social {
                     
                     guard let `self` = self else { return }
                     
-                    if AmongChat.Login.isLogedin,
-                       !(p.isAnonymous ?? true) {
-                        v.addSubviews(views: self.chatButton, self.followButton)
-                        self.chatButton.snp.makeConstraints { (maker) in
-                            maker.leading.equalTo(20)
-                            maker.bottom.equalTo(-33)
-                            maker.height.equalTo(48)
-                        }
-                        self.followButton.snp.makeConstraints { (maker) in
-                            maker.bottom.equalTo(-33)
-                            maker.height.equalTo(48)
-                            maker.leading.equalTo(self.chatButton.snp.trailing).offset(20)
-                            maker.trailing.equalTo(-20)
-                            maker.width.equalTo(self.chatButton.snp.width)
-                        }
-                        self.chatButton.isHidden = false
-                    } else {
-                        v.addSubviews(views: self.followButton)
-                        self.followButton.snp.makeConstraints { (maker) in
-                            maker.bottom.equalTo(-33)
-                            maker.height.equalTo(48)
-                            maker.leading.trailing.equalToSuperview().inset(20)
-                        }
+                    v.addSubviews(views: self.chatButton, self.followButton)
+                    self.chatButton.snp.makeConstraints { (maker) in
+                        maker.top.equalTo(40)
+                        maker.leading.equalTo(20)
+                        maker.bottom.equalTo(-(20 + Frame.Height.safeAeraBottomHeight))
+                        maker.height.equalTo(48)
                     }
-                    
+                    self.followButton.snp.makeConstraints { (maker) in
+                        maker.top.equalTo(40)
+                        maker.bottom.equalTo(-(20 + Frame.Height.safeAeraBottomHeight))
+                        maker.height.equalTo(48)
+                        maker.leading.equalTo(self.chatButton.snp.trailing).offset(20)
+                        maker.trailing.equalTo(-20)
+                        maker.width.equalTo(self.chatButton.snp.width)
+                    }
+                    self.chatButton.isHidden = false
                     let follow = relation.isFollowed ?? false
                     self.setFollowButton(follow)
                 })
@@ -328,8 +313,10 @@ extension Social {
         var roomUser: Entity.RoomUser!
         private let userProfile = BehaviorRelay<Entity.UserProfile?>(value: nil)
         private var pullToDismiss: PullToDismiss?
+        private let autoOpenChat: Bool
         
-        init(with uid: Int) {
+        init(with uid: Int, autoOpenChat: Bool = false) {
+            self.autoOpenChat = autoOpenChat
             super.init(nibName: nil, bundle: nil)
             self.isNavigationBarHiddenWhenAppear = true
             self.uid = uid
@@ -374,7 +361,6 @@ private extension Social.ProfileViewController {
         
         bottomGradientView.snp.makeConstraints { (maker) in
             maker.leading.trailing.bottom.equalToSuperview()
-            maker.height.equalTo(bottomGradientViewHeight)
         }
         
         pagingView.snp.makeConstraints { (maker) in
@@ -407,7 +393,7 @@ private extension Social.ProfileViewController {
             profileDataViews.forEach { (view) in
                 let scroll = view.listScrollView()
                 var contentInset = scroll.contentInset
-                contentInset.bottom = max(contentInset.bottom, bottomGradientViewHeight)
+                contentInset.bottom = max(contentInset.bottom, bottomGradientView.bounds.height)
                 scroll.contentInset = contentInset
             }
         }
@@ -451,6 +437,7 @@ private extension Social.ProfileViewController {
                 guard let data = data, let `self` = self else { return }
                 self.userProfile.accept(data)
                 self.headerView.configProfile(data)
+                self.autoStartChatIfNeed()
             }, onError: {(error) in
                 cdPrint("profilePage error : \(error.localizedDescription)")
             }).disposed(by: bag)
@@ -675,7 +662,7 @@ private extension Social.ProfileViewController {
         if isBlocked {
             blocked = true
             if !blockedUsers.contains(where: { $0.uid == uid}) {
-                let newUser = Entity.RoomUser(uid: uid, name: userProfile.value?.name ?? "", pic: userProfile.value?.pictureUrl ?? "")
+                let newUser = Entity.RoomUser(uid: uid, name: userProfile.value?.name ?? "", pic: userProfile.value?.pictureUrl ?? "", isOfficial: nil)
                 blockedUsers.append(newUser)
                 Defaults[\.blockedUsersV2Key] = blockedUsers
             }
@@ -714,34 +701,16 @@ private extension Social.ProfileViewController {
         followButton.layer.borderColor = UIColor(hex6: 0xFFF000).cgColor
         followButton.setTitleColor(.black, for: .normal)
     }
-    
-    func startChatIfCould() {
-        //判断为非匿名用户
-        guard let profile = userProfile.value?.dmProfile else {
+}
+
+private extension Social.ProfileViewController {
+    func autoStartChatIfNeed() {
+        guard autoOpenChat,
+              let profile = userProfile.value,
+              profile.uid != Settings.loginUserId else {
             return
         }
-        
-        let hudRemoval = view.raft.show(.loading)
-        //query
-        DMManager.shared.queryConversation(fromUid: profile.uid.string)
-            .flatMap { conversation -> Single<Entity.DMConversation?> in
-                guard conversation == nil else {
-                    return .just(conversation)
-                }
-                return DMManager.shared.add(message: Entity.DMMessage.emptyMessage(for: profile))
-                    .flatMap { DMManager.shared.queryConversation(fromUid: profile.uid.string) }
-            }
-            .subscribe(onSuccess: { [weak self] conversation in
-                hudRemoval()
-                guard let conversation = conversation else {
-                    return
-                }
-                let vc = ConversationViewController(conversation)
-                self?.navigationController?.pushViewController(vc)
-            }, onError: { error in
-                hudRemoval()
-            })
-            .disposed(by: bag)
+        startChatAfterLogin(with: profile)
     }
 }
 

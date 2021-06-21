@@ -12,6 +12,7 @@ protocol Verifiedable {
     var name: String? { get set }
     var isVerified: Bool? { get set }
     var isVip: Bool? { get set }
+    var isOfficial: Bool? { get set }
 }
 
 enum Constellation: String, Codable {
@@ -37,7 +38,7 @@ enum Pronoun: Int {
     case pronounOther
 }
 
-func attribuated(with name: String?, isVerified: Bool?, isVip: Bool?, fontSize: CGFloat = 16) -> NSAttributedString {
+func attribuated(with name: String?, isVerified: Bool?, isVip: Bool?, isOfficial: Bool?, officialHeight: OfficialBadgeView.HeightStyle = ._18, fontSize: CGFloat = 16) -> NSAttributedString {
     let nameString = name ?? ""
     let fullString = NSMutableAttributedString(string: nameString)
     if isVerified == true {
@@ -81,13 +82,30 @@ func attribuated(with name: String?, isVerified: Bool?, isVip: Bool?, fontSize: 
         fullString.yy_appendString(" ")
         fullString.append(imageString)
     }
+    
+    if isOfficial == true {
+        let b = OfficialBadgeView(heightStyle: officialHeight)
+        
+        if let image = b.asImage() {
+            let font = R.font.nunitoExtraBold(size: fontSize)!
+            let extraTopPadding: CGFloat = 0
+            let imageAttachment = NSTextAttachment()
+            imageAttachment.image = image
+            imageAttachment.bounds = CGRect(x: 0, y: (font.capHeight - image.size.height)/2 + extraTopPadding, width: image.size.width, height: image.size.height)
+            
+            let imageString = NSAttributedString(attachment: imageAttachment)
+            fullString.yy_appendString(" ")
+            fullString.append(imageString)
+        }
+    }
+    
     return fullString
 }
 
 extension Verifiedable {
     
-    func nameWithVerified(fontSize: CGFloat = 16, isShowVerify: Bool = true) -> NSAttributedString {
-        return attribuated(with: name, isVerified: isShowVerify ? isVerified : false, isVip: isVip, fontSize: fontSize)
+    func nameWithVerified(fontSize: CGFloat = 16, isShowVerify: Bool = true, isShowOfficial: Bool = true, officialHeight: OfficialBadgeView.HeightStyle = ._18) -> NSAttributedString {
+        return attribuated(with: name, isVerified: isShowVerify ? isVerified : false, isVip: isVip, isOfficial: isShowOfficial ? isOfficial : false, officialHeight: officialHeight, fontSize: fontSize)
     }
 }
 
@@ -128,6 +146,7 @@ extension Entity {
         var chatLanguage: String?
         var isVerified: Bool?
         var isVip: Bool?
+        var isOfficial: Bool?
         var decoBgId: Int?
         var decoSkinId: Int?
         var decoHatId: Int?
@@ -217,6 +236,7 @@ extension Entity {
             case followersCount = "followers_count"
             case role
             case isAnonymous = "is_anonymous"
+            case isOfficial = "is_official"
         }
     }
     
@@ -258,10 +278,14 @@ extension Entity {
     
     struct SearchData: Codable {
         var list: [UserProfile]?
+        var welfare: Entity.DecorationEntity?
         var more: Bool?
+        var type: String
         private enum CodingKeys: String, CodingKey {
             case list
+            case welfare
             case more
+            case type
         }
     }
 }
@@ -280,6 +304,21 @@ extension Pronoun {
             return R.string.localizable.profilePronounTheyThem()
         case .pronounOther:
             return R.string.localizable.profilePronounOther()
+        }
+    }
+    
+    var logString: String {
+        switch self {
+        case .pronounNotShare:
+            return "not_share"
+        case .pronounHe:
+            return "he"
+        case .pronounShe:
+            return "she"
+        case .pronounThey:
+            return "they"
+        case .pronounOther:
+            return "other"
         }
     }
 }
@@ -317,7 +356,7 @@ extension Constellation {
 
 extension Entity.UserProfile {
     var dmProfile: Entity.DMProfile {
-        Entity.DMProfile(uid: uid.int64, name: name, pictureUrl: pictureUrl, isVerified: isVerified, isVip: isVip)
+        Entity.DMProfile(uid: uid.int64, name: name, pictureUrl: pictureUrl, isVerified: isVerified, isVip: isVip, isOfficial: isOfficial)
     }
     
     var age: String? {
@@ -354,9 +393,9 @@ extension Entity.UserProfile {
         return name ?? ""
     }
     
-    func nameWithVerified(fontSize: CGFloat = 16, withAge: Bool = false, isShowVerify: Bool = true) -> NSAttributedString {
+    func nameWithVerified(fontSize: CGFloat = 16, withAge: Bool = false, isShowVerify: Bool = true, isShowOfficial: Bool = true, officialHeight: OfficialBadgeView.HeightStyle = ._18) -> NSAttributedString {
         let nameString = withAge ? nameWithAge : (name ?? "")
-        return attribuated(with: nameString, isVerified: isShowVerify ? isVerified : false, isVip: isVip, fontSize: fontSize)
+        return attribuated(with: nameString, isVerified: isShowVerify ? isVerified : false, isVip: isVip, isOfficial: isShowOfficial ? isOfficial : false, officialHeight: officialHeight, fontSize: fontSize)
     }
     
     var locale: String? {
@@ -372,7 +411,7 @@ extension Entity.UserProfile {
 
 extension Entity.UserProfile {
     func toRoomUser(with seatNo: Int) -> Entity.RoomUser {
-        return Entity.RoomUser(uid: uid, name: name, pic: pictureUrl, seatNo: seatNo, status: .connected, isMuted: false, isMutedByLoginUser: false, isVerified: isVerified, isVip: isVip, decoPetId: decoPetId)
+        return Entity.RoomUser(uid: uid, name: name, pic: pictureUrl, seatNo: seatNo, status: .connected, isMuted: false, isMutedByLoginUser: false, isVerified: isVerified, isVip: isVip, decoPetId: decoPetId, isOfficial: isOfficial)
     }
 }
 

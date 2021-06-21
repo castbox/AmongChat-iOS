@@ -37,7 +37,6 @@
 "report.incorrect.sexual" = "Sexueller Inhalt";
 "report.incorrect.harassment" = "Belästigung oder abstoßende Sprache";
 "report.incorrect.unreasonable" = "Unangemessene Forderungen";
-"report.success" = "Sie haben diese Person\nerfolgreich gemeldet";
 
 
 "alert.block" = "Blockieren";
@@ -470,7 +469,7 @@
 
 //1.18
 "report.user" = "Benutzer melden";
-"report.success" = "Sie haben diese Person\nerfolgreich gemeldet";
+"report.success" = "Erfolgreich gemeldet";
 "report.failed" = "Bericht fehlgeschlagen. Bitte versuche es erneut";
 "report.comments" = "Kommentare";
 "report.comments.placeholder" = "Bitte beschreiben Sie den Bericht";
@@ -604,3 +603,23 @@
 "among.chat.login.auth.source.comment" = "Einen Kommentar hinzufügen";
 "among.chat.login.auth.source.create.feed" = "Beiträge erstellen";
 "feed.play.no.wifi.tips" = "Sie sind nicht mit WIFI verbunden. Um das Streaming fortzusetzen, werden Ihre mobilen Daten verbraucht.";
+"feed.deleted.tips" = "Ups, dieser Beitrag wurde gelöscht";
+
+//1.23.0
+"among.chat.exclusive.avatar" = "Exklusiver Avatar";
+"among.chat.congrates.exclusive.avatar" = "Herzlichen Glückwunsch zum Erhalt des exklusiven Avatars von AmongChat!";
+"among.chat.exclusive.pet" = "Exklusives Haustier";
+"among.chat.congrates.exclusive.pet" = "Herzlichen Glückwunsch zum Erhalt des exklusiven Haustiers von AmongChat!";
+"among.chat.claim.fail" = "Beanspruch fehlgeschlagen";
+"among.chat.claimed" = "Beansprucht";
+
+"social.profile.chat.anonymous.user.tips" = "Dieser Benutzer ist leider anonym und kann keine Nachrichten empfangen.";
+
+//21.06.11
+"among.chat.login.auth.source.upload.avatar" = "Laden Sie Ihren Avatar hoch";
+"among.chat.clear.cache" = "Cache leeren";
+"among.chat.contact.us" = "Kontaktiere uns";
+"among.chat.clear.cache.tip" = "Nach dem Löschen des Caches werden alle Ihre Sprachnachrichten dauerhaft entfernt. Sind Sie sicher, dass Sie fortfahren möchten?";
+"among.chat.clear" = "Löschen";
+"among.chat.clearing" = "Löschen";
+"feed.remove.ads" = "Werbung entfernen";

@@ -10,11 +10,11 @@
 //import RxSwift
 //import RxCocoa
 //import SwiftyUserDefaults
-////import MoPub
+////import MoPubSDK
 //
-//struct Ad {
-//    
-//}
+struct Ad {
+    
+}
 //
 //extension Ad {
 //    

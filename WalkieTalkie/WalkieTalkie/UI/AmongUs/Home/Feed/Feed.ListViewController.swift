@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 import AVFoundation
 import RxSwift
-import VIMediaCache
+
 import Alamofire
 import MBProgressHUD
 
@@ -21,9 +21,26 @@ extension Feed {
         case profile
     }
     
+    class DataPlaceholder: NSObject {
+        enum PlaceholderType {
+            case ad
+//            case followIns
+//            case premium
+//            case promotion
+        }
+        let type: PlaceholderType
+        
+        init(type: PlaceholderType) {
+            self.type = type
+            super.init()
+        }
+    }
+    
     class ListViewController: WalkieTalkie.ViewController {
         
         typealias NetworkConnectionType = NetworkReachabilityManager.NetworkReachabilityStatus.ConnectionType
+        
+        typealias FeedCellViewModel = Feed.ListCellViewModel
         
         var tableView: UITableView!
         
@@ -33,15 +50,97 @@ extension Feed {
         
         var feedHeight: CGFloat = 0
         
-        var dataSource: [Feed.ListCellViewModel] = []
+        //feeds
+        var feedsDataSource: [Feed.ListCellViewModel] = [] {
+            didSet {
+                buildDataSourceModels()
+            }
+        }
         
-        var currentIndex = 0
+        var dataSource: [Any] = []
+        
+        var currentIndex = 0 {
+            didSet {
+                /*
+                 * refresh ad when an ad is being slided
+                 */
+                let old = dataSource.safe(oldValue)
+                let new = dataSource.safe(currentIndex)
+                
+                switch (old, new) {
+                case (let placeholder as DataPlaceholder, _ as FeedCellViewModel):
+                    switch placeholder.type {
+                    case .ad:
+                        loadNativeAdIfCould()
+                    default:
+                        break
+                    }
+                    
+                default:
+                    break
+                }
+                
+            }
+        }
         
         var listStyle: ListStyle = .recommend
         
         private var shouldAutoPauseWhenDismiss: Bool = true
         private var scrollDisposeBag: Disposable?
         private var previousNetworkType: NetworkConnectionType?
+        
+        private var adPositionInterval: Int = 4
+        private var adView: UIView? {
+            didSet {
+                switch (oldValue, adView) {
+                case (.none, .some(_)):
+                    //
+                    let oldIndex = dataSource.count
+                    let adIndexs = buildDataSourceModels()
+                        .map { IndexPath(row: $0, section: 0) }
+                    if oldIndex < dataSource.count {
+                        //新插入
+                        tableView.beginUpdates()
+                        tableView.insertRows(at: adIndexs, with: .none)
+                        tableView.endUpdates()
+                    } else {
+                        tableView.reloadData()
+                        replayVisibleItem(false)
+                    }
+                case (.some(_), .some(_)):
+                    if let _ = tableView.cellForRow(at: IndexPath(item: currentIndex, section: 0)) as? FeedNativeAdCell {
+                        self.tableView.reloadRows(at: [IndexPath(item: currentIndex, section: 0)], with: .none)
+                    }
+                default:
+                    break
+                }
+            }
+        }
+        
+        @discardableResult
+        private func buildDataSourceModels() -> [Int] {
+            dataSource.removeAll()
+            var adPlaceholderIndex: [Int] = []
+            if ableToShowAd {
+                let adPlaceholder = DataPlaceholder(type: .ad)
+                feedsDataSource.enumerated().forEach { (idx, ele) in
+                    if idx > currentIndex,
+                        idx % adPositionInterval == 0 {
+                        dataSource.append(adPlaceholder)
+                        adPlaceholderIndex.append(idx)
+                    }
+                    dataSource.append(ele)
+                }
+            } else {
+                dataSource.append(contentsOf: feedsDataSource)
+            }
+            return adPlaceholderIndex
+        }
+        
+        private var ableToShowAd: Bool {
+            return Ad.shouldShow() && adView != nil
+        }
+        
         // MARK: - Lifecycles
         override func viewDidLoad() {
             super.viewDidLoad()
@@ -56,14 +155,10 @@ extension Feed {
             if dataSource.isEmpty {
                 loadData()
             }
-            //            else if let cell = tableView.visibleCells.first as? FeedListCell,
-            //                      UIApplication.topViewController() == self,
-            //                      !cell.isUserPaused {
-            //                cell.play()
-            //            }
         }
         
         func onViewDidAppear() {
+            loadNativeAdIfCould()
             guard UIApplication.topViewController() == self else {
                 return
             }
@@ -83,7 +178,7 @@ extension Feed {
         }
         
         func autoPlayVisibleVideoIfCould() {
-            if !dataSource.isEmpty,
+            if !feedsDataSource.isEmpty,
                let cell = tableView.visibleCells.first as? FeedListCell,
                !cell.isUserPaused {
                 cell.play()
@@ -105,23 +200,30 @@ extension Feed {
             
         }
         
-        func replayVisibleItem() {
+        func replayVisibleItem(_ replay: Bool = true) {
             guard isVisible else {
                 return
             }
             if let cell = tableView.cellForRow(at: IndexPath(row: currentIndex, section: 0)) as? FeedListCell {
-                cell.replay()
+                if replay {
+                    cell.replay()
+                } else {
+                    cell.play()
+                }
                 viewModel.reportPlay(cell.viewModel?.feed.pid)
             } else {
                 if let cell = tableView.visibleCells.first as? FeedListCell {
-                    cell.replay()
+                    if replay {
+                        cell.replay()
+                    } else {
+                        cell.play()
+                    }
                     viewModel.reportPlay(cell.viewModel?.feed.pid)
                 }
             }
         }
+        
         func bindSubviewEvent() {
-            SZAVPlayerCache.shared.setup(maxCacheSize: 100)
-
             Observable.merge(rx.viewWillAppear.asObservable(),
                              Settings.shared.loginResult.replay().map { _ in })
                 .debounce(.seconds(1), scheduler: MainScheduler.asyncInstance)
@@ -169,6 +271,26 @@ extension Feed {
                     cdPrint("NetworkReachabilityManager reachable type: \(type)")
                 }
             })
+            
+            Ad.NativeManager.shared.adViewObservable()
+                .asDriver(onErrorJustReturn: nil)
+                .drive(onNext: { [weak self] (adView) in
+                    guard let `self` = self,
+                        Settings.shared.isProValue.value == false,
+                        let adView = adView else { return }
+                    self.adView = adView
+                })
+                .disposed(by: bag)
+            
+            Settings.shared.isProValue.replay()
+                .asDriver(onErrorJustReturn: false)
+                .distinctUntilChanged()
+                .skip(1)
+                .drive(onNext: { [weak self] (_) in
+                    self?.buildDataSourceModels()
+                    self?.tableView.reloadData()
+                })
+                .disposed(by: bag)
         }
         
         
@@ -184,6 +306,7 @@ extension Feed {
             tableView.showsVerticalScrollIndicator = false
             tableView.separatorStyle = .none
             tableView.register(nibWithCellClass: FeedListCell.self)
+            tableView.register(nibWithCellClass: FeedNativeAdCell.self)
             tableView.delegate = self
             tableView.dataSource = self
             tableView.estimatedRowHeight = feedHeight
@@ -208,13 +331,39 @@ extension Feed.ListViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withClass: FeedListCell.self, for: indexPath)
-        cdPrint("tableView cellForRowAt index: \(indexPath.row)")
-
-        let viewModel = dataSource.safe(indexPath.row)
-        cell.config(with: viewModel, listStyle: listStyle)
-        cell.actionHandler = { [weak self] action in
-            self?.onCell(action: action, viewModel: viewModel)
+        let cell: UITableViewCell
+        let item = dataSource.safe(indexPath.row)
+        if let placeholder = item as? Feed.DataPlaceholder {
+            let adCell = tableView.dequeueReusableCell(withClass: FeedNativeAdCell.self, for: indexPath)
+            adCell.adView = adView
+            adCell.removeAdHandler = { [weak self] in
+                guard let `self` = self else { return }
+                self.presentPremiumView(source: .feeds_remove_ads, afterDismiss: { [weak self] purchased in
+                    //remove all ad
+                    guard purchased else {
+                        return
+                    }
+                    self?.removeAllAd(at: placeholder)
+                })
+            }
+            Ad.NativeManager.shared.didShow(adView: adView, in: self) {
+                //
+            }
+            cell = adCell
+        } else {
+            let feedCell = tableView.dequeueReusableCell(withClass: FeedListCell.self, for: indexPath)
+            cdPrint("tableView cellForRowAt index: \(indexPath.row)")
+            if let viewModel = item as? Feed.ListCellViewModel {
+                feedCell.config(with: viewModel, listStyle: listStyle)
+                feedCell.actionHandler = { [weak self] action in
+                    self?.onCell(action: action, viewModel: viewModel)
+                }
+            }
+            cell = feedCell
+        }
+        if indexPath.item > 0,
+            indexPath.item % adPositionInterval == 0 {
+            loadNativeAdIfCould()
         }
         return cell
     }
@@ -232,8 +381,8 @@ extension Feed.ListViewController: UITableViewDelegate, UITableViewDataSource {
             if currentIndex != -1 {
                 cell.pause()
             }
-            currentIndex = indexPath.row
         }
+        currentIndex = indexPath.row
     }
     
     func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
@@ -241,6 +390,9 @@ extension Feed.ListViewController: UITableViewDelegate, UITableViewDataSource {
         cdPrint("tableView didEndDisplaying row: \(indexPath.row)")
         if let cell = cell as? FeedListCell {
             cell.pause()
+            //report
+            let viewModel = dataSource.safe(indexPath.row) as? Feed.ListCellViewModel
+            Logger.Action.log(.feeds_play_finish_progress, category: nil, viewModel?.feed.pid, lroundf(cell.playProgress * 10))
         }
     }
 }
@@ -262,6 +414,41 @@ extension Feed.ListViewController: UIScrollViewDelegate {
 
 
 extension Feed.ListViewController {
+    func loadNativeAdIfCould() {
+        adPositionInterval = FireRemote.shared.value.feedsAdInterval
+        if adPositionInterval == 0 {
+            adPositionInterval = 1
+        }
+        guard adPositionInterval > 1 else {
+            return
+        }
+        requestAppTrackPermission {
+            Ad.NativeManager.shared.loadAd()            
+        }
+    }
+    
+    func removeAllAd(at placeholder: Feed.DataPlaceholder) {
+        let nilableIndex = self.dataSource.firstIndex(where: { item in
+            guard let item = item as? Feed.DataPlaceholder else {
+                return false
+            }
+            return item.isEqual(placeholder)
+        })
+        guard let index = nilableIndex else {
+            return
+        }
+        let indexPath = IndexPath(row: index, section: 0)
+        dataSource = dataSource.filter { $0 is FeedCellViewModel }
+        self.tableView.reloadData { [weak self] in
+            let newCell = self?.tableView.cellForRow(at: indexPath) as? FeedListCell
+            newCell?.play()
+        }
+//        if currentIndex >= dataSource.count {
+//            currentIndex = dataSource.count - 1
+//        }
+//        replayVisibleItem(false)
+    }
+    
     func updateEmoteState(with pid: String, emoteId: String, isSelect: Bool, index: Int)  {
         
         updateCellEmote(with: emoteId, isSelect: isSelect, index: index)
@@ -279,19 +466,19 @@ extension Feed.ListViewController {
     }
     
     func updateCellEmote(with emoteId: String, isSelect: Bool, index: Int) {
-        guard let viewModel = self.dataSource.safe(index) else {
+        guard let viewModel = self.dataSource.safe(index) as? FeedCellViewModel else {
             return
         }
         viewModel.updateEmoteState(emoteId: emoteId, isSelect: isSelect)
         let cell = self.tableView.cellForRow(at: IndexPath(row: index, section: 0)) as? FeedListCell
-        cell?.update(emotes: viewModel.emotes)
+        cell?.updateEmotes(with: viewModel)
         if isSelect {
             cell?.show(emote: viewModel.emotes.first(where: { $0.id == emoteId }))
         }
     }
     
     func increaseShareCount(with index: Int) {
-        guard let viewModel = self.dataSource.safe(index) else {
+        guard let viewModel = self.dataSource.safe(index) as? FeedCellViewModel else {
             return
         }
         viewModel.feed.shareCount = viewModel.feed.shareCountValue + 1
@@ -323,7 +510,14 @@ extension Feed.ListViewController {
     }
     
     func share(viewModel: Feed.ListCellViewModel, fileUrl: URL) {
-        guard let index = dataSource.firstIndex(where: { $0.isEqual(viewModel) }) else {
+        let nilableIndex = self.dataSource.firstIndex(where: { item in
+            guard let item = item as? FeedCellViewModel else {
+                return false
+            }
+            return item.isEqual(viewModel)
+        })
+
+        guard let index = nilableIndex else {
             FileManager.removefile(filePath: fileUrl.path)
             return
         }
@@ -407,8 +601,16 @@ extension Feed.ListViewController {
         commentList.commentsCountObservable
             .subscribe(onNext: { [weak self] (count) in
                 //TODO: update comment count
-                guard let `self` = self, let index = self.dataSource.firstIndex(where: { $0.feed.pid == feedId }) else { return }
-                let viewModel = self.dataSource[index]
+                guard let `self` = self else { return }
+                let nilableIndex = self.dataSource.firstIndex(where: { item in
+                    guard let item = item as? FeedCellViewModel else {
+                        return false
+                    }
+                    return item.feed.pid == feedId
+                })
+                guard let index = nilableIndex, let viewModel = self.dataSource[index] as? FeedCellViewModel else {
+                    return
+                }
                 viewModel.updateCommentCount(count)
                 let cell = self.tableView.cellForRow(at: IndexPath(row: index, section: 0)) as? FeedListCell
                 cell?.updateCommentCount()
@@ -418,8 +620,15 @@ extension Feed.ListViewController {
         nav.modalPresentationStyle = .overCurrentContext
         topController()?.present(nav, animated: true)
         
+        commentList.rx.dismiss
+            .subscribe(onNext: { [weak self] result in
+                guard let `self` = self else { return }
+                self.onViewWillAppear()
+            })
+            .disposed(by: commentList.bag)
+        
         Observable.merge(nav.rx.popViewController.map { true },
-        nav.rx.pushViewController.map { false })
+                         nav.rx.pushViewController.map { false })
             .subscribe(onNext: { [weak self, weak nav] result in
                 guard let `self` = self, let nav = nav else { return }
                 if result, nav.viewControllers.count == 1 {
@@ -435,7 +644,13 @@ extension Feed.ListViewController {
     }
 
     func onCell(action: FeedListCell.Action, viewModel: Feed.ListCellViewModel?) {
-        guard let viewModel = viewModel, let index = dataSource.firstIndex(where: { $0.isEqual(viewModel) }) else {
+        let nilableIndex = dataSource.firstIndex(where: { item in
+            guard let item = item as? FeedCellViewModel else {
+                return false
+            }
+            return item.isEqual(viewModel)
+        })
+        guard let viewModel = viewModel, let index = nilableIndex else {
             return
         }
         let indexPath = IndexPath(row: index, section: 0)
@@ -478,6 +693,7 @@ extension Feed.ListViewController {
             Logger.Action.log(.feeds_item_clk, category: .comments, viewModel.feed.pid)
             self.showCommentList(with: viewModel.feed.pid, commentsInfo: nil, count: viewModel.feed.cmtCount)
         case .share:
+            HapticFeedback.Impact.light()
             downloadVideo(viewModel: viewModel)
             
         case .userProfile(let uid):
@@ -499,7 +715,13 @@ extension Feed.ListViewController {
     }
         
     func onSheet(action: AmongSheetController.ItemType, viewModel: Feed.ListCellViewModel?) {
-        guard let viewModel = viewModel, let index = dataSource.firstIndex(where: { $0.isEqual(viewModel) }) else {
+        let nilableIndex = self.dataSource.firstIndex(where: { item in
+            guard let item = item as? FeedCellViewModel else {
+                return false
+            }
+            return item.isEqual(viewModel)
+        })
+        guard let viewModel = viewModel, let index = nilableIndex else {
             return
         }
         
@@ -529,9 +751,7 @@ extension Feed.ListViewController {
             self.viewModel.feedDelete(viewModel.feed.pid)
                 .subscribe(onSuccess: { [weak self] result in
                     removeHandler()
-                    guard let `self` = self else { return }
-//                    self.dataSource = self.dataSource.filter { $0.feed.pid != viewModel.feed.pid }
-                    self.deleteRow(at: viewModel)
+                    self?.deleteRow(at: viewModel)
                     HapticFeedback.Impact.success()
                 }) { error in
                     removeHandler()
@@ -549,14 +769,17 @@ extension Feed.ListViewController {
     }
     
     func deleteRow(at viewModel: Feed.ListCellViewModel?) {
-        guard let viewModel = viewModel, let index = dataSource.firstIndex(where: { $0.isEqual(viewModel) }) else {
+        let nilableIndex = self.dataSource.firstIndex(where: { item in
+            guard let item = item as? FeedCellViewModel else {
+                return false
+            }
+            return item.isEqual(viewModel)
+        })
+        guard let viewModel = viewModel, let index = nilableIndex else {
             return
         }
-//        guard let viewModel = dataSource.safe(indexPath.row) else {
-//            return
-//        }
         let indexPath = IndexPath(row: index, section: 0)
-        let nextIndex = IndexPath(row: indexPath.row + 1, section: 0)
+//        let nextIndex = IndexPath(row: indexPath.row + 1, section: 0)
 //        if nextIndex.row < dataSource.count - 1 {
 //            scrollDisposeBag?.dispose()
 //            scrollDisposeBag = self.rx.methodInvoked(#selector(self.scrollViewDidEndScrollingAnimation(_:)))
@@ -591,8 +814,15 @@ extension Feed.ListViewController {
 //            cdPrint("tableView scroll to row: \(nextIndex.row)")
 //            tableView.scrollToRow(at: nextIndex, at: .top, animated: true)
 //        } else {
-            dataSource = self.dataSource.filter { $0.feed.pid != viewModel.feed.pid }
-//            tableView.reloadData()
+        
+        
+            feedsDataSource = feedsDataSource.filter { item in
+                guard let item = item as? FeedCellViewModel else {
+                    return false
+                }
+                return item.feed.pid != viewModel.feed.pid
+            }
+        
             self.tableView.reloadData { [weak self] in
                 let newCell = self?.tableView.cellForRow(at: indexPath) as? FeedListCell
                 newCell?.play()

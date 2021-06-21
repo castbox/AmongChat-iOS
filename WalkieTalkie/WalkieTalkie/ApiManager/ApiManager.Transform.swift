@@ -207,7 +207,7 @@ extension PrimitiveSequence where Trait == SingleTrait, Element == [String: AnyO
     func mapToProcessedValue() -> Single<Bool> {
         return observeOn(SerialDispatchQueueScheduler(qos: .default))
             .mapTo(Entity.Processed.self)
-            .map { $0?.processed ?? false }
+            .map { $0?.processed ?? $0?.process ?? false }
     }
     
     func mapToListJson() -> Single<[[String: AnyObject]]> {

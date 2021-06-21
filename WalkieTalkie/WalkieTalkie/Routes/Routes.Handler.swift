@@ -49,7 +49,7 @@ extension Routes {
                     case _ as URI.Search:
                         self.handleSearch()
                     case let profile as URI.Profile:
-                        self.handleProfile(uid: profile.uid)
+                        self.handleProfile(profile)
                     case _ as URI.Avatars:
                         self.handleAvatars()
                     case let user as URI.InviteUser:
@@ -116,9 +116,10 @@ extension Routes {
             UIApplication.navigationController?.pushViewController(vc)
         }
         
-        func handleProfile(uid: Int? = nil) {
+        func handleProfile(_ profile: URI.Profile) {
             let selfUid = Settings.shared.amongChatUserProfile.value?.uid ?? 0
-            let vc = Social.ProfileViewController(with: uid ?? selfUid)
+            let uid = profile.uid
+            let vc = Social.ProfileViewController(with: uid ?? selfUid, autoOpenChat: profile.openChat)
             if uid == nil || uid == selfUid {
                 let navigationVc = NavigationViewController(rootViewController: vc)
                 navigationVc.modalPresentationStyle = .overCurrentContext

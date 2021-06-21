@@ -10,7 +10,7 @@ import Foundation
 import RxSwift
 import RxCocoa
 //import AppMonet_Mopub
-import MoPub
+import MoPubSDK
 //import MoPub_FacebookAudienceNetwork_Adapters
 //import MoPub_AdMob_Adapters
 //import DTBiOSSDK
@@ -18,6 +18,7 @@ import MoPub
 import CastboxDebuger
 import SwifterSwift
 //import GoogleMobileAds
+import MoPub_Fyber_Adapters
 
 enum AdsState: Int {
     case preparing = 0
@@ -68,7 +69,7 @@ class AdsManager: NSObject {
         //        setupAppmonet()
         setupMopub()
         //        setupAws()
-        //        setupFacebook()
+//                setupFacebook()
         setupAdmob()
         //        setupRefresh()
         //        setupEventListener()
@@ -90,6 +91,9 @@ class AdsManager: NSObject {
         #if DEBUG
         config.loggingLevel = .debug
         #endif
+        config.additionalNetworks = [FyberAdapterConfiguration.self]
+        config.mediatedNetworkConfigurations = [String(describing: FyberAdapterConfiguration.self):["appID": "121194"]]
+        
         MoPub.sharedInstance().initializeSdk(with: config) {
             DispatchQueue.main.async { [weak self] in
                 //send notification
@@ -132,13 +136,13 @@ class AdsManager: NSObject {
     
     var awsRequestCount = 0
     
-    //    private func setupFacebook() {
-    //        #if DEBUG
-    //        FBAdSettings.setLogLevel(.log)
-    //        FBAdSettings.addTestDevices(["b602d594afd2b0b327e07a06f36ca6a7e42546d0"])
-    ////        FBAdSettings.clearTestDevices()
-    //        #endif
-    //    }
+//        private func setupFacebook() {
+//            #if DEBUG
+//            FBAdSettings.setLogLevel(.log)
+//            FBAdSettings.addTestDevices(["b602d594afd2b0b327e07a06f36ca6a7e42546d0"])
+//    //        FBAdSettings.clearTestDevices()
+//            #endif
+//        }
     
     //    private func setupEventListener() {
     //        AdsManager.notificationCenter.rx.notification(.adEvent)
@@ -294,6 +298,7 @@ class AdsManager: NSObject {
         case channelCard
         case unlockAvatar
         case profileLook
+//        case feeds
     }
     
     private class func rewardedVideoAdUnitId(of adPostion: RewardedVideoPosition) -> String {
@@ -304,6 +309,8 @@ class AdsManager: NSObject {
             return "bacb18c823584a5cbcd04f6768e7bf9b"
         case .profileLook:
             return "4d8dcec7fe8c486b9437b1f25362c8a6"
+//        case .feeds:
+//            return "f3699b02d46549a69e483df10868e3ba"
         }
     }
     

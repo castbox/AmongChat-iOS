@@ -1,5 +1,4 @@
 AmongChat sesli sohbet uygulamasına hoş geldiniz!
-Bu versiyonda, raporlama işlevini daha da optimize ediyor ve iyileştiriyoruz.
-Süper Yöneticiler ve İzleyiciler, topluluk üzerinde daha sıkı denetim uygulamaya daha yetkilidir.
-Tüm kullanıcılar için sağlıklı ve güvenli bir topluluk sağlamak için sürekli olarak çok çalışıyoruz.
+Bu sürümde oyun videoları için yepyeni bir sekme eklendi. Muhteşem oyun kliplerinizi paylaşmak için gelin!
+Diğer hata düzeltmeleri ve performans iyileştirmeleri.
 Arkadaşlarınızı bulun ve Sesli Sohbet edin, birlikte oynayın ve keyfini çıkarın!

@@ -82,11 +82,12 @@ extension URI {
         }
         
         let uid: Int?
+        let openChat: Bool
         
         init?(_ paras: [String: Any]) {
             self.uid = Int(paras["uid"] as? String ?? "")
+            self.openChat = (paras["open_chat"] as? String ?? "0").bool ?? false
         }
-        
     }
     
     //回流信息

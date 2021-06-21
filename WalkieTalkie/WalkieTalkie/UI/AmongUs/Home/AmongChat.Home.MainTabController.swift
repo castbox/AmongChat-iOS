@@ -24,21 +24,37 @@ extension AmongChat.Home {
         var canShowAvatarGuide = true
         
         private weak var notificationBanner: FloatingNotificationBanner?
-        private weak var notificationBannerDimmerView: UIView?
         
         var topVC: WalkieTalkie.ViewController? {
             UIApplication.topViewController() as? WalkieTalkie.ViewController
         }
         
+        override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+            super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        }
+        
+        required init?(coder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
+        }
+        
         private lazy var tabs = Tab.allCases.map { $0.tabTuple }
+        
+        private let unredVideoRelay = BehaviorRelay(value: true)
         
         override func viewDidLoad() {
             super.viewDidLoad()
             delegate = self
+            
             setupLayout()
             setupViewControllers()
             setupEvent()
             InstalledChecker.default.update()
+            
+            updateDefaultSelectedIndexIfNeed()
+            
+            //add log for default index
+            Logger.Action.log(.home_tab, categoryValue: Tab.allCases[selectedIndex].loggerSource)
+            
         }
         
         func dismissNotificationBanner() {
@@ -49,6 +65,16 @@ extension AmongChat.Home {
 }
 
 extension AmongChat.Home.MainTabController {
+    
+    func updateDefaultSelectedIndexIfNeed() {
+        let defaultMainTabIndex = FireRemote.shared.value.defaultMainTabIndex
+        if selectedIndex != defaultMainTabIndex, defaultMainTabIndex < Tab.allCases.count {
+            setSelectIndex(from: selectedIndex, to: defaultMainTabIndex)
+            if defaultMainTabIndex == 1 {
+                unredVideoRelay.accept(false)
+            }
+        }
+    }
     
     func showAvatarGuideViewController(with setting: Entity.GlobalSetting) {
         guard let avatarList = setting.changeTip(.avatar)?.list, canShowAvatarGuide,
@@ -70,9 +96,10 @@ extension AmongChat.Home.MainTabController {
         guard let topVC = UIApplication.topViewController() as? WalkieTalkie.ViewController else {
             return
         }
-        if (topVC is AmongChat.Home.TopicsViewController) || (topVC is AmongChat.Home.RelationsViewController) || (topVC is AmongChat.CreateRoom.ViewController) {
-            //dismiss previous
-            dismissNotificationBanner()
+        //dismiss previous
+        dismissNotificationBanner()
+
+        if (topVC is AmongChat.Home.TopicsViewController) || (topVC is AmongChat.Home.RelationsViewController) || (topVC is AmongChat.CreateRoom.ViewController) || (topVC is Feed.RecommendViewController) || (topVC is AmongChat.Home.ConversationListController) {
             
             Logger.Action.log(.invite_top_dialog_imp, categoryValue: room.topicId)
             
@@ -98,11 +125,7 @@ extension AmongChat.Home.MainTabController {
                 banner?.isDismissedByTapEvent = true
                 Logger.Action.log(.invite_top_dialog_clk, categoryValue: room.topicId, "join")
             }
-            banner.rx.notificationBannerWillDisappear
-                .subscribe(onCompleted: { [weak self] in
-                    self?.notificationBannerDimmerView?.removeFromSuperview()
-                })
-                .disposed(by: bag)
+
             banner.rx.notificationBannerDidDisappear
                 .subscribe(onCompleted: { [weak banner] in
                     if banner?.isDismissedByTapEvent != true {
@@ -167,15 +190,17 @@ extension AmongChat.Home.MainTabController {
     private func setupEvent() {
         imViewModel.invitationObservable
             .observeOn(MainScheduler.asyncInstance)
-            .subscribe(onNext: { user, room in
-                guard let topVC = UIApplication.topViewController() as? WalkieTalkie.ViewController,
+            .subscribe(onNext: { [weak self] user, room in
+                guard let `self` = self, let topVC = UIApplication.topViewController() as? WalkieTalkie.ViewController,
                       !(topVC is AmongChat.Room.ContainerController) && !(topVC is AmongChat.GroupRoom.ContainerController),
                       !topVC.isRequestingRoom else {
                     return
                 }
                 
-                let invitationModal: AmongChat.Home.RoomInvitationModal
+//                self.onReceive(strangerInvigation: user, room: room)
                 
+                let invitationModal: AmongChat.Home.RoomInvitationModal
+
                 if let currentModal = topVC as? AmongChat.Home.RoomInvitationModal {
                     invitationModal = currentModal
                 } else {
@@ -183,7 +208,7 @@ extension AmongChat.Home.MainTabController {
                     invitationModal.modalPresentationStyle = .overCurrentContext
                     topVC.present(invitationModal, animated: false)
                 }
-                
+
                 invitationModal.updateContent(user: user, room: room)
                 invitationModal.bindEvent(join: { [weak self] in
                     guard let `self` = self else { return }
@@ -224,6 +249,20 @@ extension AmongChat.Home.MainTabController {
             .map { $0 || $1 || $2 }
         Observable.combineLatest(messageTabHasUnreadReply,
                                  tabs.first(where: { $0.2 == .messages })?.1
+                                    .filterNil()
+                                    .take(1) ?? Observable.empty())
+            .observeOn(MainScheduler.asyncInstance)
+            .subscribe(onNext: { unread, icon in
+                if unread {
+                    icon.badgeOn(topInset: 4)
+                } else {
+                    icon.badgeOff()
+                }
+            })
+            .disposed(by: bag)
+        
+        Observable.combineLatest(unredVideoRelay,
+                                 tabs.first(where: { $0.2 == .video })?.1
                                     .filterNil()
                                     .take(1) ?? Observable.empty())
             .observeOn(MainScheduler.asyncInstance)
@@ -346,6 +385,10 @@ extension AmongChat.Home.MainTabController: UITabBarControllerDelegate {
         HapticFeedback.Impact.light()
         let tab = tabs.first { $0.0 == viewController }
         Logger.Action.log(.home_tab, categoryValue: tab?.2.loggerSource)
+        
+        if tab?.2 == .video {
+            unredVideoRelay.accept(false)
+        }
     }
     
     func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {

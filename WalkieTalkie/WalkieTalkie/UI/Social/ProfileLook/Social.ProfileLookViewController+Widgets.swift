@@ -152,16 +152,16 @@ extension Social.ProfileLookViewController {
             switch decoration.decorationType {
             case .bg:
                 
-                profileBgIV.setImage(with: decoration.selected ? decoration.lookUrl : nil, placeholder: R.image.ac_profile_look_bg_defalut())
+                profileBgIV.setImage(with: (style == .cell) ? decoration.lookUrl : (decoration.selected ? decoration.lookUrl : nil), placeholder: R.image.ac_profile_look_bg_defalut())
                 
             case .skin:
                 
-                skinIV.setImage(with: decoration.selected ? decoration.lookUrl : nil, placeholder: R.image.ac_profile_look_skin_default())
-
+                skinIV.setImage(with: (style == .cell) ? decoration.lookUrl : (decoration.selected ? decoration.lookUrl : nil), placeholder: R.image.ac_profile_look_skin_default())
+                
             case .hat:
                 
-                hatIV.setImage(with: decoration.selected ? decoration.lookUrl : nil)
-
+                hatIV.setImage(with: (style == .cell) ? decoration.lookUrl : (decoration.selected ? decoration.lookUrl : nil))
+                
             case .pet:
                 
                 petShadowIV.isHidden = !decoration.selected
@@ -173,7 +173,6 @@ extension Social.ProfileLookViewController {
                     updateLook(deco)
                 })
             }
-            
         }
         
         func saveLookAsAvatar() -> UIImage? {
@@ -658,6 +657,9 @@ extension Social.ProfileLookViewController {
                 adBadge.image = R.image.ac_avatar_ad()
             case .premium:
                 adBadge.image = R.image.ac_avatar_pro()
+                adBadge.isHidden = decoration.selected
+            case .claim:
+                adBadge.image = R.image.ac_avatar_exclusive()
                 adBadge.isHidden = decoration.selected
             default:
                 adBadge.image = nil

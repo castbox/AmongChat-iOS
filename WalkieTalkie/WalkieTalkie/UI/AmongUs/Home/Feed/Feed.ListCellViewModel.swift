@@ -19,6 +19,7 @@ extension Feed {
         }
         
         var emotes: [Entity.FeedEmote] = []
+        var emoteCount: Int = 0
         
         init(feed: Entity.Feed) {
             self.feed = feed
@@ -58,7 +59,7 @@ extension Feed {
         private func updateEmotes() {
             let feedEmotes = Settings.shared.globalSetting.value?.feedEmotes ?? []
             
-            var emotes = feed.emotes.map { item -> Entity.FeedEmote in
+            self.emotes = feed.emotes.map { item -> Entity.FeedEmote in
                 let emote = item
                 //calculate width
                 let countWidth = item.count.string.boundingRect(with: CGSize(width: 100, height: 20), font: R.font.nunitoExtraBold(size: 14)!).width
@@ -70,10 +71,9 @@ extension Feed {
                 emote.img = feedEmote.img
                 return emote
             }.sorted { $0.count > $1.count }
-            
-            emotes.insert(Entity.FeedEmote(id: "", count: 0, isVoted: false, width: 60), at: 0)
-            
-            self.emotes = emotes
+            emoteCount = emotes.reduce(0, { result, emote in
+                result + emote.count
+            })
         }
     }
 }

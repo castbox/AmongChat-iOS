@@ -189,6 +189,7 @@ extension Entity {
         var isVerified: Bool?
         var isVip: Bool?
         var decoPetId: Int
+        var isOfficial: Bool?
         
         var nickname: String? {
             switch topic {
@@ -220,7 +221,7 @@ extension Entity {
         }
         
         
-        init(uid: Int, name: String?, pic: String?, seatNo: Int = 0, status: Status? = .connected, isMuted: Bool? = false, isMutedByLoginUser: Bool? = false, isVerified: Bool? = false, isVip: Bool? = false, decoPetId: Int? = 0) {
+        init(uid: Int, name: String?, pic: String?, seatNo: Int = 0, status: Status? = .connected, isMuted: Bool? = false, isMutedByLoginUser: Bool? = false, isVerified: Bool? = false, isVip: Bool? = false, decoPetId: Int? = 0, isOfficial: Bool?) {
             self.uid = uid
             self.name = name
             self.pictureUrl = pic
@@ -231,6 +232,7 @@ extension Entity {
             self.isVerified = isVerified
             self.isVip = isVip;
             self.decoPetId = decoPetId ?? 0
+            self.isOfficial = isOfficial
         }
         
         private enum CodingKeys: String, CodingKey {
@@ -253,6 +255,7 @@ extension Entity {
             case isVerified = "is_verified"
             case isVip = "is_vip"
             case decoPetId = "deco_pet_id"
+            case isOfficial = "is_official"
         }
         
         
@@ -279,6 +282,7 @@ extension Entity {
             self.isVerified = try container.decodeBoolIfPresent(.isVerified) ?? false
             self.isVip = try container.decodeBoolIfPresent(.isVip) ?? false
             self.decoPetId = try container.decodeIntIfPresent(.decoPetId) ?? 0
+            self.isOfficial = try container.decodeBoolIfPresent(.isOfficial)
         }
     }
     
