@@ -21,6 +21,18 @@ private let dmMessagesTableName = Database.TableName.dmMessages.rawValue
 
 class DMManager {
     
+    enum ConversationUpdateAction {
+        case newMessage
+        case updateMessage
+        case updateProfile
+        case clear
+    }
+    
+    enum MessageUpdateAction {
+        case add
+        case replace
+    }
+    
     static let shared = DMManager()
     
     let conversactionUpdateReplay = BehaviorRelay<Entity.DMConversation?>(value: nil)
@@ -28,7 +40,7 @@ class DMManager {
 //    let messageUpdateReplay = BehaviorRelay<Entity.DMConversation?>(value: nil)
             
     private let database = Database.shared
-    private var messageObservables: [String: PublishSubject<Void>] = [:]
+    private var messageObservables: [String: PublishSubject<ConversationUpdateAction>] = [:]
     
     init() {
         _ = IMManager.shared.newPeerMessageObservable
@@ -38,19 +50,19 @@ class DMManager {
                     return
                 }
                 //insert new
-                _ = self?.add(message: msg)
+                _ = self?.add(message: msg, action: .add)
                     .subscribe()
             })
         
         updateLoadingMsgToFailedStatus()
     }
     
-    func insertOrReplace(message: Entity.DMMessage) {
-        _ = add(message: message)
+    func update(message: Entity.DMMessage, action: MessageUpdateAction) {
+        _ = add(message: message, action: action)
             .subscribe()
     }
     
-    func add(message: Entity.DMMessage) -> Single<Void> {
+    func add(message: Entity.DMMessage, action: MessageUpdateAction) -> Single<Void> {
         //1. replace or add conversation
         return queryConversation(fromUid: message.fromUid)
             .flatMap { [unowned self] item -> Single<Void> in
@@ -75,19 +87,19 @@ class DMManager {
                 }
                 .do(onSuccess: { [unowned self] in
                     self.conversactionUpdateReplay.accept(conversation)
-                    self.notifyMessagesUpdated(of: message.fromUid)
+                    self.notifyMessagesUpdated(of: message.fromUid, action: action == .add ? .newMessage : .updateMessage)
                 })
             }
     }
         
-    func observableMessages(for uid: String) -> Observable<Void> {
+    func observableMessages(for uid: String) -> Observable<ConversationUpdateAction> {
         guard messageObservables[uid] == nil else {
             return .empty()
         }
         return Observable.create { [unowned self] observer in
-            let subject = PublishSubject<Void>()
-            _ = subject.subscribe(onNext: {
-                observer.onNext(())
+            let subject = PublishSubject<ConversationUpdateAction>()
+            _ = subject.subscribe(onNext: { item in
+                observer.onNext(item)
             })
             messageObservables[uid] = subject
             return Disposables.create { [unowned self] in
@@ -159,7 +171,7 @@ class DMManager {
         }
         .do(onSuccess: { [weak self] _ in
             self?.conversactionUpdateReplay.accept(nil)
-            self?.notifyMessagesUpdated(of: uid)
+            self?.notifyMessagesUpdated(of: uid, action: .clear)
         })
     }
     
@@ -187,7 +199,7 @@ class DMManager {
             }
             .do(onSuccess: { [weak self] _ in
                 self?.conversactionUpdateReplay.accept(nil)
-                self?.notifyMessagesUpdated(of: profile.uid.string)
+                self?.notifyMessagesUpdated(of: profile.uid.string, action: .updateProfile)
             })
     }
     
@@ -220,9 +232,9 @@ private extension DMManager {
        .subscribe()
    }
     
-    func notifyMessagesUpdated(of uid: String) {
+    func notifyMessagesUpdated(of uid: String, action: ConversationUpdateAction) {
         if let subject = messageObservables[uid] {
-            subject.onNext(())
+            subject.onNext(action)
         }
     }
 

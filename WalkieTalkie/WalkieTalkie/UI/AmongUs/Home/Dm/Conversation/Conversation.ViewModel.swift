@@ -222,7 +222,8 @@ extension Conversation {
 
             var messageBody = Entity.DMMessageBody(type: .voice, url: "", duration: duration.double, localRelativePath: FileManager.relativePath(of: filePath))
             var message = Entity.DMMessage(body: messageBody, relation: 1, fromUid: self.targetUid, unread: false, fromUser: self.loginUserDmProfile, status: .sending)
-            insertOrReplace(message: message)
+//            insertOrReplace(message: message)
+            update(message: message, action: .add)
             return IMManager.shared.getMediaId(with: filePath)
                 .flatMap { [weak self] mediaId in
                     guard let `self` = self, let mediaId = mediaId else {
@@ -234,19 +235,22 @@ extension Conversation {
                 }
         }
 //
-        func sendMessage(_ message: Entity.DMMessage) -> Single<Bool> {
+        func sendMessage(_ message: Entity.DMMessage, action: DMManager.MessageUpdateAction = .add) -> Single<Bool> {
             var message = message
             if message.status != .sending {
                 message.status = .sending
             }
-            insertOrReplace(message: message)
+//            insertOrReplace(message: message)
+            update(message: message, action: action)
             return Request.sendDm(message: message.body, to: message.fromUid)
                 .do(onSuccess: { [weak self] result in
                     message.status = .success
-                    self?.insertOrReplace(message: message)
+//                    self?.insertOrReplace(message: message)
+                    self?.update(message: message, action: .replace)
                 }, onError: { [weak self] error in
                     message.status = .failed
-                    self?.insertOrReplace(message: message)
+//                    self?.insertOrReplace(message: message)
+                    self?.update(message: message, action: .replace)
                 })
         }
         
@@ -266,7 +270,8 @@ extension Conversation {
                     message.status = .success
                     message.body.localRelativePath = FileManager.relativePath(of: path.path)
                     //update path
-                    self?.insertOrReplace(message: message)
+//                    self?.insertOrReplace(message: message)
+                    self?.update(message: message, action: .replace)
                 }) { error in
                     
                 }
@@ -276,16 +281,17 @@ extension Conversation {
         func clearUnread(_ message: Entity.DMMessage) {
             var newItem = message
             newItem.unread = false
-            insertOrReplace(message: newItem)
+            update(message: newItem, action: .replace)
+//            insertOrReplace(message: newItem)
         }
         
         func clearAllMessage() -> Single<Void> {
             return DMManager.shared.clearAllMessage(of: targetUid)
         }
         
-        func insertOrReplace(message: Entity.DMMessage) {
+        func update(message: Entity.DMMessage, action: DMManager.MessageUpdateAction) {
 //            barrierTime = 0
-            DMManager.shared.insertOrReplace(message: message)
+            DMManager.shared.update(message: message, action: action)
         }
     }
 }
