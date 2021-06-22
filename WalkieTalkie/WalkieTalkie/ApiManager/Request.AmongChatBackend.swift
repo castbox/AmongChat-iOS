@@ -497,7 +497,7 @@ extension Request {
             .observeOn(MainScheduler.asyncInstance)
     }
     
-    static func followingList(uid: Int, skipMs: Double) -> Single<Entity.FollowData?> {
+    static func followingList(uid: Int, limit: Int = 20, skipMs: Double) -> Single<Entity.FollowData> {
         
         let paras = ["relation_type": "follow", "uid": uid,
                      "limit": limit, "skip_ms": skipMs] as [String : Any]
@@ -505,6 +505,12 @@ extension Request {
             .mapJSON()
             .mapToDataKeyJsonValue()
             .mapTo(Entity.FollowData.self)
+            .map({
+                guard let data = $0 else {
+                    throw MsgError.default
+                }
+                return data
+            })
             .observeOn(MainScheduler.asyncInstance)
     }
     
