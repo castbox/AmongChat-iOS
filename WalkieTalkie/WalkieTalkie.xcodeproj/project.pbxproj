@@ -41,6 +41,8 @@
 		266A42FA25F10CC4003B583B /* InfoWithNicknameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 266A42F925F10CC4003B583B /* InfoWithNicknameView.swift */; };
 		266F59422680647E00A97C20 /* Feed.Share.swift in Sources */ = {isa = PBXBuildFile; fileRef = 266F59412680647E00A97C20 /* Feed.Share.swift */; };
 		266F5944268064B600A97C20 /* Feed.Share+Views.swift in Sources */ = {isa = PBXBuildFile; fileRef = 266F5943268064B600A97C20 /* Feed.Share+Views.swift */; };
+		266F594A26807F9600A97C20 /* Feed.Share.SelectFriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 266F594926807F9600A97C20 /* Feed.Share.SelectFriendsViewController.swift */; };
+		266F594C26807FC600A97C20 /* Feed.Share.SelectFriendsViewController+Views.swift in Sources */ = {isa = PBXBuildFile; fileRef = 266F594B26807FC600A97C20 /* Feed.Share.SelectFriendsViewController+Views.swift */; };
 		2686A6FB265E8B0900931A03 /* Entity.Feed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2686A6FA265E8B0900931A03 /* Entity.Feed.swift */; };
 		2696D42325B8082200C38C09 /* UITextFieldExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2696D42225B8082200C38C09 /* UITextFieldExtension.swift */; };
 		269A6DCE261C4A8C00A07C7D /* FansGroup.GroupListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 269A6DCD261C4A8C00A07C7D /* FansGroup.GroupListViewController.swift */; };
@@ -564,6 +566,8 @@
 		266A42F925F10CC4003B583B /* InfoWithNicknameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoWithNicknameView.swift; sourceTree = "<group>"; };
 		266F59412680647E00A97C20 /* Feed.Share.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Feed.Share.swift; sourceTree = "<group>"; };
 		266F5943268064B600A97C20 /* Feed.Share+Views.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Feed.Share+Views.swift"; sourceTree = "<group>"; };
+		266F594926807F9600A97C20 /* Feed.Share.SelectFriendsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Feed.Share.SelectFriendsViewController.swift; sourceTree = "<group>"; };
+		266F594B26807FC600A97C20 /* Feed.Share.SelectFriendsViewController+Views.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Feed.Share.SelectFriendsViewController+Views.swift"; sourceTree = "<group>"; };
 		2686A6FA265E8B0900931A03 /* Entity.Feed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entity.Feed.swift; sourceTree = "<group>"; };
 		269456582519DFE2003AA34A /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		2694565A2519DFE2003AA34A /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
@@ -1089,6 +1093,8 @@
 			children = (
 				266F59412680647E00A97C20 /* Feed.Share.swift */,
 				266F5943268064B600A97C20 /* Feed.Share+Views.swift */,
+				266F594926807F9600A97C20 /* Feed.Share.SelectFriendsViewController.swift */,
+				266F594B26807FC600A97C20 /* Feed.Share.SelectFriendsViewController+Views.swift */,
 			);
 			path = Share;
 			sourceTree = "<group>";
@@ -2493,6 +2499,7 @@
 				FEBCFEAA260C3B9900DD9B8D /* JSBridge.Links.swift in Sources */,
 				FEAE256726207477001F10A9 /* AmongChat.GroupRoom.GroupRoomBaseViewModel.swift in Sources */,
 				FE7CEB59258A029F0067952C /* AmongChatRoomConfigView.swift in Sources */,
+				266F594C26807FC600A97C20 /* Feed.Share.SelectFriendsViewController+Views.swift in Sources */,
 				FE87C2C8259C2A8300799883 /* UIColorExtension.swift in Sources */,
 				FE401E3D244D9C450081F793 /* IAP.ProductDealer.swift in Sources */,
 				FE684880244BD72A00F87AF9 /* Settings.swift in Sources */,
@@ -2521,6 +2528,7 @@
 				FE684884244BD9F900F87AF9 /* GradientView.swift in Sources */,
 				26259B61260B11B800636E50 /* Social.AddStatsViewController+Views.swift in Sources */,
 				FE952FDE2669C76E004E2AD1 /* SZAVPlayerError.swift in Sources */,
+				266F594A26807F9600A97C20 /* Feed.Share.SelectFriendsViewController.swift in Sources */,
 				FE80A58425AD96BB009914A7 /* Search.ViewController.swift in Sources */,
 				FE684871244B4B5600F87AF9 /* PasswordGenerator.swift in Sources */,
 				FE0A0C30265CECCA00AC9FF7 /* FeedListCell.swift in Sources */,
