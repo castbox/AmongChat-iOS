@@ -14,7 +14,7 @@ import SDCAlertView
 
 private let bottomBarHeight: CGFloat = 64 + Frame.Height.safeAeraBottomHeight
 private let collectionBottomEdge: CGFloat = 64 + 18 + Frame.Height.safeAeraBottomHeight
-private let messagePageLimit = 50
+private let messagePageLimit = 15
 
 class ConversationViewController: ViewController {
     
@@ -45,7 +45,7 @@ class ConversationViewController: ViewController {
     private var keyboardVisibleHeight: CGFloat = 0
     private var hasEarlyMessage = false
     private var hasTriggeredLoadEarly = false
-    
+    private var loadDataDisposes: Disposable?
     private var dataSource: [Conversation.MessageCellViewModel] = [] {
         didSet {
             updateContentInset()
@@ -372,7 +372,7 @@ private extension ConversationViewController {
     }
     
     func sendMessage(_ message: Entity.DMMessage) {
-        self.viewModel.sendMessage(message)
+        self.viewModel.sendMessage(message, action: .replace)
             .subscribe(onSuccess: { result in
                 
             }) { [weak self] error in
@@ -551,7 +551,7 @@ private extension ConversationViewController {
                     let newRow = dataSource.count
                     guard newRow > rows else {
                         lastMessageMs = (dataSource.last?.ms ?? 0)
-                        reloadAndScrollToBottom()
+                        reloadAndScrollToBottom(true)
                         return
                     }
                     let indexPaths = Array(rows..<newRow).map({ IndexPath(row: $0, section: 0) })
@@ -567,33 +567,22 @@ private extension ConversationViewController {
                     reloadAndScrollToBottom()
                 }
             } else {
-                let indexPaths = collectionView.indexPathsForVisibleItems
-//                let newRow = dataSource.count
-//                guard newRow > rows else {
-//                    lastMessageMs = (dataSource.last?.ms ?? 0)
-//                    reloadAndScrollToBottom()
-//                    return
-//                }
-//                let indexPaths = Array(rows..<newRow).map({ IndexPath(row: $0, section: 0) })
-                
-                collectionView.performBatchUpdates {
-//                    self.collectionView.insertItems(at: indexPaths)
-                    self.collectionView.reloadItems(at: indexPaths)
-                } completion: { result in
+                reloadAndScrollToBottom(true)
+//                let indexPaths = collectionView.indexPathsForVisibleItems
+//                collectionView.performBatchUpdates {
+//                    self.collectionView.reloadItems(at: indexPaths)
+//                } completion: { result in
 //                    if let endPath = indexPaths.last {
 //                        self.collectionView.scrollToItem(at: endPath, at: .bottom, animated: true)
 //                    }
-                }
-//                collectionView.reloadDataAndKeepOffset()
-//                collectionView.reloadData()
+//                }
             }
         }
-//        lastCount = dataSource.count
         lastMessageMs = (dataSource.last?.ms ?? 0)
     }
     
-    func reloadAndScrollToBottom() {
-        if dataSource.last?.sendFromMe == true {
+    func reloadAndScrollToBottom(_ forceScrollToBotton: Bool = false) {
+        if dataSource.last?.sendFromMe == true || forceScrollToBotton {
             UIView.animate(withDuration: 0) {
                 self.collectionView.reloadData()
             } completion: { _ in
@@ -675,17 +664,20 @@ private extension ConversationViewController {
         collectionView.alpha = 0
     }
     
-    func loadData() {
-        let limit = max(min(dataSource.count, 200), messagePageLimit)
-        viewModel.loadData(limit: limit)
+    func loadData(count: Int? = nil) {
+        let limit = max(min(count ?? dataSource.count, 200), messagePageLimit)
+        loadDataDisposes?.dispose()
+        loadDataDisposes =
+            viewModel.loadData(limit: limit)
             .subscribe { [weak self] items in
                 self?.hasEarlyMessage = items.count >= limit
                 self?.dataSource = items
                 self?.reloadCollectionView()
-            } onError: { error in
-                
+                self?.loadDataDisposes?.dispose()
+            } onError: { [weak self] error in
+                self?.loadDataDisposes?.dispose()
             }
-            .disposed(by: bag)
+        loadDataDisposes?.disposed(by: bag)
         
     }
     
@@ -715,8 +707,13 @@ private extension ConversationViewController {
         loadData()
 
         DMManager.shared.observableMessages(for: viewModel.targetUid)
-            .subscribe(onNext: { [weak self] in
-                self?.loadData()
+            .subscribe(onNext: { [weak self] action in
+                guard let `self` = self else { return }
+                var count = self.dataSource.count
+                if action == .newMessage {
+                    count += 1
+                }
+                self.loadData(count: count)
             })
             .disposed(by: bag)
                 
@@ -858,7 +855,7 @@ extension WalkieTalkie.ViewController {
                 guard conversation == nil else {
                     return .just(conversation)
                 }
-                return DMManager.shared.add(message: Entity.DMMessage.emptyMessage(for: profile.dmProfile))
+                return DMManager.shared.add(message: Entity.DMMessage.emptyMessage(for: profile.dmProfile), action: .add)
                     .flatMap { DMManager.shared.queryConversation(fromUid: profile.uid.string) }
             }
             .subscribe(onSuccess: { [weak self] conversation in
