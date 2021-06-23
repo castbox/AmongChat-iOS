@@ -10,10 +10,10 @@ import UIKit
 
 extension Feed.Share.SelectFriendsViewController {
     
-    class FriendCell: UITableViewCell {
+    class UserCell: UITableViewCell {
         
         private lazy var selectedIcon: UIImageView = {
-            let iv = UIImageView(image: R.image.ac_feed_share_unselected())
+            let iv = UIImageView(image: R.image.iconReportNormal())
             return iv
         }()
         
@@ -77,6 +77,8 @@ extension Feed.Share.SelectFriendsViewController {
         }
         
         private func setUpLayout() {
+            selectionStyle = .none
+            backgroundColor = .clear
             
             contentView.addSubviews(views: selectedIcon, avatarIV, nameLabel)
             
@@ -130,19 +132,27 @@ extension Feed.Share.SelectFriendsViewController {
             
         }
         
+        func bindData(_ user: UserViewModel, selected: Bool) {
+            
+            selectedIcon.image = selected ? R.image.iconReportSelected() : R.image.iconReportNormal()
+            avatarIV.updateAvatar(with: user.user)
+            avatarIV.setVerifyIcon(style: .gray)
+            nameLabel.attributedText = user.user.nameWithVerified(fontSize: 27, withAge: false, isShowVerify: false, isShowOfficial: true, officialHeight: ._18)
+        }
+        
     }
     
 }
 
 extension Feed.Share.SelectFriendsViewController {
     
-    class SectionHeader: UIView {
+    class IconHeader: UIView {
         
         private(set) lazy var icon: UIImageView = {
             let iv = UIImageView()
             return iv
         }()
-                
+        
         private(set) lazy var titleLabel: UILabel = {
             let lb = UILabel()
             lb.font = R.font.nunitoExtraBold(size: 20)
@@ -160,7 +170,7 @@ extension Feed.Share.SelectFriendsViewController {
         }
         
         private func setUpLayout() {
-            
+            backgroundColor = UIColor(hex6: 0x121212)
             addSubviews(views: icon, titleLabel)
             
             icon.snp.makeConstraints { maker in
@@ -181,10 +191,10 @@ extension Feed.Share.SelectFriendsViewController {
     }
     
     class IndexHeader: UIView {
-                        
+        
         private(set) lazy var titleLabel: UILabel = {
             let lb = UILabel()
-            lb.font = R.font.nunitoExtraBold(size: 20)
+            lb.font = R.font.nunitoExtraBold(size: 16)
             lb.textColor = UIColor(hex6: 0x898989)
             return lb
         }()
@@ -199,7 +209,7 @@ extension Feed.Share.SelectFriendsViewController {
         }
         
         private func setUpLayout() {
-            
+            backgroundColor = UIColor(hex6: 0x121212)
             addSubviews(views: titleLabel)
             
             titleLabel.snp.makeConstraints { maker in

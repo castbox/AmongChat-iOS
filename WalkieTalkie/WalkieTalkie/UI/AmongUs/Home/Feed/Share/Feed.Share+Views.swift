@@ -31,8 +31,7 @@ extension Feed.Share {
             let l = v.layer
             l.colors = [UIColor(hex6: 0x121212, alpha: 0).cgColor, UIColor(hex6: 0x121212, alpha: 0.57).cgColor, UIColor(hex6: 0x121212).cgColor]
             l.startPoint = CGPoint(x: 0.5, y: 0)
-            l.endPoint = CGPoint(x: 0.5, y: 0.6)
-            l.locations = [0, 1]
+            l.endPoint = CGPoint(x: 0.5, y: 0.15)
             return v
         }()
         
@@ -64,6 +63,7 @@ extension Feed.Share {
 
         private(set) lazy var imageView: UIImageView = {
             let i = UIImageView()
+            i.contentMode = .scaleAspectFill
             i.layer.cornerRadius = 12
             i.clipsToBounds = true
             return i
