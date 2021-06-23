@@ -58,9 +58,9 @@ extension Social {
                     guard let `self` = self, let data = data else {
                         return
                     }
-                    self.frientds.append(contentsOf: data.list ?? [])
+                    self.frientds.append(contentsOf: data.list)
                     self.append(self.frientds, group: .friends)
-                    guard data.more == true, let lastOpTime = data.list?.last?.opTime else {
+                    guard data.more == true, let lastOpTime = data.list.last?.opTime else {
                         self.requestStranger()
                         return
                     }

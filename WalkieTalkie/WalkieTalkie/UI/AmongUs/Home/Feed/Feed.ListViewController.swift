@@ -504,8 +504,9 @@ extension Feed.ListViewController {
 
         if item == .message {
             AmongChat.Login.doLogedInEvent(style: .authNeeded(source: .chat)) { [weak self] in
-                let vc = Feed.TopicListController(with: feed.pid)
-                self?.navigationController?.pushViewController(vc)
+                let selectVC = Feed.Share.SelectFriendsViewController(with: viewModel.feed)
+                selectVC.modalPresentationStyle = .fullScreen
+                self?.present(selectVC, animated: true)
             }
         } else if item == .more {
             //make dynamic

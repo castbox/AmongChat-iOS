@@ -232,7 +232,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 276 images.
+  /// This `R.image` struct is generated, and contains static references to 280 images.
   struct image {
     /// Image `ac_add_stats_add`.
     static let ac_add_stats_add = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_add_stats_add")
@@ -296,10 +296,16 @@ struct R: Rswift.Validatable {
     static let ac_feed_reply_expand = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_feed_reply_expand")
     /// Image `ac_feed_share_copy`.
     static let ac_feed_share_copy = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_feed_share_copy")
+    /// Image `ac_feed_share_followings`.
+    static let ac_feed_share_followings = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_feed_share_followings")
+    /// Image `ac_feed_share_friends`.
+    static let ac_feed_share_friends = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_feed_share_friends")
     /// Image `ac_feed_share_message`.
     static let ac_feed_share_message = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_feed_share_message")
     /// Image `ac_feed_share_more`.
     static let ac_feed_share_more = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_feed_share_more")
+    /// Image `ac_feed_share_recent`.
+    static let ac_feed_share_recent = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_feed_share_recent")
     /// Image `ac_feed_share_sms`.
     static let ac_feed_share_sms = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_feed_share_sms")
     /// Image `ac_feed_topic_tip`.
@@ -774,6 +780,8 @@ struct R: Rswift.Validatable {
     static let launch_name = Rswift.ImageResource(bundle: R.hostingBundle, name: "launch_name")
     /// Image `logo_snapchat`.
     static let logo_snapchat = Rswift.ImageResource(bundle: R.hostingBundle, name: "logo_snapchat")
+    /// Image `online_14`.
+    static let online_14 = Rswift.ImageResource(bundle: R.hostingBundle, name: "online_14")
     /// Image `online`.
     static let online = Rswift.ImageResource(bundle: R.hostingBundle, name: "online")
     /// Image `profile_avatar_random_btn`.
@@ -942,6 +950,16 @@ struct R: Rswift.Validatable {
       return UIKit.UIImage(resource: R.image.ac_feed_share_copy, compatibleWith: traitCollection)
     }
     
+    /// `UIImage(named: "ac_feed_share_followings", bundle: ..., traitCollection: ...)`
+    static func ac_feed_share_followings(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_feed_share_followings, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_feed_share_friends", bundle: ..., traitCollection: ...)`
+    static func ac_feed_share_friends(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_feed_share_friends, compatibleWith: traitCollection)
+    }
+    
     /// `UIImage(named: "ac_feed_share_message", bundle: ..., traitCollection: ...)`
     static func ac_feed_share_message(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ac_feed_share_message, compatibleWith: traitCollection)
@@ -950,6 +968,11 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "ac_feed_share_more", bundle: ..., traitCollection: ...)`
     static func ac_feed_share_more(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ac_feed_share_more, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_feed_share_recent", bundle: ..., traitCollection: ...)`
+    static func ac_feed_share_recent(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_feed_share_recent, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "ac_feed_share_sms", bundle: ..., traitCollection: ...)`
@@ -2142,6 +2165,11 @@ struct R: Rswift.Validatable {
       return UIKit.UIImage(resource: R.image.online, compatibleWith: traitCollection)
     }
     
+    /// `UIImage(named: "online_14", bundle: ..., traitCollection: ...)`
+    static func online_14(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.online_14, compatibleWith: traitCollection)
+    }
+    
     /// `UIImage(named: "profile_avatar_random_btn", bundle: ..., traitCollection: ...)`
     static func profile_avatar_random_btn(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.profile_avatar_random_btn, compatibleWith: traitCollection)
@@ -2848,7 +2876,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
     
-    /// This `R.string.localizable` struct is generated, and contains static references to 554 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 556 localization keys.
     struct localizable {
       /// en translation:  Congratulations!
       /// 
@@ -3562,6 +3590,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let followInvitedSuccess = Rswift.StringResource(key: "follow.invited.success", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Friends
+      /// 
+      /// Locales: en
+      static let amongChatFeedFriends = Rswift.StringResource(key: "among.chat.feed.friends", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Gamertag
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -4294,6 +4326,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let rateUs = Rswift.StringResource(key: "rate.us", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Recent Chats
+      /// 
+      /// Locales: en
+      static let amongChatFeedRecentChats = Rswift.StringResource(key: "among.chat.feed.recent.chats", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Reject
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -6313,6 +6349,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("follow.invited.success", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Friends
+      /// 
+      /// Locales: en
+      static func amongChatFeedFriends(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.feed.friends", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Gamertag
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -7592,6 +7635,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func rateUs(_: Void = ()) -> String {
         return NSLocalizedString("rate.us", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Recent Chats
+      /// 
+      /// Locales: en
+      static func amongChatFeedRecentChats(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.feed.recent.chats", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Reject

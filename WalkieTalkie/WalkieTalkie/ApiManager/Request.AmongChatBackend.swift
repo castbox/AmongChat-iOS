@@ -447,6 +447,13 @@ extension Request {
                 }
                 DMManager.shared.update(profile: profile.dmProfile)
             })
+            .do(onSuccess: { item in
+                guard let profile = item?.profile else {
+                    return
+                }
+                
+                let _ = FollowingUsersManager.shared.updateUser(profile).subscribe()
+            })
 
     }
     
@@ -456,6 +463,15 @@ extension Request {
         return amongchatProvider.rx.request(.follow(paras))
             .mapJSON()
             .mapToDataKeyJsonValue()
+            .do(onSuccess: { json in
+                guard type == "follow" else { return }
+                
+                guard let userJson = json["user"],
+                      let user = JSONDecoder().mapTo(Entity.UserProfile.self, from: userJson) else { return }
+                
+                let _ = FollowingUsersManager.shared.addUsers([user]).subscribe()
+                
+            })
             .mapToProcessedValue()
             .observeOn(MainScheduler.asyncInstance)
     }
@@ -466,6 +482,10 @@ extension Request {
             .mapJSON()
             .mapToDataKeyJsonValue()
             .mapToProcessedValue()
+            .do(onSuccess: { success in
+                guard success, type == "follow" else { return }
+                let _ = FollowingUsersManager.shared.removeUser(uid).subscribe()
+            })
             .observeOn(MainScheduler.asyncInstance)
     }
     
@@ -497,14 +517,30 @@ extension Request {
             .observeOn(MainScheduler.asyncInstance)
     }
     
-    static func followingList(uid: Int, skipMs: Double) -> Single<Entity.FollowData?> {
+    static func followingList(uid: Int, limit: Int = 20, skipMs: Double) -> Single<Entity.FollowData> {
         
-        let paras = ["relation_type": "follow", "uid": uid,
-                     "limit": limit, "skip_ms": skipMs] as [String : Any]
+        let paras: [String : Any] = [
+            "relation_type": "follow",
+            "uid": uid,
+            "limit": limit,
+            "skip_ms": skipMs,
+            "with_follower" : 1
+        ]
+        
         return amongchatProvider.rx.request(.followingList(paras))
             .mapJSON()
             .mapToDataKeyJsonValue()
             .mapTo(Entity.FollowData.self)
+            .map({
+                guard let data = $0 else {
+                    throw MsgError.default
+                }
+                return data
+            })
+            .do(onSuccess: { data in
+                guard uid.isSelfUid else { return }
+                let _ = FollowingUsersManager.shared.addUsers(data.list).subscribe()
+            })
             .observeOn(MainScheduler.asyncInstance)
     }
     
