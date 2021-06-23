@@ -68,7 +68,12 @@ extension Feed {
 extension Feed.VideoMediaManager {
     
     func resetCachedAssets() {
-        imageManager.stopCachingImagesForAllAssets()
+        switch PHPhotoLibrary.authorizationStatus() {
+        case .authorized, .limited:
+            imageManager.stopCachingImagesForAllAssets()
+        default:
+            ()
+        }
         previousPreheatRect = .zero
     }
     /// - Tag: UpdateAssets

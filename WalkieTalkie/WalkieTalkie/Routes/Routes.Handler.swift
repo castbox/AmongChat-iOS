@@ -207,7 +207,7 @@ extension Routes {
                                     return .just(nil)
                                 }
                                 let message = Entity.DMMessage.emptyMessage(for: dmProfile)
-                                return DMManager.shared.add(message: message)
+                                return DMManager.shared.add(message: message, action: .add)
                                     .flatMap { _ in
                                         return DMManager.shared.queryConversation(fromUid: uid)
                                     }
