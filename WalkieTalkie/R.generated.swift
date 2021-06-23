@@ -2841,7 +2841,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
     
-    /// This `R.string.localizable` struct is generated, and contains static references to 549 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 553 localization keys.
     struct localizable {
       /// en translation:  Congratulations!
       /// 
@@ -3027,6 +3027,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let dmDeleteConversationAlertTitle = Rswift.StringResource(key: "dm.delete.conversation.alert.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Are you sure you want to leave the channel and watch the video?
+      /// 
+      /// Locales: en
+      static let roomPlayVideoTips = Rswift.StringResource(key: "room.play.video.tips", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Aries
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3487,6 +3491,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let feedCommentReplyFailed = Rswift.StringResource(key: "feed.comment.reply.failed", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Failed to send
+      /// 
+      /// Locales: en
+      static let feedShareSendFailed = Rswift.StringResource(key: "feed.share.send.failed", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Failed to unblock this person,  please try again.
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3875,6 +3883,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let feedShareMessage = Rswift.StringResource(key: "feed.share.message", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Message could not be sent, as you've been blocked by the recipient.
+      /// 
+      /// Locales: en
+      static let dmSendFailedByBlocked = Rswift.StringResource(key: "dm.send.failed.by.blocked", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Minecraft Gamertag
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -4403,6 +4415,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let dmSendMessageError = Rswift.StringResource(key: "dm.send.message.error", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Sent
+      /// 
+      /// Locales: en
+      static let feedShareSent = Rswift.StringResource(key: "feed.share.sent", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Sep
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -5362,6 +5378,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("dm.delete.conversation.alert.title", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Are you sure you want to leave the channel and watch the video?
+      /// 
+      /// Locales: en
+      static func roomPlayVideoTips(_: Void = ()) -> String {
+        return NSLocalizedString("room.play.video.tips", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Aries
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -6167,6 +6190,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("feed.comment.reply.failed", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Failed to send
+      /// 
+      /// Locales: en
+      static func feedShareSendFailed(_: Void = ()) -> String {
+        return NSLocalizedString("feed.share.send.failed", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Failed to unblock this person,  please try again.
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -6844,6 +6874,13 @@ struct R: Rswift.Validatable {
       /// Locales: en
       static func feedShareMessage(_: Void = ()) -> String {
         return NSLocalizedString("feed.share.message", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Message could not be sent, as you've been blocked by the recipient.
+      /// 
+      /// Locales: en
+      static func dmSendFailedByBlocked(_: Void = ()) -> String {
+        return NSLocalizedString("dm.send.failed.by.blocked", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Minecraft Gamertag
@@ -7768,6 +7805,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func dmSendMessageError(_: Void = ()) -> String {
         return NSLocalizedString("dm.send.message.error", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Sent
+      /// 
+      /// Locales: en
+      static func feedShareSent(_: Void = ()) -> String {
+        return NSLocalizedString("feed.share.sent", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Sep

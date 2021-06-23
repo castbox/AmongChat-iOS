@@ -119,10 +119,17 @@ extension Feed.Share {
         override init(frame: CGRect) {
             super.init(frame: frame)
             setUpLayout()
+            bindSubviewEvent()
         }
         
         required init?(coder: NSCoder) {
             fatalError("init(coder:) has not been implemented")
+        }
+        
+        private func bindSubviewEvent() {
+            sendButton.rx.tap.asObservable()
+                .bind(to: sendSignal)
+                .disposed(by: bag)
         }
         
         private func setUpLayout() {
