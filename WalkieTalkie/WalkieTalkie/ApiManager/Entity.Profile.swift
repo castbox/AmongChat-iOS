@@ -154,6 +154,7 @@ extension Entity {
         var inGroup: Bool?
         var followersCount: Int?
         var isAnonymous: Bool?
+        var isOnline: Bool?
         
         var role: Int?
         
@@ -167,6 +168,10 @@ extension Entity {
         
         var isMonitor: Bool {
             roleType == .monitor
+        }
+        
+        var isOnlineValue: Bool {
+            isOnline ?? false
         }
         
         var pronoun: Pronoun {
@@ -237,6 +242,7 @@ extension Entity {
             case role
             case isAnonymous = "is_anonymous"
             case isOfficial = "is_official"
+            case isOnline = "is_online"
         }
     }
     

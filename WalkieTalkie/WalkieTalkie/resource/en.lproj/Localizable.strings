@@ -626,3 +626,8 @@
 
 //1.25.0
 "among.chat.send" = "Send";
+"feed.share.with" = "Share with";
+"feed.share.message" = "Message";
+"feed.share.more" = "More";
+"feed.share.user.selected.reach.max" = "Please select a maximum of 10 people at a time";
+"feed.share.to.anonymous.user.tips" = "Anonymous users have been selected, but they could not receive messages.";

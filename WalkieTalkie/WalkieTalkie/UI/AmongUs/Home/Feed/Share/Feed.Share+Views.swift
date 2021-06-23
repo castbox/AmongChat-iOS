@@ -50,7 +50,7 @@ extension Feed.Share {
             }
             
             imageView.snp.makeConstraints { maker in
-                maker.width.height.equalTo(73)
+                maker.width.height.equalTo(72)
                 maker.trailing.equalToSuperview().offset(-16)
                 maker.centerY.equalToSuperview()
             }

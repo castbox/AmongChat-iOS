@@ -490,68 +490,69 @@ extension Feed.ListViewController {
         guard let viewModel = viewModel else {
             return
         }
-        let feed = viewModel.feed
-        let hudHandler = view.raft.show(.loading)
+        let feedShare = Feed.ShareController(with: viewModel.feed)
+        feedShare.showModal(in: self.tabBarController ?? self)
+//        let feed = viewModel.feed
+//        let hudHandler = view.raft.show(.loading)
 //        let hud = view.raft.topHud()
 //        hud?.mode = .annularDeterminate
 //        hud?.label.text = "Loading"
 //        hud?.progress = 0
-        self.viewModel.download(fileUrl: feed.url.absoluteString) { [weak self] progress in
-//            hud?.progress = progress.float
-            cdPrint("progress: \(progress)")
-        } completionHandler: { [weak self] fileUrl in
-            hudHandler()
-            guard let `self` = self, let url = fileUrl else {
-                return
-            }
-            self.share(viewModel: viewModel, fileUrl: url)
-        }
-
+//        self.viewModel.download(fileUrl: feed.url.absoluteString) { [weak self] progress in
+////            hud?.progress = progress.float
+//            cdPrint("progress: \(progress)")
+//        } completionHandler: { [weak self] fileUrl in
+//            hudHandler()
+//            guard let `self` = self, let url = fileUrl else {
+//                return
+//            }
+//        self.share(viewModel: viewModel, fileUrl: feed.url.absoluteURL)
+//        }
     }
     
-    func share(viewModel: Feed.ListCellViewModel, fileUrl: URL) {
-        let nilableIndex = self.dataSource.firstIndex(where: { item in
-            guard let item = item as? FeedCellViewModel else {
-                return false
-            }
-            return item.isEqual(viewModel)
-        })
-
-        guard let index = nilableIndex else {
-            FileManager.removefile(filePath: fileUrl.path)
-            return
-        }
-        let feed = viewModel.feed
-        Logger.Action.log(.feeds_item_clk, category: .share, feed.pid)
-        let tagImageView = VideoShareTagView(with: feed.user.name ?? feed.user.uid.string)
-        view.addSubview(tagImageView)
-        guard let tagImage = tagImageView.screenshot else {
-            tagImageView.removeFromSuperview()
-            FileManager.removefile(filePath: fileUrl.path)
-            return
-        }
-        tagImageView.removeFromSuperview()
-    
-        let removeHandler = view.raft.show(.loading)
-        videoEditor.addTag(image: tagImage, for: fileUrl) { [weak self] url in
-            FileManager.removefile(filePath: fileUrl.path)
-            removeHandler()
-            guard let `self` = self, let url = url else {
-                return
-            }
-            cdPrint("url: \(url)")
-            ShareManager.default.showActivity(items: [url], viewController: self) { [weak self] in
-                self?.increaseShareCount(with: index)
-                self?.viewModel.reportShare(feed.pid)
-                //cancel or finish, remove
-                do {
-                    try FileManager.default.removeItem(at: url)
-                } catch {
-                    cdPrint("FileManager.default.removeItem: \(error)")
-                }
-            }
-        }
-    }
+//    func share(viewModel: Feed.ListCellViewModel, fileUrl: URL) {
+//        let nilableIndex = self.dataSource.firstIndex(where: { item in
+//            guard let item = item as? FeedCellViewModel else {
+//                return false
+//            }
+//            return item.isEqual(viewModel)
+//        })
+//
+//        guard let index = nilableIndex else {
+//            FileManager.removefile(filePath: fileUrl.path)
+//            return
+//        }
+//        let feed = viewModel.feed
+//        Logger.Action.log(.feeds_item_clk, category: .share, feed.pid)
+//        let tagImageView = VideoShareTagView(with: feed.user.name ?? feed.user.uid.string)
+//        view.addSubview(tagImageView)
+//        guard let tagImage = tagImageView.screenshot else {
+//            tagImageView.removeFromSuperview()
+//            FileManager.removefile(filePath: fileUrl.path)
+//            return
+//        }
+//        tagImageView.removeFromSuperview()
+//
+//        let removeHandler = view.raft.show(.loading)
+//        videoEditor.addTag(image: tagImage, for: fileUrl) { [weak self] url in
+//            FileManager.removefile(filePath: fileUrl.path)
+//            removeHandler()
+//            guard let `self` = self, let url = url else {
+//                return
+//            }
+//            cdPrint("url: \(url)")
+//            ShareManager.default.showActivity(items: [url], viewController: self) { [weak self] in
+//                self?.increaseShareCount(with: index)
+//                self?.viewModel.reportShare(feed.pid)
+//                //cancel or finish, remove
+//                do {
+//                    try FileManager.default.removeItem(at: url)
+//                } catch {
+//                    cdPrint("FileManager.default.removeItem: \(error)")
+//                }
+//            }
+//        }
+//    }
     
 //    func share(viewModel: Feed.ListCellViewModel?) {
 //        guard let viewModel = viewModel, let index = dataSource.firstIndex(where: { $0.isEqual(viewModel) }) else {

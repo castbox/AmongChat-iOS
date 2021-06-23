@@ -137,6 +137,8 @@ extension APIService {
         case myFeeds([String : Any])
         case feedPostPage([String : Any])
         case claimWelfare([String : Any])
+        case feedShareUserList([String: Any])
+        case feedShareToUser([String: Any])
         case sendDMPushToAnonymousUser([String: Any])
     }
 }
@@ -391,6 +393,10 @@ extension APIService.AmongChatBackend: TargetType {
             return "/post/post/page"
         case .claimWelfare:
             return "/account/welfare/claim"
+        case .feedShareUserList:
+             return "/api/v1/share/user/list"
+        case .feedShareToUser:
+            return "/api/v1/share/post/message"
         case .sendDMPushToAnonymousUser:
             return "/api/v1/direct/message/tip"
         }
@@ -434,6 +440,7 @@ extension APIService.AmongChatBackend: TargetType {
              .createComment,
              .claimWelfare,
              .sendDMPushToAnonymousUser,
+             .feedShareToUser,
              .logout:
             return .post
             
@@ -509,6 +516,7 @@ extension APIService.AmongChatBackend: TargetType {
              .cancelLikingComment,
              .myFeeds,
              .feedPostPage,
+             .feedShareUserList,
              .shareUserSign:
             return .get
         case .follow:
@@ -570,6 +578,7 @@ extension APIService.AmongChatBackend: TargetType {
              .feedCreate(let params),
              .roomNickName(let params),
              .groupNickName(let params),
+             .feedShareToUser(let params),
              .updateDevice(let params):
             return .requestParameters(parameters: params, encoding: JSONEncoding.default)
             
@@ -656,6 +665,7 @@ extension APIService.AmongChatBackend: TargetType {
              .claimWelfare(let params),
              .defaultDecorations(let params),
              .sendDMPushToAnonymousUser(let params),
+             .feedShareUserList(let params),
              .unFollow(let params):
             return .requestParameters(parameters: params, encoding: URLEncoding.queryString)
             

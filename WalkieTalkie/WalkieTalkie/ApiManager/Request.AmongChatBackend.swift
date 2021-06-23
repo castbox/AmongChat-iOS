@@ -1839,7 +1839,7 @@ extension Request {
     
     static func deleteComment(_ cid: String) -> Single<Bool> {
         
-        let params: [String : Any]  = [
+        let params: [String : Any] = [
             "cid" : cid
         ]
                 
@@ -1852,7 +1852,7 @@ extension Request {
     
     static func claimWelfare(code: String) -> Single<Bool> {
         
-        let params: [String : Any]  = [
+        let params: [String : Any] = [
             "code" : code
         ]
                 
@@ -1874,6 +1874,35 @@ extension Request {
             .mapJSON()
             .mapToDataKeyJsonValue()
             .mapToProcessedValue()
+            .observeOn(MainScheduler.asyncInstance)
+    }
+    
+    static func feedShareUserList(_ uids: [String]) -> Single<[Entity.UserProfile]?> {
+        
+        let params: [String : Any]  = [
+            "uids_dm" : uids.joined(separator: ",")
+        ]
+                
+        return amongchatProvider.rx.request(.feedShareUserList(params))
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .mapToListJson()
+            .mapTo([Entity.UserProfile].self)
+            .observeOn(MainScheduler.asyncInstance)
+    }
+    
+    static func feedShareToUser(_ pid: String, uids: [String], text: String) -> Single<Entity.FeedShareResult?> {
+        
+        let params: [String : Any] = [
+            "pid": pid,
+            "uids": uids,
+            "text": text
+        ]
+                
+        return amongchatProvider.rx.request(.feedShareToUser(params))
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .mapTo(Entity.FeedShareResult.self)
             .observeOn(MainScheduler.asyncInstance)
     }
 }

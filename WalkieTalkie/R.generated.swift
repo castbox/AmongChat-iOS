@@ -232,7 +232,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 270 images.
+  /// This `R.image` struct is generated, and contains static references to 275 images.
   struct image {
     /// Image `ac_add_stats_add`.
     static let ac_add_stats_add = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_add_stats_add")
@@ -294,6 +294,14 @@ struct R: Rswift.Validatable {
     static let ac_feed_reply_collapse = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_feed_reply_collapse")
     /// Image `ac_feed_reply_expand`.
     static let ac_feed_reply_expand = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_feed_reply_expand")
+    /// Image `ac_feed_share_copy`.
+    static let ac_feed_share_copy = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_feed_share_copy")
+    /// Image `ac_feed_share_message`.
+    static let ac_feed_share_message = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_feed_share_message")
+    /// Image `ac_feed_share_more`.
+    static let ac_feed_share_more = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_feed_share_more")
+    /// Image `ac_feed_share_sms`.
+    static let ac_feed_share_sms = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_feed_share_sms")
     /// Image `ac_feed_topic_tip`.
     static let ac_feed_topic_tip = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_feed_topic_tip")
     /// Image `ac_feed_video_tip`.
@@ -646,6 +654,8 @@ struct R: Rswift.Validatable {
     static let iconDmVoiceTag = Rswift.ImageResource(bundle: R.hostingBundle, name: "iconDmVoiceTag")
     /// Image `iconDmVoice`.
     static let iconDmVoice = Rswift.ImageResource(bundle: R.hostingBundle, name: "iconDmVoice")
+    /// Image `iconFeedShareUserSelected`.
+    static let iconFeedShareUserSelected = Rswift.ImageResource(bundle: R.hostingBundle, name: "iconFeedShareUserSelected")
     /// Image `iconFeedSliderThumb`.
     static let iconFeedSliderThumb = Rswift.ImageResource(bundle: R.hostingBundle, name: "iconFeedSliderThumb")
     /// Image `iconFeedTagPrefix`.
@@ -923,6 +933,26 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "ac_feed_reply_expand", bundle: ..., traitCollection: ...)`
     static func ac_feed_reply_expand(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ac_feed_reply_expand, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_feed_share_copy", bundle: ..., traitCollection: ...)`
+    static func ac_feed_share_copy(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_feed_share_copy, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_feed_share_message", bundle: ..., traitCollection: ...)`
+    static func ac_feed_share_message(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_feed_share_message, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_feed_share_more", bundle: ..., traitCollection: ...)`
+    static func ac_feed_share_more(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_feed_share_more, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_feed_share_sms", bundle: ..., traitCollection: ...)`
+    static func ac_feed_share_sms(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_feed_share_sms, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "ac_feed_topic_tip", bundle: ..., traitCollection: ...)`
@@ -1805,6 +1835,11 @@ struct R: Rswift.Validatable {
       return UIKit.UIImage(resource: R.image.iconDmVoiceTag, compatibleWith: traitCollection)
     }
     
+    /// `UIImage(named: "iconFeedShareUserSelected", bundle: ..., traitCollection: ...)`
+    static func iconFeedShareUserSelected(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.iconFeedShareUserSelected, compatibleWith: traitCollection)
+    }
+    
     /// `UIImage(named: "iconFeedSliderThumb", bundle: ..., traitCollection: ...)`
     static func iconFeedSliderThumb(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.iconFeedSliderThumb, compatibleWith: traitCollection)
@@ -2128,7 +2163,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.nib` struct is generated, and contains static references to 46 nibs.
+  /// This `R.nib` struct is generated, and contains static references to 47 nibs.
   struct nib {
     /// Nib `AddStatsPendingController`.
     static let addStatsPendingController = _R.nib._AddStatsPendingController()
@@ -2190,6 +2225,8 @@ struct R: Rswift.Validatable {
     static let feedListCell = _R.nib._FeedListCell()
     /// Nib `FeedNativeAdCell`.
     static let feedNativeAdCell = _R.nib._FeedNativeAdCell()
+    /// Nib `FeedShareUserCell`.
+    static let feedShareUserCell = _R.nib._FeedShareUserCell()
     /// Nib `InfoWithNicknameView`.
     static let infoWithNicknameView = _R.nib._InfoWithNicknameView()
     /// Nib `InteractiveMsgTableCell`.
@@ -2401,6 +2438,12 @@ struct R: Rswift.Validatable {
     @available(*, deprecated, message: "Use UINib(resource: R.nib.feedNativeAdCell) instead")
     static func feedNativeAdCell(_: Void = ()) -> UIKit.UINib {
       return UIKit.UINib(resource: R.nib.feedNativeAdCell)
+    }
+    
+    /// `UINib(name: "FeedShareUserCell", in: bundle)`
+    @available(*, deprecated, message: "Use UINib(resource: R.nib.feedShareUserCell) instead")
+    static func feedShareUserCell(_: Void = ()) -> UIKit.UINib {
+      return UIKit.UINib(resource: R.nib.feedShareUserCell)
     }
     
     /// `UINib(name: "InfoWithNicknameView", in: bundle)`
@@ -2619,6 +2662,10 @@ struct R: Rswift.Validatable {
       return R.nib.feedNativeAdCell.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? FeedNativeAdCell
     }
     
+    static func feedShareUserCell(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> FeedShareUserCell? {
+      return R.nib.feedShareUserCell.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? FeedShareUserCell
+    }
+    
     static func infoWithNicknameView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
       return R.nib.infoWithNicknameView.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
     }
@@ -2794,7 +2841,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
     
-    /// This `R.string.localizable` struct is generated, and contains static references to 544 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 549 localization keys.
     struct localizable {
       /// en translation:  Congratulations!
       /// 
@@ -2928,6 +2975,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatRoomAnimalCrossingId = Rswift.StringResource(key: "among.chat.room.animal.crossing.id", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Anonymous users have been selected, but they could not receive messages.
+      /// 
+      /// Locales: en
+      static let feedShareToAnonymousUserTips = Rswift.StringResource(key: "feed.share.to.anonymous.user.tips", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Applied
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3820,10 +3871,18 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatGroupMembers = Rswift.StringResource(key: "among.chat.group.members", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Message
+      /// 
+      /// Locales: en
+      static let feedShareMessage = Rswift.StringResource(key: "feed.share.message", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Minecraft Gamertag
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatRoomMinecraftName = Rswift.StringResource(key: "among.chat.room.minecraft.name", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: More
+      /// 
+      /// Locales: en
+      static let feedShareMore = Rswift.StringResource(key: "feed.share.more", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: More options
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -4128,6 +4187,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let socialContactDeniedTitle = Rswift.StringResource(key: "social.contact.denied.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Please select a maximum of 10 people at a time
+      /// 
+      /// Locales: en
+      static let feedShareUserSelectedReachMax = Rswift.StringResource(key: "feed.share.user.selected.reach.max", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Please select the reason for the report
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -4436,6 +4499,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let socialShareLink = Rswift.StringResource(key: "social.share.link", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Share with
+      /// 
+      /// Locales: en
+      static let feedShareWith = Rswift.StringResource(key: "feed.share.with", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Sign in
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -5202,6 +5269,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func amongChatRoomAnimalCrossingId(_: Void = ()) -> String {
         return NSLocalizedString("among.chat.room.animal.crossing.id", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Anonymous users have been selected, but they could not receive messages.
+      /// 
+      /// Locales: en
+      static func feedShareToAnonymousUserTips(_: Void = ()) -> String {
+        return NSLocalizedString("feed.share.to.anonymous.user.tips", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Applied
@@ -6765,11 +6839,25 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("among.chat.group.members", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Message
+      /// 
+      /// Locales: en
+      static func feedShareMessage(_: Void = ()) -> String {
+        return NSLocalizedString("feed.share.message", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Minecraft Gamertag
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func amongChatRoomMinecraftName(_: Void = ()) -> String {
         return NSLocalizedString("among.chat.room.minecraft.name", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: More
+      /// 
+      /// Locales: en
+      static func feedShareMore(_: Void = ()) -> String {
+        return NSLocalizedString("feed.share.more", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: More options
@@ -7302,6 +7390,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func socialContactDeniedTitle(_: Void = ()) -> String {
         return NSLocalizedString("social.contact.denied.title", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Please select a maximum of 10 people at a time
+      /// 
+      /// Locales: en
+      static func feedShareUserSelectedReachMax(_: Void = ()) -> String {
+        return NSLocalizedString("feed.share.user.selected.reach.max", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Please select the reason for the report
@@ -7841,6 +7936,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func socialShareLink(_: Void = ()) -> String {
         return NSLocalizedString("social.share.link", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Share with
+      /// 
+      /// Locales: en
+      static func feedShareWith(_: Void = ()) -> String {
+        return NSLocalizedString("feed.share.with", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Sign in
@@ -8821,6 +8923,7 @@ struct _R: Rswift.Validatable {
       try _ConversationViewController.validate()
       try _FeedListCell.validate()
       try _FeedNativeAdCell.validate()
+      try _FeedShareUserCell.validate()
       try _NewVersionAlertController.validate()
       try _ReportCell.validate()
       try _ReportImageCell.validate()
@@ -9288,6 +9391,23 @@ struct _R: Rswift.Validatable {
       static func validate() throws {
         if UIKit.UIImage(named: "iconFeedsAdClose", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'iconFeedsAdClose' is used in nib 'FeedNativeAdCell', but couldn't be loaded.") }
         if UIKit.UIImage(named: "iconFeedsAdRemove", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'iconFeedsAdRemove' is used in nib 'FeedNativeAdCell', but couldn't be loaded.") }
+        if #available(iOS 11.0, *) {
+        }
+      }
+      
+      fileprivate init() {}
+    }
+    
+    struct _FeedShareUserCell: Rswift.NibResourceType, Rswift.Validatable {
+      let bundle = R.hostingBundle
+      let name = "FeedShareUserCell"
+      
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> FeedShareUserCell? {
+        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? FeedShareUserCell
+      }
+      
+      static func validate() throws {
+        if UIKit.UIImage(named: "online", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'online' is used in nib 'FeedShareUserCell', but couldn't be loaded.") }
         if #available(iOS 11.0, *) {
         }
       }

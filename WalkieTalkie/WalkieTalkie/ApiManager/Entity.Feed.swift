@@ -120,4 +120,14 @@ extension Entity {
         var height: CGFloat
     }
     
+    struct FeedShareResult: Codable {
+        let uidsAnonymous: [Int]
+        let uidsBlock: [Int]
+        let uids: [Int]
+        private enum CodingKeys: String, CodingKey {
+            case uidsAnonymous = "uids_anonymous"
+            case uidsBlock = "uids_block"
+            case uids
+        }
+    }
 }

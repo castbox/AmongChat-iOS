@@ -1,8 +1,8 @@
 //
-//  FansGroup.Views.ShareBar.swift
+//  Feed.ShareUserView.swift
 //  WalkieTalkie
 //
-//  Created by mayue on 2021/4/10.
+//  Created by 袁仕崇 on 22/06/21.
 //  Copyright © 2021 Guru Rain. All rights reserved.
 //
 
@@ -11,32 +11,116 @@ import RxSwift
 import RxCocoa
 import MessageUI
 
-extension FansGroup.Views {
+extension Feed {
+    class ShareUserView: UIView, UICollectionViewDataSource, UICollectionViewDelegate {
+        
+        private lazy var collectionView: UICollectionView = {
+            let layout = UICollectionViewFlowLayout()
+            layout.scrollDirection = .horizontal
+            layout.itemSize = CGSize(width: 66, height: 94)
+            layout.minimumLineSpacing = 0
+            layout.headerReferenceSize = CGSize(width: 11, height: 0)
+            let v = UICollectionView(frame: .zero, collectionViewLayout: layout)
+            v.register(nibWithCellClass: FeedShareUserCell.self)
+            v.showsVerticalScrollIndicator = false
+            v.showsHorizontalScrollIndicator = false
+            v.dataSource = self
+            v.delegate = self
+            v.backgroundColor = .clear
+            return v
+        }()
+        
+        var dataSource: [Entity.UserProfile] = [] {
+            didSet {
+                collectionView.reloadData()
+            }
+        }
+        
+        private var selectedUsers: [Entity.UserProfile] = [] {
+            didSet {
+                selectedUsersHandler?(selectedUsers)
+                collectionView.reloadData()
+            }
+        }
+        
+        var selectedUsersHandler: (([Entity.UserProfile]) -> Void)?
+        
+        override init(frame: CGRect) {
+            super.init(frame: frame)
+            addSubview(collectionView)
+            collectionView.snp.makeConstraints { (maker) in
+                maker.edges.equalToSuperview()
+                maker.height.equalTo(94)
+            }
+        }
+        
+        required init?(coder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
+        }
+        
+        // MARK: - UICollectionViewDataSource
+        
+        func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+            return dataSource.count
+        }
+        
+        func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+            let cell = collectionView.dequeueReusableCell(withClass: FeedShareUserCell.self, for: indexPath)
+            let item = dataSource[indexPath.item]
+            cell.bind(item, isSelected: selectedUsers.contains(where: { $0.uid == item.uid }))
+            return cell
+        }
+        
+        // MARK: - UICollectionViewDelegate
+        
+        func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+            guard let item = dataSource.safe(indexPath.item) else {
+                return
+            }
+            if selectedUsers.contains(where: { $0.uid == item.uid }) {
+                selectedUsers.removeFirst(where: { $0.uid == item.uid })
+            } else {
+                guard selectedUsers.count <= 10 else {
+                    containingController?.view.raft.autoShow(.text(R.string.localizable.feedShareUserSelectedReachMax()))
+                    return
+                }
+                selectedUsers.append(item)
+            }
+        }
+        
+    }
     
     class ShareBar: UIView, UICollectionViewDataSource, UICollectionViewDelegate {
         
         enum ShareSource {
-//            case message
+            case message
             case sms
             case snapchat
             case copyLink
             case shareLink
+            case more
             
             var icon: UIImage? {
                 switch self {
+                case .message:
+                    return R.image.ac_feed_share_message()
                 case .sms:
-                    return R.image.ac_room_share()
+                    return R.image.ac_feed_share_sms()
                 case .snapchat:
                     return R.image.ac_room_share_sn()
                 case .copyLink:
-                    return R.image.ac_room_copylink()
+                    return R.image.ac_feed_share_copy()
                 case .shareLink:
                     return R.image.icon_social_share_link()
+                case .more:
+                    return R.image.ac_feed_share_more()
                 }
             }
             
             var title: String {
                 switch self {
+                case .message:
+                    return R.string.localizable.feedShareMessage()
                 case .sms:
                     return R.string.localizable.socialSms()
                 case .snapchat:
@@ -45,19 +129,8 @@ extension FansGroup.Views {
                     return R.string.localizable.socialCopyLink()
                 case .shareLink:
                     return R.string.localizable.socialShareLink()
-                }
-            }
-            
-            var stringValue: String {
-                switch self {
-                case .sms:
-                    return "sms"
-                case .snapchat:
-                    return "snapchat"
-                case .copyLink:
-                    return "copy"
-                case .shareLink:
-                    return "sharelink"
+                case .more:
+                    return R.string.localizable.feedShareMore()
                 }
             }
         }
@@ -65,9 +138,10 @@ extension FansGroup.Views {
         private lazy var shareSourcesView: UICollectionView = {
             let layout = UICollectionViewFlowLayout()
             layout.scrollDirection = .horizontal
-            layout.itemSize = CGSize(width: 80, height: 67)
+            layout.itemSize = CGSize(width: 66, height: 75)
             layout.minimumLineSpacing = 0
             layout.sectionInset = .zero
+            layout.headerReferenceSize = CGSize(width: 11, height: 0)
             let v = UICollectionView(frame: .zero, collectionViewLayout: layout)
             v.register(cellWithClass: SourceCell.self)
             v.showsVerticalScrollIndicator = false
@@ -81,9 +155,9 @@ extension FansGroup.Views {
         private lazy var shareSources: [ShareSource] = {
             
             if MFMessageComposeViewController.canSendText() {
-                return [.sms, .snapchat, .copyLink, .shareLink]
+                return [.message, .sms, .copyLink, .more]
             } else {
-                return [.snapchat, .copyLink, .shareLink]
+                return [.message, .copyLink, .more]
             }
             
         }()
@@ -128,10 +202,9 @@ extension FansGroup.Views {
         }
         
     }
-    
 }
 
-extension FansGroup.Views.ShareBar {
+extension Feed.ShareBar {
     
     class SourceCell: UICollectionViewCell {
         
