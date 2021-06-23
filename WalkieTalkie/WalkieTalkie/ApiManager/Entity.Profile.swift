@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import WCDBSwift
 
 protocol Verifiedable {
     var name: String? { get set }
@@ -15,7 +16,7 @@ protocol Verifiedable {
     var isOfficial: Bool? { get set }
 }
 
-enum Constellation: String, Codable {
+enum Constellation: String, ColumnJSONCodable {
     case aquarius = "Aquarius"
     case pisces = "Pisces"
     case aries = "Aries"
@@ -110,7 +111,7 @@ extension Verifiedable {
 }
 
 extension Entity {
-    struct UserProfile: Codable {
+    struct UserProfile: TableCodable {
         enum Role: Int {
             case none = 0
             case admin
@@ -141,6 +142,7 @@ extension Entity {
         var nameAnimalCrossing: String?
         var nameBrawlStars: String?
         var isFollowed: Bool?
+        var isFollower: Bool?
         var opTime: Double?
         var invited: Bool?
         var chatLanguage: String?
@@ -203,7 +205,24 @@ extension Entity {
             }
         }
 
-        private enum CodingKeys: String, CodingKey {
+        enum CodingKeys: String, CodingTableKey {
+            
+            typealias Root = UserProfile
+            static var objectRelationalMapping: TableBinding<Entity.UserProfile.CodingKeys> {
+                return TableBinding(CodingKeys.self)
+            }
+            static var columnConstraintBindings: [CodingKeys: ColumnConstraintBinding]? {
+                return [
+                    uid: ColumnConstraintBinding(isPrimary: true, onConflict: .replace, isUnique: true),
+                ]
+            }
+            static var indexBindings: [IndexBinding.Subfix: IndexBinding]? {
+                return [
+                    "_uniqueIndex": IndexBinding(isUnique: true, indexesBy: uid),
+                    "_descendingIndex": IndexBinding(indexesBy: uid.asIndex(orderBy: .ascending)),
+                ]
+            }
+            
             case googleAuthData = "google_auth_data"
             case appleAuthData = "apple_auth_data"
             case pictureUrl = "picture_url"
@@ -219,6 +238,7 @@ extension Entity {
             case constellation
             case description
             case isFollowed = "is_followed"
+            case isFollower = "is_follower"
             case opTime = "op_time"
             case invited = "invited"
             case nameRoblox = "name_roblox"

@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import WCDBSwift
 
 extension Entity {
     
@@ -116,7 +117,7 @@ extension Entity {
 
 extension Entity {
     
-    struct ThirdPartyAuthData: Codable {
+    struct ThirdPartyAuthData: ColumnJSONCodable {
         var id: String
         var pictureUrl: String?
         var name: String?

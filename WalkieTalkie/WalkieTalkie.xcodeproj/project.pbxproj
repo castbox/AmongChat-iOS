@@ -43,6 +43,7 @@
 		266F5944268064B600A97C20 /* Feed.Share+Views.swift in Sources */ = {isa = PBXBuildFile; fileRef = 266F5943268064B600A97C20 /* Feed.Share+Views.swift */; };
 		266F594A26807F9600A97C20 /* Feed.Share.SelectFriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 266F594926807F9600A97C20 /* Feed.Share.SelectFriendsViewController.swift */; };
 		266F594C26807FC600A97C20 /* Feed.Share.SelectFriendsViewController+Views.swift in Sources */ = {isa = PBXBuildFile; fileRef = 266F594B26807FC600A97C20 /* Feed.Share.SelectFriendsViewController+Views.swift */; };
+		266F595026818DE400A97C20 /* FollowingUsersManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 266F594F26818DE400A97C20 /* FollowingUsersManager.swift */; };
 		2686A6FB265E8B0900931A03 /* Entity.Feed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2686A6FA265E8B0900931A03 /* Entity.Feed.swift */; };
 		2696D42325B8082200C38C09 /* UITextFieldExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2696D42225B8082200C38C09 /* UITextFieldExtension.swift */; };
 		269A6DCE261C4A8C00A07C7D /* FansGroup.GroupListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 269A6DCD261C4A8C00A07C7D /* FansGroup.GroupListViewController.swift */; };
@@ -568,6 +569,7 @@
 		266F5943268064B600A97C20 /* Feed.Share+Views.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Feed.Share+Views.swift"; sourceTree = "<group>"; };
 		266F594926807F9600A97C20 /* Feed.Share.SelectFriendsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Feed.Share.SelectFriendsViewController.swift; sourceTree = "<group>"; };
 		266F594B26807FC600A97C20 /* Feed.Share.SelectFriendsViewController+Views.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Feed.Share.SelectFriendsViewController+Views.swift"; sourceTree = "<group>"; };
+		266F594F26818DE400A97C20 /* FollowingUsersManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowingUsersManager.swift; sourceTree = "<group>"; };
 		2686A6FA265E8B0900931A03 /* Entity.Feed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entity.Feed.swift; sourceTree = "<group>"; };
 		269456582519DFE2003AA34A /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		2694565A2519DFE2003AA34A /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
@@ -1691,6 +1693,7 @@
 			isa = PBXGroup;
 			children = (
 				FE7E227826466B3500DAD431 /* DMManager.swift */,
+				266F594F26818DE400A97C20 /* FollowingUsersManager.swift */,
 				26A3D4AF2636C57200DD4F53 /* NoticeManager.swift */,
 				FE7E2276264661F500DAD431 /* Database.swift */,
 			);
@@ -2809,6 +2812,7 @@
 				FECA43AC24597B570075D139 /* Automator.swift in Sources */,
 				FEF6171F264AB62C007CC97E /* Giphy.Entity.swift in Sources */,
 				FE860D4A2446D1D700087B73 /* Size.swift in Sources */,
+				266F595026818DE400A97C20 /* FollowingUsersManager.swift in Sources */,
 				FEF3114E258B51470070DBE7 /* UIViewControllerStoryProductExtension.swift in Sources */,
 				BD91A39D258C981F008931AD /* AmongChat.Home.TopicViewModel.swift in Sources */,
 				FE126D5A2434825900BEDD60 /* KeyCenter.swift in Sources */,
