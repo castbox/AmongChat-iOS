@@ -265,6 +265,21 @@ extension URI {
         
     }
     
+    struct Feeds: URIRepresentable {
+        
+        static func patterns() -> [String] {
+            return [
+                "/feeds/:pid"
+            ]
+        }
+        
+        let pid: String?
+        
+        init?(_ paras: [String: Any]) {
+            self.pid = paras["pid"] as? String
+        }
+    }
+    
     struct Undefined: URIRepresentable {
         
         static func patterns() -> [String] {

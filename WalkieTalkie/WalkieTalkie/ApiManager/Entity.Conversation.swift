@@ -14,6 +14,7 @@ extension Entity {
         case text = "TxtMsg"
         case gif = "GifMsg"
         case voice = "VcMsg"
+        case feed = "FeedMsg"
     }
     
     struct DMProfile: Verifiedable, Codable, ColumnCodable {
@@ -201,7 +202,8 @@ extension Entity {
         }
         
         func toConversation() -> DMConversation {
-            return DMConversation(message: self, fromUid: self.fromUid, unreadCount: status == .empty ? 0 : 1, lastMsgMs: Date().timeIntervalSince1970)
+            let unreadCount = (isFromMe ?? false) ? 0 : (status == .empty ? 0 : 1)
+            return DMConversation(message: self, fromUid: self.fromUid, unreadCount: unreadCount, lastMsgMs: Date().timeIntervalSince1970)
         }
         
         static func emptyMessage(for profile: DMProfile) -> Entity.DMMessage {
@@ -262,6 +264,8 @@ extension Entity {
         let imageWidth: Double?
         let imageHeight: Double?
         
+        //跳转链接
+        var link: String?
         //relative path
         var localRelativePath: String?
         
@@ -312,6 +316,7 @@ extension Entity {
             imageWidth = message.imageWidth
             imageHeight = message.imageHeight
             localRelativePath = message.localRelativePath
+            link = message.link
         }
         
         init(type: DMMsgType,
@@ -321,7 +326,8 @@ extension Entity {
              img: String? = nil,
              imageWidth: Double? = 0,
              imageHeight: Double? = 0,
-             localRelativePath: String? = nil) {
+             localRelativePath: String? = nil,
+             link: String? = nil) {
             self.type = type.rawValue
             self.url = url
             self.duration = duration
@@ -330,6 +336,7 @@ extension Entity {
             self.imageWidth = imageWidth
             self.imageHeight = imageHeight
             self.localRelativePath = localRelativePath
+            self.link = link
         }
         
         func archivedValue() -> FundamentalValue {
@@ -352,6 +359,7 @@ extension Entity {
             case imageWidth = "img_width"
             case imageHeight = "img_height"
             case localRelativePath = "local_relative_path"
+            case link
         }
         
         

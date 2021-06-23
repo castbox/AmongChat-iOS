@@ -57,6 +57,20 @@ extension Entity {
         let height: Int?
         let status: Int // 0审核中
         
+        var widthValue: Int {
+            guard let width = width else {
+                return 100
+            }
+            return width > 0 ? width : 100
+        }
+        
+        var heightValue: Int {
+            guard let height = height else {
+                return 133
+            }
+            return height > 0 ? height : 133
+        }
+        
         var statusType: StatusType {
             return StatusType(rawValue: status) ?? .inreview
         }
@@ -121,9 +135,9 @@ extension Entity {
     }
     
     struct FeedShareResult: Codable {
-        let uidsAnonymous: [Int]
-        let uidsBlock: [Int]
-        let uids: [Int]
+        let uidsAnonymous: [String]
+        let uidsBlock: [String]
+        let uids: [String]
         private enum CodingKeys: String, CodingKey {
             case uidsAnonymous = "uids_anonymous"
             case uidsBlock = "uids_block"

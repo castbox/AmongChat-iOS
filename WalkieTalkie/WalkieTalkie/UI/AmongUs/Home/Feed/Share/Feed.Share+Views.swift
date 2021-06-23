@@ -150,12 +150,12 @@ extension Feed.Share {
                 maker.leading.trailing.equalToSuperview().inset(20)
                 maker.height.equalTo(48)
                 maker.top.equalTo(bodyContainer.snp.bottom).offset(24)
-                if #available(iOS 11.0, *) {
-                    maker.bottom.equalTo(safeAreaLayoutGuide.snp.bottom).offset(-20)
-                } else {
+//                if #available(iOS 11.0, *) {
+//                    maker.bottom.equalTo(safeAreaLayoutGuide.snp.bottom).offset(-20)
+//                } else {
                     // Fallback on earlier versions
-                    maker.bottom.equalToSuperview().offset(-(20 + Frame.Height.safeAeraBottomHeight))
-                }
+                    maker.bottom.equalToSuperview().offset(-(12 + Frame.Height.safeAeraBottomHeight))
+//                }
             }
         }
                 

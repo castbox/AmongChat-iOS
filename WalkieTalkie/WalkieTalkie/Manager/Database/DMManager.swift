@@ -139,6 +139,26 @@ class DMManager {
 
     }
     
+    func clearUnreadCount(with fromUid: String) -> Single<Entity.DMConversation?> {
+        return queryConversation(fromUid: fromUid)
+            .flatMap { [unowned self] item -> Single<Entity.DMConversation?> in
+                guard let conversation = item else {
+                    return .just(nil)
+                }
+                var newItem = conversation
+                newItem.unreadCount = 0
+                return self.database.mapTransactionToSingle { (db) in
+                    try db.update(table: dmConversationTableName,
+                                  on: [Entity.DMConversation.Properties.unreadCount],
+                                  with: newItem,
+                                  where: Entity.DMConversation.Properties.fromUid == conversation.fromUid)
+                }.map { newItem }
+                .do(onSuccess: { [weak self] _ in
+                    self?.conversactionUpdateReplay.accept(newItem)
+                })
+            }
+    }
+    
     func clearUnreadCount(with conversation: Entity.DMConversation) -> Single<Entity.DMConversation> {
         var newItem = conversation
         newItem.unreadCount = 0

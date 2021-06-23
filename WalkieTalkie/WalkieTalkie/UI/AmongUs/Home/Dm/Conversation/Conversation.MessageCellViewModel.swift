@@ -40,7 +40,7 @@ extension Conversation {
                     height += 31
                 }
                 self.height = height
-            case .gif:
+            case .gif, .feed:
                 //最小
                 let minWidth: CGFloat = 80
                 let gifMaxWidth: CGFloat = 170

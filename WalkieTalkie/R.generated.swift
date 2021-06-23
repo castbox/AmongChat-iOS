@@ -232,7 +232,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 275 images.
+  /// This `R.image` struct is generated, and contains static references to 276 images.
   struct image {
     /// Image `ac_add_stats_add`.
     static let ac_add_stats_add = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_add_stats_add")
@@ -650,6 +650,8 @@ struct R: Rswift.Validatable {
     static let iconDmKeyboard = Rswift.ImageResource(bundle: R.hostingBundle, name: "iconDmKeyboard")
     /// Image `iconDmMore`.
     static let iconDmMore = Rswift.ImageResource(bundle: R.hostingBundle, name: "iconDmMore")
+    /// Image `iconDmPlayFeed`.
+    static let iconDmPlayFeed = Rswift.ImageResource(bundle: R.hostingBundle, name: "iconDmPlayFeed")
     /// Image `iconDmVoiceTag`.
     static let iconDmVoiceTag = Rswift.ImageResource(bundle: R.hostingBundle, name: "iconDmVoiceTag")
     /// Image `iconDmVoice`.
@@ -1823,6 +1825,11 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "iconDmMore", bundle: ..., traitCollection: ...)`
     static func iconDmMore(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.iconDmMore, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "iconDmPlayFeed", bundle: ..., traitCollection: ...)`
+    static func iconDmPlayFeed(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.iconDmPlayFeed, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "iconDmVoice", bundle: ..., traitCollection: ...)`

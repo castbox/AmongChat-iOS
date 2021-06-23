@@ -61,7 +61,7 @@ extension Feed {
             return v
         }()
                 
-        let feed: Entity.Feed
+        private let feed: Entity.Feed
         
         private var isAnonymousUser = Settings.shared.amongChatUserProfile.value?.isAnonymous ?? false
         
@@ -72,7 +72,7 @@ extension Feed {
             if selectedUsers.isEmpty {
                 return containerStyle.height
             } else {
-                return 387 + Frame.Height.safeAeraBottomHeight
+                return 397 + Frame.Height.safeAeraBottomHeight
             }
         }
         
@@ -82,6 +82,17 @@ extension Feed {
                 shareBar.isHidden = !inputBar.isHidden
             }
         }
+        
+        private var shareUrl: String {
+            return "https://among.chat/feeds/\(feed.pid)"
+        }
+        
+        private var shareText: String {
+            return R.string.localizable.amongChatGroupShareContent(Settings.shared.amongChatUserProfile.value?.name ?? "",
+                                                                   "groupName",
+                                                                   shareUrl)
+        }
+
         
         private var selectedUsers: [Entity.UserProfile] = [] {
             didSet {
@@ -124,9 +135,11 @@ extension Feed {
 extension Feed.ShareController {
     func sendShare() {
         let removeHandler = container.raft.show(.loading)
-        Request.feedShareToUser(feed.pid, uids: selectedUsers.map { $0.uid.string }, text: inputBar.inputTextView.text ?? "")
+        //send message
+        Request.feedShareToUser(feed, uids: selectedUsers.map { $0.uid.string }, text: inputBar.inputTextView.text?.trim() ?? "")
             .subscribe(onSuccess: { [weak self] result in
                 removeHandler()
+                self?.view.endEditing(true)
                 let anonymousUsers = result?.uidsAnonymous ?? []
                 self?.dismissModal(animated: true, completion: { [weak self] in
                     self?.dismissHandler?(anonymousUsers.isEmpty ? "": R.string.localizable.feedShareToAnonymousUserTips())

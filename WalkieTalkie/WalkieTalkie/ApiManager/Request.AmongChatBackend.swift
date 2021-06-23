@@ -1891,10 +1891,10 @@ extension Request {
             .observeOn(MainScheduler.asyncInstance)
     }
     
-    static func feedShareToUser(_ pid: String, uids: [String], text: String) -> Single<Entity.FeedShareResult?> {
+    static func feedShareToUser(_ feed: Entity.Feed, uids: [String], text: String) -> Single<Entity.FeedShareResult?> {
         
         let params: [String : Any] = [
-            "pid": pid,
+            "pid": feed.pid,
             "uids": uids,
             "text": text
         ]
@@ -1904,5 +1904,15 @@ extension Request {
             .mapToDataKeyJsonValue()
             .mapTo(Entity.FeedShareResult.self)
             .observeOn(MainScheduler.asyncInstance)
+            .do(onSuccess: { result in
+                guard let result = result else {
+                    return
+                }
+                let uids = result.uids + result.uidsBlock
+                uids.map { Conversation.ViewModel($0) }
+                    .forEach { $0.sendFeedMessage(with: feed, text: text, isSuccess: result.uids.contains($0.targetUid))
+                    }
+            })
+            .delay(.fromSeconds(0.2), scheduler: MainScheduler.asyncInstance)
     }
 }
