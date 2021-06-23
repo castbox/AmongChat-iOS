@@ -636,3 +636,5 @@
 "room.play.video.tips" = "Are you sure you want to leave the channel and watch the video?";
 "dm.send.failed.by.blocked" = "Message could not be sent, as you've been blocked by the recipient.";
 "feed.third.share.content" = "I'm hooked on this video on AmongChat. Check it out! %@";
+"among.chat.feed.recent.chats" = "Recent Chats";
+"among.chat.feed.friends" = "Friends";

@@ -232,7 +232,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 281 images.
+  /// This `R.image` struct is generated, and contains static references to 280 images.
   struct image {
     /// Image `ac_add_stats_add`.
     static let ac_add_stats_add = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_add_stats_add")
@@ -308,8 +308,6 @@ struct R: Rswift.Validatable {
     static let ac_feed_share_recent = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_feed_share_recent")
     /// Image `ac_feed_share_sms`.
     static let ac_feed_share_sms = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_feed_share_sms")
-    /// Image `ac_feed_share_unselected`.
-    static let ac_feed_share_unselected = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_feed_share_unselected")
     /// Image `ac_feed_topic_tip`.
     static let ac_feed_topic_tip = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_feed_topic_tip")
     /// Image `ac_feed_video_tip`.
@@ -980,11 +978,6 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "ac_feed_share_sms", bundle: ..., traitCollection: ...)`
     static func ac_feed_share_sms(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ac_feed_share_sms, compatibleWith: traitCollection)
-    }
-    
-    /// `UIImage(named: "ac_feed_share_unselected", bundle: ..., traitCollection: ...)`
-    static func ac_feed_share_unselected(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.ac_feed_share_unselected, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "ac_feed_topic_tip", bundle: ..., traitCollection: ...)`
@@ -2883,7 +2876,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
     
-    /// This `R.string.localizable` struct is generated, and contains static references to 554 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 556 localization keys.
     struct localizable {
       /// en translation:  Congratulations!
       /// 
@@ -3597,6 +3590,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let followInvitedSuccess = Rswift.StringResource(key: "follow.invited.success", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Friends
+      /// 
+      /// Locales: en
+      static let amongChatFeedFriends = Rswift.StringResource(key: "among.chat.feed.friends", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Gamertag
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -4329,6 +4326,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let rateUs = Rswift.StringResource(key: "rate.us", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Recent Chats
+      /// 
+      /// Locales: en
+      static let amongChatFeedRecentChats = Rswift.StringResource(key: "among.chat.feed.recent.chats", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Reject
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -6348,6 +6349,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("follow.invited.success", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Friends
+      /// 
+      /// Locales: en
+      static func amongChatFeedFriends(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.feed.friends", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Gamertag
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -7627,6 +7635,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func rateUs(_: Void = ()) -> String {
         return NSLocalizedString("rate.us", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Recent Chats
+      /// 
+      /// Locales: en
+      static func amongChatFeedRecentChats(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.feed.recent.chats", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Reject
