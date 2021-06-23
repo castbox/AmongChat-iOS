@@ -503,8 +503,9 @@ extension Feed.ListViewController {
         let shareUrl = "https://among.chat/feeds/\(feed.pid)"
 
         if item == .message {
-            let vc = Feed.TopicListController(with: feed.pid)
-            self.navigationController?.pushViewController(vc)
+            let selectVC = Feed.Share.SelectFriendsViewController(with: viewModel.feed)
+            selectVC.modalPresentationStyle = .fullScreen
+            present(selectVC, animated: true)
         } else if item == .more {
             //make dynamic
             let removeHandler = view.raft.show(.loading)
