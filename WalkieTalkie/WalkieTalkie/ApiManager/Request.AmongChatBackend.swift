@@ -1895,7 +1895,7 @@ extension Request {
         
         let params: [String : Any] = [
             "pid": feed.pid,
-            "uids": uids,
+            "uids": uids.map { $0.int64Value },
             "text": text
         ]
                 

@@ -26,6 +26,10 @@ extension String {
         return int?.int64
     }
     
+    var int64Value: Int64 {
+        return int?.int64 ?? 0
+    }
+    
     var uIntValue: UInt {
         return intValue.uInt
     }

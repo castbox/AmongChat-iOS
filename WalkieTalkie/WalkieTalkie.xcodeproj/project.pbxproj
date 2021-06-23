@@ -154,7 +154,7 @@
 		DAD6D54B857E3653B61F645B /* (null) in Frameworks */ = {isa = PBXBuildFile; };
 		FE0170472681D98B006AE34E /* FeedShareUserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE0170452681D98B006AE34E /* FeedShareUserCell.swift */; };
 		FE0170482681D98B006AE34E /* FeedShareUserCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE0170462681D98B006AE34E /* FeedShareUserCell.xib */; };
-		FE01704B2681E587006AE34E /* FeedShareController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE0170492681E587006AE34E /* FeedShareController.swift */; };
+		FE01704B2681E587006AE34E /* Feed.ShareController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE0170492681E587006AE34E /* Feed.ShareController.swift */; };
 		FE01704E2681FF13006AE34E /* Feed.ShareUserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE01704D2681FF13006AE34E /* Feed.ShareUserView.swift */; };
 		FE045FC826451CB20032FE67 /* ConversationListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE045FC626451CB20032FE67 /* ConversationListCell.swift */; };
 		FE045FC926451CB20032FE67 /* ConversationListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE045FC726451CB20032FE67 /* ConversationListCell.xib */; };
@@ -695,7 +695,7 @@
 		E401122B4D5D7ADA04280B14 /* Pods-WalkieTalkie.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WalkieTalkie.debug.xcconfig"; path = "Target Support Files/Pods-WalkieTalkie/Pods-WalkieTalkie.debug.xcconfig"; sourceTree = "<group>"; };
 		FE0170452681D98B006AE34E /* FeedShareUserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedShareUserCell.swift; sourceTree = "<group>"; };
 		FE0170462681D98B006AE34E /* FeedShareUserCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FeedShareUserCell.xib; sourceTree = "<group>"; };
-		FE0170492681E587006AE34E /* FeedShareController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedShareController.swift; sourceTree = "<group>"; };
+		FE0170492681E587006AE34E /* Feed.ShareController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Feed.ShareController.swift; sourceTree = "<group>"; };
 		FE01704D2681FF13006AE34E /* Feed.ShareUserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Feed.ShareUserView.swift; sourceTree = "<group>"; };
 		FE045FC626451CB20032FE67 /* ConversationListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationListCell.swift; sourceTree = "<group>"; };
 		FE045FC726451CB20032FE67 /* ConversationListCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ConversationListCell.xib; sourceTree = "<group>"; };
@@ -1388,7 +1388,7 @@
 				FEFDDBE426651F5C004FF134 /* VideoEditor.swift */,
 				FEB308F126662841006849CF /* Profile.FeedViewController.swift */,
 				FE952FBE2669C76E004E2AD1 /* SZAVPlayer */,
-				FE0170492681E587006AE34E /* FeedShareController.swift */,
+				FE0170492681E587006AE34E /* Feed.ShareController.swift */,
 				FE01704D2681FF13006AE34E /* Feed.ShareUserView.swift */,
 				FE0170452681D98B006AE34E /* FeedShareUserCell.swift */,
 				FE0170462681D98B006AE34E /* FeedShareUserCell.xib */,
@@ -2727,7 +2727,7 @@
 				FE8DEA67243DB09A0059C252 /* Codable.Extension.swift in Sources */,
 				FE705537265273E200A489F4 /* NewVersionAlertController.swift in Sources */,
 				FE125F5F25B7D92800609D81 /* Social.InviteFirendsViewController.swift in Sources */,
-				FE01704B2681E587006AE34E /* FeedShareController.swift in Sources */,
+				FE01704B2681E587006AE34E /* Feed.ShareController.swift in Sources */,
 				FE80A59325ADA605009914A7 /* AmongChat.Login.StarsOverlay.swift in Sources */,
 				FE9BCA44258A5344002F82AF /* IntExtension.swift in Sources */,
 				FE045FCC2645219E0032FE67 /* ConversationViewController.swift in Sources */,

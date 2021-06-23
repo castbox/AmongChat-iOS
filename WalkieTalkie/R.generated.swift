@@ -2848,7 +2848,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
     
-    /// This `R.string.localizable` struct is generated, and contains static references to 553 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 554 localization keys.
     struct localizable {
       /// en translation:  Congratulations!
       /// 
@@ -3710,6 +3710,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatGroupShareContent = Rswift.StringResource(key: "among.chat.group.share.content", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: I'm hooked on this video on AmongChat. Check it out! %@
+      /// 
+      /// Locales: en
+      static let feedThirdShareContent = Rswift.StringResource(key: "feed.third.share.content", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: ID
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -6566,6 +6570,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func amongChatGroupShareContent(_ value1: String, _ value2: String, _ value3: String) -> String {
         return String(format: NSLocalizedString("among.chat.group.share.content", bundle: R.hostingBundle, comment: ""), locale: R.applicationLocale, value1, value2, value3)
+      }
+      
+      /// en translation: I'm hooked on this video on AmongChat. Check it out! %@
+      /// 
+      /// Locales: en
+      static func feedThirdShareContent(_ value1: String) -> String {
+        return String(format: NSLocalizedString("feed.third.share.content", bundle: R.hostingBundle, comment: ""), locale: R.applicationLocale, value1)
       }
       
       /// en translation: ID

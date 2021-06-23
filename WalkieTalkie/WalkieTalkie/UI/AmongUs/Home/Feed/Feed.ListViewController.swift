@@ -486,12 +486,70 @@ extension Feed.ListViewController {
         cell?.updateShareCount()
     }
     
+    func onShareBar(select item: Feed.ShareBar.ShareSource, viewModel: Feed.ListCellViewModel) {
+        
+        let nilableIndex = self.dataSource.firstIndex(where: { item in
+            guard let item = item as? FeedCellViewModel else {
+                return false
+            }
+            return item.isEqual(viewModel)
+        })
+        
+        guard let index = nilableIndex else {
+            return
+        }
+        
+        let feed = viewModel.feed
+        let shareUrl = "https://among.chat/feeds/\(feed.pid)"
+
+        if item == .message {
+            
+        } else if item == .more {
+            //make dynamic
+            let removeHandler = view.raft.show(.loading)
+            
+            let content = ShareManager.Content(type: .feed, targetType: .more, content: R.string.localizable.feedThirdShareContent(""), url: shareUrl)
+            ShareManager.default.share(with: content, .more, viewController: self) { [weak self] in
+                removeHandler()
+                self?.increaseShareCount(with: index)
+                self?.viewModel.reportShare(feed.pid)
+            }
+        } else {
+            let removeHandler = view.raft.show(.loading)
+            ShareManager.makeDynamicLinks(with: shareUrl, for: .message) { [weak self] dynamicUrl in
+                removeHandler()
+                guard let url = dynamicUrl else { return }
+                let shareText = R.string.localizable.feedThirdShareContent(url)
+                switch item {
+                case .sms:
+                    self?.sendSMS(body: shareText)
+                case .copyLink:
+                    shareText.copyToPasteboardWithHaptic()
+                default:
+                    ()
+                }
+            }
+        }
+    }
+    
     func downloadVideo(viewModel: Feed.ListCellViewModel?) {
         guard let viewModel = viewModel else {
             return
         }
         let feedShare = Feed.ShareController(with: viewModel.feed)
         feedShare.showModal(in: self.tabBarController ?? self)
+        feedShare.dismissHandler = { [weak self] action in
+            switch action {
+            case .error(let string):
+                guard let string = string,
+                      !string.isEmpty else {
+                    return
+                }
+                self?.view.raft.autoShow(.text(string))
+            case .share(let source):
+                self?.onShareBar(select: source, viewModel: viewModel)
+            }
+        }
 //        let feed = viewModel.feed
 //        let hudHandler = view.raft.show(.loading)
 //        let hud = view.raft.topHud()

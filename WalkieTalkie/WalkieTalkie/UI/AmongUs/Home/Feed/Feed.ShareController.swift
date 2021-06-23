@@ -19,6 +19,11 @@ extension Feed {
             case showInputBar
         }
         
+        enum Action {
+            case error(String?)
+            case share(Feed.ShareBar.ShareSource)
+        }
+        
         private lazy var titleLabel: UILabel = {
             let lb = UILabel()
             lb.textAlignment = .center
@@ -88,9 +93,7 @@ extension Feed {
         }
         
         private var shareText: String {
-            return R.string.localizable.amongChatGroupShareContent(Settings.shared.amongChatUserProfile.value?.name ?? "",
-                                                                   "groupName",
-                                                                   shareUrl)
+            return R.string.localizable.feedThirdShareContent(shareUrl)
         }
 
         
@@ -108,7 +111,7 @@ extension Feed {
             }
         }
 
-        var dismissHandler: ((_ errorString: String?) -> Void)?
+        var dismissHandler: ((Action) -> Void)?
         
         init(with feed: Entity.Feed) {
             self.feed = feed
@@ -142,32 +145,12 @@ extension Feed.ShareController {
                 self?.view.endEditing(true)
                 let anonymousUsers = result?.uidsAnonymous ?? []
                 self?.dismissModal(animated: true, completion: { [weak self] in
-                    self?.dismissHandler?(anonymousUsers.isEmpty ? "": R.string.localizable.feedShareToAnonymousUserTips())
+                    self?.dismissHandler?(.error(anonymousUsers.isEmpty ? "": R.string.localizable.feedShareToAnonymousUserTips()))
                 })
             }, onError: { error in
                 removeHandler()
             })
             .disposed(by: bag)
-    }
-    
-    func onShareBar(select item: Feed.ShareBar.ShareSource) {
-        switch item {
-        case .message:
-            ()
-        case .sms:
-//            self.sendSMS(body: self.shareText)
-            ()
-        case .copyLink:
-            ()
-            
-        case .shareLink:
-//            self.shareLink()
-        ()
-            
-        default:
-            self.dismissModal()
-        }
-        self.dismissModal()
     }
     
     func bindSubviewEvent() {
@@ -187,7 +170,9 @@ extension Feed.ShareController {
         
         shareBar.selectedSourceObservable
             .subscribe(onNext: { [weak self] source in
-                self?.onShareBar(select: source)
+                self?.dismissModal(animated: true, completion: { [weak self] in
+                    self?.dismissHandler?(.share(source))
+                })
             })
             .disposed(by: bag)
         
