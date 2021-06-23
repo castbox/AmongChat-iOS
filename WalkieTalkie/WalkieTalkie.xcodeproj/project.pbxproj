@@ -156,6 +156,7 @@
 		FE0170482681D98B006AE34E /* FeedShareUserCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE0170462681D98B006AE34E /* FeedShareUserCell.xib */; };
 		FE01704B2681E587006AE34E /* Feed.ShareController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE0170492681E587006AE34E /* Feed.ShareController.swift */; };
 		FE01704E2681FF13006AE34E /* Feed.ShareUserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE01704D2681FF13006AE34E /* Feed.ShareUserView.swift */; };
+		FE01705026833A8B006AE34E /* Feed.TopicListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE01704F26833A8B006AE34E /* Feed.TopicListController.swift */; };
 		FE045FC826451CB20032FE67 /* ConversationListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE045FC626451CB20032FE67 /* ConversationListCell.swift */; };
 		FE045FC926451CB20032FE67 /* ConversationListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE045FC726451CB20032FE67 /* ConversationListCell.xib */; };
 		FE045FCC2645219E0032FE67 /* ConversationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE045FCA2645219E0032FE67 /* ConversationViewController.swift */; };
@@ -697,6 +698,7 @@
 		FE0170462681D98B006AE34E /* FeedShareUserCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FeedShareUserCell.xib; sourceTree = "<group>"; };
 		FE0170492681E587006AE34E /* Feed.ShareController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Feed.ShareController.swift; sourceTree = "<group>"; };
 		FE01704D2681FF13006AE34E /* Feed.ShareUserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Feed.ShareUserView.swift; sourceTree = "<group>"; };
+		FE01704F26833A8B006AE34E /* Feed.TopicListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Feed.TopicListController.swift; sourceTree = "<group>"; };
 		FE045FC626451CB20032FE67 /* ConversationListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationListCell.swift; sourceTree = "<group>"; };
 		FE045FC726451CB20032FE67 /* ConversationListCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ConversationListCell.xib; sourceTree = "<group>"; };
 		FE045FCA2645219E0032FE67 /* ConversationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationViewController.swift; sourceTree = "<group>"; };
@@ -1387,6 +1389,7 @@
 				FE0A0F2A265E21CD00AC9FF7 /* Feed.EmotePickerViewModel.swift */,
 				FEFDDBE426651F5C004FF134 /* VideoEditor.swift */,
 				FEB308F126662841006849CF /* Profile.FeedViewController.swift */,
+				FE01704F26833A8B006AE34E /* Feed.TopicListController.swift */,
 				FE952FBE2669C76E004E2AD1 /* SZAVPlayer */,
 				FE0170492681E587006AE34E /* Feed.ShareController.swift */,
 				FE01704D2681FF13006AE34E /* Feed.ShareUserView.swift */,
@@ -2557,6 +2560,7 @@
 				FE87C2D3259C2EC200799883 /* ShareContainerView.swift in Sources */,
 				269A6DF6261EAD9300A07C7D /* FansGroup.GroupMemberListViewController.swift in Sources */,
 				FECA43AD24597B570075D139 /* Automator.Device.swift in Sources */,
+				FE01705026833A8B006AE34E /* Feed.TopicListController.swift in Sources */,
 				FE9BD2AB26380B3300C30012 /* MarqueueLabel.swift in Sources */,
 				2BAB4F872596031600A1C8DC /* Entity.Profile.swift in Sources */,
 				FE0A0F2B265E21CD00AC9FF7 /* Feed.EmotePickerViewModel.swift in Sources */,

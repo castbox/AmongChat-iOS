@@ -503,7 +503,8 @@ extension Feed.ListViewController {
         let shareUrl = "https://among.chat/feeds/\(feed.pid)"
 
         if item == .message {
-            
+            let vc = Feed.TopicListController(with: feed.pid)
+            self.navigationController?.pushViewController(vc)
         } else if item == .more {
             //make dynamic
             let removeHandler = view.raft.show(.loading)

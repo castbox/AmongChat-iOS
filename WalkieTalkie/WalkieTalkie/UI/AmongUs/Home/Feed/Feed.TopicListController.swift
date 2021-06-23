@@ -1,8 +1,8 @@
 //
-//  ProfileFeedViewController.swift
+//  Feed.TopicListController.swift
 //  WalkieTalkie
 //
-//  Created by 袁仕崇 on 01/06/21.
+//  Created by 袁仕崇 on 23/06/21.
 //  Copyright © 2021 Guru Rain. All rights reserved.
 //
 
@@ -14,13 +14,9 @@ import RxSwift
 
 private let bottomBarMinHeight = 57 + Frame.Height.safeAeraBottomHeight
 
-extension Social {
+extension Feed {
     
-    class ProfileFeedController: Feed.ListViewController {
-        enum Style {
-            case single //单 feed
-            case `default`
-        }
+    class TopicListController: Feed.ListViewController {
         
         private lazy var navView: NavigationBar = {
             let n = NavigationBar()
@@ -44,34 +40,15 @@ extension Social {
         
         private var bottomContainer: UIView!
         private var bottomBar: UIView!
-        
-        private var playCountView: UIView!
-        private var playCountLabel: UILabel!
-        
+                
         private var isLoadingMore: Bool = false
         private var hasMore: Bool = true
         
-        private let uid: Int
-        private let defaultIndex: Int
-        private let feedRedirectInfo: Entity.FeedRedirectInfo?
+        private let pid: String
+        private var topic: String?
         
-        
-        private var style: Style {
-            feedRedirectInfo == nil ? .default : .single
-        }
-        
-        init(with uid: Int, index: Int = 0) {
-            self.uid = uid
-            self.defaultIndex = index
-            self.feedRedirectInfo = nil
-            super.init(nibName: nil, bundle: nil)
-            self.listStyle = .profile
-        }
-        
-        init(with uid: Int, feedRedirectInfo: Entity.FeedRedirectInfo) {
-            self.uid = uid
-            self.defaultIndex = 0
-            self.feedRedirectInfo = feedRedirectInfo
+        init(with pid: String) {
+            self.pid = pid
             super.init(nibName: nil, bundle: nil)
             self.listStyle = .profile
         }
@@ -86,41 +63,42 @@ extension Social {
         }
         
         override func loadData() {
-            if let feed = feedRedirectInfo?.post {
-                tableView.alpha = 0
-                feedsDataSource = [feed].map { Feed.ListCellViewModel(feed: $0) }
-                tableView.reloadData()
-                autoScrollToDefaultIndex()
-            } else {
-                let removeBlock = view.raft.show(.loading, hideAnimated: false)
-                Request.userFeeds(uid, skipMs: 0) //Settings.loginUserId
-                    .subscribe(onSuccess: { [weak self] data in
-                        guard let `self` = self else { return }
-                        removeBlock()
-                        self.tableView.alpha = 0
-                        self.feedsDataSource = data.list.map { Feed.ListCellViewModel(feed: $0) }
-                        self.tableView.reloadData()
-                        self.autoScrollToDefaultIndex()
-                    }, onError: { [weak self] _ in
-                        removeBlock()
-                        self?.addErrorView({ [weak self] in
-                            self?.loadData()
-                        })
-                    }).disposed(by: bag)
-            }
+            let removeBlock = view.raft.show(.loading, hideAnimated: false)
+            Request.feed(with: pid)
+                .flatMap { feed -> Single<[Entity.Feed]> in
+                    return Request.topicFeeds(feed.topic, exclude: [feed.pid])
+                        .map { feedList -> [Entity.Feed] in
+                            var list = feedList
+                            list.insert(feed, at: 0)
+                            return list
+                        }
+                }
+                .subscribe(onSuccess: { [weak self] data in
+                    guard let `self` = self else { return }
+                    removeBlock()
+                    self.topic = data.first?.topic ?? ""
+                    self.tableView.alpha = 0
+                    self.hasMore = data.count >= 10
+                    self.feedsDataSource = data.map { Feed.ListCellViewModel(feed: $0) }
+                    self.tableView.reloadData()
+                    self.autoScrollToDefaultIndex()
+                }, onError: { [weak self] _ in
+                    removeBlock()
+                    self?.addErrorView({ [weak self] in
+                        self?.loadData()
+                    })
+                }).disposed(by: bag)
         }
         
         override func loadMore() {
 //            let removeBlock = view.raft.show(.loading)
             //exclutepids
-            guard style == .default,
-                  hasMore else {
+            guard hasMore else {
                 return
             }
             isLoadingMore = true
             let maxIndex = dataSource.count - 1
-//            cdPrint("excludePid: \(excludePids)")
-            Request.userFeeds(uid, skipMs: dataSource.count.int64) //Settings.loginUserId
+            Request.topicFeeds(topic ?? "", exclude: [], skipMs: dataSource.count.int64)
                 .do(onDispose: { [weak self] in
                     self?.isLoadingMore = false
 //                    removeBlock()
@@ -128,8 +106,8 @@ extension Social {
                 .delay(.fromSeconds(0.2), scheduler: MainScheduler.asyncInstance)
                 .subscribe(onSuccess: { [weak self] data in
                     guard let `self` = self else { return }
-                    var source = data.list.map { Feed.ListCellViewModel(feed: $0) }
-                    self.hasMore = source.count >= 10
+                    var source = data.map { Feed.ListCellViewModel(feed: $0) }
+                    self.hasMore = source.count >= 20
                     source.insert(contentsOf: self.feedsDataSource, at: 0)
                     self.feedsDataSource = source
                     //insert datasource
@@ -141,7 +119,7 @@ extension Social {
                     self.tableView.insertRows(at: indexPaths, with: .none)
                     self.tableView.endUpdates()
                     self.tableView.isPagingEnabled = true
-                }, onError: { [weak self](error) in
+                }, onError: { [weak self] (error) in
 //                    self?.addErrorView({ [weak self] in
 //                        self?.loadData()
 //                    })
@@ -149,52 +127,44 @@ extension Social {
         }
         
         func autoScrollToDefaultIndex() {
-            if defaultIndex > 0 {
-                if defaultIndex < dataSource.count {
-                    let indexPath = IndexPath(row: defaultIndex, section: 0)
-                    tableView.scrollToRow(at: indexPath, at: .none, animated: false)
-                    tableView.layoutIfNeeded()
-                }
-            }
+//            if defaultIndex > 0 {
+//                if defaultIndex < dataSource.count {
+//                    let indexPath = IndexPath(row: defaultIndex, section: 0)
+//                    tableView.scrollToRow(at: indexPath, at: .none, animated: false)
+//                    tableView.layoutIfNeeded()
+//                }
+//            }
             replayVisibleItem()
             tableView.alpha = 1
         }
         
-        override func replayVisibleItem(_ replay: Bool = true) {
-            super.replayVisibleItem(replay)
-            let visibleCell: FeedListCell?
-            
-            if let cell = tableView.cellForRow(at: IndexPath(row: currentIndex, section: 0)) as? FeedListCell {
-                visibleCell = cell
-            } else {
-                if let cell = tableView.visibleCells.first as? FeedListCell {
-                    visibleCell = cell
-                } else {
-                    visibleCell = nil
-                }
-            }
-            guard let feed = visibleCell?.viewModel?.feed,
-                  uid == Settings.loginUserId else {
-                return
-            }
-            playCountLabel.text = feed.playCountValue.string
-            playCountView.fadeIn(duration: 0.2)
-        }
+//        override func replayVisibleItem(_ replay: Bool = true) {
+//            super.replayVisibleItem(replay)
+//            let visibleCell: FeedListCell?
+//
+//            if let cell = tableView.cellForRow(at: IndexPath(row: currentIndex, section: 0)) as? FeedListCell {
+//                visibleCell = cell
+//            } else {
+//                if let cell = tableView.visibleCells.first as? FeedListCell {
+//                    visibleCell = cell
+//                } else {
+//                    visibleCell = nil
+//                }
+//            }
+//            guard let feed = visibleCell?.viewModel?.feed,
+//                  uid == Settings.loginUserId else {
+//                return
+//            }
+//            playCountLabel.text = feed.playCountValue.string
+//            playCountView.fadeIn(duration: 0.2)
+//        }
         
-        override func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-            guard uid == Settings.loginUserId else {
-                return
-            }
-            playCountView.fadeOut(duration: 0.2)
-        }
-        
-        override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-            super.tableView(tableView, willDisplay: cell, forRowAt: indexPath)
-            
-            if !isLoadingMore, dataSource.count - currentIndex < 5 {
-                loadMore()
-            }
-        }
+//        override func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+//            guard uid == Settings.loginUserId else {
+//                return
+//            }
+//            playCountView.fadeOut(duration: 0.2)
+//        }
         
         override func bindSubviewEvent() {
             super.bindSubviewEvent()
@@ -224,13 +194,6 @@ extension Social {
                     self?.sendComment()
                 })
                 .disposed(by: bag)
-            
-            //show comment
-            if let feed = feedRedirectInfo?.post,
-               let commentInfo = feedRedirectInfo?.commentsInfo {
-                //show comment
-                self.showCommentList(with: feed.pid, commentsInfo: commentInfo, count: feed.cmtCount)
-            }
         }
         
         override func configureSubview() {
@@ -250,27 +213,6 @@ extension Social {
                 })
                 .disposed(by: bag)
             
-            playCountView = UIView()
-            playCountLabel = UILabel()
-            playCountLabel.font = R.font.nunitoExtraBold(size: 16)
-            playCountLabel.textColor = .white
-            
-            let playCountIcon = UIImageView(image: R.image.iconProfileFeedPlayCount())
-            playCountView.addSubviews(views: playCountIcon, playCountLabel)
-            playCountIcon.snp.makeConstraints { maker in
-                maker.leading.top.bottom.equalToSuperview()
-            }
-            
-            playCountLabel.snp.makeConstraints { maker in
-                maker.leading.equalTo(playCountIcon.snp.trailing).offset(8)
-                maker.trailing.equalToSuperview()
-                maker.height.equalToSuperview()
-            }
-            
-            playCountView.isHidden = Settings.loginUserId != uid
-            
-            avatarView.isHidden = !playCountView.isHidden
-            commentInputView.isHidden = !playCountView.isHidden
             
             bottomBar.addSubviews(views: bottomContainer)
             bottomContainer.snp.makeConstraints { maker in
@@ -278,7 +220,7 @@ extension Social {
                 maker.bottom.equalTo(-Frame.Height.safeAeraBottomHeight)
             }
             
-            bottomContainer.addSubviews(views: avatarView, commentInputView, playCountView)
+            bottomContainer.addSubviews(views: avatarView, commentInputView)
             
             avatarView.snp.makeConstraints { (maker) in
                 maker.width.height.equalTo(40)
@@ -291,12 +233,6 @@ extension Social {
                 maker.trailing.equalToSuperview().offset(-Frame.horizontalBleedWidth)
                 maker.top.equalToSuperview().offset(8.5)
                 maker.bottom.equalToSuperview().offset(-8.5)
-            }
-            
-            playCountView.snp.makeConstraints { maker in
-                maker.leading.equalTo(24)
-                maker.top.equalTo(17.5)
-                maker.height.equalTo(24)
             }
             
             view.addSubviews(views: navView, bottomBar)
@@ -318,11 +254,19 @@ extension Social {
                 maker.top.greaterThanOrEqualTo(navView.snp.bottom)
             }
         }
+        
+        override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+            super.tableView(tableView, willDisplay: cell, forRowAt: indexPath)
+            
+            if !isLoadingMore, dataSource.count - currentIndex < 5 {
+                loadMore()
+            }
+        }
     }
 }
 
 
-extension Social.ProfileFeedController {
+extension Feed.TopicListController {
     
     private func sendComment() {
         
@@ -348,3 +292,4 @@ extension Social.ProfileFeedController {
         
     }
 }
+

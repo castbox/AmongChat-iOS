@@ -139,6 +139,7 @@ extension APIService {
         case claimWelfare([String : Any])
         case feedShareUserList([String: Any])
         case feedShareToUser([String: Any])
+        case topicFeeds([String: Any])
         case sendDMPushToAnonymousUser([String: Any])
     }
 }
@@ -397,6 +398,8 @@ extension APIService.AmongChatBackend: TargetType {
              return "/api/v1/share/user/list"
         case .feedShareToUser:
             return "/api/v1/share/post/message"
+        case .topicFeeds:
+            return "/post/topic/posts"
         case .sendDMPushToAnonymousUser:
             return "/api/v1/direct/message/tip"
         }
@@ -517,6 +520,7 @@ extension APIService.AmongChatBackend: TargetType {
              .myFeeds,
              .feedPostPage,
              .feedShareUserList,
+             .topicFeeds,
              .shareUserSign:
             return .get
         case .follow:
@@ -666,6 +670,7 @@ extension APIService.AmongChatBackend: TargetType {
              .defaultDecorations(let params),
              .sendDMPushToAnonymousUser(let params),
              .feedShareUserList(let params),
+             .topicFeeds(let params),
              .unFollow(let params):
             return .requestParameters(parameters: params, encoding: URLEncoding.queryString)
             
