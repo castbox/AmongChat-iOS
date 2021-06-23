@@ -1909,8 +1909,8 @@ extension Request {
                     return
                 }
                 let uids = result.uids + result.uidsBlock
-                uids.map { Conversation.ViewModel($0) }
-                    .forEach { $0.sendFeedMessage(with: feed, text: text, isSuccess: result.uids.contains($0.targetUid))
+                uids.map { Conversation.ViewModel($0.string) }
+                    .forEach { $0.sendFeedMessage(with: feed, text: text, isSuccess: result.uids.contains($0.targetUid.int64Value))
                     }
             })
             .delay(.fromSeconds(0.2), scheduler: MainScheduler.asyncInstance)

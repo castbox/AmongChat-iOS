@@ -135,9 +135,9 @@ extension Entity {
     }
     
     struct FeedShareResult: Codable {
-        let uidsAnonymous: [String]
-        let uidsBlock: [String]
-        let uids: [String]
+        let uidsAnonymous: [Int64]
+        let uidsBlock: [Int64]
+        let uids: [Int64]
         private enum CodingKeys: String, CodingKey {
             case uidsAnonymous = "uids_anonymous"
             case uidsBlock = "uids_block"

@@ -91,12 +91,9 @@ extension Feed {
         }
         
         override func loadMore() {
-//            let removeBlock = view.raft.show(.loading)
-            //exclutepids
-            guard hasMore else {
-                return
-            }
+            guard hasMore else { return }
             isLoadingMore = true
+            
             let maxIndex = dataSource.count - 1
             Request.topicFeeds(topic ?? "", exclude: [], skipMs: dataSource.count.int64)
                 .do(onDispose: { [weak self] in
@@ -119,53 +116,15 @@ extension Feed {
                     self.tableView.insertRows(at: indexPaths, with: .none)
                     self.tableView.endUpdates()
                     self.tableView.isPagingEnabled = true
-                }, onError: { [weak self] (error) in
-//                    self?.addErrorView({ [weak self] in
-//                        self?.loadData()
-//                    })
                 }).disposed(by: bag)
         }
         
         func autoScrollToDefaultIndex() {
-//            if defaultIndex > 0 {
-//                if defaultIndex < dataSource.count {
-//                    let indexPath = IndexPath(row: defaultIndex, section: 0)
-//                    tableView.scrollToRow(at: indexPath, at: .none, animated: false)
-//                    tableView.layoutIfNeeded()
-//                }
-//            }
             replayVisibleItem()
             tableView.alpha = 1
         }
         
-//        override func replayVisibleItem(_ replay: Bool = true) {
-//            super.replayVisibleItem(replay)
-//            let visibleCell: FeedListCell?
-//
-//            if let cell = tableView.cellForRow(at: IndexPath(row: currentIndex, section: 0)) as? FeedListCell {
-//                visibleCell = cell
-//            } else {
-//                if let cell = tableView.visibleCells.first as? FeedListCell {
-//                    visibleCell = cell
-//                } else {
-//                    visibleCell = nil
-//                }
-//            }
-//            guard let feed = visibleCell?.viewModel?.feed,
-//                  uid == Settings.loginUserId else {
-//                return
-//            }
-//            playCountLabel.text = feed.playCountValue.string
-//            playCountView.fadeIn(duration: 0.2)
-//        }
-        
-//        override func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-//            guard uid == Settings.loginUserId else {
-//                return
-//            }
-//            playCountView.fadeOut(duration: 0.2)
-//        }
-        
+
         override func bindSubviewEvent() {
             super.bindSubviewEvent()
             

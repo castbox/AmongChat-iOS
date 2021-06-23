@@ -217,7 +217,7 @@ extension Conversation {
         }
 
         func sendFeedMessage(with feed: Entity.Feed, text: String, isSuccess: Bool) {
-            let feedMessageBody = Entity.DMMessageBody(type: .feed, img: feed.img.absoluteString, imageWidth: feed.widthValue.double, imageHeight: feed.heightValue.double)
+            let feedMessageBody = Entity.DMMessageBody(type: .feed, img: feed.img.absoluteString, imageWidth: feed.widthValue.double, imageHeight: feed.heightValue.double, link: "/feeds/"+feed.pid)
             let feedMessage = Entity.DMMessage(body: feedMessageBody, relation: 1, fromUid: targetUid, unread: false, fromUser: loginUserDmProfile, status: isSuccess ? .success : .failed)
             
             let textMessageBody = Entity.DMMessageBody(type: .text, url: nil, duration: nil, text: text)

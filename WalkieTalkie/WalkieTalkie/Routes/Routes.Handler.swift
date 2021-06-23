@@ -62,6 +62,8 @@ extension Routes {
                         self.handleDmMessage(message.uid)
                     case let profileFeed as URI.ProfileFeeds:
                         self.handleProfileFeeds(profileFeed)
+                    case let feed as URI.Feeds:
+                        self.handleFeeds(feed)
                     case _ as URI.DMInteractiveMessage:
                         self.handleInteractiveMessage()
                     default:
@@ -229,6 +231,44 @@ extension Routes {
         func handleInteractiveMessage() {
             let vc = Conversation.InteractiveMessageController()
             UIApplication.topViewController()?.navigationController?.pushViewController(vc)
+        }
+        
+        func handleFeeds(_ feeds: URI.Feeds) {
+            guard let pid = feeds.pid else {
+                return
+            }
+            
+            checkIfNeedCloseRoom {
+                let vc = Feed.TopicListController(with: pid)
+                UIApplication.topViewController()?.navigationController?.pushViewController(vc)
+            }
+        }
+        
+        func checkIfNeedCloseRoom(completionHandler: CallBack?) {
+            var alertHandler: CallBack?
+            //如果当前有在直播间内，退出后再加入
+            if let roomViewController = UIApplication.navigationController?.viewControllers.first(where: { $0 is AmongChat.Room.ContainerController }) as? AmongChat.Room.ContainerController {
+                alertHandler = {
+                    roomViewController.requestLeaveRoom()
+                    //pop to room
+                    UIApplication.navigationController?.popToRootViewController(animated: false)
+                }
+            } else if let groupViewController = UIApplication.navigationController?.viewControllers.first(where: { $0 is AmongChat.GroupRoom.ContainerController }) as? AmongChat.GroupRoom.ContainerController {
+                alertHandler = {
+                    groupViewController.requestLeaveRoom()
+                    //pop to room
+                    UIApplication.navigationController?.popToRootViewController(animated: false)
+                }
+            }
+
+            if let handler = alertHandler {
+                UIApplication.topViewController()?.showAmongAlert(title: R.string.localizable.roomPlayVideoTips(), cancelTitle: R.string.localizable.groupRoomNo(), confirmTitle: R.string.localizable.groupRoomYes(), confirmTitleColor: "#FFF000".color(), confirmAction: {
+                    handler()
+                    completionHandler?()
+                })
+            } else {
+                completionHandler?()
+            }
         }
         
         func showWebViewController(urlString: String) {

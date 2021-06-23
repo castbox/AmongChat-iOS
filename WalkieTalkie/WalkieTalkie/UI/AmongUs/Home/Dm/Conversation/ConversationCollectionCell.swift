@@ -22,7 +22,7 @@ class ConversationCollectionCell: UICollectionViewCell {
         case resend(Entity.DMMessage)
         case user(Int64)
         case clickVoiceMessage(Entity.DMMessage)
-//        case feeds(String)
+//        case link(String)
     }
     
     private lazy var container: UIView = {
@@ -190,11 +190,13 @@ class ConversationCollectionCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setUpLayout()
+        bindSubviewEvent()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         setUpLayout()
+        bindSubviewEvent()
     }
     
     func bind(_ viewModel: Conversation.MessageCellViewModel) {
@@ -444,6 +446,15 @@ class ConversationCollectionCell: UICollectionViewCell {
             return
         }
         actionHandler?(.resend(viewModel.message))
+    }
+    
+    private func bindSubviewEvent() {
+        feedImageView.rx.tapGesture()
+            .when(.recognized)
+            .subscribe(onNext: { [weak self] _ in
+                Routes.handle(self?.viewModel?.message.body.link)
+            })
+            .disposed(by: bag)
     }
     
     private func setUpLayout() {

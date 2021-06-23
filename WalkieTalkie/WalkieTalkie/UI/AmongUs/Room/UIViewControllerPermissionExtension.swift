@@ -123,6 +123,7 @@ extension UIViewController {
         amongChatAlert(title: title, message: message, cancelTitle: cancelTitle, confirmTitle: confirmTitle, confirmTitleColor: confirmTitleColor, cancelAction: cancelAction, confirmAction: confirmAction).present()
     }
     
+    @discardableResult
     func amongChatAlert(title: String?, message: String? = nil, cancelTitle: String? = nil, confirmTitle: String? = nil, confirmTitleColor: UIColor? = nil, cancelAction: (() -> Void)? = nil, confirmAction: (() -> Void)? = nil) -> AlertController {
         let titleAttr: NSAttributedString?
         if let title = title {
