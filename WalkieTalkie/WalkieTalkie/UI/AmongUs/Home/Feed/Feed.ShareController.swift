@@ -139,7 +139,7 @@ extension Feed.ShareController {
     func sendShare() {
         let removeHandler = container.raft.show(.loading)
         //send message
-        Request.feedShareToUser(feed, uids: selectedUsers.map { $0.uid.string }, text: inputBar.inputTextView.text?.trim() ?? "")
+        Request.feedShareToUser(feed, uids: selectedUsers.map { $0.uid }, text: inputBar.inputTextView.text?.trim() ?? "")
             .subscribe(onSuccess: { [weak self] result in
                 removeHandler()
                 self?.view.endEditing(true)

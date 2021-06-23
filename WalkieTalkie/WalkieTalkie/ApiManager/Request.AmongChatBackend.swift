@@ -1927,11 +1927,11 @@ extension Request {
             .observeOn(MainScheduler.asyncInstance)
     }
     
-    static func feedShareToUser(_ feed: Entity.Feed, uids: [String], text: String) -> Single<Entity.FeedShareResult?> {
+    static func feedShareToUser(_ feed: Entity.Feed, uids: [Int], text: String) -> Single<Entity.FeedShareResult?> {
         
         let params: [String : Any] = [
             "pid": feed.pid,
-            "uids": uids.map { $0.int64Value },
+            "uids": uids,
             "text": text
         ]
                 
