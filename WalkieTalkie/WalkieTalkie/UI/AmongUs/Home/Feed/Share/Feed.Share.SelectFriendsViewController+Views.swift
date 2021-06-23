@@ -31,40 +31,7 @@ extension Feed.Share.SelectFriendsViewController {
             return lb
         }()
         
-        private lazy var onlineStatusView: UIView = {
-            let v = UIView()
-            
-            let icon: UIImageView = {
-                let i = UIImageView(image: R.image.online_14())
-                return i
-            }()
-            
-            let label: UILabel = {
-                let l = UILabel()
-                l.font = R.font.nunitoBold(size: 13)
-                l.textColor = UIColor(hex6: 0x898989)
-                l.text = R.string.localizable.socialStatusOnline()
-                return l
-            }()
-            
-            v.addSubviews(views: icon, label)
-            
-            icon.snp.makeConstraints { maker in
-                maker.width.height.equalTo(14)
-                maker.leading.centerY.equalToSuperview()
-            }
-            
-            label.snp.makeConstraints { maker in
-                maker.top.bottom.trailing.equalToSuperview()
-                maker.leading.equalTo(icon.snp.trailing).offset(2)
-                maker.height.equalTo(17)
-            }
-            
-            return v
-        }()
-        
         private lazy var textLayout = UILayoutGuide()
-        private lazy var statusLayout = UILayoutGuide()
         
         override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
             super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -97,7 +64,7 @@ extension Feed.Share.SelectFriendsViewController {
             contentView.addLayoutGuide(textLayout)
             
             nameLabel.snp.makeConstraints { maker in
-                maker.leading.top.trailing.equalTo(textLayout)
+                maker.edges.equalTo(textLayout)
                 maker.height.equalTo(27)
             }
             
@@ -106,30 +73,6 @@ extension Feed.Share.SelectFriendsViewController {
                 maker.leading.equalTo(avatarIV.snp.trailing).offset(12)
                 maker.trailing.equalToSuperview().offset(-60)
             }
-            
-            contentView.addLayoutGuide(statusLayout)
-            
-            statusLayout.snp.makeConstraints { maker in
-                maker.top.equalTo(nameLabel.snp.bottom)
-                maker.leading.bottom.trailing.equalTo(textLayout)
-            }
-            
-            updateOnline(false)
-        }
-        
-        private func updateOnline(_ online: Bool) {
-            
-            if online {
-                contentView.addSubview(onlineStatusView)
-                
-                onlineStatusView.snp.makeConstraints { maker in
-                    maker.leading.bottom.trailing.equalTo(statusLayout)
-                    maker.top.equalTo(statusLayout.snp.top).offset(4)
-                }
-            } else {
-                onlineStatusView.removeFromSuperview()
-            }
-            
         }
         
         func bindData(_ user: UserViewModel, selected: Bool) {
