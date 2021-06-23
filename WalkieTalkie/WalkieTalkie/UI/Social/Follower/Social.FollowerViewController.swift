@@ -365,13 +365,7 @@ extension Social {
                     }
                 }
             } else {
-                followBtn.isHidden = false
-                if !isFollowing {
-                    let selfUid = Settings.shared.amongChatUserProfile.value?.uid ?? 0
-                    if selfUid == model.uid {
-                        followBtn.isHidden = true
-                    }
-                }
+                followBtn.isHidden = model.uid.isSelfUid
             }
             
             avatarIV.setAvatarImage(with: model.pictureUrl)
@@ -419,8 +413,8 @@ extension Social {
         }
         
         private func grayFollowStyle() {
-            followBtn.setTitle(R.string.localizable.profileFollowing(), for: .normal)
-            followBtn.setTitleColor(UIColor(hex6: 0x898989), for: .normal)
+            followBtn.setTitle(R.string.localizable.profileFollowing(), for: .disabled)
+            followBtn.setTitleColor(UIColor(hex6: 0x898989), for: .disabled)
             followBtn.layer.borderColor = UIColor(hex6: 0x898989).cgColor
             followBtn.isEnabled = false
         }
