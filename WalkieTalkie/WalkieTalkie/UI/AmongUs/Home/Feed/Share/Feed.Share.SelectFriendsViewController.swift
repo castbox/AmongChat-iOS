@@ -68,6 +68,8 @@ extension Feed.Share {
         
         private weak var searchResultView: Feed.Share.SearchResultViewController?
         
+        var didSharedCallback: ((Result<Void, MsgError>) -> Void)? = nil
+        
         init(with feed: Entity.Feed) {
             self.feed = feed
             super.init(nibName: nil, bundle: nil)
@@ -157,20 +159,22 @@ extension Feed.Share.SelectFriendsViewController {
     }
     
     private func send() {
-        //TODO: - send
         
-        //        let removeHandler = view.raft.show(.loading)
-        //        Request.feedShareToUser(feed.pid, uids: viewModel.selectedUsers.map { $0.user.uid }, text: shareInputView.inputTextView.text ?? "")
-        //            .subscribe(onSuccess: { [weak self] result in
-        //                removeHandler()
-        //                let anonymousUsers = result?.uidsAnonymous ?? []
-        //                self?.dismissModal(animated: true, completion: { [weak self] in
-        //                    self?.dismissHandler?(anonymousUsers.isEmpty ? "": R.string.localizable.feedShareToAnonymousUserTips())
-        //                })
-        //            }, onError: { error in
-        //                removeHandler()
-        //            })
-        //            .disposed(by: bag)
+        let removeHandler = view.raft.show(.loading)
+        Request.feedShareToUser(feed, uids: viewModel.selectedUsers.map { $0.user.uid }, text: shareInputView.inputTextView.text ?? "")
+            .do(onDispose: {
+                removeHandler()
+            })
+            .subscribe(onSuccess: { [weak self] result in
+                let anonymousUsers = result?.uidsAnonymous ?? []
+                self?.dismiss(animated: true, completion: { [weak self] in
+                    self?.didSharedCallback?(anonymousUsers.isEmpty ? .success(()) : .failure(MsgError(code: -1, msg: R.string.localizable.feedShareToAnonymousUserTips())))
+                })
+                
+            }, onError: { [weak self] error in
+                self?.view.raft.autoShow(.text(MsgError.default.msg ?? ""))
+            })
+            .disposed(by: bag)
     }
     
     private func selectUser(_ user: UserViewModel) {

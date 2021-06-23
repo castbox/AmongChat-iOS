@@ -507,6 +507,18 @@ extension Feed.ListViewController {
                 let selectVC = Feed.Share.SelectFriendsViewController(with: viewModel.feed)
                 selectVC.modalPresentationStyle = .fullScreen
                 self?.present(selectVC, animated: true)
+                selectVC.didSharedCallback = { result in
+                    switch result {
+                    case .success(_):
+                        //TODO: - 分享成功,
+                        ()
+                        
+                    case .failure(let error):
+                        //TODO: - toast error,
+                        ()
+                        
+                    }
+                }
             }
         } else if item == .more {
             //make dynamic
