@@ -401,11 +401,11 @@ extension Feed.Comments.CommentsListViewController {
                 
                 //新增的条目显示出来
                 guard let replyIndex = self?.replyToIndexPath else {
-                    self?.commentListView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
+                    self?.commentListView.safeScrollToItem(at:  IndexPath(item: 0, section: 0), at: .top, animated: true)
                     return
                 }
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                    self?.commentListView.scrollToItem(at: IndexPath(item: 0, section: replyIndex.section), at: .top, animated: true)
+                    self?.commentListView.safeScrollToItem(at: IndexPath(item: 0, section: replyIndex.section), at: .top, animated: true)
                 }
                 self?.replyToIndexPath = nil
                 //end
