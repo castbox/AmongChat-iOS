@@ -119,6 +119,15 @@ extension UIViewController {
         }
     }
     
+    func openTiktok() {
+        guard let url = URL(string: "https://www.tiktok.com/tag/amongchat") else {
+            return
+        }
+        UIApplication.shared.open(url, options: [:]) { _ in
+            
+        }
+    }
+    
     func showAmongAlert(title: String?, message: String? = nil, cancelTitle: String? = nil, confirmTitle: String? = nil, confirmTitleColor: UIColor? = nil, cancelAction: (() -> Void)? = nil, confirmAction: (() -> Void)? = nil) {
         amongChatAlert(title: title, message: message, cancelTitle: cancelTitle, confirmTitle: confirmTitle, confirmTitleColor: confirmTitleColor, cancelAction: cancelAction, confirmAction: confirmAction).present()
     }

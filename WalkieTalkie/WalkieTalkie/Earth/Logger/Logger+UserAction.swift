@@ -364,6 +364,7 @@ extension Logger {
             case skip
             case sms
             case copy
+            case tiktok
             case share
             case go
             //dm

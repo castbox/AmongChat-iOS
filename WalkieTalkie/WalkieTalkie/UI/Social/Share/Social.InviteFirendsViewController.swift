@@ -129,6 +129,9 @@ extension Social {
                 case .sharelink:
                     self.shareApp()
                     Logger.Action.log(.contact_clk, category: .share)
+                case .tiktok:
+                    self.openTiktok()
+                    Logger.Action.log(.contact_clk, category: .tiktok)
                 }
             }
         }
@@ -320,7 +323,7 @@ extension Social.InviteFirendsViewController {
     class ShareHeaderView: UIView {
         
         enum ItemType {
-            case sms, snapchat, copylink, sharelink
+            case sms, snapchat, copylink, sharelink, tiktok
         }
         
         let bag = DisposeBag()
@@ -343,34 +346,6 @@ extension Social.InviteFirendsViewController {
             let v = FansGroup.Views.ShareBar()
             return v
         }()
-        
-//        private lazy var smsBtn: LinkButton = {
-//            let btn = LinkButton(with: R.image.ac_room_share(), title: R.string.localizable.socialSms())
-//            return btn
-//        }()
-//
-//        private lazy var snapchatBtn: LinkButton = {
-//            let btn = LinkButton(with: R.image.ac_room_share_sn(), title: "Snapchat")
-//            return btn
-//        }()
-//
-//        private lazy var copyLinkBtn: LinkButton = {
-//            let btn = LinkButton(with: R.image.ac_room_copylink(), title: R.string.localizable.socialCopyLink())
-//            return btn
-//        }()
-//
-//        private lazy var shareLinkBtn: LinkButton = {
-//            let btn = LinkButton(with: R.image.icon_social_share_link(), title: R.string.localizable.socialShareLink())
-//            return btn
-//        }()
-        
-        //        private lazy var inviteLabel: WalkieLabel = {
-        //            let lb = WalkieLabel()
-        //            lb.font = R.font.nunitoExtraBold(size: 20)
-        //            lb.text = R.string.localizable.socialInviteFriends()
-        //            lb.textColor = .white
-        //            return lb
-        //        }()
         
         override init(frame: CGRect) {
             super.init(frame: frame)
@@ -486,7 +461,8 @@ extension Social.InviteFirendsViewController {
                         
                     case .shareLink:
                         self.itemHandle?(.sharelink)
-                        
+                    case .tiktok:
+                        self.itemHandle?(.tiktok)
                     }
                 })
                 .disposed(by: bag)

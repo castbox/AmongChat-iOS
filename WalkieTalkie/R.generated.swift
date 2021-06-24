@@ -232,7 +232,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 280 images.
+  /// This `R.image` struct is generated, and contains static references to 281 images.
   struct image {
     /// Image `ac_add_stats_add`.
     static let ac_add_stats_add = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_add_stats_add")
@@ -754,6 +754,8 @@ struct R: Rswift.Validatable {
     static let icon_social_find_contaccts = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_social_find_contaccts")
     /// Image `icon_social_share_link`.
     static let icon_social_share_link = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_social_share_link")
+    /// Image `icon_social_tiktok`.
+    static let icon_social_tiktok = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_social_tiktok")
     /// Image `icon_user_list_mic_block`.
     static let icon_user_list_mic_block = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_user_list_mic_block")
     /// Image `icon_user_list_mic`.
@@ -2093,6 +2095,11 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "icon_social_share_link", bundle: ..., traitCollection: ...)`
     static func icon_social_share_link(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.icon_social_share_link, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "icon_social_tiktok", bundle: ..., traitCollection: ...)`
+    static func icon_social_tiktok(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.icon_social_tiktok, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "icon_user_list_mic", bundle: ..., traitCollection: ...)`
