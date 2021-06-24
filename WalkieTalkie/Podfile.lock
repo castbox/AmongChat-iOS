@@ -246,6 +246,7 @@ PODS:
   - Moya/RxSwift (14.0.0):
     - Moya/Core
     - RxSwift (~> 5.0)
+  - MYTableViewIndex (0.8.0)
   - nanopb (1.30905.0):
     - nanopb/decode (= 1.30905.0)
     - nanopb/encode (= 1.30905.0)
@@ -385,6 +386,7 @@ DEPENDENCIES:
   - mopub-ios-sdk (= 5.17.0)
   - MoPub-UnityAds-Adapters (= 3.7.2.0)
   - Moya/RxSwift
+  - MYTableViewIndex
   - NotificationBannerSwift (~> 3.0.0)
   - PullToDismiss (~> 2.2)
   - R.swift (~> 5.0.2)
@@ -469,6 +471,7 @@ SPEC REPOS:
     - mopub-ios-sdk
     - MoPub-UnityAds-Adapters
     - Moya
+    - MYTableViewIndex
     - nanopb
     - NotificationBannerSwift
     - PINCache
@@ -583,6 +586,7 @@ SPEC CHECKSUMS:
   mopub-ios-sdk: 36d322902674b79b0560a1cb8d15af0548d364ea
   MoPub-UnityAds-Adapters: 58a32a7117cfed75e4bf7b30bd5adce7094119eb
   Moya: 5b45dacb75adb009f97fde91c204c1e565d31916
+  MYTableViewIndex: 55d5d8557b3f2a4de270d8c0260b41f3918ba4e3
   nanopb: c43f40fadfe79e8b8db116583945847910cbabc9
   NotificationBannerSwift: 7021be2338f8f29cf424b0aca43da462bf9e2a1a
   PINCache: ce36ed282031b92fc7733ffe831f474ff80fddc2
@@ -626,6 +630,6 @@ SPEC CHECKSUMS:
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
   ZegoExpressEngine: 9d40a73953c000b9a511a58706a37bb14c18948e
 
-PODFILE CHECKSUM: a9e5aa644b623d9e5ccb3f387e52b9a63ee9ecde
+PODFILE CHECKSUM: 15ac5ea3824a2cd304eb3fc98d301036200b8877
 
 COCOAPODS: 1.10.0

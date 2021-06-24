@@ -168,6 +168,7 @@ target 'WalkieTalkie' do
 #    pod 'SZAVPlayer'
     pod 'JXPagingView/Paging'
     pod 'ReCaptcha/RxSwift'
+    pod 'MYTableViewIndex'
 end
 
 post_install do |installer|
