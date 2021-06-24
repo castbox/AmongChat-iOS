@@ -133,6 +133,9 @@ class IMManager: NSObject {
                             dmMessage.unread = true
                         }
                         item = dmMessage
+                        
+                    case .backFollow:
+                        item = try JSONDecoder().decodeAnyData(Peer.BackFollowMessge.self, from: json) as PeerMessage
                     }
                 }
                 return item

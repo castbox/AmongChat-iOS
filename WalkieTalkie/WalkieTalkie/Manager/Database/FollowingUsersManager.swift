@@ -76,7 +76,7 @@ class FollowingUsersManager {
     func updateUser(_ user: Entity.UserProfile) -> Single<Void> {
         
         return database.mapTransactionToSingle { (db) in
-            try db.update(table: usersTableName, with: user, where: Entity.UserProfile.Properties.uid == user.uid)
+            try db.update(table: usersTableName, on: Entity.UserProfile.Properties.all, with: user, where: Entity.UserProfile.Properties.uid == user.uid)
         }
         .do(onSuccess: { [weak self] _ in
             self?.tableUpdatedSignal.onNext(())
