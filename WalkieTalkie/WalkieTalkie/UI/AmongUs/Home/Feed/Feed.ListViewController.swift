@@ -507,16 +507,12 @@ extension Feed.ListViewController {
                 let selectVC = Feed.Share.SelectFriendsViewController(with: viewModel.feed)
                 selectVC.modalPresentationStyle = .fullScreen
                 self?.present(selectVC, animated: true)
-                selectVC.didSharedCallback = { result in
+                selectVC.didSharedCallback = { [weak self] result in
                     switch result {
                     case .success(_):
-                        //TODO: - 分享成功,
-                        ()
-                        
+                        self?.view.raft.autoShow(.text(R.string.localizable.feedShareSent()))
                     case .failure(let error):
-                        //TODO: - toast error,
-                        ()
-                        
+                        self?.view.raft.autoShow(.text(error.localizedDescription))
                     }
                 }
             }
@@ -559,6 +555,7 @@ extension Feed.ListViewController {
             case .error(let string):
                 guard let string = string,
                       !string.isEmpty else {
+                    self?.view.raft.autoShow(.text(R.string.localizable.feedShareSent()))
                     return
                 }
                 self?.view.raft.autoShow(.text(string))
