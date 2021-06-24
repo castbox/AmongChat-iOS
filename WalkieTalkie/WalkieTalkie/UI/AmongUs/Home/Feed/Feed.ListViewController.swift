@@ -477,27 +477,40 @@ extension Feed.ListViewController {
         }
     }
     
-    func increaseShareCount(with index: Int) {
-        guard let viewModel = self.dataSource.safe(index) as? FeedCellViewModel else {
+    func onShareSuccess(with viewModel: Feed.ListCellViewModel) {
+        viewModel.feed.shareCount = viewModel.feed.shareCountValue + 1
+        self.viewModel.reportShare(viewModel.feed.pid)
+        
+        guard let index = dataSourceIndex(for: viewModel) else {
             return
         }
-        viewModel.feed.shareCount = viewModel.feed.shareCountValue + 1
-        let cell = self.tableView.cellForRow(at: IndexPath(row: index, section: 0)) as? FeedListCell
+        let cell = tableView.cellForRow(at: IndexPath(row: index, section: 0)) as? FeedListCell
         cell?.updateShareCount()
     }
     
-    func onShareBar(select item: Feed.ShareBar.ShareSource, viewModel: Feed.ListCellViewModel) {
-        
-        let nilableIndex = self.dataSource.firstIndex(where: { item in
-            guard let item = item as? FeedCellViewModel else {
-                return false
-            }
-            return item.isEqual(viewModel)
-        })
-        
-        guard let index = nilableIndex else {
+    func showShareView(with viewModel: Feed.ListCellViewModel?) {
+        guard let viewModel = viewModel else {
             return
         }
+        let feedShare = Feed.ShareController(with: viewModel.feed)
+        feedShare.showModal(in: self.tabBarController ?? self)
+        feedShare.dismissHandler = { [weak self] action in
+            switch action {
+            case .error(let string):
+                guard let string = string,
+                      !string.isEmpty else {
+                    self?.view.raft.autoShow(.text(R.string.localizable.feedShareSent()))
+                    self?.onShareSuccess(with: viewModel)
+                    return
+                }
+                self?.view.raft.autoShow(.text(string))
+            case .share(let source):
+                self?.onShareBar(select: source, viewModel: viewModel)
+            }
+        }
+    }
+    
+    func onShareBar(select item: Feed.ShareBar.ShareSource, viewModel: Feed.ListCellViewModel) {
         
         let feed = viewModel.feed
         let shareUrl = "https://among.chat/feeds/\(feed.pid)"
@@ -511,6 +524,7 @@ extension Feed.ListViewController {
                     switch result {
                     case .success(_):
                         self?.view.raft.autoShow(.text(R.string.localizable.feedShareSent()))
+                        self?.onShareSuccess(with: viewModel)
                     case .failure(let error):
                         self?.view.raft.autoShow(.text(error.localizedDescription))
                     }
@@ -523,8 +537,7 @@ extension Feed.ListViewController {
             let content = ShareManager.Content(type: .feed, targetType: .more, content: R.string.localizable.feedThirdShareContent(""), url: shareUrl)
             ShareManager.default.share(with: content, .more, viewController: self) { [weak self] in
                 removeHandler()
-                self?.increaseShareCount(with: index)
-                self?.viewModel.reportShare(feed.pid)
+                self?.onShareSuccess(with: viewModel)
             }
         } else {
             let removeHandler = view.raft.show(.loading)
@@ -535,137 +548,16 @@ extension Feed.ListViewController {
                 switch item {
                 case .sms:
                     self?.sendSMS(body: shareText)
+                    self?.onShareSuccess(with: viewModel)
                 case .copyLink:
                     shareText.copyToPasteboardWithHaptic()
+                    self?.onShareSuccess(with: viewModel)
                 default:
                     ()
                 }
             }
         }
     }
-    
-    func downloadVideo(viewModel: Feed.ListCellViewModel?) {
-        guard let viewModel = viewModel else {
-            return
-        }
-        let feedShare = Feed.ShareController(with: viewModel.feed)
-        feedShare.showModal(in: self.tabBarController ?? self)
-        feedShare.dismissHandler = { [weak self] action in
-            switch action {
-            case .error(let string):
-                guard let string = string,
-                      !string.isEmpty else {
-                    self?.view.raft.autoShow(.text(R.string.localizable.feedShareSent()))
-                    return
-                }
-                self?.view.raft.autoShow(.text(string))
-            case .share(let source):
-                self?.onShareBar(select: source, viewModel: viewModel)
-            }
-        }
-//        let feed = viewModel.feed
-//        let hudHandler = view.raft.show(.loading)
-//        let hud = view.raft.topHud()
-//        hud?.mode = .annularDeterminate
-//        hud?.label.text = "Loading"
-//        hud?.progress = 0
-//        self.viewModel.download(fileUrl: feed.url.absoluteString) { [weak self] progress in
-////            hud?.progress = progress.float
-//            cdPrint("progress: \(progress)")
-//        } completionHandler: { [weak self] fileUrl in
-//            hudHandler()
-//            guard let `self` = self, let url = fileUrl else {
-//                return
-//            }
-//        self.share(viewModel: viewModel, fileUrl: feed.url.absoluteURL)
-//        }
-    }
-    
-//    func share(viewModel: Feed.ListCellViewModel, fileUrl: URL) {
-//        let nilableIndex = self.dataSource.firstIndex(where: { item in
-//            guard let item = item as? FeedCellViewModel else {
-//                return false
-//            }
-//            return item.isEqual(viewModel)
-//        })
-//
-//        guard let index = nilableIndex else {
-//            FileManager.removefile(filePath: fileUrl.path)
-//            return
-//        }
-//        let feed = viewModel.feed
-//        Logger.Action.log(.feeds_item_clk, category: .share, feed.pid)
-//        let tagImageView = VideoShareTagView(with: feed.user.name ?? feed.user.uid.string)
-//        view.addSubview(tagImageView)
-//        guard let tagImage = tagImageView.screenshot else {
-//            tagImageView.removeFromSuperview()
-//            FileManager.removefile(filePath: fileUrl.path)
-//            return
-//        }
-//        tagImageView.removeFromSuperview()
-//
-//        let removeHandler = view.raft.show(.loading)
-//        videoEditor.addTag(image: tagImage, for: fileUrl) { [weak self] url in
-//            FileManager.removefile(filePath: fileUrl.path)
-//            removeHandler()
-//            guard let `self` = self, let url = url else {
-//                return
-//            }
-//            cdPrint("url: \(url)")
-//            ShareManager.default.showActivity(items: [url], viewController: self) { [weak self] in
-//                self?.increaseShareCount(with: index)
-//                self?.viewModel.reportShare(feed.pid)
-//                //cancel or finish, remove
-//                do {
-//                    try FileManager.default.removeItem(at: url)
-//                } catch {
-//                    cdPrint("FileManager.default.removeItem: \(error)")
-//                }
-//            }
-//        }
-//    }
-    
-//    func share(viewModel: Feed.ListCellViewModel?) {
-//        guard let viewModel = viewModel, let index = dataSource.firstIndex(where: { $0.isEqual(viewModel) }) else {
-//            return
-//        }
-//        let feed = viewModel.feed
-//        //get tag imge
-//        let uniqueId = SZAVPlayerFileSystem.uniqueID(url: feed.url)
-//        guard SZAVPlayerCache.shared.isFullyCached(uniqueID: uniqueId),
-//              let localFileName = SZAVPlayerDatabase.shared.localFileInfos(uniqueID: uniqueId).first?.localFileName else {
-//            return
-//        }
-//
-//        let filePath = SZAVPlayerFileSystem.localFilePath(fileName: localFileName)
-//        Logger.Action.log(.feeds_item_clk, category: .share, feed.pid)
-//        let tagImageView = VideoShareTagView(with: feed.user.name ?? feed.user.uid.string)
-//        view.addSubview(tagImageView)
-//        guard let tagImage = tagImageView.screenshot else {
-//            tagImageView.removeFromSuperview()
-//            return
-//        }
-//        tagImageView.removeFromSuperview()
-//        let url = filePath
-//        let removeHandler = view.raft.show(.loading)
-//        videoEditor.addTag(image: tagImage, for: url) { [weak self] url in
-//            removeHandler()
-//            guard let `self` = self, let url = url else {
-//                return
-//            }
-//            cdPrint("url: \(url)")
-//            ShareManager.default.showActivity(items: [url], viewController: self) { [weak self] in
-//                self?.increaseShareCount(with: index)
-//                self?.viewModel.reportShare(feed.pid)
-//                //cancel or finish, remove
-//                do {
-//                    try FileManager.default.removeItem(at: url)
-//                } catch {
-//                    cdPrint("FileManager.default.removeItem: \(error)")
-//                }
-//            }
-//        }
-//    }
     
     func showCommentList(with feedId: String, commentsInfo: Entity.FeedRedirectInfo.CommentsInfo? = nil, count: Int) {
         shouldAutoPauseWhenDismiss = false
@@ -766,7 +658,7 @@ extension Feed.ListViewController {
             self.showCommentList(with: viewModel.feed.pid, commentsInfo: nil, count: viewModel.feed.cmtCount)
         case .share:
             HapticFeedback.Impact.light()
-            downloadVideo(viewModel: viewModel)
+            showShareView(with: viewModel)
             
         case .userProfile(let uid):
             guard Settings.loginUserId != uid else {
@@ -787,13 +679,8 @@ extension Feed.ListViewController {
     }
         
     func onSheet(action: AmongSheetController.ItemType, viewModel: Feed.ListCellViewModel?) {
-        let nilableIndex = self.dataSource.firstIndex(where: { item in
-            guard let item = item as? FeedCellViewModel else {
-                return false
-            }
-            return item.isEqual(viewModel)
-        })
-        guard let viewModel = viewModel, let index = nilableIndex else {
+        
+        guard let viewModel = viewModel, let index = dataSourceIndex(for: viewModel) else {
             return
         }
         
@@ -801,7 +688,7 @@ extension Feed.ListViewController {
         
         switch action {
         case .share:
-            downloadVideo(viewModel: viewModel)
+            showShareView(with: viewModel)
         case .notInterested:
             Logger.Action.log(.feeds_item_clk, category: .not_intereasted, viewModel.feed.pid)
             //pause
@@ -840,82 +727,81 @@ extension Feed.ListViewController {
         }
     }
     
-    func deleteRow(at viewModel: Feed.ListCellViewModel?) {
-        let nilableIndex = self.dataSource.firstIndex(where: { item in
+    func dataSourceIndex(for viewModel: Feed.ListCellViewModel) -> Int? {
+        return self.dataSource.firstIndex(where: { item in
             guard let item = item as? FeedCellViewModel else {
                 return false
             }
             return item.isEqual(viewModel)
         })
-        guard let viewModel = viewModel, let index = nilableIndex else {
+    }
+    
+    func deleteRow(at viewModel: Feed.ListCellViewModel?) {
+        
+        guard let viewModel = viewModel, let index = dataSourceIndex(for: viewModel) else {
             return
         }
         let indexPath = IndexPath(row: index, section: 0)
-//        let nextIndex = IndexPath(row: indexPath.row + 1, section: 0)
-//        if nextIndex.row < dataSource.count - 1 {
-//            scrollDisposeBag?.dispose()
-//            scrollDisposeBag = self.rx.methodInvoked(#selector(self.scrollViewDidEndScrollingAnimation(_:)))
-//                .subscribe(onNext: { [weak self] _ in
-//                    guard let `self` = self else { return }
-//                    //                    cell?.backgroundColor = .red
-//                    //                    cell?.alpha = 0
-//                    cdPrint("tableView will delete row: \(indexPath.row)")
-////                    let nextCell = self.tableView.cellForRow(at: nextIndex) as? FeedListCell
-////                    nextCell?.play()
-//                    var dataSource = self.dataSource
-//                    dataSource.remove(at: indexPath.row)
-//                    self.dataSource = dataSource
-//                    if 1 == 1 {
-//                        self.tableView.reloadData { [weak self] in
-//                            let newCell = self?.tableView.cellForRow(at: indexPath) as? FeedListCell
-//                            newCell?.play()
-//                        }
-//                    } else {
-//                        self.tableView.beginUpdates()
-//                        self.tableView.deleteRows(at: [indexPath], with: .none)
-//                        self.tableView.endUpdates()
-//                        UIView.performWithoutAnimation {
-//                            self.tableView.layoutIfNeeded()
-//                        }
-//                    }
-//                    //                    self.tableView.layer.removeAllAnimations()
-//                    cdPrint("tableView did delete row: \(indexPath.row)")
-//                    self.scrollDisposeBag?.dispose()
-//                })
-//            scrollDisposeBag?.disposed(by: self.bag)
-//            cdPrint("tableView scroll to row: \(nextIndex.row)")
-//            tableView.scrollToRow(at: nextIndex, at: .top, animated: true)
-//        } else {
+        //        let nextIndex = IndexPath(row: indexPath.row + 1, section: 0)
+        //        if nextIndex.row < dataSource.count - 1 {
+        //            scrollDisposeBag?.dispose()
+        //            scrollDisposeBag = self.rx.methodInvoked(#selector(self.scrollViewDidEndScrollingAnimation(_:)))
+        //                .subscribe(onNext: { [weak self] _ in
+        //                    guard let `self` = self else { return }
+        //                    //                    cell?.backgroundColor = .red
+        //                    //                    cell?.alpha = 0
+        //                    cdPrint("tableView will delete row: \(indexPath.row)")
+        ////                    let nextCell = self.tableView.cellForRow(at: nextIndex) as? FeedListCell
+        ////                    nextCell?.play()
+        //                    var dataSource = self.dataSource
+        //                    dataSource.remove(at: indexPath.row)
+        //                    self.dataSource = dataSource
+        //                    if 1 == 1 {
+        //                        self.tableView.reloadData { [weak self] in
+        //                            let newCell = self?.tableView.cellForRow(at: indexPath) as? FeedListCell
+        //                            newCell?.play()
+        //                        }
+        //                    } else {
+        //                        self.tableView.beginUpdates()
+        //                        self.tableView.deleteRows(at: [indexPath], with: .none)
+        //                        self.tableView.endUpdates()
+        //                        UIView.performWithoutAnimation {
+        //                            self.tableView.layoutIfNeeded()
+        //                        }
+        //                    }
+        //                    //                    self.tableView.layer.removeAllAnimations()
+        //                    cdPrint("tableView did delete row: \(indexPath.row)")
+        //                    self.scrollDisposeBag?.dispose()
+        //                })
+        //            scrollDisposeBag?.disposed(by: self.bag)
+        //            cdPrint("tableView scroll to row: \(nextIndex.row)")
+        //            tableView.scrollToRow(at: nextIndex, at: .top, animated: true)
+        //        } else {
         
         
-            feedsDataSource = feedsDataSource.filter { item in
-                guard let item = item as? FeedCellViewModel else {
-                    return false
-                }
-                return item.feed.pid != viewModel.feed.pid
+        feedsDataSource = feedsDataSource.filter { item in
+            guard let item = item as? FeedCellViewModel else {
+                return false
             }
+            return item.feed.pid != viewModel.feed.pid
+        }
         
-            self.tableView.reloadData { [weak self] in
-                let newCell = self?.tableView.cellForRow(at: indexPath) as? FeedListCell
-                newCell?.play()
+        self.tableView.reloadData { [weak self] in
+            let newCell = self?.tableView.cellForRow(at: indexPath) as? FeedListCell
+            newCell?.play()
+        }
+        if dataSource.isEmpty {
+            if listStyle == .profile {
+                navigationController?.popViewController()
+            } else {
+                loadData()
             }
-            if dataSource.isEmpty {
-                if listStyle == .profile {
-                    navigationController?.popViewController()
-                } else {
-                    loadData()
-                }
-            }
-//        }
-
+        }
+        //        }
+        
     }
     
     func topController() -> UIViewController? {
         return tabBarController ?? self
-//        if self.navigationController?.viewControllers.count > 1 {
-//            return self
-//        } else {
-//            return UIApplication.tabBarController
-//        }
     }
 }
