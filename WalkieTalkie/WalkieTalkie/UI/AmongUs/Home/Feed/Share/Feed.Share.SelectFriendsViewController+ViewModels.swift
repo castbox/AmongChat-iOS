@@ -94,20 +94,21 @@ extension Feed.Share.SelectFriendsViewController {
                 sectionModels.append(followingPlaceholder)
             }
             
-            var followingSections: [SectionModel] = []
+            let collation = UILocalizedIndexedCollation.current()
             
+            var followingSections: [SectionModel] = collation.sectionTitles.map {
+                SectionModel(title: $0, sectionType: .followingUsers)
+            }
+
             for user in userViewModels {
-                let title = String(user.user.name?.prefix(1) ?? "").uppercased()
-                if let section = followingSections.first(where: { $0.sectionType == .followingUsers && $0.title == title }) {
-                    section.users.append(user)
-                } else {
-                    let section = SectionModel(title: title, sectionType: .followingUsers)
-                    section.users.append(user)
-                    followingSections.append(section)
-                }
+                let index = collation.section(for: user, collationStringSelector: #selector(getter: user.userName))
+                followingSections[index].users.append(user)
             }
             
-            followingSections = followingSections.sorted { $0.title < $1.title }
+            followingSections = followingSections.compactMap({
+                guard $0.users.count > 0 else { return nil }
+                return $0
+            })
             
             sectionModels.append(contentsOf: followingSections)
             
@@ -208,6 +209,10 @@ extension Feed.Share.SelectFriendsViewController {
         
         init(user: Entity.UserProfile) {
             self.user = user
+        }
+        
+        @objc var userName: String {
+            return user.name ?? ""
         }
         
     }
