@@ -10,6 +10,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 import MessageUI
+import PullToDismiss
 
 extension Feed {
     class ShareController: ViewController {
@@ -35,16 +36,18 @@ extension Feed {
             return lb
         }()
         
-        private lazy var backgroudView: UIView = {
+        private lazy var backgroundView: UIView = {
             let v = UIView()
             v.backgroundColor = .clear
             return v
         }()
         
-        private lazy var container: UIView = {
-            let v = UIView()
+        private lazy var container: UIScrollView = {
+            let v = UIScrollView()
             v.backgroundColor = "222222".color()
-//            let panGesture = UIPanGestureRecognizer(target: self, action: #selector(<#T##@objc method#>))
+            v.alwaysBounceVertical = true
+            v.showsVerticalScrollIndicator = false
+            v.showsHorizontalScrollIndicator = false
             return v
         }()
         
@@ -73,7 +76,9 @@ extension Feed {
         private let feed: Entity.Feed
         
         private var isAnonymousUser = Settings.shared.amongChatUserProfile.value?.isAnonymous ?? false
-        
+        private let kScreenH = UIScreen.main.bounds.height
+        private var beginLocation: CGPoint = .zero
+        private var beginContainerYOffset: CGFloat = 0
         private var containerHeight: CGFloat {
             guard !isAnonymousUser else {
                 return 210
@@ -116,6 +121,8 @@ extension Feed {
         }
         
         var dismissHandler: ((Action) -> Void)?
+        
+        private var pullToDismiss: PullToDismiss?
         
         init(with feed: Entity.Feed) {
             self.feed = feed
@@ -190,7 +197,7 @@ extension Feed.ShareController {
             })
             .disposed(by: bag)
         
-        backgroudView.rx.tapGesture()
+        backgroundView.rx.tapGesture()
             .when(.recognized)
             .subscribe(onNext: { [weak self] _ in
                 self?.dismissModal()
@@ -225,8 +232,15 @@ extension Feed.ShareController {
     
     func configureSubview() {
         view.backgroundColor = .clear
-        view.addSubviews(views: backgroudView, container)
+        view.addSubviews(views: backgroundView, container)
         inputBar.isHidden = true
+        
+        pullToDismiss = PullToDismiss(scrollView: container)
+        pullToDismiss?.dismissableHeightPercentage = 0.1
+        pullToDismiss?.backgroundEffect = ShadowEffect(color: .black, alpha: 0)
+        pullToDismiss?.dismissAction = { [weak self] in
+            self?.dismissModal()
+        }
         
         let line = UIView()
         line.backgroundColor = UIColor.white.alpha(0.2)
@@ -241,7 +255,7 @@ extension Feed.ShareController {
             maker.height.equalTo(4)
         }
         
-        backgroudView.snp.makeConstraints { maker in
+        backgroundView.snp.makeConstraints { maker in
             maker.edges.equalToSuperview()
         }
         
@@ -258,17 +272,21 @@ extension Feed.ShareController {
         userViews.snp.makeConstraints { maker in
             maker.top.equalTo(titleLabel.snp.bottom).offset(20)
             maker.leading.trailing.equalToSuperview()
+            maker.width.equalTo(Frame.Screen.width)
             maker.height.equalTo(94)
         }
         
         shareBar.snp.makeConstraints { maker in
-            maker.bottom.equalTo(-(Frame.Height.safeAeraBottomHeight + (isAnonymousUser ? 27.5 : 40).cgFloat))
+            maker.top.equalTo(userViews.snp.bottom).offset(40)
             maker.leading.trailing.equalToSuperview()
+            maker.width.equalTo(Frame.Screen.width)
             maker.height.equalTo(75)
         }
         
         inputBar.snp.makeConstraints { maker in
-            maker.bottom.leading.trailing.equalToSuperview()
+            maker.top.equalTo(userViews.snp.bottom)
+            maker.leading.trailing.equalToSuperview()
+            maker.width.equalTo(Frame.Screen.width)
             maker.height.equalTo(229 + Frame.Height.safeAeraBottomHeight)
         }
     }
