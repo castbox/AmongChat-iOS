@@ -1927,11 +1927,11 @@ extension Request {
             .observeOn(MainScheduler.asyncInstance)
     }
     
-    static func feedShareToUser(_ feed: Entity.Feed, uids: [Int], text: String) -> Single<Entity.FeedShareResult?> {
+    static func feedShareToUser(_ feed: Entity.Feed, uids: [Entity.UserProfile], text: String) -> Single<Entity.FeedShareResult?> {
         
         let params: [String : Any] = [
             "pid": feed.pid,
-            "uids": uids,
+            "uids": uids.map { $0.uid },
             "text": text
         ]
                 
@@ -1940,15 +1940,36 @@ extension Request {
             .mapToDataKeyJsonValue()
             .mapTo(Entity.FeedShareResult.self)
             .observeOn(MainScheduler.asyncInstance)
-            .do(onSuccess: { result in
+            .flatMap { result -> Single<Entity.FeedShareResult?> in
                 guard let result = result else {
-                    return
+                    return .just(result)
                 }
-                let uids = result.uids + result.uidsBlock
-                uids.map { Conversation.ViewModel($0.string) }
-                    .forEach { $0.sendFeedMessage(with: feed, text: text, isSuccess: result.uids.contains($0.targetUid.int64Value))
-                    }
-            })
+                let userIds = result.uids + result.uidsBlock
+                
+                let conversationSingles = userIds.compactMap { uid -> Entity.DMProfile? in
+                    uids.first(where: { $0.uid.int64 == uid })?.dmProfile
+                }
+                .map { profile -> Single<Entity.DMConversation?> in
+                    //创建 conversation
+                    return DMManager.shared.queryConversation(fromUid: profile.uid.string)
+                        .flatMap { conversation -> Single<Entity.DMConversation?> in
+                            guard conversation == nil else {
+                                return .just(conversation)
+                            }
+                            return DMManager.shared.add(message: Entity.DMMessage.emptyMessage(for: profile), action: .add)
+                                .flatMap { DMManager.shared.queryConversation(fromUid: profile.uid.string) }
+                        }
+                    
+                }
+                return Single.zip(conversationSingles)
+                    .do(onSuccess: { items in
+                        items.compactMap { $0?.fromUid}
+                            .map { Conversation.ViewModel($0) }
+                            .forEach { $0.sendFeedMessage(with: feed, text: text, isSuccess: result.uids.contains($0.targetUid.int64Value))
+                            }
+                    })
+                    .flatMap { _ in .just(result)}
+            }
             .delay(.fromSeconds(0.2), scheduler: MainScheduler.asyncInstance)
     }
 }

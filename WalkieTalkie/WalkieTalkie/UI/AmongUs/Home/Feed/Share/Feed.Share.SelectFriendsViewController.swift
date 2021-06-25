@@ -208,7 +208,7 @@ extension Feed.Share.SelectFriendsViewController {
     private func send() {
         
         let removeHandler = view.raft.show(.loading)
-        Request.feedShareToUser(feed, uids: viewModel.selectedUsers.map { $0.user.uid }, text: shareInputView.inputTextView.text ?? "")
+        Request.feedShareToUser(feed, uids: viewModel.selectedUsers.map { $0.user }, text: shareInputView.inputTextView.text ?? "")
             .do(onDispose: {
                 removeHandler()
             })
