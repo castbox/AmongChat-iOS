@@ -204,7 +204,6 @@ extension Feed.Share.SelectFriendsViewController {
     }
     
     private func showSearchResult() {
-        IQKeyboardManager.shared.shouldResignOnTouchOutside = false
         let resultVC = Feed.Share.SearchResultViewController()
         addChild(resultVC)
         view.addSubview(resultVC.view)
@@ -317,6 +316,7 @@ extension Feed.Share.SelectFriendsViewController: UITextFieldDelegate {
            text.count > 0 {
             viewModel.searchUser(name: text)
                 .subscribe(onSuccess: { [weak self] users in
+                    IQKeyboardManager.shared.shouldResignOnTouchOutside = (users.count <= 0)
                     self?.searchResultView?.result = users
                 })
                 .disposed(by: bag)
