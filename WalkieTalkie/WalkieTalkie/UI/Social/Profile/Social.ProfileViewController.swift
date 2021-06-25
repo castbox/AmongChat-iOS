@@ -216,6 +216,7 @@ extension Social {
         
         private lazy var chatButton: UIButton = {
             let btn = UIButton()
+            btn.backgroundColor = UIColor(hex6: 0x121212)
             btn.layer.borderColor = UIColor(hex6: 0xFFF000).cgColor
             btn.layer.borderWidth = 2
             btn.titleLabel?.font = R.font.nunitoExtraBold(size: 20)
