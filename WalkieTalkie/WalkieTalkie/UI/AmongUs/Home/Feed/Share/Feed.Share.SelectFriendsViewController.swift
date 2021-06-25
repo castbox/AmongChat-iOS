@@ -8,6 +8,7 @@
 
 import UIKit
 import IQKeyboardManagerSwift
+import MYTableViewIndex
 
 extension Feed.Share {
     
@@ -51,6 +52,15 @@ extension Feed.Share {
             return tb
         }()
         
+        private lazy var tableViewIndex: TableViewIndex = {
+            let i = TableViewIndex()
+            i.indexInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
+            i.font = R.font.nunitoExtraBold(size: 14)!
+            i.dataSource = self
+            i.delegate = self
+            return i
+        }()
+        
         private lazy var shareInputView: Feed.Share.ShareInputView = {
             let v = Feed.Share.ShareInputView()
             v.imageView.setImage(with: feed.img)
@@ -92,7 +102,7 @@ extension Feed.Share.SelectFriendsViewController {
     
     private func setUpLayout() {
         
-        view.addSubviews(views: navView, searchTextfield, friendsTable, shareInputView)
+        view.addSubviews(views: navView, searchTextfield, friendsTable, tableViewIndex, shareInputView)
         
         navView.snp.makeConstraints { (maker) in
             maker.leading.trailing.equalToSuperview()
@@ -108,6 +118,11 @@ extension Feed.Share.SelectFriendsViewController {
         friendsTable.snp.makeConstraints { maker in
             maker.leading.trailing.bottom.equalToSuperview()
             maker.top.equalTo(searchTextfield.snp.bottom).offset(12)
+        }
+        
+        tableViewIndex.snp.makeConstraints { maker in
+            maker.trailing.bottom.equalToSuperview()
+            maker.top.equalTo(friendsTable)
         }
         
         shareInputView.snp.makeConstraints { maker in
@@ -131,6 +146,8 @@ extension Feed.Share.SelectFriendsViewController {
         viewModel.dataUpdatedSignal
             .subscribe(onNext: { [weak self] _ in
                 self?.friendsTable.reloadData()
+                self?.tableViewIndex.reloadData()
+                self?.updateHighlightedItems()
             })
             .disposed(by: bag)
         
@@ -187,7 +204,6 @@ extension Feed.Share.SelectFriendsViewController {
     }
     
     private func showSearchResult() {
-        IQKeyboardManager.shared.shouldResignOnTouchOutside = false
         let resultVC = Feed.Share.SearchResultViewController()
         addChild(resultVC)
         view.addSubview(resultVC.view)
@@ -239,10 +255,6 @@ extension Feed.Share.SelectFriendsViewController: UITableViewDataSource {
         return cell
     }
     
-    func sectionIndexTitles(for tableView: UITableView) -> [String]? {
-        return viewModel.indexTitles
-    }
-    
 }
 
 extension Feed.Share.SelectFriendsViewController: UITableViewDelegate {
@@ -292,6 +304,9 @@ extension Feed.Share.SelectFriendsViewController: UITableViewDelegate {
         }
     }
     
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        updateHighlightedItems()
+    }
 }
 
 extension Feed.Share.SelectFriendsViewController: UITextFieldDelegate {
@@ -301,6 +316,7 @@ extension Feed.Share.SelectFriendsViewController: UITextFieldDelegate {
            text.count > 0 {
             viewModel.searchUser(name: text)
                 .subscribe(onSuccess: { [weak self] users in
+                    IQKeyboardManager.shared.shouldResignOnTouchOutside = (users.count <= 0)
                     self?.searchResultView?.result = users
                 })
                 .disposed(by: bag)
@@ -316,4 +332,65 @@ extension Feed.Share.SelectFriendsViewController: UITextFieldDelegate {
         showSearchResult()
     }
     
+}
+
+extension Feed.Share.SelectFriendsViewController: TableViewIndexDataSource {
+    //MARK: - TableViewIndexDataSource
+    func indexItems(for tableViewIndex: TableViewIndex) -> [UIView] {
+        return viewModel.sectionModels.compactMap({
+            $0.indexView
+        })
+    }
+    
+}
+
+extension Feed.Share.SelectFriendsViewController: TableViewIndexDelegate {
+    //MARK: - TableViewIndexDelegate
+    
+    func tableViewIndex(_ tableViewIndex: TableViewIndex, didSelect item: UIView, at index: Int) -> Bool {
+        let originalOffset = friendsTable.contentOffset
+        
+        let sectionIndex = viewModel.mapIndexTitleToSection(index: index)
+        if sectionIndex != NSNotFound {
+            let rowCount = friendsTable.numberOfRows(inSection: sectionIndex)
+            let indexPath = IndexPath(row: rowCount > 0 ? 0 : NSNotFound, section: sectionIndex)
+            friendsTable.scrollToRow(at: indexPath, at: .top, animated: false)
+        } else {
+            friendsTable.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
+        }
+        return friendsTable.contentOffset != originalOffset
+    }
+}
+
+extension Feed.Share.SelectFriendsViewController {
+    //MARK: - index bar helper
+    private func uncoveredTableViewFrame() -> CGRect {
+        return CGRect(x: friendsTable.bounds.origin.x, y: friendsTable.bounds.origin.y + topLayoutGuide.length,
+                      width: friendsTable.bounds.width, height: friendsTable.bounds.height - topLayoutGuide.length)
+    }
+    
+    private func updateHighlightedItems() {
+        let frame = uncoveredTableViewFrame()
+        var visibleSections = Set<Int>()
+        
+        for section in 0..<friendsTable.numberOfSections {
+            if (frame.intersects(friendsTable.rect(forSection: section)) ||
+                frame.intersects(friendsTable.rectForHeader(inSection: section))) {
+                visibleSections.insert(section)
+            }
+        }
+        trackSelectedSections(visibleSections)
+    }
+    
+    private func trackSelectedSections(_ sections: Set<Int>) {
+        let sortedSections = sections.sorted()
+        
+        UIView.animate(withDuration: 0.25, animations: {
+            for (index, item) in self.tableViewIndex.items.enumerated() {
+                let section = self.viewModel.mapIndexTitleToSection(index: index)
+                let shouldHighlight = sortedSections.count > 0 && section >= sortedSections.first! && section <= sortedSections.last!
+                item.tintColor = shouldHighlight ? UIColor(hex6: 0xFFF000) : UIColor(hex6: 0x595959)
+            }
+        })
+    }
 }

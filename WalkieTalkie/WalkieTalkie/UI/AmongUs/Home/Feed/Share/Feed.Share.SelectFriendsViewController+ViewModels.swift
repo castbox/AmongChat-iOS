@@ -6,7 +6,7 @@
 //  Copyright © 2021 Guru Rain. All rights reserved.
 //
 
-import Foundation
+import UIKit
 import RxSwift
 import RxCocoa
 
@@ -29,8 +29,6 @@ extension Feed.Share.SelectFriendsViewController {
                 buildSections()
             }
         }
-        
-        private(set) var indexTitles: [String] = []
         
         private let maximumSelected = 10
         
@@ -94,25 +92,24 @@ extension Feed.Share.SelectFriendsViewController {
                 sectionModels.append(followingPlaceholder)
             }
             
-            var followingSections: [SectionModel] = []
+            let collation = UILocalizedIndexedCollation.current()
             
+            var followingSections: [SectionModel] = collation.sectionTitles.map {
+                SectionModel(title: $0, sectionType: .followingUsers)
+            }
+
             for user in userViewModels {
-                let title = String(user.user.name?.prefix(1) ?? "").uppercased()
-                if let section = followingSections.first(where: { $0.sectionType == .followingUsers && $0.title == title }) {
-                    section.users.append(user)
-                } else {
-                    let section = SectionModel(title: title, sectionType: .followingUsers)
-                    section.users.append(user)
-                    followingSections.append(section)
-                }
+                let index = collation.section(for: user, collationStringSelector: #selector(getter: user.userName))
+                followingSections[index].users.append(user)
             }
             
-            followingSections = followingSections.sorted { $0.title < $1.title }
+            followingSections = followingSections.compactMap({
+                guard $0.users.count > 0 else { return nil }
+                return $0
+            })
             
             sectionModels.append(contentsOf: followingSections)
-            
-            indexTitles = sectionModels.map({ $0.indexTitle })
-            
+                        
             dataUpdated.onNext(())
         }
         
@@ -183,6 +180,16 @@ extension Feed.Share.SelectFriendsViewController {
                 return Disposables.create()
             }
         }
+        
+        func mapIndexTitleToSection(index: NSInteger) -> Int {
+            
+            guard let section = sectionModels.safe(index), section.sectionType == .followingUsers else {
+                return index
+            }
+            
+            return index + 1
+        }
+        
     }
     
 }
@@ -208,6 +215,10 @@ extension Feed.Share.SelectFriendsViewController {
         
         init(user: Entity.UserProfile) {
             self.user = user
+        }
+        
+        @objc var userName: String {
+            return user.name ?? ""
         }
         
     }
@@ -241,17 +252,26 @@ extension Feed.Share.SelectFriendsViewController {
             }
         }
         
-        var indexTitle: String {
+        var indexView: UIView? {
             
             switch sectionType {
             case .recentChats:
-                return "0"
+                let i = Feed.Share.SelectFriendsViewController.TableIndexImage(image: R.image.ac_feed_share_recent_index_normal()?.withRenderingMode(.alwaysTemplate))
+                i.contentMode = .scaleAspectFill
+                i.tintColor = UIColor(hex6: 0x595959)
+                return i
             case .friends:
-                return "1"
+                let i = Feed.Share.SelectFriendsViewController.TableIndexImage(image: R.image.ac_feed_share_friend_index_normal()?.withRenderingMode(.alwaysTemplate))
+                i.contentMode = .scaleAspectFill
+                i.tintColor = UIColor(hex6: 0x595959)
+                return i
             case .followingPlaceholder:
-                return "2"
+                return nil
             case .followingUsers:
-                return title
+                let l = Feed.Share.SelectFriendsViewController.TableIndexLabel(text: title)
+                l.textAlignment = .center
+                l.tintColor = UIColor(hex6: 0x595959)
+                return l
             }
         }
         

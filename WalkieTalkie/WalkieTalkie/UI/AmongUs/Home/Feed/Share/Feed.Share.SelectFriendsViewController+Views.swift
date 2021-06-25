@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MYTableViewIndex
 
 extension Feed.Share.SelectFriendsViewController {
     
@@ -166,4 +167,21 @@ extension Feed.Share.SelectFriendsViewController {
         
     }
     
+}
+
+extension Feed.Share.SelectFriendsViewController {
+    
+    class TableIndexLabel: StringItem {
+        
+        override func sizeThatFits(_ size: CGSize) -> CGSize {
+            return CGSize(width: 20, height: 20)
+        }
+        
+    }
+    
+    class TableIndexImage: ImageItem {
+        override func sizeThatFits(_ size: CGSize) -> CGSize {
+            return CGSize(width: 20, height: 20)
+        }
+    }
 }

@@ -232,7 +232,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 281 images.
+  /// This `R.image` struct is generated, and contains static references to 283 images.
   struct image {
     /// Image `ac_add_stats_add`.
     static let ac_add_stats_add = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_add_stats_add")
@@ -298,12 +298,16 @@ struct R: Rswift.Validatable {
     static let ac_feed_share_copy = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_feed_share_copy")
     /// Image `ac_feed_share_followings`.
     static let ac_feed_share_followings = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_feed_share_followings")
+    /// Image `ac_feed_share_friend_index_normal`.
+    static let ac_feed_share_friend_index_normal = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_feed_share_friend_index_normal")
     /// Image `ac_feed_share_friends`.
     static let ac_feed_share_friends = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_feed_share_friends")
     /// Image `ac_feed_share_message`.
     static let ac_feed_share_message = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_feed_share_message")
     /// Image `ac_feed_share_more`.
     static let ac_feed_share_more = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_feed_share_more")
+    /// Image `ac_feed_share_recent_index_normal`.
+    static let ac_feed_share_recent_index_normal = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_feed_share_recent_index_normal")
     /// Image `ac_feed_share_recent`.
     static let ac_feed_share_recent = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_feed_share_recent")
     /// Image `ac_feed_share_sms`.
@@ -957,6 +961,11 @@ struct R: Rswift.Validatable {
       return UIKit.UIImage(resource: R.image.ac_feed_share_followings, compatibleWith: traitCollection)
     }
     
+    /// `UIImage(named: "ac_feed_share_friend_index_normal", bundle: ..., traitCollection: ...)`
+    static func ac_feed_share_friend_index_normal(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_feed_share_friend_index_normal, compatibleWith: traitCollection)
+    }
+    
     /// `UIImage(named: "ac_feed_share_friends", bundle: ..., traitCollection: ...)`
     static func ac_feed_share_friends(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ac_feed_share_friends, compatibleWith: traitCollection)
@@ -975,6 +984,11 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "ac_feed_share_recent", bundle: ..., traitCollection: ...)`
     static func ac_feed_share_recent(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ac_feed_share_recent, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_feed_share_recent_index_normal", bundle: ..., traitCollection: ...)`
+    static func ac_feed_share_recent_index_normal(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_feed_share_recent_index_normal, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "ac_feed_share_sms", bundle: ..., traitCollection: ...)`
