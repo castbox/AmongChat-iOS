@@ -92,7 +92,7 @@ extension Feed {
             } else  if selectedUsers.contains(where: { $0.uid == item.uid }) {
                 selectedUsers.removeFirst(where: { $0.uid == item.uid })
             } else {
-                guard selectedUsers.count <= 10 else {
+                guard selectedUsers.count < 10 else {
                     containingController?.view.raft.autoShow(.text(R.string.localizable.feedShareUserSelectedReachMax()))
                     return
                 }
