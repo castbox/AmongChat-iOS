@@ -3033,8 +3033,8 @@ struct R: Rswift.Validatable {
       static let amongChatRoomAnimalCrossingId = Rswift.StringResource(key: "among.chat.room.animal.crossing.id", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Anonymous users have been selected, but they could not receive messages.
       /// 
-      /// Locales: en
-      static let feedShareToAnonymousUserTips = Rswift.StringResource(key: "feed.share.to.anonymous.user.tips", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let feedShareToAnonymousUserTips = Rswift.StringResource(key: "feed.share.to.anonymous.user.tips", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Applied
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3085,8 +3085,8 @@ struct R: Rswift.Validatable {
       static let dmDeleteConversationAlertTitle = Rswift.StringResource(key: "dm.delete.conversation.alert.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Are you sure you want to leave the channel and watch the video?
       /// 
-      /// Locales: en
-      static let roomPlayVideoTips = Rswift.StringResource(key: "room.play.video.tips", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let roomPlayVideoTips = Rswift.StringResource(key: "room.play.video.tips", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Aries
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3549,8 +3549,8 @@ struct R: Rswift.Validatable {
       static let feedCommentReplyFailed = Rswift.StringResource(key: "feed.comment.reply.failed", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Failed to send
       /// 
-      /// Locales: en
-      static let feedShareSendFailed = Rswift.StringResource(key: "feed.share.send.failed", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let feedShareSendFailed = Rswift.StringResource(key: "feed.share.send.failed", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Failed to unblock this person,  please try again.
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3613,8 +3613,8 @@ struct R: Rswift.Validatable {
       static let followInvitedSuccess = Rswift.StringResource(key: "follow.invited.success", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Friends
       /// 
-      /// Locales: en
-      static let amongChatFeedFriends = Rswift.StringResource(key: "among.chat.feed.friends", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let amongChatFeedFriends = Rswift.StringResource(key: "among.chat.feed.friends", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Gamertag
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3765,8 +3765,8 @@ struct R: Rswift.Validatable {
       static let amongChatGroupShareContent = Rswift.StringResource(key: "among.chat.group.share.content", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: I'm hooked on this video on AmongChat. Check it out! %@
       /// 
-      /// Locales: en
-      static let feedThirdShareContent = Rswift.StringResource(key: "feed.third.share.content", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let feedThirdShareContent = Rswift.StringResource(key: "feed.third.share.content", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: ID
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3949,20 +3949,20 @@ struct R: Rswift.Validatable {
       static let amongChatGroupMembers = Rswift.StringResource(key: "among.chat.group.members", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Message
       /// 
-      /// Locales: en
-      static let feedShareMessage = Rswift.StringResource(key: "feed.share.message", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let feedShareMessage = Rswift.StringResource(key: "feed.share.message", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Message could not be sent, as you've been blocked by the recipient.
       /// 
-      /// Locales: en
-      static let dmSendFailedByBlocked = Rswift.StringResource(key: "dm.send.failed.by.blocked", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let dmSendFailedByBlocked = Rswift.StringResource(key: "dm.send.failed.by.blocked", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Minecraft Gamertag
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatRoomMinecraftName = Rswift.StringResource(key: "among.chat.room.minecraft.name", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: More
       /// 
-      /// Locales: en
-      static let feedShareMore = Rswift.StringResource(key: "feed.share.more", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let feedShareMore = Rswift.StringResource(key: "feed.share.more", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: More options
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -4269,8 +4269,8 @@ struct R: Rswift.Validatable {
       static let socialContactDeniedTitle = Rswift.StringResource(key: "social.contact.denied.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Please select a maximum of 10 people at a time
       /// 
-      /// Locales: en
-      static let feedShareUserSelectedReachMax = Rswift.StringResource(key: "feed.share.user.selected.reach.max", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let feedShareUserSelectedReachMax = Rswift.StringResource(key: "feed.share.user.selected.reach.max", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Please select the reason for the report
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -4353,8 +4353,8 @@ struct R: Rswift.Validatable {
       static let rateUs = Rswift.StringResource(key: "rate.us", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Recent Chats
       /// 
-      /// Locales: en
-      static let amongChatFeedRecentChats = Rswift.StringResource(key: "among.chat.feed.recent.chats", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let amongChatFeedRecentChats = Rswift.StringResource(key: "among.chat.feed.recent.chats", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Reject
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -4481,16 +4481,16 @@ struct R: Rswift.Validatable {
       static let amongChatCustomAvatarSelectImage = Rswift.StringResource(key: "among.chat.custom.avatar.select.image", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Send
       /// 
-      /// Locales: en
-      static let amongChatSend = Rswift.StringResource(key: "among.chat.send", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let amongChatSend = Rswift.StringResource(key: "among.chat.send", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Send failed. Please try again.
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let dmSendMessageError = Rswift.StringResource(key: "dm.send.message.error", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Sent
       /// 
-      /// Locales: en
-      static let feedShareSent = Rswift.StringResource(key: "feed.share.sent", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let feedShareSent = Rswift.StringResource(key: "feed.share.sent", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Sep
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -4589,8 +4589,8 @@ struct R: Rswift.Validatable {
       static let socialShareLink = Rswift.StringResource(key: "social.share.link", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Share with
       /// 
-      /// Locales: en
-      static let feedShareWith = Rswift.StringResource(key: "feed.share.with", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let feedShareWith = Rswift.StringResource(key: "feed.share.with", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Sign in
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -5001,8 +5001,8 @@ struct R: Rswift.Validatable {
       static let dmGifText = Rswift.StringResource(key: "dm.gif.text", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: [Video]
       /// 
-      /// Locales: en
-      static let dmFeedMessageText = Rswift.StringResource(key: "dm.feed.message.text", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let dmFeedMessageText = Rswift.StringResource(key: "dm.feed.message.text", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: [Voice Message]
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -5365,7 +5365,7 @@ struct R: Rswift.Validatable {
       
       /// en translation: Anonymous users have been selected, but they could not receive messages.
       /// 
-      /// Locales: en
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func feedShareToAnonymousUserTips(_: Void = ()) -> String {
         return NSLocalizedString("feed.share.to.anonymous.user.tips", bundle: R.hostingBundle, comment: "")
       }
@@ -5456,7 +5456,7 @@ struct R: Rswift.Validatable {
       
       /// en translation: Are you sure you want to leave the channel and watch the video?
       /// 
-      /// Locales: en
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func roomPlayVideoTips(_: Void = ()) -> String {
         return NSLocalizedString("room.play.video.tips", bundle: R.hostingBundle, comment: "")
       }
@@ -6268,7 +6268,7 @@ struct R: Rswift.Validatable {
       
       /// en translation: Failed to send
       /// 
-      /// Locales: en
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func feedShareSendFailed(_: Void = ()) -> String {
         return NSLocalizedString("feed.share.send.failed", bundle: R.hostingBundle, comment: "")
       }
@@ -6380,7 +6380,7 @@ struct R: Rswift.Validatable {
       
       /// en translation: Friends
       /// 
-      /// Locales: en
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func amongChatFeedFriends(_: Void = ()) -> String {
         return NSLocalizedString("among.chat.feed.friends", bundle: R.hostingBundle, comment: "")
       }
@@ -6646,7 +6646,7 @@ struct R: Rswift.Validatable {
       
       /// en translation: I'm hooked on this video on AmongChat. Check it out! %@
       /// 
-      /// Locales: en
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func feedThirdShareContent(_ value1: String) -> String {
         return String(format: NSLocalizedString("feed.third.share.content", bundle: R.hostingBundle, comment: ""), locale: R.applicationLocale, value1)
       }
@@ -6968,14 +6968,14 @@ struct R: Rswift.Validatable {
       
       /// en translation: Message
       /// 
-      /// Locales: en
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func feedShareMessage(_: Void = ()) -> String {
         return NSLocalizedString("feed.share.message", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Message could not be sent, as you've been blocked by the recipient.
       /// 
-      /// Locales: en
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func dmSendFailedByBlocked(_: Void = ()) -> String {
         return NSLocalizedString("dm.send.failed.by.blocked", bundle: R.hostingBundle, comment: "")
       }
@@ -6989,7 +6989,7 @@ struct R: Rswift.Validatable {
       
       /// en translation: More
       /// 
-      /// Locales: en
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func feedShareMore(_: Void = ()) -> String {
         return NSLocalizedString("feed.share.more", bundle: R.hostingBundle, comment: "")
       }
@@ -7528,7 +7528,7 @@ struct R: Rswift.Validatable {
       
       /// en translation: Please select a maximum of 10 people at a time
       /// 
-      /// Locales: en
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func feedShareUserSelectedReachMax(_: Void = ()) -> String {
         return NSLocalizedString("feed.share.user.selected.reach.max", bundle: R.hostingBundle, comment: "")
       }
@@ -7675,7 +7675,7 @@ struct R: Rswift.Validatable {
       
       /// en translation: Recent Chats
       /// 
-      /// Locales: en
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func amongChatFeedRecentChats(_: Void = ()) -> String {
         return NSLocalizedString("among.chat.feed.recent.chats", bundle: R.hostingBundle, comment: "")
       }
@@ -7899,7 +7899,7 @@ struct R: Rswift.Validatable {
       
       /// en translation: Send
       /// 
-      /// Locales: en
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func amongChatSend(_: Void = ()) -> String {
         return NSLocalizedString("among.chat.send", bundle: R.hostingBundle, comment: "")
       }
@@ -7913,7 +7913,7 @@ struct R: Rswift.Validatable {
       
       /// en translation: Sent
       /// 
-      /// Locales: en
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func feedShareSent(_: Void = ()) -> String {
         return NSLocalizedString("feed.share.sent", bundle: R.hostingBundle, comment: "")
       }
@@ -8088,7 +8088,7 @@ struct R: Rswift.Validatable {
       
       /// en translation: Share with
       /// 
-      /// Locales: en
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func feedShareWith(_: Void = ()) -> String {
         return NSLocalizedString("feed.share.with", bundle: R.hostingBundle, comment: "")
       }
@@ -8809,7 +8809,7 @@ struct R: Rswift.Validatable {
       
       /// en translation: [Video]
       /// 
-      /// Locales: en
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func dmFeedMessageText(_: Void = ()) -> String {
         return NSLocalizedString("dm.feed.message.text", bundle: R.hostingBundle, comment: "")
       }

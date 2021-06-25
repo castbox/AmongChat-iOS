@@ -615,7 +615,7 @@
 
 "social.profile.chat.anonymous.user.tips" = "Lo sentimos, este usuario es anónimo y no puede recibir mensajes.";
 
-//21.06.11
+//1.24.0
 "among.chat.login.auth.source.upload.avatar" = "sube tu avatar";
 "among.chat.clear.cache" = "Limpiar cache";
 "among.chat.contact.us" = "Contáctenos";
@@ -623,3 +623,19 @@
 "among.chat.clear" = "Limpiar";
 "among.chat.clearing" = "Limpieza en curso";
 "feed.remove.ads" = "Quitar Anuncios";
+
+//1.25.0
+"among.chat.send" = "Enviar";
+"feed.share.with" = "Compartir con";
+"feed.share.message" = "Mensaje";
+"feed.share.more" = "Más";
+"feed.share.user.selected.reach.max" = "Seleccione un máximo de 10 personas a la vez";
+"feed.share.to.anonymous.user.tips" = "Se seleccionaron usuarios anónimos, pero no pudieron recibir mensajes.";
+"feed.share.sent" = "Enviado";
+"feed.share.send.failed" = "No se pudo enviar";
+"room.play.video.tips" = "¿Estás seguro de que quieres salir del canal y ver el video?";
+"dm.send.failed.by.blocked" = "No se pudo enviar el mensaje porque el destinatario lo ha bloqueado.";
+"feed.third.share.content" = "Estoy enganchado a este video en AmongChat. ¡Échale un vistazo! %@";
+"among.chat.feed.recent.chats" = "Chats recientes";
+"among.chat.feed.friends" = "Amigos";
+"dm.feed.message.text" = "[Feed]";

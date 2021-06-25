@@ -615,7 +615,7 @@
 
 "social.profile.chat.anonymous.user.tips" = "Извините, этот пользователь анонимен и не может получать сообщения.";
 
-//21.06.11
+//1.24.0
 "among.chat.login.auth.source.upload.avatar" = "загрузите свой аватар";
 "among.chat.clear.cache" = "Очистить кэш";
 "among.chat.contact.us" = "Свяжитесь с нами";
@@ -623,3 +623,19 @@
 "among.chat.clear" = "Очистить";
 "among.chat.clearing" = "выполняется очистка";
 "feed.remove.ads" = "Убрать Рекламу";
+
+//1.25.0
+"among.chat.send" = "Отправить";
+"feed.share.with" = "Поделиться с";
+"feed.share.message" = "Сообщение";
+"feed.share.more" = "Больше";
+"feed.share.user.selected.reach.max" = "Пожалуйста, выберите максимум 10 человек за раз";
+"feed.share.to.anonymous.user.tips" = "Были выбраны анонимные пользователи, но они не могли получать сообщения.";
+"feed.share.sent" = "Отправлено";
+"feed.share.send.failed" = "Не удалось отправить";
+"room.play.video.tips" = "Вы уверены, что хотите покинуть канал и посмотреть видео?";
+"dm.send.failed.by.blocked" = "Сообщение не может быть отправлено, так как вы были заблокированы получателем.";
+"feed.third.share.content" = "Я подсел на это видео на AmongChat. Проверьте это! %@";
+"among.chat.feed.recent.chats" = "Недавние чаты";
+"among.chat.feed.friends" = "Друзья";
+"dm.feed.message.text" = "[Feed]";
