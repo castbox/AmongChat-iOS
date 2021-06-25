@@ -171,9 +171,13 @@ extension Feed.Share.SelectFriendsViewController {
                 guard let `self` = self else { return }
                 
                 self.shareInputView.snp.updateConstraints { maker in
-                    maker.bottom.equalToSuperview().offset(-(keyboardVisibleHeight - Frame.Height.safeAeraBottomHeight - 8))
+                    maker.bottom.equalToSuperview().offset(-max(keyboardVisibleHeight - Frame.Height.safeAeraBottomHeight - 8, 0))
                 }
                 
+                UIView.animate(withDuration: RxKeyboard.instance.animationDuration) {
+                    self.view.layoutIfNeeded()
+                }
+
             })
             .disposed(by: bag)
         

@@ -86,7 +86,6 @@ extension Feed.Share {
                     guard let `self` = self else { return }
                     
                     self.placeholderLabel.isHidden = hasText
-//                    self.sendButton.isEnabled = hasText
                 })
                 .disposed(by: bag)
             f.showsVerticalScrollIndicator = false
@@ -150,12 +149,7 @@ extension Feed.Share {
                 maker.leading.trailing.equalToSuperview().inset(20)
                 maker.height.equalTo(48)
                 maker.top.equalTo(bodyContainer.snp.bottom).offset(24)
-//                if #available(iOS 11.0, *) {
-//                    maker.bottom.equalTo(safeAreaLayoutGuide.snp.bottom).offset(-20)
-//                } else {
-                    // Fallback on earlier versions
-                    maker.bottom.equalToSuperview().offset(-(20 + Frame.Height.safeAeraBottomHeight))
-//                }
+                maker.bottom.equalToSuperview().offset(-(20 + Frame.Height.safeAeraBottomHeight))
             }
         }
                 
