@@ -62,7 +62,8 @@ extension Feed {
         
         func bind(_ dataSource: [Entity.UserProfile]) {
             var items = dataSource
-            if let moreItem = try? JSONDecoder().decodeAnyData(Entity.UserProfile.self, from: ["uid": 0]) {
+            if dataSource.count >= 20,
+               let moreItem = try? JSONDecoder().decodeAnyData(Entity.UserProfile.self, from: ["uid": 0]) {
                 items.append(moreItem)
             }
             self.dataSource = items
