@@ -23,6 +23,7 @@ class FeedShareUserCell: UICollectionViewCell {
             nameLabel.numberOfLines = profile.isOnlineValue ? 1 : 2
             nameLabel.attributedText = profile.nameWithVerified(fontSize: 14, withAge: false, isShowVerify: false, isShowOfficial: true, officialHeight: ._14)
             onlineView.isHidden = !profile.isOnlineValue
+            avatarView.verifyStyle = .gray
             if isSelected {
                 avatarView.verifyIV.image = R.image.iconFeedShareUserSelected()
                 avatarView.isVerify = true

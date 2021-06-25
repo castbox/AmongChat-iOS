@@ -22,6 +22,7 @@ extension Feed {
         enum Action {
             case error(String?)
             case share(Feed.ShareBar.ShareSource)
+            case moreSelectUser([Entity.UserProfile])
         }
         
         private lazy var titleLabel: UILabel = {
@@ -35,39 +36,40 @@ extension Feed {
         }()
         
         private lazy var backgroudView: UIView = {
-           let v = UIView()
+            let v = UIView()
             v.backgroundColor = .clear
             return v
         }()
         
         private lazy var container: UIView = {
-           let v = UIView()
+            let v = UIView()
             v.backgroundColor = "222222".color()
+//            let panGesture = UIPanGestureRecognizer(target: self, action: #selector(<#T##@objc method#>))
             return v
         }()
         
         private lazy var userViews: Feed.ShareUserView = {
-           let v = Feed.ShareUserView()
+            let v = Feed.ShareUserView()
             v.backgroundColor = .clear
             return v
         }()
         
         private lazy var shareBar: Feed.ShareBar = {
-           let v = Feed.ShareBar()
+            let v = Feed.ShareBar()
             v.backgroundColor = .clear
-//            v.addCorner(with: 20, corners: [.topLeft, .topRight])
+            //            v.addCorner(with: 20, corners: [.topLeft, .topRight])
             return v
         }()
         
         private lazy var inputBar: Feed.Share.ShareInputView = {
-           let v = Feed.Share.ShareInputView()
+            let v = Feed.Share.ShareInputView()
             v.backgroundColor = .clear
             let subviews = v.subviews
             subviews.first(where: { $0 is GradientView })?.removeFromSuperview()
-//            v.addCorner(with: 20, corners: [.topLeft, .topRight])
+            //            v.addCorner(with: 20, corners: [.topLeft, .topRight])
             return v
         }()
-                
+        
         private let feed: Entity.Feed
         
         private var isAnonymousUser = Settings.shared.amongChatUserProfile.value?.isAnonymous ?? false
@@ -97,11 +99,11 @@ extension Feed {
         private var shareText: String {
             return R.string.localizable.feedThirdShareContent(shareUrl)
         }
-
+        
         
         private var selectedUsers: [Entity.UserProfile] = [] {
             didSet {
-//                selectedUsersHandler?(selectedUsers)
+                //                selectedUsersHandler?(selectedUsers)
                 containerStyle = selectedUsers.isEmpty ? .default : .showInputBar
                 //update height
                 self.container.snp.updateConstraints { maker in
@@ -112,7 +114,7 @@ extension Feed {
                 }
             }
         }
-
+        
         var dismissHandler: ((Action) -> Void)?
         
         init(with feed: Entity.Feed) {
@@ -123,7 +125,7 @@ extension Feed {
         required init?(coder aDecoder: NSCoder) {
             fatalError("init(coder:) has not been implemented")
         }
-
+        
         override func viewDidLoad() {
             super.viewDidLoad()
             configureSubview()
@@ -172,6 +174,14 @@ extension Feed.ShareController {
             self?.selectedUsers = users
         }
         
+        userViews.tapMoreHandler = { [weak self] in
+            guard let `self` = self else { return }
+            let user = self.selectedUsers
+            self.dismissModal(animated: true, completion: { [weak self] in
+                self?.dismissHandler?(.moreSelectUser(user))
+            })
+        }
+        
         shareBar.selectedSourceObservable
             .subscribe(onNext: { [weak self] source in
                 self?.dismissModal(animated: true, completion: { [weak self] in
@@ -210,14 +220,26 @@ extension Feed.ShareController {
                 }
             })
             .disposed(by: bag)
-
+        
     }
     
     func configureSubview() {
         view.backgroundColor = .clear
         view.addSubviews(views: backgroudView, container)
         inputBar.isHidden = true
-        container.addSubviews(views: titleLabel, userViews, shareBar, inputBar)
+        
+        let line = UIView()
+        line.backgroundColor = UIColor.white.alpha(0.2)
+        line.cornerRadius = 2
+        
+        container.addSubviews(views: line, titleLabel, userViews, shareBar, inputBar)
+        
+        line.snp.makeConstraints { maker in
+            maker.centerX.equalToSuperview()
+            maker.top.equalTo(8)
+            maker.width.equalTo(36)
+            maker.height.equalTo(4)
+        }
         
         backgroudView.snp.makeConstraints { maker in
             maker.edges.equalToSuperview()
@@ -247,7 +269,7 @@ extension Feed.ShareController {
         
         inputBar.snp.makeConstraints { maker in
             maker.bottom.leading.trailing.equalToSuperview()
-            maker.height.equalTo(221 + Frame.Height.safeAeraBottomHeight)
+            maker.height.equalTo(229 + Frame.Height.safeAeraBottomHeight)
         }
     }
 }

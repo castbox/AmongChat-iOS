@@ -506,6 +506,8 @@ extension Feed.ListViewController {
                 self?.view.raft.autoShow(.text(string))
             case .share(let source):
                 self?.onShareBar(select: source, viewModel: viewModel)
+            case .moreSelectUser(let users):
+                ()
             }
         }
     }

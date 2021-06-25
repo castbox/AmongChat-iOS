@@ -49,7 +49,7 @@ extension FansGroup.Views {
                 case .shareLink:
                     return R.string.localizable.socialShareLink()
                 case .tiktok:
-                    return "Tiktok"
+                    return "TikTok"
                 }
             }
             

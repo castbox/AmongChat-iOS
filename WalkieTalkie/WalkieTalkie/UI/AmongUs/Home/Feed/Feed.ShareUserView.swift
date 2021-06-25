@@ -45,6 +45,7 @@ extension Feed {
         }
         
         var selectedUsersHandler: (([Entity.UserProfile]) -> Void)?
+        var tapMoreHandler: CallBack?
         
         override init(frame: CGRect) {
             super.init(frame: frame)
@@ -83,11 +84,12 @@ extension Feed {
         // MARK: - UICollectionViewDelegate
         
         func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-            guard let item = dataSource.safe(indexPath.item),
-                  item.uid > 0 else {
+            guard let item = dataSource.safe(indexPath.item) else {
                 return
             }
-            if selectedUsers.contains(where: { $0.uid == item.uid }) {
+            if item.uid == 0 {
+                tapMoreHandler?()
+            } else  if selectedUsers.contains(where: { $0.uid == item.uid }) {
                 selectedUsers.removeFirst(where: { $0.uid == item.uid })
             } else {
                 guard selectedUsers.count <= 10 else {
@@ -224,7 +226,7 @@ extension Feed.ShareBar {
         private(set) lazy var titleLabel: UILabel = {
             let lb = UILabel()
             lb.textAlignment = .center
-            lb.font = R.font.nunitoBold(size: 14)
+            lb.font = R.font.nunitoExtraBold(size: 14)
             lb.textColor = .white
             lb.adjustsFontSizeToFitWidth = true
             return lb
