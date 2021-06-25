@@ -129,8 +129,7 @@ extension AmongChat.CreateRoom {
             btn.titleLabel?.font = R.font.nunitoExtraBold(size: 20)
             btn.addTarget(self, action: #selector(onCardBtn), for: .primaryActionTriggered)
             btn.setImage(R.image.ac_room_card(), for: .normal)
-            btn.imageEdgeInsets = UIEdgeInsets(top: 0, left: -4, bottom: 0, right: 4)
-            btn.titleEdgeInsets = UIEdgeInsets(top: 0, left: 4, bottom: 0, right: -4)
+            btn.setImageTitleHorizontalSpace(8)
             return btn
         }()
         
@@ -594,8 +593,7 @@ extension AmongChat.CreateRoom.ViewController {
                 btn.setTitleColor(.black, for: .normal)
                 btn.titleLabel?.font = R.font.nunitoExtraBold(size: 20)
                 btn.setImage(R.image.ac_channel_card_ad(), for: .normal)
-                btn.imageEdgeInsets = UIEdgeInsets(top: 0, left: -2, bottom: 0, right: 2)
-                btn.titleEdgeInsets = UIEdgeInsets(top: 0, left: 2, bottom: 0, right: -2)
+                btn.setImageTitleHorizontalSpace(4)
                 return btn
             }()
             

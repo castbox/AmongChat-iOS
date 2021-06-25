@@ -246,8 +246,7 @@ extension Social.ProfileGameSkillViewController: UICollectionViewDelegate {
                 header.actionButton.setTitle(R.string.localizable.amongChatProfileAddAGame(), for: .normal)
                 header.actionButton.setTitleColor(UIColor(hex6: 0xFFFFFF), for: .normal)
                 header.actionButton.titleLabel?.font = R.font.nunitoExtraBold(size: 20)
-                header.actionButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: -4, bottom: 0, right: 4)
-                header.actionButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 4, bottom: 0, right: -4)
+                header.actionButton.setImageTitleHorizontalSpace(8)
                 header.actionHandler = { [weak self] () in
                     self?.toAddAGame()
                 }

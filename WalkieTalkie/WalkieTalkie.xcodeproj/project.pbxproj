@@ -75,6 +75,7 @@
 		26B3FF66266739F6001D747A /* Social.ProfileGroupsViewController+Views.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26B3FF65266739F6001D747A /* Social.ProfileGroupsViewController+Views.swift */; };
 		26B3FF6A2667455F001D747A /* Social.ProfileGameSkillViewController+Views.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26B3FF692667455F001D747A /* Social.ProfileGameSkillViewController+Views.swift */; };
 		26BA22AA26491C8C00F4554B /* AudioRecorderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26BA22A926491C8C00F4554B /* AudioRecorderViewController.swift */; };
+		26C527CE2686085200AD90B3 /* UIButtonExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26C527CD2686085200AD90B3 /* UIButtonExtension.swift */; };
 		26CC0F70265CCB850058E39E /* Feed.VideoLibraryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26CC0F6F265CCB850058E39E /* Feed.VideoLibraryViewController.swift */; };
 		26CC0F74265CCC5C0058E39E /* Feed.VideoLibraryViewController+Views.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26CC0F73265CCC5C0058E39E /* Feed.VideoLibraryViewController+Views.swift */; };
 		26CC0F78265CD7110058E39E /* UICollectionViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26CC0F77265CD7110058E39E /* UICollectionViewExtension.swift */; };
@@ -604,6 +605,7 @@
 		26B3FF65266739F6001D747A /* Social.ProfileGroupsViewController+Views.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Social.ProfileGroupsViewController+Views.swift"; sourceTree = "<group>"; };
 		26B3FF692667455F001D747A /* Social.ProfileGameSkillViewController+Views.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Social.ProfileGameSkillViewController+Views.swift"; sourceTree = "<group>"; };
 		26BA22A926491C8C00F4554B /* AudioRecorderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioRecorderViewController.swift; sourceTree = "<group>"; };
+		26C527CD2686085200AD90B3 /* UIButtonExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButtonExtension.swift; sourceTree = "<group>"; };
 		26CC0F6F265CCB850058E39E /* Feed.VideoLibraryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Feed.VideoLibraryViewController.swift; sourceTree = "<group>"; };
 		26CC0F73265CCC5C0058E39E /* Feed.VideoLibraryViewController+Views.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Feed.VideoLibraryViewController+Views.swift"; sourceTree = "<group>"; };
 		26CC0F77265CD7110058E39E /* UICollectionViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICollectionViewExtension.swift; sourceTree = "<group>"; };
@@ -1461,6 +1463,7 @@
 			isa = PBXGroup;
 			children = (
 				FEBE522D262D345B00E49EC4 /* UIImageExtension.swift */,
+				26C527CD2686085200AD90B3 /* UIButtonExtension.swift */,
 				FEAD68DD258BA42900977579 /* EncodableExtension.swift */,
 				FE9BCA43258A5344002F82AF /* IntExtension.swift */,
 				FE6AF8592457E26C00FD474A /* UIViewFrameExtension.swift */,
@@ -2586,6 +2589,7 @@
 				FE1A2DF3248A3BDC00F9A44D /* Data+Crypto.swift in Sources */,
 				FE9A9B152678A4D200A2EA06 /* Ad.NativeManager.swift in Sources */,
 				FE952FE22669C76E004E2AD1 /* SZAVPlayerDataLoader.swift in Sources */,
+				26C527CE2686085200AD90B3 /* UIButtonExtension.swift in Sources */,
 				FE27B92C265CE30300D1AD1F /* Feed.ListViewController.swift in Sources */,
 				261C35262660A2140058C911 /* Feed.Comments+ViewModels.swift in Sources */,
 				FE684877244BD3D200F87AF9 /* AdsDebugger.swift in Sources */,
