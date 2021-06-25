@@ -50,11 +50,12 @@ extension Conversation {
                 var gifHeight = rawHeight
                 if gifWidth > gifMaxWidth {
                     gifWidth = gifMaxWidth
-                    gifHeight = gifMaxWidth * rawHeight / rawWidth
+//                    gifHeight = gifMaxWidth * rawHeight / rawWidth
                 } else if gifWidth < minWidth {
                     gifWidth = minWidth
-                    gifHeight = minWidth * rawHeight / rawWidth
+//                    gifHeight = minWidth * rawHeight / rawWidth
                 }
+                gifHeight = gifWidth / 3 * 4
                 contentSize = CGSize(width: gifWidth, height: gifHeight)
                 
                 let topEdge: CGFloat = 6

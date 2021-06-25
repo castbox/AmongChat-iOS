@@ -4991,14 +4991,14 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatRoomKickout = Rswift.StringResource(key: "among.chat.room.kickout", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
-      /// en translation: [Feed]
-      /// 
-      /// Locales: en
-      static let dmFeedMessageText = Rswift.StringResource(key: "dm.feed.message.text", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: [GIF]
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let dmGifText = Rswift.StringResource(key: "dm.gif.text", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: [Video]
+      /// 
+      /// Locales: en
+      static let dmFeedMessageText = Rswift.StringResource(key: "dm.feed.message.text", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: [Voice Message]
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -8789,18 +8789,18 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("among.chat.room.kickout", bundle: R.hostingBundle, comment: "")
       }
       
-      /// en translation: [Feed]
-      /// 
-      /// Locales: en
-      static func dmFeedMessageText(_: Void = ()) -> String {
-        return NSLocalizedString("dm.feed.message.text", bundle: R.hostingBundle, comment: "")
-      }
-      
       /// en translation: [GIF]
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func dmGifText(_: Void = ()) -> String {
         return NSLocalizedString("dm.gif.text", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: [Video]
+      /// 
+      /// Locales: en
+      static func dmFeedMessageText(_: Void = ()) -> String {
+        return NSLocalizedString("dm.feed.message.text", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: [Voice Message]
