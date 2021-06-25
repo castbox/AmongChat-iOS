@@ -2897,7 +2897,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
     
-    /// This `R.string.localizable` struct is generated, and contains static references to 557 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 558 localization keys.
     struct localizable {
       /// en translation:  Congratulations!
       /// 
@@ -3895,6 +3895,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let groupOnline = Rswift.StringResource(key: "group.online", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Loading
+      /// 
+      /// Locales: en
+      static let loading = Rswift.StringResource(key: "Loading", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Log in
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -6869,6 +6873,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func groupOnline(_: Void = ()) -> String {
         return NSLocalizedString("group.online", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Loading
+      /// 
+      /// Locales: en
+      static func loading(_: Void = ()) -> String {
+        return NSLocalizedString("Loading", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Log in
