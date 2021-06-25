@@ -18,6 +18,7 @@ class FeedShareUserCell: UICollectionViewCell {
         if profile.uid == 0 {
             avatarView.image = R.image.ac_feed_share_more()
             nameLabel.text = R.string.localizable.feedShareMore()
+            avatarView.isVerify = false
         } else {
             avatarView.setAvatarImage(with: profile.pictureUrl)
             nameLabel.numberOfLines = profile.isOnlineValue ? 1 : 2

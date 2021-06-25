@@ -507,7 +507,24 @@ extension Feed.ListViewController {
             case .share(let source):
                 self?.onShareBar(select: source, viewModel: viewModel)
             case .moreSelectUser(let users):
-                ()
+                self?.onShareToMessages(with: viewModel, users: users)
+            }
+        }
+    }
+    
+    func onShareToMessages(with viewModel: Feed.ListCellViewModel, users: [Entity.UserProfile]) {
+        AmongChat.Login.doLogedInEvent(style: .authNeeded(source: .chat)) { [weak self] in
+            let selectVC = Feed.Share.SelectFriendsViewController(with: viewModel.feed, initialSelected: users)
+            selectVC.modalPresentationStyle = .fullScreen
+            self?.present(selectVC, animated: true)
+            selectVC.didSharedCallback = { [weak self] result in
+                switch result {
+                case .success(_):
+                    self?.view.raft.autoShow(.text(R.string.localizable.feedShareSent()))
+                    self?.onShareSuccess(with: viewModel)
+                case .failure(let error):
+                    self?.view.raft.autoShow(.text(error.localizedDescription))
+                }
             }
         }
     }
@@ -518,20 +535,7 @@ extension Feed.ListViewController {
         let shareUrl = "https://among.chat/feeds/\(feed.pid)"
 
         if item == .message {
-            AmongChat.Login.doLogedInEvent(style: .authNeeded(source: .chat)) { [weak self] in
-                let selectVC = Feed.Share.SelectFriendsViewController(with: viewModel.feed, initialSelected: [])
-                selectVC.modalPresentationStyle = .fullScreen
-                self?.present(selectVC, animated: true)
-                selectVC.didSharedCallback = { [weak self] result in
-                    switch result {
-                    case .success(_):
-                        self?.view.raft.autoShow(.text(R.string.localizable.feedShareSent()))
-                        self?.onShareSuccess(with: viewModel)
-                    case .failure(let error):
-                        self?.view.raft.autoShow(.text(error.localizedDescription))
-                    }
-                }
-            }
+            onShareToMessages(with: viewModel, users: [])
         } else if item == .more {
             //make dynamic
             let removeHandler = view.raft.show(.loading)
