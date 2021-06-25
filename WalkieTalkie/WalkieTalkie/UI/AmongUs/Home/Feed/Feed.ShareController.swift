@@ -269,25 +269,35 @@ extension Feed.ShareController {
             maker.centerX.equalToSuperview()
         }
         
-        userViews.snp.makeConstraints { maker in
-            maker.top.equalTo(titleLabel.snp.bottom).offset(20)
-            maker.leading.trailing.equalToSuperview()
-            maker.width.equalTo(Frame.Screen.width)
-            maker.height.equalTo(94)
-        }
-        
-        shareBar.snp.makeConstraints { maker in
-            maker.top.equalTo(userViews.snp.bottom).offset(40)
-            maker.leading.trailing.equalToSuperview()
-            maker.width.equalTo(Frame.Screen.width)
-            maker.height.equalTo(75)
-        }
-        
-        inputBar.snp.makeConstraints { maker in
-            maker.top.equalTo(userViews.snp.bottom)
-            maker.leading.trailing.equalToSuperview()
-            maker.width.equalTo(Frame.Screen.width)
-            maker.height.equalTo(229 + Frame.Height.safeAeraBottomHeight)
+        if Settings.loginUserIsAnonymous {
+            shareBar.snp.makeConstraints { maker in
+                maker.top.equalTo(titleLabel.snp.bottom).offset(20)
+                maker.leading.trailing.equalToSuperview()
+                maker.width.equalTo(Frame.Screen.width)
+                maker.height.equalTo(75)
+                maker.bottom.equalTo(-(32 + Frame.Height.safeAeraBottomHeight))
+            }
+        } else {
+            userViews.snp.makeConstraints { maker in
+                maker.top.equalTo(titleLabel.snp.bottom).offset(20)
+                maker.leading.trailing.equalToSuperview()
+                maker.width.equalTo(Frame.Screen.width)
+                maker.height.equalTo(94)
+            }
+            
+            shareBar.snp.makeConstraints { maker in
+                maker.top.equalTo(userViews.snp.bottom).offset(40)
+                maker.leading.trailing.equalToSuperview()
+                maker.width.equalTo(Frame.Screen.width)
+                maker.height.equalTo(75)
+            }
+            
+            inputBar.snp.makeConstraints { maker in
+                maker.top.equalTo(userViews.snp.bottom)
+                maker.leading.trailing.equalToSuperview()
+                maker.width.equalTo(Frame.Screen.width)
+                maker.height.equalTo(229 + Frame.Height.safeAeraBottomHeight)
+            }
         }
     }
 }
