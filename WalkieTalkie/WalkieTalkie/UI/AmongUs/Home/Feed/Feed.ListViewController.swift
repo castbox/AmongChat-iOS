@@ -519,7 +519,7 @@ extension Feed.ListViewController {
 
         if item == .message {
             AmongChat.Login.doLogedInEvent(style: .authNeeded(source: .chat)) { [weak self] in
-                let selectVC = Feed.Share.SelectFriendsViewController(with: viewModel.feed)
+                let selectVC = Feed.Share.SelectFriendsViewController(with: viewModel.feed, initialSelected: [])
                 selectVC.modalPresentationStyle = .fullScreen
                 self?.present(selectVC, animated: true)
                 selectVC.didSharedCallback = { [weak self] result in
