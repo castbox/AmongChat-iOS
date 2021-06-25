@@ -269,6 +269,7 @@ extension URI {
         
         static func patterns() -> [String] {
             return [
+                "/feeds",
                 "/feeds/:pid"
             ]
         }

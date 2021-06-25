@@ -234,13 +234,18 @@ extension Routes {
         }
         
         func handleFeeds(_ feeds: URI.Feeds) {
-            guard let pid = feeds.pid else {
-                return
-            }
-            
             checkIfNeedCloseRoom {
-                let vc = Feed.TopicListController(with: pid)
-                UIApplication.topViewController()?.navigationController?.pushViewController(vc)
+                if let pid = feeds.pid {
+                    let vc = Feed.TopicListController(with: pid)
+                    UIApplication.topViewController()?.navigationController?.pushViewController(vc)
+                } else {
+                    //change tab
+                    UIApplication.navigationController?.popToRootViewController(animated: false)
+                    guard let index = UIApplication.tabBarController?.selectedIndex else {
+                        return
+                    }
+                    UIApplication.tabBarController?.setSelectIndex(from: index, to: AmongChat.Home.MainTabController.Tab.video.index)
+                }
             }
         }
         

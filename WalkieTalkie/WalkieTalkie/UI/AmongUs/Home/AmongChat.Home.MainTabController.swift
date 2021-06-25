@@ -375,6 +375,19 @@ extension AmongChat.Home.MainTabController {
             }
         }
         
+        var index: Int {
+            switch self {
+            case .friends:
+                return 0
+            case .video:
+                return 1
+            case .topics:
+                return 2
+            case .messages:
+                return 3
+            }
+        }
+        
     }
     
 }
