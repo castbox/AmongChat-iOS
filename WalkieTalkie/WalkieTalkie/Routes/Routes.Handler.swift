@@ -288,7 +288,7 @@ extension Routes {
         }
         
         func handleUndefined(_ url: URL) {
-            if !FireLink.handle(dynamicLink: url, completion: { (url) in
+            if !FireLink.handle(dynamicLink: url, completion: { (url, error) in
                 Routes.handle(url)
             }) {
 //                cdPrint("open url on webpage: \(url.absoluteString)")
