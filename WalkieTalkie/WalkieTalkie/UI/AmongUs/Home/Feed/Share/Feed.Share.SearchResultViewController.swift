@@ -24,10 +24,19 @@ extension Feed.Share {
             return tb
         }()
         
+        private lazy var emptyView: FansGroup.Views.EmptyDataView = {
+            let v = FansGroup.Views.EmptyDataView()
+            v.titleLabel.text = R.string.localizable.errorNoSearch()
+            v.iconIV.image = R.image.ac_among_no_data()
+            v.isHidden = true
+            return v
+        }()
+        
         typealias UserViewModel = Feed.Share.SelectFriendsViewController.UserViewModel
         var result: [UserViewModel] = [] {
             didSet {
                 resultTable.reloadData()
+                emptyView.isHidden = result.count > 0
             }
         }
         
@@ -52,7 +61,13 @@ extension Feed.Share.SearchResultViewController {
     
     private func setUpLayout() {
         
-        view.addSubviews(views: resultTable)
+        view.addSubviews(views: emptyView, resultTable)
+        
+        emptyView.snp.makeConstraints { maker in
+            maker.top.equalToSuperview().offset(40)
+            maker.centerX.equalToSuperview()
+            maker.leading.greaterThanOrEqualToSuperview().offset(40)
+        }
         
         resultTable.snp.makeConstraints { maker in
             maker.edges.equalToSuperview()

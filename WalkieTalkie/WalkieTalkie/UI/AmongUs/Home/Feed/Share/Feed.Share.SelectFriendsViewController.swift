@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 import IQKeyboardManagerSwift
 import MYTableViewIndex
 
@@ -49,6 +51,7 @@ extension Feed.Share {
             tb.rowHeight = 72
             tb.separatorStyle = .none
             tb.backgroundColor = .clear
+            tb.keyboardDismissMode = .onDrag
             return tb
         }()
         
@@ -174,6 +177,28 @@ extension Feed.Share.SelectFriendsViewController {
             })
             .disposed(by: bag)
         
+        searchTextfield.rx.text
+            .debounce(.milliseconds(200), scheduler: MainScheduler.asyncInstance)
+            .subscribe(onNext: { [weak self] text in
+
+                guard let `self` = self,
+                      self.searchTextfield.isEditing else { return }
+
+                guard let text = text, text.count > 0 else {
+                    self.hideSearchResult()
+                    return
+                }
+
+                self.showSearchResult()
+                self.viewModel.searchUser(name: text)
+                    .subscribe(onSuccess: { users in
+                        IQKeyboardManager.shared.shouldResignOnTouchOutside = (users.count <= 0)
+                        self.searchResultView?.result = users
+                    })
+                    .disposed(by: self.bag)
+            })
+            .disposed(by: bag)
+        
     }
     
     private func send() {
@@ -205,6 +230,7 @@ extension Feed.Share.SelectFriendsViewController {
     }
     
     private func showSearchResult() {
+        guard searchResultView == nil else { return }
         let resultVC = Feed.Share.SearchResultViewController()
         addChild(resultVC)
         view.addSubview(resultVC.view)
@@ -322,17 +348,13 @@ extension Feed.Share.SelectFriendsViewController: UITextFieldDelegate {
                 })
                 .disposed(by: bag)
         }
-        return true
+        return false
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         hideSearchResult()
     }
-    
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        showSearchResult()
-    }
-    
+        
 }
 
 extension Feed.Share.SelectFriendsViewController: TableViewIndexDataSource {
