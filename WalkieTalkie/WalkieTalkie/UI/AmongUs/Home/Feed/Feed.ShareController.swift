@@ -81,7 +81,7 @@ extension Feed {
         private var beginContainerYOffset: CGFloat = 0
         private var containerHeight: CGFloat {
             guard !isAnonymousUser else {
-                return 210
+                return 176 + Frame.Height.safeAeraBottomHeight
             }
             if selectedUsers.isEmpty {
                 return containerStyle.height
