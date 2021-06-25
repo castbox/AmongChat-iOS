@@ -19,6 +19,7 @@ extension Feed {
             layout.scrollDirection = .horizontal
             layout.itemSize = CGSize(width: 66, height: 94)
             layout.minimumLineSpacing = 0
+            layout.minimumLineSpacing = 12
             layout.headerReferenceSize = CGSize(width: 11, height: 0)
             let v = UICollectionView(frame: .zero, collectionViewLayout: layout)
             v.register(nibWithCellClass: FeedShareUserCell.self)
@@ -58,6 +59,14 @@ extension Feed {
             fatalError("init(coder:) has not been implemented")
         }
         
+        func bind(_ dataSource: [Entity.UserProfile]) {
+            var items = dataSource
+            if let moreItem = try? JSONDecoder().decodeAnyData(Entity.UserProfile.self, from: ["uid": 0]) {
+                items.append(moreItem)
+            }
+            self.dataSource = items
+        }
+        
         // MARK: - UICollectionViewDataSource
         
         func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -74,7 +83,8 @@ extension Feed {
         // MARK: - UICollectionViewDelegate
         
         func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-            guard let item = dataSource.safe(indexPath.item) else {
+            guard let item = dataSource.safe(indexPath.item),
+                  item.uid > 0 else {
                 return
             }
             if selectedUsers.contains(where: { $0.uid == item.uid }) {
@@ -140,6 +150,7 @@ extension Feed {
             layout.scrollDirection = .horizontal
             layout.itemSize = CGSize(width: 66, height: 75)
             layout.minimumLineSpacing = 0
+            layout.minimumLineSpacing = 12
             layout.sectionInset = .zero
             layout.headerReferenceSize = CGSize(width: 11, height: 0)
             let v = UICollectionView(frame: .zero, collectionViewLayout: layout)

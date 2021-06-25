@@ -1916,7 +1916,7 @@ extension Request {
     static func feedShareUserList(_ uids: [String]) -> Single<[Entity.UserProfile]?> {
         
         let params: [String : Any]  = [
-            "uids_dm" : uids.joined(separator: ",")
+            "uids_dm" : uids.suffix(20).joined(separator: ",")
         ]
                 
         return amongchatProvider.rx.request(.feedShareUserList(params))

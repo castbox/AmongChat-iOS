@@ -62,6 +62,8 @@ extension Feed {
         private lazy var inputBar: Feed.Share.ShareInputView = {
            let v = Feed.Share.ShareInputView()
             v.backgroundColor = .clear
+            let subviews = v.subviews
+            subviews.first(where: { $0 is GradientView })?.removeFromSuperview()
 //            v.addCorner(with: 20, corners: [.topLeft, .topRight])
             return v
         }()
@@ -154,15 +156,17 @@ extension Feed.ShareController {
     }
     
     func bindSubviewEvent() {
-        DMManager.shared.conversations()
-            .map { $0.map { $0.fromUid } }
-            .flatMap { Request.feedShareUserList($0) }
-            .subscribe(onSuccess: { [weak self] result in
-                self?.userViews.dataSource = result ?? []
-            }, onError: { error in
-                
-            })
-            .disposed(by: bag)
+        if !Settings.loginUserIsAnonymous {
+            DMManager.shared.conversations()
+                .map { $0.map { $0.fromUid } }
+                .flatMap { Request.feedShareUserList($0) }
+                .subscribe(onSuccess: { [weak self] result in
+                    self?.userViews.bind(result ?? [])
+                }, onError: { error in
+                    
+                })
+                .disposed(by: bag)            
+        }
         
         userViews.selectedUsersHandler = { [weak self] users in
             self?.selectedUsers = users

@@ -638,3 +638,4 @@
 "feed.third.share.content" = "I'm hooked on this video on AmongChat. Check it out! %@";
 "among.chat.feed.recent.chats" = "Recent Chats";
 "among.chat.feed.friends" = "Friends";
+"dm.feed.message.text" = "[Feed]";

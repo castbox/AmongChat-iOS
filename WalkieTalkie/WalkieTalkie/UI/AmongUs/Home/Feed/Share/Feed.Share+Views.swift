@@ -86,7 +86,7 @@ extension Feed.Share {
                     guard let `self` = self else { return }
                     
                     self.placeholderLabel.isHidden = hasText
-                    self.sendButton.isEnabled = hasText
+//                    self.sendButton.isEnabled = hasText
                 })
                 .disposed(by: bag)
             f.showsVerticalScrollIndicator = false
