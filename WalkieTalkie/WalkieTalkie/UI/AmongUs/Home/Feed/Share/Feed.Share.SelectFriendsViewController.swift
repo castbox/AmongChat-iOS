@@ -73,14 +73,15 @@ extension Feed.Share {
             return v
         }()
         
-        private let viewModel = ViewModel()
+        private let viewModel: ViewModel
         private let feed: Entity.Feed
         
         private weak var searchResultView: Feed.Share.SearchResultViewController?
         
         var didSharedCallback: ((Result<Void, MsgError>) -> Void)? = nil
         
-        init(with feed: Entity.Feed) {
+        init(with feed: Entity.Feed, initialSelected: [Entity.UserProfile] = []) {
+            self.viewModel = ViewModel(initialSelectedUsers: initialSelected)
             self.feed = feed
             super.init(nibName: nil, bundle: nil)
         }

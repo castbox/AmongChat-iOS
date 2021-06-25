@@ -54,7 +54,8 @@ extension Feed.Share.SelectFriendsViewController {
             return dataUpdated.asObservable().observeOn(MainScheduler.asyncInstance)
         }
         
-        init() {
+        init(initialSelectedUsers: [Entity.UserProfile]) {
+            selectedUsers = initialSelectedUsers.map({ UserViewModel(user: $0) })
             FollowingUsersManager.shared.allUsersObservable()
                 .subscribe(onNext: { [weak self] users in
                     self?.followingUsers = users
