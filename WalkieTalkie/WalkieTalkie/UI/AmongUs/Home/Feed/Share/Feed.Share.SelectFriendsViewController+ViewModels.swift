@@ -170,7 +170,7 @@ extension Feed.Share.SelectFriendsViewController {
             return Single.create { [weak self] subscriber in
                 
                 let reult = self?.followingUsers.filter {
-                    ($0.name ?? "").contains(name)
+                    ($0.name?.lowercased() ?? "").contains(name.lowercased())
                 }
                 .map {
                     UserViewModel(user: $0)
