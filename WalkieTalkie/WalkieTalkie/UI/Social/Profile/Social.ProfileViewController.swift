@@ -101,7 +101,7 @@ extension Social {
         private let segmentedBtnHeight = CGFloat(60)
         
         private lazy var pagingView: JXPagingView = {
-            let p = JXPagingView(delegate: self)
+            let p = JXPagingView(delegate: self, listContainerType: .scrollView)
             p.backgroundColor = UIColor(hex6: 0x121212)
             p.mainTableView.backgroundColor = UIColor(hex6: 0x121212)
             p.pinSectionHeaderVerticalOffset = NavigationBar.barHeight.int + Frame.Height.safeAeraTopHeight.int
