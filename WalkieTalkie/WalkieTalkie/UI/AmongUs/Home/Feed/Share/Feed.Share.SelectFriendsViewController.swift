@@ -329,10 +329,31 @@ extension Feed.Share.SelectFriendsViewController: UITableViewDelegate {
         
         switch section.sectionType {
         case .followingUsers:
-            return 22
+            return 34
         default:
-            return 75
+            return 43
         }
+    }
+    
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        return UIView()
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        
+        guard let section = viewModel.sectionModels.safe(section) else {
+            return .leastNormalMagnitude
+        }
+        
+        switch section.sectionType {
+        case .recentChats, .friends:
+            return 32
+        case .followingUsers:
+            return 16
+        case .followingPlaceholder:
+            return .leastNormalMagnitude
+        }
+        
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {

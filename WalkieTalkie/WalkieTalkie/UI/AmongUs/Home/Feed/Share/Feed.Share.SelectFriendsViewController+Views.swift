@@ -126,7 +126,7 @@ extension Feed.Share.SelectFriendsViewController {
             titleLabel.snp.makeConstraints { maker in
                 maker.leading.equalTo(icon.snp.trailing).offset(8)
                 maker.trailing.equalToSuperview().offset(-60)
-                maker.bottom.equalToSuperview().offset(-8)
+                maker.centerY.equalToSuperview()
                 maker.height.equalTo(27)
             }
             
