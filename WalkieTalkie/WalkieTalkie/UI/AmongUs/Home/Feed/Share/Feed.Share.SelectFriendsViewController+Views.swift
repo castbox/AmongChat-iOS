@@ -157,7 +157,7 @@ extension Feed.Share.SelectFriendsViewController {
             addSubviews(views: titleLabel)
             
             titleLabel.snp.makeConstraints { maker in
-                maker.leading.equalToSuperview().offset(20)
+                maker.leading.equalToSuperview().offset(23)
                 maker.trailing.equalToSuperview().offset(-60)
                 maker.bottom.equalToSuperview()
                 maker.height.equalTo(22)
