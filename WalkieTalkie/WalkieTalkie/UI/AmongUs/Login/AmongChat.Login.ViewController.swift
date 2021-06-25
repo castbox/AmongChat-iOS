@@ -181,8 +181,7 @@ extension AmongChat.Login {
             btn.setImage(R.image.ac_login_start(), for: .normal)
             btn.layer.cornerRadius = 24
             btn.backgroundColor = "#FFFC00".color()
-            btn.imageEdgeInsets = UIEdgeInsets(top: 0, left: -1, bottom: 0, right: 1)
-            btn.titleEdgeInsets = UIEdgeInsets(top: 0, left: 1, bottom: 0, right: -1)
+            btn.setImageTitleHorizontalSpace(2)
             return btn
         }()
         
