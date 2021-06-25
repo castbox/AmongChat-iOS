@@ -33,8 +33,10 @@ class ConversationListCell: UICollectionViewCell {
             contentLabel.text = R.string.localizable.dmGifText()
         case .voice:
             contentLabel.text = R.string.localizable.dmVoiceMessageText()
-        default:
-            ()
+        case .feed:
+            contentLabel.text = R.string.localizable.dmFeedMessageText()
+        case .none:
+            contentLabel.text = ""
         }
         countLabel.text = item.unreadCount.string
         countView.isHidden = item.unreadCount <= 0
