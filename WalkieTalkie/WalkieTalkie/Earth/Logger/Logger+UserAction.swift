@@ -312,6 +312,10 @@ extension Logger {
             case feeds_play_finish_progress
             case search_exclusive_alert_imp
             case search_exclusive_alert_clk
+            case feeds_share_alert_imp
+            case feeds_share_alert_item_clk
+            case feeds_share_imp
+            case feeds_share_sent
         }
         
         enum Category: String {

@@ -146,6 +146,23 @@ extension Feed {
                     return R.string.localizable.feedShareMore()
                 }
             }
+            
+            var stringValue: String {
+                switch self {
+                case .sms:
+                    return "sms"
+                case .snapchat:
+                    return "snapchat"
+                case .copyLink:
+                    return "copy"
+                case .shareLink:
+                    return "sharelink"
+                case .message:
+                    return "message"
+                case .more:
+                    return "more"
+                }
+            }
         }
         
         private lazy var shareSourcesView: UICollectionView = {

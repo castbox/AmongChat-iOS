@@ -97,6 +97,7 @@ extension Feed.Share {
             super.viewDidLoad()
             setUpLayout()
             setUpEvents()
+            Logger.Action.log(.feeds_share_imp)
         }
     }
     

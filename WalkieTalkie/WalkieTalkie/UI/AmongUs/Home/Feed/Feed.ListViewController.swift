@@ -522,6 +522,7 @@ extension Feed.ListViewController {
                 case .success(_):
                     self?.view.raft.autoShow(.text(R.string.localizable.feedShareSent()))
                     self?.onShareSuccess(with: viewModel)
+                    Logger.Action.log(.feeds_share_sent)
                 case .failure(let error):
                     self?.view.raft.autoShow(.text(error.localizedDescription))
                 }
