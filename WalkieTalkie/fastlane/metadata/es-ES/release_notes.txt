@@ -1,4 +1,4 @@
 ¡Bienvenido a la aplicación de chat de voz AmongChat!
-En esta versión, se agrega una nueva pestaña para videos de juegos. ¡Ven a compartir tus increíbles clips de juegos!
+¡El uso compartido de videos está optimizado! Ahora puede compartir directamente sus videos favoritos con sus amigos a través de mensajes dentro de la aplicación. ¡Ven a probarlo!
 Otras correcciones de errores y mejoras de rendimiento.
 Busque y chatee por voz con sus amigos, jueguen juntos y disfruten.
