@@ -442,7 +442,7 @@
 		FEAE2561262045DC001F10A9 /* BadgeHub.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEAE2560262045DC001F10A9 /* BadgeHub.swift */; };
 		FEAE256726207477001F10A9 /* AmongChat.GroupRoom.GroupRoomBaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEAE256626207477001F10A9 /* AmongChat.GroupRoom.GroupRoomBaseViewModel.swift */; };
 		FEAE256B262078D5001F10A9 /* AmongChat.GroupRoom.ViewController.Audience.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEAE256A262078D5001F10A9 /* AmongChat.GroupRoom.ViewController.Audience.swift */; };
-		FEB308F226662841006849CF /* Profile.FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB308F126662841006849CF /* Profile.FeedViewController.swift */; };
+		FEB308F226662841006849CF /* Social.ProfileFeedController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB308F126662841006849CF /* Social.ProfileFeedController.swift */; };
 		FEB308F426663C44006849CF /* Feed.RecommendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB308F326663C44006849CF /* Feed.RecommendViewController.swift */; };
 		FEB308F626673606006849CF /* Feed.ListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB308F526673606006849CF /* Feed.ListViewModel.swift */; };
 		FEB308F82667362D006849CF /* Feed.ListCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB308F72667362C006849CF /* Feed.ListCellViewModel.swift */; };
@@ -997,7 +997,7 @@
 		FEAE2560262045DC001F10A9 /* BadgeHub.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BadgeHub.swift; sourceTree = "<group>"; };
 		FEAE256626207477001F10A9 /* AmongChat.GroupRoom.GroupRoomBaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChat.GroupRoom.GroupRoomBaseViewModel.swift; sourceTree = "<group>"; };
 		FEAE256A262078D5001F10A9 /* AmongChat.GroupRoom.ViewController.Audience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChat.GroupRoom.ViewController.Audience.swift; sourceTree = "<group>"; };
-		FEB308F126662841006849CF /* Profile.FeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.FeedViewController.swift; sourceTree = "<group>"; };
+		FEB308F126662841006849CF /* Social.ProfileFeedController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Social.ProfileFeedController.swift; sourceTree = "<group>"; };
 		FEB308F326663C44006849CF /* Feed.RecommendViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Feed.RecommendViewController.swift; sourceTree = "<group>"; };
 		FEB308F526673606006849CF /* Feed.ListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Feed.ListViewModel.swift; sourceTree = "<group>"; };
 		FEB308F72667362C006849CF /* Feed.ListCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Feed.ListCellViewModel.swift; sourceTree = "<group>"; };
@@ -1404,7 +1404,7 @@
 				FE0A0F28265E217200AC9FF7 /* Feed.EmotePickerController.swift */,
 				FE0A0F2A265E21CD00AC9FF7 /* Feed.EmotePickerViewModel.swift */,
 				FEFDDBE426651F5C004FF134 /* VideoEditor.swift */,
-				FEB308F126662841006849CF /* Profile.FeedViewController.swift */,
+				FEB308F126662841006849CF /* Social.ProfileFeedController.swift */,
 				FE01704F26833A8B006AE34E /* Feed.TopicListController.swift */,
 				FE952FBE2669C76E004E2AD1 /* SZAVPlayer */,
 				FE0170492681E587006AE34E /* Feed.ShareController.swift */,
@@ -2830,7 +2830,7 @@
 				FE126D5A2434825900BEDD60 /* KeyCenter.swift in Sources */,
 				2B6B5F5225A33FC0009D028D /* AmongChat.Home.RoomJoinViewController.swift in Sources */,
 				2B956771259B5781001C7B91 /* NoDataView.swift in Sources */,
-				FEB308F226662841006849CF /* Profile.FeedViewController.swift in Sources */,
+				FEB308F226662841006849CF /* Social.ProfileFeedController.swift in Sources */,
 				FE857C4E2646B9EC008C4ADC /* Conversation.swift in Sources */,
 				FE79F371258C6C6100E9BC6C /* UIViewControllerPermissionExtension.swift in Sources */,
 				FE9BC9EB258A3ED5002F82AF /* Request.AmongChatBackend.swift in Sources */,
