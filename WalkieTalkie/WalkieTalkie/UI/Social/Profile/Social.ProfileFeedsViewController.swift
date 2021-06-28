@@ -252,7 +252,7 @@ extension Social.ProfileFeedsViewController: UICollectionViewDelegate {
                 
                 let liveIdx = liveFeeds.firstIndex { $0.pid == feed.pid } ?? 0
                 let vc = Social.ProfileFeedController(with: uid, dataSource: liveFeeds, index: liveIdx)
-                UIApplication.navigationController?.pushViewController(vc)
+                UIApplication.topViewController()?.navigationController?.pushViewController(vc)
             }
         }
     }
