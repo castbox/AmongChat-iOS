@@ -111,30 +111,29 @@ extension Social {
         }
         
         override func loadMore() {
-//            let removeBlock = view.raft.show(.loading)
-            //exclutepids
-            guard style == .default,
-                  hasMore else {
+            guard style == .default, hasMore,
+                  let createTime = feedsDataSource.last?.feed.createTime else {
                 return
             }
+
             isLoadingMore = true
-            let maxIndex = dataSource.count - 1
-//            cdPrint("excludePid: \(excludePids)")
-            Request.userFeeds(uid, skipMs: dataSource.count.int64) //Settings.loginUserId
+            Request.userFeeds(uid, skipMs: createTime) //Settings.loginUserId
                 .do(onDispose: { [weak self] in
                     self?.isLoadingMore = false
-//                    removeBlock()
                 })
                 .delay(.fromSeconds(0.2), scheduler: MainScheduler.asyncInstance)
                 .subscribe(onSuccess: { [weak self] data in
                     guard let `self` = self else { return }
                     var source = data.list.map { Feed.ListCellViewModel(feed: $0) }
                     self.hasMore = source.count >= 10
+                    
+                    guard !source.isEmpty else { return }
                     source.insert(contentsOf: self.feedsDataSource, at: 0)
                     self.feedsDataSource = source
                     //insert datasource
                     let rows = self.tableView.numberOfRows(inSection: 0)
                     let newRow = self.dataSource.count
+                    guard newRow > rows else { return }
                     self.tableView.isPagingEnabled = false
                     let indexPaths = Array(rows..<newRow).map({ IndexPath(row: $0, section: 0) })
                     self.tableView.beginUpdates()

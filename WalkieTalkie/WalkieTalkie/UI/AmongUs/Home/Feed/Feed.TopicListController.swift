@@ -91,20 +91,21 @@ extension Feed {
         }
         
         override func loadMore() {
-            guard hasMore else { return }
+            guard hasMore, let createTime = feedsDataSource.last?.feed.createTime else {
+                return
+            }
             isLoadingMore = true
             
-            let maxIndex = dataSource.count - 1
-            Request.topicFeeds(topic ?? "", exclude: [], skipMs: dataSource.count.int64)
+            Request.topicFeeds(topic ?? "", exclude: [], skipMs: createTime)
                 .do(onDispose: { [weak self] in
                     self?.isLoadingMore = false
-//                    removeBlock()
                 })
                 .delay(.fromSeconds(0.2), scheduler: MainScheduler.asyncInstance)
                 .subscribe(onSuccess: { [weak self] data in
                     guard let `self` = self else { return }
                     var source = data.map { Feed.ListCellViewModel(feed: $0) }
                     self.hasMore = source.count >= 20
+                    guard !source.isEmpty else { return }
                     source.insert(contentsOf: self.feedsDataSource, at: 0)
                     self.feedsDataSource = source
                     //insert datasource
