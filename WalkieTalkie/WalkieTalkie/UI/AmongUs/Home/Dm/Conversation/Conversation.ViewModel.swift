@@ -18,7 +18,7 @@ extension Conversation {
      
      */
     class ViewModel {
-        private var conversation: Entity.DMConversation
+        let targetUid: String
         
 //        var dataSource: [MessageCellViewModel] {
 //            get { dataSourceReplay.value }
@@ -34,9 +34,9 @@ extension Conversation {
         
         private var downloadTasks: [String: Entity.DMMessage] = [:]
         
-        var targetUid: String {
-            conversation.fromUid
-        }
+//        var targetUid: String {
+//            conversation.fromUid
+//        }
         
         var loginUserDmProfile: Entity.DMProfile {
             Settings.loginUserProfile!.dmProfile
@@ -47,10 +47,10 @@ extension Conversation {
         }
         
         
-        init(_ conversation: Entity.DMConversation) {
-            self.conversation = conversation
+        init(_ targetUid: String) {
+            self.targetUid = targetUid
             
-            let uid = conversation.fromUid
+//            let uid = conversation.fromUid
             
 //            DMManager.shared.observableMessages(for: uid)
 //                .startWith(())
@@ -94,7 +94,7 @@ extension Conversation {
             return DMManager.shared.messages(for: targetUid, limit: limit, offset: offset)
                 .map { [weak self] items -> [MessageCellViewModel] in
                     guard let `self` = self else { return [] }
-                    _ = DMManager.shared.clearUnreadCount(with: self.conversation)
+                    _ = DMManager.shared.clearUnreadCount(with: self.targetUid)
                         .subscribe()
                     return items.reversed().map { message -> MessageCellViewModel in
                         self.downloadFileIfNeed(for: message)
@@ -126,7 +126,7 @@ extension Conversation {
             return DMManager.shared.messages(for: targetUid, limit: limit, offset: offset)
                 .map { [weak self] items -> [MessageCellViewModel] in
                     guard let `self` = self else { return [] }
-                    _ = DMManager.shared.clearUnreadCount(with: self.conversation)
+                    _ = DMManager.shared.clearUnreadCount(with: self.targetUid)
                         .subscribe()
                     return items.reversed().map { message -> MessageCellViewModel in
                         self.downloadFileIfNeed(for: message)
@@ -172,30 +172,11 @@ extension Conversation {
                 return nil
             }
             
-            var messageBody = Entity.DMMessageBody(type: .voice, url: "", duration: duration.double, localRelativePath: FileManager.relativePath(of: filePath))
-            var message = Entity.DMMessage(body: messageBody, relation: 1, fromUid: self.targetUid, unread: false, fromUser: self.loginUserDmProfile, status: .sending)
+            let messageBody = Entity.DMMessageBody(type: .voice, url: "", duration: duration.double, localRelativePath: FileManager.relativePath(of: filePath))
+            let message = Entity.DMMessage(body: messageBody, relation: 1, fromUid: self.targetUid, unread: false, fromUser: self.loginUserDmProfile, status: .sending)
             return message
         }
         
-//        func sendVoice(message: Entity.DMMessage) -> Single<Bool> {
-//            guard let localAbsolutePath = message.body.localAbsolutePath, FileManager.default.fileExists(atPath: localAbsolutePath) else {
-//                return .error(MsgError(.sendDmError))
-//            }
-////
-////            var messageBody = Entity.DMMessageBody(type: .voice, url: "", duration: duration.double, localRelativePath: FileManager.relativePath(of: filePath))
-////            var message = Entity.DMMessage(body: messageBody, relation: 1, fromUid: self.targetUid, unread: false, fromUser: self.loginUserDmProfile, status: .sending)
-////            insertOrReplace(message: message)
-////            var message
-//            return IMManager.shared.getMediaId(with: filePath)
-//                .flatMap { [weak self] mediaId in
-//                    guard let `self` = self, let mediaId = mediaId else {
-//                        return .error(MsgError(.sendDmError))
-//                    }
-//                    messageBody.url = mediaId
-//                    message.body = messageBody
-//                    return self.sendMessage(message)
-//                }
-//        }
         
         func sendMessage(_ text: String) -> Single<Bool> {
             guard let profile = Settings.loginUserProfile?.dmProfile else {
@@ -207,11 +188,11 @@ extension Conversation {
         }
 
         func sendGif(_ media: Giphy.GPHMedia) -> Single<Bool> {
-            guard let profile = Settings.loginUserProfile?.dmProfile, let url = media.gifUrl else {
+            guard let url = media.gifUrl else {
                 return .error(MsgError(.sendDmError))
             }
             let messageBody = Entity.DMMessageBody(type: .gif, img: url.absoluteString, imageWidth: media.imageWidth, imageHeight: media.imageHeight)
-            let message = Entity.DMMessage(body: messageBody, relation: 1, fromUid: targetUid, unread: false, fromUser: profile, status: .sending)
+            let message = Entity.DMMessage(body: messageBody, relation: 1, fromUid: targetUid, unread: false, fromUser: loginUserDmProfile, status: .sending)
             return sendMessage(message)
         }
 
@@ -234,7 +215,19 @@ extension Conversation {
                     return self.sendMessage(message)
                 }
         }
-//
+
+        func sendFeedMessage(with feed: Entity.Feed, text: String, isSuccess: Bool) {
+            let feedMessageBody = Entity.DMMessageBody(type: .feed, img: feed.img.absoluteString, imageWidth: feed.widthValue.double, imageHeight: feed.heightValue.double, link: "/feeds/"+feed.pid)
+            let feedMessage = Entity.DMMessage(body: feedMessageBody, relation: 1, fromUid: targetUid, unread: false, fromUser: loginUserDmProfile, status: isSuccess ? .success : .failed)
+            update(message: feedMessage, action: .add)
+            
+            if !text.isEmpty {
+                let textMessageBody = Entity.DMMessageBody(type: .text, url: nil, duration: nil, text: text)
+                let textMessage = Entity.DMMessage(body: textMessageBody, relation: 1, fromUid: targetUid, unread: false, fromUser: loginUserDmProfile, status: isSuccess ? .success : .failed)
+                update(message: textMessage, action: .add)
+            }
+        }
+        
         func sendMessage(_ message: Entity.DMMessage, action: DMManager.MessageUpdateAction = .add) -> Single<Bool> {
             var message = message
             if message.status != .sending {

@@ -142,8 +142,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         else if ApplicationDelegate.shared.application(app, open: url, sourceApplication: options[UIApplication.OpenURLOptionsKey.sourceApplication] as? String, annotation: options[UIApplication.OpenURLOptionsKey.annotation]) {
             return true
         }
-        let result = FireLink.handle(dynamicLink: url) { [weak self] url in
-            cdPrint("handle dynamicLink url: \(String(describing: url))")
+        let result = FireLink.handle(dynamicLink: url) { url, error  in
+            cdPrint("handle dynamicLink url: \(String(describing: url)) error: \(error)")
             guard let url = url else {
                 return
             }
@@ -165,8 +165,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 return Routes.handle(url)
             }
             
-            let result = FireLink.handle(dynamicLink: url) { [weak self] url in
-                cdPrint("url: \(String(describing: url))")
+            let result = FireLink.handle(dynamicLink: url) { url, error in
+                cdPrint("handle dynamicLink url: \(String(describing: url)) error: \(error)")
                 guard let url = url else {
                     return
                 }

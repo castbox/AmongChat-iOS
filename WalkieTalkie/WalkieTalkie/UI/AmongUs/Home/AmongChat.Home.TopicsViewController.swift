@@ -56,6 +56,9 @@ extension AmongChat.Home {
             get { Defaults[\.amongChatEnterRoomTopicHistory] }
             set { Defaults[\.amongChatEnterRoomTopicHistory] = newValue }
         }
+        
+        //previous app terminate
+        private var previousTopicHistory: [String] = []
                 
         private lazy var topicsDataSource: [TopicViewModel] = [] {
             didSet {
@@ -91,7 +94,7 @@ extension AmongChat.Home.TopicsViewController {
     
     private func updateTopics(_ dataSource: [TopicViewModel]) {
         var topicList = dataSource
-        if enterTopicHistory.isEmpty {
+        if previousTopicHistory.isEmpty {
             //首次按照是否安装 & 人数 排序
             let installedTopics = InstalledChecker.default.installedAppReplay.value
                 .compactMap { $0.topicId }
@@ -105,10 +108,11 @@ extension AmongChat.Home.TopicsViewController {
             array.forEach { item in
                 updateEnterTopicHistory(with: item.topic.topicId)
             }
+            previousTopicHistory = enterTopicHistory
             topicsDataSource = topicList
         } else {
             //sorted
-            var sortedList = enterTopicHistory.map { topicId -> TopicViewModel? in
+            var sortedList = previousTopicHistory.map { topicId -> TopicViewModel? in
                 let item = topicList.first(where: { $0.topic.topicId == topicId })
                 topicList.removeFirst(where: { $0.topic.topicId == topicId })
                 return item
@@ -147,6 +151,8 @@ extension AmongChat.Home.TopicsViewController {
     
     private func setupEvent() {
         //cache
+        previousTopicHistory = enterTopicHistory
+        
         updateTopics(Settings.shared.amongChatHomeSummary.value?.topicList.map({ TopicViewModel(with: $0) }) ?? [])
         
         Observable.combineLatest(

@@ -447,6 +447,13 @@ extension Request {
                 }
                 DMManager.shared.update(profile: profile.dmProfile)
             })
+            .do(onSuccess: { item in
+                guard let profile = item?.profile else {
+                    return
+                }
+                
+                let _ = FollowingUsersManager.shared.updateUser(profile).subscribe()
+            })
 
     }
     
@@ -456,6 +463,15 @@ extension Request {
         return amongchatProvider.rx.request(.follow(paras))
             .mapJSON()
             .mapToDataKeyJsonValue()
+            .do(onSuccess: { json in
+                guard type == "follow" else { return }
+                
+                guard let userJson = json["user"],
+                      let user = JSONDecoder().mapTo(Entity.UserProfile.self, from: userJson) else { return }
+                
+                let _ = FollowingUsersManager.shared.addUsers([user]).subscribe()
+                
+            })
             .mapToProcessedValue()
             .observeOn(MainScheduler.asyncInstance)
     }
@@ -466,6 +482,10 @@ extension Request {
             .mapJSON()
             .mapToDataKeyJsonValue()
             .mapToProcessedValue()
+            .do(onSuccess: { success in
+                guard success, type == "follow" else { return }
+                let _ = FollowingUsersManager.shared.removeUser(uid).subscribe()
+            })
             .observeOn(MainScheduler.asyncInstance)
     }
     
@@ -497,14 +517,30 @@ extension Request {
             .observeOn(MainScheduler.asyncInstance)
     }
     
-    static func followingList(uid: Int, skipMs: Double) -> Single<Entity.FollowData?> {
+    static func followingList(uid: Int, limit: Int = 20, skipMs: Double) -> Single<Entity.FollowData> {
         
-        let paras = ["relation_type": "follow", "uid": uid,
-                     "limit": limit, "skip_ms": skipMs] as [String : Any]
+        let paras: [String : Any] = [
+            "relation_type": "follow",
+            "uid": uid,
+            "limit": limit,
+            "skip_ms": skipMs,
+            "with_follower" : 1
+        ]
+        
         return amongchatProvider.rx.request(.followingList(paras))
             .mapJSON()
             .mapToDataKeyJsonValue()
             .mapTo(Entity.FollowData.self)
+            .map({
+                guard let data = $0 else {
+                    throw MsgError.default
+                }
+                return data
+            })
+            .do(onSuccess: { data in
+                guard uid.isSelfUid else { return }
+                let _ = FollowingUsersManager.shared.addUsers(data.list).subscribe()
+            })
             .observeOn(MainScheduler.asyncInstance)
     }
     
@@ -1839,7 +1875,7 @@ extension Request {
     
     static func deleteComment(_ cid: String) -> Single<Bool> {
         
-        let params: [String : Any]  = [
+        let params: [String : Any] = [
             "cid" : cid
         ]
                 
@@ -1852,7 +1888,7 @@ extension Request {
     
     static func claimWelfare(code: String) -> Single<Bool> {
         
-        let params: [String : Any]  = [
+        let params: [String : Any] = [
             "code" : code
         ]
                 
@@ -1875,5 +1911,65 @@ extension Request {
             .mapToDataKeyJsonValue()
             .mapToProcessedValue()
             .observeOn(MainScheduler.asyncInstance)
+    }
+    
+    static func feedShareUserList(_ uids: [String]) -> Single<[Entity.UserProfile]?> {
+        
+        let params: [String : Any]  = [
+            "uids_dm" : uids.suffix(20).joined(separator: ",")
+        ]
+                
+        return amongchatProvider.rx.request(.feedShareUserList(params))
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .mapToListJson()
+            .mapTo([Entity.UserProfile].self)
+            .observeOn(MainScheduler.asyncInstance)
+    }
+    
+    static func feedShareToUser(_ feed: Entity.Feed, uids: [Entity.UserProfile], text: String) -> Single<Entity.FeedShareResult?> {
+        
+        let params: [String : Any] = [
+            "pid": feed.pid,
+            "uids": uids.map { $0.uid },
+            "text": text
+        ]
+                
+        return amongchatProvider.rx.request(.feedShareToUser(params))
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .mapTo(Entity.FeedShareResult.self)
+            .observeOn(MainScheduler.asyncInstance)
+            .flatMap { result -> Single<Entity.FeedShareResult?> in
+                guard let result = result else {
+                    return .just(result)
+                }
+                let userIds = result.uids + result.uidsBlock
+                
+                let conversationSingles = userIds.compactMap { uid -> Entity.DMProfile? in
+                    uids.first(where: { $0.uid.int64 == uid })?.dmProfile
+                }
+                .map { profile -> Single<Entity.DMConversation?> in
+                    //创建 conversation
+                    return DMManager.shared.queryConversation(fromUid: profile.uid.string)
+                        .flatMap { conversation -> Single<Entity.DMConversation?> in
+                            guard conversation == nil else {
+                                return .just(conversation)
+                            }
+                            return DMManager.shared.add(message: Entity.DMMessage.emptyMessage(for: profile), action: .add)
+                                .flatMap { DMManager.shared.queryConversation(fromUid: profile.uid.string) }
+                        }
+                    
+                }
+                return Single.zip(conversationSingles)
+                    .do(onSuccess: { items in
+                        items.compactMap { $0?.fromUid}
+                            .map { Conversation.ViewModel($0) }
+                            .forEach { $0.sendFeedMessage(with: feed, text: text, isSuccess: result.uids.contains($0.targetUid.int64Value))
+                            }
+                    })
+                    .flatMap { _ in .just(result)}
+            }
+            .delay(.fromSeconds(0.2), scheduler: MainScheduler.asyncInstance)
     }
 }

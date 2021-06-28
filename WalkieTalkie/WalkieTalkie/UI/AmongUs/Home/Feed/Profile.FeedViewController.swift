@@ -188,6 +188,14 @@ extension Social {
             playCountView.fadeOut(duration: 0.2)
         }
         
+        override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+            super.tableView(tableView, willDisplay: cell, forRowAt: indexPath)
+            
+            if !isLoadingMore, dataSource.count - currentIndex < 5 {
+                loadMore()
+            }
+        }
+        
         override func bindSubviewEvent() {
             super.bindSubviewEvent()
             

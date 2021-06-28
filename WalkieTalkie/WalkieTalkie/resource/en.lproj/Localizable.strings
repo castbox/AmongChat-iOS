@@ -615,7 +615,7 @@
 
 "social.profile.chat.anonymous.user.tips" = "Sorry, this user is anonymous and cannot receive messages.";
 
-//21.06.11
+//1.24.0
 "among.chat.login.auth.source.upload.avatar" = "upload your avatar";
 "among.chat.clear.cache" = "Clear Cache";
 "among.chat.contact.us" = "Contact Us";
@@ -623,3 +623,20 @@
 "among.chat.clear" = "Clear";
 "among.chat.clearing" = "Clearing";
 "feed.remove.ads" = "Remove Ads";
+
+//1.25.0
+"among.chat.send" = "Send";
+"feed.share.with" = "Share with";
+"feed.share.message" = "Message";
+"feed.share.more" = "More";
+"feed.share.user.selected.reach.max" = "Please select a maximum of 10 people at a time";
+"feed.share.to.anonymous.user.tips" = "Anonymous users have been selected, but they could not receive messages.";
+"feed.share.sent" = "Sent";
+"feed.share.send.failed" = "Failed to send";
+"room.play.video.tips" = "Are you sure you want to leave the channel and watch the video?";
+"dm.send.failed.by.blocked" = "Message could not be sent, as you've been blocked by the recipient.";
+"feed.third.share.content" = "I'm hooked on this video on AmongChat. Check it out! %@";
+"among.chat.feed.recent.chats" = "Recent Chats";
+"among.chat.feed.friends" = "Friends";
+"dm.feed.message.text" = "[Video]";
+"Loading" = "Loading";

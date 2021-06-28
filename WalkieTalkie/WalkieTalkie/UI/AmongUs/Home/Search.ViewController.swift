@@ -65,11 +65,11 @@ extension Search {
         }
         
         override func leftViewRect(forBounds bounds: CGRect) -> CGRect {
-            return CGRect(x: 12, y: 6, width: 24, height: 24)
+            return CGRect(x: 12, y: (bounds.height - 24) / 2, width: 24, height: 24)
         }
         
         override func rightViewRect(forBounds bounds: CGRect) -> CGRect {
-            return CGRect(x: bounds.width - 12 - 24, y: 6, width: 24, height: 24)
+            return CGRect(x: bounds.width - 12 - 24, y: (bounds.height - 24) / 2, width: 24, height: 24)
         }
         
         override func editingRect(forBounds bounds: CGRect) -> CGRect {

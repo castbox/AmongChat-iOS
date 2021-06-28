@@ -16,10 +16,12 @@ extension FansGroup.Views {
     class ShareBar: UIView, UICollectionViewDataSource, UICollectionViewDelegate {
         
         enum ShareSource {
+//            case message
             case sms
             case snapchat
             case copyLink
             case shareLink
+            case tiktok
             
             var icon: UIImage? {
                 switch self {
@@ -31,6 +33,8 @@ extension FansGroup.Views {
                     return R.image.ac_room_copylink()
                 case .shareLink:
                     return R.image.icon_social_share_link()
+                case .tiktok:
+                    return R.image.icon_social_tiktok()
                 }
             }
             
@@ -44,6 +48,8 @@ extension FansGroup.Views {
                     return R.string.localizable.socialCopyLink()
                 case .shareLink:
                     return R.string.localizable.socialShareLink()
+                case .tiktok:
+                    return "TikTok"
                 }
             }
             
@@ -57,6 +63,8 @@ extension FansGroup.Views {
                     return "copy"
                 case .shareLink:
                     return "sharelink"
+                case .tiktok:
+                    return "tiktok"
                 }
             }
         }
@@ -80,9 +88,9 @@ extension FansGroup.Views {
         private lazy var shareSources: [ShareSource] = {
             
             if MFMessageComposeViewController.canSendText() {
-                return [.sms, .snapchat, .copyLink, .shareLink]
+                return [.sms, .snapchat, .tiktok, .copyLink, .shareLink]
             } else {
-                return [.snapchat, .copyLink, .shareLink]
+                return [.snapchat, .tiktok, .copyLink, .shareLink]
             }
             
         }()

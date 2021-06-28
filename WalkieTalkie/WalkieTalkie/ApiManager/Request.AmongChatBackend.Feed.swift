@@ -204,4 +204,50 @@ extension Request {
             .observeOn(MainScheduler.asyncInstance)
         
     }
+    
+    
+    static func feed(with pid: String) -> Single<Entity.Feed> {
+        
+        let params: [String : Any] = [
+            "pid" : pid,
+        ]
+        
+        return amongchatProvider.rx.request(.feedPostPage(params))
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .mapTo(Entity.FeedRedirectInfo.self)
+            .map({
+                guard let r = $0 else {
+                    throw MsgError.default
+                }
+                return r.post
+            })
+            .observeOn(MainScheduler.asyncInstance)
+        
+    }
+    
+    static func topicFeeds(_ topic: String,
+                           exclude: [String],
+                          limit: Int = 20,
+                          skipMs: Int64 = 0) -> Single<[Entity.Feed]> {
+        
+        let params: [String : Any] = [
+            "topic": topic,
+            "exclude_pids": exclude.joined(separator: ","),
+            "limit" : limit,
+            "skip_ms" : skipMs
+        ]
+        return amongchatProvider.rx.request(.topicFeeds(params))
+            .mapJSON()
+            .mapToDataKeyListValue()
+            .mapTo([Entity.Feed].self)
+            .map({
+                guard let r = $0 else {
+                    throw MsgError.default
+                }
+                return r
+            })
+            .observeOn(MainScheduler.asyncInstance)
+        
+    }
 }

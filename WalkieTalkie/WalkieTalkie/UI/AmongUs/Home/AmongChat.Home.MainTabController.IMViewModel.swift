@@ -74,6 +74,15 @@ extension AmongChat.Home.MainTabController {
                 Settings.shared.hasUnreadNoticeRelay.accept(true)
             case .unreadInteractiveMsg:
                 Settings.shared.hasUnreadInteractiveMsgRelay.accept(true)
+                
+            case .backFollow:
+                
+                guard let followMsg = message as? Peer.BackFollowMessge else {
+                    return
+                }
+                
+                let _ = FollowingUsersManager.shared.updateUser(followMsg.user).subscribe()
+                
             default:
                 ()
             }

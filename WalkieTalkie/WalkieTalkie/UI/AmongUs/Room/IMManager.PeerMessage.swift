@@ -34,6 +34,7 @@ extension Peer {
         case unreadGroupApply = "AC:PEER:UnreadGroupApply"
         case unreadInteractiveMsg = "AC:PEER:UnreadInteractiveMsg"
         case dm = "AC:PEER:Dm"
+        case backFollow = "AC:PEER:BackFollow"
     }
     
     struct UnreadNotice: PeerMessage {
@@ -224,4 +225,17 @@ extension Peer.SystemMessage.ContentType {
         }
     }
     
+}
+
+extension Peer {
+    
+    struct BackFollowMessge: PeerMessage {
+        var msgType: Peer.MessageType
+        var user: Entity.UserProfile
+        private enum CodingKeys: String, CodingKey {
+            case user
+            case msgType = "message_type"
+        }
+    }
+
 }

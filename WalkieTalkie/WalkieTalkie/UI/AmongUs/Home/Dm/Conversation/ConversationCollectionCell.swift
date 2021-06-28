@@ -22,6 +22,7 @@ class ConversationCollectionCell: UICollectionViewCell {
         case resend(Entity.DMMessage)
         case user(Int64)
         case clickVoiceMessage(Entity.DMMessage)
+//        case link(String)
     }
     
     private lazy var container: UIView = {
@@ -108,6 +109,27 @@ class ConversationCollectionCell: UICollectionViewCell {
         return v
     }()
     
+    private lazy var feedImageView: UIImageView = {
+        let i = UIImageView(frame: CGRect(x: 20, y: 0, width: 32, height: 32))
+        i.cornerRadius = 12
+        i.clipsToBounds = true
+        i.contentMode = .scaleAspectFill
+        i.isUserInteractionEnabled = true
+        i.rx.tapGesture()
+            .subscribe(onNext: { [weak self] _ in
+                guard let `self` = self, let uid = self.viewModel?.message.fromUser.uid else { return }
+//                self.actionHandler?(.feeds(viewModel?.message.body.link))
+            })
+            .disposed(by: bag)
+        
+        let playIcon = UIImageView(image: R.image.iconDmPlayFeed())
+        i.addSubview(playIcon)
+        playIcon.snp.makeConstraints { maker in
+            maker.center.equalToSuperview()
+        }
+        return i
+    }()
+    
     private lazy var voicePlayIndiator: SVGAPlayer = {
         let player = SVGAPlayer(frame: .zero)
         player.clearsAfterStop = true
@@ -168,11 +190,13 @@ class ConversationCollectionCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setUpLayout()
+        bindSubviewEvent()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         setUpLayout()
+        bindSubviewEvent()
     }
     
     func bind(_ viewModel: Conversation.MessageCellViewModel) {
@@ -213,6 +237,7 @@ class ConversationCollectionCell: UICollectionViewCell {
             voiceTagView.isHidden = true
             textContainer.isHidden = false
             gifImageView.isHidden = true
+            feedImageView.isHidden = true
         case .gif:
             gifImageView.size = viewModel.contentSize
             container.height = gifImageView.size.height
@@ -246,6 +271,42 @@ class ConversationCollectionCell: UICollectionViewCell {
             messageTextLabel.isHidden = true
             textContainer.isHidden = true
             gifImageView.isHidden = false
+            feedImageView.isHidden = true
+        case .feed:
+            feedImageView.size = viewModel.contentSize
+            container.height = feedImageView.size.height
+            if viewModel.sendFromMe {
+                avatarImageView.right = Frame.Screen.width - avatarLeftEdge
+                feedImageView.right = Frame.Screen.width - contentLeftEdge
+                statusView.right = feedImageView.left - 8
+                statusView.centerY = feedImageView.centerY
+                indicatorView.center = statusView.center
+                feedImageView.setImage(with: msg.body.img)
+            } else {
+                avatarImageView.left = avatarLeftEdge
+                feedImageView.left = contentLeftEdge
+                statusView.left = feedImageView.right + 8
+                statusView.centerY = statusView.centerY
+                feedImageView.setImage(with: msg.body.img)
+//                indicatorView.center = feedImageView.center
+//                indicatorView.startAnimating()
+//                feedImageView.setImage(with: msg.body.img, completionHandler: { [weak self] result in
+//                    self?.indicatorView.stopAnimating()
+//                    switch result {
+//                    case .failure:
+//                        self?.feedImageView.image = R.image.iconDmGifLoadFailed()
+//                    default:
+//                        ()
+//                    }
+//                })
+            }
+            voiceDurationLabel.isHidden = false
+            voicePlayIndiator.isHidden = true
+            voiceTagView.isHidden = true
+            messageTextLabel.isHidden = true
+            textContainer.isHidden = true
+            feedImageView.isHidden = false
+            gifImageView.isHidden = true
         case .voice:
             textContainer.size = viewModel.contentSize
             voiceDurationLabel.text = "\(viewModel.message.body.duration?.int ?? 0)″"
@@ -284,6 +345,7 @@ class ConversationCollectionCell: UICollectionViewCell {
             textContainer.isHidden = false
             messageTextLabel.isHidden = true
             gifImageView.isHidden = true
+            feedImageView.isHidden = true
         case .none:
             ()
         }
@@ -386,12 +448,21 @@ class ConversationCollectionCell: UICollectionViewCell {
         actionHandler?(.resend(viewModel.message))
     }
     
+    private func bindSubviewEvent() {
+        feedImageView.rx.tapGesture()
+            .when(.recognized)
+            .subscribe(onNext: { [weak self] _ in
+                Routes.handle(self?.viewModel?.message.body.link)
+            })
+            .disposed(by: bag)
+    }
+    
     private func setUpLayout() {
         backgroundColor = .clear
         contentView.backgroundColor = .clear
         
         contentView.addSubviews(views: container, timeLabel)
-        container.addSubviews(views: avatarImageView, textContainer, gifImageView, statusView, indicatorView, unreadView)
+        container.addSubviews(views: avatarImageView, textContainer, gifImageView, feedImageView, statusView, indicatorView, unreadView)
     }
 }
 

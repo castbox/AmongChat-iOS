@@ -41,6 +41,8 @@ class ConversationTableCell: UITableViewCell {
             contentLabel.text = msg.body.text
         case .gif:
             contentLabel.text = R.string.localizable.dmGifText()
+        case .feed:
+            contentLabel.text = R.string.localizable.dmFeedMessageText()
         case .voice:
             contentLabel.text = R.string.localizable.dmVoiceMessageText()
         default:

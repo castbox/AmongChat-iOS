@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Nunito-ExtraBold.ttf">
+            <string>Nunito-ExtraBold</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="FeedShareUserCell" customModule="WalkieTalkie" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="66" height="94"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="66" height="94"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hUO-EM-gRD" customClass="AvatarImageView" customModule="WalkieTalkie" customModuleProvider="target">
+                        <rect key="frame" x="9" y="0.0" width="48" height="48"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="48" id="XJD-1q-O81"/>
+                            <constraint firstAttribute="height" constant="48" id="qht-t2-FFe"/>
+                        </constraints>
+                    </view>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="STQ-61-FV7">
+                        <rect key="frame" x="0.0" y="56" width="66" height="19.5"/>
+                        <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito" pointSize="14"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="highlightedColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </label>
+                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EjS-Cx-dmm">
+                        <rect key="frame" x="5" y="77" width="56" height="16"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="online" translatesAutoresizingMaskIntoConstraints="NO" id="CL6-sk-91W">
+                                <rect key="frame" x="0.0" y="0.0" width="16" height="16"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Online" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="weR-BA-2tY">
+                                <rect key="frame" x="18" y="-2" width="43" height="20"/>
+                                <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito" pointSize="14"/>
+                                <color key="textColor" red="0.53725490200000003" green="0.53725490200000003" blue="0.53725490200000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="xibLocKey" value="social.status.online"/>
+                                </userDefinedRuntimeAttributes>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="weR-BA-2tY" firstAttribute="centerY" secondItem="EjS-Cx-dmm" secondAttribute="centerY" id="E9S-o3-IPw"/>
+                            <constraint firstAttribute="height" constant="16" id="XGF-iL-l1k"/>
+                            <constraint firstItem="CL6-sk-91W" firstAttribute="top" secondItem="EjS-Cx-dmm" secondAttribute="top" id="bu6-HM-m7U"/>
+                            <constraint firstItem="CL6-sk-91W" firstAttribute="leading" secondItem="EjS-Cx-dmm" secondAttribute="leading" id="eF1-1b-UNb"/>
+                            <constraint firstItem="weR-BA-2tY" firstAttribute="leading" secondItem="CL6-sk-91W" secondAttribute="trailing" constant="2" id="s9F-eZ-PmD"/>
+                        </constraints>
+                    </view>
+                </subviews>
+            </view>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <constraints>
+                <constraint firstItem="STQ-61-FV7" firstAttribute="top" secondItem="hUO-EM-gRD" secondAttribute="bottom" constant="8" id="2Rm-5c-TEk"/>
+                <constraint firstItem="STQ-61-FV7" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="BZu-cI-cGI"/>
+                <constraint firstAttribute="bottom" secondItem="EjS-Cx-dmm" secondAttribute="bottom" constant="1" id="CLK-Bd-K8R"/>
+                <constraint firstAttribute="trailing" secondItem="STQ-61-FV7" secondAttribute="trailing" id="DYZ-P0-Qs8"/>
+                <constraint firstItem="hUO-EM-gRD" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="XKN-S1-e6h"/>
+                <constraint firstAttribute="trailing" secondItem="EjS-Cx-dmm" secondAttribute="trailing" constant="5" id="dFJ-wL-2cV"/>
+                <constraint firstItem="EjS-Cx-dmm" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="5" id="dJn-05-1yX"/>
+                <constraint firstItem="hUO-EM-gRD" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="lXx-YE-SbV"/>
+            </constraints>
+            <connections>
+                <outlet property="avatarView" destination="hUO-EM-gRD" id="WqN-qZ-18k"/>
+                <outlet property="nameLabel" destination="STQ-61-FV7" id="vb1-HC-N4X"/>
+                <outlet property="onlineView" destination="EjS-Cx-dmm" id="xNb-E7-i7N"/>
+            </connections>
+            <point key="canvasLocation" x="137.68115942028987" y="143.97321428571428"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="online" width="16" height="16"/>
+    </resources>
+</document>

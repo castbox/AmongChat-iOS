@@ -63,11 +63,11 @@ extension Social {
         }()
         
         private lazy var options: [Option] = {
-            if uid.isSelfUid {
-                return [.feed, .tiktok]
-            } else {
+//            if uid.isSelfUid {
+//                return [.feed]
+//            } else {
                 return [.feed]
-            }
+//            }
         }()
         
         private lazy var feeds = [Entity.Feed]() {

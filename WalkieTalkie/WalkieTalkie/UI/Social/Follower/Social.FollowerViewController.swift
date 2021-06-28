@@ -112,12 +112,12 @@ extension Social {
                 Request.followingList(uid: uid, skipMs: 0)
                     .subscribe(onSuccess: { [weak self](data) in
                         removeBlock()
-                        guard let `self` = self, let data = data else { return }
-                        self.userList = data.list ?? []
+                        guard let `self` = self else { return }
+                        self.userList = data.list
                         if self.userList.isEmpty {
                             self.addNoDataView(R.string.localizable.errorNoFollowing())
                         }
-                        self.tableView.endLoadMore(data.more ?? false)
+                        self.tableView.endLoadMore(data.more)
                     }, onError: { [weak self](error) in
                         removeBlock()
                         self?.addErrorView({ [weak self] in
@@ -130,11 +130,11 @@ extension Social {
                     .subscribe(onSuccess: { [weak self](data) in
                         removeBlock()
                         guard let `self` = self, let data = data else { return }
-                        self.userList = data.list ?? []
+                        self.userList = data.list
                         if self.userList.isEmpty {
                             self.addNoDataView(R.string.localizable.errorNoFollowers())
                         }
-                        self.tableView.endLoadMore(data.more ?? false)
+                        self.tableView.endLoadMore(data.more)
                     }, onError: { [weak self](error) in
                         removeBlock()
                         self?.addErrorView({ [weak self] in
@@ -150,12 +150,11 @@ extension Social {
             if isFollowing {
                 Request.followingList(uid: uid, skipMs: skipMS)
                     .subscribe(onSuccess: { [weak self](data) in
-                        guard let data = data else { return }
-                        let list =  data.list ?? []
+                        let list =  data.list
                         var origenList = self?.userList
                         list.forEach({ origenList?.append($0)})
                         self?.userList = origenList ?? []
-                        self?.tableView.endLoadMore(data.more ?? false)
+                        self?.tableView.endLoadMore(data.more)
                     }, onError: { (error) in
                         cdPrint("followingList error: \(error.localizedDescription)")
                     }).disposed(by: bag)
@@ -163,11 +162,11 @@ extension Social {
                 Request.followerList(uid: uid, skipMs: skipMS)
                     .subscribe(onSuccess: { [weak self](data) in
                         guard let data = data else { return }
-                        let list =  data.list ?? []
+                        let list =  data.list
                         var origenList = self?.userList
                         list.forEach({ origenList?.append($0)})
                         self?.userList = origenList ?? []
-                        self?.tableView.endLoadMore(data.more ?? false)
+                        self?.tableView.endLoadMore(data.more)
                     }, onError: { (error) in
                         cdPrint("followerList error: \(error.localizedDescription)")
                     }).disposed(by: bag)
@@ -366,13 +365,7 @@ extension Social {
                     }
                 }
             } else {
-                followBtn.isHidden = false
-                if !isFollowing {
-                    let selfUid = Settings.shared.amongChatUserProfile.value?.uid ?? 0
-                    if selfUid == model.uid {
-                        followBtn.isHidden = true
-                    }
-                }
+                followBtn.isHidden = model.uid.isSelfUid
             }
             
             avatarIV.setAvatarImage(with: model.pictureUrl)
@@ -420,8 +413,8 @@ extension Social {
         }
         
         private func grayFollowStyle() {
-            followBtn.setTitle(R.string.localizable.profileFollowing(), for: .normal)
-            followBtn.setTitleColor(UIColor(hex6: 0x898989), for: .normal)
+            followBtn.setTitle(R.string.localizable.profileFollowing(), for: .disabled)
+            followBtn.setTitleColor(UIColor(hex6: 0x898989), for: .disabled)
             followBtn.layer.borderColor = UIColor(hex6: 0x898989).cgColor
             followBtn.isEnabled = false
         }

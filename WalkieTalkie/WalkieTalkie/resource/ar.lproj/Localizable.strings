@@ -615,7 +615,7 @@
 
 "social.profile.chat.anonymous.user.tips" = "عذرًا ، هذا المستخدم مجهول ولا يمكنه تلقي الرسائل.";
 
-//21.06.11
+//1.24.0
 "among.chat.login.auth.source.upload.avatar" = "تحميل الصورة الرمزية الخاصة بك";
 "among.chat.clear.cache" = "مسح ذاكرة التخزين المؤقت";
 "among.chat.contact.us" = "اتصل بنا";
@@ -623,3 +623,19 @@
 "among.chat.clear" = "صافي";
 "among.chat.clearing" = "المقاصة";
 "feed.remove.ads" = "ازالة الاعلانات";
+
+//1.25.0
+"among.chat.send" = "إرسال";
+"feed.share.with" = "مشاركة مع";
+"feed.share.message" = "رسالة";
+"feed.share.more" = "أكثر";
+"feed.share.user.selected.reach.max" = "الرجاء تحديد 10 أشخاص كحد أقصى في المرة الواحدة";
+"feed.share.to.anonymous.user.tips" = "تم تحديد المستخدمين المجهولين ، لكن لم يتمكنوا من تلقي الرسائل.";
+"feed.share.sent" = "تم الإرسال";
+"feed.share.send.failed" = "فشل فى الارسال";
+"room.play.video.tips" = "هل أنت متأكد أنك تريد مغادرة القناة ومشاهدة الفيديو؟";
+"dm.send.failed.by.blocked" = "تعذر إرسال الرسالة لأن المستلم حظرك.";
+"feed.third.share.content" = "أنا مدمن مخدرات على هذا الفيديو على AmongChat. تحقق من ذلك! %@";
+"among.chat.feed.recent.chats" = "الدردشات الأخيرة";
+"among.chat.feed.friends" = "اصحاب";
+"dm.feed.message.text" = "[Feed]";

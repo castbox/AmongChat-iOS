@@ -11,12 +11,6 @@ import WCDBSwift
 import RxSwift
 import RxCocoa
 
-private let noticeTableName = "notices"
-private let messageBodyTableName = "messges"
-private let dmConversationTableName = "dm_conversation"
-private let dmMessageTableName = "dm_messages"
-
-
 class Database {
     
     enum TableName: String, CaseIterable {
@@ -24,6 +18,7 @@ class Database {
         case messageBody = "messges"
         case dmConversation = "dm_conversation"
         case dmMessages = "dm_messages"
+        case followingUsers = "following_users"
     }
     
     
@@ -53,6 +48,10 @@ class Database {
                     try database.create(table: .messageBody, of: Entity.NoticeMessage.self)
                     try database.create(table: .dmConversation, of: Entity.DMConversation.self)
                     try database.create(table: .dmMessages, of: Entity.DMMessage.self)
+//                    #if DEBUG
+//                    try database.drop(table: TableName.followingUsers.rawValue)
+//                    #endif
+                    try database.create(table: .followingUsers, of: Entity.UserProfile.self)
                     self.database = database
                 } catch let error {
                     cdPrint("create table error \(error.localizedDescription)")

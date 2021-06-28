@@ -65,8 +65,7 @@ extension Feed.Comments {
             btn.setTitleColor(UIColor(hex6: 0xF03D5D), for: .selected)
             btn.setImage(R.image.ac_feed_like_normal(), for: .normal)
             btn.setImage(R.image.ac_feed_like_liked(), for: .selected)
-            btn.titleEdgeInsets = UIEdgeInsets(top: 0, left: 2, bottom: 0, right: -2)
-            btn.imageEdgeInsets = UIEdgeInsets(top: 0, left: -2, bottom: 0, right: 2)
+            btn.setImageTitleHorizontalSpace(4)
             btn.contentEdgeInsets = UIEdgeInsets(top: 0, left: 2, bottom: 0, right: 2)
             btn.rx.controlEvent(.primaryActionTriggered)
                 .subscribe(onNext: { [weak self] (_) in
@@ -420,8 +419,7 @@ extension Feed.Comments {
             btn.titleLabel?.font = R.font.nunitoExtraBold(size: 16)
             btn.setTitleColor(UIColor(hex6: 0x898989), for: .normal)
             btn.setImage(R.image.ac_feed_like_normal(), for: .normal)
-            btn.titleEdgeInsets = UIEdgeInsets(top: 0, left: 2, bottom: 0, right: -2)
-            btn.imageEdgeInsets = UIEdgeInsets(top: 0, left: -2, bottom: 0, right: 2)
+            btn.setImageTitleHorizontalSpace(4)
             btn.contentEdgeInsets = UIEdgeInsets(top: 0, left: 2, bottom: 0, right: 2)
             btn.rx.controlEvent(.primaryActionTriggered)
                 .subscribe(onNext: { [weak self] (_) in

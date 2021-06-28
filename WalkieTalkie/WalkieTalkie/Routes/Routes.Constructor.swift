@@ -21,4 +21,9 @@ extension Routes {
     static func link(_ text: String) -> String {
         return text.hasPrefix("http") ? text: "https://\(text)"
     }
+    
+    static func testFeedLink() -> String {
+        return "/feeds/PhdgThJjN"
+    }
 }
+

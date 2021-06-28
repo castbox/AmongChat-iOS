@@ -40,7 +40,7 @@ extension Conversation {
                     height += 31
                 }
                 self.height = height
-            case .gif:
+            case .gif, .feed:
                 //最小
                 let minWidth: CGFloat = 80
                 let gifMaxWidth: CGFloat = 170
@@ -50,11 +50,12 @@ extension Conversation {
                 var gifHeight = rawHeight
                 if gifWidth > gifMaxWidth {
                     gifWidth = gifMaxWidth
-                    gifHeight = gifMaxWidth * rawHeight / rawWidth
+//                    gifHeight = gifMaxWidth * rawHeight / rawWidth
                 } else if gifWidth < minWidth {
                     gifWidth = minWidth
-                    gifHeight = minWidth * rawHeight / rawWidth
+//                    gifHeight = minWidth * rawHeight / rawWidth
                 }
+                gifHeight = gifWidth / 3 * 4
                 contentSize = CGSize(width: gifWidth, height: gifHeight)
                 
                 let topEdge: CGFloat = 6

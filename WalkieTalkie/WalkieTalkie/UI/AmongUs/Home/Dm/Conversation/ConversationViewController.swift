@@ -64,7 +64,7 @@ class ConversationViewController: ViewController {
     
     init(_ conversation: Entity.DMConversation) {
         self.conversation = conversation
-        self.viewModel = Conversation.ViewModel(conversation)
+        self.viewModel = Conversation.ViewModel(conversation.fromUid)
         super.init(nibName: nil, bundle: nil)
     }
     

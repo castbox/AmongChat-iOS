@@ -500,6 +500,10 @@ extension Settings {
         return shared.loginResult.value?.uid
     }
     
+    static var loginUserIsAnonymous: Bool {
+        return shared.amongChatUserProfile.value?.isAnonymous ?? true
+    }
+    
     static var loginUserProfile: Entity.UserProfile? {
         return shared.amongChatUserProfile.value
     }

@@ -169,7 +169,8 @@ extension FansGroup.AddMemberController {
                     
                 case .shareLink:
                     self.shareLink()
-                    
+                case .tiktok:
+                    self.openTiktok()
                 }
             })
             .disposed(by: bag)

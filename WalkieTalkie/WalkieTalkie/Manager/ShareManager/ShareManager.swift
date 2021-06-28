@@ -20,6 +20,7 @@ class ShareManager: NSObject {
         case app
         case profile
         case group(String?)
+        case feed
     }
     
     enum ShareType: String, CaseIterable {
@@ -73,7 +74,11 @@ class ShareManager: NSObject {
     }
     
     func showActivity(textContent: String?, dynamicLink: String, type: ShareType, viewController: UIViewController, successHandler: (() -> Void)? = nil) {
-        let items = [textContent] as [Any]
+        var text = textContent ?? ""
+        if !dynamicLink.isEmpty, text.contains(dynamicLink) == false {
+            text.append(" \(dynamicLink)")
+        }
+        let items = [text] as [Any]
         let activityVC = UIActivityViewController(activityItems: items, applicationActivities: [])
         activityVC.excludedActivityTypes = [.addToiCloudDrive, .airDrop, .assignToContact, .openInIBooks, .postToLinkedIn, .postToFlickr, .postToTencentWeibo, .postToWeibo, .postToXing, .saveToCameraRoll]
         activityVC.completionWithItemsHandler = { activity, success, items, error in
