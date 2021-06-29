@@ -206,9 +206,7 @@ extension FansGroup.GroupMemberListViewController: UITableViewDelegate {
                 
                 let kickButton: UIButton = {
                     let btn = SmallSizeButton(type: .custom)
-                    btn.setTitle(R.string.localizable.amongChatRoomKick(), for: .normal)
-                    btn.setTitleColor(UIColor(hex6: 0xfff000), for: .normal)
-                    btn.titleLabel?.font = R.font.nunitoExtraBold(size: 16)
+                    btn.setImage(R.image.ac_group_kick_member(), for: .normal)
                     btn.rx.controlEvent(.primaryActionTriggered)
                         .subscribe(onNext: { [weak self] (_) in
                             //MARK: - go to kick

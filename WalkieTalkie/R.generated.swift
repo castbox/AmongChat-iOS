@@ -232,7 +232,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 283 images.
+  /// This `R.image` struct is generated, and contains static references to 284 images.
   struct image {
     /// Image `ac_add_stats_add`.
     static let ac_add_stats_add = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_add_stats_add")
@@ -338,6 +338,8 @@ struct R: Rswift.Validatable {
     static let ac_group_host_request = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_group_host_request")
     /// Image `ac_group_join_request`.
     static let ac_group_join_request = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_group_join_request")
+    /// Image `ac_group_kick_member`.
+    static let ac_group_kick_member = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_group_kick_member")
     /// Image `ac_group_room_copy`.
     static let ac_group_room_copy = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_group_room_copy")
     /// Image `ac_group_room_count`.
@@ -1059,6 +1061,11 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "ac_group_join_request", bundle: ..., traitCollection: ...)`
     static func ac_group_join_request(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ac_group_join_request, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_group_kick_member", bundle: ..., traitCollection: ...)`
+    static func ac_group_kick_member(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_group_kick_member, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "ac_group_room_copy", bundle: ..., traitCollection: ...)`
