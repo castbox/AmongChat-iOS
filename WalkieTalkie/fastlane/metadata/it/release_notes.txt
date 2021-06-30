@@ -1,4 +1,4 @@
 Benvenuto nell'app di chat vocale AmongChat!
-In questa versione viene aggiunta una nuova scheda per i video di gioco. Vieni a condividere le tue fantastiche clip di gioco!
+La condivisione dei video è ottimizzata! Ora puoi condividere direttamente i tuoi video preferiti con i tuoi amici tramite messaggi in-app. Vieni a provarlo!
 Altre correzioni di bug e miglioramenti delle prestazioni.
 Trova e chatta con i tuoi amici, gioca insieme e divertiti!

@@ -54,16 +54,17 @@ extension Social {
         private let uid: Int
         private let defaultIndex: Int
         private let feedRedirectInfo: Entity.FeedRedirectInfo?
-        
+        private let initialDataSource: [Entity.Feed]
         
         private var style: Style {
             feedRedirectInfo == nil ? .default : .single
         }
         
-        init(with uid: Int, index: Int = 0) {
+        init(with uid: Int, dataSource: [Entity.Feed] = [], index: Int = 0) {
             self.uid = uid
             self.defaultIndex = index
             self.feedRedirectInfo = nil
+            self.initialDataSource = dataSource
             super.init(nibName: nil, bundle: nil)
             self.listStyle = .profile
         }
@@ -72,6 +73,7 @@ extension Social {
             self.uid = uid
             self.defaultIndex = 0
             self.feedRedirectInfo = feedRedirectInfo
+            self.initialDataSource = []
             super.init(nibName: nil, bundle: nil)
             self.listStyle = .profile
         }
@@ -89,6 +91,10 @@ extension Social {
             if let feed = feedRedirectInfo?.post {
                 tableView.alpha = 0
                 feedsDataSource = [feed].map { Feed.ListCellViewModel(feed: $0) }
+                tableView.reloadData()
+                autoScrollToDefaultIndex()
+            } else if !initialDataSource.isEmpty {
+                feedsDataSource = initialDataSource.map { Feed.ListCellViewModel(feed: $0) }
                 tableView.reloadData()
                 autoScrollToDefaultIndex()
             } else {
@@ -111,30 +117,29 @@ extension Social {
         }
         
         override func loadMore() {
-//            let removeBlock = view.raft.show(.loading)
-            //exclutepids
-            guard style == .default,
-                  hasMore else {
+            guard style == .default, hasMore,
+                  let createTime = feedsDataSource.last?.feed.createTime else {
                 return
             }
+
             isLoadingMore = true
-            let maxIndex = dataSource.count - 1
-//            cdPrint("excludePid: \(excludePids)")
-            Request.userFeeds(uid, skipMs: dataSource.count.int64) //Settings.loginUserId
+            Request.userFeeds(uid, skipMs: createTime) //Settings.loginUserId
                 .do(onDispose: { [weak self] in
                     self?.isLoadingMore = false
-//                    removeBlock()
                 })
                 .delay(.fromSeconds(0.2), scheduler: MainScheduler.asyncInstance)
                 .subscribe(onSuccess: { [weak self] data in
                     guard let `self` = self else { return }
                     var source = data.list.map { Feed.ListCellViewModel(feed: $0) }
                     self.hasMore = source.count >= 10
+                    
+                    guard !source.isEmpty else { return }
                     source.insert(contentsOf: self.feedsDataSource, at: 0)
                     self.feedsDataSource = source
                     //insert datasource
                     let rows = self.tableView.numberOfRows(inSection: 0)
                     let newRow = self.dataSource.count
+                    guard newRow > rows else { return }
                     self.tableView.isPagingEnabled = false
                     let indexPaths = Array(rows..<newRow).map({ IndexPath(row: $0, section: 0) })
                     self.tableView.beginUpdates()
@@ -150,8 +155,16 @@ extension Social {
         
         func autoScrollToDefaultIndex() {
             if defaultIndex > 0 {
-                if defaultIndex < dataSource.count {
-                    let indexPath = IndexPath(row: defaultIndex, section: 0)
+                if defaultIndex < feedsDataSource.count,
+                   let pid = feedsDataSource.safe(defaultIndex)?.feed.pid,
+                   let index = dataSource.firstIndex(where: { item in
+                       guard let item = item as? FeedCellViewModel else {
+                           return false
+                       }
+                       return item.feed.pid == pid
+                   }) {
+                    
+                    let indexPath = IndexPath(row: index, section: 0)
                     tableView.scrollToRow(at: indexPath, at: .none, animated: false)
                     tableView.layoutIfNeeded()
                 }
