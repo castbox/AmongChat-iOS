@@ -89,11 +89,13 @@ extension Feed {
                     guard let `self` = self else { return }
                     var source = data?.map { Feed.ListCellViewModel(feed: $0) } ?? []
                     self.hasMore = source.count >= 10
+                    guard !source.isEmpty else { return }
                     source.insert(contentsOf: self.feedsDataSource, at: 0)
                     self.feedsDataSource = source
                     //insert datasource
                     let rows = self.tableView.numberOfRows(inSection: 0)
                     let newRow = self.dataSource.count
+                    guard newRow > rows else { return }
                     self.tableView.isPagingEnabled = false
                     let indexPaths = Array(rows..<newRow).map({ IndexPath(row: $0, section: 0) })
                     self.tableView.beginUpdates()

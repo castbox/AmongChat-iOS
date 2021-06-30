@@ -137,6 +137,7 @@ extension Feed {
             super.viewDidLoad()
             configureSubview()
             bindSubviewEvent()
+            Logger.Action.log(.feeds_share_alert_imp)
         }
         
         override func viewDidLayoutSubviews() {
@@ -154,6 +155,7 @@ extension Feed.ShareController {
             .subscribe(onSuccess: { [weak self] result in
                 removeHandler()
                 self?.view.endEditing(true)
+                Logger.Action.log(.feeds_share_alert_item_clk, categoryValue: "sent", self?.feed.pid)
                 let anonymousUsers = result?.uidsAnonymous ?? []
                 self?.dismissModal(animated: true, completion: { [weak self] in
                     self?.dismissHandler?(.error(anonymousUsers.isEmpty ? "": R.string.localizable.feedShareToAnonymousUserTips()))
@@ -191,6 +193,7 @@ extension Feed.ShareController {
         
         shareBar.selectedSourceObservable
             .subscribe(onNext: { [weak self] source in
+                Logger.Action.log(.feeds_share_alert_item_clk, categoryValue: source.stringValue,  self?.feed.pid)
                 self?.dismissModal(animated: true, completion: { [weak self] in
                     self?.dismissHandler?(.share(source))
                 })

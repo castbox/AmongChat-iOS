@@ -66,6 +66,7 @@ target 'WalkieTalkie' do
 #    pod 'GuruRater', '~> 0.1.0'
 #    pod 'GuruQueue', '~> 0.2.1'
 #    pod 'GuruExtensions', :git => 'https://github.com/castbox/GuruExtensions.git', :branch => 'master'
+
     
     # Swift Pods
     pod 'R.swift', '~> 5.0.2'
@@ -157,7 +158,7 @@ target 'WalkieTalkie' do
     #https://github.com/mac-gallagher/Shuffle
 #    pod 'Shuffle-iOS'
     pod "Koloda"
-    pod 'YPImagePicker'
+    pod 'YPImagePicker', :git => 'git@github.com:devSC/YPImagePicker.git', :branch => 'dev'
     pod 'RAMAnimatedTabBarController'
     pod 'WebViewJavascriptBridge', :git => 'https://github.com/devSC/WebViewJavascriptBridge.git', :branch => "Remove-UIWebView-Support"
     pod 'ImageViewer'

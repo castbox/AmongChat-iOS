@@ -345,7 +345,7 @@ PODS:
   - WCDBOptimizedSQLCipher (1.2.1)
   - WebViewJavascriptBridge (7.0.0)
   - WSFlexibleTouch (0.1.1)
-  - YPImagePicker (4.4.0):
+  - YPImagePicker (4.5.0):
     - PryntTrimmerView (~> 4.0.2)
     - SteviaLayout (~> 4.7.3)
   - YYText (1.0.7)
@@ -410,7 +410,7 @@ DEPENDENCIES:
   - WCDB.swift
   - WebViewJavascriptBridge (from `https://github.com/devSC/WebViewJavascriptBridge.git`, branch `Remove-UIWebView-Support`)
   - WSFlexibleTouch
-  - YPImagePicker
+  - "YPImagePicker (from `git@github.com:devSC/YPImagePicker.git`, branch `dev`)"
   - YYText
   - ZegoExpressEngine/Audio
 
@@ -510,7 +510,6 @@ SPEC REPOS:
     - WCDB.swift
     - WCDBOptimizedSQLCipher
     - WSFlexibleTouch
-    - YPImagePicker
     - YYText
     - ZegoExpressEngine
 
@@ -521,6 +520,9 @@ EXTERNAL SOURCES:
   WebViewJavascriptBridge:
     :branch: Remove-UIWebView-Support
     :git: https://github.com/devSC/WebViewJavascriptBridge.git
+  YPImagePicker:
+    :branch: dev
+    :git: "git@github.com:devSC/YPImagePicker.git"
 
 CHECKOUT OPTIONS:
   Bolts:
@@ -529,6 +531,9 @@ CHECKOUT OPTIONS:
   WebViewJavascriptBridge:
     :commit: c2f99cbde00c410c2ca6512de5cecaa30d133cfc
     :git: https://github.com/devSC/WebViewJavascriptBridge.git
+  YPImagePicker:
+    :commit: 5b9941e4ef33a0110d02c5f547beca175978ce7c
+    :git: "git@github.com:devSC/YPImagePicker.git"
 
 SPEC CHECKSUMS:
   Adjust: 7091afbeb9935103636f80f73742d21a83e085ae
@@ -626,10 +631,10 @@ SPEC CHECKSUMS:
   WCDBOptimizedSQLCipher: baf44493b0c7a3d49e97bc5b64a3856f6428ddd1
   WebViewJavascriptBridge: 31111973095ed8d340ca56c3abdd1ec5cad9f6c4
   WSFlexibleTouch: 307b10e025bbb4c8ee89fa1075f930020b0791c3
-  YPImagePicker: 15aed8bcaa4dad976e11b6114126d731a2f9f3c9
+  YPImagePicker: 6f410f475bd22fa8cd430495b54d4b2f15865c2d
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
   ZegoExpressEngine: 9d40a73953c000b9a511a58706a37bb14c18948e
 
-PODFILE CHECKSUM: 15ac5ea3824a2cd304eb3fc98d301036200b8877
+PODFILE CHECKSUM: 8f08cb643ef531d7b198872badd497b7d78529d1
 
 COCOAPODS: 1.10.0

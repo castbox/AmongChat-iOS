@@ -1,4 +1,4 @@
 AmongChat sesli sohbet uygulamasına hoş geldiniz!
-Bu sürümde oyun videoları için yepyeni bir sekme eklendi. Muhteşem oyun kliplerinizi paylaşmak için gelin!
+Video paylaşımı optimize edildi! Artık favori videolarınızı uygulama içi mesajlar aracılığıyla arkadaşlarınızla doğrudan paylaşabilirsiniz. Gel dene!
 Diğer hata düzeltmeleri ve performans iyileştirmeleri.
 Arkadaşlarınızı bulun ve Sesli Sohbet edin, birlikte oynayın ve keyfini çıkarın!
