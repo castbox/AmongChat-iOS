@@ -232,7 +232,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 284 images.
+  /// This `R.image` struct is generated, and contains static references to 285 images.
   struct image {
     /// Image `ac_add_stats_add`.
     static let ac_add_stats_add = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_add_stats_add")
@@ -320,6 +320,8 @@ struct R: Rswift.Validatable {
     static let ac_group_Leave = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_group_Leave")
     /// Image `ac_group_add`.
     static let ac_group_add = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_group_add")
+    /// Image `ac_group_all_join_requests`.
+    static let ac_group_all_join_requests = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_group_all_join_requests")
     /// Image `ac_group_banner_pad`.
     static let ac_group_banner_pad = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_group_banner_pad")
     /// Image `ac_group_banner`.
@@ -1016,6 +1018,11 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "ac_group_add", bundle: ..., traitCollection: ...)`
     static func ac_group_add(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ac_group_add, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_group_all_join_requests", bundle: ..., traitCollection: ...)`
+    static func ac_group_all_join_requests(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_group_all_join_requests, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "ac_group_banner", bundle: ..., traitCollection: ...)`
@@ -2904,7 +2911,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
     
-    /// This `R.string.localizable` struct is generated, and contains static references to 558 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 567 localization keys.
     struct localizable {
       /// en translation:  Congratulations!
       /// 
@@ -3018,6 +3025,14 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatClearCacheTip = Rswift.StringResource(key: "among.chat.clear.cache.tip", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: After disabling the queue, the audience can interact freely with the mic.
+      /// 
+      /// Locales: en
+      static let amongChatGroupLiveDisableQueueTip = Rswift.StringResource(key: "among.chat.group.live.disable.queue.tip", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: After enabling queue service, the audience must get your approval before using the mic.
+      /// 
+      /// Locales: en
+      static let amongChatGroupLiveEnableQueueTip = Rswift.StringResource(key: "among.chat.group.live.enable.queue.tip", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: After the free trial, %@ subscription is %@, it automatically renews unless turned off in Accounting Settings at least 24h before current period ends. Payment is charged to your iTunes Account, cancel any time.
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3342,6 +3357,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let profileCommunity = Rswift.StringResource(key: "profile.community", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Confirm
+      /// 
+      /// Locales: en
+      static let amongChatConfirm = Rswift.StringResource(key: "among.chat.confirm", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Confirm report
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3922,6 +3941,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatRoomTipMicOn = Rswift.StringResource(key: "among.chat.room.tip.mic.on", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: MIC is FREE for everyone. Chat now!
+      /// 
+      /// Locales: en
+      static let amongChatGroupLiveMicFreeMessage = Rswift.StringResource(key: "among.chat.group.live.mic.free.message", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: MINECRAFT GAMERTAG
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3962,6 +3985,18 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let dmSendFailedByBlocked = Rswift.StringResource(key: "dm.send.failed.by.blocked", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Mic FREE
+      /// 
+      /// Locales: en
+      static let amongChatGroupLiveMicFree = Rswift.StringResource(key: "among.chat.group.live.mic.free", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Mic QUEUE
+      /// 
+      /// Locales: en
+      static let amongChatGroupLiveMicQueue = Rswift.StringResource(key: "among.chat.group.live.mic.queue", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Mic is queuing now. To speak, you should get the admin's approval first.
+      /// 
+      /// Locales: en
+      static let amongChatGroupLiveMicQueueMessage = Rswift.StringResource(key: "among.chat.group.live.mic.queue.message", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Minecraft Gamertag
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -4106,6 +4141,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let socialStatusOnline = Rswift.StringResource(key: "social.status.online", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Only the admin can change the status of the mic.
+      /// 
+      /// Locales: en
+      static let amongChatGroupLiveAudienceChangeMicTip = Rswift.StringResource(key: "among.chat.group.live.audience.change.mic.tip", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Only the admin can change the topic
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -4662,6 +4701,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let deviceNotSupportSendMessage = Rswift.StringResource(key: "device.not.support.send.message", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Speaker Queue
+      /// 
+      /// Locales: en
+      static let amongChatGroupLiveSpeakerQueue = Rswift.StringResource(key: "among.chat.group.live.speaker.queue", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Special avatars
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -5335,6 +5378,20 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("among.chat.clear.cache.tip", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: After disabling the queue, the audience can interact freely with the mic.
+      /// 
+      /// Locales: en
+      static func amongChatGroupLiveDisableQueueTip(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.group.live.disable.queue.tip", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: After enabling queue service, the audience must get your approval before using the mic.
+      /// 
+      /// Locales: en
+      static func amongChatGroupLiveEnableQueueTip(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.group.live.enable.queue.tip", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: After the free trial, %@ subscription is %@, it automatically renews unless turned off in Accounting Settings at least 24h before current period ends. Payment is charged to your iTunes Account, cancel any time.
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -5900,6 +5957,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func profileCommunity(_: Void = ()) -> String {
         return NSLocalizedString("profile.community", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Confirm
+      /// 
+      /// Locales: en
+      static func amongChatConfirm(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.confirm", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Confirm report
@@ -6917,6 +6981,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("among.chat.room.tip.mic.on", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: MIC is FREE for everyone. Chat now!
+      /// 
+      /// Locales: en
+      static func amongChatGroupLiveMicFreeMessage(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.group.live.mic.free.message", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: MINECRAFT GAMERTAG
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -6985,6 +7056,27 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func dmSendFailedByBlocked(_: Void = ()) -> String {
         return NSLocalizedString("dm.send.failed.by.blocked", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Mic FREE
+      /// 
+      /// Locales: en
+      static func amongChatGroupLiveMicFree(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.group.live.mic.free", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Mic QUEUE
+      /// 
+      /// Locales: en
+      static func amongChatGroupLiveMicQueue(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.group.live.mic.queue", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Mic is queuing now. To speak, you should get the admin's approval first.
+      /// 
+      /// Locales: en
+      static func amongChatGroupLiveMicQueueMessage(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.group.live.mic.queue.message", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Minecraft Gamertag
@@ -7237,6 +7329,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func socialStatusOnline(_: Void = ()) -> String {
         return NSLocalizedString("social.status.online", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Only the admin can change the status of the mic.
+      /// 
+      /// Locales: en
+      static func amongChatGroupLiveAudienceChangeMicTip(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.group.live.audience.change.mic.tip", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Only the admin can change the topic
@@ -8210,6 +8309,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func deviceNotSupportSendMessage(_: Void = ()) -> String {
         return NSLocalizedString("device.not.support.send.message", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Speaker Queue
+      /// 
+      /// Locales: en
+      static func amongChatGroupLiveSpeakerQueue(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.group.live.speaker.queue", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Special avatars
