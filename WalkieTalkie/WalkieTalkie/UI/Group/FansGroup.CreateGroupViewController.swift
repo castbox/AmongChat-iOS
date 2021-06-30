@@ -27,6 +27,17 @@ extension FansGroup {
             return n
         }()
         
+        private lazy var layoutScrollView: UIScrollView = {
+            let s = UIScrollView()
+            s.showsVerticalScrollIndicator = false
+            s.showsHorizontalScrollIndicator = false
+            if #available(iOS 11.0, *) {
+                s.contentInsetAdjustmentBehavior = .never
+            }
+            s.keyboardDismissMode = .onDrag
+            return s
+        }()
+        
         private typealias InfoSetUpView = FansGroup.Views.GroupInfoSetUpView
         private lazy var setUpInfoView: InfoSetUpView = {
             let s = InfoSetUpView()
@@ -102,12 +113,12 @@ extension FansGroup.CreateGroupViewController {
     
     private func setUpLayout() {
         
-        view.addSubviews(views: setUpInfoView, navView, bottomGradientView)
+        view.addSubviews(views: layoutScrollView, navView, bottomGradientView)
         
-        setUpInfoView.snp.makeConstraints { (maker) in
+        layoutScrollView.snp.makeConstraints { maker in
             maker.edges.equalToSuperview()
         }
-        
+                
         navView.snp.makeConstraints { (maker) in
             maker.leading.trailing.equalToSuperview()
             maker.top.equalTo(topLayoutGuide.snp.bottom)
@@ -117,11 +128,16 @@ extension FansGroup.CreateGroupViewController {
             maker.leading.trailing.bottom.equalToSuperview()
         }
         
-        setUpInfoView.appendViewContainer.addSubviews(views: bottomTipLabel)
+        layoutScrollView.addSubviews(views: setUpInfoView, bottomTipLabel)
+        
+        setUpInfoView.snp.makeConstraints { (maker) in
+            maker.leading.top.trailing.equalToSuperview()
+            maker.width.equalTo(view.snp.width)
+        }
         
         bottomTipLabel.snp.makeConstraints { (maker) in
             maker.leading.trailing.equalToSuperview().inset(20)
-            maker.top.equalToSuperview().offset(32)
+            maker.top.equalTo(setUpInfoView.snp.bottom).offset(32)
             maker.bottom.equalToSuperview().offset(-150)
         }
         
@@ -167,18 +183,40 @@ extension FansGroup.CreateGroupViewController {
             .bind(to: bottomGradientView.button.rx.isEnabled)
             .disposed(by: bag)
         
-        setUpInfoView.layoutScrollView.rx.contentOffset
+        layoutScrollView.rx.contentOffset
             .subscribe(onNext: { [weak self] (point) in
                 
                 guard let `self` = self else { return }
                 
                 let distance = point.y
                 
-                self.navView.snp.updateConstraints { (maker) in
-                    maker.top.equalTo(self.topLayoutGuide.snp.bottom).offset(min(0, -distance / 3))
+                self.navView.backgroundView.alpha = distance / NavigationBar.barHeight
+                self.navView.backgroundView.isHidden = distance <= 0
+                
+                self.setUpInfoView.enlargeTopGbHeight(extraHeight: -distance)
+            })
+            .disposed(by: bag)
+        
+        Observable.combineLatest(RxKeyboard.instance.visibleHeight.asObservable(), setUpInfoView.textViewObservable)
+            .subscribe(onNext: { [weak self] keyboardVisibleHeight, textingView in
+                                
+                guard let `self` = self else { return }
+                
+                guard keyboardVisibleHeight > 0 else {
+                    self.layoutScrollView.contentOffset = .zero
+                    return
                 }
                 
-                self.navView.alpha = 1 - distance / 49
+                let rect = self.setUpInfoView.convert(textingView.frame, to: self.view)
+                let distance = Frame.Screen.height - keyboardVisibleHeight - rect.maxY - 40
+                
+                guard distance < 0 else {
+                    return
+                }
+                
+                UIView.animate(withDuration: RxKeyboard.instance.animationDuration) {
+                    self.layoutScrollView.contentOffset.y = self.layoutScrollView.contentOffset.y - distance
+                }
             })
             .disposed(by: bag)
 

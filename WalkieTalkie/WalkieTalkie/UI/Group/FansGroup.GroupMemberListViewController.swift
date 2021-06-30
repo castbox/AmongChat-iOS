@@ -9,6 +9,7 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import JXPagingView
 
 extension FansGroup {
     
@@ -38,6 +39,8 @@ extension FansGroup {
         
         private let groupInfo: Entity.GroupInfo
         var showKick = false
+        
+        private var listViewDidScrollCallback: ((UIScrollView) -> ())?
         
         init(with groupInfo: Entity.GroupInfo) {
             self.groupInfo = groupInfo
@@ -203,9 +206,7 @@ extension FansGroup.GroupMemberListViewController: UITableViewDelegate {
                 
                 let kickButton: UIButton = {
                     let btn = SmallSizeButton(type: .custom)
-                    btn.setTitle(R.string.localizable.amongChatRoomKick(), for: .normal)
-                    btn.setTitleColor(UIColor(hex6: 0xfff000), for: .normal)
-                    btn.titleLabel?.font = R.font.nunitoExtraBold(size: 16)
+                    btn.setImage(R.image.ac_group_kick_member(), for: .normal)
                     btn.rx.controlEvent(.primaryActionTriggered)
                         .subscribe(onNext: { [weak self] (_) in
                             //MARK: - go to kick
@@ -299,6 +300,30 @@ extension FansGroup.GroupMemberListViewController {
             })
             .disposed(by: bag)
         
+    }
+    
+}
+
+extension FansGroup.GroupMemberListViewController: UIScrollViewDelegate {
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        listViewDidScrollCallback?(scrollView)
+    }
+    
+}
+
+extension FansGroup.GroupMemberListViewController: JXPagingViewListViewDelegate {
+    
+    func listView() -> UIView {
+        return view
+    }
+
+    func listViewDidScrollCallback(callback: @escaping (UIScrollView) -> ()) {
+        listViewDidScrollCallback = callback
+    }
+
+    func listScrollView() -> UIScrollView {
+        return tableView
     }
     
 }

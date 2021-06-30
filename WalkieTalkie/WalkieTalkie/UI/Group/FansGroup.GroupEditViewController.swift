@@ -11,6 +11,7 @@ import RxSwift
 import RxCocoa
 import Kingfisher
 import SDCAlertView
+import JXPagingView
 
 extension FansGroup {
     
@@ -32,6 +33,8 @@ extension FansGroup {
         private lazy var setUpInfoView: InfoSetUpView = {
             let s = InfoSetUpView()
             s.addCoverBtn.editable = true
+            s.nameView.inputField.text = groupInfo.group.name
+            s.descriptionView.inputTextView.text = groupInfo.group.description
             return s
         }()
         
@@ -67,8 +70,26 @@ extension FansGroup {
                 maker.leading.trailing.equalToSuperview().inset(Frame.horizontalBleedWidth)
                 maker.height.equalTo(50)
                 maker.top.equalTo(36)
-                maker.bottom.equalTo(-44)
             }
+            return v
+        }()
+        private let deleteViewHeight: CGFloat = 130
+        
+        private lazy var headerView: UIView = {
+            let v = UIView()
+            
+            v.addSubviews(views: setUpInfoView, deleteView)
+            
+            setUpInfoView.snp.makeConstraints { maker in
+                maker.leading.top.trailing.equalToSuperview()
+            }
+            
+            deleteView.snp.makeConstraints { maker in
+                maker.leading.trailing.bottom.equalToSuperview()
+                maker.top.equalTo(setUpInfoView.snp.bottom)
+                maker.height.equalTo(deleteViewHeight)
+            }
+            
             return v
         }()
         
@@ -85,8 +106,9 @@ extension FansGroup {
             s.selectedIndexObservable
                 .subscribe(onNext: { [weak self] (idx) in
                     guard let `self` = self else { return }
-                    let offset = CGPoint(x: self.listScrollView.bounds.width * CGFloat(idx), y: 0)
-                    self.listScrollView.setContentOffset(offset, animated: true)
+                    let offset = CGPoint(x: self.pagingView.bounds.width * CGFloat(idx), y: 0)
+                    self.pagingView.listContainerView.didClickSelectedItem(at: idx)
+                    self.pagingView.listContainerView.contentScrollView().setContentOffset(offset, animated: true)
                 })
                 .disposed(by: bag)
             s.setButtons(tuples: [(normalIcon: nil, selectedIcon: nil, normalTitle: R.string.localizable.amongChatGroupJoined(), selectedTitle: nil),
@@ -97,14 +119,27 @@ extension FansGroup {
         }()
         private let segmentedBtnHeight = CGFloat(60)
         
-        private lazy var listScrollView: UIScrollView = {
-            let s = UIScrollView()
-            s.showsVerticalScrollIndicator = false
-            s.showsHorizontalScrollIndicator = false
-            s.isPagingEnabled = true
-            s.delegate = self
-            return s
+        private lazy var pagingView: JXPagingView = {
+            let p = JXPagingView(delegate: self, listContainerType: .scrollView)
+            p.backgroundColor = UIColor(hex6: 0x121212)
+            p.mainTableView.backgroundColor = UIColor(hex6: 0x121212)
+            p.pinSectionHeaderVerticalOffset = NavigationBar.barHeight.int + Frame.Height.safeAeraTopHeight.int
+            return p
         }()
+        
+        private lazy var memberListVC: FansGroup.GroupMemberListViewController = {
+            let vc = FansGroup.GroupMemberListViewController(with: groupInfo)
+            vc.showKick = true
+            return vc
+        }()
+        
+        private lazy var requestListVC: FansGroup.GroupJoinRequestListViewController = {
+            let vc = FansGroup.GroupJoinRequestListViewController(with: groupInfo.group.gid)
+            vc.loadViewIfNeeded()
+            return vc
+        }()
+        
+        private lazy var dataViews: [JXPagingViewListViewDelegate] = [memberListVC, requestListVC]
         
         private var pageIndex: Int = 0 {
             didSet {
@@ -130,7 +165,6 @@ extension FansGroup {
             super.viewDidLoad()
             setUpLayout()
             bindSubviewEvents()
-            setUpMemberListAndRequestList()
         }
     }
     
@@ -148,23 +182,10 @@ extension FansGroup.GroupEditViewController {
     
     private func setUpLayout() {
         
-        view.addSubviews(views: setUpInfoView, navView, segmentedButton)
+        view.addSubviews(views: pagingView, navView)
         
-        setUpInfoView.snp.makeConstraints { (maker) in
+        pagingView.snp.makeConstraints { maker in
             maker.edges.equalToSuperview()
-        }
-        
-        setUpInfoView.appendViewContainer.addSubviews(views: deleteView, listScrollView)
-        
-        deleteView.snp.makeConstraints { (maker) in
-            maker.leading.top.trailing.equalToSuperview()
-        }
-        
-        listScrollView.snp.makeConstraints { (maker) in
-            maker.top.equalTo(deleteView.snp.bottom).offset(segmentedBtnHeight)
-            maker.leading.trailing.bottom.equalToSuperview()
-            maker.width.equalTo(view.snp.width)
-            maker.height.equalTo(view.snp.height).inset((Frame.Height.safeAeraTopHeight + segmentedBtnHeight) / 2)
         }
         
         navView.snp.makeConstraints { (maker) in
@@ -172,8 +193,6 @@ extension FansGroup.GroupEditViewController {
             maker.top.equalTo(topLayoutGuide.snp.bottom)
         }
         
-        setUpInfoView.nameView.inputField.text = groupInfo.group.name
-        setUpInfoView.descriptionView.inputTextView.text = groupInfo.group.description
         
         if let cover = groupInfo.group.cover.url {
             KingfisherManager.shared.retrieveImageObservable(with: cover)
@@ -230,31 +249,62 @@ extension FansGroup.GroupEditViewController {
             self?.updateGroupDescription(desc)
         })
         .disposed(by: bag)
-        
-        setUpInfoView.layoutScrollView.rx.contentOffset
-            .subscribe(onNext: { [weak self] (point) in
                 
+        pagingView.listContainerView.contentScrollView().rx.didEndDecelerating
+            .subscribe(onNext: { [weak self] (_) in
                 guard let `self` = self else { return }
+                let scrollView = self.pagingView.listContainerView.contentScrollView()
+                self.pageIndex = Int(scrollView.contentOffset.x / scrollView.frame.size.width)
+            })
+            .disposed(by: bag)
+        
+        requestListVC.requestsCountObservable
+            .subscribe(onNext: { [weak self] (count) in
                 
-                let distance = point.y
+                let requestsTitleLabel = (self?.segmentedButton.buttonOf(1) as? UIButton)?.titleLabel
                 
-                self.navView.snp.updateConstraints { (maker) in
-                    maker.top.equalTo(self.topLayoutGuide.snp.bottom).offset(min(0, -distance / 3))
+                guard count > 0 else {
+                    requestsTitleLabel?.badgeOff()
+                    return
                 }
                 
-                self.navView.alpha = 1 - distance / 49
+                requestsTitleLabel?.badgeOn(string: count.string, hAlignment: .headToTail(-0.5), topInset: 0, diameter: 16, borderWidth: 0, borderColor: nil)
                 
-                self.segmentedButton.isHidden = self.setUpInfoView.layoutScrollView.contentSize.height <= 0
+            })
+            .disposed(by: bag)
+        
+        Observable.combineLatest(RxKeyboard.instance.visibleHeight.asObservable(), setUpInfoView.textViewObservable)
+            .subscribe(onNext: { [weak self] keyboardVisibleHeight, textingView in
+                                
+                guard let `self` = self else { return }
                 
-                let listScrollViewTop = self.setUpInfoView.appendViewContainer.convert(self.listScrollView.origin, to: self.view).y
+                guard keyboardVisibleHeight > 0 else {
+                    self.pagingView.mainTableView.contentOffset = .zero
+                    return
+                }
                 
-                self.segmentedButton.snp.remakeConstraints { (maker) in
-                    maker.leading.trailing.equalToSuperview()
-                    maker.height.equalTo(self.segmentedBtnHeight)
-                    maker.top.equalTo(max(Frame.Height.safeAeraTopHeight, listScrollViewTop - self.segmentedBtnHeight))
+                let rect = self.setUpInfoView.convert(textingView.frame, to: self.view)
+                let distance = Frame.Screen.height - keyboardVisibleHeight - rect.maxY - 40
+                
+                guard distance < 0 else {
+                    return
+                }
+                
+                UIView.animate(withDuration: RxKeyboard.instance.animationDuration) {
+                    self.pagingView.mainTableView.contentOffset.y = self.pagingView.mainTableView.contentOffset.y - distance
                 }
             })
             .disposed(by: bag)
+        
+        setUpInfoView.descriptionView.isEdtingRelay
+            .subscribe(onNext: { [weak self] isEditing in
+                
+                self?.setUpInfoView.descriptionView.inputTextView.isScrollEnabled = isEditing
+                self?.pagingView.mainTableView.isScrollEnabled = !isEditing
+                
+            })
+            .disposed(by: bag)
+
         
     }
     
@@ -364,67 +414,6 @@ extension FansGroup.GroupEditViewController {
         
     }
     
-    private func setUpMemberListAndRequestList() {
-        
-        let memberListVC = FansGroup.GroupMemberListViewController(with: groupInfo)
-        memberListVC.showKick = true
-        addChild(memberListVC)
-        listScrollView.addSubview(memberListVC.view)
-        memberListVC.view.snp.makeConstraints { (maker) in
-            maker.leading.top.bottom.equalToSuperview()
-            maker.width.equalTo(view.snp.width)
-            maker.height.equalTo(view.snp.height).inset((Frame.Height.safeAeraTopHeight + segmentedBtnHeight) / 2)
-        }
-        memberListVC.didMove(toParent: self)
-        
-        let requestListVC = FansGroup.GroupJoinRequestListViewController(with: groupInfo.group.gid)
-        addChild(requestListVC)
-        listScrollView.addSubview(requestListVC.view)
-        requestListVC.view.snp.makeConstraints { (maker) in
-            maker.leading.equalTo(memberListVC.view.snp.trailing)
-            maker.trailing.top.bottom.equalToSuperview()
-            maker.width.equalTo(view.snp.width)
-            maker.height.equalTo(view.snp.height).inset((Frame.Height.safeAeraTopHeight + segmentedBtnHeight) / 2)
-        }
-        requestListVC.didMove(toParent: self)
-        
-        Observable.merge(
-            memberListVC.tableView.rx.contentOffset.map({ [weak memberListVC] in
-                (memberListVC?.tableView, $0)
-            }),
-            requestListVC.tableView.rx.contentOffset.map({ [weak requestListVC] in
-                (requestListVC?.tableView, $0)
-            })
-        )
-        .subscribe(onNext: { [weak self] table, point in
-            guard let `self` = self,
-                  point.y < 0,
-                  point.y > -self.segmentedBtnHeight else { return }
-            
-            var offset = self.setUpInfoView.layoutScrollView.contentOffset
-            offset.y = offset.y + point.y
-            
-            self.setUpInfoView.layoutScrollView.setContentOffset(offset, animated: false)
-            table?.contentOffset = .zero
-        })
-        .disposed(by: bag)
-        
-        requestListVC.requestsCountObservable
-            .subscribe(onNext: { [weak self] (count) in
-                
-                let requestsTitleLabel = (self?.segmentedButton.buttonOf(1) as? UIButton)?.titleLabel
-                
-                guard count > 0 else {
-                    requestsTitleLabel?.badgeOff()
-                    return
-                }
-                
-                requestsTitleLabel?.badgeOn(string: count.string, hAlignment: .headToTail(-0.5), topInset: 0, diameter: 16, borderWidth: 0, borderColor: nil)
-                
-            })
-            .disposed(by: bag)
-    }
-    
 }
 
 extension FansGroup.GroupEditViewController {
@@ -432,5 +421,39 @@ extension FansGroup.GroupEditViewController {
     class func groupEditVC(_ groupId: String) -> Single<FansGroup.GroupEditViewController> {
         return Request.groupInfo(groupId)
             .map({ return FansGroup.GroupEditViewController(groupInfo: $0) })
+    }
+}
+
+extension FansGroup.GroupEditViewController: JXPagingViewDelegate {
+    
+    func tableHeaderViewHeight(in pagingView: JXPagingView) -> Int {
+        return setUpInfoView.viewHeight.int + deleteViewHeight.int
+    }
+    
+    func tableHeaderView(in pagingView: JXPagingView) -> UIView {
+        return headerView
+    }
+    
+    func heightForPinSectionHeader(in pagingView: JXPagingView) -> Int {
+        return segmentedBtnHeight.int
+    }
+    
+    func viewForPinSectionHeader(in pagingView: JXPagingView) -> UIView {
+        return segmentedButton
+    }
+    
+    func numberOfLists(in pagingView: JXPagingView) -> Int {
+        return dataViews.count
+    }
+    
+    func pagingView(_ pagingView: JXPagingView, initListAtIndex index: Int) -> JXPagingViewListViewDelegate {
+        return dataViews[index]
+    }
+    
+    func mainTableViewDidScroll(_ scrollView: UIScrollView) {
+        let distance = scrollView.contentOffset.y
+        setUpInfoView.enlargeTopGbHeight(extraHeight: -distance)
+        navView.backgroundView.alpha = distance / NavigationBar.barHeight
+        navView.backgroundView.isHidden = distance <= 0
     }
 }

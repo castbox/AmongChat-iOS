@@ -9,6 +9,7 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import JXPagingView
 
 extension FansGroup {
     
@@ -69,6 +70,8 @@ extension FansGroup {
         var requestsCountObservable: Observable<Int> {
             return usersRelay.map { $0.count }.asObservable()
         }
+        
+        private var listViewDidScrollCallback: ((UIScrollView) -> ())?
         
         init(with groupId: String, hasNavigationBar: Bool = false) {
             self.groupId = groupId
@@ -246,4 +249,28 @@ extension FansGroup.GroupJoinRequestListViewController {
             }).disposed(by: bag)
     }
 
+}
+
+extension FansGroup.GroupJoinRequestListViewController: UIScrollViewDelegate {
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        listViewDidScrollCallback?(scrollView)
+    }
+    
+}
+
+extension FansGroup.GroupJoinRequestListViewController: JXPagingViewListViewDelegate {
+    
+    func listView() -> UIView {
+        return view
+    }
+
+    func listViewDidScrollCallback(callback: @escaping (UIScrollView) -> ()) {
+        listViewDidScrollCallback = callback
+    }
+
+    func listScrollView() -> UIScrollView {
+        return tableView
+    }
+    
 }
