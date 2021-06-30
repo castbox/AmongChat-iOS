@@ -651,3 +651,5 @@
 "among.chat.group.live.mic.queue.message" = "Mic is queuing now. To speak, you should get the admin's approval first.";
 "among.chat.group.live.mic.free.message" = "MIC is FREE for everyone. Chat now!";
 "among.chat.group.live.audience.change.mic.tip" = "Only the admin can change the status of the mic.";
+"among.chat.group.accept.all" = "Accept All";
+"among.chat.group.ignore.all" = "Ignore All";

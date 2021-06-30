@@ -232,7 +232,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 285 images.
+  /// This `R.image` struct is generated, and contains static references to 287 images.
   struct image {
     /// Image `ac_add_stats_add`.
     static let ac_add_stats_add = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_add_stats_add")
@@ -318,6 +318,8 @@ struct R: Rswift.Validatable {
     static let ac_feed_video_tip = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_feed_video_tip")
     /// Image `ac_group_Leave`.
     static let ac_group_Leave = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_group_Leave")
+    /// Image `ac_group_accept_all`.
+    static let ac_group_accept_all = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_group_accept_all")
     /// Image `ac_group_add`.
     static let ac_group_add = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_group_add")
     /// Image `ac_group_all_join_requests`.
@@ -338,6 +340,8 @@ struct R: Rswift.Validatable {
     static let ac_group_get_verirfied = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_group_get_verirfied")
     /// Image `ac_group_host_request`.
     static let ac_group_host_request = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_group_host_request")
+    /// Image `ac_group_ignore_all`.
+    static let ac_group_ignore_all = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_group_ignore_all")
     /// Image `ac_group_join_request`.
     static let ac_group_join_request = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_group_join_request")
     /// Image `ac_group_kick_member`.
@@ -1015,6 +1019,11 @@ struct R: Rswift.Validatable {
       return UIKit.UIImage(resource: R.image.ac_group_Leave, compatibleWith: traitCollection)
     }
     
+    /// `UIImage(named: "ac_group_accept_all", bundle: ..., traitCollection: ...)`
+    static func ac_group_accept_all(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_group_accept_all, compatibleWith: traitCollection)
+    }
+    
     /// `UIImage(named: "ac_group_add", bundle: ..., traitCollection: ...)`
     static func ac_group_add(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ac_group_add, compatibleWith: traitCollection)
@@ -1063,6 +1072,11 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "ac_group_host_request", bundle: ..., traitCollection: ...)`
     static func ac_group_host_request(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ac_group_host_request, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_group_ignore_all", bundle: ..., traitCollection: ...)`
+    static func ac_group_ignore_all(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_group_ignore_all, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "ac_group_join_request", bundle: ..., traitCollection: ...)`
@@ -2911,7 +2925,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
     
-    /// This `R.string.localizable` struct is generated, and contains static references to 567 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 569 localization keys.
     struct localizable {
       /// en translation:  Congratulations!
       /// 
@@ -2969,6 +2983,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let groupRoomAccept = Rswift.StringResource(key: "group.room.accept", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Accept All
+      /// 
+      /// Locales: en
+      static let amongChatGroupAcceptAll = Rswift.StringResource(key: "among.chat.group.accept.all", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Access Your Gallery
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3805,6 +3823,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let groupRoomIgnore = Rswift.StringResource(key: "group.room.ignore", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Ignore All
+      /// 
+      /// Locales: en
+      static let amongChatGroupIgnoreAll = Rswift.StringResource(key: "among.chat.group.ignore.all", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Image
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -5280,6 +5302,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("group.room.accept", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Accept All
+      /// 
+      /// Locales: en
+      static func amongChatGroupAcceptAll(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.group.accept.all", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Access Your Gallery
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -6741,6 +6770,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func groupRoomIgnore(_: Void = ()) -> String {
         return NSLocalizedString("group.room.ignore", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Ignore All
+      /// 
+      /// Locales: en
+      static func amongChatGroupIgnoreAll(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.group.ignore.all", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Image
