@@ -140,6 +140,8 @@ extension Entity {
         let createTime: Int
         let broadcaster: Entity.UserProfile
         let membersCount: Int
+        var applyCount: Int?
+        var isAskSeat, isHostOff: Bool?
 //        let liveID: String
         let playerCount, onlineUserCount: Int?
         let usersUpdateTime: UInt?
@@ -244,6 +246,8 @@ extension Entity {
             case amongUsZone
             case note
             case robloxLink
+            case applyCount = "apply_count"
+            case isAskSeat, isHostOff
         }
     }
 
