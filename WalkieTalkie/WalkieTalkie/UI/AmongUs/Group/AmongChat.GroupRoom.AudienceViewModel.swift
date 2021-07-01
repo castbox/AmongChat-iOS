@@ -146,7 +146,7 @@ extension AmongChat.GroupRoom {
             if group.micQueueEnabled {
                 sendCall(action: .request, position: item.callContent.position)
             } else {
-                requestSeat(for: user.uid, in: position).subscribe().disposed(by: bag)
+                requestSeat(for: user.uid, in: item.callContent.position).subscribe().disposed(by: bag)
             }
             
             //update state
