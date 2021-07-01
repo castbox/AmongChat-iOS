@@ -232,7 +232,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 287 images.
+  /// This `R.image` struct is generated, and contains static references to 292 images.
   struct image {
     /// Image `ac_add_stats_add`.
     static let ac_add_stats_add = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_add_stats_add")
@@ -338,6 +338,8 @@ struct R: Rswift.Validatable {
     static let ac_group_delete = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_group_delete")
     /// Image `ac_group_get_verirfied`.
     static let ac_group_get_verirfied = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_group_get_verirfied")
+    /// Image `ac_group_host_offline`.
+    static let ac_group_host_offline = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_group_host_offline")
     /// Image `ac_group_host_request`.
     static let ac_group_host_request = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_group_host_request")
     /// Image `ac_group_ignore_all`.
@@ -346,6 +348,14 @@ struct R: Rswift.Validatable {
     static let ac_group_join_request = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_group_join_request")
     /// Image `ac_group_kick_member`.
     static let ac_group_kick_member = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_group_kick_member")
+    /// Image `ac_group_mic_queue_enabled`.
+    static let ac_group_mic_queue_enabled = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_group_mic_queue_enabled")
+    /// Image `ac_group_mic_queue_off`.
+    static let ac_group_mic_queue_off = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_group_mic_queue_off")
+    /// Image `ac_group_mic_queue_on`.
+    static let ac_group_mic_queue_on = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_group_mic_queue_on")
+    /// Image `ac_group_mic_queue`.
+    static let ac_group_mic_queue = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_group_mic_queue")
     /// Image `ac_group_room_copy`.
     static let ac_group_room_copy = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_group_room_copy")
     /// Image `ac_group_room_count`.
@@ -1069,6 +1079,11 @@ struct R: Rswift.Validatable {
       return UIKit.UIImage(resource: R.image.ac_group_get_verirfied, compatibleWith: traitCollection)
     }
     
+    /// `UIImage(named: "ac_group_host_offline", bundle: ..., traitCollection: ...)`
+    static func ac_group_host_offline(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_group_host_offline, compatibleWith: traitCollection)
+    }
+    
     /// `UIImage(named: "ac_group_host_request", bundle: ..., traitCollection: ...)`
     static func ac_group_host_request(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ac_group_host_request, compatibleWith: traitCollection)
@@ -1087,6 +1102,26 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "ac_group_kick_member", bundle: ..., traitCollection: ...)`
     static func ac_group_kick_member(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ac_group_kick_member, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_group_mic_queue", bundle: ..., traitCollection: ...)`
+    static func ac_group_mic_queue(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_group_mic_queue, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_group_mic_queue_enabled", bundle: ..., traitCollection: ...)`
+    static func ac_group_mic_queue_enabled(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_group_mic_queue_enabled, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_group_mic_queue_off", bundle: ..., traitCollection: ...)`
+    static func ac_group_mic_queue_off(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_group_mic_queue_off, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_group_mic_queue_on", bundle: ..., traitCollection: ...)`
+    static func ac_group_mic_queue_on(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_group_mic_queue_on, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "ac_group_room_copy", bundle: ..., traitCollection: ...)`
@@ -9294,21 +9329,12 @@ struct _R: Rswift.Validatable {
         return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
       }
       
-      func fourthView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
-        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[3] as? UIKit.UIView
-      }
-      
       func secondView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
         return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[1] as? UIKit.UIView
       }
       
-      func thirdView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
-        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[2] as? UIKit.UIView
-      }
-      
       static func validate() throws {
-        if UIKit.UIImage(named: "ac_group_host_request", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ac_group_host_request' is used in nib 'AmongGroupHostView', but couldn't be loaded.") }
-        if UIKit.UIImage(named: "ac_group_join_request", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ac_group_join_request' is used in nib 'AmongGroupHostView', but couldn't be loaded.") }
+        if UIKit.UIImage(named: "ac_group_host_offline", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ac_group_host_offline' is used in nib 'AmongGroupHostView', but couldn't be loaded.") }
         if #available(iOS 11.0, *) {
         }
       }
