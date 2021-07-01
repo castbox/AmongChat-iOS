@@ -810,22 +810,14 @@ extension AmongChat.GroupRoom.ViewController {
         
         let enabled = room.micQueueEnabled
         
-        let action = { [weak self] in
+        showAmongAlert(title: nil,
+                       message: enabled ? R.string.localizable.amongChatGroupLiveDisableQueueTip() : R.string.localizable.amongChatGroupLiveEnableQueueTip(),
+                       cancelTitle: R.string.localizable.toastCancel(),
+                       confirmTitle: R.string.localizable.amongChatConfirm(),
+                       confirmTitleColor: UIColor(hex6: 0xFFF000)) {
+            
+        } confirmAction: { [weak self] in
             self?.viewModel.updateGroupLiveMicQueueEnabled(!enabled)
-        }
-        
-        if !enabled {
-            showAmongAlert(title: nil,
-                           message: R.string.localizable.amongChatGroupLiveEnableQueueTip(),
-                           cancelTitle: R.string.localizable.toastCancel(),
-                           confirmTitle: R.string.localizable.amongChatConfirm(),
-                           confirmTitleColor: UIColor(hex6: 0xFFF000)) {
-                
-            } confirmAction: {
-                action()
-            }
-        } else {
-            action()
         }
         
     }
