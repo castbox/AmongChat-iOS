@@ -306,13 +306,21 @@ extension FansGroup.GroupListViewController: UICollectionViewDelegate {
         guard let group = groupsRelay.value.safe(indexPath.row) else {
             return
         }
-        if group.group.status == 1 {
+        
+        switch source {
+        case .myGroups:
             enter(group: group.group, logSource: .init(.explore), apiSource: nil)
-        } else {
+        default:
+            if group.group.status == 1 {
+                enter(group: group.group, logSource: .init(.explore), apiSource: nil)
+            } else {
+                
+                let vc = FansGroup.GroupInfoViewController(groupId: group.group.gid)
+                navigationController?.pushViewController(vc, animated: true)
+            }
             
-            let vc = FansGroup.GroupInfoViewController(groupId: group.group.gid)
-            navigationController?.pushViewController(vc, animated: true)
         }
+                
     }
     
 }

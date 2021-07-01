@@ -168,6 +168,14 @@ extension Entity {
             status == 1
         }
         
+        var micQueueEnabled: Bool {
+            return isAskSeat ?? false
+        }
+        
+        var hostOffLine: Bool {
+            return isHostOff ?? false
+        }
+        
         var userList: [Entity.RoomUser] {
             get {
                 guard let l = aliasUserList else {
