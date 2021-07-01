@@ -120,6 +120,27 @@ extension AmongChat.GroupRoom {
             return AmongChat.Room.SeatView(room: room, itemStyle: .group, viewModel: viewModel)
         }()
         
+        private lazy var micQueueStatusButton: UIButton = {
+            let btn = SmallSizeButton()
+            btn.rx.controlEvent(.primaryActionTriggered)
+                .subscribe(onNext: { [weak self] _ in
+                    self?.view.raft.autoShow(.text(R.string.localizable.amongChatGroupLiveAudienceChangeMicTip()))
+                })
+                .disposed(by: bag)
+            
+            btn.titleLabel?.font = R.font.nunitoExtraBold(size: 12)
+            btn.setTitleColor(UIColor(hex6: 0xABABAB), for: .normal)
+            btn.setTitle(R.string.localizable.amongChatGroupLiveMicQueue(), for: .selected)
+            btn.setImage(R.image.ac_group_mic_queue_on(), for: .selected)
+            btn.setTitle(R.string.localizable.amongChatGroupLiveMicFree(), for: .normal)
+            btn.setImage(R.image.ac_group_mic_queue_off(), for: .normal)
+            btn.imageEdgeInsets = UIEdgeInsets(top: 0, left: -4, bottom: 0, right: 4)
+            btn.titleEdgeInsets = UIEdgeInsets(top: 0, left: 4, bottom: 0, right: -4)
+            btn.isSelected = room.micQueueEnabled
+            btn.isHidden = room.loginUserIsAdmin
+            return btn
+        }()
+        
         private lazy var messageView = AmongChat.Room.MessageListView(with: viewModel)
                 
         private lazy var adContainer: UIView = {
@@ -307,6 +328,9 @@ extension AmongChat.GroupRoom.ViewController {
                 self?.seatView.room = room
                 //update list and other
 //                self?.userCollectionView.reloadData()
+                self?.micQueueStatusButton.isSelected = room.micQueueEnabled
+                self?.micQueueStatusButton.isHidden = room.loginUserIsAdmin
+                self?.hostView.group = room
             })
             .disposed(by: bag)
         
@@ -560,6 +584,10 @@ extension AmongChat.GroupRoom.ViewController {
                 self.presentPanModal(vc)
             case let .userProfileSheetAction(item, user):
                 self.onUserProfileSheet(action: item, user: user)
+                
+            case .micQueue:
+                //TODO: - mic queue
+                self.updateMicQueue()
             }
         }
         
@@ -778,6 +806,22 @@ extension AmongChat.GroupRoom.ViewController {
 //            .disposed(by: self.bag)
     }
     
+    func updateMicQueue() {
+        
+        let enabled = room.micQueueEnabled
+        
+        showAmongAlert(title: nil,
+                       message: enabled ? R.string.localizable.amongChatGroupLiveDisableQueueTip() : R.string.localizable.amongChatGroupLiveEnableQueueTip(),
+                       cancelTitle: R.string.localizable.toastCancel(),
+                       confirmTitle: R.string.localizable.amongChatConfirm(),
+                       confirmTitleColor: UIColor(hex6: 0xFFF000)) {
+            
+        } confirmAction: { [weak self] in
+            self?.viewModel.updateGroupLiveMicQueueEnabled(!enabled)
+        }
+        
+    }
+    
     // MARK: -
     private func setupLayout() {
         isNavigationBarHiddenWhenAppear = true
@@ -808,7 +852,7 @@ extension AmongChat.GroupRoom.ViewController {
         applyButton.isHidden = true
 //        applyButton.isEnabled = !viewModel.groupInfo.showApplyButton
         
-        view.addSubviews(views: bgView, messageView, hostView, seatView, messageInputContainerView, amongInputCodeView, topBar,
+        view.addSubviews(views: bgView, messageView, hostView, seatView, micQueueStatusButton, messageInputContainerView, amongInputCodeView, topBar,
 //                         toolView,
                          bottomBar, applyButton, nickNameInputView, inputNotesView, topEntranceView)
         
@@ -829,7 +873,7 @@ extension AmongChat.GroupRoom.ViewController {
         
         let hostViewTopEdge = Frame.Height.deviceDiagonalIsMinThan4_7 ? 0 : 25
         hostView.snp.makeConstraints { (maker) in
-            maker.left.right.equalToSuperview()
+            maker.left.right.equalToSuperview().inset(Frame.horizontalBleedWidth)
             maker.top.equalTo(topBar.snp.bottom).offset(hostViewTopEdge)
             maker.height.equalTo(Frame.isPad ? 175.5 : 125.5)
         }
@@ -838,6 +882,12 @@ extension AmongChat.GroupRoom.ViewController {
             maker.left.right.equalToSuperview()
             maker.top.equalTo(hostView.snp.bottom).offset(8)
             maker.height.equalTo(AmongChat.Room.SeatView.itemHeight * 2)
+        }
+        
+        micQueueStatusButton.snp.makeConstraints { maker in
+            maker.leading.equalToSuperview().offset(Frame.horizontalBleedWidth)
+            maker.bottom.equalTo(messageView.snp.top).offset(-4)
+            maker.height.equalTo(24)
         }
         
         let topEdge = Frame.Height.deviceDiagonalIsMinThan6_1 ? 10 : 61.5

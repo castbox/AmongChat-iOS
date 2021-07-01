@@ -640,3 +640,16 @@
 "among.chat.feed.friends" = "Friends";
 "dm.feed.message.text" = "[Video]";
 "Loading" = "Loading";
+
+//1.26.0
+"among.chat.group.live.enable.queue.tip" = "After enabling queue service, the audience must get your approval before using the mic.";
+"among.chat.confirm" = "Confirm";
+"among.chat.group.live.disable.queue.tip" = "After disabling the queue, the audience can interact freely with the mic.";
+"among.chat.group.live.speaker.queue" = "Speaker Queue";
+"among.chat.group.live.mic.free" = "Mic FREE";
+"among.chat.group.live.mic.queue" = "Mic QUEUE";
+"among.chat.group.live.mic.queue.message" = "Mic is queuing now. To speak, you should get the admin's approval first.";
+"among.chat.group.live.mic.free.message" = "MIC is FREE for everyone. Chat now!";
+"among.chat.group.live.audience.change.mic.tip" = "Only the admin can change the status of the mic.";
+"among.chat.group.accept.all" = "Accept All";
+"among.chat.group.ignore.all" = "Ignore All";

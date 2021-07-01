@@ -232,7 +232,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 284 images.
+  /// This `R.image` struct is generated, and contains static references to 292 images.
   struct image {
     /// Image `ac_add_stats_add`.
     static let ac_add_stats_add = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_add_stats_add")
@@ -318,8 +318,12 @@ struct R: Rswift.Validatable {
     static let ac_feed_video_tip = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_feed_video_tip")
     /// Image `ac_group_Leave`.
     static let ac_group_Leave = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_group_Leave")
+    /// Image `ac_group_accept_all`.
+    static let ac_group_accept_all = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_group_accept_all")
     /// Image `ac_group_add`.
     static let ac_group_add = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_group_add")
+    /// Image `ac_group_all_join_requests`.
+    static let ac_group_all_join_requests = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_group_all_join_requests")
     /// Image `ac_group_banner_pad`.
     static let ac_group_banner_pad = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_group_banner_pad")
     /// Image `ac_group_banner`.
@@ -334,12 +338,24 @@ struct R: Rswift.Validatable {
     static let ac_group_delete = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_group_delete")
     /// Image `ac_group_get_verirfied`.
     static let ac_group_get_verirfied = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_group_get_verirfied")
+    /// Image `ac_group_host_offline`.
+    static let ac_group_host_offline = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_group_host_offline")
     /// Image `ac_group_host_request`.
     static let ac_group_host_request = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_group_host_request")
+    /// Image `ac_group_ignore_all`.
+    static let ac_group_ignore_all = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_group_ignore_all")
     /// Image `ac_group_join_request`.
     static let ac_group_join_request = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_group_join_request")
     /// Image `ac_group_kick_member`.
     static let ac_group_kick_member = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_group_kick_member")
+    /// Image `ac_group_mic_queue_enabled`.
+    static let ac_group_mic_queue_enabled = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_group_mic_queue_enabled")
+    /// Image `ac_group_mic_queue_off`.
+    static let ac_group_mic_queue_off = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_group_mic_queue_off")
+    /// Image `ac_group_mic_queue_on`.
+    static let ac_group_mic_queue_on = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_group_mic_queue_on")
+    /// Image `ac_group_mic_queue`.
+    static let ac_group_mic_queue = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_group_mic_queue")
     /// Image `ac_group_room_copy`.
     static let ac_group_room_copy = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_group_room_copy")
     /// Image `ac_group_room_count`.
@@ -1013,9 +1029,19 @@ struct R: Rswift.Validatable {
       return UIKit.UIImage(resource: R.image.ac_group_Leave, compatibleWith: traitCollection)
     }
     
+    /// `UIImage(named: "ac_group_accept_all", bundle: ..., traitCollection: ...)`
+    static func ac_group_accept_all(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_group_accept_all, compatibleWith: traitCollection)
+    }
+    
     /// `UIImage(named: "ac_group_add", bundle: ..., traitCollection: ...)`
     static func ac_group_add(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ac_group_add, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_group_all_join_requests", bundle: ..., traitCollection: ...)`
+    static func ac_group_all_join_requests(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_group_all_join_requests, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "ac_group_banner", bundle: ..., traitCollection: ...)`
@@ -1053,9 +1079,19 @@ struct R: Rswift.Validatable {
       return UIKit.UIImage(resource: R.image.ac_group_get_verirfied, compatibleWith: traitCollection)
     }
     
+    /// `UIImage(named: "ac_group_host_offline", bundle: ..., traitCollection: ...)`
+    static func ac_group_host_offline(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_group_host_offline, compatibleWith: traitCollection)
+    }
+    
     /// `UIImage(named: "ac_group_host_request", bundle: ..., traitCollection: ...)`
     static func ac_group_host_request(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ac_group_host_request, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_group_ignore_all", bundle: ..., traitCollection: ...)`
+    static func ac_group_ignore_all(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_group_ignore_all, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "ac_group_join_request", bundle: ..., traitCollection: ...)`
@@ -1066,6 +1102,26 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "ac_group_kick_member", bundle: ..., traitCollection: ...)`
     static func ac_group_kick_member(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ac_group_kick_member, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_group_mic_queue", bundle: ..., traitCollection: ...)`
+    static func ac_group_mic_queue(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_group_mic_queue, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_group_mic_queue_enabled", bundle: ..., traitCollection: ...)`
+    static func ac_group_mic_queue_enabled(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_group_mic_queue_enabled, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_group_mic_queue_off", bundle: ..., traitCollection: ...)`
+    static func ac_group_mic_queue_off(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_group_mic_queue_off, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_group_mic_queue_on", bundle: ..., traitCollection: ...)`
+    static func ac_group_mic_queue_on(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_group_mic_queue_on, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "ac_group_room_copy", bundle: ..., traitCollection: ...)`
@@ -2904,7 +2960,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
     
-    /// This `R.string.localizable` struct is generated, and contains static references to 558 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 569 localization keys.
     struct localizable {
       /// en translation:  Congratulations!
       /// 
@@ -2962,6 +3018,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let groupRoomAccept = Rswift.StringResource(key: "group.room.accept", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Accept All
+      /// 
+      /// Locales: en
+      static let amongChatGroupAcceptAll = Rswift.StringResource(key: "among.chat.group.accept.all", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Access Your Gallery
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3018,6 +3078,14 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatClearCacheTip = Rswift.StringResource(key: "among.chat.clear.cache.tip", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: After disabling the queue, the audience can interact freely with the mic.
+      /// 
+      /// Locales: en
+      static let amongChatGroupLiveDisableQueueTip = Rswift.StringResource(key: "among.chat.group.live.disable.queue.tip", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: After enabling queue service, the audience must get your approval before using the mic.
+      /// 
+      /// Locales: en
+      static let amongChatGroupLiveEnableQueueTip = Rswift.StringResource(key: "among.chat.group.live.enable.queue.tip", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: After the free trial, %@ subscription is %@, it automatically renews unless turned off in Accounting Settings at least 24h before current period ends. Payment is charged to your iTunes Account, cancel any time.
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3342,6 +3410,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let profileCommunity = Rswift.StringResource(key: "profile.community", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Confirm
+      /// 
+      /// Locales: en
+      static let amongChatConfirm = Rswift.StringResource(key: "among.chat.confirm", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Confirm report
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3786,6 +3858,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let groupRoomIgnore = Rswift.StringResource(key: "group.room.ignore", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Ignore All
+      /// 
+      /// Locales: en
+      static let amongChatGroupIgnoreAll = Rswift.StringResource(key: "among.chat.group.ignore.all", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Image
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3922,6 +3998,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatRoomTipMicOn = Rswift.StringResource(key: "among.chat.room.tip.mic.on", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: MIC is FREE for everyone. Chat now!
+      /// 
+      /// Locales: en
+      static let amongChatGroupLiveMicFreeMessage = Rswift.StringResource(key: "among.chat.group.live.mic.free.message", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: MINECRAFT GAMERTAG
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3962,6 +4042,18 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let dmSendFailedByBlocked = Rswift.StringResource(key: "dm.send.failed.by.blocked", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Mic FREE
+      /// 
+      /// Locales: en
+      static let amongChatGroupLiveMicFree = Rswift.StringResource(key: "among.chat.group.live.mic.free", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Mic QUEUE
+      /// 
+      /// Locales: en
+      static let amongChatGroupLiveMicQueue = Rswift.StringResource(key: "among.chat.group.live.mic.queue", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Mic is queuing now. To speak, you should get the admin's approval first.
+      /// 
+      /// Locales: en
+      static let amongChatGroupLiveMicQueueMessage = Rswift.StringResource(key: "among.chat.group.live.mic.queue.message", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Minecraft Gamertag
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -4106,6 +4198,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let socialStatusOnline = Rswift.StringResource(key: "social.status.online", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Only the admin can change the status of the mic.
+      /// 
+      /// Locales: en
+      static let amongChatGroupLiveAudienceChangeMicTip = Rswift.StringResource(key: "among.chat.group.live.audience.change.mic.tip", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Only the admin can change the topic
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -4662,6 +4758,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let deviceNotSupportSendMessage = Rswift.StringResource(key: "device.not.support.send.message", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Speaker Queue
+      /// 
+      /// Locales: en
+      static let amongChatGroupLiveSpeakerQueue = Rswift.StringResource(key: "among.chat.group.live.speaker.queue", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Special avatars
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -5237,6 +5337,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("group.room.accept", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Accept All
+      /// 
+      /// Locales: en
+      static func amongChatGroupAcceptAll(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.group.accept.all", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Access Your Gallery
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -5333,6 +5440,20 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func amongChatClearCacheTip(_: Void = ()) -> String {
         return NSLocalizedString("among.chat.clear.cache.tip", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: After disabling the queue, the audience can interact freely with the mic.
+      /// 
+      /// Locales: en
+      static func amongChatGroupLiveDisableQueueTip(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.group.live.disable.queue.tip", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: After enabling queue service, the audience must get your approval before using the mic.
+      /// 
+      /// Locales: en
+      static func amongChatGroupLiveEnableQueueTip(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.group.live.enable.queue.tip", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: After the free trial, %@ subscription is %@, it automatically renews unless turned off in Accounting Settings at least 24h before current period ends. Payment is charged to your iTunes Account, cancel any time.
@@ -5900,6 +6021,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func profileCommunity(_: Void = ()) -> String {
         return NSLocalizedString("profile.community", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Confirm
+      /// 
+      /// Locales: en
+      static func amongChatConfirm(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.confirm", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Confirm report
@@ -6679,6 +6807,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("group.room.ignore", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Ignore All
+      /// 
+      /// Locales: en
+      static func amongChatGroupIgnoreAll(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.group.ignore.all", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Image
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -6917,6 +7052,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("among.chat.room.tip.mic.on", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: MIC is FREE for everyone. Chat now!
+      /// 
+      /// Locales: en
+      static func amongChatGroupLiveMicFreeMessage(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.group.live.mic.free.message", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: MINECRAFT GAMERTAG
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -6985,6 +7127,27 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func dmSendFailedByBlocked(_: Void = ()) -> String {
         return NSLocalizedString("dm.send.failed.by.blocked", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Mic FREE
+      /// 
+      /// Locales: en
+      static func amongChatGroupLiveMicFree(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.group.live.mic.free", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Mic QUEUE
+      /// 
+      /// Locales: en
+      static func amongChatGroupLiveMicQueue(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.group.live.mic.queue", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Mic is queuing now. To speak, you should get the admin's approval first.
+      /// 
+      /// Locales: en
+      static func amongChatGroupLiveMicQueueMessage(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.group.live.mic.queue.message", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Minecraft Gamertag
@@ -7237,6 +7400,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func socialStatusOnline(_: Void = ()) -> String {
         return NSLocalizedString("social.status.online", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Only the admin can change the status of the mic.
+      /// 
+      /// Locales: en
+      static func amongChatGroupLiveAudienceChangeMicTip(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.group.live.audience.change.mic.tip", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Only the admin can change the topic
@@ -8212,6 +8382,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("device.not.support.send.message", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Speaker Queue
+      /// 
+      /// Locales: en
+      static func amongChatGroupLiveSpeakerQueue(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.group.live.speaker.queue", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Special avatars
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -9152,21 +9329,12 @@ struct _R: Rswift.Validatable {
         return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
       }
       
-      func fourthView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
-        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[3] as? UIKit.UIView
-      }
-      
       func secondView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
         return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[1] as? UIKit.UIView
       }
       
-      func thirdView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
-        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[2] as? UIKit.UIView
-      }
-      
       static func validate() throws {
-        if UIKit.UIImage(named: "ac_group_host_request", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ac_group_host_request' is used in nib 'AmongGroupHostView', but couldn't be loaded.") }
-        if UIKit.UIImage(named: "ac_group_join_request", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ac_group_join_request' is used in nib 'AmongGroupHostView', but couldn't be loaded.") }
+        if UIKit.UIImage(named: "ac_group_host_offline", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ac_group_host_offline' is used in nib 'AmongGroupHostView', but couldn't be loaded.") }
         if #available(iOS 11.0, *) {
         }
       }

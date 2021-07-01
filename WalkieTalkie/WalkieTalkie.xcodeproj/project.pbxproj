@@ -30,6 +30,7 @@
 		263FC49726218B9A00EC0588 /* FansGroup.Views.ShareBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 263FC49626218B9A00EC0588 /* FansGroup.Views.ShareBar.swift */; };
 		26430FCB2637F19B0096177B /* Entity.Notice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26430FCA2637F19B0096177B /* Entity.Notice.swift */; };
 		26430FD9263803E40096177B /* Notice.Views.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26430FD8263803E40096177B /* Notice.Views.swift */; };
+		26466FA5268D73E6002BF5CD /* AmongGroupHostActionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26466FA4268D73E6002BF5CD /* AmongGroupHostActionView.swift */; };
 		264A076325B6FE67001F998E /* AmongChat.Login.SmsCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 264A076225B6FE67001F998E /* AmongChat.Login.SmsCodeViewController.swift */; };
 		264CCE5F2639307600D5410C /* Notice.NoticeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 264CCE5E2639307600D5410C /* Notice.NoticeViewModel.swift */; };
 		2656752D2645029A004D77D6 /* AmongChat.Home.ConversationListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2656752C2645029A004D77D6 /* AmongChat.Home.ConversationListController.swift */; };
@@ -559,6 +560,7 @@
 		263FC49626218B9A00EC0588 /* FansGroup.Views.ShareBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FansGroup.Views.ShareBar.swift; sourceTree = "<group>"; };
 		26430FCA2637F19B0096177B /* Entity.Notice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entity.Notice.swift; sourceTree = "<group>"; };
 		26430FD8263803E40096177B /* Notice.Views.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notice.Views.swift; sourceTree = "<group>"; };
+		26466FA4268D73E6002BF5CD /* AmongGroupHostActionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongGroupHostActionView.swift; sourceTree = "<group>"; };
 		264A076225B6FE67001F998E /* AmongChat.Login.SmsCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChat.Login.SmsCodeViewController.swift; sourceTree = "<group>"; };
 		264CCE5E2639307600D5410C /* Notice.NoticeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notice.NoticeViewModel.swift; sourceTree = "<group>"; };
 		2656752C2645029A004D77D6 /* AmongChat.Home.ConversationListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChat.Home.ConversationListController.swift; sourceTree = "<group>"; };
@@ -2048,6 +2050,7 @@
 				FE80677C261C90C900207992 /* AmongGroupRoomTipsView.swift */,
 				FE169E2326134A1500AD7866 /* AmongGroupHostView.swift */,
 				FE169E2726134A2000AD7866 /* AmongGroupHostView.xib */,
+				26466FA4268D73E6002BF5CD /* AmongGroupHostActionView.swift */,
 				FE6BEAE12631B17700568B9B /* AmongGroupJoinRequestCellIPad.swift */,
 				FE6BEAE22631B17700568B9B /* AmongGroupJoinRequestCellIPad.xib */,
 				FE169E31261351C400AD7866 /* AmongGroupJoinRequestCell.swift */,
@@ -2462,6 +2465,7 @@
 				FED7B5FC244EC99300D94F97 /* ScreenLifeLogable.swift in Sources */,
 				FE401E3E244D9C450081F793 /* IAP.Restore.swift in Sources */,
 				FED7B603244ECAA600D94F97 /* Logger+PageShow.swift in Sources */,
+				26466FA5268D73E6002BF5CD /* AmongGroupHostActionView.swift in Sources */,
 				FE126D602434967A00BEDD60 /* SwiftTimer.swift in Sources */,
 				FEC7855A25A8577300E343F7 /* BaseNotificationBannerExtension.swift in Sources */,
 				269A6E08261EFDFC00A07C7D /* FansGroup.Views.GroupInfoSetUpView.swift in Sources */,

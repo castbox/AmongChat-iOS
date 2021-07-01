@@ -143,9 +143,8 @@ extension UIView {
                   borderWidth: CGFloat = 2.5,
                   borderColor: UIColor? = UIColor(hex6: 0x121212)) {
         
-        guard badge == nil else {
-            return
-        }
+        badgeOff()
+        
         let b = InnerBorderdView()
         b.innerBackgroundColor = "FA4E4E".color()
         b.viewCornerRadius = diameter / 2
@@ -196,11 +195,7 @@ extension UIView {
     }
     
     func badgeOff() {
-        guard let b = badge else {
-            return
-        }
-        
-        b.removeFromSuperview()
+        badge?.removeFromSuperview()
         badge = nil
     }
     

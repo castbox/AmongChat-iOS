@@ -104,6 +104,12 @@ extension AmongChat.GroupRoom {
             update(groupInfo.group)
             //update profile
             Settings.shared.updateProfile()
+            
+            Observable.zip(roomReplay, roomReplay.skip(1))
+                .subscribe(onNext: { [weak self] (oldRoom, newRoom) in
+                    self?.addMicQueueStatusUpdatedMessage(oldRoomValue: oldRoom, newRoomValue: newRoom)
+                })
+                .disposed(by: bag)
         }
         
         override func startShowShareTimerIfNeed() {
@@ -214,6 +220,24 @@ extension AmongChat.GroupRoom {
             } else if crMessage.msgType == .emoji {
                 messageHandler?(crMessage)
             }
+        }
+        
+        private func addMicQueueStatusUpdatedMessage(oldRoomValue: RoomDetailable, newRoomValue: RoomDetailable) {
+            
+            guard let oldRoom = oldRoomValue as? Entity.Group,
+                  let newRoom = newRoomValue as? Entity.Group,
+                  oldRoom.micQueueEnabled != newRoom.micQueueEnabled else {
+                return
+            }
+            
+            if newRoom.micQueueEnabled {
+                let system = ChatRoom.SystemMessage(content: R.string.localizable.amongChatGroupLiveMicQueueMessage(), textColor: "F67540", contentType: nil, msgType: .system)
+                addUIMessage(message: system)
+            } else {
+                let system = ChatRoom.SystemMessage(content: R.string.localizable.amongChatGroupLiveMicFreeMessage(), textColor: "9362FF", contentType: nil, msgType: .system)
+                addUIMessage(message: system)
+            }
+            
         }
         
         //MARK: -- Request
@@ -351,6 +375,12 @@ extension AmongChat.GroupRoom {
                 .disposed(by: bag)
         }
         
+        func updateGroupLiveMicQueueEnabled(_ enabled: Bool) {
+            var group = self.group
+            group.isAskSeat = enabled
+            updateInfo(group: group)
+        }
+        
         func updateInfo(group: Entity.Group, _ completionHandler: CallBack? = nil) {
             //update
             Request.update(group)
@@ -376,9 +406,9 @@ extension AmongChat.GroupRoom {
 //            state = .disconnected
 //            UIApplication.shared.isIdleTimerDisabled = false
             //
-            if group.loginUserIsAdmin {
-                return Request.stopChannel(groupId: group.gid)
-            }
+//            if group.loginUserIsAdmin {
+//                return Request.stopChannel(groupId: group.gid)
+//            }
             return Request.leaveChannel(groupId: group.gid)
         }
         
