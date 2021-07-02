@@ -93,7 +93,7 @@ extension FansGroup.CreateGroupViewController {
                 vc.isEnableScreenEdgeGesture = false
                 let rootVC = self?.navigationController?.viewControllers.first as? WalkieTalkie.ViewController
                 vc.doneHandler = { [weak vc] in
-                    rootVC?.enter(group: group, logSource: .init(.create), completionHandler: {
+                    rootVC?.enter(group: group, logSource: .init(.create), completionHandler: { _ in
                         vc?.navigationController?.viewControllers.removeAll(where: { $0 === vc })
                     })
                 }

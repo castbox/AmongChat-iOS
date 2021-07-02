@@ -263,31 +263,29 @@ extension Social.ProfileGroupsViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
         if let op = options.safe(indexPath.section) {
-            switch op {
             
+            let group: Entity.Group?
+            let logSource: ParentPageSource?
+            
+            switch op {
             case .groupsJoined:
-                let group = joinedGroupsRelay.value[indexPath.item]
-                if group.status == 1 {
-                    enter(group: group, logSource: .init(.profile), apiSource: nil)
-                } else {
-                    let vc = FansGroup.GroupInfoViewController(groupId: group.gid)
-                    navigationController?.pushViewController(vc, animated: true)
-                }
+                group = joinedGroupsRelay.value.safe(indexPath.item)
+                logSource = ParentPageSource(.profile)
                 
             case .groupsCreated:
                 Logger.Action.log( uid.isSelfUid ? .profile_group_clk : .profile_other_group_clk, categoryValue: "group")
-                guard let group = createdGroupsRelay.value.safe(indexPath.row) else {
-                    return
-                }
-                if group.status == 1 {
-                    enter(group: group, logSource: nil, apiSource: nil)
-                } else {
-                    
-                    let vc = FansGroup.GroupInfoViewController(groupId: group.gid)
-                    navigationController?.pushViewController(vc, animated: true)
-                }
-                
+                group = createdGroupsRelay.value.safe(indexPath.row)
+                logSource = nil
             }
+            
+            guard let group = group else { return }
+            
+            enter(group: group, logSource: logSource, apiSource: nil) { [weak self] success in
+                guard !success else { return }
+                let vc = FansGroup.GroupInfoViewController(groupId: group.gid)
+                self?.navigationController?.pushViewController(vc, animated: true)
+            }
+
         }
     }
     
