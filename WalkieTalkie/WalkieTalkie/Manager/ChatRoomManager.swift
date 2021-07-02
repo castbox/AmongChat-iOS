@@ -293,12 +293,13 @@ extension ChatRoomManager {
         
         _ = Settings.shared.profilePage.replay()
             .subscribe(onNext: { [weak self] result in
-                guard let result = result?.profile, result.uid > 0, result.roleType == .some(.none) else {
+                guard let result = result?.profile, result.uid > 0 else {
                     self?.heartBeatingRequestDispose?.dispose()
                     //leave channel
                     self?.leaveChannel()
                     return
                 }
+                guard result.roleType == .some(.none) else { return }
                 self?.requestHeartBeating()
             })
     }
