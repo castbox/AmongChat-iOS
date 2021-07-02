@@ -180,10 +180,10 @@ extension UIViewController {
         
         let alertVC = AlertController(attributedTitle: titleAttr, attributedMessage: messageAttr, preferredStyle: .alert)
         let visualStyle = AlertVisualStyle(alertStyle: .alert)
-//        visualStyle.contentPadding = 
+        visualStyle.contentPadding = UIEdgeInsets(top: 36, left: 32, bottom: 28, right: 32)
 //        visualStyle.verticalElementSpacing = 40
         visualStyle.backgroundColor = "#222222".color()
-        visualStyle.actionViewSeparatorColor = UIColor.white.alpha(0.08)
+        visualStyle.actionViewSeparatorColor = UIColor.white.alpha(0.06)
         alertVC.visualStyle = visualStyle
         //        alertVC.contentView.backgroundColor = "222222".color()
         
