@@ -34,13 +34,16 @@
                     <rect key="frame" x="0.0" y="0.0" width="67" height="126"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Host" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="387-CP-ORP">
-                            <rect key="frame" x="15.5" y="0.0" width="36" height="22"/>
+                            <rect key="frame" x="15.5" y="3" width="36" height="19"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="19" id="6qW-4N-cqy"/>
+                            </constraints>
                             <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito" pointSize="16"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="S3g-46-o4q" userLabel="Avatar Image View">
-                            <rect key="frame" x="14.5" y="25" width="38" height="38"/>
+                            <rect key="frame" x="14.5" y="27" width="38" height="38"/>
                             <gestureRecognizers/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="38" id="Qf0-ag-VWs"/>
@@ -56,7 +59,7 @@
                             </connections>
                         </imageView>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8YN-8R-Df7" userLabel="Offline Avatar View">
-                            <rect key="frame" x="14.5" y="25" width="38" height="38"/>
+                            <rect key="frame" x="14.5" y="27" width="38" height="38"/>
                             <subviews>
                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ac_group_host_offline" translatesAutoresizingMaskIntoConstraints="NO" id="3zg-NP-tDX">
                                     <rect key="frame" x="11" y="11" width="16" height="16"/>
@@ -75,14 +78,17 @@
                             </userDefinedRuntimeAttributes>
                         </view>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" " textAlignment="center" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rTp-yf-TGr" userLabel="Name Label">
-                            <rect key="frame" x="2" y="68" width="63" height="16.5"/>
+                            <rect key="frame" x="2" y="70" width="63" height="16"/>
                             <gestureRecognizers/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="16" id="KVY-8r-Wq0"/>
+                            </constraints>
                             <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito" pointSize="12"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vg2-8c-Z9C" userLabel="Game Name Button">
-                            <rect key="frame" x="3.5" y="88.5" width="60" height="20"/>
+                            <rect key="frame" x="3.5" y="90" width="60" height="20"/>
                             <color key="backgroundColor" white="1" alpha="0.20000000000000001" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="60" id="hlR-Na-YYF"/>
@@ -104,14 +110,14 @@
                         </button>
                     </subviews>
                     <constraints>
+                        <constraint firstItem="S3g-46-o4q" firstAttribute="top" secondItem="387-CP-ORP" secondAttribute="bottom" constant="5" id="37O-Tz-UWk"/>
                         <constraint firstItem="8YN-8R-Df7" firstAttribute="width" secondItem="S3g-46-o4q" secondAttribute="width" id="6cf-NQ-Gw2"/>
                         <constraint firstAttribute="trailing" secondItem="rTp-yf-TGr" secondAttribute="trailing" constant="2" id="74B-DD-R4i"/>
                         <constraint firstItem="8YN-8R-Df7" firstAttribute="centerY" secondItem="S3g-46-o4q" secondAttribute="centerY" id="BSB-83-1Kd"/>
                         <constraint firstAttribute="width" constant="67" id="Kzs-WP-cDh"/>
                         <constraint firstItem="8YN-8R-Df7" firstAttribute="centerX" secondItem="S3g-46-o4q" secondAttribute="centerX" id="XSb-Bj-O5z"/>
                         <constraint firstItem="S3g-46-o4q" firstAttribute="centerX" secondItem="387-CP-ORP" secondAttribute="centerX" id="ZSb-aN-3Uq"/>
-                        <constraint firstItem="S3g-46-o4q" firstAttribute="top" secondItem="HBc-V3-NcN" secondAttribute="top" constant="25" id="d4E-Yh-lWK"/>
-                        <constraint firstItem="387-CP-ORP" firstAttribute="top" secondItem="HBc-V3-NcN" secondAttribute="top" id="ed5-Yv-HqE"/>
+                        <constraint firstItem="387-CP-ORP" firstAttribute="top" secondItem="HBc-V3-NcN" secondAttribute="top" constant="3" id="ed5-Yv-HqE"/>
                         <constraint firstItem="vg2-8c-Z9C" firstAttribute="centerX" secondItem="rTp-yf-TGr" secondAttribute="centerX" id="fL1-y6-8Ao"/>
                         <constraint firstItem="vg2-8c-Z9C" firstAttribute="top" secondItem="rTp-yf-TGr" secondAttribute="bottom" constant="4" id="l3o-xH-7eK"/>
                         <constraint firstItem="387-CP-ORP" firstAttribute="centerX" secondItem="HBc-V3-NcN" secondAttribute="centerX" id="mUt-rf-1LR"/>
