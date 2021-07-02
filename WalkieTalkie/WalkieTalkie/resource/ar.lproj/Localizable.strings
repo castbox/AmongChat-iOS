@@ -638,4 +638,20 @@
 "feed.third.share.content" = "أنا مدمن مخدرات على هذا الفيديو على AmongChat. تحقق من ذلك! %@";
 "among.chat.feed.recent.chats" = "الدردشات الأخيرة";
 "among.chat.feed.friends" = "اصحاب";
-"dm.feed.message.text" = "[Feed]";
+"dm.feed.message.text" = "[فيديو]";
+"Loading" = "جار التحميل";
+
+//1.26.0
+"among.chat.group.live.enable.queue.tip" = "بعد تمكين خدمة قائمة الانتظار ، يجب أن يحصل الجمهور على موافقتك قبل استخدام الميكروفون.";
+"among.chat.confirm" = "حسنًا";
+"among.chat.group.live.disable.queue.tip" = "بعد تعطيل قائمة الانتظار ، يمكن للجمهور استخدام الميكروفون للتفاعل بحرية.";
+"among.chat.group.live.speaker.queue" = "قائمة انتظار المتحدث";
+"among.chat.group.live.mic.free" = "يمكن استخدام الميكروفون بحرية";
+"among.chat.group.live.mic.queue" = "الميكروفون في قائمة الانتظار";
+"among.chat.group.live.mic.queue.message" = "الميكروفون في قائمة الانتظار الآن. للتحدث ، يجب أن تحصل على موافقة المسؤول أولاً.";
+"among.chat.group.live.mic.free.message" = "يمكن للجميع استخدام الميكروفون بحرية. الدردشة الآن!";
+"among.chat.group.live.audience.change.mic.tip" = "يمكن للمسؤول فقط تغيير حالة الميكروفون.";
+"among.chat.group.accept.all" = "قبول الكل";
+"among.chat.group.ignore.all" = "تجاهل الكل";
+"feed.post.tip.with.rules" = " يجب أن تكون مقاطع الفيديو أقل من 60 ثانية وأن تكون مرتبطة بالألعاب ، ولا يجوز أن تنتهك %1$@.";
+"feed.post.rules" = "القواعد";

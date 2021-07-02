@@ -638,4 +638,20 @@
 "feed.third.share.content" = "저는 AmongChat에서이 비디오에 매료되었습니다. 확인 해봐! %@";
 "among.chat.feed.recent.chats" = "최근 채팅";
 "among.chat.feed.friends" = "친구";
-"dm.feed.message.text" = "[Feed]";
+"dm.feed.message.text" = "[비디오]";
+"Loading" = "로드중";
+
+//1.26.0
+"among.chat.group.live.enable.queue.tip" = "대기열 서비스를 활성화 한 후 청중은 마이크를 사용하기 전에 귀하의 승인을 받아야합니다.";
+"among.chat.confirm" = "확인";
+"among.chat.group.live.disable.queue.tip" = "대기열을 비활성화 한 후 청중은 마이크를 자유롭게 사용하여 상호 작용할 수 있습니다.";
+"among.chat.group.live.speaker.queue" = "발표자 대기열";
+"among.chat.group.live.mic.free" = "마이크 자유";
+"among.chat.group.live.mic.queue" = "마이크 대기열";
+"among.chat.group.live.mic.queue.message" = "지금 마이크 대기열이 켜져 있습니다. 말하기 위해서는 먼저 관리자의 승인을 받아야합니다.";
+"among.chat.group.live.mic.free.message" = "누구나 자유롭게 마이크를 사용할 수 있습니다. 지금 채팅하세요!";
+"among.chat.group.live.audience.change.mic.tip" = "관리자 만 마이크 상태를 변경할 수 있습니다.";
+"among.chat.group.accept.all" = "모두 수락";
+"among.chat.group.ignore.all" = "모두 무시";
+"feed.post.tip.with.rules" = "동영상은 게임과 관련된 60 초 미만이어야하며 %1$@을 위반해서는 안됩니다.";
+"feed.post.rules" = "규칙";

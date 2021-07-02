@@ -638,4 +638,20 @@
 "feed.third.share.content" = "Ich bin süchtig nach diesem Video auf AmongChat. Hör zu! %@";
 "among.chat.feed.recent.chats" = "Letzte Chats";
 "among.chat.feed.friends" = "Freunde";
-"dm.feed.message.text" = "[Feed]";
+"dm.feed.message.text" = "[Video]";
+"Loading" = "Wird geladen";
+
+//1.26.0
+"among.chat.group.live.enable.queue.tip" = "Nachdem Sie den Warteschlangendienst aktiviert haben, muss das Publikum Ihre Zustimmung einholen, bevor Sie das Mikrofon verwenden können.";
+"among.chat.confirm" = "Bestätigen";
+"among.chat.group.live.disable.queue.tip" = "Nach dem Deaktivieren der Warteschlange kann das Publikum das Mikrofon verwenden, um mit anderen zu interagieren.";
+"among.chat.group.live.speaker.queue" = "Sprecherwarteschlange";
+"among.chat.group.live.mic.free" = "Mikrofon FREI";
+"among.chat.group.live.mic.queue" = "Mikrofon-Warteschlange";
+"among.chat.group.live.mic.queue.message" = "Das Mikrofon steht jetzt in der Warteschlange. Um zu sprechen, sollten Sie zuerst die Genehmigung des Administrators einholen.";
+"among.chat.group.live.mic.free.message" = "MIC ist für alle FREI. Jetzt chatten!";
+"among.chat.group.live.audience.change.mic.tip" = "Nur der Administrator kann den Status des Mikrofons ändern.";
+"among.chat.group.accept.all" = "Alles akzeptieren";
+"among.chat.group.ignore.all" = "Alles ignorieren";
+"feed.post.tip.with.rules" = "Videos sollten weniger als 60 Sekunden lang sein, sich auf Spiele beziehen und dürfen nicht gegen die %1$@ verstoßen.";
+"feed.post.rules" = "Regeln";

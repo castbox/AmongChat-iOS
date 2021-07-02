@@ -638,4 +638,20 @@
 "feed.third.share.content" = "Sono appassionato di questo video su AmongChat. Controlla! %@";
 "among.chat.feed.recent.chats" = "Chat recenti";
 "among.chat.feed.friends" = "Amici";
-"dm.feed.message.text" = "[Feed]";
+"dm.feed.message.text" = "[Video]";
+"Loading" = "Caricamento";
+
+//1.26.0
+"among.chat.group.live.enable.queue.tip" = "Dopo aver abilitato il servizio in coda, il pubblico deve ottenere la tua approvazione prima di utilizzare il microfono.";
+"among.chat.confirm" = "Confermare";
+"among.chat.group.live.disable.queue.tip" = "Dopo aver disabilitato la coda, il pubblico può usare liberamente il microfono per interagire.";
+"among.chat.group.live.speaker.queue" = "Coda di altoparlanti";
+"among.chat.group.live.mic.free" = "Microfono LIBERO";
+"among.chat.group.live.mic.queue" = "Microfono CODA";
+"among.chat.group.live.mic.queue.message" = "Il microfono è in coda ora. Per parlare, dovresti prima ottenere l'approvazione dell'amministratore.";
+"among.chat.group.live.mic.free.message" = "Il microfono è LIBERO per tutti. Chatta ora!";
+"among.chat.group.live.audience.change.mic.tip" = "Solo l'amministratore può modificare lo stato del microfono.";
+"among.chat.group.accept.all" = "Accetta tutti";
+"among.chat.group.ignore.all" = "Ignora tutti";
+"feed.post.tip.with.rules" = "I video devono essere inferiori a 60 secondi e relativi ai giochi e non possono violare le %1$@.";
+"feed.post.rules" = "regole";
