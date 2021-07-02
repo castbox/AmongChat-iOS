@@ -268,7 +268,7 @@ extension FansGroup.GroupEditViewController {
                     return
                 }
                 
-                requestsTitleLabel?.badgeOn(string: count.string, hAlignment: .headToTail(-0.5), topInset: 0, diameter: 16, borderWidth: 0, borderColor: nil)
+                requestsTitleLabel?.badgeOn(string: count.string, hAlignment: .tailByTail(-24), topInset: -5, diameter: 22, borderWidth: 2.5, borderColor: UIColor(hex6: 0x121212))
                 
             })
             .disposed(by: bag)
