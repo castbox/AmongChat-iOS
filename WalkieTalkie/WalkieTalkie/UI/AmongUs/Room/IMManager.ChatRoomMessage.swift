@@ -348,7 +348,7 @@ extension ChatRoom.TextMessage {
         ]
         let mutableNormalString = NSMutableAttributedString()
         if isGroupRoomHostMsg {
-            mutableNormalString.append(NSAttributedString(string: "\(R.string.localizable.amongChatGroupHost()) \(user.name ?? "")", attributes: nameAttr))
+            mutableNormalString.append(NSAttributedString(string: "\(R.string.localizable.amongChatGroupAdmin()) \(user.name ?? "")", attributes: nameAttr))
         } else if user.seatNo >= 0 {
             mutableNormalString.append(NSAttributedString(string: "#\(user.seatNo) \(user.name ?? "")", attributes: nameAttr))
         } else {
@@ -422,7 +422,7 @@ extension ChatRoom.JoinRoomMessage {
         let mutableNormalString = NSMutableAttributedString()
 //        mutableNormalString.append(NSAttributedString(string: "#\(user.seatNo) \(user.name ?? "")", attributes: nameAttr))
         if isGroupRoomHostMsg {
-            mutableNormalString.append(NSAttributedString(string: "\(R.string.localizable.amongChatGroupHost()) \(user.name ?? "")", attributes: nameAttr))
+            mutableNormalString.append(NSAttributedString(string: "\(R.string.localizable.amongChatGroupAdmin()) \(user.name ?? "")", attributes: nameAttr))
         } else if user.seatNo >= 0 {
             mutableNormalString.append(NSAttributedString(string: "#\(user.seatNo) \(user.name ?? "")", attributes: nameAttr))
         } else {
@@ -525,7 +525,7 @@ extension ChatRoom.GroupJoinRoomMessage {
         let mutableNormalString = NSMutableAttributedString()
 //        mutableNormalString.append(NSAttributedString(string: "#\(user.seatNo) \(user.name ?? "")", attributes: nameAttr))
         if isGroupRoomHostMsg {
-            mutableNormalString.append(NSAttributedString(string: "\(R.string.localizable.amongChatGroupHost()) \(user.name ?? "")", attributes: nameAttr))
+            mutableNormalString.append(NSAttributedString(string: "\(R.string.localizable.amongChatGroupAdmin()) \(user.name ?? "")", attributes: nameAttr))
         } else if user.seatNo >= 0 {
             mutableNormalString.append(NSAttributedString(string: "#\(user.seatNo) \(user.name ?? "")", attributes: nameAttr))
         } else {
