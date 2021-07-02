@@ -151,7 +151,7 @@ extension FansGroup.GroupMemberListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         
         if section == 0 || section == 1{
-            return 26
+            return 29
         } else {
             return .leastNormalMagnitude
         }
@@ -177,7 +177,7 @@ extension FansGroup.GroupMemberListViewController: UITableViewDelegate {
         if section == 0 {
             
             let l = UILabel()
-            l.font = R.font.nunitoExtraBold(size: 16)
+            l.font = R.font.nunitoExtraBold(size: 18)
             l.textColor = UIColor(hex6: 0x898989)
             l.text = R.string.localizable.amongChatGroupAdmin()
             
@@ -185,13 +185,13 @@ extension FansGroup.GroupMemberListViewController: UITableViewDelegate {
             l.snp.makeConstraints { (maker) in
                 maker.leading.trailing.equalToSuperview().inset(Frame.horizontalBleedWidth)
                 maker.centerY.equalToSuperview()
-                maker.height.equalTo(22)
+                maker.height.equalTo(25)
             }
             
         } else if section == 1 {
             
             let l = UILabel()
-            l.font = R.font.nunitoExtraBold(size: 16)
+            l.font = R.font.nunitoExtraBold(size: 18)
             l.textColor = UIColor(hex6: 0x898989)
             l.text = "\(groupInfo.group.membersCount)" + " " + R.string.localizable.amongChatGroupMembers()
             
@@ -199,7 +199,7 @@ extension FansGroup.GroupMemberListViewController: UITableViewDelegate {
             l.snp.makeConstraints { (maker) in
                 maker.leading.trailing.equalToSuperview().inset(Frame.horizontalBleedWidth)
                 maker.centerY.equalToSuperview()
-                maker.height.equalTo(22)
+                maker.height.equalTo(25)
             }
             
             if showKick {
