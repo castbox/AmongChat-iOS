@@ -2960,7 +2960,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
     
-    /// This `R.string.localizable` struct is generated, and contains static references to 569 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 571 localization keys.
     struct localizable {
       /// en translation:  Congratulations!
       /// 
@@ -4978,6 +4978,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let feedPostTip = Rswift.StringResource(key: "feed.post.tip", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Videos should be under 60s and related to games, and cannot violate the %1$@
+      /// 
+      /// Locales: en
+      static let feedPostTipWithRules = Rswift.StringResource(key: "feed.post.tip.with.rules", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: View more
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -5194,6 +5198,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let dmInteractiveReplyCommentTitle = Rswift.StringResource(key: "dm.interactive.reply.comment.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: rules
+      /// 
+      /// Locales: en
+      static let feedPostRules = Rswift.StringResource(key: "feed.post.rules", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: save your data
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -8767,6 +8775,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("feed.post.tip", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Videos should be under 60s and related to games, and cannot violate the %1$@
+      /// 
+      /// Locales: en
+      static func feedPostTipWithRules(_ value1: String) -> String {
+        return String(format: NSLocalizedString("feed.post.tip.with.rules", bundle: R.hostingBundle, comment: ""), locale: R.applicationLocale, value1)
+      }
+      
       /// en translation: View more
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -9143,6 +9158,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func dmInteractiveReplyCommentTitle(_: Void = ()) -> String {
         return NSLocalizedString("dm.interactive.reply.comment.title", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: rules
+      /// 
+      /// Locales: en
+      static func feedPostRules(_: Void = ()) -> String {
+        return NSLocalizedString("feed.post.rules", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: save your data

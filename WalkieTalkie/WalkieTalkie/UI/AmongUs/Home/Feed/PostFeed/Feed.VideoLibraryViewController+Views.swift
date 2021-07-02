@@ -153,19 +153,24 @@ extension Feed.VideoLibraryViewController {
     
     class DurationTipHeader: UICollectionReusableView {
         
-        private(set) lazy var icon: UIImageView = {
-            let i = UIImageView(image: R.image.ac_feed_video_tip())
-            return i
-        }()
+        private let bag = DisposeBag()
         
         private(set) lazy var titleLabel: UILabel = {
             let l = UILabel()
-            l.textColor = UIColor(hexString: "#FFFFFF")
-            l.font = R.font.nunitoExtraBold(size: 16)
-            l.adjustsFontSizeToFitWidth = true
-            l.text = R.string.localizable.feedPostTip()
+            l.numberOfLines = 0
             return l
         }()
+        
+        private lazy var tapGr: UITapGestureRecognizer = {
+            let g = UITapGestureRecognizer()
+            g.rx.event.subscribe(onNext: { [weak self] _ in
+                self?.tapHandler?()
+            })
+            .disposed(by: bag)
+            return g
+        }()
+        
+        var tapHandler: (() -> Void)? = nil
         
         override init(frame: CGRect) {
             super.init(frame: .zero)
@@ -177,18 +182,66 @@ extension Feed.VideoLibraryViewController {
         }
         
         private func setupLayout() {
-            addSubviews(views: icon, titleLabel)
-            
-            icon.snp.makeConstraints { (maker) in
-                maker.centerY.equalToSuperview()
-                maker.leading.equalToSuperview().offset(Frame.horizontalBleedWidth)
-            }
+            addSubviews(views: titleLabel)
             
             titleLabel.snp.makeConstraints { (maker) in
-                maker.centerY.equalTo(icon)
-                maker.leading.equalTo(icon.snp.trailing).offset(8)
-                maker.trailing.lessThanOrEqualToSuperview().offset(-Frame.horizontalBleedWidth)
+                maker.leading.trailing.equalToSuperview().inset(Frame.horizontalBleedWidth)
+                maker.top.bottom.equalToSuperview()
             }
+            
+            addGestureRecognizer(tapGr)
+        }
+        
+        func setContent(image: UIImage?,
+                        text: String?,
+                        attributes: ( [NSAttributedString.Key : Any], NSRange)? = nil) {
+            
+            let attTxt = Self.attTextFor(image: image, text: text, attributes: attributes)
+            
+            titleLabel.attributedText = attTxt
+        }
+        
+        static func textHeight(image: UIImage?,
+                               text: String?) -> CGFloat {
+            
+            let attTxt = attTextFor(image: image, text: text)
+            
+            let rect = attTxt.boundingRect(with: CGSize(width: Frame.Screen.width - Frame.horizontalBleedWidth * 2,
+                                                        height: .greatestFiniteMagnitude),
+                                           options: [.usesLineFragmentOrigin, .usesFontLeading],
+                                           context: nil)
+            
+            return rect.height.rounded(.awayFromZero)
+        }
+        
+        static func attTextFor(image: UIImage?,
+                               text: String?,
+                               attributes: ( [NSAttributedString.Key : Any], NSRange)? = nil) -> NSMutableAttributedString {
+            let txtWithImg = NSMutableAttributedString()
+            
+            let font = R.font.nunitoExtraBold(size: 16) ?? UIFont.systemFont(ofSize: 16, weight: .black)
+            
+            if let image = image {
+                let attachment = NSTextAttachment()
+                attachment.image = image
+                attachment.bounds = CGRect(origin: CGPoint(x: 0, y: (font.capHeight - image.size.height)/2), size: image.size)
+                txtWithImg.append(NSAttributedString(attachment: attachment))
+                txtWithImg.append(NSAttributedString(string: " "))
+            }
+            
+            if let text = text {
+                let attString = NSMutableAttributedString(string: text,
+                                                          attributes: [.font : font,
+                                                                       .foregroundColor : UIColor.white])
+                
+                if let attributes = attributes {
+                    attString.addAttributes(attributes.0, range: attributes.1)
+                }
+                
+                txtWithImg.append(attString)
+            }
+            
+            return txtWithImg
         }
         
     }

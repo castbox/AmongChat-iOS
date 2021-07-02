@@ -653,3 +653,5 @@
 "among.chat.group.live.audience.change.mic.tip" = "Only the admin can change the status of the mic.";
 "among.chat.group.accept.all" = "Accept All";
 "among.chat.group.ignore.all" = "Ignore All";
+"feed.post.tip.with.rules" = "Videos should be under 60s and related to games, and cannot violate the %1$@";
+"feed.post.rules" = "rules";
