@@ -66,6 +66,8 @@ extension Routes {
                         self.handleFeeds(feed)
                     case _ as URI.DMInteractiveMessage:
                         self.handleInteractiveMessage()
+                    case let group as URI.GroupJoinRequests:
+                        self.handleGroupJoinRequests(group.gid)
                     default:
                         cdAssertFailure("should never enter here")
                     }
@@ -180,6 +182,11 @@ extension Routes {
                 } onError: { _ in
                     loadingHandler?()
                 }
+        }
+        
+        func handleGroupJoinRequests(_ groupId: String) {
+            let vc = FansGroup.GroupInfoViewController(groupId: groupId)
+            UIApplication.topViewController()?.navigationController?.pushViewController(vc)
         }
         
         func handleAllNotice() {
