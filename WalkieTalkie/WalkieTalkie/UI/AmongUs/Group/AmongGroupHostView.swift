@@ -135,12 +135,14 @@ class AmongGroupHostView: XibLoadableView {
                 offlineAvatarView.isHidden = false
                 nameLabel.attributedText = nil
                 emojisNames = []
+                gameNameButton.isHidden = true
             } else {
                 hostAvatarView.isHidden = false
                 offlineAvatarView.isHidden = true
                 hostAvatarView.setImage(with: group.broadcaster.pictureUrl)
                 nameLabel.attributedText = group.broadcaster.nameWithVerified(fontSize: 12, withAge: false)
                 emojisNames = group.topicType.roomEmojiNames
+                gameNameButton.isHidden = false
             }
             
             if let urlString = Entity.DecorationEntity.entityOf(id: group.broadcaster.decoPetId ?? 0)?.sayUrl,
