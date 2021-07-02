@@ -886,7 +886,11 @@ extension AmongChat.GroupRoom.ViewController {
         
         micQueueStatusButton.snp.makeConstraints { maker in
             maker.leading.equalToSuperview().offset(Frame.horizontalBleedWidth)
-            maker.bottom.equalTo(messageView.snp.top).offset(-4)
+            if Frame.Screen.height <= 667 {
+                maker.centerY.equalTo(hostView.hostAvatarView)
+            } else {
+                maker.bottom.equalTo(messageView.snp.top).offset(-4)
+            }
             maker.height.equalTo(24)
         }
         
