@@ -379,7 +379,8 @@ class AmongGroupHostView: XibLoadableView {
         //size
         let size = count.string.boundingRect(with: CGSize(width: 200, height: 16), font: R.font.nunitoExtraBold(size: 12)!)
         //minisize
-        onSeatBadge?.setCircleAtFrame(CGRect(x: raiseButton.bounds.width-1, y: -8, width: max(size.width + 8, 16), height: max(size.height, 16)))
+        raiseHandsContainer.layoutIfNeeded()
+        onSeatBadge?.setCircleAtFrame(CGRect(x: raiseButton.bounds.width-2, y: -8, width: max(size.width + 8, 16), height: max(size.height, 16)))
         onSeatBadge?.setCountLabel(R.font.nunitoExtraBold(size: 12))
     }
     
@@ -390,8 +391,9 @@ class AmongGroupHostView: XibLoadableView {
             applyGroupBadge?.scaleCircleSize(by: 0.4)
         }
         applyGroupBadge?.setCount(count)
+        applyGroupContainer.layoutIfNeeded()
         let size = count.string.boundingRect(with: CGSize(width: 200, height: 16), font: R.font.nunitoExtraBold(size: 12)!)
-        applyGroupBadge?.setCircleAtFrame(CGRect(x: raiseButton.bounds.width-1, y: -8, width: max(size.width + 8, 16), height: max(size.height, 16)))
+        applyGroupBadge?.setCircleAtFrame(CGRect(x: raiseButton.bounds.width-2, y: -8, width: max(size.width + 8, 16), height: max(size.height, 16)))
         applyGroupBadge?.setCountLabel(R.font.nunitoExtraBold(size: 12))
     }
     
