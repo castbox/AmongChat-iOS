@@ -781,7 +781,7 @@ extension AmongChat.GroupRoom.ViewController {
         }
         else {
             //下麦
-            //                    self?.audienceViewModel?.phoneCallHangUpBySelf()
+            audienceViewModel?.phoneCallHangUpBySelf()
         }
         let removeBlock = self.view.raft.show(.loading, userInteractionEnabled: false)
         viewModel.requestSeats(remove: uid)
