@@ -873,7 +873,7 @@ extension AmongChat.GroupRoom.ViewController {
         
         let hostViewTopEdge = Frame.Height.deviceDiagonalIsMinThan4_7 ? 0 : 25
         hostView.snp.makeConstraints { (maker) in
-            maker.left.right.equalToSuperview().inset(Frame.horizontalBleedWidth)
+            maker.left.right.equalToSuperview()
             maker.top.equalTo(topBar.snp.bottom).offset(hostViewTopEdge)
             maker.height.equalTo(Frame.isPad ? 175.5 : 125.5)
         }
