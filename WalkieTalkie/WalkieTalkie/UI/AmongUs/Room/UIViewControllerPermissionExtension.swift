@@ -184,6 +184,9 @@ extension UIViewController {
 //        visualStyle.verticalElementSpacing = 40
         visualStyle.backgroundColor = "#222222".color()
         visualStyle.actionViewSeparatorColor = UIColor.white.alpha(0.06)
+        visualStyle.actionViewSeparatorThickness = 1
+        visualStyle.actionViewSize = CGSize(width: 0, height: 49)
+        visualStyle.width = UIScreen.main.bounds.width - 28 * 2
         alertVC.visualStyle = visualStyle
         //        alertVC.contentView.backgroundColor = "222222".color()
         
