@@ -310,12 +310,14 @@ extension AmongChat.Room {
                 } else {
                     //当前为 group & 非管理员 & 并且没在麦上
                     if itemStyle == .group,
-                       group?.loginUserIsAdmin == false {
-                        if let user = dataSource.first(where: { $0.user?.uid == Settings.loginUserId })?.user {
-                            fetchRealation(with: user)
-                        } else {
-                            actionHandler?(.requestOnSeat(index))
-                        }
+                       group?.loginUserIsAdmin == false,
+                       !dataSource.contains(where: { $0.user?.uid == Settings.loginUserId }) {
+                        actionHandler?(.requestOnSeat(index))
+                    } else if let idx = dataSource.firstIndex(where: { $0.user?.uid == Settings.loginUserId }),
+                              let user = dataSource[idx].user,
+                              idx == index {
+                        //在麦上或者正在calling，选中了自己
+                        fetchRealation(with: user)
                     } else {
                         actionHandler?(.selectUser(nil))
                     }
