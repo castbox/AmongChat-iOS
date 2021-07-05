@@ -76,6 +76,11 @@ extension AmongChat.GroupRoom {
             else if mManager.rtcRole == .broadcaster { //
                 updatePhoneCallState(.readyForCall)
             }
+            else if let item = seatDataSource.first(where: { $0.user == nil && $0.callContent.user.uid == Settings.loginUserId }),
+                    group.hostOffLine, !group.micQueueEnabled {
+                //主播下播，房间变为自由麦，仍处于calling状态的听众直接上麦
+                requestOnSeat(at: item.callContent.position - 1)
+            }
         }
         
         override func onReceiveChatRoom(crMessage: ChatRoomMessage) {
