@@ -142,9 +142,25 @@ extension AmongChat.GroupRoom {
             //将 item 更改为 loading 状态
             item.callContent = Peer.CallMessage(action: .request, gid: group.gid, expireTime: 30, position: position + 1, user: user)
             item.user = user.toRoomUser(with: item.callContent.position)
-            sendCall(action: .request, position: item.callContent.position)
+            
+            if group.micQueueEnabled {
+                sendCall(action: .request, position: item.callContent.position)
+            } else {
+                requestSeat(for: user.uid, in: item.callContent.position).subscribe().disposed(by: bag)
+            }
+            
             //update state
             seatDataSource[position] = item
+        }
+        
+        func requestSeat(for user: Int, in position: Int) -> Single<Entity.Group?> {
+            return Request.groupRoomSeatAdd(group.gid, uid: user, in: position)
+                .do(onSuccess: { [weak self] group in
+                    guard let group = group else {
+                        return
+                    }
+                    self?.update(group)
+                })
         }
         
         //清除当前calling麦位状态

@@ -336,7 +336,6 @@ extension SettingViewController {
                 .disposed(by: self.bag)
             
         })
-        alert.visualStyle.contentPadding = UIEdgeInsets(top: 28, left: 32, bottom: 20, right: 32)
         alert.present()
     }
         

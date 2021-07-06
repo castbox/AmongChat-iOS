@@ -186,7 +186,18 @@ extension Feed.VideoLibraryViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         switch kind {
         case UICollectionView.elementKindSectionHeader:
-            return collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: NSStringFromClass(DurationTipHeader.self), for: indexPath)
+            let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: NSStringFromClass(DurationTipHeader.self.self), for: indexPath)
+            if let header = header as? DurationTipHeader {
+                header.tapHandler = { [weak self] in
+                    self?.open(urlSting: Config.PolicyType.url(.guideline))
+                }
+                let text = R.string.localizable.feedPostTipWithRules(R.string.localizable.feedPostRules())
+                let rulesRange = (text as NSString).range(of: R.string.localizable.feedPostRules())
+                header.setContent(image: R.image.ac_feed_video_tip(),
+                                  text: text,
+                                  attributes: ([.underlineStyle : NSUnderlineStyle.single.rawValue], rulesRange))
+            }
+            return header
         default:
             return UICollectionReusableView()
         }
@@ -201,7 +212,9 @@ extension Feed.VideoLibraryViewController: UICollectionViewDelegateFlowLayout {
         guard (fetchResult?.count ?? 0) > 0 else {
             return .zero
         }
-        return CGSize(width: Frame.Screen.bounds.width, height: 20)
+        return CGSize(width: Frame.Screen.bounds.width,
+                      height: DurationTipHeader.textHeight(image: R.image.ac_feed_video_tip(),
+                                                           text: R.string.localizable.feedPostTipWithRules(R.string.localizable.feedPostRules())))
     }
     
 }

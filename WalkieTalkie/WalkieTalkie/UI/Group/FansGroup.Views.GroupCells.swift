@@ -109,6 +109,16 @@ extension FansGroup.Views {
             return btn
         }()
         
+        private lazy var editButtonContainer: UIView = {
+            let v = UIView()
+            v.backgroundColor = .clear
+            v.addSubview(editButton)
+            editButton.snp.makeConstraints { maker in
+                maker.edges.equalToSuperview()
+            }
+            return v
+        }()
+        
         private lazy var startButton: UIButton = {
             let btn = UIButton(type: .custom)
             btn.setTitleColor(UIColor(hex6: 0x000000), for: .normal)
@@ -166,7 +176,7 @@ extension FansGroup.Views {
             backgroundColor = .clear
             contentView.backgroundColor = .clear
             
-            contentView.addSubviews(views: bgView, groupIconView, tagView, titleLabel, editButton, startButton)
+            contentView.addSubviews(views: bgView, groupIconView, tagView, titleLabel, editButtonContainer, startButton)
             
             bgView.snp.makeConstraints { (maker) in
                 maker.top.bottom.trailing.equalToSuperview()
@@ -191,16 +201,16 @@ extension FansGroup.Views {
                 maker.leading.equalTo(groupIconView.snp.trailing).offset(12)
             }
             
-            editButton.snp.makeConstraints { (maker) in
+            editButtonContainer.snp.makeConstraints { (maker) in
                 maker.leading.equalTo(titleLabel)
                 maker.height.equalTo(38)
                 maker.bottom.equalTo(groupIconView)
             }
             
             startButton.snp.makeConstraints { (maker) in
-                maker.leading.equalTo(editButton.snp.trailing).offset(16)
+                maker.leading.equalTo(editButtonContainer.snp.trailing).offset(16)
                 maker.trailing.equalTo(titleLabel)
-                maker.bottom.height.width.equalTo(editButton)
+                maker.bottom.height.width.equalTo(editButtonContainer)
             }
         }
         
@@ -208,6 +218,11 @@ extension FansGroup.Views {
             titleLabel.text = group.name
             groupIconView.setImage(with: group.cover.url)
             self.actionHandler = actionHandler
+            if let applyCount = group.applyCount, applyCount > 0 {
+                editButtonContainer.badgeOn(string: "\(applyCount)", hAlignment: .tailByTail(-6), topInset: -8, diameter: 22, borderWidth: 2.5, borderColor: UIColor(hex6: 0x222222))
+            } else {
+                editButtonContainer.badgeOff()
+            }
         }
         
     }

@@ -18,21 +18,66 @@ class AmongGroupHostView: XibLoadableView {
     enum Action {
         case joinHost
         case joinGroup
+        case micQueue
         case editNickName
         case userProfileSheetAction(AmongSheetController.ItemType, _ user: Entity.RoomUser)
     }
     
     @IBOutlet weak var hostView: UIView!
 //    @IBOutlet weak var stackView: UIStackView!
-    @IBOutlet weak var raiseHandsContainer: UIView!
-    @IBOutlet weak var raiseButton: UIImageView!
-    @IBOutlet weak var applyGroupContainer: UIView!
-    @IBOutlet weak var applyGroupButton: UIImageView!
+    @IBOutlet weak var actionStackView: UIStackView!
+    
+    private lazy var raiseHandsContainer: UIView = raiseHandsView
+    private lazy var raiseButton: UIImageView = raiseHandsView.icon
+    private lazy var applyGroupContainer: UIView = joinRequestsView
+    private lazy var applyGroupButton: UIImageView = joinRequestsView.icon
+    
     @IBOutlet weak var hostAvatarView: UIImageView!
+    @IBOutlet weak var offlineAvatarView: UIView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var gameNameButton: UIButton!
     @IBOutlet weak var indexLabel: UILabel!
     @IBOutlet weak var avatarWidthConstraint: NSLayoutConstraint!
+    
+    private lazy var raiseHandsView: AmongGroupHostActionView = {
+        let v = AmongGroupHostActionView()
+        v.icon.image = R.image.ac_group_host_request()
+        v.titleLabel.text = R.string.localizable.groupRoomHostRequest()
+        v.actionHandler = { [weak self] in
+            self?.actionHandler?(.joinHost)
+        }
+        return v
+    }()
+    
+    private lazy var joinRequestsView: AmongGroupHostActionView = {
+        let v = AmongGroupHostActionView(frame: .zero)
+        v.icon.image = R.image.ac_group_join_request()
+        v.titleLabel.text = R.string.localizable.groupRoomJoinRequest()
+        v.actionHandler = { [weak self] in
+            self?.actionHandler?(.joinGroup)
+        }
+        return v
+    }()
+    
+    private lazy var micQueueView: AmongGroupHostActionView = {
+        let v = AmongGroupHostActionView(frame: .zero)
+        v.icon.image = R.image.ac_group_mic_queue()
+        v.titleLabel.text = R.string.localizable.amongChatGroupLiveSpeakerQueue()
+        v.actionHandler = { [weak self] in
+            self?.actionHandler?(.micQueue)
+        }
+        v.addSubview(micQueueEnabledTag)
+        micQueueEnabledTag.snp.makeConstraints { maker in
+            maker.centerX.equalToSuperview()
+            maker.bottom.equalTo(v.icon.snp.bottom).offset(5)
+        }
+        return v
+    }()
+    
+    private lazy var micQueueEnabledTag: UIImageView = {
+        let i = UIImageView(image: R.image.ac_group_mic_queue_enabled())
+        return i
+    }()
     
     private lazy var disableMicView: UIImageView = {
         let iv = UIImageView()
@@ -84,9 +129,21 @@ class AmongGroupHostView: XibLoadableView {
     
     var group: Entity.Group {
         didSet {
-            hostAvatarView.setImage(with: group.broadcaster.pictureUrl)
-            nameLabel.attributedText = group.broadcaster.nameWithVerified(fontSize: 12, withAge: false)
-            emojisNames = group.topicType.roomEmojiNames
+            
+            if group.hostOffLine {
+                hostAvatarView.isHidden = true
+                offlineAvatarView.isHidden = false
+                nameLabel.attributedText = nil
+                emojisNames = []
+                gameNameButton.isHidden = true
+            } else {
+                hostAvatarView.isHidden = false
+                offlineAvatarView.isHidden = true
+                hostAvatarView.setImage(with: group.broadcaster.pictureUrl)
+                nameLabel.attributedText = group.broadcaster.nameWithVerified(fontSize: 12, withAge: false)
+                emojisNames = group.topicType.roomEmojiNames
+                gameNameButton.isHidden = false
+            }
             
             if let urlString = Entity.DecorationEntity.entityOf(id: group.broadcaster.decoPetId ?? 0)?.sayUrl,
                let url = URL(string: urlString) {
@@ -101,6 +158,50 @@ class AmongGroupHostView: XibLoadableView {
             } else {
                 nameLabel.textColor = .white
             }
+            
+            if group.loginUserIsAdmin {
+                
+                hostView.snp.remakeConstraints { maker in
+                    maker.top.bottom.leading.equalToSuperview()
+                    maker.width.equalTo(67)
+                }
+                
+                actionStackView.isHidden = false
+                actionStackView.snp.remakeConstraints { maker in
+                    maker.top.bottom.trailing.equalToSuperview()
+                    maker.leading.equalTo(hostView.snp.trailing)
+                }
+                
+                actionStackView.arrangedSubviews.forEach { view in
+                    view.removeFromSuperview()
+                }
+                
+                if group.micQueueEnabled {
+                    actionStackView.addArrangedSubviews([raiseHandsView, joinRequestsView, micQueueView])
+                } else {
+                    actionStackView.addArrangedSubviews([joinRequestsView, micQueueView])
+                }
+                
+                micQueueEnabledTag.isHidden = !group.micQueueEnabled
+                
+            } else {
+                
+                hostView.snp.remakeConstraints { maker in
+                    maker.top.centerX.bottom.equalToSuperview()
+                    maker.width.equalTo(67)
+                }
+                
+                actionStackView.isHidden = true
+                actionStackView.snp.remakeConstraints { maker in
+                    maker.edges.equalToSuperview()
+                }
+                
+                actionStackView.arrangedSubviews.forEach { view in
+                    view.removeFromSuperview()
+                }
+
+            }
+            
             applyGroupContainer.isHidden = !group.loginUserIsAdmin
             raiseHandsContainer.isHidden = applyGroupContainer.isHidden
             indexLabel.textColor = nameLabel.textColor
@@ -280,7 +381,8 @@ class AmongGroupHostView: XibLoadableView {
         //size
         let size = count.string.boundingRect(with: CGSize(width: 200, height: 16), font: R.font.nunitoExtraBold(size: 12)!)
         //minisize
-        onSeatBadge?.setCircleAtFrame(CGRect(x: raiseButton.bounds.width-1, y: -8, width: max(size.width + 8, 16), height: max(size.height, 16)))
+        raiseHandsContainer.layoutIfNeeded()
+        onSeatBadge?.setCircleAtFrame(CGRect(x: raiseButton.bounds.width-2, y: -8, width: max(size.width + 8, 16), height: max(size.height, 16)))
         onSeatBadge?.setCountLabel(R.font.nunitoExtraBold(size: 12))
     }
     
@@ -291,8 +393,9 @@ class AmongGroupHostView: XibLoadableView {
             applyGroupBadge?.scaleCircleSize(by: 0.4)
         }
         applyGroupBadge?.setCount(count)
+        applyGroupContainer.layoutIfNeeded()
         let size = count.string.boundingRect(with: CGSize(width: 200, height: 16), font: R.font.nunitoExtraBold(size: 12)!)
-        applyGroupBadge?.setCircleAtFrame(CGRect(x: raiseButton.bounds.width-1, y: -8, width: max(size.width + 8, 16), height: max(size.height, 16)))
+        applyGroupBadge?.setCircleAtFrame(CGRect(x: raiseButton.bounds.width-2, y: -8, width: max(size.width + 8, 16), height: max(size.height, 16)))
         applyGroupBadge?.setCountLabel(R.font.nunitoExtraBold(size: 12))
     }
     

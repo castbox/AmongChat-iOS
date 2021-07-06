@@ -182,11 +182,11 @@ extension JoinRoomable where Self: ViewController {
 
     }
     
-    func enter(group: Entity.Group, logSource: ParentPageSource? = nil, apiSource: ParentApiSource? = nil, completionHandler: (() -> Void)? = nil) {
+    func enter(group: Entity.Group, logSource: ParentPageSource? = nil, apiSource: ParentApiSource? = nil, completionHandler: ((Bool) -> Void)? = nil) {
         enter(group: group.gid, adminUid: group.uid, logSource: logSource, apiSource: apiSource, completionHandler: completionHandler)
     }
     
-    func enter(group gid: String, adminUid: Int? = 0, logSource: ParentPageSource? = nil, apiSource: ParentApiSource? = nil, completionHandler: (() -> Void)? = nil) {
+    func enter(group gid: String, adminUid: Int? = 0, logSource: ParentPageSource? = nil, apiSource: ParentApiSource? = nil, completionHandler: ((Bool) -> Void)? = nil) {
 //        Logger.Action.log(.enter_home_topic, categoryValue: topicId)
         //
         UIApplication.tabBarController?.dismissNotificationBanner()
@@ -197,11 +197,11 @@ extension JoinRoomable where Self: ViewController {
 //        }
         let hudRemoval = view.raft.show(.loading, userInteractionEnabled: false)
         
-        let completion = { [weak self] in
+        let completion = { [weak self] (success: Bool) in
             self?.contentScrollView?.isUserInteractionEnabled = true
             self?.isRequestingRoom = false
             hudRemoval()
-            completionHandler?()
+            completionHandler?(success)
         }
         
         contentScrollView?.isUserInteractionEnabled = false
@@ -229,19 +229,19 @@ extension JoinRoomable where Self: ViewController {
                     return
                 }
                 guard let groupInfo = groupInfo else {
-                    completion()
+                    completion(false)
                     self.view.raft.autoShow(.text(R.string.localizable.amongChatHomeEnterRoomFailed()))
                     return
                 }
             
                 AmongChat.GroupRoom.ContainerController.join(with: groupInfo, from: self, logSource: logSource) { error in
-                    completion()
+                    completion(error == nil)
                     //dismiss
                     UIApplication.tabBarController?.dismissNotificationBanner()
                 }
 
             } onError: { [weak self] (error) in
-                completion()
+                completion(false)
                 cdPrint("error: \(error.localizedDescription)")
                 var msg: String {
                     if let error = error as? MsgError {

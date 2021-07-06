@@ -588,14 +588,30 @@ extension Feed.Comments {
             if text == "\n"{
                 // do your stuff here
                 // return false here, if you want to disable user from adding newline
-                textView.resignFirstResponder()
-                sendSignal.onNext(())
+                if let text = SensitiveWordChecker.firstSensitiveWord(in: textView.text) {
+                    //show
+                    textView.attributedText = redAttributesString(text: textView.text, redText: text)
+                    containingController?.view.raft.autoShow(.text(R.string.localizable.contentContainSensitiveWords()))
+                } else {
+                    textView.resignFirstResponder()
+                    sendSignal.onNext(())
+                }
                 return false
             }
             
             let substringToReplace = textFieldText[rangeOfTextToReplace]
             let count = textFieldText.count - substringToReplace.count + text.count
             return count <= maxInputLength
+        }
+                
+        func redAttributesString(text: String, redText: String) -> NSAttributedString {
+            let attributes = NSMutableAttributedString(string: text,
+                                                       attributes: [.foregroundColor: inputTextView.textColor ?? UIColor.white,
+                                                                    .font: inputTextView.font ?? R.font.nunitoExtraBold(size: 18) ?? UIFont.systemFont(ofSize: 18, weight: .black)])
+            if let range = text.nsRange(of: redText) {
+                attributes.addAttributes([NSAttributedString.Key.foregroundColor: UIColor.red], range: range)
+            }
+            return attributes
         }
         
     }

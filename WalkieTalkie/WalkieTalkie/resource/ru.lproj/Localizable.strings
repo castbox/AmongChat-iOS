@@ -638,4 +638,20 @@
 "feed.third.share.content" = "Я подсел на это видео на AmongChat. Проверьте это! %@";
 "among.chat.feed.recent.chats" = "Недавние чаты";
 "among.chat.feed.friends" = "Друзья";
-"dm.feed.message.text" = "[Feed]";
+"dm.feed.message.text" = "[Видео]";
+"Loading" = "Загрузка";
+
+//1.26.0
+"among.chat.group.live.enable.queue.tip" = "После включения службы очереди, аудитория должна получить ваше одобрение перед использованием микрофона.";
+"among.chat.confirm" = "Подтверждать";
+"among.chat.group.live.disable.queue.tip" = "После отключения очереди аудитория может свободно использовать микрофон для взаимодействия.";
+"among.chat.group.live.speaker.queue" = "Очередь спикеров";
+"among.chat.group.live.mic.free" = "Микрофон СВОБОДА";
+"among.chat.group.live.mic.queue" = "Микрофон ОЧЕРЕДЬ";
+"among.chat.group.live.mic.queue.message" = "Очередь за микрофоном уже началась. Чтобы выступить, вы должны сначала получить одобрение администратора.";
+"among.chat.group.live.mic.free.message" = "Микрофон СВОБОДНО для всех. Теперь говорите!";
+"among.chat.group.live.audience.change.mic.tip" = "Только администратор может изменить статус микрофона.";
+"among.chat.group.accept.all" = "Принимать все";
+"among.chat.group.ignore.all" = "Игнорировать все";
+"feed.post.tip.with.rules" = "Видео должно быть не более 60 секунд, связано с играми и не должно нарушать %1$@.";
+"feed.post.rules" = "правила";

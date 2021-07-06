@@ -638,4 +638,20 @@
 "feed.third.share.content" = "Je suis accro à cette vidéo sur AmongChat. Vérifiez-le! %@";
 "among.chat.feed.recent.chats" = "Chats récents";
 "among.chat.feed.friends" = "Amis";
-"dm.feed.message.text" = "[Feed]";
+"dm.feed.message.text" = "[Vidéo]";
+"Loading" = "Chargement";
+
+//1.26.0
+"among.chat.group.live.enable.queue.tip" = "Après avoir activé le service de file d'attente, le public doit obtenir votre approbation avant d'utiliser le microphone.";
+"among.chat.confirm" = "Confirmer";
+"among.chat.group.live.disable.queue.tip" = "Après avoir désactivé la file d'attente, le public peut utiliser librement le microphone pour interagir.";
+"among.chat.group.live.speaker.queue" = "File d'attente des haut-parleurs";
+"among.chat.group.live.mic.free" = "Microphone LIBERTÉ";
+"among.chat.group.live.mic.queue" = "FILE D'ATTENTE du microphone";
+"among.chat.group.live.mic.queue.message" = "La file d'attente du microphone est activée maintenant. Pour parler, vous devez d'abord obtenir l'approbation de l'administrateur.";
+"among.chat.group.live.mic.free.message" = "Le microphone est LIBRE pour tout le monde. Discuter maintenant!";
+"among.chat.group.live.audience.change.mic.tip" = "Seul l'administrateur peut modifier l'état du microphone.";
+"among.chat.group.accept.all" = "Accepter tout";
+"among.chat.group.ignore.all" = "Ignorer tout";
+"feed.post.tip.with.rules" = "Les vidéos doivent durer moins de 60 secondes et être liées à des jeux, et ne peuvent pas violer les %1$@.";
+"feed.post.rules" = "règles";

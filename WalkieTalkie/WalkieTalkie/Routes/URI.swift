@@ -281,6 +281,24 @@ extension URI {
         }
     }
     
+    struct GroupJoinRequests: URIRepresentable {
+        
+        static func patterns() -> [String] {
+            return [
+                "/groupJoinRequests/:gid"
+            ]
+        }
+        
+        let gid: String
+        
+        init?(_ paras: [String: Any]) {
+            guard let gid = paras["gid"] as? String else {
+                return nil
+            }
+            self.gid = gid
+        }
+    }
+    
     struct Undefined: URIRepresentable {
         
         static func patterns() -> [String] {

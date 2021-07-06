@@ -9,6 +9,7 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import JXPagingView
 
 extension FansGroup {
     
@@ -29,6 +30,7 @@ extension FansGroup {
                 // Fallback on earlier versions
                 automaticallyAdjustsScrollViewInsets = false
             }
+            tb.contentInset = UIEdgeInsets(top: 10, left: 0, bottom: 0, right: 0)
             return tb
         }()
         
@@ -38,6 +40,8 @@ extension FansGroup {
         
         private let groupInfo: Entity.GroupInfo
         var showKick = false
+        
+        private var listViewDidScrollCallback: ((UIScrollView) -> ())?
         
         init(with groupInfo: Entity.GroupInfo) {
             self.groupInfo = groupInfo
@@ -148,7 +152,7 @@ extension FansGroup.GroupMemberListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         
         if section == 0 || section == 1{
-            return 26
+            return 29
         } else {
             return .leastNormalMagnitude
         }
@@ -174,7 +178,7 @@ extension FansGroup.GroupMemberListViewController: UITableViewDelegate {
         if section == 0 {
             
             let l = UILabel()
-            l.font = R.font.nunitoExtraBold(size: 16)
+            l.font = R.font.nunitoExtraBold(size: 18)
             l.textColor = UIColor(hex6: 0x898989)
             l.text = R.string.localizable.amongChatGroupAdmin()
             
@@ -182,13 +186,13 @@ extension FansGroup.GroupMemberListViewController: UITableViewDelegate {
             l.snp.makeConstraints { (maker) in
                 maker.leading.trailing.equalToSuperview().inset(Frame.horizontalBleedWidth)
                 maker.centerY.equalToSuperview()
-                maker.height.equalTo(22)
+                maker.height.equalTo(25)
             }
             
         } else if section == 1 {
             
             let l = UILabel()
-            l.font = R.font.nunitoExtraBold(size: 16)
+            l.font = R.font.nunitoExtraBold(size: 18)
             l.textColor = UIColor(hex6: 0x898989)
             l.text = "\(groupInfo.group.membersCount)" + " " + R.string.localizable.amongChatGroupMembers()
             
@@ -196,16 +200,14 @@ extension FansGroup.GroupMemberListViewController: UITableViewDelegate {
             l.snp.makeConstraints { (maker) in
                 maker.leading.trailing.equalToSuperview().inset(Frame.horizontalBleedWidth)
                 maker.centerY.equalToSuperview()
-                maker.height.equalTo(22)
+                maker.height.equalTo(25)
             }
             
             if showKick {
                 
                 let kickButton: UIButton = {
                     let btn = SmallSizeButton(type: .custom)
-                    btn.setTitle(R.string.localizable.amongChatRoomKick(), for: .normal)
-                    btn.setTitleColor(UIColor(hex6: 0xfff000), for: .normal)
-                    btn.titleLabel?.font = R.font.nunitoExtraBold(size: 16)
+                    btn.setImage(R.image.ac_group_kick_member(), for: .normal)
                     btn.rx.controlEvent(.primaryActionTriggered)
                         .subscribe(onNext: { [weak self] (_) in
                             //MARK: - go to kick
@@ -299,6 +301,30 @@ extension FansGroup.GroupMemberListViewController {
             })
             .disposed(by: bag)
         
+    }
+    
+}
+
+extension FansGroup.GroupMemberListViewController: UIScrollViewDelegate {
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        listViewDidScrollCallback?(scrollView)
+    }
+    
+}
+
+extension FansGroup.GroupMemberListViewController: JXPagingViewListViewDelegate {
+    
+    func listView() -> UIView {
+        return view
+    }
+
+    func listViewDidScrollCallback(callback: @escaping (UIScrollView) -> ()) {
+        listViewDidScrollCallback = callback
+    }
+
+    func listScrollView() -> UIScrollView {
+        return tableView
     }
     
 }

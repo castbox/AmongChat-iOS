@@ -109,7 +109,18 @@ extension AmongChat.GroupRoom {
                 return
             }
             if message.action == .request { // 请求接通
-                callInList(add: message)
+                //兼容老版本，自由麦开启时接收到callin直接上麦。
+                if group.micQueueEnabled {
+                    callInList(add: message)
+                } else {
+                    let user = Entity.CallInUser(message: message, startTimeStamp: Date().timeIntervalSince1970 * 1000)
+                    requestGroupRoomSeatAdd(for: user)
+                        .subscribe(onSuccess: { [weak self] _ in
+                            self?.sendCallSignal(isAccept: true, user)
+                        })
+                        .disposed(by: bag)
+                }
+                
             } else if message.action == .hangup { // 挂断
                 //用户主动取消
                 if callInList.count > 0 {

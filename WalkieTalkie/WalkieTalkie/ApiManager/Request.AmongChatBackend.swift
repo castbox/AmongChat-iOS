@@ -1446,6 +1446,17 @@ extension Request {
             .observeOn(MainScheduler.asyncInstance)
     }
     
+    static func handleAllGroupApply(of groupId: String, accept: Bool) -> Single<Bool> {
+        
+        let params: [String : Any] = ["gid" : groupId, "accept": accept.int]
+        
+        return amongchatProvider.rx.request(.handleAllGroupApply(params))
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .mapToProcessedValue()
+            .observeOn(MainScheduler.asyncInstance)
+    }
+    
     static func groupRoomSeatAdd(_ groupId: String, uid: Int, in position: Int) -> Single<Entity.Group?> {
         let params: [String : Any] = ["gid" : groupId, "uid": uid, "seat_no": position]
         return amongchatProvider.rx.request(.groupRoomSeatAdd(params))

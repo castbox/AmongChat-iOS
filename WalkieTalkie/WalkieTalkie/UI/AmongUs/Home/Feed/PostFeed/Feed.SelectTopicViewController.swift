@@ -269,8 +269,7 @@ extension Feed.SelectTopicViewController: UICollectionViewDataSource {
         case UICollectionView.elementKindSectionHeader:
             let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: NSStringFromClass(TopiceHeader.self.self), for: indexPath)
             if let header = header as? TopiceHeader {
-                header.icon.image = R.image.ac_feed_topic_tip()
-                header.titleLabel.text = R.string.localizable.feedChooseTopicTitle()
+                header.setContent(image: R.image.ac_feed_topic_tip(), text: R.string.localizable.feedChooseTopicTitle())
             }
             return header
         default:
@@ -284,7 +283,9 @@ extension Feed.SelectTopicViewController: UICollectionViewDataSource {
 extension Feed.SelectTopicViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        return CGSize(width: Frame.Screen.bounds.width, height: 20)
+        return CGSize(width: Frame.Screen.bounds.width,
+                      height: TopiceHeader.textHeight(image: R.image.ac_feed_topic_tip(),
+                                                      text: R.string.localizable.feedChooseTopicTitle()))
     }
     
 }

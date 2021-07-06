@@ -123,7 +123,7 @@ extension FansGroup.GroupInfoViewController {
         
         navView.snp.makeConstraints { (maker) in
             maker.leading.trailing.equalToSuperview()
-            maker.top.equalTo(topLayoutGuide.snp.bottom)
+            maker.top.equalTo(Frame.Height.safeAeraTopHeight)
         }
         
         bottomGradientView.snp.makeConstraints { (maker) in
@@ -267,13 +267,9 @@ extension FansGroup.GroupInfoViewController {
                 let distance = point.y
                 
                 self.groupHeaderView.enlargeTopGbHeight(extraHeight: -distance)
-                
-                self.navView.snp.updateConstraints { (maker) in
-                    maker.top.equalTo(self.topLayoutGuide.snp.bottom).offset(min(0, -distance / 3))
-                }
-                
-                self.navView.alpha = 1 - distance / 49
-                
+                                
+                self.navView.backgroundView.alpha = distance / NavigationBar.barHeight
+                self.navView.backgroundView.isHidden = distance <= 0
             })
             .disposed(by: bag)
 

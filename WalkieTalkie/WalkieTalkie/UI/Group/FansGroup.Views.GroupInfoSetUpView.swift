@@ -17,22 +17,32 @@ extension FansGroup.Views {
         private let bag = DisposeBag()
         
         private let topBgHeight = CGFloat(254.0)
+        private let topBgTop: CGFloat = 0
+        private let nameTitleLabelTop: CGFloat = 24
+        private let nameTitleLabelHeight: CGFloat = 22
+        private let nameViewHeight: CGFloat = 56
+        private let nameViewTop: CGFloat = 12
+        private let descriptionTitleLabelHeight: CGFloat = 22
+        private let descriptionTitleLabelTop: CGFloat = 36
+        private let descriptionViewHeight: CGFloat = 115
+        private let descriptionViewTop: CGFloat = 12
+        private let topicTitleLabelHeight: CGFloat = 22
+        private let topicTitleLabelTop: CGFloat = 36
+        private let topicSetViewHeight: CGFloat = 32
+        private let topicSetViewTop: CGFloat = 12
         
-        private(set) lazy var layoutScrollView: UIScrollView = {
-            let s = UIScrollView()
-            s.showsVerticalScrollIndicator = false
-            s.showsHorizontalScrollIndicator = false
-            if #available(iOS 11.0, *) {
-                s.contentInsetAdjustmentBehavior = .never
-            }
-            s.keyboardDismissMode = .onDrag
-            return s
-        }()
-        
-        private lazy var innerContainerView: UIView = {
-            let v = UIView()
-            return v
-        }()
+        var viewHeight: CGFloat {
+            
+            let height = topBgTop + topBgHeight +
+            nameTitleLabelTop + nameTitleLabelHeight +
+            nameViewTop + nameViewHeight +
+            descriptionTitleLabelTop + descriptionTitleLabelHeight +
+            descriptionViewTop + descriptionViewHeight +
+            topicTitleLabelTop + topicTitleLabelHeight +
+            topicSetViewTop + topicSetViewHeight
+            
+            return height
+        }
         
         private lazy var topBg: GroupBigCoverView = {
             let b = GroupBigCoverView()
@@ -86,11 +96,20 @@ extension FansGroup.Views {
             return t
         }()
         
-        private(set) lazy var appendViewContainer: UIView = {
-            let v = UIView()
-            return v
-        }()
-        
+        var textViewObservable: Observable<UIView> {
+            return Observable.merge(
+                nameView.isEdtingRelay
+                    .map({ [weak self] (isEditing) -> UIView? in
+                        return isEditing ? self?.nameView : nil
+                    }),
+                descriptionView.isEdtingRelay
+                    .map({ (isEditing) -> UIView? in
+                        return isEditing ? self.descriptionView : nil
+                    })
+            )
+            .filterNil()
+        }
+                
         override init(frame: CGRect) {
             super.init(frame: frame)
             setUpLayout()
@@ -101,7 +120,7 @@ extension FansGroup.Views {
             fatalError("init(coder:) has not been implemented")
         }
         
-        private func enlargeTopGbHeight(extraHeight: CGFloat) {
+        func enlargeTopGbHeight(extraHeight: CGFloat) {
             
             guard extraHeight >= 0 else {
                 return
@@ -117,25 +136,14 @@ extension FansGroup.Views {
         private func setUpLayout() {
             
             backgroundColor = .clear
-            
-            addSubview(layoutScrollView)
-            layoutScrollView.snp.makeConstraints { (maker) in
-                maker.edges.equalToSuperview()
-            }
-            
-            layoutScrollView.addSubview(innerContainerView)
-            innerContainerView.snp.makeConstraints { (maker) in
-                maker.edges.equalToSuperview()
-                maker.width.equalTo(snp.width)
-            }
-            
-            innerContainerView.addSubviews(views: topBg, addCoverBtn, nameTitleLabel, nameView,
-                                           descriptionTitleLabel, descriptionView,
-                                           topicTitleLabel, topicSetView, appendViewContainer)
+                        
+            addSubviews(views: topBg, addCoverBtn, nameTitleLabel, nameView,
+                        descriptionTitleLabel, descriptionView,
+                        topicTitleLabel, topicSetView)
             
             topBg.snp.makeConstraints { (maker) in
                 maker.leading.trailing.equalToSuperview()
-                maker.top.equalTo(0)
+                maker.top.equalTo(topBgTop)
                 maker.height.equalTo(topBgHeight)
             }
             
@@ -147,42 +155,37 @@ extension FansGroup.Views {
             
             nameTitleLabel.snp.makeConstraints { (maker) in
                 maker.leading.trailing.equalToSuperview().inset(Frame.horizontalBleedWidth)
-                maker.height.equalTo(22)
-                maker.top.equalTo(topBg.snp.bottom).offset(24)
+                maker.height.equalTo(nameTitleLabelHeight)
+                maker.top.equalTo(topBg.snp.bottom).offset(nameTitleLabelTop)
             }
             
             nameView.snp.makeConstraints { (maker) in
                 maker.leading.trailing.equalToSuperview().inset(Frame.horizontalBleedWidth)
-                maker.height.equalTo(56)
-                maker.top.equalTo(nameTitleLabel.snp.bottom).offset(12)
+                maker.height.equalTo(nameViewHeight)
+                maker.top.equalTo(nameTitleLabel.snp.bottom).offset(nameViewTop)
             }
             
             descriptionTitleLabel.snp.makeConstraints { (maker) in
                 maker.leading.trailing.equalToSuperview().inset(Frame.horizontalBleedWidth)
-                maker.height.equalTo(22)
-                maker.top.equalTo(nameView.snp.bottom).offset(36)
+                maker.height.equalTo(descriptionTitleLabelHeight)
+                maker.top.equalTo(nameView.snp.bottom).offset(descriptionTitleLabelTop)
             }
             
             descriptionView.snp.makeConstraints { (maker) in
                 maker.leading.trailing.equalToSuperview().inset(Frame.horizontalBleedWidth)
-                maker.top.equalTo(descriptionTitleLabel.snp.bottom).offset(12)
+                maker.top.equalTo(descriptionTitleLabel.snp.bottom).offset(descriptionViewTop)
             }
             
             topicTitleLabel.snp.makeConstraints { (maker) in
                 maker.leading.trailing.equalToSuperview().inset(Frame.horizontalBleedWidth)
-                maker.height.equalTo(22)
-                maker.top.equalTo(descriptionView.snp.bottom).offset(36)
+                maker.height.equalTo(topicTitleLabelHeight)
+                maker.top.equalTo(descriptionView.snp.bottom).offset(topicTitleLabelTop)
             }
             
             topicSetView.snp.makeConstraints { (maker) in
                 maker.leading.trailing.equalToSuperview().inset(Frame.horizontalBleedWidth)
-                maker.height.equalTo(32)
-                maker.top.equalTo(topicTitleLabel.snp.bottom).offset(12)
-            }
-            
-            appendViewContainer.snp.makeConstraints { (maker) in
-                maker.leading.trailing.bottom.equalToSuperview()
-                maker.top.equalTo(topicSetView.snp.bottom)
+                maker.height.equalTo(topicSetViewHeight)
+                maker.top.equalTo(topicTitleLabel.snp.bottom).offset(topicSetViewTop)
                 maker.bottom.equalToSuperview()
             }
             
@@ -198,47 +201,6 @@ extension FansGroup.Views {
         private func setUpEvents() {
             
             addCoverBtn.coverRelay.bind(to: topBg.coverRelay)
-                .disposed(by: bag)
-            
-            let textingView = Observable.merge(
-                nameView.isEdtingRelay
-                    .map({ [weak self] (isEditing) -> UIView? in
-                        return isEditing ? self?.nameView : nil
-                    }),
-                descriptionView.isEdtingRelay
-                    .map({ (isEditing) -> UIView? in
-                        return isEditing ? self.descriptionView : nil
-                    })
-            )
-            .filterNil()
-            
-            Observable.combineLatest(RxKeyboard.instance.visibleHeight.asObservable(), textingView)
-                .subscribe(onNext: { [weak self] keyboardVisibleHeight, textingView in
-                                    
-                    guard let `self` = self else { return }
-                    
-                    guard keyboardVisibleHeight > 0 else {
-                        self.layoutScrollView.contentOffset = .zero
-                        return
-                    }
-                    
-                    let rect = self.innerContainerView.convert(textingView.frame, to: self)
-                    let distance = Frame.Screen.height - keyboardVisibleHeight - rect.maxY - 40
-                    
-                    guard distance < 0 else {
-                        return
-                    }
-                    
-                    UIView.animate(withDuration: RxKeyboard.instance.animationDuration) {
-                        self.layoutScrollView.contentOffset.y = self.layoutScrollView.contentOffset.y - distance
-                    }
-                })
-                .disposed(by: bag)
-            
-            layoutScrollView.rx.contentOffset
-                .subscribe(onNext: { [weak self] (point) in
-                    self?.enlargeTopGbHeight(extraHeight: -point.y)
-                })
                 .disposed(by: bag)
         }
         
