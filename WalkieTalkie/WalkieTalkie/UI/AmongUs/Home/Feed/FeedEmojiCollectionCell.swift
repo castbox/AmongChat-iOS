@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Kingfisher
+import RxSwift
 
 class FeedEmoteView: UIButton {
     override func imageRect(forContentRect contentRect: CGRect) -> CGRect {
@@ -32,15 +34,30 @@ class FeedEmoteView: UIButton {
 class FeedEmojiCollectionCell: UICollectionViewCell {
     
     @IBOutlet weak var blurBackgroundView: UIVisualEffectView!
-    @IBOutlet weak var button: FeedEmoteView!
+    @IBOutlet weak var button: UIButton!
+    private var emoteDisposable: Disposable? = nil
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        button.setImageTitleHorizontalSpace(4)
+    }
     
     func config(with emote: Entity.FeedEmote) {
+        
+        emoteDisposable?.dispose()
         
         if emote.id.isEmpty {
             button.setImage(R.image.iconAddEmotes(), for: .normal)
             button.setTitle(nil, for: .normal)
         } else {
             button.kf.setImage(with: emote.img, for: .normal)
+            if let url = emote.img {
+                emoteDisposable = KingfisherManager.shared.retrieveImageObservable(with: url)
+                    .subscribe(onNext: { [weak self] img in
+                        self?.button.setImage(img.resize(size: CGSize(width: 32, height: 32), color: UIColor.clear), for: .normal)
+                    })
+            }
+
 //            button.setImage(R.image.iconAddEmotes(), for: .normal)
             button.setTitle(emote.count.string, for: .normal)
         }
