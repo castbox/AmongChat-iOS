@@ -433,6 +433,24 @@ extension Feed.Comments.CommentsListViewController {
         
         present(alert, animated: true)
     }
+    
+    private func reportCommentAlert(reportAction: @escaping () -> Void) {
+        
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        let report = UIAlertAction(title: R.string.localizable.amongChatReportComment(), style: .destructive) { (_) in
+            reportAction()
+            Logger.Action.log(.comments_item_clk, categoryValue: "report")
+        }
+        
+        let cancel = UIAlertAction(title: R.string.localizable.toastCancel(), style: .cancel) { (_) in
+            
+        }
+        
+        alert.addAction(cancel)
+        alert.addAction(report)
+        
+        present(alert, animated: true)
+    }
 }
 
 extension Feed.Comments.CommentsListViewController: UICollectionViewDataSource {
@@ -484,20 +502,27 @@ extension Feed.Comments.CommentsListViewController: UICollectionViewDataSource {
                 self.replyComment = comment
                 Logger.Action.log(.comments_item_clk, "reply")
             }, moreActionHandler: { [weak self] in
-                guard let `self` = self,
-                      comment.comment.user.uid.isSelfUid else { return }
-                self.deleteCommentAlert(deleteAction: {
-                    self.commentListVM.deleteComment(comment)
-                        .subscribe(onSuccess: { [weak self] (_) in
-                            guard let `self` = self else { return }
-                            var count = self.commentsCountRelay.value
-                            count -= 1
-                            self.commentsCountRelay.accept(max(0, count))
-                        }, onError: { (error) in
-                            
-                        })
-                        .disposed(by: self.bag)
-                })
+                guard let `self` = self else { return }
+                if comment.comment.user.uid.isSelfUid {
+                    self.deleteCommentAlert(deleteAction: {
+                        self.commentListVM.deleteComment(comment)
+                            .subscribe(onSuccess: { [weak self] (_) in
+                                guard let `self` = self else { return }
+                                var count = self.commentsCountRelay.value
+                                count -= 1
+                                self.commentsCountRelay.accept(max(0, count))
+                            }, onError: { (error) in
+                                
+                            })
+                            .disposed(by: self.bag)
+                    })
+                } else {
+                    self.reportCommentAlert {
+                        Report.ViewController.showReport(on: self, uid: comment.comment.cid, type: .comment, roomId: "", operate: nil) {
+                            self.view.raft.autoShow(.text(R.string.localizable.reportSuccess()))
+                        }
+                    }
+                }
             })
             
             return cell
@@ -521,17 +546,24 @@ extension Feed.Comments.CommentsListViewController: UICollectionViewDataSource {
                                 self.replyComment = comment
                                 Logger.Action.log(.comments_item_clk, categoryValue: "reply")
                               }, moreActionHandler: { [weak self] in
-                                guard let `self` = self,
-                                      reply.reply.user.uid.isSelfUid else { return }
-                                self.deleteCommentAlert(deleteAction: {
-                                    comment.deleteReply(reply)
-                                        .subscribe(onSuccess: { (_) in
-                                            
-                                        }, onError: { (error) in
-                                            
-                                        })
-                                        .disposed(by: self.bag)
-                                })
+                                guard let `self` = self else { return }
+                                if reply.reply.user.uid.isSelfUid {
+                                    self.deleteCommentAlert(deleteAction: {
+                                        comment.deleteReply(reply)
+                                            .subscribe(onSuccess: { (_) in
+                                                
+                                            }, onError: { (error) in
+                                                
+                                            })
+                                            .disposed(by: self.bag)
+                                    })
+                                } else {
+                                    self.reportCommentAlert {
+                                        Report.ViewController.showReport(on: self, uid: reply.reply.rid, type: .comment, roomId: "", operate: nil) {
+                                            self.view.raft.autoShow(.text(R.string.localizable.reportSuccess()))
+                                        }
+                                    }
+                                }
                               })
                 return cell
             } else {
