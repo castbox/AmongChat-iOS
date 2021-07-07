@@ -659,3 +659,4 @@
 //1.27.0
 "among.chat.login.auth.source.edit.avatar" = "edit your avatar";
 "among.chat.login.auth.source.follow.others" = "follow others";
+"among.chat.login.auth.source.edit.nickname" = "edit your nickname";

@@ -2960,7 +2960,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
     
-    /// This `R.string.localizable` struct is generated, and contains static references to 573 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 574 localization keys.
     struct localizable {
       /// en translation:  Congratulations!
       /// 
@@ -5142,6 +5142,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let amongChatLoginAuthSourceEditAvatar = Rswift.StringResource(key: "among.chat.login.auth.source.edit.avatar", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: edit your nickname
+      /// 
+      /// Locales: en
+      static let amongChatLoginAuthSourceEditNickname = Rswift.StringResource(key: "among.chat.login.auth.source.edit.nickname", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: edit your profile
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -9068,6 +9072,13 @@ struct R: Rswift.Validatable {
       /// Locales: en
       static func amongChatLoginAuthSourceEditAvatar(_: Void = ()) -> String {
         return NSLocalizedString("among.chat.login.auth.source.edit.avatar", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: edit your nickname
+      /// 
+      /// Locales: en
+      static func amongChatLoginAuthSourceEditNickname(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.login.auth.source.edit.nickname", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: edit your profile

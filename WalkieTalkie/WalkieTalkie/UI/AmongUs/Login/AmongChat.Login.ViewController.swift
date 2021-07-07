@@ -34,6 +34,7 @@ extension AmongChat.Login {
             case uploadAvatar
             case editAvatar
             case followOthers
+            case editNickname
         }
         
         var loggerSource: String? {
