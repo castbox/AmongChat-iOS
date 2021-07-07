@@ -535,11 +535,22 @@ extension AmongChat.Room.ViewController {
         
         topBar.changePublicStateHandler = { [weak self] in
             guard let `self` = self else { return }
-            self.topBar.isIndicatorAnimate = true
-            self.viewModel.changePublicType { [weak self] in
-                self?.topBar.isIndicatorAnimate = false
-            }
-            Logger.Action.log(.admin_change_state, categoryValue: self.room.state.rawValue)
+            
+            let msg = self.room.state == .public ? R.string.localizable.amongChatRoomChangeToPrivate() : R.string.localizable.amongChatRoomChangeToPublic()
+            
+            self.showAmongAlert(title: nil,
+                                message: msg,
+                                cancelTitle: R.string.localizable.toastCancel(),
+                                confirmTitle: R.string.localizable.toastConfirm(),
+                                confirmTitleColor: UIColor(hex6: 0xFFF000),
+                                cancelAction: nil,
+                                confirmAction: {
+                                    self.topBar.isIndicatorAnimate = true
+                                    self.viewModel.changePublicType { [weak self] in
+                                        self?.topBar.isIndicatorAnimate = false
+                                    }
+                                    Logger.Action.log(.admin_change_state, categoryValue: self.room.state.rawValue)
+                                })
         }
         
         bottomBar.sendMessageHandler = { [weak self] in
