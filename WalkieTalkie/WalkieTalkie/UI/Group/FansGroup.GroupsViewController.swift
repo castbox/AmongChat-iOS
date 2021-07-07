@@ -169,17 +169,26 @@ extension FansGroup.GroupsViewController {
         if let p = Settings.shared.amongChatUserProfile.value,
            !(p.isVerified ?? false) {
             
-            view.addSubview(getVerifiedView)
-            getVerifiedView.snp.makeConstraints { (maker) in
-                maker.leading.trailing.equalToSuperview()
-                maker.height.equalTo(70)
-                maker.top.equalTo(segmentedButton.snp.bottom)
+            if FireRemote.shared.value.verifyApplyUrl.count > 0,
+               let _ = URL(string: FireRemote.shared.value.verifyApplyUrl) {
+                view.addSubview(getVerifiedView)
+                getVerifiedView.snp.makeConstraints { (maker) in
+                    maker.leading.trailing.equalToSuperview()
+                    maker.height.equalTo(70)
+                    maker.top.equalTo(segmentedButton.snp.bottom)
+                }
+                
+                scrollLayoutGuide.snp.makeConstraints { (maker) in
+                    maker.top.equalTo(getVerifiedView.snp.bottom)
+                    maker.leading.trailing.bottom.equalToSuperview()
+                }
+            } else {
+                scrollLayoutGuide.snp.makeConstraints { (maker) in
+                    maker.top.equalTo(segmentedButton.snp.bottom)
+                    maker.leading.trailing.bottom.equalToSuperview()
+                }
             }
             
-            scrollLayoutGuide.snp.makeConstraints { (maker) in
-                maker.top.equalTo(getVerifiedView.snp.bottom)
-                maker.leading.trailing.bottom.equalToSuperview()
-            }
             bottomGradientView.isHidden = true
         } else {
             bottomGradientView.isHidden = false
@@ -225,7 +234,10 @@ extension FansGroup.GroupsViewController {
         guard AmongChat.Login.canDoLoginEvent(style: .authNeeded(source: .applyVerified)) else {
             return
         }
-        self.open(urlSting: "https://docs.google.com/forms/d/e/1FAIpQLSeTzpMgWikmqajPHbEBAstCdFVB4Xo1CjYDc29wj4zSJq99Kg/viewform")
+        
+        guard let url = URL(string: FireRemote.shared.value.verifyApplyUrl) else { return }
+        
+        open(url: url)
     }
     
     private func setUpEvents() {
