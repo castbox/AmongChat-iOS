@@ -214,10 +214,11 @@ extension AmongChat.Room {
             
            let relationObservable = Request.relationData(uid: user.uid).asObservable()
             var muteInfoObservable: Observable<Entity.UserMuteInfo?> {
-                guard Settings.isSuperAdmin else {
+                guard Settings.isSuperAdmin,
+                      itemStyle == .normal else {
                     return .just(nil)
                 }
-                return Request.roomMuteInfo(user: user.uid.string, roomId: room.roomId).asObservable()
+                return Request.roomMuteInfo(user: user.uid.string, roomId: room.roomId).asObservable().catchErrorJustReturn(nil)
             }
             Observable.zip(relationObservable, muteInfoObservable)
                 .observeOn(MainScheduler.asyncInstance)
