@@ -127,24 +127,39 @@ extension Report.ViewController: UITableViewDelegate {
 
 extension Report.ViewController {
     
-    func chooseImage() {
-        selectImage()
-            .subscribe(onSuccess: { [weak self] image in
-                guard let imgPng = image.scaled(toWidth: 400) else {
-                    return
+    func chooseMedia(_ type: ReportFooterView.MediaType) {
+        selectMedia(type)
+            .subscribe(onSuccess: { [weak self] item in
+                
+                switch item {
+                
+                case .photo(let photo):
+                    guard let imgPng = photo.image.scaled(toWidth: 400) else {
+                        return
+                    }
+                    self?.footerView.append(image: imgPng)
+
+                case .video(let video):
+                    self?.footerView.append(thumbnail: video.thumbnail, video: video.url)
                 }
-                self?.footerView.append(image: imgPng)
+                
             }) { error in
                 
             }
             .disposed(by: bag)
     }
     
-    private func selectImage() -> Single<UIImage> {
+    private func selectMedia(_ type: ReportFooterView.MediaType) -> Single<YPMediaItem> {
         
         var config = YPImagePickerConfiguration()
         config.screens = [.library]
         config.library.isSquareByDefault = false
+        switch type {
+        case .image:
+            config.library.mediaType = .photo
+        case .video:
+            config.library.mediaType = .video
+        }
         config.wordings.permissionPopup.message = R.string.infoplist.nsPhotoLibraryUsageDescription()
         
         config.showsPhotoFilters = false
@@ -153,7 +168,7 @@ extension Report.ViewController {
         picker.imagePickerDelegate = self
         present(picker, animated: true, completion: nil)
         
-        return Single<UIImage>.create(subscribe: { (subscriber) -> Disposable in
+        return Single<YPMediaItem>.create(subscribe: { (subscriber) -> Disposable in
             
             picker.didFinishPicking { [unowned picker] items, _ in
                 
@@ -161,12 +176,12 @@ extension Report.ViewController {
                     picker.dismiss(animated: true, completion: nil)
                 }
                 
-                guard let photo = items.singlePhoto else {
+                guard let item = items.first else {
                     subscriber(.error(MsgError.default))
                     return
                 }
                 
-                subscriber(.success(photo.image))
+                subscriber(.success(item))
                 
             }
             
@@ -196,13 +211,13 @@ extension Report.ViewController {
         view.raft.autoShow(.text(msg))
     }
 
-    func report(with index: Int, note: String, images: [UIImage]) {
+    func report(with index: Int, note: String, images: [UIImage], videos: [URL]) {
         guard let reason = dataSource.safe(index) else {
 //            Toast.showToast(alertType: .warnning, message: R.string.localizable.reportSelectReasonToast())
             return
         }
         let remove = view.raft.show(.loading)
-        viewModel.report(with: reason, note: note, images: images)
+        viewModel.report(with: reason, note: note, images: images, videos: videos)
             .observeOn(MainScheduler.asyncInstance)
             .subscribe(
                 onNext: { [weak self] result in
@@ -231,12 +246,12 @@ extension Report.ViewController {
             })
             .disposed(by: bag)
         
-        footerView.selectImageHandler = { [weak self] in
-            self?.chooseImage()
+        footerView.selectMediaHandler = { [weak self] mediaType in
+            self?.chooseMedia(mediaType)
         }
         
-        footerView.reportHandler = { [weak self] index, text, images in
-            self?.report(with: index, note: text, images: images)
+        footerView.reportHandler = { [weak self] index, text, images, videos in
+            self?.report(with: index, note: text, images: images, videos: videos)
         }
     }
     
@@ -248,7 +263,7 @@ extension Report.ViewController {
             maker.top.equalTo(topLayoutGuide.snp.bottom)
         }
         
-        footerView = ReportFooterView(frame: CGRect(x: 0, y: 0, width: Frame.Screen.width, height: 364 + ReportFooterView.collectionItemWidth))
+        footerView = ReportFooterView(frame: CGRect(x: 0, y: 0, width: Frame.Screen.width, height: 460 + ReportFooterView.collectionItemWidth * 2))
 //        footerView.append(image: image)
         
         tableView.tableHeaderView = ReportTableHeader(frame: CGRect(x: 0, y: 0, width: Frame.Screen.width, height: 56))

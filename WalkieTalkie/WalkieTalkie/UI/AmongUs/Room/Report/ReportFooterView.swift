@@ -17,7 +17,8 @@ class ReportFooterView: XibLoadableView {
 //    }
 
     private var textView: UITextView!
-    @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var imagesCollectionView: UICollectionView!
+    @IBOutlet weak var videosCollectionView: UICollectionView!
     
     @IBOutlet weak var commentLabel: UILabel!
     @IBOutlet weak var reportButton: UIButton!
@@ -27,7 +28,11 @@ class ReportFooterView: XibLoadableView {
     @IBOutlet weak var uploadSubtitleLabel: UILabel!
     @IBOutlet weak var imageCountLabel: UILabel!
     
+    @IBOutlet weak var uploadVideoTitleLabel: UILabel!
+    @IBOutlet weak var videoCountLabel: UILabel!
+    
     @IBOutlet weak var collectionViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var videosCollectionViewHeight: NSLayoutConstraint!
     
     private lazy var commentInputView: FansGroup.Views.GroupDescriptionView = {
         let d = FansGroup.Views.GroupDescriptionView()
@@ -36,6 +41,8 @@ class ReportFooterView: XibLoadableView {
         textView.keyboardDistanceFromTextField = 39
         return d
     }()
+    
+//    private lazy var 
         
     var selectedIndex: Int = -1 {
         didSet {
@@ -51,10 +58,22 @@ class ReportFooterView: XibLoadableView {
         }
     }
     
-    var selectImageHandler: () -> Void = { }
-    var reportHandler: ((Int, String, [UIImage]) -> Void)?
+    var videoItems: [Report.VideoItem] = [] {
+        didSet {
+            let count = videoItems.filter { $0.url != nil }.count
+            videoCountLabel.text = "\(count)/\(maxVideosCount)"
+            updateReportButtonState()
+        }
+    }
+    enum MediaType {
+        case image, video
+    }
+    var selectMediaHandler: ((MediaType) -> Void)? = nil
+    var reportHandler: ((Int, String, [UIImage], [URL]) -> Void)?
     
     private let placeholderItem = Report.ImageItem(image: nil)
+    private let videoPlaceholderItem = Report.VideoItem(image: nil, url: nil)
+    private let maxVideosCount = Int(1)
     private let maxInputLength = Int(280)
     private let bag = DisposeBag()
     static let collectionItemWidth: CGFloat = Frame.isPad ? 180 : ((Frame.Screen.width - 20 * 2 - 16 * 2) / 3).ceil
@@ -62,9 +81,11 @@ class ReportFooterView: XibLoadableView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        collectionView.register(nibWithCellClass: ReportImageCell.self)
-        
+        imagesCollectionView.register(nibWithCellClass: ReportImageCell.self)
+        videosCollectionView.register(nibWithCellClass: ReportImageCell.self)
+
         images.append(placeholderItem)
+        videoItems.append(videoPlaceholderItem)
         
 //        reportButton.layer.cornerRadius = 24
         reportButton.clipsToBounds = true
@@ -74,6 +95,7 @@ class ReportFooterView: XibLoadableView {
         reportButton.setBackgroundImage("#303030".color().image, for: .disabled)
 
         collectionViewHeightConstraint.constant = Self.collectionItemWidth
+        videosCollectionViewHeight.constant = Self.collectionItemWidth
         
         addSubview(commentInputView)
         commentInputView.snp.makeConstraints { (maker) in
@@ -106,7 +128,8 @@ class ReportFooterView: XibLoadableView {
 //                .disposed(by: bag)
 //
 //            textView.backgroundColor = UIColor.theme(.backgroundLightGray)
-            collectionView.backgroundColor = .clear
+        imagesCollectionView.backgroundColor = .clear
+        videosCollectionView.backgroundColor = .clear
 //
 //            if App.group == .viviChat {
 //                setReportNewStyle()
@@ -120,7 +143,8 @@ class ReportFooterView: XibLoadableView {
     
     func updateReportButtonState() {
         let validImageCount = images.filter { $0.image != nil }.count
-        reportButton.isEnabled = selectedIndex >= 0 && validImageCount > 0 && textView.text.isValid
+        let validVideoCount = videoItems.filter { $0.url != nil }.count
+        reportButton.isEnabled = selectedIndex >= 0 && (validImageCount > 0 || validVideoCount > 0) && textView.text.isValid
     }
     
     func append(image: UIImage?) {
@@ -132,11 +156,11 @@ class ReportFooterView: XibLoadableView {
         if images.count > 3 {
             _ = images.removeLast()
         }
-        collectionView.reloadData()
+        imagesCollectionView.reloadData()
     }
     
     @IBAction func repotAction(_ sender: Any) {
-        self.reportHandler?(selectedIndex, textView.text, images.compactMap { $0.image })
+        self.reportHandler?(selectedIndex, textView.text, images.compactMap { $0.image }, videoItems.compactMap { $0.url })
     }
     
     func setReportNewStyle() {
@@ -161,25 +185,49 @@ extension ReportFooterView: UICollectionViewDelegateFlowLayout {
 
 extension ReportFooterView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return images.count
+        
+        if collectionView == imagesCollectionView {
+            return images.count
+        } else {
+            return videoItems.count
+        }
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withClass: ReportImageCell.self, for: indexPath)
-        cell.set(images.safe(indexPath.item))
-        cell.removeHandler = { [weak self] in
-            self?.removeImage(indexPath.item)
+        
+        if collectionView == imagesCollectionView {
+            let cell = collectionView.dequeueReusableCell(withClass: ReportImageCell.self, for: indexPath)
+            cell.set(images.safe(indexPath.item))
+            cell.removeHandler = { [weak self] in
+                self?.removeImage(indexPath.item)
+            }
+            return cell
+        } else {
+            let cell = collectionView.dequeueReusableCell(withClass: ReportImageCell.self, for: indexPath)
+            cell.style = .video
+            cell.set(videoItems.safe(indexPath.item))
+            cell.removeHandler = { [weak self] in
+                self?.removeVideo(indexPath.item)
+            }
+            return cell
         }
-        return cell
     }
 }
 
 extension ReportFooterView: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard images.safe(indexPath.item)?.image == nil else {
-            return
+        if collectionView == imagesCollectionView {
+            guard images.safe(indexPath.item)?.image == nil else {
+                return
+            }
+            selectMediaHandler?(.image)
+        } else {
+            guard videoItems.safe(indexPath.item)?.url == nil else {
+                return
+            }
+            selectMediaHandler?(.video)
         }
-        selectImageHandler()
     }
 }
 
@@ -193,6 +241,30 @@ extension ReportFooterView {
             images.last?.image != nil {
             images.append(placeholderItem)
         }
-        collectionView.reloadData()
+        imagesCollectionView.reloadData()
     }
+    
+    func removeVideo(_ index: Int) {
+        guard videoItems.count > index else {
+            return
+        }
+        videoItems.remove(at: index)
+        if videoItems.count < maxVideosCount,
+           (videoItems.count == 0 || videoItems.last?.image != nil) {
+            videoItems.append(videoPlaceholderItem)
+        }
+        videosCollectionView.reloadData()
+    }
+    
+    func append(thumbnail: UIImage, video: URL) {
+        
+        let item = Report.VideoItem(image: thumbnail, url: video)
+
+        videoItems.insert(item, at: 0)
+        if videoItems.count >= maxVideosCount {
+            _ = videoItems.removeLast()
+        }
+        videosCollectionView.reloadData()
+    }
+
 }

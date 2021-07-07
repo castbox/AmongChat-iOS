@@ -1547,12 +1547,13 @@ extension Request {
     }
     
     /// 举报用户或直播间
-    static func reportContent(type: Report.ReportType, targetID: String, reasonID: Int, note: String? = nil, pics: [String] = [], roomId: String = "", operate: Report.ReportOperate?) -> Single<Bool> {
+    static func reportContent(type: Report.ReportType, targetID: String, reasonID: Int, note: String? = nil, pics: [String] = [], videos: [String] = [], roomId: String = "", operate: Report.ReportOperate?) -> Single<Bool> {
         
         var paras: [String: Any] = ["report_type": type.rawValue, "target_id": targetID, "reason_id": reasonID, "note": note ?? "", "operate": operate?.rawValue ?? ""]
         // 额外证据
         paras["extra"] = [
             "pics": pics,
+            "videos" : videos,
             "room_id": roomId
         ]
         return amongchatProvider.rx.request(.report(paras))

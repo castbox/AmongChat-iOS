@@ -10,6 +10,10 @@ import Foundation
 import SnapKit
 import RxSwift
 
+protocol ReportUploadMediaItem {
+    var image: UIImage? { get set }
+}
+
 struct Report {
     enum ReportType: String {
         case room
@@ -27,8 +31,13 @@ struct Report {
         case kick = "room_kick"
     }
     
-    struct ImageItem {
-        let image: UIImage?
+    struct ImageItem: ReportUploadMediaItem {
+        var image: UIImage?
+    }
+    
+    struct VideoItem: ReportUploadMediaItem {
+        var image: UIImage?
+        let url: URL?
     }
 }
 
@@ -117,7 +126,7 @@ extension Report {
                 }
         }
         
-        func report(with reason: Entity.Report.Reason, note: String, images: [UIImage]) -> Observable<Bool> {
+        func report(with reason: Entity.Report.Reason, note: String, images: [UIImage] = [], videos: [URL] = []) -> Observable<Bool> {
             //upload image
             var uploadObservable: [Observable<String?>] {
                 guard !images.isEmpty else {
@@ -125,13 +134,39 @@ extension Report {
                 }
                 return images.map { Request.uploadAsJpg(image: $0).asObservable().map { Optional($0) } }
             }
+            
+            var videoUploadObservable: [Observable<String?>] {
+                guard !videos.isEmpty else {
+                    return [Observable.just(nil)]
+                }
+                return videos.map({ videoURL in
+                    
+                    do {
+                        let data = try Data(contentsOf: videoURL)
+                        return Request.uploadData(data, ext: "mp4", mimeType: "video/mp4", type: .video).asObservable().map { Optional($0) }
+                    } catch _ {
+                        return Observable.just(nil)
+                    }
+                    
+                })
+                
+            }
+            
             let uid = self.uid
             let type = self.type
             let roomId = self.roomId
             let operate = self.operate
-            return Observable.zip(uploadObservable)
-                .flatMap { pics -> Observable<Bool> in
-                    return Request.reportContent(type: type, targetID: uid, reasonID: reason.reasonId, note: note, pics: pics.compactMap { $0 }, roomId: roomId, operate: operate).asObservable()
+            return Observable.combineLatest(
+                Observable.zip(uploadObservable), Observable.zip(videoUploadObservable))
+                .flatMap { pics, videos -> Observable<Bool> in
+                    return Request.reportContent(type: type,
+                                                 targetID: uid,
+                                                 reasonID: reason.reasonId,
+                                                 note: note,
+                                                 pics: pics.compactMap { $0 },
+                                                 videos: videos.compactMap({ $0 }),
+                                                 roomId: roomId,
+                                                 operate: operate).asObservable()
                 }
                 .flatMap { result -> Observable<Bool> in
 //                    guard result, let `self` = self else { return }

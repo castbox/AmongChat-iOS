@@ -15,18 +15,24 @@ class ReportImageCell: UICollectionViewCell {
     
     var removeHandler: () -> Void = { }
     
+    enum Style {
+        case video, image
+    }
+    
+    var style = Style.image
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
     }
     
-    func set(_ item: Report.ImageItem?) {
+    func set(_ item: ReportUploadMediaItem?) {
         if let image = item?.image {
             iconView.image = image
             iconView.contentMode = .scaleAspectFill
             deleteButton.isHidden = false
         } else {
-            iconView.image = R.image.iconReportImageAdd()
+            iconView.image = style == .image ? R.image.iconReportImageAdd() : R.image.iconReportVideoAdd()
             iconView.contentMode = .center
             deleteButton.isHidden = true
         }
