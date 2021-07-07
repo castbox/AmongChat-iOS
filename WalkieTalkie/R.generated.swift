@@ -232,7 +232,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 292 images.
+  /// This `R.image` struct is generated, and contains static references to 293 images.
   struct image {
     /// Image `ac_add_stats_add`.
     static let ac_add_stats_add = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_add_stats_add")
@@ -710,6 +710,8 @@ struct R: Rswift.Validatable {
     static let iconReportNormal = Rswift.ImageResource(bundle: R.hostingBundle, name: "iconReportNormal")
     /// Image `iconReportSelected`.
     static let iconReportSelected = Rswift.ImageResource(bundle: R.hostingBundle, name: "iconReportSelected")
+    /// Image `iconReportVideoAdd`.
+    static let iconReportVideoAdd = Rswift.ImageResource(bundle: R.hostingBundle, name: "iconReportVideoAdd")
     /// Image `iconReport`.
     static let iconReport = Rswift.ImageResource(bundle: R.hostingBundle, name: "iconReport")
     /// Image `iconVerifyBlackBorder`.
@@ -2012,6 +2014,11 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "iconReportSelected", bundle: ..., traitCollection: ...)`
     static func iconReportSelected(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.iconReportSelected, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "iconReportVideoAdd", bundle: ..., traitCollection: ...)`
+    static func iconReportVideoAdd(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.iconReportVideoAdd, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "iconVerifyBlackBorder", bundle: ..., traitCollection: ...)`
