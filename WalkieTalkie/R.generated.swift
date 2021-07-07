@@ -2960,7 +2960,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
     
-    /// This `R.string.localizable` struct is generated, and contains static references to 574 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 579 localization keys.
     struct localizable {
       /// en translation:  Congratulations!
       /// 
@@ -3086,6 +3086,14 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatGroupLiveEnableQueueTip = Rswift.StringResource(key: "among.chat.group.live.enable.queue.tip", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: After switching this channel to public, everyone can join. Switch now? 
+      /// 
+      /// Locales: en
+      static let amongChatRoomChangeToPublic = Rswift.StringResource(key: "among.chat.room.change.to.public", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: After switching to private, the link to this channel shared before would be invalid. Switch now?
+      /// 
+      /// Locales: en
+      static let amongChatRoomChangeToPrivate = Rswift.StringResource(key: "among.chat.room.change.to.private", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: After the free trial, %@ subscription is %@, it automatically renews unless turned off in Accounting Settings at least 24h before current period ends. Payment is charged to your iTunes Account, cancel any time.
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -4494,6 +4502,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let reportTitle = Rswift.StringResource(key: "report.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Report Comment
+      /// 
+      /// Locales: en
+      static let amongChatReportComment = Rswift.StringResource(key: "among.chat.report.comment", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Report failed. Please try again
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -4942,6 +4954,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let reportUploadScreenshots = Rswift.StringResource(key: "report.upload.screenshots", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Upload videos
+      /// 
+      /// Locales: en
+      static let amongChatReportUploadVideos = Rswift.StringResource(key: "among.chat.report.upload.videos", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Upload your own avatar
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -4978,6 +4994,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let feedPostTip = Rswift.StringResource(key: "feed.post.tip", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Videos should be under 60s
+      /// 
+      /// Locales: en
+      static let amongChatReportVideoTip = Rswift.StringResource(key: "among.chat.report.video.tip", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Videos should be under 60s and related to games, and cannot violate the %1$@
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -5474,6 +5494,20 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func amongChatGroupLiveEnableQueueTip(_: Void = ()) -> String {
         return NSLocalizedString("among.chat.group.live.enable.queue.tip", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: After switching this channel to public, everyone can join. Switch now? 
+      /// 
+      /// Locales: en
+      static func amongChatRoomChangeToPublic(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.room.change.to.public", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: After switching to private, the link to this channel shared before would be invalid. Switch now?
+      /// 
+      /// Locales: en
+      static func amongChatRoomChangeToPrivate(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.room.change.to.private", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: After the free trial, %@ subscription is %@, it automatically renews unless turned off in Accounting Settings at least 24h before current period ends. Payment is charged to your iTunes Account, cancel any time.
@@ -7940,6 +7974,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("report.title", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Report Comment
+      /// 
+      /// Locales: en
+      static func amongChatReportComment(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.report.comment", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Report failed. Please try again
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -8724,6 +8765,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("report.upload.screenshots", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Upload videos
+      /// 
+      /// Locales: en
+      static func amongChatReportUploadVideos(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.report.upload.videos", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Upload your own avatar
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -8785,6 +8833,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func feedPostTip(_: Void = ()) -> String {
         return NSLocalizedString("feed.post.tip", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Videos should be under 60s
+      /// 
+      /// Locales: en
+      static func amongChatReportVideoTip(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.report.video.tip", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Videos should be under 60s and related to games, and cannot violate the %1$@

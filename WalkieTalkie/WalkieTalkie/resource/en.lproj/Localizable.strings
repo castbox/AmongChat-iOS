@@ -660,3 +660,8 @@
 "among.chat.login.auth.source.edit.avatar" = "edit your avatar";
 "among.chat.login.auth.source.follow.others" = "follow others";
 "among.chat.login.auth.source.edit.nickname" = "edit your nickname";
+"among.chat.room.change.to.private" = "After switching to private, the link to this channel shared before would be invalid. Switch now?";
+"among.chat.room.change.to.public" = "After switching this channel to public, everyone can join. Switch now? ";
+"among.chat.report.comment" = "Report Comment";
+"among.chat.report.video.tip" = "Videos should be under 60s";
+"among.chat.report.upload.videos" = "Upload videos";
