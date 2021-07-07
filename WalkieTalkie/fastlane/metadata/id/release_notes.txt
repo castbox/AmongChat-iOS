@@ -1,4 +1,4 @@
 Selamat datang di aplikasi obrolan suara AmongChat!
-Berbagi video dioptimalkan! Sekarang Anda dapat langsung membagikan video favorit Anda dengan teman-teman Anda melalui pesan dalam aplikasi. Ayo coba!
+Pembaruan besar untuk Grup: ketika admin tidak online, anggota Grup dapat membuka saluran Grup untuk mengobrol kapan saja. Berpesta lebih mudah sekarang, bukan?
 Perbaikan bug dan peningkatan kinerja lainnya.
 Temukan dan Obrolan Suara dengan teman-teman Anda, mainkan bersama, dan nikmatilah!

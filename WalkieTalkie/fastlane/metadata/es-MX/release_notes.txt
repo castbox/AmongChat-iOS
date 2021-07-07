@@ -1,4 +1,4 @@
 ¡Bienvenido a la aplicación de chat de voz AmongChat!
-¡El uso compartido de videos está optimizado! Ahora puede compartir directamente sus videos favoritos con sus amigos a través de mensajes dentro de la aplicación. ¡Ven a probarlo!
+Actualización importante para el Grupo: cuando el administrador no está conectado, los miembros del Grupo pueden abrir el canal del Grupo para chatear en cualquier momento. Ahora es más fácil salir de fiesta, ¿verdad?
 Otras correcciones de errores y mejoras de rendimiento.
 Busque y chatee por voz con sus amigos, jueguen juntos y disfruten.
