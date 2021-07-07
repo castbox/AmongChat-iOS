@@ -2960,7 +2960,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
     
-    /// This `R.string.localizable` struct is generated, and contains static references to 571 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 573 localization keys.
     struct localizable {
       /// en translation:  Congratulations!
       /// 
@@ -5138,6 +5138,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatLoginAuthSourceCreateFeed = Rswift.StringResource(key: "among.chat.login.auth.source.create.feed", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: edit your avatar
+      /// 
+      /// Locales: en
+      static let amongChatLoginAuthSourceEditAvatar = Rswift.StringResource(key: "among.chat.login.auth.source.edit.avatar", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: edit your profile
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -5146,6 +5150,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let dmInteractiveEmoteTitle = Rswift.StringResource(key: "dm.interactive.emote.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: follow others
+      /// 
+      /// Locales: en
+      static let amongChatLoginAuthSourceFollowOthers = Rswift.StringResource(key: "among.chat.login.auth.source.follow.others", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: followers
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -9055,6 +9063,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("among.chat.login.auth.source.create.feed", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: edit your avatar
+      /// 
+      /// Locales: en
+      static func amongChatLoginAuthSourceEditAvatar(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.login.auth.source.edit.avatar", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: edit your profile
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -9067,6 +9082,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func dmInteractiveEmoteTitle(_: Void = ()) -> String {
         return NSLocalizedString("dm.interactive.emote.title", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: follow others
+      /// 
+      /// Locales: en
+      static func amongChatLoginAuthSourceFollowOthers(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.login.auth.source.follow.others", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: followers

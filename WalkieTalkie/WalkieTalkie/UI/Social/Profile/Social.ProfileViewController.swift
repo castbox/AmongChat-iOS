@@ -274,6 +274,9 @@ extension Social {
                 guard let `self` = self else { return }
                 switch type {
                 case .avater:
+                    guard AmongChat.Login.canDoLoginEvent(style: .authNeeded(source: .editAvatar)) else {
+                        return
+                    }
                     let vc = Social.CustomAvatarViewController()
                     vc.modalPresentationStyle = .overCurrentContext
                     self.present(vc, animated: false)

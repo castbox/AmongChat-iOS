@@ -655,3 +655,7 @@
 "among.chat.group.ignore.all" = "Ignore All";
 "feed.post.tip.with.rules" = "Videos should be under 60s and related to games, and cannot violate the %1$@";
 "feed.post.rules" = "rules";
+
+//1.27.0
+"among.chat.login.auth.source.edit.avatar" = "edit your avatar";
+"among.chat.login.auth.source.follow.others" = "follow others";

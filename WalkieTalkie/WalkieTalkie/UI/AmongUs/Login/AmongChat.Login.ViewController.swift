@@ -32,6 +32,8 @@ extension AmongChat.Login {
 //            case like_comment //点击喜欢评论时
             case create_feed // 创建 feed 时
             case uploadAvatar
+            case editAvatar
+            case followOthers
         }
         
         var loggerSource: String? {

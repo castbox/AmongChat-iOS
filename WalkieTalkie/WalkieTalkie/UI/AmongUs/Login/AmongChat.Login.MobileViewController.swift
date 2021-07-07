@@ -994,6 +994,10 @@ fileprivate extension AmongChat.Login.LoginStyle.AuthNeededSource {
             return R.string.localizable.amongChatLoginAuthTip(R.string.localizable.amongChatLoginAuthSourceCreateFeed())
         case .uploadAvatar:
             return R.string.localizable.amongChatLoginAuthTip(R.string.localizable.amongChatLoginAuthSourceUploadAvatar())
+        case .editAvatar:
+            return R.string.localizable.amongChatLoginAuthTip(R.string.localizable.amongChatLoginAuthSourceEditAvatar())
+        case .followOthers:
+            return R.string.localizable.amongChatLoginAuthTip(R.string.localizable.amongChatLoginAuthSourceFollowOthers())
         }
         
     }
