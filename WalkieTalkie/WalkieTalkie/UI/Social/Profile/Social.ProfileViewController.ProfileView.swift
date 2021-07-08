@@ -452,7 +452,7 @@ extension Social.ProfileViewController {
             }
             
             infoCollectionView.snp.makeConstraints { (maker) in
-                maker.leading.trailing.equalToSuperview().inset(Frame.horizontalBleedWidth)
+                maker.leading.trailing.equalToSuperview().inset(Frame.horizontalBleedWidth - 2)
                 maker.top.equalTo(nameLabel.snp.bottom).offset(infoTopSpace)
                 maker.height.equalTo(24)
             }
