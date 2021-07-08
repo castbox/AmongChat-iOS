@@ -161,14 +161,18 @@ class AmongGroupHostView: XibLoadableView {
             
             if group.loginUserIsAdmin {
                 
+                let leftEdge: CGFloat = (UIScreen.main.bounds.width - AmongChat.Room.SeatView.itemWidth * 5) / 2
+                
                 hostView.snp.remakeConstraints { maker in
-                    maker.top.bottom.leading.equalToSuperview()
-                    maker.width.equalTo(67)
+                    maker.top.bottom.equalToSuperview()
+                    maker.leading.equalToSuperview().offset(leftEdge)
+                    maker.width.equalTo(AmongChat.Room.SeatView.itemWidth)
                 }
                 
                 actionStackView.isHidden = false
                 actionStackView.snp.remakeConstraints { maker in
-                    maker.top.bottom.trailing.equalToSuperview()
+                    maker.top.bottom.equalToSuperview()
+                    maker.trailing.equalToSuperview().offset(-leftEdge)
                     maker.leading.equalTo(hostView.snp.trailing)
                 }
                 
@@ -226,7 +230,7 @@ class AmongGroupHostView: XibLoadableView {
                 }
                 updateGameNameTitle()
             }
-        
+            
         }
     }
     

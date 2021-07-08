@@ -123,6 +123,7 @@ extension AmongChat.Room {
         
         lazy var loadingView: SeatLoadingView = {
             let view = SeatLoadingView(frame: .zero)
+            view.isUserInteractionEnabled = false
             return view
         }()
 

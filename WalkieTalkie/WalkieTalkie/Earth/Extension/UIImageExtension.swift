@@ -75,7 +75,7 @@ extension UIImage {
         }
         let rect = CGRect(origin: CGPoint(), size: size!)
         
-        UIGraphicsBeginImageContextWithOptions(rect.size, true, 0)
+        UIGraphicsBeginImageContextWithOptions(rect.size, false, 0)
         
         if let color = color {
             color.setFill()

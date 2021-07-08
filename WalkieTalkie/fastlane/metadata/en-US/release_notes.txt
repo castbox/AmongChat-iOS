@@ -1,4 +1,4 @@
 Welcome to AmongChat voice chat app!
-Video sharing is optimized! Now you can directly share your favorite videos with your friends through in-app messages. Come try it!
+Major update for Group: when the admin is not online, Group members can open the Group channel to chat at any time. Partying is easier now, isn't it?
 Other bug fixes and performance improvements.
 Find and Voice Chat with your friends, play together, and enjoy!

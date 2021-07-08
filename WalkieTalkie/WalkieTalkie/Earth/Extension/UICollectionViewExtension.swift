@@ -37,3 +37,11 @@ extension UITableView {
     }
 
 }
+
+extension UICollectionViewFlowLayout {
+    
+    open override var flipsHorizontallyInOppositeLayoutDirection: Bool {
+        return true
+    }
+    
+}

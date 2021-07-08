@@ -29,7 +29,7 @@ class FeedShareUserCell: UICollectionViewCell {
                 avatarView.verifyIV.image = R.image.iconFeedShareUserSelected()
                 avatarView.isVerify = true
             } else {
-                avatarView.verifyIV.image = R.image.iconVerifyBlackBorder()
+                avatarView.verifyIV.image = R.image.iconVerifyGrayBorder()
                 avatarView.isVerify = profile.isVerified ?? false
             }
         }

@@ -98,6 +98,9 @@ extension FireRemote {
         ///Feeds 广告加载间隔数 < 0 则不需要加载广告
         let feedsAdInterval: Int
         
+        //认证申请入口
+        let verifyApplyUrl: String
+        
         init(config: RemoteConfig) {
             cdPrint("remote config: \(config.allKeys(from: .remote))")
             let str = config["premium_prompt"].stringValue ?? ""
@@ -137,6 +140,7 @@ extension FireRemote {
             showQuickChangeRoomButton = config["show_quick_change_button"].boolValue
             defaultMainTabIndex = config["default_main_tab_index"].numberValue?.intValue ?? 0
             feedsAdInterval = config["feeds_ad_interval"].numberValue?.intValue ?? -1
+            verifyApplyUrl = config["verify_apply_url"].stringValue ?? ""
         }
     }
 }

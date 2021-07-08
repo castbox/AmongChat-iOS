@@ -214,10 +214,11 @@ extension AmongChat.Room {
             
            let relationObservable = Request.relationData(uid: user.uid).asObservable()
             var muteInfoObservable: Observable<Entity.UserMuteInfo?> {
-                guard Settings.isSuperAdmin else {
+                guard Settings.isSuperAdmin,
+                      itemStyle == .normal else {
                     return .just(nil)
                 }
-                return Request.roomMuteInfo(user: user.uid.string, roomId: room.roomId).asObservable()
+                return Request.roomMuteInfo(user: user.uid.string, roomId: room.roomId).asObservable().catchErrorJustReturn(nil)
             }
             Observable.zip(relationObservable, muteInfoObservable)
                 .observeOn(MainScheduler.asyncInstance)
@@ -313,6 +314,11 @@ extension AmongChat.Room {
                        group?.loginUserIsAdmin == false,
                        !dataSource.contains(where: { $0.user?.uid == Settings.loginUserId }) {
                         actionHandler?(.requestOnSeat(index))
+                    } else if let idx = dataSource.firstIndex(where: { $0.user?.uid == Settings.loginUserId }),
+                              let user = dataSource[idx].user,
+                              idx == index {
+                        //在麦上或者正在calling，选中了自己
+                        fetchRealation(with: user)
                     } else {
                         actionHandler?(.selectUser(nil))
                     }

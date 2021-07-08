@@ -53,6 +53,11 @@ class ConversationBottomBar: XibLoadableView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        textField.layer.cornerRadius = textField.bounds.height / 2
+    }
+    
     override var isFirstResponder: Bool {
         textField.isFirstResponder
     }
