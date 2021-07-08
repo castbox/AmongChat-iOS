@@ -219,10 +219,11 @@ extension Request {
             .observeOn(MainScheduler.asyncInstance)
     }
     
-    static func enterRoom(roomId: String? = nil, topicId: String?, source: String? = nil) -> Single<Entity.RoomInfo?> {
+    static func enterRoom(roomId: String? = nil, code: String? = nil, topicId: String?, source: String? = nil) -> Single<Entity.RoomInfo?> {
         
         var paras = [String : Any]()
         if let rid = roomId { paras["room_id"] = rid }
+        if let code = code { paras["code"] = code }
         paras["topic_id"] = topicId
         if let s = source { paras["source"] = s }
         paras["rtc_support"] = "agora,zego"

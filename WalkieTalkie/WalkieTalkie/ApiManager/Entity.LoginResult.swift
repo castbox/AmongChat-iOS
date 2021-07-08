@@ -257,6 +257,8 @@ extension Entity {
                 gid != nil
             }
             
+            var code: String?
+            
             init(from decoder: Decoder) throws {
                 let container = try decoder.container(keyedBy: CodingKeys.self)
                 
@@ -270,6 +272,7 @@ extension Entity {
                 self.topicName = topicName
                 self.name = try container.decodeStringIfPresent(.name) ?? topicName
                 self.uid = try? container.decodeInt(.uid)
+                self.code = try? container.decodeString(.code)
             }
             
             #if DEBUG

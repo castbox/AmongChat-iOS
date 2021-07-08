@@ -95,6 +95,7 @@ extension Entity {
         let rtcType: RtcType?
         let rtcBitRate: Int?
         var coverUrl: String?
+        var code: String?
         //
         var defaultRole: RtcUserRole {
             Settings.isSilentUser ? .audience : .broadcaster
@@ -142,6 +143,7 @@ extension Entity {
             case rtcType
             case rtcBitRate
             case coverUrl
+            case code
         }
     }
     

@@ -129,7 +129,7 @@ extension JoinRoomable where Self: ViewController {
         
     }
     
-    func enterRoom(roomId: String? = nil, topicId: String?, logSource: ParentPageSource? = nil, apiSource: ParentApiSource? = nil) {
+    func enterRoom(roomId: String? = nil, code: String? = nil, topicId: String?, logSource: ParentPageSource? = nil, apiSource: ParentApiSource? = nil) {
         Logger.Action.log(.enter_home_topic, categoryValue: topicId)
         //
         UIApplication.tabBarController?.dismissNotificationBanner()
@@ -148,7 +148,7 @@ extension JoinRoomable where Self: ViewController {
         
         contentScrollView?.isUserInteractionEnabled = false
         isRequestingRoom = true
-        Request.enterRoom(roomId: roomId, topicId: topic, source: apiSource?.key)
+        Request.enterRoom(roomId: roomId, code: code, topicId: topic, source: apiSource?.key)
             .subscribe(onSuccess: { [weak self] (room) in
                 // TODO: - 进入房间
                 guard let `self` = self else {

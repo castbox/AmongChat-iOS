@@ -106,7 +106,7 @@ extension Routes {
                 apiSource = ParentApiSource(key: source)
             }
             
-            roomVc.enterRoom(roomId: channel.channelId, topicId: nil, logSource: ParentPageSource(.link), apiSource: apiSource)
+            roomVc.enterRoom(roomId: channel.channelId, code: channel.code, topicId: nil, logSource: ParentPageSource(.link), apiSource: apiSource)
             Logger.Channel.log(.deeplink, channel.channelId, value: 0)
         }
         
