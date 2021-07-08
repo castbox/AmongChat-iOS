@@ -125,6 +125,7 @@ extension URI {
         static func patterns() -> [String] {
             return [
                 "/room/:room_id/:code",
+                "/room/:room_id",
                 "/room",
                 "/channel/:channel_id",
                 "/channel",
