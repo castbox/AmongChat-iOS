@@ -1,4 +1,4 @@
 Bienvenue sur l'application de chat vocal AmongChat !
-Le partage vidéo est optimisé ! Vous pouvez désormais partager directement vos vidéos préférées avec vos amis via des messages intégrés à l'application. Venez l'essayer !
+Mise à jour majeure pour le Groupe : lorsque l'administrateur n'est pas en ligne, les membres du Groupe peuvent ouvrir le canal du Groupe pour discuter à tout moment. Faire la fête est plus facile maintenant, n'est-ce pas ?
 Autres corrections de bogues et améliorations des performances.
 Trouvez et discutez avec vos amis, jouez ensemble et amusez-vous !

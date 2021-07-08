@@ -1,4 +1,4 @@
 AmongChat sesli sohbet uygulamasına hoş geldiniz!
-Video paylaşımı optimize edildi! Artık favori videolarınızı uygulama içi mesajlar aracılığıyla arkadaşlarınızla doğrudan paylaşabilirsiniz. Gel dene!
+Grup için büyük güncelleme: Yönetici çevrimiçi olmadığında, Grup üyeleri istedikleri zaman sohbet etmek için Grup kanalını açabilir. Parti yapmak artık daha kolay, değil mi?
 Diğer hata düzeltmeleri ve performans iyileştirmeleri.
 Arkadaşlarınızı bulun ve Sesli Sohbet edin, birlikte oynayın ve keyfini çıkarın!

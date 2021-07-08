@@ -285,12 +285,12 @@ extension SettingViewController {
         }
     }
     
-    private func getVerified() {
+    private func getVerified(_ url: URL) {
         
         guard AmongChat.Login.canDoLoginEvent(style: .authNeeded(source: .applyVerified)) else {
             return
         }
-        self.open(urlSting: "https://docs.google.com/forms/d/e/1FAIpQLSeTzpMgWikmqajPHbEBAstCdFVB4Xo1CjYDc29wj4zSJq99Kg/viewform")        
+        self.open(url: url)
     }
     
     private func exportLogger() {
@@ -340,7 +340,7 @@ extension SettingViewController {
     }
         
     private func generateDataSource() -> [Option] {
-        let options: [Option] = [
+        var options: [Option] = [
             Option(type: .blockList, selectionHandler: { [weak self] in
                 let vc = Social.BlockedUserList.ViewController()
                 self?.navigationController?.pushViewController(vc)
@@ -356,17 +356,25 @@ extension SettingViewController {
             }),
             Option(type: .restorePurchase, selectionHandler: { [weak self] in
                 self?.restorePurchases()
-            }),
-            Option(type: .getVerified, selectionHandler: { [weak self] in
-                self?.getVerified()
-            }),
+            })]
+        
+        if FireRemote.shared.value.verifyApplyUrl.count > 0,
+           let url = URL(string: FireRemote.shared.value.verifyApplyUrl) {
+            options.append(
+                Option(type: .getVerified, selectionHandler: { [weak self] in
+                    self?.getVerified(url)
+                })
+            )
+        }
+        
+        options.append(contentsOf: [
             Option(type: .clearCache, rightText: "", selectionHandler: { [weak self] in
                 self?.clearCacheAlert()
             }),
             Option(type: .feedback, selectionHandler: { [weak self] in
                 self?.exportLogger()
             }),
-        ]
+        ])
         
         return options
     }
