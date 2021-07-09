@@ -76,6 +76,13 @@ extension Feed.Share {
             return v
         }()
         
+        private lazy var shareInputDismissView: UIView = {
+            let v = UIView()
+            v.backgroundColor = .clear
+            v.isHidden = true
+            return v
+        }()
+        
         private let viewModel: ViewModel
         private let feed: Entity.Feed
         
@@ -99,6 +106,16 @@ extension Feed.Share {
             setUpEvents()
             Logger.Action.log(.feeds_share_imp)
         }
+        
+        override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+            
+            if touches.first?.view == shareInputDismissView {
+                shareInputView.inputTextView.endEditing(true)
+            } else {
+                super.touchesBegan(touches, with: event)
+            }
+            
+        }
     }
     
 }
@@ -107,7 +124,7 @@ extension Feed.Share.SelectFriendsViewController {
     
     private func setUpLayout() {
         
-        view.addSubviews(views: navView, searchTextfield, friendsTable, tableViewIndex, shareInputView)
+        view.addSubviews(views: navView, searchTextfield, friendsTable, tableViewIndex, shareInputView, shareInputDismissView)
         
         navView.snp.makeConstraints { (maker) in
             maker.leading.trailing.equalToSuperview()
@@ -133,6 +150,11 @@ extension Feed.Share.SelectFriendsViewController {
         shareInputView.snp.makeConstraints { maker in
             maker.leading.trailing.equalToSuperview()
             maker.bottom.equalToSuperview().offset(0)
+        }
+        
+        shareInputDismissView.snp.makeConstraints { maker in
+            maker.top.leading.trailing.equalToSuperview()
+            maker.bottom.equalTo(shareInputView.snp.top)
         }
         
         friendsTable.pullToLoadMore { [weak self] in
@@ -166,14 +188,24 @@ extension Feed.Share.SelectFriendsViewController {
             })
             .disposed(by: bag)
         
-        RxKeyboard.instance.visibleHeight.asObservable()
-            .subscribe(onNext: { [weak self] keyboardVisibleHeight in
+        let shareInputViewEditingOb = Observable.merge(
+            shareInputView.inputTextView.rx.didBeginEditing.map { true },
+            shareInputView.inputTextView.rx.didEndEditing.map { false }
+        )
+        
+        Observable.combineLatest(RxKeyboard.instance.visibleHeight.asObservable(),
+                                 shareInputViewEditingOb)
+            .subscribe(onNext: { [weak self] keyboardVisibleHeight, shareInputViewEditing in
                 
                 guard let `self` = self else { return }
                 
                 self.shareInputView.snp.updateConstraints { maker in
-                    maker.bottom.equalToSuperview().offset(-max(keyboardVisibleHeight - Frame.Height.safeAeraBottomHeight - 8, 0))
+                    maker.bottom.equalToSuperview().offset(
+                        shareInputViewEditing ? -max(keyboardVisibleHeight - Frame.Height.safeAeraBottomHeight - 8, 0) : 0
+                    )
                 }
+                
+                self.shareInputDismissView.isHidden = !shareInputViewEditing
                 
                 UIView.animate(withDuration: RxKeyboard.instance.animationDuration) {
                     self.view.layoutIfNeeded()
