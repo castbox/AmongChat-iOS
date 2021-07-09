@@ -10,6 +10,11 @@ import UIKit
 import RxSwift
 import RxCocoa
 
+protocol LiveDescribableViewController: UIViewController {
+    var liveId: String { get }
+    func quitLive() -> Void
+}
+
 extension AmongChat {
     struct Room {}
 }
@@ -44,6 +49,7 @@ extension AmongChat.Room {
                     ancient.navigationController?.viewControllers.removeAll(ancient)
                 })
                 completionHandler?(nil)
+                UIApplication.appDelegate?.liveRoom = vc
             }
         }
         
@@ -140,4 +146,18 @@ extension AmongChat.Room {
 //            addListenerViewController()
 //        }
     }
+}
+
+extension AmongChat.Room.ContainerController: LiveDescribableViewController {
+    
+    var liveId: String {
+        return room.room.roomId
+    }
+    
+    func quitLive() {
+        roomViewController?.requestLeaveRoom(completionHandler: { [weak self] in
+            self?.navigationController?.viewControllers.removeAll(where: { $0 == self })
+        })
+    }
+    
 }

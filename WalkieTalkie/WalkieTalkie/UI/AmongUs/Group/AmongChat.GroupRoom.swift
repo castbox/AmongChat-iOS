@@ -62,6 +62,7 @@ extension AmongChat.GroupRoom {
                     ancient.navigationController?.viewControllers.removeAll(ancient)
                 })
                 completionHandler?(nil)
+                UIApplication.appDelegate?.liveRoom = vc
             }
         }
         
@@ -161,5 +162,17 @@ extension AmongChat.GroupRoom {
 ////            roomInfo = Entity.Room(["room_id": roomId, "broadcaster": ["uid": Int(roomId)]])!
 //            addListenerViewController()
 //        }
+    }
+}
+
+extension AmongChat.GroupRoom.ContainerController: LiveDescribableViewController {
+    var liveId: String {
+        return groupInfo.group.gid
+    }
+    
+    func quitLive() {
+        roomViewController?.requestLeaveRoom(completionHandler: { [weak self] in
+            self?.navigationController?.viewControllers.removeAll(where: { $0 == self })
+        })
     }
 }

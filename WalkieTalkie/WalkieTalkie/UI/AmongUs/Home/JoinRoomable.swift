@@ -146,6 +146,16 @@ extension JoinRoomable where Self: ViewController {
             hudRemoval()
         }
         
+        if let liveRoom = UIApplication.appDelegate?.liveRoom {
+            if liveRoom.liveId == roomId {
+                UIApplication.navigationController?.popToViewController(liveRoom, animated: true)
+                completion()
+                return
+            } else {
+                liveRoom.quitLive()
+            }
+        }
+        
         contentScrollView?.isUserInteractionEnabled = false
         isRequestingRoom = true
         Request.enterRoom(roomId: roomId, code: code, topicId: topic, source: apiSource?.key)
@@ -202,6 +212,16 @@ extension JoinRoomable where Self: ViewController {
             self?.isRequestingRoom = false
             hudRemoval()
             completionHandler?(success)
+        }
+        
+        if let liveRoom = UIApplication.appDelegate?.liveRoom {
+            if liveRoom.liveId == gid {
+                UIApplication.navigationController?.popToViewController(liveRoom, animated: true)
+                completion(true)
+                return
+            } else {
+                liveRoom.quitLive()
+            }
         }
         
         contentScrollView?.isUserInteractionEnabled = false

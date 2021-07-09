@@ -60,6 +60,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     //invited event block
     var followInvitedUserhandler: CallBack?
     
+    weak var liveRoom: LiveDescribableViewController?
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         window?.backgroundColor = UIColor(hex: 0x141414)
