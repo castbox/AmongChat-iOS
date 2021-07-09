@@ -141,6 +141,8 @@ extension Feed {
             return Ad.shouldShow() && adView != nil
         }
         
+        var updateFeedForAction: ((_ action: AmongSheetController.ItemType, _ feed: Entity.Feed) -> Void)? = nil
+        
         // MARK: - Lifecycles
         override func viewDidLoad() {
             super.viewDidLoad()
@@ -718,6 +720,8 @@ extension Feed.ListViewController {
                 .subscribe(onSuccess: { [weak self] result in
                     removeHandler()
                     self?.deleteRow(at: viewModel)
+                    //TODO: - delete update
+                    self?.updateFeedForAction?(action, viewModel.feed)
                     HapticFeedback.Impact.success()
                 }) { error in
                     removeHandler()

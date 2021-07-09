@@ -187,6 +187,16 @@ extension Social.ProfileFeedsViewController: UICollectionViewDelegate {
         
         let liveIdx = liveFeeds.firstIndex { $0.pid == feed.pid } ?? 0
         let vc = Social.ProfileFeedController(with: uid, dataSource: liveFeeds, index: liveIdx)
+        
+        vc.updateFeedForAction = { [weak self] action, feed in
+            switch action {
+            case .deleteVideo:
+                self?.feeds.removeAll(where: { $0.pid == feed.pid })
+            default:
+                ()
+            }
+        }
+        
         UIApplication.topViewController()?.navigationController?.pushViewController(vc)
     }
     
