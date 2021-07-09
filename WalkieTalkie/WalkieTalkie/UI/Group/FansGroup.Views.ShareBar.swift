@@ -101,8 +101,13 @@ extension FansGroup.Views {
             return selectedSourceSubject.asObservable()
         }
         
-        override init(frame: CGRect) {
-            super.init(frame: frame)
+        init(shareSources: [ShareSource]? = nil) {
+            super.init(frame: .zero)
+            
+            if let sources = shareSources {
+                self.shareSources = sources
+            }
+            
             addSubview(shareSourcesView)
             shareSourcesView.snp.makeConstraints { (maker) in
                 maker.edges.equalToSuperview()

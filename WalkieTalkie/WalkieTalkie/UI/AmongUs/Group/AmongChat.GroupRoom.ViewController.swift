@@ -221,7 +221,7 @@ extension AmongChat.GroupRoom.ViewController {
                                                                    room.name,
                                                                    "https://among.chat/group/\(room.roomId)")
         let vc = Social.ShareRoomViewController(with: link, roomId: room.roomId, topicId: viewModel.roomReplay.value.topicId, gid: room.gid)
-        vc.showModal(in: self)
+        presentPanModal(vc)
 
         viewModel.didShowShareView()
         socialShareViewController = vc

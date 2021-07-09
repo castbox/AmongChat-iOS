@@ -11,6 +11,7 @@ import RxSwift
 import RxCocoa
 import MessageUI
 import SwiftyUserDefaults
+import HWPanModal
 
 extension Social {
     
@@ -125,7 +126,30 @@ extension Social {
             return tb
         }()
         
-        private lazy var headerView = ShareHeaderView()
+        private lazy var headerView: FansGroup.Views.ShareBar = {
+            let bar = FansGroup.Views.ShareBar(shareSources: [.sms, .copyLink])
+            
+            bar.selectedSourceObservable
+                .subscribe(onNext: { [weak self] (source) in
+                    
+                    guard let `self` = self else { return }
+                    
+                    switch source {
+                    case .sms:
+                        self.smsAction()
+                        
+                    case .copyLink:
+                        self.copyLink()
+                        
+                    default:
+                        ()
+                    }
+                })
+                .disposed(by: bag)
+            
+            return bar
+        }()
+        
         private lazy var viewModel = ShareRoomViewModel(with: gid)
         
         private var items: [ShareRoomViewModel.Item] = [] {
@@ -137,7 +161,6 @@ extension Social {
         private var linkUrl = ""
         private var roomId = ""
         private var topicId = ""
-        private var hiddened = false
         private var isGroup: Bool { gid != nil }
         private let gid: String?
         
@@ -167,12 +190,19 @@ extension Social {
         private func setupLayout() {
             
             view.backgroundColor = UIColor(hex6: 0x222222)
-            view.addSubview(tableView)
+            view.addSubviews(views: headerView, tableView)
+                        
             tableView.snp.makeConstraints { (maker) in
-                maker.top.left.right.equalToSuperview()
-                maker.height.equalTo(500)
+                maker.leading.trailing.equalToSuperview()
+                maker.top.equalTo(headerView.snp.bottom).offset(20)
+                maker.bottom.equalTo(bottomLayoutGuide.snp.top)
             }
             
+            headerView.snp.makeConstraints { (maker) in
+                maker.leading.trailing.equalToSuperview()
+                maker.top.equalToSuperview().offset(40)
+            }
+
             let line = UIView()
             line.backgroundColor = UIColor(hex6: 0xFFFFFF,alpha: 0.2)
             line.layer.masksToBounds = true
@@ -185,16 +215,6 @@ extension Social {
                 make.height.equalTo(4)
             }
             
-            headerView.frame = CGRect(x: 0, y: 0, width: Frame.Screen.width, height: 114)
-            tableView.tableHeaderView = headerView
-            headerView.smsHandle = { [weak self] in
-                guard let `self` = self else { return }
-                self.smsAction()
-            }
-            headerView.copyLinkHandle = { [weak self] in
-                guard let `self` = self else { return }
-                self.copyLink()
-            }
         }
     }
 }
@@ -284,8 +304,9 @@ extension Social.ShareRoomViewController: UITableViewDataSource, UITableViewDele
         let lable = UILabel()
         v.addSubview(lable)
         lable.snp.makeConstraints { (make) in
-            make.leading.trailing.equalToSuperview().inset(20)
-            make.top.equalTo(30)
+            make.leading.trailing.equalToSuperview().inset(Frame.horizontalBleedWidth)
+            make.bottom.equalToSuperview()
+            make.height.equalTo(27)
         }
         lable.textColor = .white
         lable.font = R.font.nunitoExtraBold(size: 20)
@@ -298,7 +319,7 @@ extension Social.ShareRoomViewController: UITableViewDataSource, UITableViewDele
         guard let item = items.safe(section), !item.userLsit.isEmpty else {
             return 0
         }
-        return 59
+        return 47
     }
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
@@ -309,12 +330,6 @@ extension Social.ShareRoomViewController: UITableViewDataSource, UITableViewDele
         return .leastNormalMagnitude
     }
     
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if scrollView.contentOffset.y < -75 && !hiddened {
-            self.hideModal()
-            hiddened = true
-        }
-    }
 }
 
 extension Social.ShareRoomViewController {
@@ -432,30 +447,31 @@ extension Social.ShareRoomViewController {
     }
     
 }
-extension Social.ShareRoomViewController: Modalable {
+
+extension Social.ShareRoomViewController {
     
-    func style() -> Modal.Style {
-        return .customHeight
+    override func longFormHeight() -> PanModalHeight {
+        return PanModalHeight(type: .topInset, height: 0)
     }
     
-    func height() -> CGFloat {
-        return 500
+    override func shortFormHeight() -> PanModalHeight {
+        return PanModalHeight(type: .content, height: Frame.Scale.height(500))
     }
     
-    func modalPresentationStyle() -> UIModalPresentationStyle {
-        return .overCurrentContext
+    override func panScrollable() -> UIScrollView? {
+        return tableView
     }
     
-    func containerCornerRadius() -> CGFloat {
+    override func allowsExtendedPanScrolling() -> Bool {
+        return true
+    }
+    
+    override func cornerRadius() -> CGFloat {
         return 20
     }
     
-    func coverAlpha() -> CGFloat {
-        return 0.5
-    }
-    
-    func canAutoDismiss() -> Bool {
-        return true
+    override func showDragIndicator() -> Bool {
+        return false
     }
 }
 

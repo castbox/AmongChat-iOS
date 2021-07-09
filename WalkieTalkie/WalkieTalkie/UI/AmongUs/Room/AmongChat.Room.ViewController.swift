@@ -195,7 +195,7 @@ extension AmongChat.Room.ViewController {
         }
         let link = R.string.localizable.socialShareUrl(urlComponets?.url?.absoluteString ?? "")
         let vc = Social.ShareRoomViewController(with: link, roomId: room.roomId, topicId: viewModel.roomReplay.value.topicId)
-        vc.showModal(in: self)
+        presentPanModal(vc)
 
         viewModel.didShowShareView()
         socialShareViewController = vc
