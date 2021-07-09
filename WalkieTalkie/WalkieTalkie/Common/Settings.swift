@@ -52,6 +52,8 @@ class Settings {
                         _ = shared.updateAvatarGuideUpdateTime() //当天不显示
                     }
                     shared.updateProfile()
+                    UserProperty.logUserID(result.uid.string)
+                    UserProperty.logUserCreateTime(result.create_time ?? 0)
                 }
                 
             })

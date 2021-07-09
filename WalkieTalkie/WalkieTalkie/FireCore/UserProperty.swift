@@ -36,4 +36,8 @@ struct UserProperty {
     static func logUserID(_ uid: String) {
         GuruAnalytics.log(userID: uid)
     }
+    
+    static func logUserCreateTime(_ ms: Int64) {
+        GuruAnalytics.log(property: "user_created_timestamp", to: "\(ms * 1000)")
+    }
 }
