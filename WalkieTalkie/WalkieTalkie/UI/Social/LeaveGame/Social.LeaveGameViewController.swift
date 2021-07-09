@@ -11,7 +11,9 @@ import RxSwift
 import RxCocoa
 extension Social {
     
-    class LeaveGameViewController: WalkieTalkie.ViewController {
+    class LeaveGameViewController: WalkieTalkie.ViewController, GestureBackable {
+        
+        var isEnableScreenEdgeGesture: Bool = false
         
         private lazy var navView: NavigationBar = {
             let n = NavigationBar()
