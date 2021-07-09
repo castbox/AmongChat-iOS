@@ -190,7 +190,9 @@ extension AmongChat.Room.ViewController {
             return
         }
         var urlComponets = URLComponents(string: "https://among.chat/room/\(room.roomId)")
-        urlComponets?.queryItems = [URLQueryItem(name: "code", value: room.code)]
+        if let code = room.code {
+            urlComponets?.queryItems = [URLQueryItem(name: "code", value: code)]            
+        }
         let link = R.string.localizable.socialShareUrl(urlComponets?.url?.absoluteString ?? "")
         let vc = Social.ShareRoomViewController(with: link, roomId: room.roomId, topicId: viewModel.roomReplay.value.topicId)
         vc.showModal(in: self)
