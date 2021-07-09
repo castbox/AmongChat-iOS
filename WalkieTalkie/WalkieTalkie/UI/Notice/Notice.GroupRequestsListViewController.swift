@@ -55,6 +55,7 @@ extension Notice {
                 requestListView.reloadData()
                 hasUnhandledApply.accept(dataSource.count > 0)
                 emptyView.isHidden = dataSource.count > 0
+                requestListView.endRefresh()
             }
         }
         
@@ -85,6 +86,11 @@ extension Notice.GroupRequestsListViewController {
         requestListView.snp.makeConstraints { (maker) in
             maker.edges.equalToSuperview()
         }
+        
+        requestListView.pullToRefresh { [weak self] in
+            self?.loadData()
+        }
+
         
     }
     
