@@ -32,10 +32,10 @@
                         <rect key="frame" x="136" y="226" width="48" height="48"/>
                     </imageView>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VtH-gr-9m2">
-                        <rect key="frame" x="0.0" y="376" width="320" height="124"/>
+                        <rect key="frame" x="0.0" y="366" width="320" height="134"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="0Vq-Q9-oJP">
-                                <rect key="frame" x="0.0" y="68" width="320" height="32"/>
+                                <rect key="frame" x="0.0" y="78" width="320" height="32"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="32" id="HqL-3O-5ea"/>
@@ -52,28 +52,28 @@
                                 </connections>
                             </collectionView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hxF-Cs-EMb">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="48"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="52"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U62-1J-LHH">
-                                        <rect key="frame" x="80" y="0.0" width="220" height="25"/>
+                                        <rect key="frame" x="84" y="0.0" width="216" height="25"/>
                                         <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito" pointSize="18"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YoT-EB-VOj">
-                                        <rect key="frame" x="100" y="26" width="200" height="22"/>
+                                        <rect key="frame" x="104" y="30" width="196" height="22"/>
                                         <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito" pointSize="16"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="252" verticalHuggingPriority="251" image="iconFeedTagPrefix" translatesAutoresizingMaskIntoConstraints="NO" id="yvN-Xf-ghr">
-                                        <rect key="frame" x="80" y="29" width="16" height="16"/>
+                                        <rect key="frame" x="84" y="33" width="16" height="16"/>
                                     </imageView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2Z7-Lj-Kc6" customClass="AvatarImageView" customModule="WalkieTalkie" customModuleProvider="target">
-                                        <rect key="frame" x="20" y="0.0" width="48" height="48"/>
+                                        <rect key="frame" x="20" y="0.0" width="52" height="52"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="48" id="VxY-nP-9JM"/>
-                                            <constraint firstAttribute="width" constant="48" id="l7o-Ml-qEf"/>
+                                            <constraint firstAttribute="width" secondItem="2Z7-Lj-Kc6" secondAttribute="height" multiplier="1:1" id="hub-V7-KXz"/>
+                                            <constraint firstAttribute="width" constant="52" id="l7o-Ml-qEf"/>
                                         </constraints>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -82,7 +82,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                     <button hidden="YES" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="whd-np-ga6" userLabel="Follow Button" customClass="SmallSizeButton" customModule="WalkieTalkie" customModuleProvider="target">
-                                        <rect key="frame" x="26" y="32" width="36" height="22"/>
+                                        <rect key="frame" x="28" y="36" width="36" height="22"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="36" id="FPj-QS-1sg"/>
                                             <constraint firstAttribute="height" constant="22" id="K9j-va-VX7"/>
@@ -110,9 +110,9 @@
                                     <constraint firstAttribute="trailing" secondItem="U62-1J-LHH" secondAttribute="trailing" constant="20" id="L2Y-98-wdX"/>
                                     <constraint firstItem="whd-np-ga6" firstAttribute="bottom" secondItem="2Z7-Lj-Kc6" secondAttribute="bottom" constant="6" id="NCI-IR-9Sp"/>
                                     <constraint firstItem="2Z7-Lj-Kc6" firstAttribute="top" secondItem="hxF-Cs-EMb" secondAttribute="top" id="Ovn-2C-Hul"/>
+                                    <constraint firstAttribute="bottom" secondItem="2Z7-Lj-Kc6" secondAttribute="bottom" id="Q3c-kU-YBO"/>
                                     <constraint firstItem="U62-1J-LHH" firstAttribute="leading" secondItem="2Z7-Lj-Kc6" secondAttribute="trailing" constant="12" id="Wmh-Dp-894"/>
                                     <constraint firstItem="U62-1J-LHH" firstAttribute="top" secondItem="2Z7-Lj-Kc6" secondAttribute="top" id="aPV-QF-J6P"/>
-                                    <constraint firstAttribute="height" constant="48" id="e83-1u-K28"/>
                                     <constraint firstItem="whd-np-ga6" firstAttribute="centerX" secondItem="2Z7-Lj-Kc6" secondAttribute="centerX" id="gve-oE-kbb"/>
                                     <constraint firstItem="YoT-EB-VOj" firstAttribute="bottom" secondItem="2Z7-Lj-Kc6" secondAttribute="bottom" id="ik6-wT-wg0"/>
                                     <constraint firstItem="yvN-Xf-ghr" firstAttribute="centerY" secondItem="YoT-EB-VOj" secondAttribute="centerY" id="qNl-8S-JeP"/>
@@ -123,7 +123,7 @@
                         <constraints>
                             <constraint firstItem="0Vq-Q9-oJP" firstAttribute="leading" secondItem="VtH-gr-9m2" secondAttribute="leading" id="0Rq-5u-Gc7"/>
                             <constraint firstAttribute="trailing" secondItem="0Vq-Q9-oJP" secondAttribute="trailing" id="JBx-EE-g5g"/>
-                            <constraint firstItem="0Vq-Q9-oJP" firstAttribute="top" secondItem="hxF-Cs-EMb" secondAttribute="bottom" constant="20" id="Osy-Yp-edW"/>
+                            <constraint firstItem="0Vq-Q9-oJP" firstAttribute="top" secondItem="hxF-Cs-EMb" secondAttribute="bottom" constant="26" id="Osy-Yp-edW"/>
                             <constraint firstItem="hxF-Cs-EMb" firstAttribute="leading" secondItem="VtH-gr-9m2" secondAttribute="leading" id="RJm-Ec-pBb"/>
                             <constraint firstAttribute="bottom" secondItem="0Vq-Q9-oJP" secondAttribute="bottom" constant="24" id="TqT-Y5-rFd"/>
                             <constraint firstItem="hxF-Cs-EMb" firstAttribute="top" secondItem="VtH-gr-9m2" secondAttribute="top" id="jnL-S0-ghG"/>
@@ -131,7 +131,7 @@
                         </constraints>
                     </view>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oM0-lk-uGK" customClass="BottomTitleButton" customModule="WalkieTalkie" customModuleProvider="target">
-                        <rect key="frame" x="264" y="200" width="44" height="59"/>
+                        <rect key="frame" x="264" y="190" width="44" height="59"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="44" id="3LC-jX-bvF"/>
                             <constraint firstAttribute="height" constant="59" id="Liu-9L-S0P"/>
@@ -143,7 +143,7 @@
                         </connections>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6oi-es-PqU" customClass="BottomTitleButton" customModule="WalkieTalkie" customModuleProvider="target">
-                        <rect key="frame" x="264" y="289" width="44" height="59"/>
+                        <rect key="frame" x="264" y="279" width="44" height="59"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="44" id="ZTv-iN-554"/>
                             <constraint firstAttribute="height" constant="59" id="tTU-lQ-evD"/>
@@ -155,7 +155,7 @@
                         </connections>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uQ0-uo-4L1" customClass="BottomTitleButton" customModule="WalkieTalkie" customModuleProvider="target">
-                        <rect key="frame" x="264" y="111" width="44" height="59"/>
+                        <rect key="frame" x="264" y="101" width="44" height="59"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="44" id="Dwp-ZN-4ZJ"/>
                             <constraint firstAttribute="height" constant="59" id="WCs-sI-lMO"/>
@@ -185,7 +185,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HyZ-3O-VLy" customClass="BottomTitleButton" customModule="WalkieTalkie" customModuleProvider="target">
-                        <rect key="frame" x="264" y="31" width="44" height="44"/>
+                        <rect key="frame" x="264" y="21" width="44" height="44"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="44" id="0hN-xG-eHt"/>
                             <constraint firstAttribute="width" constant="44" id="ovy-CY-TpU"/>
