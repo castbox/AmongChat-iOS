@@ -232,7 +232,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 293 images.
+  /// This `R.image` struct is generated, and contains static references to 295 images.
   struct image {
     /// Image `ac_add_stats_add`.
     static let ac_add_stats_add = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_add_stats_add")
@@ -658,6 +658,10 @@ struct R: Rswift.Validatable {
     static let btn_up = Rswift.ImageResource(bundle: R.hostingBundle, name: "btn_up")
     /// Image `dmSendFailed`.
     static let dmSendFailed = Rswift.ImageResource(bundle: R.hostingBundle, name: "dmSendFailed")
+    /// Image `feed_list_follow`.
+    static let feed_list_follow = Rswift.ImageResource(bundle: R.hostingBundle, name: "feed_list_follow")
+    /// Image `feed_list_followed`.
+    static let feed_list_followed = Rswift.ImageResource(bundle: R.hostingBundle, name: "feed_list_followed")
     /// Image `home_name_edit`.
     static let home_name_edit = Rswift.ImageResource(bundle: R.hostingBundle, name: "home_name_edit")
     /// Image `iconAddEmotes`.
@@ -1879,6 +1883,16 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "dmSendFailed", bundle: ..., traitCollection: ...)`
     static func dmSendFailed(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.dmSendFailed, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "feed_list_follow", bundle: ..., traitCollection: ...)`
+    static func feed_list_follow(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.feed_list_follow, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "feed_list_followed", bundle: ..., traitCollection: ...)`
+    static func feed_list_followed(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.feed_list_followed, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "home_name_edit", bundle: ..., traitCollection: ...)`
@@ -9814,6 +9828,8 @@ struct _R: Rswift.Validatable {
       }
       
       static func validate() throws {
+        if UIKit.UIImage(named: "feed_list_follow", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'feed_list_follow' is used in nib 'FeedListCell', but couldn't be loaded.") }
+        if UIKit.UIImage(named: "feed_list_followed", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'feed_list_followed' is used in nib 'FeedListCell', but couldn't be loaded.") }
         if UIKit.UIImage(named: "iconFeedTagPrefix", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'iconFeedTagPrefix' is used in nib 'FeedListCell', but couldn't be loaded.") }
         if UIKit.UIImage(named: "iconVideoComment", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'iconVideoComment' is used in nib 'FeedListCell', but couldn't be loaded.") }
         if UIKit.UIImage(named: "iconVideoEmotes", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'iconVideoEmotes' is used in nib 'FeedListCell', but couldn't be loaded.") }
