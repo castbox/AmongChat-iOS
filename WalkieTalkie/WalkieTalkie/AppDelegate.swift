@@ -28,6 +28,8 @@ import SCSDKLoginKit
 import FBSDKCoreKit
 import CastboxDebuger
 import IQKeyboardManagerSwift
+import FBAudienceNetwork
+import AppTrackingTransparency
 
 fileprivate func cdPrint(_ message: Any) {
     Debug.info("[AppDelegate]-\(message)")
@@ -73,8 +75,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         updateUserProperty()
 //        UserProperty.logUserID(String(Constants.sUserId))
-        
-        _ = AdsManager.shared
+        setUpAds()
         _ = Reachability.shared
         _ = Automator.shared
         FireRemote.shared.refresh()
@@ -390,6 +391,19 @@ extension AppDelegate {
             .addData(key: .precision, value: impressionData?.precision)
             .addData(key: .country, value: impressionData?.country)
             .log()
+    }
+    
+    private func setUpAds() {
+        
+        if #available(iOS 14.0, *) {
+            let status = ATTrackingManager.trackingAuthorizationStatus
+            FBAdSettings.setAdvertiserTrackingEnabled(status == .notDetermined || status == .authorized)
+        } else {
+            FBAdSettings.setAdvertiserTrackingEnabled(ASIdentifierManager.shared().isAdvertisingTrackingEnabled)
+        }
+        
+        _ = AdsManager.shared
+        
     }
 
 }
