@@ -673,7 +673,14 @@ extension Feed.ListViewController {
             guard Settings.loginUserId != uid else {
                 return
             }
-            Routes.handle("/profile/\(uid)")
+            
+            let vc = Social.ProfileViewController(with: uid)
+            vc.followedHandle = { [weak self] (followed) in
+                viewModel.feed.user.isFollowed = followed
+                self?.tableView.reloadRows(at: [indexPath], with: .none)
+            }
+            navigationController?.pushViewController(vc)
+            
         case .more:
             let types: [AmongSheetController.ItemType]
             if Settings.loginUserId == viewModel.feed.uid {
@@ -684,6 +691,16 @@ extension Feed.ListViewController {
             AmongSheetController.show(items: types, in: self.tabBarController ?? self) { [weak self] item in
                 self?.onSheet(action: item, viewModel: viewModel)
             }
+            
+        case .follow(let callback):
+            Request.follow(uid: viewModel.feed.user.uid, type: "follow")
+                .do(onSuccess: { success in
+                    guard success else { return }
+                    viewModel.feed.user.isFollowed = true
+                })
+                .subscribe(onSuccess: callback)
+                .disposed(by: bag)
+
         }
     }
         

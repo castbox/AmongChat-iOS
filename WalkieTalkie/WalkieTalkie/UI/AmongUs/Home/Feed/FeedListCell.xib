@@ -81,6 +81,26 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </view>
+                                    <button hidden="YES" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="whd-np-ga6" userLabel="Follow Button" customClass="SmallSizeButton" customModule="WalkieTalkie" customModuleProvider="target">
+                                        <rect key="frame" x="26" y="32" width="36" height="22"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="36" id="FPj-QS-1sg"/>
+                                            <constraint firstAttribute="height" constant="22" id="K9j-va-VX7"/>
+                                        </constraints>
+                                        <state key="normal" image="feed_list_follow"/>
+                                        <state key="selected" image="feed_list_followed"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="11"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
+                                                <real key="value" value="2.5"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="followButtonAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="jjL-Iw-JLM"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="yvN-Xf-ghr" firstAttribute="leading" secondItem="U62-1J-LHH" secondAttribute="leading" id="540-Ji-2qL"/>
@@ -88,10 +108,12 @@
                                     <constraint firstItem="YoT-EB-VOj" firstAttribute="trailing" secondItem="U62-1J-LHH" secondAttribute="trailing" id="ICf-OV-KoK"/>
                                     <constraint firstItem="2Z7-Lj-Kc6" firstAttribute="leading" secondItem="hxF-Cs-EMb" secondAttribute="leading" constant="20" id="JrH-Rq-iBF"/>
                                     <constraint firstAttribute="trailing" secondItem="U62-1J-LHH" secondAttribute="trailing" constant="20" id="L2Y-98-wdX"/>
+                                    <constraint firstItem="whd-np-ga6" firstAttribute="bottom" secondItem="2Z7-Lj-Kc6" secondAttribute="bottom" constant="6" id="NCI-IR-9Sp"/>
                                     <constraint firstItem="2Z7-Lj-Kc6" firstAttribute="top" secondItem="hxF-Cs-EMb" secondAttribute="top" id="Ovn-2C-Hul"/>
                                     <constraint firstItem="U62-1J-LHH" firstAttribute="leading" secondItem="2Z7-Lj-Kc6" secondAttribute="trailing" constant="12" id="Wmh-Dp-894"/>
                                     <constraint firstItem="U62-1J-LHH" firstAttribute="top" secondItem="2Z7-Lj-Kc6" secondAttribute="top" id="aPV-QF-J6P"/>
                                     <constraint firstAttribute="height" constant="48" id="e83-1u-K28"/>
+                                    <constraint firstItem="whd-np-ga6" firstAttribute="centerX" secondItem="2Z7-Lj-Kc6" secondAttribute="centerX" id="gve-oE-kbb"/>
                                     <constraint firstItem="YoT-EB-VOj" firstAttribute="bottom" secondItem="2Z7-Lj-Kc6" secondAttribute="bottom" id="ik6-wT-wg0"/>
                                     <constraint firstItem="yvN-Xf-ghr" firstAttribute="centerY" secondItem="YoT-EB-VOj" secondAttribute="centerY" id="qNl-8S-JeP"/>
                                 </constraints>
@@ -216,6 +238,7 @@
                 <outlet property="collectionView" destination="0Vq-Q9-oJP" id="TkJ-Ho-2ak"/>
                 <outlet property="commentButton" destination="uQ0-uo-4L1" id="oOp-Yt-ccg"/>
                 <outlet property="emotesButton" destination="6oi-es-PqU" id="g6t-cq-vRv"/>
+                <outlet property="followButton" destination="whd-np-ga6" id="xQs-eU-vp9"/>
                 <outlet property="moreButton" destination="HyZ-3O-VLy" id="NY9-jN-V18"/>
                 <outlet property="nameLabel" destination="U62-1J-LHH" id="hfU-MA-3Br"/>
                 <outlet property="pauseView" destination="1c1-et-f5z" id="cMs-pE-4IP"/>
@@ -231,6 +254,8 @@
         </tableViewCell>
     </objects>
     <resources>
+        <image name="feed_list_follow" width="12" height="12"/>
+        <image name="feed_list_followed" width="12" height="12"/>
         <image name="iconFeedTagPrefix" width="16" height="16"/>
         <image name="iconVideoComment" width="36" height="36"/>
         <image name="iconVideoEmotes" width="36" height="36"/>

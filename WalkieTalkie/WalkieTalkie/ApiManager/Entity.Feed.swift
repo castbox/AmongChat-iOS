@@ -78,7 +78,7 @@ extension Entity {
         //comment count
         var cmtCount: Int
         let createTime: Int64
-        let user: UserProfile
+        var user: UserProfile
         let topicName: String
         //播放数
         let playCount: Int?

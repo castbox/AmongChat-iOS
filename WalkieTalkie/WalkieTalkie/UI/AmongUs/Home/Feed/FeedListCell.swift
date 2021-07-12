@@ -35,11 +35,13 @@ class FeedListCell: UITableViewCell {
         case more
         case playComplete
         case userProfile(Int)
+        case follow((Bool) -> Void)
     }
     
     @IBOutlet weak var bottomBar: UIView!
     @IBOutlet weak var userInfoContainer: UIView!
     @IBOutlet weak var avatarView: AvatarImageView!
+    @IBOutlet weak var followButton: SmallSizeButton!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var tagLabel: UILabel!
     @IBOutlet weak var shareButton: BottomTitleButton!
@@ -70,6 +72,7 @@ class FeedListCell: UITableViewCell {
     private(set) var viewModel: Feed.ListCellViewModel?
     private var isFullPlayed: Bool = false
     private let bag = DisposeBag()
+    private var followButtonDisposable: Disposable? = nil
     
 //    var listStyle: Feed.ListStyle = .recommend
     var actionHandler: ((Action) -> Void)?
@@ -95,6 +98,11 @@ class FeedListCell: UITableViewCell {
         let feed = viewModel.feed
         avatarView.setAvatarImage(with: feed.user.pictureUrl)
         avatarView.isVerify = feed.user.isVerified
+        followButtonDisposable?.dispose()
+        followButtonDisposable = nil
+        followButton.isSelected = false
+        followButton.isHidden = feed.user.isFollowed ?? false
+        
         nameLabel.attributedText = feed.user.nameWithVerified(isShowVerify: false)
         tagLabel.text = feed.topicName
         
@@ -167,6 +175,25 @@ class FeedListCell: UITableViewCell {
 //            backgroundLayer.frame = gradientBackgroundView.bounds
 //            backgroundLayer.opacity = 1
 //        }
+    }
+    
+    @IBAction func followButtonAction(_ sender: UIButton) {
+        guard !sender.isSelected else {
+            return
+        }
+        
+        actionHandler?(.follow({ [weak self] success in
+            
+            guard success else { return }
+            
+            sender.isSelected = true
+            
+            self?.followButtonDisposable = Observable.just(()).delay(.milliseconds(400), scheduler: MainScheduler.asyncInstance)
+                .subscribe(onNext: { _ in
+                    self?.followButton.isHidden = true
+                })
+        }))
+        
     }
     
     @IBAction func commentButtonAction(_ sender: Any) {
@@ -351,6 +378,9 @@ private extension FeedListCell {
 //                Routes.handle("/profile/feeds/\(uid)?index=2")
             })
             .disposed(by: bag)
+        
+        followButton.setBackgroundImage(UIColor(hex6: 0xFFF000).image, for: .normal)
+        followButton.setBackgroundImage(UIColor(hex6: 0xFFFFFF).image, for: .selected)
         
         playerView.rx.tapGesture()
             .when(.recognized)
