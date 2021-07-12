@@ -460,6 +460,13 @@ extension Request {
     
     /// type: follow / block
     static func follow(uid: Int, type: String) -> Single<Bool> {
+        
+        if type == "follow" {
+            guard AmongChat.Login.canDoLoginEvent(style: .authNeeded(source: .followOthers)) else {
+                return Observable<Bool>.empty().asSingle()
+            }
+        }
+        
         let paras = ["target_uid": uid, "relation_type": type] as [String : Any]
         return amongchatProvider.rx.request(.follow(paras))
             .mapJSON()
