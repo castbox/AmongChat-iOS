@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SVGAPlayer
 
 extension Social {
     
@@ -87,6 +88,36 @@ extension Social {
             return years
         }()
         
+        private lazy var guideView: UIView = {
+            let v = UIView()
+            v.backgroundColor = UIColor(hex6: 0x000000, alpha: 0.6)
+            v.addSubview(svgaView)
+            svgaView.snp.makeConstraints { (maker) in
+                maker.center.equalToSuperview()
+                maker.size.equalTo(CGSize(width: 110, height: 171.5))
+            }
+            playSvga()
+            let label = UILabel()
+            label.font = R.font.nunitoExtraBold(size: 18)
+            label.textColor = .white
+            label.text = R.string.localizable.amongChatLoginBirthdayGuideTip()
+            v.addSubview(label)
+            label.snp.makeConstraints { maker in
+                maker.centerX.equalToSuperview()
+                maker.top.equalTo(svgaView.snp.bottom).offset(4)
+                maker.leading.greaterThanOrEqualTo(Frame.horizontalBleedWidth)
+            }
+            return v
+        }()
+        
+        private lazy var svgaView: SVGAPlayer = {
+            let player = SVGAPlayer(frame: .zero)
+            player.clearsAfterStop = true
+            player.contentMode = .scaleAspectFill
+            player.isUserInteractionEnabled = false
+            return player
+        }()
+        
         private let todayNow = Date()
         
         private let currentCalendar = Calendar.current
@@ -97,7 +128,7 @@ extension Social {
         override func viewDidLoad() {
             super.viewDidLoad()
             
-            view.addSubviews(views: navView, birthdayIcon, mainTitle, subTitle, birthdayPicker, confirmBtn, policyLabel)
+            view.addSubviews(views: navView, birthdayIcon, mainTitle, subTitle, birthdayPicker, confirmBtn, policyLabel, guideView)
             
             navView.snp.makeConstraints { (maker) in
                 maker.leading.trailing.equalToSuperview()
@@ -136,6 +167,10 @@ extension Social {
                 maker.bottom.equalTo(bottomLayoutGuide.snp.top).offset(-24)
             }
             
+            guideView.snp.makeConstraints { maker in
+                maker.edges.equalToSuperview()
+            }
+            
             rx.viewDidAppear.take(1)
                 .subscribe(onNext: { [weak self] (_) in
                     Logger.Action.log(.age_imp, category: nil, self?.loggerSource)
@@ -153,6 +188,11 @@ extension Social {
                 }
             })
             .disposed(by: bag)
+        }
+        
+        override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+            super.touchesBegan(touches, with: event)
+            guideView.isHidden = true
         }
         
         @objc
@@ -196,6 +236,22 @@ extension Social {
                     Logger.Action.log(.age_done_result_fail, category: nil, error.msgOfError)
                 })
         }
+        
+        private func playSvga() {
+            svgaView.stopAnimation()
+            svgaView.clear()
+            
+            let parser = SVGAGlobalParser.defaut
+            parser.parse(withNamed: R.file.birthdayGuideSvga.name, in: nil,
+                         completionBlock: { [weak self] (item) in
+                            self?.svgaView.videoItem = item
+                            self?.svgaView.startAnimation()
+                         },
+                         failureBlock: { error in
+                            debugPrint("error: \(error.localizedDescription)")
+                         })
+        }
+        
     }
 }
 

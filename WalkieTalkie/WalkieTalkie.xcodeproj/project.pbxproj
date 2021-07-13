@@ -94,6 +94,7 @@
 		26F414AA2611DB1D003ED5BE /* FansGroup.Views.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26F414A92611DB1D003ED5BE /* FansGroup.Views.swift */; };
 		26F5205F269D40000001086E /* Feed.HashtagFeedListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26F5205E269D40000001086E /* Feed.HashtagFeedListViewController.swift */; };
 		26F52061269D40780001086E /* Feed.HashtagFeedListViewController+Views.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26F52060269D40780001086E /* Feed.HashtagFeedListViewController+Views.swift */; };
+		26F52063269DB4810001086E /* birthdayGuide.svga in Resources */ = {isa = PBXBuildFile; fileRef = 26F52062269DB4810001086E /* birthdayGuide.svga */; };
 		26F7023A25E670CC008F992C /* Social.CustomAvatarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26F7023925E670CC008F992C /* Social.CustomAvatarViewController.swift */; };
 		26FC5FE22666126F005D8F79 /* Social.ProfileFeedsViewController+Views.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26FC5FE12666126F005D8F79 /* Social.ProfileFeedsViewController+Views.swift */; };
 		26FC617F266733EB005D8F79 /* Social.ProfileGameSkillViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26FC617E266733EB005D8F79 /* Social.ProfileGameSkillViewController.swift */; };
@@ -627,6 +628,7 @@
 		26F414A92611DB1D003ED5BE /* FansGroup.Views.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FansGroup.Views.swift; sourceTree = "<group>"; };
 		26F5205E269D40000001086E /* Feed.HashtagFeedListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Feed.HashtagFeedListViewController.swift; sourceTree = "<group>"; };
 		26F52060269D40780001086E /* Feed.HashtagFeedListViewController+Views.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Feed.HashtagFeedListViewController+Views.swift"; sourceTree = "<group>"; };
+		26F52062269DB4810001086E /* birthdayGuide.svga */ = {isa = PBXFileReference; lastKnownFileType = file; path = birthdayGuide.svga; sourceTree = "<group>"; };
 		26F7023925E670CC008F992C /* Social.CustomAvatarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Social.CustomAvatarViewController.swift; sourceTree = "<group>"; };
 		26FC5FE12666126F005D8F79 /* Social.ProfileFeedsViewController+Views.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Social.ProfileFeedsViewController+Views.swift"; sourceTree = "<group>"; };
 		26FC617E266733EB005D8F79 /* Social.ProfileGameSkillViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Social.ProfileGameSkillViewController.swift; sourceTree = "<group>"; };
@@ -1996,6 +1998,7 @@
 				FE7ED8FE25F20292009C608A /* room-emoji-yellow.svga */,
 				FEE6F212264E53E800F4C0C5 /* dmWaveWhite.svga */,
 				FEE6F214264E53FE00F4C0C5 /* dmWaveYellow.svga */,
+				26F52062269DB4810001086E /* birthdayGuide.svga */,
 				FE3AEE6425AED1B600E91D01 /* Bungee-Regular.ttf */,
 				BDC9D4B1258A2BC200412BDC /* Adjust-Info.plist */,
 				FE1A2DF4248A4BAD00F9A44D /* emojis.json */,
@@ -2294,6 +2297,7 @@
 				FE746BCD24629A9800CAC554 /* Nunito-SemiBold.ttf in Resources */,
 				FEFF935E258B33480011A274 /* AmongInputNotesView.xib in Resources */,
 				FE9F69E025CD338600C0F118 /* AppTrackingGuideView.xib in Resources */,
+				26F52063269DB4810001086E /* birthdayGuide.svga in Resources */,
 				FE70553C265398FD00A489F4 /* AddStatsPendingController.xib in Resources */,
 				FE0A0C31265CECCA00AC9FF7 /* FeedListCell.xib in Resources */,
 				FE7E227326455DFB00DAD431 /* ConversationCollectionCell.xib in Resources */,

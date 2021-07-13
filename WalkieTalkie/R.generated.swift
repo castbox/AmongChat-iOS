@@ -17,7 +17,7 @@ struct R: Rswift.Validatable {
     try intern.validate()
   }
   
-  /// This `R.file` struct is generated, and contains static references to 18 files.
+  /// This `R.file` struct is generated, and contains static references to 19 files.
   struct file {
     /// Resource file `Adjust-Info.plist`.
     static let adjustInfoPlist = Rswift.FileResource(bundle: R.hostingBundle, name: "Adjust-Info", pathExtension: "plist")
@@ -27,6 +27,8 @@ struct R: Rswift.Validatable {
     static let googleServiceInfoPlist = Rswift.FileResource(bundle: R.hostingBundle, name: "GoogleService-Info", pathExtension: "plist")
     /// Resource file `SupportedLanguages.json`.
     static let supportedLanguagesJson = Rswift.FileResource(bundle: R.hostingBundle, name: "SupportedLanguages", pathExtension: "json")
+    /// Resource file `birthdayGuide.svga`.
+    static let birthdayGuideSvga = Rswift.FileResource(bundle: R.hostingBundle, name: "birthdayGuide", pathExtension: "svga")
     /// Resource file `dmWaveWhite.svga`.
     static let dmWaveWhiteSvga = Rswift.FileResource(bundle: R.hostingBundle, name: "dmWaveWhite", pathExtension: "svga")
     /// Resource file `dmWaveYellow.svga`.
@@ -77,6 +79,12 @@ struct R: Rswift.Validatable {
     /// `bundle.url(forResource: "SupportedLanguages", withExtension: "json")`
     static func supportedLanguagesJson(_: Void = ()) -> Foundation.URL? {
       let fileResource = R.file.supportedLanguagesJson
+      return fileResource.bundle.url(forResource: fileResource)
+    }
+    
+    /// `bundle.url(forResource: "birthdayGuide", withExtension: "svga")`
+    static func birthdayGuideSvga(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.birthdayGuideSvga
       return fileResource.bundle.url(forResource: fileResource)
     }
     
@@ -2981,7 +2989,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
     
-    /// This `R.string.localizable` struct is generated, and contains static references to 579 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 580 localization keys.
     struct localizable {
       /// en translation:  Congratulations!
       /// 
@@ -4827,6 +4835,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let socialSuggestedContacts = Rswift.StringResource(key: "social.suggested.contacts", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Swipe to select
+      /// 
+      /// Locales: en
+      static let amongChatLoginBirthdayGuideTip = Rswift.StringResource(key: "among.chat.login.birthday.guide.tip", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Swipe up to cancel
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -8525,6 +8537,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func socialSuggestedContacts(_: Void = ()) -> String {
         return NSLocalizedString("social.suggested.contacts", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Swipe to select
+      /// 
+      /// Locales: en
+      static func amongChatLoginBirthdayGuideTip(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.login.birthday.guide.tip", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Swipe up to cancel
