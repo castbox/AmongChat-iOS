@@ -94,10 +94,21 @@ extension Feed {
         
         private lazy var videoLibraryVC = VideoLibraryViewController()
         
+        private let initialTopic: String?
+        
         override func viewDidLoad() {
             super.viewDidLoad()
             setUpLayout()
             setUpEvents()
+        }
+        
+        init(with topic: String? = nil) {
+            self.initialTopic = topic
+            super.init(nibName: nil, bundle: nil)
+        }
+        
+        required init?(coder aDecoder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
         }
         
     }
@@ -203,7 +214,7 @@ extension Feed.SelectVideoViewController {
             })
             .subscribe(onSuccess: { [weak self] (url) in
                 
-                let vc = Feed.SelectTopicViewController(videoURL: url)
+                let vc = Feed.SelectTopicViewController(videoURL: url, initialTopic: self?.initialTopic)
                 self?.navigationController?.pushViewController(vc)
             })
             .disposed(by: bag)

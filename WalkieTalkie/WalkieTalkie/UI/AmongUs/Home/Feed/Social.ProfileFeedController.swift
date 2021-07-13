@@ -52,6 +52,7 @@ extension Social {
         private var hasMore: Bool = true
         
         private let uid: Int
+        private let feed: Entity.Feed?
         private let defaultIndex: Int
         private let feedRedirectInfo: Entity.FeedRedirectInfo?
         private let initialDataSource: [Entity.Feed]
@@ -62,6 +63,7 @@ extension Social {
         
         init(with uid: Int, dataSource: [Entity.Feed] = [], index: Int = 0) {
             self.uid = uid
+            self.feed = nil
             self.defaultIndex = index
             self.feedRedirectInfo = nil
             self.initialDataSource = dataSource
@@ -71,9 +73,20 @@ extension Social {
         
         init(with uid: Int, feedRedirectInfo: Entity.FeedRedirectInfo) {
             self.uid = uid
+            self.feed = nil
             self.defaultIndex = 0
             self.feedRedirectInfo = feedRedirectInfo
             self.initialDataSource = []
+            super.init(nibName: nil, bundle: nil)
+            self.listStyle = .profile
+        }
+        
+        init(with feed: Entity.Feed, dataSource: [Entity.Feed] = [], index: Int = 0) {
+            self.uid = 0
+            self.feed = feed
+            self.defaultIndex = index
+            self.feedRedirectInfo = nil
+            self.initialDataSource = dataSource
             super.init(nibName: nil, bundle: nil)
             self.listStyle = .profile
         }
@@ -123,14 +136,23 @@ extension Social {
             }
 
             isLoadingMore = true
-            Request.userFeeds(uid, skipMs: createTime) //Settings.loginUserId
+            
+            let feeds: Single<[Entity.Feed]>
+            
+            if let feed = feed {
+                feeds = Request.topicFeeds(feed.topic, exclude: [], skipMs: createTime)
+            } else {
+                feeds = Request.userFeeds(uid, skipMs: createTime).map({ $0.list })
+            }
+            
+            feeds
                 .do(onDispose: { [weak self] in
                     self?.isLoadingMore = false
                 })
                 .delay(.fromSeconds(0.2), scheduler: MainScheduler.asyncInstance)
                 .subscribe(onSuccess: { [weak self] data in
                     guard let `self` = self else { return }
-                    var source = data.list.map { Feed.ListCellViewModel(feed: $0) }
+                    var source = data.map { Feed.ListCellViewModel(feed: $0) }
                     self.hasMore = source.count >= 10
                     
                     guard !source.isEmpty else { return }

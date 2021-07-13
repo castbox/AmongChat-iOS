@@ -700,7 +700,10 @@ extension Feed.ListViewController {
                 })
                 .subscribe(onSuccess: callback)
                 .disposed(by: bag)
-
+            
+        case .hashTag:
+            let vc = Feed.HashtagFeedListViewController(with: viewModel.feed)
+            navigationController?.pushViewController(vc)
         }
     }
         

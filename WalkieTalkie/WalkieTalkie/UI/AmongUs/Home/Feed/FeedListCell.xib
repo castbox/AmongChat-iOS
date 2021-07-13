@@ -60,15 +60,16 @@
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YoT-EB-VOj">
-                                        <rect key="frame" x="104" y="30" width="196" height="22"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cnR-9U-Ajf" userLabel="Tag Button" customClass="SmallSizeButton" customModule="WalkieTalkie" customModuleProvider="target">
+                                        <rect key="frame" x="84" y="30" width="68" height="22"/>
                                         <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito" pointSize="16"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="252" verticalHuggingPriority="251" image="iconFeedTagPrefix" translatesAutoresizingMaskIntoConstraints="NO" id="yvN-Xf-ghr">
-                                        <rect key="frame" x="84" y="33" width="16" height="16"/>
-                                    </imageView>
+                                        <inset key="titleEdgeInsets" minX="2" minY="0.0" maxX="-2" maxY="0.0"/>
+                                        <inset key="imageEdgeInsets" minX="-2" minY="0.0" maxX="2" maxY="0.0"/>
+                                        <state key="normal" title="Button" image="iconFeedTagPrefix"/>
+                                        <connections>
+                                            <action selector="tagButtonAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="15A-T7-nL0"/>
+                                        </connections>
+                                    </button>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2Z7-Lj-Kc6" customClass="AvatarImageView" customModule="WalkieTalkie" customModuleProvider="target">
                                         <rect key="frame" x="20" y="0.0" width="52" height="52"/>
                                         <constraints>
@@ -103,19 +104,17 @@
                                     </button>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="yvN-Xf-ghr" firstAttribute="leading" secondItem="U62-1J-LHH" secondAttribute="leading" id="540-Ji-2qL"/>
-                                    <constraint firstItem="YoT-EB-VOj" firstAttribute="leading" secondItem="yvN-Xf-ghr" secondAttribute="trailing" constant="4" id="5XA-Ft-eMh"/>
-                                    <constraint firstItem="YoT-EB-VOj" firstAttribute="trailing" secondItem="U62-1J-LHH" secondAttribute="trailing" id="ICf-OV-KoK"/>
+                                    <constraint firstItem="cnR-9U-Ajf" firstAttribute="leading" secondItem="U62-1J-LHH" secondAttribute="leading" id="I5l-eH-Jne"/>
                                     <constraint firstItem="2Z7-Lj-Kc6" firstAttribute="leading" secondItem="hxF-Cs-EMb" secondAttribute="leading" constant="20" id="JrH-Rq-iBF"/>
                                     <constraint firstAttribute="trailing" secondItem="U62-1J-LHH" secondAttribute="trailing" constant="20" id="L2Y-98-wdX"/>
                                     <constraint firstItem="whd-np-ga6" firstAttribute="bottom" secondItem="2Z7-Lj-Kc6" secondAttribute="bottom" constant="6" id="NCI-IR-9Sp"/>
                                     <constraint firstItem="2Z7-Lj-Kc6" firstAttribute="top" secondItem="hxF-Cs-EMb" secondAttribute="top" id="Ovn-2C-Hul"/>
                                     <constraint firstAttribute="bottom" secondItem="2Z7-Lj-Kc6" secondAttribute="bottom" id="Q3c-kU-YBO"/>
+                                    <constraint firstAttribute="bottom" secondItem="cnR-9U-Ajf" secondAttribute="bottom" id="SK9-uu-dNM"/>
                                     <constraint firstItem="U62-1J-LHH" firstAttribute="leading" secondItem="2Z7-Lj-Kc6" secondAttribute="trailing" constant="12" id="Wmh-Dp-894"/>
                                     <constraint firstItem="U62-1J-LHH" firstAttribute="top" secondItem="2Z7-Lj-Kc6" secondAttribute="top" id="aPV-QF-J6P"/>
                                     <constraint firstItem="whd-np-ga6" firstAttribute="centerX" secondItem="2Z7-Lj-Kc6" secondAttribute="centerX" id="gve-oE-kbb"/>
-                                    <constraint firstItem="YoT-EB-VOj" firstAttribute="bottom" secondItem="2Z7-Lj-Kc6" secondAttribute="bottom" id="ik6-wT-wg0"/>
-                                    <constraint firstItem="yvN-Xf-ghr" firstAttribute="centerY" secondItem="YoT-EB-VOj" secondAttribute="centerY" id="qNl-8S-JeP"/>
+                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="cnR-9U-Ajf" secondAttribute="trailing" id="jLh-4b-eIa"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -246,7 +245,7 @@
                 <outlet property="progressLabel" destination="Ffj-Zk-aDm" id="aGn-lx-ocB"/>
                 <outlet property="shareButton" destination="oM0-lk-uGK" id="CcY-BA-Iw1"/>
                 <outlet property="sliderBar" destination="Rch-gs-sFL" id="Ufs-iN-lE6"/>
-                <outlet property="tagLabel" destination="YoT-EB-VOj" id="6lQ-v4-ZAU"/>
+                <outlet property="tagButton" destination="cnR-9U-Ajf" id="qT9-eF-tuY"/>
                 <outlet property="userInfoContainer" destination="hxF-Cs-EMb" id="Umv-Ng-v6C"/>
                 <outlet property="videoImageView" destination="TLZ-Q1-mBb" id="XLN-o2-bFH"/>
             </connections>

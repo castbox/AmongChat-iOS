@@ -36,6 +36,7 @@ class FeedListCell: UITableViewCell {
         case playComplete
         case userProfile(Int)
         case follow((Bool) -> Void)
+        case hashTag
     }
     
     @IBOutlet weak var bottomBar: UIView!
@@ -43,7 +44,7 @@ class FeedListCell: UITableViewCell {
     @IBOutlet weak var avatarView: AvatarImageView!
     @IBOutlet weak var followButton: SmallSizeButton!
     @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var tagLabel: UILabel!
+    @IBOutlet weak var tagButton: UIButton!
     @IBOutlet weak var shareButton: BottomTitleButton!
     @IBOutlet weak var commentButton: BottomTitleButton!
     @IBOutlet weak var moreButton: BottomTitleButton!
@@ -104,7 +105,7 @@ class FeedListCell: UITableViewCell {
         followButton.isHidden = feed.user.isFollowed ?? false
         
         nameLabel.attributedText = feed.user.nameWithVerified(isShowVerify: false)
-        tagLabel.text = feed.topicName
+        tagButton.setTitle(feed.topicName, for: .normal)
         
         let feedWidth = feed.width ?? 0
         let feedHeight = feed.height ?? 0
@@ -194,6 +195,10 @@ class FeedListCell: UITableViewCell {
                 })
         }))
         
+    }
+    
+    @IBAction func tagButtonAction(_ sender: UIButton) {
+        actionHandler?(.hashTag)
     }
     
     @IBAction func commentButtonAction(_ sender: Any) {

@@ -92,6 +92,8 @@
 		26F4149C2611C4EA003ED5BE /* FansGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26F4149B2611C4EA003ED5BE /* FansGroup.swift */; };
 		26F414A42611C548003ED5BE /* FansGroup.CreateGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26F414A32611C548003ED5BE /* FansGroup.CreateGroupViewController.swift */; };
 		26F414AA2611DB1D003ED5BE /* FansGroup.Views.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26F414A92611DB1D003ED5BE /* FansGroup.Views.swift */; };
+		26F5205F269D40000001086E /* Feed.HashtagFeedListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26F5205E269D40000001086E /* Feed.HashtagFeedListViewController.swift */; };
+		26F52061269D40780001086E /* Feed.HashtagFeedListViewController+Views.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26F52060269D40780001086E /* Feed.HashtagFeedListViewController+Views.swift */; };
 		26F7023A25E670CC008F992C /* Social.CustomAvatarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26F7023925E670CC008F992C /* Social.CustomAvatarViewController.swift */; };
 		26FC5FE22666126F005D8F79 /* Social.ProfileFeedsViewController+Views.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26FC5FE12666126F005D8F79 /* Social.ProfileFeedsViewController+Views.swift */; };
 		26FC617F266733EB005D8F79 /* Social.ProfileGameSkillViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26FC617E266733EB005D8F79 /* Social.ProfileGameSkillViewController.swift */; };
@@ -623,6 +625,8 @@
 		26F4149B2611C4EA003ED5BE /* FansGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FansGroup.swift; sourceTree = "<group>"; };
 		26F414A32611C548003ED5BE /* FansGroup.CreateGroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FansGroup.CreateGroupViewController.swift; sourceTree = "<group>"; };
 		26F414A92611DB1D003ED5BE /* FansGroup.Views.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FansGroup.Views.swift; sourceTree = "<group>"; };
+		26F5205E269D40000001086E /* Feed.HashtagFeedListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Feed.HashtagFeedListViewController.swift; sourceTree = "<group>"; };
+		26F52060269D40780001086E /* Feed.HashtagFeedListViewController+Views.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Feed.HashtagFeedListViewController+Views.swift"; sourceTree = "<group>"; };
 		26F7023925E670CC008F992C /* Social.CustomAvatarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Social.CustomAvatarViewController.swift; sourceTree = "<group>"; };
 		26FC5FE12666126F005D8F79 /* Social.ProfileFeedsViewController+Views.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Social.ProfileFeedsViewController+Views.swift"; sourceTree = "<group>"; };
 		26FC617E266733EB005D8F79 /* Social.ProfileGameSkillViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Social.ProfileGameSkillViewController.swift; sourceTree = "<group>"; };
@@ -1191,6 +1195,15 @@
 			path = Group;
 			sourceTree = "<group>";
 		};
+		26F5205D269D3ECB0001086E /* Hashtag */ = {
+			isa = PBXGroup;
+			children = (
+				26F5205E269D40000001086E /* Feed.HashtagFeedListViewController.swift */,
+				26F52060269D40780001086E /* Feed.HashtagFeedListViewController+Views.swift */,
+			);
+			path = Hashtag;
+			sourceTree = "<group>";
+		};
 		26F7FE2F25E62D9C008F992C /* ProfileLook */ = {
 			isa = PBXGroup;
 			children = (
@@ -1388,6 +1401,7 @@
 		FE0A0C2D265CEB2700AC9FF7 /* Feed */ = {
 			isa = PBXGroup;
 			children = (
+				26F5205D269D3ECB0001086E /* Hashtag */,
 				266F59402680646C00A97C20 /* Share */,
 				269B66AC265F7CA0001C315A /* Comments */,
 				26728198265CAEB400749D7D /* PostFeed */,
@@ -2431,6 +2445,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				26F52061269D40780001086E /* Feed.HashtagFeedListViewController+Views.swift in Sources */,
 				266F594E26818D0200A97C20 /* Feed.Share.SelectFriendsViewController+ViewModels.swift in Sources */,
 				FE8DEA65243DB09A0059C252 /* ApiManager.Plugin.swift in Sources */,
 				FEF61728264C00C3007CC97E /* DateExtension.swift in Sources */,
@@ -2641,6 +2656,7 @@
 				FE6AF85A2457E26C00FD474A /* UIViewFrameExtension.swift in Sources */,
 				FE4FDAD72435C5B400CD5E97 /* UserDefaultKey.swift in Sources */,
 				FE0A0F42265FB69C00AC9FF7 /* Request.AmongChatBackend.Feed.swift in Sources */,
+				26F5205F269D40000001086E /* Feed.HashtagFeedListViewController.swift in Sources */,
 				FE4FDAD32435B98D00CD5E97 /* Frame.swift in Sources */,
 				FE126D3F243481BD00BEDD60 /* RtmManager.swift in Sources */,
 				FE952FE42669C76E004E2AD1 /* SZAVPlayerDataLoaderOperation.swift in Sources */,

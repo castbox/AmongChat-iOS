@@ -107,7 +107,7 @@ extension Feed {
             return v
         }()
         
-        private lazy var topicDataSource: [Entity.GlobalSetting.Topic] = Settings.shared.globalSetting.value?.feedTopics ?? [] {
+        private var topicDataSource: [Entity.GlobalSetting.Topic] = Settings.shared.globalSetting.value?.feedTopics ?? [] {
             didSet {
                 topicCollectionView.reloadData()
             }
@@ -115,8 +115,11 @@ extension Feed {
         
         private let videoURL: URL
         
-        init(videoURL: URL) {
+        private let initialTopic: String?
+        
+        init(videoURL: URL, initialTopic: String?) {
             self.videoURL = videoURL
+            self.initialTopic = initialTopic
             super.init(nibName: nil, bundle: nil)
         }
         
@@ -128,6 +131,7 @@ extension Feed {
             super.viewDidLoad()
             setUpLayout()
             setUpEvents()
+            defaultSelectTopic()
         }
         
         override func viewDidLayoutSubviews() {
@@ -242,6 +246,20 @@ extension Feed.SelectTopicViewController {
                                      height: resolution.height)
         
         return Request.createFeed(proto: proto)
+        
+    }
+    
+    private func defaultSelectTopic() {
+        
+        guard let topic = initialTopic,
+              let index = topicDataSource.firstIndex(where: { $0.topicId == topic }) else {
+            return
+        }
+        
+        topicCollectionView.reloadData { [weak self] in
+            self?.topicCollectionView.selectItem(at: IndexPath(item: index, section: 0), animated: false, scrollPosition: .centeredVertically)
+            self?.bottomGradientView.button.isEnabled = true
+        }
         
     }
 }
