@@ -102,7 +102,7 @@ class FeedListCell: UITableViewCell {
         followButtonDisposable?.dispose()
         followButtonDisposable = nil
         followButton.isSelected = false
-        followButton.isHidden = feed.user.isFollowed ?? false
+        followButton.isHidden = feed.user.uid.isSelfUid || feed.user.isFollowed ?? false
         
         nameLabel.attributedText = feed.user.nameWithVerified(isShowVerify: false)
         tagButton.setTitle(feed.topicName, for: .normal)
