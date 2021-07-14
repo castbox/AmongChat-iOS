@@ -335,11 +335,38 @@ extension Feed.ListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: UITableViewCell
         let item = dataSource.safe(indexPath.row)
-        if let placeholder = item as? Feed.DataPlaceholder {
+        if let _ = item as? Feed.DataPlaceholder {
             let adCell = tableView.dequeueReusableCell(withClass: FeedNativeAdCell.self, for: indexPath)
             adCell.adView = adView
             if let viewModel = dataSource.safe(indexPath.row - 1) as? Feed.ListCellViewModel {
-                adCell.updateEmotes(with: viewModel)
+                let emotes = viewModel.emotes.map({
+                    return Entity.FeedEmote(id: $0.id, count: $0.count, isVoted: $0.isVoted, img: $0.img, url: $0.url, width: $0.width)
+                })
+                adCell.updateEmotes(with: emotes)
+                adCell.actionHandler = { [weak adCell] action in
+                    
+                    switch action {
+                    case .selectEmote(let emote):
+                        
+                        emote.isVoted = !emote.isVoted
+                        
+                        emote.count = emote.isVoted ? emote.count + 1 : emote.count - 1
+                        
+                        var variableEmotes = emotes
+                        
+                        if let idx = variableEmotes.firstIndex(where: { $0.id == emote.id }) {
+                            variableEmotes[idx] = emote
+                        }
+                        
+                        variableEmotes.removeAll { $0.count <= 0 }
+                        
+                        adCell?.updateEmotes(with: variableEmotes)
+                        
+                    default:
+                        ()
+                    }
+                    
+                }
             }
             Ad.NativeManager.shared.didShow(adView: adView, in: self) {
                 //

@@ -38,6 +38,8 @@ class FeedNativeAdCell: UITableViewCell {
         }
     }
     
+    var actionHandler: ((FeedListCell.Action) -> Void)?
+    
     @IBOutlet weak var emotesCollectionView: UICollectionView!
     
     private lazy var adViewLayoutGuide = UILayoutGuide()
@@ -59,8 +61,8 @@ class FeedNativeAdCell: UITableViewCell {
         }
     }
     
-    func updateEmotes(with viewModel: Feed.ListCellViewModel) {
-        self.emotes = viewModel.emotes
+    func updateEmotes(with emotes: [Emote]) {
+        self.emotes = emotes
     }
     
 }
@@ -99,7 +101,7 @@ extension FeedNativeAdCell: UICollectionViewDelegate {
         guard let emote = emotes.safe(indexPath.item) else {
             return
         }
-        
+        actionHandler?(.selectEmote(emote))
     }
     
 }
