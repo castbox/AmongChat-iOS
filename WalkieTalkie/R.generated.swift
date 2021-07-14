@@ -9411,7 +9411,6 @@ struct _R: Rswift.Validatable {
       try _ConversationSystemMsgCell.validate()
       try _ConversationViewController.validate()
       try _FeedListCell.validate()
-      try _FeedNativeAdCell.validate()
       try _FeedShareUserCell.validate()
       try _NewVersionAlertController.validate()
       try _ReportCell.validate()
@@ -9862,19 +9861,12 @@ struct _R: Rswift.Validatable {
       fileprivate init() {}
     }
     
-    struct _FeedNativeAdCell: Rswift.NibResourceType, Rswift.Validatable {
+    struct _FeedNativeAdCell: Rswift.NibResourceType {
       let bundle = R.hostingBundle
       let name = "FeedNativeAdCell"
       
       func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> FeedNativeAdCell? {
         return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? FeedNativeAdCell
-      }
-      
-      static func validate() throws {
-        if UIKit.UIImage(named: "iconFeedsAdClose", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'iconFeedsAdClose' is used in nib 'FeedNativeAdCell', but couldn't be loaded.") }
-        if UIKit.UIImage(named: "iconFeedsAdRemove", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'iconFeedsAdRemove' is used in nib 'FeedNativeAdCell', but couldn't be loaded.") }
-        if #available(iOS 11.0, *) {
-        }
       }
       
       fileprivate init() {}

@@ -32,7 +32,7 @@
                         <rect key="frame" x="136" y="226" width="48" height="48"/>
                     </imageView>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VtH-gr-9m2">
-                        <rect key="frame" x="0.0" y="366" width="320" height="134"/>
+                        <rect key="frame" x="0.0" y="362" width="320" height="138"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="0Vq-Q9-oJP">
                                 <rect key="frame" x="0.0" y="78" width="320" height="32"/>
@@ -124,13 +124,13 @@
                             <constraint firstAttribute="trailing" secondItem="0Vq-Q9-oJP" secondAttribute="trailing" id="JBx-EE-g5g"/>
                             <constraint firstItem="0Vq-Q9-oJP" firstAttribute="top" secondItem="hxF-Cs-EMb" secondAttribute="bottom" constant="26" id="Osy-Yp-edW"/>
                             <constraint firstItem="hxF-Cs-EMb" firstAttribute="leading" secondItem="VtH-gr-9m2" secondAttribute="leading" id="RJm-Ec-pBb"/>
-                            <constraint firstAttribute="bottom" secondItem="0Vq-Q9-oJP" secondAttribute="bottom" constant="24" id="TqT-Y5-rFd"/>
+                            <constraint firstAttribute="bottom" secondItem="0Vq-Q9-oJP" secondAttribute="bottom" constant="28" id="TqT-Y5-rFd"/>
                             <constraint firstItem="hxF-Cs-EMb" firstAttribute="top" secondItem="VtH-gr-9m2" secondAttribute="top" id="jnL-S0-ghG"/>
                             <constraint firstAttribute="trailing" secondItem="hxF-Cs-EMb" secondAttribute="trailing" id="k8a-LJ-emr"/>
                         </constraints>
                     </view>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oM0-lk-uGK" customClass="BottomTitleButton" customModule="WalkieTalkie" customModuleProvider="target">
-                        <rect key="frame" x="264" y="190" width="44" height="59"/>
+                        <rect key="frame" x="264" y="186" width="44" height="59"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="44" id="3LC-jX-bvF"/>
                             <constraint firstAttribute="height" constant="59" id="Liu-9L-S0P"/>
@@ -142,7 +142,7 @@
                         </connections>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6oi-es-PqU" customClass="BottomTitleButton" customModule="WalkieTalkie" customModuleProvider="target">
-                        <rect key="frame" x="264" y="279" width="44" height="59"/>
+                        <rect key="frame" x="264" y="275" width="44" height="59"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="44" id="ZTv-iN-554"/>
                             <constraint firstAttribute="height" constant="59" id="tTU-lQ-evD"/>
@@ -154,7 +154,7 @@
                         </connections>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uQ0-uo-4L1" customClass="BottomTitleButton" customModule="WalkieTalkie" customModuleProvider="target">
-                        <rect key="frame" x="264" y="101" width="44" height="59"/>
+                        <rect key="frame" x="264" y="97" width="44" height="59"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="44" id="Dwp-ZN-4ZJ"/>
                             <constraint firstAttribute="height" constant="59" id="WCs-sI-lMO"/>
@@ -184,7 +184,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HyZ-3O-VLy" customClass="BottomTitleButton" customModule="WalkieTalkie" customModuleProvider="target">
-                        <rect key="frame" x="264" y="21" width="44" height="44"/>
+                        <rect key="frame" x="264" y="17" width="44" height="44"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="44" id="0hN-xG-eHt"/>
                             <constraint firstAttribute="width" constant="44" id="ovy-CY-TpU"/>

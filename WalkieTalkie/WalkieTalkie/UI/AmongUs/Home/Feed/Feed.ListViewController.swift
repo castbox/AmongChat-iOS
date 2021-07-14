@@ -338,15 +338,8 @@ extension Feed.ListViewController: UITableViewDelegate, UITableViewDataSource {
         if let placeholder = item as? Feed.DataPlaceholder {
             let adCell = tableView.dequeueReusableCell(withClass: FeedNativeAdCell.self, for: indexPath)
             adCell.adView = adView
-            adCell.removeAdHandler = { [weak self] in
-                guard let `self` = self else { return }
-                self.presentPremiumView(source: .feeds_remove_ads, afterDismiss: { [weak self] purchased in
-                    //remove all ad
-                    guard purchased else {
-                        return
-                    }
-                    self?.removeAllAd(at: placeholder)
-                })
+            if let viewModel = dataSource.safe(indexPath.row - 1) as? Feed.ListCellViewModel {
+                adCell.updateEmotes(with: viewModel)
             }
             Ad.NativeManager.shared.didShow(adView: adView, in: self) {
                 //
