@@ -115,6 +115,8 @@ extension Social {
             player.clearsAfterStop = true
             player.contentMode = .scaleAspectFill
             player.isUserInteractionEnabled = false
+            player.loops = 3
+            player.delegate = self
             return player
         }()
         
@@ -339,4 +341,14 @@ extension Social.BirthdaySetViewController: UIPickerViewDelegate {
         
         return label
     }
+}
+
+extension Social.BirthdaySetViewController: SVGAPlayerDelegate {
+    
+    func svgaPlayerDidFinishedAnimation(_ player: SVGAPlayer!) {
+        
+        guideView.isHidden = true
+        
+    }
+    
 }
