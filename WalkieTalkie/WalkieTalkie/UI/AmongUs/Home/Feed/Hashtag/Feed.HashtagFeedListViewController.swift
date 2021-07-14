@@ -181,7 +181,7 @@ extension Feed.HashtagFeedListViewController {
             .subscribe(onSuccess: { [weak self] data in
                 guard let `self` = self else { return }
                 let source = data.map { Feed.ListCellViewModel(feed: $0) }
-                self.hasMoreData = source.count > 0
+                self.hasMoreData = source.count >= 10
                 self.feedsDataSource.append(contentsOf: source)
                 self.feedCollectionView.endLoadMore(self.hasMoreData)
             }, onError: { (error) in
