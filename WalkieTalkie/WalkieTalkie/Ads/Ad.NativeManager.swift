@@ -315,7 +315,8 @@ extension Ad {
 
 extension Ad {
     static func shouldShow() -> Bool {
-        let isPremium = Settings.shared.isProValue.value
+//        let isPremium = Settings.shared.isProValue.value
+        let showAds = Settings.shared.showAdsValue.value
 //        let isInAudit = Defaults[\.useStandardFreetrialText]
 //        let freeToShow: Bool = {
 ////            let free_m = FireRemote.shared.value.adConfig.free_m
@@ -332,6 +333,6 @@ extension Ad {
         //        return flag
         let canLoadAd = FireRemote.shared.value.feedsAdInterval > 0
 
-        return !isPremium && canLoadAd
+        return showAds && canLoadAd
     }
 }

@@ -240,7 +240,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 295 images.
+  /// This `R.image` struct is generated, and contains static references to 296 images.
   struct image {
     /// Image `ac_add_stats_add`.
     static let ac_add_stats_add = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_add_stats_add")
@@ -626,6 +626,8 @@ struct R: Rswift.Validatable {
     static let ac_setting_feedback = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_setting_feedback")
     /// Image `ac_setting_region`.
     static let ac_setting_region = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_setting_region")
+    /// Image `ac_settings_ad_icon`.
+    static let ac_settings_ad_icon = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_settings_ad_icon")
     /// Image `ac_share_app`.
     static let ac_share_app = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_share_app")
     /// Image `ac_share_snapchat_bg`.
@@ -1791,6 +1793,11 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "ac_setting_region", bundle: ..., traitCollection: ...)`
     static func ac_setting_region(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ac_setting_region, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_settings_ad_icon", bundle: ..., traitCollection: ...)`
+    static func ac_settings_ad_icon(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_settings_ad_icon, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "ac_share_app", bundle: ..., traitCollection: ...)`
@@ -2989,7 +2996,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
     
-    /// This `R.string.localizable` struct is generated, and contains static references to 580 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 581 localization keys.
     struct localizable {
       /// en translation:  Congratulations!
       /// 
@@ -3103,6 +3110,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatGroupAdmin = Rswift.StringResource(key: "among.chat.group.admin", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Advertisements
+      /// 
+      /// Locales: en
+      static let amongChatSettingsAdvertisements = Rswift.StringResource(key: "among.chat.settings.advertisements", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: After clearing the cache, all of your voice messages would be removed permanently. Are you sure you want to continue?
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -5506,6 +5517,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func amongChatGroupAdmin(_: Void = ()) -> String {
         return NSLocalizedString("among.chat.group.admin", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Advertisements
+      /// 
+      /// Locales: en
+      static func amongChatSettingsAdvertisements(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.settings.advertisements", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: After clearing the cache, all of your voice messages would be removed permanently. Are you sure you want to continue?

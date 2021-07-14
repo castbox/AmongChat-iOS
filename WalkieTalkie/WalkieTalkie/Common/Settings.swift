@@ -70,6 +70,19 @@ class Settings {
                 if event.new == false && Settings.shared.lockScreenOn.value == true {
                     Settings.shared.lockScreenOn.value = false
                 }
+                
+                if event.new == false {
+                    Settings.shared.showAdsValue.value = true
+                }
+            })
+            .asPublishProperty()
+    }()
+    
+    let showAdsValue: PublishProperty<Bool> = {
+        var value = Defaults[\.showAdsKey]
+        return DynamicProperty.stored(value)
+            .didSet({ event in
+                Defaults[\.showAdsKey] = event.new
             })
             .asPublishProperty()
     }()
@@ -572,6 +585,10 @@ extension DefaultsKeys {
     
     var isProKey: DefaultsKey<Bool> {
         .init("is.pro.key", defaultValue: false)
+    }
+    
+    var showAdsKey: DefaultsKey<Bool> {
+        .init("among.chat.settings.show.ads", defaultValue: true)
     }
     
     var lockScreenOn: DefaultsKey<Bool> {

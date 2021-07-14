@@ -222,6 +222,13 @@ extension SettingViewController {
             })
             .disposed(by: bag)
         
+        Settings.shared.showAdsValue.replay()
+            .observeOn(MainScheduler.asyncInstance)
+            .subscribe(onNext: { [weak self] isOn in
+                self?.updateShowAds(isOn)
+            })
+            .disposed(by: bag)
+        
         cacheManager.cacheFormatedSize()
             .subscribe(onSuccess: { [weak self] (formattedSize) in
                 self?.updateCacheFormattedSize(formattedSize)
@@ -235,6 +242,34 @@ extension SettingViewController {
             op.rightText = formattedSize
             settingOptions[idx] = op
         }
+    }
+    
+    private func updateShowAds(_ show: Bool) {
+        
+        if let idx = settingOptions.firstIndex(where: { $0.type == .showAds }) {
+            var op = settingOptions[idx]
+            op.switcherIsOn = show
+            settingOptions[idx] = op
+        }
+        
+    }
+    
+    private func switchShowAds(_ show: Bool) {
+        
+        guard !show && !Settings.shared.isProValue.value else {
+            Settings.shared.showAdsValue.value = show
+            return
+        }
+        
+        updateShowAds(true)
+        
+        presentPremiumView(source: .feeds_remove_ads, afterDismiss: { purchased in
+            //remove all ad
+            guard purchased else {
+                return
+            }
+            Settings.shared.showAdsValue.value = show
+        })
     }
     
     private func shareApp() {
@@ -340,6 +375,13 @@ extension SettingViewController {
     }
         
     private func generateDataSource() -> [Option] {
+        
+        var showAds = Option(type: .showAds, selectionHandler: {})
+        showAds.switcherIsOn = Settings.shared.showAdsValue.value
+        showAds.switcherHandler = { [weak self] isOn in
+            self?.switchShowAds(isOn)
+        }
+        
         var options: [Option] = [
             Option(type: .blockList, selectionHandler: { [weak self] in
                 let vc = Social.BlockedUserList.ViewController()
@@ -354,6 +396,7 @@ extension SettingViewController {
             Option(type: .shareApp, selectionHandler: { [weak self] in
                 self?.shareApp()
             }),
+            showAds,
             Option(type: .restorePurchase, selectionHandler: { [weak self] in
                 self?.restorePurchases()
             })]
@@ -449,11 +492,14 @@ extension SettingViewController {
             case getVerified
             case feedback
             case clearCache
+            case showAds
         }
         
         let type: OptionType
         var rightText: String? = nil
         let selectionHandler: (() -> Void)
+        var switcherIsOn = false
+        var switcherHandler: ((Bool) -> Void)? = nil
         
         var leftText: String {
             switch type {
@@ -475,6 +521,8 @@ extension SettingViewController {
                 return R.string.localizable.amongChatContactUs()
             case .clearCache:
                 return R.string.localizable.amongChatClearCache()
+            case .showAds:
+                return R.string.localizable.amongChatSettingsAdvertisements()
             }
         }
         
@@ -498,6 +546,8 @@ extension SettingViewController {
                 return R.image.ac_setting_feedback()
             case .clearCache:
                 return R.image.ac_setting_clear_cache()
+            case .showAds:
+                return R.image.ac_settings_ad_icon()
             }
         }
         
@@ -516,6 +566,7 @@ extension SettingViewController {
     
     class SettingCell: TableViewCell {
         
+        private let bag = DisposeBag()
         private lazy var leftIcon: UIImageView = {
             let iv = UIImageView()
             return iv
@@ -540,6 +591,24 @@ extension SettingViewController {
             return iv
         }()
         
+        private lazy var switchButton: UISwitch = {
+            let sw = UISwitch()
+            sw.onTintColor = UIColor(hexString: "#FFF000")
+            sw.backgroundColor = UIColor(hex6: 0xFFFFFF, alpha: 0.3)
+            sw.layer.cornerRadius = sw.bounds.height / 2
+            sw.layer.borderWidth = 0
+            sw.layer.borderColor = UIColor.clear.cgColor
+            sw.isHidden = true
+            sw.rx.isOn
+                .subscribe(onNext: { [weak self] isOn in
+                    self?.switchButtonHander?(isOn)
+                })
+                .disposed(by: bag)
+            return sw
+        }()
+        
+        private var switchButtonHander: ((Bool) -> Void)? = nil
+        
         override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
             super.init(style: style, reuseIdentifier: reuseIdentifier)
             setupLayout()
@@ -554,11 +623,11 @@ extension SettingViewController {
             backgroundColor = .clear
             contentView.backgroundColor = .clear
             
-            contentView.addSubviews(views: leftIcon, leftLabel, rightLabel, rightIcon)
+            contentView.addSubviews(views: leftIcon, leftLabel, rightLabel, rightIcon, switchButton)
             
             leftIcon.snp.makeConstraints { (maker) in
                 maker.width.height.equalTo(30)
-                maker.leading.equalToSuperview().inset(Frame.horizontalBleedWidth)
+                maker.leading.equalToSuperview().offset(Frame.horizontalBleedWidth)
                 maker.centerY.equalToSuperview()
             }
             
@@ -576,7 +645,12 @@ extension SettingViewController {
             rightIcon.snp.makeConstraints { (maker) in
                 maker.centerY.equalToSuperview()
                 maker.width.height.equalTo(20)
-                maker.trailing.equalToSuperview().inset(Frame.horizontalBleedWidth)
+                maker.trailing.equalToSuperview().offset(-Frame.horizontalBleedWidth)
+            }
+            
+            switchButton.snp.makeConstraints { maker in
+                maker.centerY.equalToSuperview()
+                maker.trailing.equalToSuperview().offset(-Frame.horizontalBleedWidth)
             }
         }
         
@@ -586,6 +660,21 @@ extension SettingViewController {
             leftLabel.text = option.leftText
             rightLabel.text = option.rightText
             rightIcon.image = option.rightIcon
+            
+            switchButtonHander = option.switcherHandler
+            
+            switch option.type {
+            case .showAds:
+                rightLabel.isHidden = true
+                rightIcon.isHidden = true
+                switchButton.isHidden = false
+                switchButton.isOn = option.switcherIsOn
+                
+            default:
+                rightLabel.isHidden = false
+                rightIcon.isHidden = false
+                switchButton.isHidden = true
+            }
             
         }
         
