@@ -187,8 +187,10 @@ extension Social {
                    }) {
                     
                     let indexPath = IndexPath(row: index, section: 0)
-                    tableView.scrollToRow(at: indexPath, at: .none, animated: false)
-                    tableView.layoutIfNeeded()
+                    if tableView.numberOfRows(inSection: 0) > index  {
+                        tableView.scrollToRow(at: indexPath, at: .none, animated: false)
+                        tableView.layoutIfNeeded()
+                    }
                 }
             }
             replayVisibleItem()

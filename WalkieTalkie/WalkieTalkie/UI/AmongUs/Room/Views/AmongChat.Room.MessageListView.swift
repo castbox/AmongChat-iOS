@@ -82,15 +82,11 @@ extension AmongChat.Room {
                         self.messageView.beginUpdates()
                         self.messageView.insertRows(at: indexPaths, with: .none)
                         self.messageView.endUpdates()
-                        if let endPath = indexPaths.last {
+                        if let endPath = indexPaths.last,
+                           self.messageView.numberOfRows(inSection: endPath.section) > endPath.row {
                             self.messageView.scrollToRow(at: endPath, at: .bottom, animated: true)
                         }
                     } else {
-                        //                    if self.messageView.numberOfRows(inSection: 0) <= 2 {
-                        //                        self.newMessageButton.isHidden = true
-                        //                    } else {
-                        //                        self.newMessageButton.isHidden = false
-                        //                    }
                         self.messageView.reloadData()
                     }
                 }
