@@ -278,13 +278,13 @@ extension Feed {
                 .asDriver(onErrorJustReturn: nil)
                 .drive(onNext: { [weak self] (adView) in
                     guard let `self` = self,
-                        Settings.shared.showAdsValue.value,
+                        Settings.shared.isProValue.value == false,
                         let adView = adView else { return }
                     self.adView = adView
                 })
                 .disposed(by: bag)
             
-            Settings.shared.showAdsValue.replay()
+            Settings.shared.isProValue.replay()
                 .asDriver(onErrorJustReturn: false)
                 .distinctUntilChanged()
                 .skip(1)

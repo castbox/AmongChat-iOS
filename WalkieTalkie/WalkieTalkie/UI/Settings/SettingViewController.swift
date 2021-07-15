@@ -222,10 +222,11 @@ extension SettingViewController {
             })
             .disposed(by: bag)
         
-        Settings.shared.showAdsValue.replay()
+        Settings.shared.isProValue.replay()
             .observeOn(MainScheduler.asyncInstance)
-            .subscribe(onNext: { [weak self] isOn in
-                self?.updateShowAds(isOn)
+            .subscribe(onNext: { [weak self] _ in
+                guard let `self` = self else { return }
+                self.settingOptions = self.generateDataSource()
             })
             .disposed(by: bag)
         
@@ -257,19 +258,12 @@ extension SettingViewController {
     private func switchShowAds(_ show: Bool) {
         
         guard !show && !Settings.shared.isProValue.value else {
-            Settings.shared.showAdsValue.value = show
             return
         }
         
         updateShowAds(true)
         
-        presentPremiumView(source: .feeds_remove_ads, afterDismiss: { purchased in
-            //remove all ad
-            guard purchased else {
-                return
-            }
-            Settings.shared.showAdsValue.value = show
-        })
+        presentPremiumView(source: .feeds_remove_ads)
     }
     
     private func shareApp() {
@@ -376,12 +370,6 @@ extension SettingViewController {
         
     private func generateDataSource() -> [Option] {
         
-        var showAds = Option(type: .showAds, selectionHandler: {})
-        showAds.switcherIsOn = Settings.shared.showAdsValue.value
-        showAds.switcherHandler = { [weak self] isOn in
-            self?.switchShowAds(isOn)
-        }
-        
         var options: [Option] = [
             Option(type: .blockList, selectionHandler: { [weak self] in
                 let vc = Social.BlockedUserList.ViewController()
@@ -395,11 +383,22 @@ extension SettingViewController {
             }),
             Option(type: .shareApp, selectionHandler: { [weak self] in
                 self?.shareApp()
-            }),
-            showAds,
+            })]
+        
+        if !Settings.shared.isProValue.value {
+            var showAds = Option(type: .showAds, selectionHandler: {})
+            showAds.switcherIsOn = true
+            showAds.switcherHandler = { [weak self] isOn in
+                self?.switchShowAds(isOn)
+            }
+            options.append(showAds)
+        }
+        
+        options.append(
             Option(type: .restorePurchase, selectionHandler: { [weak self] in
                 self?.restorePurchases()
-            })]
+            })
+        )
         
         if FireRemote.shared.value.verifyApplyUrl.count > 0,
            let url = URL(string: FireRemote.shared.value.verifyApplyUrl) {
