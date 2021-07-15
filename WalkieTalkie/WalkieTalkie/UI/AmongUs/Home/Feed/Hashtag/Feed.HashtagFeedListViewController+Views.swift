@@ -43,7 +43,7 @@ extension Feed.HashtagFeedListViewController {
         }
         
         func bindData(with feed: Feed.ListCellViewModel) {
-            imageView.setImage(with: feed.feed.img)
+            imageView.setImage(with: feed.feed.gif ?? feed.feed.img)
         }
         
     }

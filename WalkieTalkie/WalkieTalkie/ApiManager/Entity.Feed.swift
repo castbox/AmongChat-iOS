@@ -51,6 +51,7 @@ extension Entity {
         let uid: Int
         let topic: String
         let img: URL
+        let gif: URL?
         let url: URL
         let duration: Int
         let width: Int?
@@ -116,6 +117,7 @@ extension Entity {
             case shareCount = "share_count"
             case emotes
             case emoteCount = "vote_count"
+            case gif
         }
     }
     

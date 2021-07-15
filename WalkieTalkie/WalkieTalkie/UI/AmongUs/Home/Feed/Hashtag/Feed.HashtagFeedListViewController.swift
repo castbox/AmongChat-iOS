@@ -173,7 +173,9 @@ extension Feed.HashtagFeedListViewController {
             hudRemoval = self.view.raft.show(.loading)
         }
         
-        Request.topicFeeds(feed.topic, exclude: [], skipMs: feedsDataSource.last?.feed.createTime ?? 0)
+        let pageSize = Int(20)
+        
+        Request.topicFeeds(feed.topic, exclude: [], limit: pageSize, skipMs: feedsDataSource.last?.feed.createTime ?? 0)
             .do(onDispose: { [weak self] () in
                 self?.isLoading = false
                 hudRemoval?()
@@ -181,7 +183,7 @@ extension Feed.HashtagFeedListViewController {
             .subscribe(onSuccess: { [weak self] data in
                 guard let `self` = self else { return }
                 let source = data.map { Feed.ListCellViewModel(feed: $0) }
-                self.hasMoreData = source.count >= 10
+                self.hasMoreData = source.count >= pageSize
                 self.feedsDataSource.append(contentsOf: source)
                 self.feedCollectionView.endLoadMore(self.hasMoreData)
             }, onError: { (error) in
