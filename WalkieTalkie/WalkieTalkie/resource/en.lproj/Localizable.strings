@@ -667,7 +667,7 @@
 "among.chat.report.upload.videos" = "Upload videos";
 "among.chat.login.birthday.guide.tip" = "Swipe to select";
 "among.chat.settings.advertisements" = "Advertisements";
+"among.chat.topic.feed.list.view.count" = "%1$@ views";
 
-"YPImagePickerPermissionDeniedPopupGrantPermission" = "Grant Permission";
-"YPImagePickerPermissionDeniedPopupMessage" = "Please allow access";
-"YPImagePickerPermissionDeniedPopupTitle" = "Permission denied";
+"image.picker.permission.denied.title" = "Permission denied";
+"image.picker.permission.denied.permission.grant" = "Grant Permission";

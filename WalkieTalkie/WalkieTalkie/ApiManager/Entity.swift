@@ -84,6 +84,7 @@ extension Entity {
         struct Topic: Codable {
             var topicId: String
             var topicName: String
+            @DecodableDefaultTypes.EmptyString var bg: String
         }
         
         struct KeyValue: Codable {

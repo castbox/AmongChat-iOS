@@ -149,16 +149,8 @@ extension Social {
         
         private lazy var closeBtn: UIButton = {
             let btn = UIButton(type: .custom)
-//            btn.titleLabel?.font = R.font.nunitoExtraBold(size: 16)
             btn.addTarget(self, action: #selector(onCloseBtn), for: .primaryActionTriggered)
             btn.setImage(R.image.ac_age_prompt_close(), for: .normal)
-//            btn.setTitle(R.string.localizable.profileEditSaveBtn(), for: .normal)
-//            btn.setTitleColor(.black, for: .normal)
-//            btn.isEnabled = false
-//            btn.backgroundColor = UIColor(hex6: 0xFFF000)
-//            btn.layer.masksToBounds = true
-//            btn.layer.cornerRadius = 16
-//            btn.contentEdgeInsets = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
             return btn
         }()
         
@@ -296,9 +288,11 @@ extension Social.AgePromptModal {
     
     class func showModalIfNeeded(fromVC: UIViewController, topicId: String, completion: @escaping (() -> Void) ) {
         
+        let over24Hours = Date().timeIntervalSince1970 - (Defaults[\.setAgePromptShowsTime] ?? 0) > 24 * 60 * 60
+
         guard FireRemote.shared.value.age_prompt_enable,
             Settings.shared.amongChatUserProfile.value?.birthday?.isEmpty ?? true,
-            Defaults[\.setAgePromptShowsTime] == nil else {
+            over24Hours else {
             completion()
             return
         }

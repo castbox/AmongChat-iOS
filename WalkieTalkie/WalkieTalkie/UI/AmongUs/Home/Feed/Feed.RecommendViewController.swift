@@ -14,6 +14,24 @@ import RxSwift
 extension Feed {
     class RecommendViewController: Feed.ListViewController {
         private var createButton: UIButton!
+        
+        private lazy var activityIV: UIImageView = {
+            let i = UIImageView()
+            i.contentMode = .scaleAspectFill
+            i.isHidden = true
+            i.isUserInteractionEnabled = true
+            i.clipsToBounds = true
+            let tap = UITapGestureRecognizer()
+            i.addGestureRecognizer(tap)
+            tap.rx.event
+                .subscribe(onNext: { _ in
+                    guard let activity = FireRemote.shared.value.feedActivityInfo else { return }
+                    Routes.handle(activity.url)
+                })
+                .disposed(by: bag)
+            return i
+        }()
+        
         private var isLoadingMore: Bool = false
         private var hasMore: Bool = true
         
@@ -122,6 +140,15 @@ extension Feed {
                     }
                 })
                 .disposed(by: bag)
+            
+            FireRemote.shared.remoteValue()
+                .map({ $0.value.feedActivityInfo })
+                .observeOn(MainScheduler.asyncInstance)
+                .subscribe(onNext: { [weak self] activity in
+                    self?.activityIV.isHidden = activity?.img.isEmpty ?? true
+                    self?.activityIV.setImage(with: activity?.img)
+                })
+                .disposed(by: bag)
         }
         
         override func configureSubview() {
@@ -129,12 +156,19 @@ extension Feed {
             createButton = SmallSizeButton(type: .custom)
             createButton.setImage(R.image.iconVideoCreate(), for: .normal)
 
-            view.addSubviews(views: createButton)
+            view.addSubviews(views: createButton, activityIV)
             
             createButton.snp.makeConstraints { maker in
                 maker.top.equalTo(Frame.Height.safeAeraTopHeight + 4.5)
                 maker.trailing.equalTo(-14)
                 maker.width.height.equalTo(42)
+            }
+            
+            activityIV.snp.makeConstraints { maker in
+                maker.trailing.equalTo(-8)
+                maker.height.equalTo(76)
+                maker.width.equalTo(105)
+                maker.top.equalTo(createButton.snp.bottom).offset(16)
             }
         }
         

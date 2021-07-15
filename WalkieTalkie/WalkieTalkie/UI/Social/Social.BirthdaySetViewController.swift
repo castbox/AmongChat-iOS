@@ -107,6 +107,7 @@ extension Social {
                 maker.top.equalTo(svgaView.snp.bottom).offset(4)
                 maker.leading.greaterThanOrEqualTo(Frame.horizontalBleedWidth)
             }
+            v.isUserInteractionEnabled = false
             return v
         }()
         
@@ -188,13 +189,9 @@ extension Social {
                     self?.confirmBtn.isEnabled = true
                     self?.confirmBtn.backgroundColor = UIColor(hex6: 0xFFF000)
                 }
+                self?.guideView.isHidden = true
             })
             .disposed(by: bag)
-        }
-        
-        override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-            super.touchesBegan(touches, with: event)
-            guideView.isHidden = true
         }
         
         @objc

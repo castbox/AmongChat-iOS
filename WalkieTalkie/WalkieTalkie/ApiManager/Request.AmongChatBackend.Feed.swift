@@ -250,4 +250,27 @@ extension Request {
             .observeOn(MainScheduler.asyncInstance)
         
     }
+    
+    static func allTopicFeeds(topic: String, limit: Int = 20, skipIdx: Int) -> Single<Entity.AllTopicFeedList> {
+        
+        let params: [String : Any] = [
+            "topic": topic,
+            "limit" : limit,
+            "sort" : "score",
+            "skip_idx" : skipIdx
+        ]
+        
+        return amongchatProvider.rx.request(.allTopicFeeds(params))
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .mapTo(Entity.AllTopicFeedList.self)
+            .map({
+                guard let r = $0 else {
+                    throw MsgError.default
+                }
+                return r
+            })
+            .observeOn(MainScheduler.asyncInstance)
+        
+    }
 }
