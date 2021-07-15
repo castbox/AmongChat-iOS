@@ -206,3 +206,14 @@ extension Int {
     }
     
 }
+
+extension Numeric {
+        
+    func stringWithSeperator(_ separator: String = ",") -> String {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        formatter.groupingSeparator = separator
+        
+        return formatter.string(for: self) ?? "\(self)"
+    }
+}

@@ -84,6 +84,7 @@ extension Entity {
         struct Topic: Codable {
             var topicId: String
             var topicName: String
+            var bg: String?
         }
         
         struct KeyValue: Codable {

@@ -17,6 +17,9 @@ extension Feed {
         private lazy var topicBg: UIImageView = {
             let i = UIImageView()
             i.contentMode = .scaleAspectFill
+            if let topic = Settings.shared.globalSetting.value?.feedTopics.first(where: { $0.topicId == feed.topic }) {
+                i.setImage(with: topic.bg)
+            }
             return i
         }()
         
@@ -113,7 +116,7 @@ extension Feed {
         private var pageData: Entity.AllTopicFeedList? = nil {
             didSet {
                 guard let data = pageData else { return }
-                viewCountLabel.text = R.string.localizable.amongChatTopicFeedListViewCount("\(data.totalPlayCount)")
+                viewCountLabel.text = R.string.localizable.amongChatTopicFeedListViewCount(data.totalPlayCount.stringWithSeperator())
             }
         }
         
@@ -149,6 +152,7 @@ extension Feed.HashtagFeedListViewController {
         
         topicBg.snp.makeConstraints { maker in
             maker.leading.top.trailing.equalToSuperview()
+            maker.height.equalTo(topicBg.snp.width).multipliedBy(240.0 / 375.0)
         }
         
         navView.snp.makeConstraints { maker in
