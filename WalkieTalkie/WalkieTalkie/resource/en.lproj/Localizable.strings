@@ -667,3 +667,7 @@
 "among.chat.report.upload.videos" = "Upload videos";
 "among.chat.login.birthday.guide.tip" = "Swipe to select";
 "among.chat.settings.advertisements" = "Advertisements";
+
+"YPImagePickerPermissionDeniedPopupGrantPermission" = "Grant Permission";
+"YPImagePickerPermissionDeniedPopupMessage" = "Please allow access";
+"YPImagePickerPermissionDeniedPopupTitle" = "Permission denied";

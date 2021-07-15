@@ -11,7 +11,6 @@ import SnapKit
 import RxSwift
 import AVFoundation
 import IQKeyboardManagerSwift
-import YPImagePicker
 
 // MARK: - vc
 extension Report {
@@ -130,76 +129,43 @@ extension Report.ViewController {
     func chooseMedia(_ type: ReportFooterView.MediaType) {
         selectMedia(type)
             .subscribe(onSuccess: { [weak self] item in
-                
-                switch item {
-                
-                case .photo(let photo):
-                    guard let imgPng = photo.image.scaled(toWidth: 400) else {
-                        return
-                    }
-                    self?.footerView.append(image: imgPng)
-
-                case .video(let video):
-                    self?.footerView.append(thumbnail: video.thumbnail, video: video.url)
+                guard let image = item.image?.scaled(toWidth: 400) else {
+                    return
                 }
-                
+                if let videoUrl = item.url {
+                    self?.footerView.append(thumbnail: image, video: videoUrl)
+                } else {
+                    self?.footerView.append(image: image)
+                }
             }) { error in
                 
             }
             .disposed(by: bag)
     }
     
-    private func selectMedia(_ type: ReportFooterView.MediaType) -> Single<YPMediaItem> {
-        
-        var config = YPImagePickerConfiguration()
-        config.screens = [.library]
-        config.library.isSquareByDefault = false
+    private func selectMedia(_ type: ReportFooterView.MediaType) -> Single<ImagePickerManager.Result> {
+        let pickerType: ImagePickerManager.PickerType
         switch type {
         case .image:
-            config.library.mediaType = .photo
+//            config.library.mediaType = .photo
+            pickerType = .defaultImage
         case .video:
-            config.library.mediaType = .video
+//            config.library.mediaType = .video
+            pickerType = .reportVideo
         }
-        config.wordings.permissionPopup.message = R.string.infoplist.nsPhotoLibraryUsageDescription()
         
-        config.showsPhotoFilters = false
-        config.hidesStatusBar = false
-        let picker = YPImagePicker(configuration: config)
-        picker.imagePickerDelegate = self
-        present(picker, animated: true, completion: nil)
-        
-        return Single<YPMediaItem>.create(subscribe: { (subscriber) -> Disposable in
+        return Single<ImagePickerManager.Result>.create(subscribe: { (subscriber) -> Disposable in
             
-            picker.didFinishPicking { [unowned picker] items, _ in
-                
-                defer {
-                    picker.dismiss(animated: true, completion: nil)
-                }
-                
-                guard let item = items.first else {
+            ImagePickerManager.shared.selectMedia(for: pickerType, sourceType: .photoLibrary) { result in
+                guard let item = result,
+                      let _ = item.image else {
                     subscriber(.error(MsgError.default))
                     return
                 }
-                
                 subscriber(.success(item))
-                
             }
-            
             return Disposables.create()
-            
         })
-        
-    }
-}
-
-extension Report.ViewController: YPImagePickerDelegate {
-    
-    func noPhotos() {
-        view.raft.autoShow(.text(MsgError.default.msg ?? R.string.localizable.amongChatUnknownError()))
-    }
-    
-    func shouldAddToSelection(indexPath: IndexPath, numSelections: Int) -> Bool {
-        return true
     }
 }
 

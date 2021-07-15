@@ -295,12 +295,12 @@ extension AppDelegate {
         ]
         
         //设置返回按钮图
-        UINavigationBar.appearance().backIndicatorImage = R.image.backNor()
-        UINavigationBar.appearance().backIndicatorTransitionMaskImage = R.image.backNor()
-        UINavigationBar.appearance().tintColor = UIColor.black
-        UINavigationBar.appearance().shadowImage = UIImage()
-        UINavigationBar.appearance().setBackgroundImage(UIImage(color: UIColor.white, size: CGSize(width: 1, height: 1)), for: .default)
-        UINavigationBar.appearance().isTranslucent = false
+//        UINavigationBar.appearance().backIndicatorImage = R.image.backNor()
+//        UINavigationBar.appearance().backIndicatorTransitionMaskImage = R.image.backNor()
+//        UINavigationBar.appearance().tintColor = UIColor.black
+//        UINavigationBar.appearance().shadowImage = UIImage()
+//        UINavigationBar.appearance().setBackgroundImage(UIImage(color: UIColor.white, size: CGSize(width: 1, height: 1)), for: .default)
+//        UINavigationBar.appearance().isTranslucent = false
     }
 }
 

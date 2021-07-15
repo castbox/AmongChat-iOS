@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import YPImagePicker
 import RxSwift
 
 extension FansGroup {
@@ -115,44 +114,57 @@ extension FansGroup.SelectCoverModal {
     }
         
     private func selectImage(via source: CustomAvatarSource) -> Single<UIImage> {
-        
-        var config = YPImagePickerConfiguration()
-        
-        switch source {
-        case .album:
-            config.screens = [.library]
-            config.wordings.permissionPopup.message = R.string.infoplist.nsPhotoLibraryUsageDescription()
-        case .selfie:
-            config.screens = [.photo]
-            config.usesFrontCamera = true
-            config.wordings.permissionPopup.message = R.string.infoplist.nsCameraUsageDescription()
-        }
-        
-        config.showsPhotoFilters = false
-        config.hidesStatusBar = false
-        let picker = YPImagePicker(configuration: config)
-        present(picker, animated: true, completion: nil)
-        
         return Single<UIImage>.create(subscribe: { (subscriber) -> Disposable in
             
-            picker.didFinishPicking { [unowned picker] items, _ in
-                
-                defer {
-                    picker.dismiss(animated: true, completion: nil)
-                }
-
-                guard let photo = items.singlePhoto else {
+            ImagePickerManager.shared.selectMedia(for: .squareImage, sourceType: source == .album ? .photoLibrary: .camera) { result in
+                guard let item = result,
+                      let image = item.image else {
                     subscriber(.error(MsgError.default))
                     return
                 }
-                
-                subscriber(.success(photo.image))
-                
+                subscriber(.success(image))
             }
-            
             return Disposables.create()
-            
         })
+
+//
+//        var config = YPImagePickerConfiguration()
+//
+//        switch source {
+//        case .album:
+//            config.screens = [.library]
+//            config.wordings.permissionPopup.message = R.string.infoplist.nsPhotoLibraryUsageDescription()
+//        case .selfie:
+//            config.screens = [.photo]
+//            config.usesFrontCamera = true
+//            config.wordings.permissionPopup.message = R.string.infoplist.nsCameraUsageDescription()
+//        }
+//
+//        config.showsPhotoFilters = false
+//        config.hidesStatusBar = false
+//        let picker = YPImagePicker(configuration: config)
+//        present(picker, animated: true, completion: nil)
+//
+//        return Single<UIImage>.create(subscribe: { (subscriber) -> Disposable in
+//
+//            picker.didFinishPicking { [unowned picker] items, _ in
+//
+//                defer {
+//                    picker.dismiss(animated: true, completion: nil)
+//                }
+//
+//                guard let photo = items.singlePhoto else {
+//                    subscriber(.error(MsgError.default))
+//                    return
+//                }
+//
+//                subscriber(.success(photo.image))
+//
+//            }
+//
+//            return Disposables.create()
+//
+//        })
         
     }
     

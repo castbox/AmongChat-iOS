@@ -490,6 +490,7 @@
 		FED7B603244ECAA600D94F97 /* Logger+PageShow.swift in Sources */ = {isa = PBXBuildFile; fileRef = FED7B602244ECAA600D94F97 /* Logger+PageShow.swift */; };
 		FED7B605244ED1B900D94F97 /* Logger+UserAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = FED7B604244ED1B900D94F97 /* Logger+UserAction.swift */; };
 		FED7B607244EDEA500D94F97 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = FED7B606244EDEA500D94F97 /* Reachability.swift */; };
+		FED97F1E26A02D6200537659 /* ImagePickerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FED97F1D26A02D6200537659 /* ImagePickerManager.swift */; };
 		FEE0E7A025A44C3200DC67B8 /* UIViewLocalizableExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEE0E79F25A44C3200DC67B8 /* UIViewLocalizableExtension.swift */; };
 		FEE6F213264E53E800F4C0C5 /* dmWaveWhite.svga in Resources */ = {isa = PBXBuildFile; fileRef = FEE6F212264E53E800F4C0C5 /* dmWaveWhite.svga */; };
 		FEE6F215264E53FE00F4C0C5 /* dmWaveYellow.svga in Resources */ = {isa = PBXBuildFile; fileRef = FEE6F214264E53FE00F4C0C5 /* dmWaveYellow.svga */; };
@@ -1049,6 +1050,7 @@
 		FED7B602244ECAA600D94F97 /* Logger+PageShow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Logger+PageShow.swift"; sourceTree = "<group>"; };
 		FED7B604244ED1B900D94F97 /* Logger+UserAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Logger+UserAction.swift"; sourceTree = "<group>"; };
 		FED7B606244EDEA500D94F97 /* Reachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
+		FED97F1D26A02D6200537659 /* ImagePickerManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagePickerManager.swift; sourceTree = "<group>"; };
 		FEE0E79F25A44C3200DC67B8 /* UIViewLocalizableExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewLocalizableExtension.swift; sourceTree = "<group>"; };
 		FEE6F212264E53E800F4C0C5 /* dmWaveWhite.svga */ = {isa = PBXFileReference; lastKnownFileType = file; path = dmWaveWhite.svga; sourceTree = "<group>"; };
 		FEE6F214264E53FE00F4C0C5 /* dmWaveYellow.svga */ = {isa = PBXFileReference; lastKnownFileType = file; path = dmWaveYellow.svga; sourceTree = "<group>"; };
@@ -1601,6 +1603,7 @@
 		FE126D542434821900BEDD60 /* Manager */ = {
 			isa = PBXGroup;
 			children = (
+				FED97F1D26A02D6200537659 /* ImagePickerManager.swift */,
 				FE789E552590539100DAF5D3 /* SensitiveWordChecker.swift */,
 				FE730E4C24ADCB0100680062 /* PhotoManager.swift */,
 				FE126D592434825900BEDD60 /* KeyCenter.swift */,
@@ -2728,6 +2731,7 @@
 				26DBBF7626008C1B00A1B9BA /* Social.AgePromptModal.swift in Sources */,
 				2BA2DB462594AB320050BF8E /* Social.FollowerViewController.swift in Sources */,
 				FE8DEA66243DB09A0059C252 /* APIService.swift in Sources */,
+				FED97F1E26A02D6200537659 /* ImagePickerManager.swift in Sources */,
 				FEFF9356258B30980011A274 /* AmongChat.Room.ViewModel.swift in Sources */,
 				FEA9359A264A641900CEC89A /* NSFileManagerExtension.swift in Sources */,
 				FE0A0F3B265E433B00AC9FF7 /* InteractiveMsgTableCell.swift in Sources */,

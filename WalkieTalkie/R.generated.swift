@@ -2996,7 +2996,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
     
-    /// This `R.string.localizable` struct is generated, and contains static references to 581 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 584 localization keys.
     struct localizable {
       /// en translation:  Congratulations!
       /// 
@@ -3786,6 +3786,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let groupRoomDropSelfTips = Rswift.StringResource(key: "group.room.drop.self.tips", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Grant Permission
+      /// 
+      /// Locales: en
+      static let ypImagePickerPermissionDeniedPopupGrantPermission = Rswift.StringResource(key: "YPImagePickerPermissionDeniedPopupGrantPermission", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Group
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -4390,6 +4394,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let socialInvitePlayWith = Rswift.StringResource(key: "social.invite.play.with", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Permission denied
+      /// 
+      /// Locales: en
+      static let ypImagePickerPermissionDeniedPopupTitle = Rswift.StringResource(key: "YPImagePickerPermissionDeniedPopupTitle", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Pet
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -4402,6 +4410,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatHomeTeamUp = Rswift.StringResource(key: "among.chat.home.team.up", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Please allow access
+      /// 
+      /// Locales: en
+      static let ypImagePickerPermissionDeniedPopupMessage = Rswift.StringResource(key: "YPImagePickerPermissionDeniedPopupMessage", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Please check your connection and try again
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -6702,6 +6714,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("group.room.drop.self.tips", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Grant Permission
+      /// 
+      /// Locales: en
+      static func ypImagePickerPermissionDeniedPopupGrantPermission(_: Void = ()) -> String {
+        return NSLocalizedString("YPImagePickerPermissionDeniedPopupGrantPermission", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Group
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -7759,6 +7778,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("social.invite.play.with", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Permission denied
+      /// 
+      /// Locales: en
+      static func ypImagePickerPermissionDeniedPopupTitle(_: Void = ()) -> String {
+        return NSLocalizedString("YPImagePickerPermissionDeniedPopupTitle", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Pet
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -7778,6 +7804,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func amongChatHomeTeamUp(_: Void = ()) -> String {
         return NSLocalizedString("among.chat.home.team.up", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Please allow access
+      /// 
+      /// Locales: en
+      static func ypImagePickerPermissionDeniedPopupMessage(_: Void = ()) -> String {
+        return NSLocalizedString("YPImagePickerPermissionDeniedPopupMessage", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Please check your connection and try again

@@ -82,7 +82,7 @@ target 'WalkieTalkie' do
     # RTC (Agora.io)
 #    pod 'AgoraRtcEngine_iOS'
     pod 'AgoraAudio_iOS', '3.1.0'
-    pod 'AgoraRtm_Special_iOS', '1.4.6.215'
+    pod 'AgoraRtm_iOS', '1.4.3'
     pod 'ZegoExpressEngine/Audio'
 
     pod 'JLRoutes'
@@ -158,7 +158,7 @@ target 'WalkieTalkie' do
     #https://github.com/mac-gallagher/Shuffle
 #    pod 'Shuffle-iOS'
     pod "Koloda"
-    pod 'YPImagePicker', :git => 'git@github.com:devSC/YPImagePicker.git', :branch => 'dev'
+#    pod 'YPImagePicker', :git => 'git@github.com:devSC/YPImagePicker.git', :branch => 'dev'
     pod 'RAMAnimatedTabBarController'
     pod 'WebViewJavascriptBridge', :git => 'https://github.com/devSC/WebViewJavascriptBridge.git', :branch => "Remove-UIWebView-Support"
     pod 'ImageViewer'
