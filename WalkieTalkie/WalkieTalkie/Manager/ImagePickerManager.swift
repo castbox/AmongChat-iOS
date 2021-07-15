@@ -83,8 +83,8 @@ class ImagePickerManager: NSObject {
     
     func checkPermission(for type: UIImagePickerController.SourceType = .photoLibrary, completionHandler: CallBack?) {
         let gotoSettingAlert: (String) -> Void = { text in
-            let alertVC = UIAlertController(title: R.string.localizable.ypImagePickerPermissionDeniedPopupTitle(), message: text, preferredStyle: .alert)
-            let resetAction = UIAlertAction(title: R.string.localizable.ypImagePickerPermissionDeniedPopupGrantPermission(), style: .default, handler: { (_) in
+            let alertVC = UIAlertController(title: R.string.localizable.imagePickerPermissionDeniedTitle(), message: text, preferredStyle: .alert)
+            let resetAction = UIAlertAction(title: R.string.localizable.imagePickerPermissionDeniedPermissionGrant(), style: .default, handler: { (_) in
                 if let url = URL(string: UIApplication.openSettingsURLString),
                     UIApplication.shared.canOpenURL(url) {
                     UIApplication.shared.open(url)
