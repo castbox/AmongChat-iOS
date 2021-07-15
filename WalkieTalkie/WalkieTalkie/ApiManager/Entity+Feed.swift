@@ -105,3 +105,18 @@ extension Entity {
     }
     
 }
+
+extension Entity {
+    
+    struct AllTopicFeedList: Codable {
+        var list: [Entity.Feed]
+        var skipIdx: Int
+        var totalPlayCount: Int
+        private enum CodingKeys: String, CodingKey {
+            case list
+            case skipIdx = "skip_idx"
+            case totalPlayCount = "total_play_count"
+        }
+    }
+    
+}

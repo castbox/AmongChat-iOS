@@ -2996,7 +2996,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
     
-    /// This `R.string.localizable` struct is generated, and contains static references to 581 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 582 localization keys.
     struct localizable {
       /// en translation:  Congratulations!
       /// 
@@ -3014,6 +3014,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatHomeNowplaying = Rswift.StringResource(key: "among.chat.home.nowplaying", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: %1$@ views
+      /// 
+      /// Locales: en
+      static let amongChatTopicFeedListViewCount = Rswift.StringResource(key: "among.chat.topic.feed.list.view.count", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: %@ Join Requests
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -5349,6 +5353,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func amongChatHomeNowplaying(_ value1: String) -> String {
         return String(format: NSLocalizedString("among.chat.home.nowplaying", bundle: R.hostingBundle, comment: ""), locale: R.applicationLocale, value1)
+      }
+      
+      /// en translation: %1$@ views
+      /// 
+      /// Locales: en
+      static func amongChatTopicFeedListViewCount(_ value1: String) -> String {
+        return String(format: NSLocalizedString("among.chat.topic.feed.list.view.count", bundle: R.hostingBundle, comment: ""), locale: R.applicationLocale, value1)
       }
       
       /// en translation: %@ Join Requests

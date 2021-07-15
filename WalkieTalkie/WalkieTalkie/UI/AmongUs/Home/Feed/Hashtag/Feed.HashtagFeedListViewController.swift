@@ -72,6 +72,13 @@ extension Feed {
             return v
         }()
         
+        private lazy var viewCountLabel: UILabel = {
+            let label = UILabel()
+            label.font = R.font.nunitoBold(size: 16)
+            label.textColor = UIColor(hex6: 0xFFFFFF, alpha: 0.5)
+            return label
+        }()
+        
         private lazy var feedCollectionView: UICollectionView = {
             let layout = UICollectionViewFlowLayout()
             layout.scrollDirection = .vertical
@@ -103,6 +110,13 @@ extension Feed {
             }
         }
         
+        private var pageData: Entity.AllTopicFeedList? = nil {
+            didSet {
+                guard let data = pageData else { return }
+                viewCountLabel.text = R.string.localizable.amongChatTopicFeedListViewCount("\(data.totalPlayCount)")
+            }
+        }
+        
         private var hasMoreData = true
         private var isLoading = false
         
@@ -131,7 +145,7 @@ extension Feed.HashtagFeedListViewController {
     
     private func setUpLayout() {
         
-        view.addSubviews(views: topicBg, navView, hashtagView, feedCollectionView)
+        view.addSubviews(views: topicBg, navView, hashtagView, viewCountLabel, feedCollectionView)
         
         topicBg.snp.makeConstraints { maker in
             maker.leading.top.trailing.equalToSuperview()
@@ -148,9 +162,15 @@ extension Feed.HashtagFeedListViewController {
             maker.trailing.lessThanOrEqualToSuperview().offset(-Frame.horizontalBleedWidth)
         }
         
+        viewCountLabel.snp.makeConstraints { maker in
+            maker.leading.trailing.equalToSuperview().inset(Frame.horizontalBleedWidth)
+            maker.height.equalTo(22)
+            maker.top.equalTo(hashtagView.snp.bottom).offset(8)
+        }
+        
         feedCollectionView.snp.makeConstraints { maker in
             maker.leading.trailing.bottom.equalToSuperview()
-            maker.top.equalTo(hashtagView.snp.bottom).offset(24)
+            maker.top.equalTo(viewCountLabel.snp.bottom).offset(24)
         }
         
         feedCollectionView.pullToLoadMore { [weak self] in
@@ -175,14 +195,15 @@ extension Feed.HashtagFeedListViewController {
         
         let pageSize = Int(20)
         
-        Request.topicFeeds(feed.topic, exclude: [], limit: pageSize, skipMs: feedsDataSource.last?.feed.createTime ?? 0)
+        Request.allTopicFeeds(topic: feed.topic, limit: pageSize, skipIdx: pageData?.skipIdx ?? 0)
             .do(onDispose: { [weak self] () in
                 self?.isLoading = false
                 hudRemoval?()
             })
             .subscribe(onSuccess: { [weak self] data in
                 guard let `self` = self else { return }
-                let source = data.map { Feed.ListCellViewModel(feed: $0) }
+                self.pageData = data
+                let source = data.list.map { Feed.ListCellViewModel(feed: $0) }
                 self.hasMoreData = source.count >= pageSize
                 self.feedsDataSource.append(contentsOf: source)
                 self.feedCollectionView.endLoadMore(self.hasMoreData)

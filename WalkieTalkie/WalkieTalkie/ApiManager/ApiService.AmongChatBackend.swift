@@ -142,6 +142,7 @@ extension APIService {
         case feedShareToUser([String: Any])
         case topicFeeds([String: Any])
         case sendDMPushToAnonymousUser([String: Any])
+        case allTopicFeeds([String : Any])
     }
 }
 
@@ -405,6 +406,8 @@ extension APIService.AmongChatBackend: TargetType {
             return "/post/topic/posts"
         case .sendDMPushToAnonymousUser:
             return "/api/v1/direct/message/tip"
+        case .allTopicFeeds:
+            return "/post/topic/all/posts"
         }
     }
     
@@ -525,6 +528,7 @@ extension APIService.AmongChatBackend: TargetType {
              .feedPostPage,
              .feedShareUserList,
              .topicFeeds,
+             .allTopicFeeds,
              .shareUserSign:
             return .get
         case .follow:
@@ -676,6 +680,7 @@ extension APIService.AmongChatBackend: TargetType {
              .sendDMPushToAnonymousUser(let params),
              .feedShareUserList(let params),
              .topicFeeds(let params),
+             .allTopicFeeds(let params),
              .unFollow(let params):
             return .requestParameters(parameters: params, encoding: URLEncoding.queryString)
             
