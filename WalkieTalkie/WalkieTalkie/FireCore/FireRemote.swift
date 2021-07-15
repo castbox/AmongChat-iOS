@@ -101,6 +101,9 @@ extension FireRemote {
         //认证申请入口
         let verifyApplyUrl: String
         
+        //
+        let feedActivityInfo: FeedActivity?
+        
         init(config: RemoteConfig) {
             cdPrint("remote config: \(config.allKeys(from: .remote))")
             let str = config["premium_prompt"].stringValue ?? ""
@@ -141,6 +144,7 @@ extension FireRemote {
             defaultMainTabIndex = config["default_main_tab_index"].numberValue?.intValue ?? 0
             feedsAdInterval = config["feeds_ad_interval"].numberValue?.intValue ?? -1
             verifyApplyUrl = config["verify_apply_url"].stringValue ?? ""
+            feedActivityInfo = JSONDecoder().mapTo(FeedActivity.self, from: config["feed_activity_info"].jsonValue ?? [:])
         }
     }
 }
@@ -210,4 +214,12 @@ extension FireRemote.Value {
         }
     }
     
+}
+
+extension FireRemote.Value {
+    
+    struct FeedActivity: Codable {
+        var img: String
+        var url: String        
+    }
 }
