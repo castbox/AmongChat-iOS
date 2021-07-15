@@ -237,9 +237,11 @@
                 <outlet property="collectionView" destination="0Vq-Q9-oJP" id="TkJ-Ho-2ak"/>
                 <outlet property="commentButton" destination="uQ0-uo-4L1" id="oOp-Yt-ccg"/>
                 <outlet property="emotesButton" destination="6oi-es-PqU" id="g6t-cq-vRv"/>
+                <outlet property="emotesButtonBottom" destination="nca-bR-bxW" id="cz2-QD-9Xa"/>
                 <outlet property="followButton" destination="whd-np-ga6" id="xQs-eU-vp9"/>
                 <outlet property="moreButton" destination="HyZ-3O-VLy" id="NY9-jN-V18"/>
                 <outlet property="nameLabel" destination="U62-1J-LHH" id="hfU-MA-3Br"/>
+                <outlet property="nameLabelTrailing" destination="L2Y-98-wdX" id="8lK-jH-XwH"/>
                 <outlet property="pauseView" destination="1c1-et-f5z" id="cMs-pE-4IP"/>
                 <outlet property="playerView" destination="rqh-Vf-hwl" id="amU-EP-hgV"/>
                 <outlet property="progressLabel" destination="Ffj-Zk-aDm" id="aGn-lx-ocB"/>
@@ -248,6 +250,9 @@
                 <outlet property="tagButton" destination="cnR-9U-Ajf" id="qT9-eF-tuY"/>
                 <outlet property="userInfoContainer" destination="hxF-Cs-EMb" id="Umv-Ng-v6C"/>
                 <outlet property="videoImageView" destination="TLZ-Q1-mBb" id="XLN-o2-bFH"/>
+                <outletCollection property="functionButtonSpace" destination="VPT-an-SpJ" collectionClass="NSMutableArray" id="vBa-HF-FBt"/>
+                <outletCollection property="functionButtonSpace" destination="Vkf-Lz-1Fz" collectionClass="NSMutableArray" id="VUj-Kh-g2j"/>
+                <outletCollection property="functionButtonSpace" destination="2Wk-9m-JB3" collectionClass="NSMutableArray" id="OUq-Sv-Nkx"/>
             </connections>
             <point key="canvasLocation" x="137.68115942028987" y="153.34821428571428"/>
         </tableViewCell>

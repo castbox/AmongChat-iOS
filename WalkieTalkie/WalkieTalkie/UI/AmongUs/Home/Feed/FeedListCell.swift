@@ -44,11 +44,13 @@ class FeedListCell: UITableViewCell {
     @IBOutlet weak var avatarView: AvatarImageView!
     @IBOutlet weak var followButton: SmallSizeButton!
     @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var nameLabelTrailing: NSLayoutConstraint!
     @IBOutlet weak var tagButton: UIButton!
     @IBOutlet weak var shareButton: BottomTitleButton!
     @IBOutlet weak var commentButton: BottomTitleButton!
     @IBOutlet weak var moreButton: BottomTitleButton!
     @IBOutlet weak var emotesButton: BottomTitleButton!
+    @IBOutlet weak var emotesButtonBottom: NSLayoutConstraint!
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var playerView: PlayerView!
     @IBOutlet weak var sliderBar: UISlider!
@@ -56,6 +58,8 @@ class FeedListCell: UITableViewCell {
     @IBOutlet weak var activityView: UIActivityIndicatorView!
     @IBOutlet weak var videoImageView: UIImageView!
     @IBOutlet weak var progressLabel: UILabel!
+    
+    @IBOutlet var functionButtonSpace: [NSLayoutConstraint]!
     
     private lazy var backgroundLayer = CAGradientLayer()
     private lazy var gradientBackgroundView: UIView = {
@@ -420,6 +424,23 @@ private extension FeedListCell {
             maker.edges.equalToSuperview()
         }
 
+        if Frame.Screen.height == 667 {
+            
+            for c in functionButtonSpace {
+                c.constant = 20
+            }
+            
+            emotesButtonBottom.constant = 10
+            
+            
+        } else if Frame.Screen.height < 667 {
+            for c in functionButtonSpace {
+                c.constant = 8
+            }
+            
+            emotesButtonBottom.constant = -17
+            nameLabelTrailing.constant = 76
+        }
     }
     
     func addTitleShadow(for button: UIButton) {
