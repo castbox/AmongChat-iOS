@@ -655,3 +655,19 @@
 "among.chat.group.ignore.all" = "Игнорировать все";
 "feed.post.tip.with.rules" = "Видео должно быть не более 60 секунд, связано с играми и не должно нарушать %1$@.";
 "feed.post.rules" = "правила";
+
+//1.27.0
+"among.chat.login.auth.source.edit.avatar" = "редактировать свой аватар";
+"among.chat.login.auth.source.follow.others" = "следовать за другими";
+"among.chat.login.auth.source.edit.nickname" = "редактировать свой ник";
+"among.chat.room.change.to.private" = "После переключения на частный, ссылка на этот канал, к которому ранее был предоставлен доступ, станет недействительной. Перейти сейчас?";
+"among.chat.room.change.to.public" = "После того, как этот канал станет общедоступным, все смогут присоединиться. Перейти сейчас?";
+"among.chat.report.comment" = "Пожаловаться на комментарий";
+"among.chat.report.video.tip" = "Видео должно быть не более 60 секунд";
+"among.chat.report.upload.videos" = "Загрузить видео";
+"among.chat.login.birthday.guide.tip" = "Проведите, чтобы выбрать";
+"among.chat.settings.advertisements" = "Реклама";
+"among.chat.topic.feed.list.view.count" = "%1$@ просмотров";
+
+"image.picker.permission.denied.title" = "Разрешение отклонено";
+"image.picker.permission.denied.permission.grant" = "Предоставить разрешение";
