@@ -99,6 +99,7 @@
                     <color key="backgroundColor" red="1" green="0.94117647058823528" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstItem="b44-kT-idY" firstAttribute="leading" secondItem="VNF-ER-ZuA" secondAttribute="leading" constant="12" id="0SB-0V-fMD"/>
+                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="85" id="ASM-9O-Ydr"/>
                         <constraint firstAttribute="bottom" secondItem="b44-kT-idY" secondAttribute="bottom" id="Ddo-jk-a0L"/>
                         <constraint firstItem="b44-kT-idY" firstAttribute="top" secondItem="VNF-ER-ZuA" secondAttribute="top" id="boK-7w-Qnb"/>
                         <constraint firstAttribute="trailing" secondItem="b44-kT-idY" secondAttribute="trailing" constant="12" id="eia-G7-KFl"/>
