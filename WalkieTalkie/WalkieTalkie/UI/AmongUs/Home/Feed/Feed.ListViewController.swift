@@ -432,9 +432,9 @@ extension Feed.ListViewController: UITableViewDelegate, UITableViewDataSource {
             //report
             let viewModel = dataSource.safe(indexPath.row) as? Feed.ListCellViewModel
             Logger.Action.log(.feeds_play_finish_progress, category: nil, viewModel?.feed.pid, lroundf(cell.playProgress * 10))
-            Logger.Action.log(.feeds_hide, category: nil, viewModel?.feed.pid, showTimeValue.int)
+            Logger.Action.log(.feeds_hide, category: nil, viewModel?.feed.pid, min(6000, showTimeValue.int))
         } else if cell is FeedNativeAdCell {
-            Logger.Action.log(.feeds_nad_hide, category: nil, nil, showTimeValue.int)
+            Logger.Action.log(.feeds_nad_hide, category: nil, nil, min(6000, showTimeValue.int))
         }
         cellBeginShowTimeMap.removeValue(forKey: indexPath.row)
     }
