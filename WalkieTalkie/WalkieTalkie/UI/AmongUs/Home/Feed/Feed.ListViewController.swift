@@ -149,6 +149,10 @@ extension Feed {
             
             configureSubview()
             bindSubviewEvent()
+            
+            requestAppTrackPermission {
+                Ad.NativeManager.shared.loadAd()
+            }
         }
                 
         func onViewWillAppear() {
@@ -443,9 +447,6 @@ extension Feed.ListViewController {
         }
         guard adPositionInterval > 1 else {
             return
-        }
-        requestAppTrackPermission {
-            Ad.NativeManager.shared.loadAd()            
         }
     }
     
