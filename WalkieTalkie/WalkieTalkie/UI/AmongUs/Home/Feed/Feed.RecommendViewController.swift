@@ -10,6 +10,7 @@ import Foundation
 import SnapKit
 import AVFoundation
 import RxSwift
+import Kingfisher
 
 extension Feed {
     class RecommendViewController: Feed.ListViewController {
@@ -18,25 +19,21 @@ extension Feed {
         private lazy var activityIV: UIImageView = {
             let i = UIImageView()
             i.contentMode = .scaleAspectFill
-            i.isHidden = true
-            i.isUserInteractionEnabled = true
             i.clipsToBounds = true
-            let tap = UITapGestureRecognizer()
-            i.addGestureRecognizer(tap)
-            tap.rx.event
-                .subscribe(onNext: { _ in
-                    guard let activity = FireRemote.shared.value.feedActivityInfo else { return }
-                    Routes.handle(activity.url)
-                    Logger.Action.log(.feeds_activity_clk, categoryValue: nil, activity.url)
-                })
-                .disposed(by: bag)
+            return i
+        }()
+        
+        private lazy var activitySmallIV: UIImageView = {
+            let i = UIImageView()
+            i.contentMode = .scaleAspectFill
+            i.clipsToBounds = true
             return i
         }()
         
         private lazy var activityContainer: UIView = {
             let v = UIView()
             v.backgroundColor = .clear
-            v.addSubviews(views: activityIV)
+            v.addSubviews(views: activityIV, activitySmallIV)
             activityIV.snp.makeConstraints { maker in
                 maker.trailing.equalTo(-8)
                 maker.top.equalTo(16)
@@ -44,6 +41,22 @@ extension Feed {
                 maker.height.equalTo(76)
                 maker.width.equalTo(105)
             }
+            activitySmallIV.snp.makeConstraints { maker in
+                maker.height.equalTo(40)
+                maker.width.equalTo(40)
+                maker.trailing.equalTo(-14)
+                maker.top.equalTo(16)
+            }
+            let tap = UITapGestureRecognizer()
+            v.addGestureRecognizer(tap)
+            tap.rx.event
+                .subscribe(onNext: { _ in
+                    guard let activity = FireRemote.shared.value.feedActivityInfo else { return }
+                    Routes.handle(activity.url)
+                    Logger.Action.log(.feeds_activity_clk, categoryValue: nil, activity.url)
+                })
+                .disposed(by: bag)
+            v.isHidden = true
             return v
         }()
         
@@ -160,31 +173,56 @@ extension Feed {
                 })
                 .disposed(by: bag)
             
-            Observable.combineLatest(FireRemote.shared.remoteValue().map({ $0.value.feedActivityInfo }), rx.viewDidAppear.take(1))
-                .observeOn(MainScheduler.asyncInstance)
-                .subscribe(onNext: { [weak self] activity, _ in
-                    self?.activityIV.isHidden = activity?.img.isEmpty ?? true
-                    self?.activityIV.setImage(with: activity?.img)
-                    
-                    if activity != nil {
-                        
-                        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(3)) {
-                            self?.activityIV.setImage(with: activity?.imgSmall)
-                            self?.activityIV.snp.updateConstraints({ maker in
-                                maker.height.equalTo(40)
-                                maker.width.equalTo(40)
-                                maker.trailing.equalTo(-14)
-                            })
-                            
-                            UIView.animate(withDuration: 0.25) {
-                                self?.activityContainer.layoutIfNeeded()
-                            }
+            Observable.combineLatest(
+                FireRemote.shared.remoteValue()
+                    .map({ $0.value.feedActivityInfo })
+                    .do(onNext: { [weak self] activity in
+                        self?.activityContainer.isHidden = activity?.img.isEmpty ?? true || activity?.imgSmall.isEmpty ?? true
+                    })
+                    .flatMap({ activity -> Observable<(UIImage, UIImage)?> in
+                        guard let activity = activity,
+                              let imgUrl = activity.img.url,
+                              let smallImgUrl = activity.imgSmall.url else {
+                            return Observable.just(nil)
                         }
                         
+                        return Observable.combineLatest(KingfisherManager.shared.retrieveImageObservable(with: imgUrl),
+                                                        KingfisherManager.shared.retrieveImageObservable(with: smallImgUrl))
+                            .map { $0 }
+                    }),
+                rx.viewDidAppear.take(1)
+            )
+            .observeOn(MainScheduler.asyncInstance)
+            .subscribe(onNext: { [weak self] imgs, _ in
+                guard let `self` = self, let imgs = imgs else { return }
+                
+                let img = imgs.0
+                let smallImg = imgs.1
+                
+                self.activityIV.image = img
+                self.activityIV.setAnchorPoint(CGPoint(x: 1, y: 0))
+                self.activitySmallIV.image = smallImg
+                self.activitySmallIV.setAnchorPoint(CGPoint(x: 1, y: 0))
+                self.activitySmallIV.transform = CGAffineTransform(scaleX: 0, y: 0)
+                self.activityIV.transform = CGAffineTransform(translationX: self.activityContainer.bounds.width * 2, y: 0)
+                
+                UIView.animateKeyframes(withDuration: 4, delay: 0.0, animations: {
+                    UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.05) {
+                        self.activityIV.transform = .identity
                     }
-                    
+
+                    UIView.addKeyframe(withRelativeStartTime: 3.2 / 4.0, relativeDuration: 0.075) {
+                        self.activityIV.transform = CGAffineTransform(scaleX: 0, y: 0)
+                    }
+
+                    UIView.addKeyframe(withRelativeStartTime: 3.5 / 4.0, relativeDuration: 0.075) {
+                        self.activitySmallIV.transform = .identity
+                    }
+                }, completion: { _ in
                 })
-                .disposed(by: bag)
+                
+            })
+            .disposed(by: bag)
         }
         
         override func configureSubview() {
