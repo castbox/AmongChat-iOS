@@ -48,4 +48,67 @@ extension Feed.HashtagFeedListViewController {
         
     }
     
+    class HashTagHeader: UICollectionReusableView {
+        
+        private lazy var hashtagView: UIView = {
+            let v = UIView()
+            v.addSubviews(views: hashtagIcon, hashtagLabel)
+            hashtagIcon.snp.makeConstraints { maker in
+                maker.leading.centerY.equalToSuperview()
+            }
+            hashtagLabel.snp.makeConstraints { maker in
+                maker.top.bottom.trailing.equalToSuperview()
+                maker.height.equalTo(27)
+                maker.leading.equalTo(hashtagIcon.snp.trailing).offset(4)
+            }
+            return v
+        }()
+        
+        private lazy var hashtagIcon: UIImageView = {
+            let i = UIImageView(image: R.image.iconFeedTagPrefix())
+            return i
+        }()
+        
+        private(set) lazy var hashtagLabel: UILabel = {
+            let label = UILabel()
+            label.font = R.font.nunitoExtraBold(size: 20)
+            label.textColor = .white
+            return label
+        }()
+        
+        private(set) lazy var viewCountLabel: UILabel = {
+            let label = UILabel()
+            label.font = R.font.nunitoBold(size: 16)
+            label.textColor = UIColor(hex6: 0xFFFFFF, alpha: 0.5)
+            return label
+        }()
+        
+        override init(frame: CGRect) {
+            super.init(frame: .zero)
+            setupLayout()
+        }
+        
+        required init?(coder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
+        }
+        
+        private func setupLayout() {
+            
+            addSubviews(views: hashtagView, viewCountLabel)
+            
+            hashtagView.snp.makeConstraints { maker in
+                maker.leading.equalToSuperview().offset(Frame.horizontalBleedWidth)
+                maker.top.equalToSuperview()
+                maker.trailing.lessThanOrEqualToSuperview().offset(-Frame.horizontalBleedWidth)
+            }
+            
+            viewCountLabel.snp.makeConstraints { maker in
+                maker.leading.trailing.equalToSuperview().inset(Frame.horizontalBleedWidth)
+                maker.height.equalTo(22)
+                maker.top.equalTo(hashtagView.snp.bottom).offset(8)
+            }
+            
+        }
+        
+    }    
 }

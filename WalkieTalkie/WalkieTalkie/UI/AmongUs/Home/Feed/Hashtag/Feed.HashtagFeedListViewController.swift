@@ -23,6 +23,13 @@ extension Feed {
             return i
         }()
         
+        private lazy var topicBgMask: UIView = {
+            let v = UIView()
+            v.backgroundColor = UIColor(hex6: 0x121212)
+            v.isHidden = true
+            return v
+        }()
+        
         private lazy var navView: NavigationBar = {
             let n = NavigationBar()
             let btn = n.leftBtn
@@ -56,31 +63,6 @@ extension Feed {
             return n
         }()
         
-        private lazy var hashtagView: UIView = {
-            let v = UIView()
-            let i = UIImageView(image: R.image.iconFeedTagPrefix())
-            let label = UILabel()
-            label.font = R.font.nunitoExtraBold(size: 20)
-            label.textColor = .white
-            v.addSubviews(views: i, label)
-            i.snp.makeConstraints { maker in
-                maker.leading.centerY.equalToSuperview()
-            }
-            label.snp.makeConstraints { maker in
-                maker.top.bottom.trailing.equalToSuperview()
-                maker.height.equalTo(27)
-                maker.leading.equalTo(i.snp.trailing).offset(4)
-            }
-            label.text = feed.topicName
-            return v
-        }()
-        
-        private lazy var viewCountLabel: UILabel = {
-            let label = UILabel()
-            label.font = R.font.nunitoBold(size: 16)
-            label.textColor = UIColor(hex6: 0xFFFFFF, alpha: 0.5)
-            return label
-        }()
         
         private lazy var feedCollectionView: UICollectionView = {
             let layout = UICollectionViewFlowLayout()
@@ -94,16 +76,18 @@ extension Feed {
             layout.itemSize = CGSize(width: cellWidth, height: cellHeight)
             layout.minimumInteritemSpacing = interitemSpacing
             layout.minimumLineSpacing = 8
-            layout.sectionInset = UIEdgeInsets(top: 0, left: hInset, bottom: Frame.Height.safeAeraBottomHeight, right: hInset)
+            layout.sectionInset = UIEdgeInsets(top: 24, left: hInset, bottom: 0, right: hInset)
             
             let v = UICollectionView(frame: .zero, collectionViewLayout: layout)
             v.register(cellWithClazz: FeedCell.self)
+            v.register(HashTagHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: NSStringFromClass(HashTagHeader.self))
             v.showsVerticalScrollIndicator = false
             v.showsHorizontalScrollIndicator = false
             v.dataSource = self
             v.delegate = self
             v.backgroundColor = .clear
             v.alwaysBounceVertical = true
+            v.contentInset = UIEdgeInsets(top: 24, left: 0, bottom: Frame.Height.safeAeraBottomHeight, right: 0)
             return v
         }()
         
@@ -115,8 +99,7 @@ extension Feed {
         
         private var pageData: Entity.AllTopicFeedList? = nil {
             didSet {
-                guard let data = pageData else { return }
-                viewCountLabel.text = R.string.localizable.amongChatTopicFeedListViewCount(data.totalPlayCount.stringWithSeperator())
+                feedCollectionView.reloadData()
             }
         }
         
@@ -150,11 +133,17 @@ extension Feed.HashtagFeedListViewController {
     
     private func setUpLayout() {
         
-        view.addSubviews(views: topicBg, navView, hashtagView, viewCountLabel, feedCollectionView)
+        view.addSubviews(views: topicBg, topicBgMask, navView, feedCollectionView)
         
         topicBg.snp.makeConstraints { maker in
             maker.leading.top.trailing.equalToSuperview()
             maker.height.equalTo(topicBg.snp.width).multipliedBy(240.0 / 375.0)
+        }
+        
+        topicBgMask.snp.makeConstraints { maker in
+            maker.top.equalTo(navView.snp.bottom)
+            maker.bottom.equalTo(topicBg)
+            maker.leading.trailing.equalToSuperview()
         }
         
         navView.snp.makeConstraints { maker in
@@ -162,21 +151,9 @@ extension Feed.HashtagFeedListViewController {
             maker.top.equalTo(Frame.Height.safeAeraTopHeight)
         }
         
-        hashtagView.snp.makeConstraints { maker in
-            maker.leading.equalToSuperview().offset(Frame.horizontalBleedWidth)
-            maker.top.equalTo(navView.snp.bottom).offset(24)
-            maker.trailing.lessThanOrEqualToSuperview().offset(-Frame.horizontalBleedWidth)
-        }
-        
-        viewCountLabel.snp.makeConstraints { maker in
-            maker.leading.trailing.equalToSuperview().inset(Frame.horizontalBleedWidth)
-            maker.height.equalTo(22)
-            maker.top.equalTo(hashtagView.snp.bottom).offset(8)
-        }
-        
         feedCollectionView.snp.makeConstraints { maker in
             maker.leading.trailing.bottom.equalToSuperview()
-            maker.top.equalTo(viewCountLabel.snp.bottom).offset(24)
+            maker.top.equalTo(navView.snp.bottom)
         }
         
         feedCollectionView.pullToLoadMore { [weak self] in
@@ -236,6 +213,32 @@ extension Feed.HashtagFeedListViewController: UICollectionViewDataSource {
     
 }
 
+extension Feed.HashtagFeedListViewController: UICollectionViewDelegateFlowLayout {
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        return CGSize(width: Frame.Screen.width, height: 57)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        
+        switch kind {
+        case UICollectionView.elementKindSectionHeader:
+            let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: NSStringFromClass(HashTagHeader.self), for: indexPath)
+            
+            if let header = header as? HashTagHeader {
+                header.viewCountLabel.text = R.string.localizable.amongChatTopicFeedListViewCount((pageData?.totalPlayCount ?? 0).stringWithSeperator())
+                header.hashtagLabel.text = feed.topicName
+            }
+            
+            return header
+        default:
+            return UICollectionReusableView()
+        }
+        
+    }
+    
+}
+
 extension Feed.HashtagFeedListViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -247,4 +250,17 @@ extension Feed.HashtagFeedListViewController: UICollectionViewDelegate {
         navigationController?.pushViewController(vc)
     }
     
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        guard scrollView == feedCollectionView,
+              scrollView.contentSize.height > 0 else { return }
+        let distance = scrollView.contentOffset.y
+        navView.backgroundView.alpha = distance / NavigationBar.barHeight
+        navView.backgroundView.isHidden = distance <= 0
+        topicBg.alpha = 1 - distance / NavigationBar.barHeight
+        topicBg.snp.updateConstraints { maker in
+            maker.top.equalToSuperview().offset(-min(topicBg.bounds.height - NavigationBar.barHeight - Frame.Height.safeAeraTopHeight, max(distance, 0)))
+        }
+        topicBgMask.alpha = distance / NavigationBar.barHeight
+        topicBgMask.isHidden = distance <= 0
+    }
 }
