@@ -655,3 +655,19 @@
 "among.chat.group.ignore.all" = "Ignorar todos";
 "feed.post.tip.with.rules" = "Os vídeos devem ter menos de 60 segundos e estar relacionados com jogos, e não podem violar as %1$@.";
 "feed.post.rules" = "regras";
+
+//1.27.0
+"among.chat.login.auth.source.edit.avatar" = "editar seu avatar";
+"among.chat.login.auth.source.follow.others" = "seguir outros";
+"among.chat.login.auth.source.edit.nickname" = "editar seu apelido";
+"among.chat.room.change.to.private" = "Depois de mudar para privado, o link para este canal compartilhado antes seria inválido. Mudar agora?";
+"among.chat.room.change.to.public" = "Depois de mudar este canal para público, todos podem entrar. Mudar agora?";
+"among.chat.report.comment" = "Reportar Comentário";
+"among.chat.report.video.tip" = "Os vídeos devem ter menos de 60 segundos";
+"among.chat.report.upload.videos" = "Upload de vídeos";
+"among.chat.login.birthday.guide.tip" = "Deslizar para seleccionar";
+"among.chat.settings.advertisements" = "Anúncios";
+"among.chat.topic.feed.list.view.count" = "%1$@ visualizações";
+
+"image.picker.permission.denied.title" = "Permissão negada";
+"image.picker.permission.denied.permission.grant" = "Conceder permissão";

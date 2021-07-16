@@ -33,6 +33,20 @@ extension Feed {
             return i
         }()
         
+        private lazy var activityContainer: UIView = {
+            let v = UIView()
+            v.backgroundColor = .clear
+            v.addSubviews(views: activityIV)
+            activityIV.snp.makeConstraints { maker in
+                maker.trailing.equalTo(-8)
+                maker.top.equalTo(16)
+                maker.leading.bottom.equalToSuperview()
+                maker.height.equalTo(76)
+                maker.width.equalTo(105)
+            }
+            return v
+        }()
+        
         private var isLoadingMore: Bool = false
         private var hasMore: Bool = true
         
@@ -142,12 +156,29 @@ extension Feed {
                 })
                 .disposed(by: bag)
             
-            FireRemote.shared.remoteValue()
-                .map({ $0.value.feedActivityInfo })
+            Observable.combineLatest(FireRemote.shared.remoteValue().map({ $0.value.feedActivityInfo }), rx.viewDidAppear.take(1))
                 .observeOn(MainScheduler.asyncInstance)
-                .subscribe(onNext: { [weak self] activity in
+                .subscribe(onNext: { [weak self] activity, _ in
                     self?.activityIV.isHidden = activity?.img.isEmpty ?? true
                     self?.activityIV.setImage(with: activity?.img)
+                    
+                    if activity != nil {
+                        
+                        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(3)) {
+                            self?.activityIV.setImage(with: activity?.imgSmall)
+                            self?.activityIV.snp.updateConstraints({ maker in
+                                maker.height.equalTo(40)
+                                maker.width.equalTo(40)
+                                maker.trailing.equalTo(-14)
+                            })
+                            
+                            UIView.animate(withDuration: 0.25) {
+                                self?.activityContainer.layoutIfNeeded()
+                            }
+                        }
+                        
+                    }
+                    
                 })
                 .disposed(by: bag)
         }
@@ -157,7 +188,7 @@ extension Feed {
             createButton = SmallSizeButton(type: .custom)
             createButton.setImage(R.image.iconVideoCreate(), for: .normal)
 
-            view.addSubviews(views: createButton, activityIV)
+            view.addSubviews(views: createButton, activityContainer)
             
             createButton.snp.makeConstraints { maker in
                 maker.top.equalTo(Frame.Height.safeAeraTopHeight + 4.5)
@@ -165,11 +196,9 @@ extension Feed {
                 maker.width.height.equalTo(42)
             }
             
-            activityIV.snp.makeConstraints { maker in
-                maker.trailing.equalTo(-8)
-                maker.height.equalTo(76)
-                maker.width.equalTo(105)
-                maker.top.equalTo(createButton.snp.bottom).offset(16)
+            activityContainer.snp.makeConstraints { maker in
+                maker.trailing.equalToSuperview()
+                maker.top.equalTo(createButton.snp.bottom)
             }
         }
         

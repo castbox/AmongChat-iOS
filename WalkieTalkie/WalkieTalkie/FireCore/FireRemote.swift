@@ -220,6 +220,13 @@ extension FireRemote.Value {
     
     struct FeedActivity: Codable {
         var img: String
-        var url: String        
+        var imgSmall: String
+        var url: String
+        
+        private enum CodingKeys: String, CodingKey {
+            case img
+            case imgSmall = "img_small"
+            case url
+        }
     }
 }

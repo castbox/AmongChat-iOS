@@ -655,3 +655,19 @@
 "among.chat.group.ignore.all" = "تجاهل الكل";
 "feed.post.tip.with.rules" = " يجب أن تكون مقاطع الفيديو أقل من 60 ثانية وأن تكون مرتبطة بالألعاب ، ولا يجوز أن تنتهك %1$@.";
 "feed.post.rules" = "القواعد";
+
+//1.27.0
+"among.chat.login.auth.source.edit.avatar" = "تحرير الصورة الرمزية الخاصة بك";
+"among.chat.login.auth.source.follow.others" = "اتبع الآخرين";
+"among.chat.login.auth.source.edit.nickname" = "تحرير لقبك";
+"among.chat.room.change.to.private" = "بعد التبديل إلى \"خاص\" ، سيكون الرابط إلى هذه القناة التي تمت مشاركتها من قبل غير صالح. التبديل الآن؟";
+"among.chat.room.change.to.public" = "بعد تحويل هذه القناة إلى عامة ، يمكن للجميع الانضمام. التبديل الآن؟";
+"among.chat.report.comment" = "الإبلاغ عن التعليق";
+"among.chat.report.video.tip" = "يجب أن تكون مقاطع الفيديو أقل من 60 ثانية";
+"among.chat.report.upload.videos" = "رفع فيديو";
+"among.chat.login.birthday.guide.tip" = "اسحب للتحديد";
+"among.chat.settings.advertisements" = "الإعلانات";
+"among.chat.topic.feed.list.view.count" = "%1$@ مشاهدة";
+
+"image.picker.permission.denied.title" = "تم رفض الإذن";
+"image.picker.permission.denied.permission.grant" = "منح الإذن";
