@@ -189,9 +189,14 @@ extension Social {
                     self?.confirmBtn.isEnabled = true
                     self?.confirmBtn.backgroundColor = UIColor(hex6: 0xFFF000)
                 }
-                self?.guideView.isHidden = true
+                self?.guideView.fadeOut(duration: 0.1)
             })
             .disposed(by: bag)
+        }
+        
+        override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+            super.touchesBegan(touches, with: event)
+            guideView.fadeOut(duration: 0.1)
         }
         
         @objc
@@ -344,7 +349,7 @@ extension Social.BirthdaySetViewController: SVGAPlayerDelegate {
     
     func svgaPlayerDidFinishedAnimation(_ player: SVGAPlayer!) {
         
-        guideView.isHidden = true
+        guideView.fadeOut(duration: 0.1)
         
     }
     
