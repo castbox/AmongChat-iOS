@@ -27,6 +27,7 @@ extension Feed {
                 .subscribe(onNext: { _ in
                     guard let activity = FireRemote.shared.value.feedActivityInfo else { return }
                     Routes.handle(activity.url)
+                    Logger.Action.log(.feeds_activity_clk, categoryValue: nil, activity.url)
                 })
                 .disposed(by: bag)
             return i

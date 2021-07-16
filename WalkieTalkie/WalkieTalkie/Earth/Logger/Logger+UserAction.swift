@@ -316,6 +316,14 @@ extension Logger {
             case feeds_share_alert_item_clk
             case feeds_share_imp
             case feeds_share_sent
+            
+            case feeds_item_topic_clk
+            case feeds_topic_imp
+            case feeds_activity_clk
+            case feeds_nad_show
+            case feeds_nad_emote_clk
+            case feeds_nad_hide
+            case feeds_hide
         }
         
         enum Category: String {

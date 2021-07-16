@@ -136,6 +136,8 @@ extension Feed {
         
         override func viewDidLoad() {
             super.viewDidLoad()
+            Logger.Action.log(.feeds_topic_imp)
+            
             setUpLayout()
             loadData(initialLoad: true)
         }

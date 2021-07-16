@@ -113,6 +113,10 @@ extension Int64 {
         return CGFloat(self)
     }
     
+    var double: Double {
+        return Double(self)
+    }
+    
     var numberValue: NSNumber {
         return NSNumber(value: self)
     }

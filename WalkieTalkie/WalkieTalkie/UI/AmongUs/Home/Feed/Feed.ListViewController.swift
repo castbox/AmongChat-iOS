@@ -141,6 +141,9 @@ extension Feed {
             return Ad.shouldShow() && adView != nil
         }
         
+//        private var cellBeginShowTime: TimeInterval = 0
+        private var cellBeginShowTimeMap: [Int: TimeInterval] = [:]
+        
         var updateFeedForAction: ((_ action: AmongSheetController.ItemType, _ feed: Entity.Feed) -> Void)? = nil
         
         // MARK: - Lifecycles
@@ -351,6 +354,7 @@ extension Feed.ListViewController: UITableViewDelegate, UITableViewDataSource {
                     
                     switch action {
                     case .selectEmote(let emote):
+                        Logger.Action.log(.feeds_nad_emote_clk)
                         
                         emote.isVoted = !emote.isVoted
                         
@@ -403,10 +407,15 @@ extension Feed.ListViewController: UITableViewDelegate, UITableViewDataSource {
         // If the cell is the first cell in the tableview, the queuePlayer automatically starts.
         // If the cell will be displayed, pause the video until the drag on the scroll view is ended
         cdPrint("tableView willDisplay row: \(indexPath.row)")
+        //记录展示时间
+        cellBeginShowTimeMap[indexPath.row] = Date().timeIntervalSince1970
+        
         if let cell = cell as? FeedListCell {
             if currentIndex != -1 {
                 cell.pause()
             }
+        } else if cell is FeedNativeAdCell {
+            Logger.Action.log(.feeds_nad_show)
         }
         currentIndex = indexPath.row
     }
@@ -414,12 +423,20 @@ extension Feed.ListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         // Pause the video if the cell is ended displaying
         cdPrint("tableView didEndDisplaying row: \(indexPath.row)")
+        let cellBeginShowTime = cellBeginShowTimeMap[indexPath.row] ?? Date().timeIntervalSince1970
+        let cellShowTime = Date().timeIntervalSince1970 - cellBeginShowTime
+        let showTimeValue = cellShowTime * 10
+        
         if let cell = cell as? FeedListCell {
             cell.pause()
             //report
             let viewModel = dataSource.safe(indexPath.row) as? Feed.ListCellViewModel
             Logger.Action.log(.feeds_play_finish_progress, category: nil, viewModel?.feed.pid, lroundf(cell.playProgress * 10))
+            Logger.Action.log(.feeds_hide, category: nil, viewModel?.feed.pid, showTimeValue.int)
+        } else if cell is FeedNativeAdCell {
+            Logger.Action.log(.feeds_nad_hide, category: nil, nil, showTimeValue.int)
         }
+        cellBeginShowTimeMap.removeValue(forKey: indexPath.row)
     }
 }
 
@@ -694,7 +711,6 @@ extension Feed.ListViewController {
             guard Settings.loginUserId != uid else {
                 return
             }
-            
             let vc = Social.ProfileViewController(with: uid)
             vc.followedHandle = { [weak self] (followed) in
                 viewModel.feed.user.isFollowed = followed
@@ -714,6 +730,8 @@ extension Feed.ListViewController {
             }
             
         case .follow(let callback):
+            Logger.Action.log(.feeds_item_clk, category: .follow, viewModel.feed.pid)
+            
             Request.follow(uid: viewModel.feed.user.uid, type: "follow")
                 .do(onSuccess: { success in
                     guard success else { return }
@@ -723,6 +741,8 @@ extension Feed.ListViewController {
                 .disposed(by: bag)
             
         case .hashTag:
+            Logger.Action.log(.feeds_item_topic_clk, categoryValue: viewModel.feed.topicName, viewModel.feed.pid)
+            
             let vc = Feed.HashtagFeedListViewController(with: viewModel.feed)
             navigationController?.pushViewController(vc)
         }
