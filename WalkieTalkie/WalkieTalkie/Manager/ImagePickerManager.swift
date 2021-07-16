@@ -51,6 +51,7 @@ class ImagePickerManager: NSObject {
         let pickerVC = UIImagePickerController()
         pickerVC.delegate = self
         pickerVC.sourceType = sourceType
+        pickerVC.modalPresentationStyle = .fullScreen
         
         if UIImagePickerController.isSourceTypeAvailable(.camera) ||
             UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
