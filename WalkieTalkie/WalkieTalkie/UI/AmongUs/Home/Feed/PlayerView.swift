@@ -127,6 +127,7 @@ class PlayerView: UIView {
     func play() {
         playerControllerEvent = .playing
         videoPlayer.play()
+        setAudioMode()
     }
     
     func pause(){
@@ -168,7 +169,6 @@ extension PlayerView: SZAVPlayerDelegate {
             }
             
             if playerControllerEvent == .playing {
-                setAudioMode()
                 videoPlayer.play()
             }
         case .playEnd:

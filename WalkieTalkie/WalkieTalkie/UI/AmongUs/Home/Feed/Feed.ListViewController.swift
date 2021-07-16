@@ -88,6 +88,7 @@ extension Feed {
         private var shouldAutoPauseWhenDismiss: Bool = true
         private var scrollDisposeBag: Disposable?
         private var previousNetworkType: NetworkConnectionType?
+        private var isViewAppear: Bool = false
         
         private var adPositionInterval: Int = 4
         private var adView: UIView? {
@@ -153,14 +154,11 @@ extension Feed {
             configureSubview()
             bindSubviewEvent()
             
-            requestAppTrackPermission {
-                Ad.NativeManager.shared.loadAd()
-            }
         }
                 
         func onViewWillAppear() {
             shouldAutoPauseWhenDismiss = true
-            
+            isViewAppear = true
             if dataSource.isEmpty {
                 loadData()
             }
@@ -168,22 +166,19 @@ extension Feed {
         
         func onViewDidAppear() {
             loadNativeAdIfCould()
-            guard UIApplication.topViewController() == self else {
+            guard UIApplication.topViewController() == self,
+                  isViewAppear else {
                 return
             }
             autoPlayVisibleVideoIfCould()
         }
         
         func onViewWillDisappear() {
+            isViewAppear = false
             guard shouldAutoPauseWhenDismiss else {
                 return
             }
             autoPauseVisibleVideoIfCould()
-//            if shouldAutoPauseWhenDismiss,
-//               let cell = tableView.visibleCells.first as? FeedListCell,
-//               !cell.isUserPaused {
-//                cell.pause()
-//            }
         }
         
         func autoPlayVisibleVideoIfCould() {
@@ -210,7 +205,7 @@ extension Feed {
         }
         
         func replayVisibleItem(_ replay: Bool = true) {
-            guard isVisible else {
+            guard isViewAppear else {
                 return
             }
             if let cell = tableView.cellForRow(at: IndexPath(row: currentIndex, section: 0)) as? FeedListCell {
@@ -233,9 +228,7 @@ extension Feed {
         }
         
         func bindSubviewEvent() {
-            Observable.merge(rx.viewWillAppear.asObservable(),
-                             Settings.shared.loginResult.replay().map { _ in })
-                .debounce(.seconds(1), scheduler: MainScheduler.asyncInstance)
+            rx.viewWillAppear.asObservable()
                 .subscribe(onNext: { [weak self] _ in
                     self?.onViewWillAppear()
                 })

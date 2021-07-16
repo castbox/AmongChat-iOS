@@ -62,6 +62,10 @@ extension Feed {
             //
             feedHeight = Frame.Screen.height - Frame.Height.bottomBar
             super.viewDidLoad()
+            
+            requestAppTrackPermission {
+                Ad.NativeManager.shared.loadAd()
+            }
         }
         
         override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
